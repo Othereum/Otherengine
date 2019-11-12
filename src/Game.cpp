@@ -78,25 +78,47 @@ void game::process_input()
 	if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
 
 	paddle_dir_ = 0;
-	if (keyboard[SDL_SCANCODE_W]) paddle_dir_ -= 1;
-	if (keyboard[SDL_SCANCODE_S]) paddle_dir_ += 1;
+	if (keyboard[SDL_SCANCODE_W] || keyboard[SDL_SCANCODE_UP]) paddle_dir_ -= 1;
+	if (keyboard[SDL_SCANCODE_S] || keyboard[SDL_SCANCODE_DOWN]) paddle_dir_ += 1;
 }
 
 void game::update_game()
 {
 	constexpr auto max_fps = 60, min_fps = 10;
+	constexpr auto time_scale = 1.f;
 	
-	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + static_cast<long long>(1000.f/max_fps) - SDL_GetTicks()});
-	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps);
+	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + 1000ll/max_fps - SDL_GetTicks()});
+	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps) * time_scale;
 	ticks_count_ = SDL_GetTicks();
 
-	paddle_pos_.y += paddle_dir_ * 300.f * delta_time;
+	paddle_pos_.y += paddle_dir_ * 300 * delta_time;
 	paddle_pos_.y = math::clamp(paddle_pos_.y, paddle_h/2.f + thickness, screen_h - paddle_h/2.f - thickness);
+
+	ball_pos_ += ball_velocity_ * delta_time;
+
+	if (ball_pos_.y <= thickness*1.5f && ball_velocity_.y < 0.f ||
+		ball_pos_.y >= screen_h - thickness*1.5f && ball_velocity_.y > 0.f)
+	{
+		ball_velocity_.y = -ball_velocity_.y;
+	}
+
+	else if (ball_pos_.x >= screen_w - thickness*1.5f && ball_velocity_.x > 0.f ||
+		abs(ball_pos_.y - paddle_pos_.y) <= paddle_h/2.f &&
+		math::is_nearly_equal<float>(ball_pos_.x, paddle_pos_.x+thickness/2, thickness/2) &&
+		ball_velocity_.x < 0.f)
+	{
+		ball_velocity_.x = -ball_velocity_.x;
+	}
+
+	else if (ball_pos_.x < 0)
+	{
+		init();
+	}
 }
 
 void game::generate_output()
 {
-	SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 255, 255);
+	SDL_SetRenderDrawColor(renderer_.get(), 100, 100, 255, 255);
 	SDL_RenderClear(renderer_.get());
 
 	SDL_SetRenderDrawColor(renderer_.get(), 255, 255, 255, 255);
