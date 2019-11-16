@@ -52,6 +52,13 @@ void game::shutdown()
 	is_running_ = false;
 }
 
+void game::init()
+{
+	paddle_pos_ = {20, screen_h / 2.f};
+	ball_pos_ = {screen_w / 2.f, screen_h / 2.f};
+	ball_velocity_ = {-200*1.5f, 235*1.5f};
+}
+
 void game::process_input()
 {
 	SDL_Event event;
