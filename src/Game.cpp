@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+#include "Game.h"
 #include <thread>
 #include "SDL.h"
 #include "Exception.h"
@@ -27,13 +27,12 @@ SDL_Renderer* create_renderer(SDL_Window* const window)
 }
 
 game::game()
-	: window_{create_window(), SDL_DestroyWindow},
-	  renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
-	  paddle_pos_{20, screen_h / 2.f},
-	  ball_pos_{screen_w / 2.f, screen_h / 2.f},
-	  ticks_count_{0}, paddle_dir_{0},
-	  is_running_{true}
+	:window_{create_window(), SDL_DestroyWindow},
+	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
+	ticks_count_{0}, paddle_dir_{0},
+	is_running_{true}
 {
+	init();
 }
 
 game::~game() = default;
