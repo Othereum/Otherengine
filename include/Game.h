@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <memory>
 #include "NEG.h"
@@ -23,6 +23,7 @@ public:
 	void shutdown();
 
 private:
+	void init();
 	void process_input();
 	void update_game();
 	void generate_output();
