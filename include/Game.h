@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <memory>
 #include "NEG.h"
@@ -40,7 +40,9 @@ private:
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
 
-	vector2 paddle_pos_, ball_pos_;
+	vector2 paddle_pos_;
+	vector2 ball_pos_;
+	vector2 ball_velocity_;
 
 	unsigned ticks_count_;
 
