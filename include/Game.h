@@ -1,7 +1,7 @@
 ﻿#pragma once
 
-#include <memory>
 #include "NEG.h"
+#include <memory>
 
 class SDL_Window;
 
@@ -10,19 +10,24 @@ NEG_BEGIN
 class game
 {
 public:
-	game() noexcept;
+	game();
 	~game();
-	void initialize();
 	void run_loop();
-	void shutdown();
 
 private:
 	void process_input();
 	void update_game();
 	void generate_input();
 
+	struct sdl_raii
+	{
+		sdl_raii();
+		~sdl_raii();
+	} sdl_raii_;
+	
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
-	bool is_running_;
+	uint8_t is_running_ : 1;
+	uint8_t is_shutdown_ : 1;
 };
 
 NEG_END
