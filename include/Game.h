@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#include <memory>
+
 class game
 {
 public:
@@ -13,6 +15,6 @@ private:
 	void update_game();
 	void generate_input();
 
-	class SDL_Window* window_;
+	std::unique_ptr<class SDL_Window, void(SDL_Window*)> window_;
 	bool is_running_;
 };
