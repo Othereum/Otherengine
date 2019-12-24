@@ -34,7 +34,7 @@ void game::run_loop()
 	{
 		process_input();
 		update_game();
-		generate_input();
+		generate_output();
 	}
 }
 
@@ -66,8 +66,11 @@ void game::update_game()
 {
 }
 
-void game::generate_input()
+void game::generate_output()
 {
+	SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 255, 255);
+	SDL_RenderClear(renderer_.get());
+	SDL_RenderPresent(renderer_.get());
 }
 
 game::sdl_raii::sdl_raii()

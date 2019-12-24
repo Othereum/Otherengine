@@ -26,7 +26,7 @@ public:
 private:
 	void process_input();
 	void update_game();
-	void generate_input();
+	void generate_output();
 
 	struct sdl_raii
 	{
