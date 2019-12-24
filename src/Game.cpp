@@ -70,6 +70,20 @@ void game::generate_output()
 {
 	SDL_SetRenderDrawColor(renderer_.get(), 0, 0, 255, 255);
 	SDL_RenderClear(renderer_.get());
+
+	SDL_SetRenderDrawColor(renderer_.get(), 255, 255, 255, 255);
+	constexpr auto thickness = 15;
+	static constexpr SDL_Rect walls[]
+	{
+		{0, 0, 1024, thickness},
+		{0, 768 - thickness, 1024, thickness},
+		{1024 - thickness, 0, thickness, 1024}
+	};
+	for (auto&& wall : walls)
+	{
+		SDL_RenderFillRect(renderer_.get(), &wall);
+	}
+	
 	SDL_RenderPresent(renderer_.get());
 }
 
