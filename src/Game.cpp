@@ -12,8 +12,17 @@ SDL_Window* create_window()
 	return window;
 }
 
+SDL_Renderer* create_renderer(SDL_Window* const window)
+{
+	const auto renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	if (!renderer) throw sdl_error{fmt("Failed to create renderer: ", SDL_GetError())};
+	return renderer;
+}
+
 game::game()
-	:window_{create_window(), SDL_DestroyWindow}, is_running_{true}
+	:window_{create_window(), SDL_DestroyWindow},
+	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
+	is_running_{true}
 {
 }
 

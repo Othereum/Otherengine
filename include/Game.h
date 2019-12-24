@@ -6,6 +6,7 @@
 #include <functional>
 
 class SDL_Window;
+class SDL_Renderer;
 
 NEG_BEGIN
 
@@ -38,6 +39,7 @@ private:
 	} sdl_raii_;
 
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
+	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
 	unsigned is_running_ : 1;
 };
 
