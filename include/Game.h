@@ -41,6 +41,8 @@ private:
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
 
 	vector2 paddle_pos_, ball_pos_;
+
+	unsigned ticks_count_;
 	
 	unsigned is_running_ : 1;
 };

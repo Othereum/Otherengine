@@ -1,7 +1,9 @@
 ﻿#include "Game.h"
+#include <thread>
 #include "SDL.h"
 #include "Exception.h"
 #include "StringUtils.h"
+#include "MathUtils.h"
 
 NEG_BEGIN
 
@@ -25,8 +27,9 @@ SDL_Renderer* create_renderer(SDL_Window* const window)
 game::game()
 	:window_{create_window(), SDL_DestroyWindow},
 	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
-	paddle_pos_{20, screen_h/2},
-	ball_pos_{screen_w/2, screen_h/2},
+	paddle_pos_{20, screen_h / 2},
+	ball_pos_{screen_w / 2, screen_h / 2},
+	ticks_count_{0},
 	is_running_{true}
 {
 }
@@ -69,6 +72,11 @@ void game::process_input()
 
 void game::update_game()
 {
+	constexpr auto max_fps = 60, min_fps = 10;
+	
+	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + static_cast<long long>(1.f/max_fps*1000) - SDL_GetTicks()});
+	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps);
+	ticks_count_ = SDL_GetTicks();
 }
 
 void game::generate_output()
@@ -83,7 +91,7 @@ void game::generate_output()
 		{0, 0, screen_w, thickness},
 		{0, screen_h - thickness, screen_w, thickness},
 		{screen_w - thickness, 0, thickness, screen_w},
-		{ball_pos_.x - thickness/2, ball_pos_.y - thickness/2, thickness, thickness},
+		{static_cast<int>(ball_pos_.x - thickness/2.f), static_cast<int>(ball_pos_.y - thickness/2.f), thickness, thickness},
 		{static_cast<int>(paddle_pos_.x - thickness/2.f), static_cast<int>(paddle_pos_.y - 50), thickness, 100}
 	};
 	for (auto&& rect : rects)
