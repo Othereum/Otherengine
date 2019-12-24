@@ -1,9 +1,8 @@
 ﻿#pragma once
 
-#include "NEG.h"
 #include <memory>
-#include <unordered_map>
-#include <functional>
+#include "NEG.h"
+#include "Vector.h"
 
 class SDL_Window;
 class SDL_Renderer;
@@ -40,6 +39,9 @@ private:
 
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
+
+	vector2 paddle_pos_, ball_pos_;
+	
 	unsigned is_running_ : 1;
 };
 

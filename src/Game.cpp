@@ -5,9 +5,12 @@
 
 NEG_BEGIN
 
+static constexpr auto screen_w = 1024;
+static constexpr auto screen_h = 768;
+
 SDL_Window* create_window()
 {	
-	const auto window = SDL_CreateWindow("No Engine Game", 100, 100, 1024, 768, 0);
+	const auto window = SDL_CreateWindow("No Engine Game", 100, 100, screen_w, screen_h, 0);
 	if (!window) throw sdl_error{fmt("Failed to create window: ", SDL_GetError())};
 	return window;
 }
@@ -22,6 +25,8 @@ SDL_Renderer* create_renderer(SDL_Window* const window)
 game::game()
 	:window_{create_window(), SDL_DestroyWindow},
 	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
+	paddle_pos_{20, screen_h/2},
+	ball_pos_{screen_w/2, screen_h/2},
 	is_running_{true}
 {
 }
@@ -73,15 +78,17 @@ void game::generate_output()
 
 	SDL_SetRenderDrawColor(renderer_.get(), 255, 255, 255, 255);
 	constexpr auto thickness = 15;
-	static constexpr SDL_Rect walls[]
+	const SDL_Rect rects[]
 	{
-		{0, 0, 1024, thickness},
-		{0, 768 - thickness, 1024, thickness},
-		{1024 - thickness, 0, thickness, 1024}
+		{0, 0, screen_w, thickness},
+		{0, screen_h - thickness, screen_w, thickness},
+		{screen_w - thickness, 0, thickness, screen_w},
+		{ball_pos_.x - thickness/2, ball_pos_.y - thickness/2, thickness, thickness},
+		{static_cast<int>(paddle_pos_.x - thickness/2.f), static_cast<int>(paddle_pos_.y - 50), thickness, 100}
 	};
-	for (auto&& wall : walls)
+	for (auto&& rect : rects)
 	{
-		SDL_RenderFillRect(renderer_.get(), &wall);
+		SDL_RenderFillRect(renderer_.get(), &rect);
 	}
 	
 	SDL_RenderPresent(renderer_.get());
