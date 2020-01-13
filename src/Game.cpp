@@ -27,8 +27,8 @@ SDL_Renderer* create_renderer(SDL_Window* const window)
 game::game()
 	:window_{create_window(), SDL_DestroyWindow},
 	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
-	paddle_pos_{20, screen_h / 2},
-	ball_pos_{screen_w / 2, screen_h / 2},
+	paddle_pos_{20, screen_h / 2.f},
+	ball_pos_{screen_w / 2.f, screen_h / 2.f},
 	ticks_count_{0},
 	is_running_{true}
 {
@@ -68,15 +68,21 @@ void game::process_input()
 
 	const auto keyboard = SDL_GetKeyboardState(nullptr);
 	if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
+
+	paddle_dir_ = 0;
+	if (keyboard[SDL_SCANCODE_W]) paddle_dir_ -= 1;
+	if (keyboard[SDL_SCANCODE_S]) paddle_dir_ += 1;
 }
 
 void game::update_game()
 {
 	constexpr auto max_fps = 60, min_fps = 10;
 	
-	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + static_cast<long long>(1.f/max_fps*1000) - SDL_GetTicks()});
+	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + static_cast<long long>(1000.f/max_fps) - SDL_GetTicks()});
 	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps);
 	ticks_count_ = SDL_GetTicks();
+
+	paddle_pos_.y += paddle_dir_ * 300.f * delta_time;
 }
 
 void game::generate_output()

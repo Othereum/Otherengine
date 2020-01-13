@@ -43,8 +43,9 @@ private:
 	vector2 paddle_pos_, ball_pos_;
 
 	unsigned ticks_count_;
-	
-	unsigned is_running_ : 1;
+
+	int8_t paddle_dir_ : 2;
+	bool is_running_ : 1;
 };
 
 NEG_END
