@@ -45,7 +45,7 @@ private:
 	unsigned ticks_count_;
 
 	int8_t paddle_dir_ : 2;
-	bool is_running_ : 1;
+	uint8_t is_running_ : 1;
 };
 
 NEG_END

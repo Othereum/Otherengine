@@ -9,10 +9,13 @@ NEG_BEGIN
 MATH_BEGIN
 
 template <class T>
-T min(T a, T b) { return a < b ? a : b; }
+constexpr T min(T a, T b) { return a < b ? a : b; }
 
 template <class T>
-T max(T a, T b) { return a > b ? a : b; }
+constexpr T max(T a, T b) { return a > b ? a : b; }
+
+template <class T>
+constexpr T clamp(T v, T min, T max) { return math::max(math::min(v, max), min); }
 
 MATH_END
 NEG_END
