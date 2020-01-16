@@ -16,6 +16,18 @@ struct vector2
 	vector2() :x{}, y{} {}
 	explicit vector2(e_no_init) {}
 	vector2(const float x, const float y) :x{x}, y{y} {}
+
+	vector2& operator+=(const vector2& a)
+	{
+		x += a.x;
+		y += a.y;
+		return *this;
+	}
+
+	vector2 operator*(const float f) const
+	{
+		return {x*f, y*f};
+	}
 };
 
 NEG_END
