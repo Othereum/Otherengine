@@ -118,7 +118,7 @@ void game::update_game()
 
 void game::generate_output()
 {
-	SDL_SetRenderDrawColor(renderer_.get(), 100, 100, 255, 255);
+	SDL_SetRenderDrawColor(renderer_.get(), 100, 100, 250, 255);
 	SDL_RenderClear(renderer_.get());
 
 	SDL_SetRenderDrawColor(renderer_.get(), 255, 255, 255, 255);
