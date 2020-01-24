@@ -7,7 +7,7 @@ NEG_BEGIN
 class component
 {
 public:
-	component(class actor& owner, int update_order = 100);
+	explicit component(class actor& owner, int update_order = 100);
 	virtual ~component() = default;
 
 	component(const component&) = delete;
