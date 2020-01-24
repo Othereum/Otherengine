@@ -2,7 +2,6 @@
 
 #include <memory>
 #include "NEG.h"
-#include "Vector.h"
 
 class SDL_Window;
 class SDL_Renderer;
@@ -23,10 +22,9 @@ public:
 	void shutdown();
 
 private:
-	void init();
 	void process_input();
 	void update_game();
-	void generate_output();
+	void generate_output() const;
 
 	struct sdl_raii
 	{
@@ -41,14 +39,8 @@ private:
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
 
-	vector2 paddle_pos_;
-	vector2 ball_pos_;
-	vector2 ball_velocity_;
-
 	unsigned ticks_count_;
-
-	int8_t paddle_dir_ : 2;
-	uint8_t is_running_ : 1;
+	bool is_running_;
 };
 
 NEG_END
