@@ -25,6 +25,8 @@ public:
 	actor& operator=(const actor&) = delete;
 	actor& operator=(actor&&) = delete;
 
+	[[nodiscard]] state get_state() const { return state_; }
+
 	void update(float delta_time);
 
 	void add_component(comp_ptr&& comp);
