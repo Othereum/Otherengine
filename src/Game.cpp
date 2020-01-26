@@ -48,6 +48,30 @@ void game::shutdown()
 	is_running_ = false;
 }
 
+void game::add_actor(actor_ptr&& actor)
+{
+	if (is_updating_actors_)
+	{
+		pending_actors_.push_back(std::move(actor));
+	}
+	else
+	{
+		actors_.push_back(std::move(actor));
+	}
+}
+
+void game::remove_actor(const actor& actor)
+{
+	const auto predicate = [&](const actor_ptr& a) { return a.get() == &actor; };
+	const auto erase = [&](std::vector<actor_ptr>& actors)
+	{
+		const auto found = std::find_if(actors.crbegin(), actors.crend(), predicate);
+		if (found == actors.crend()) return false;
+		actors.erase(found.base()); return true;
+	};
+	if (!erase(pending_actors_)) erase(actors_);
+}
+
 void game::process_input()
 {
 	SDL_Event event;
