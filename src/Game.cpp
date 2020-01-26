@@ -1,9 +1,10 @@
-#include "Game.h"
+﻿#include "Game.h"
 #include <thread>
 #include "SDL.h"
 #include "Exception.h"
 #include "StringUtils.h"
 #include "MathUtils.h"
+#include "Actor.h"
 
 NEG_BEGIN
 
@@ -99,6 +100,32 @@ void game::update_game()
 	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + 1000ll/max_fps - SDL_GetTicks()});
 	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps) * time_scale;
 	ticks_count_ = SDL_GetTicks();
+
+	is_updating_actors_ = true;
+	for (const auto& actor : actors_)
+	{
+		actor->update(delta_time);
+	}
+	is_updating_actors_ = false;
+
+	for (auto&& pending : pending_actors_)
+	{
+		actors_.push_back(std::move(pending));
+	}
+	pending_actors_.clear();
+
+	for (auto it = actors_.rbegin(); it != actors_.rend();)
+	{
+		const auto& actor = **it;
+		if (actor.get_state() == actor::state::dead)
+		{
+			it = std::make_reverse_iterator(actors_.erase(it.base() - 1));
+		}
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void game::generate_output() const
