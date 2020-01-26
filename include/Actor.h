@@ -26,13 +26,14 @@ public:
 	actor& operator=(actor&&) = delete;
 
 	void update(float delta_time);
-	void update_components(float delta_time);
-	virtual void update_actor(float delta_time) {}
 
 	void add_component(comp_ptr&& comp);
 	void remove_component(const component& comp);
 
 private:
+	void update_components(float delta_time);
+	virtual void update_actor(float delta_time) {}
+
 	state state_{};
 	
 	vector2 pos_;
