@@ -25,9 +25,9 @@ SDL_Renderer* create_renderer(SDL_Window* const window)
 }
 
 game::game()
-	:window_{create_window(), SDL_DestroyWindow},
-	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
-	ticks_count_{0}, is_running_{true}
+	:is_running_{true}, is_updating_actors_{},
+	window_{create_window(), SDL_DestroyWindow},
+	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer}
 {
 }
 

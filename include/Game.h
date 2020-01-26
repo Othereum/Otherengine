@@ -44,7 +44,7 @@ private:
 
 	bool is_running_ : 1;
 	bool is_updating_actors_ : 1;
-	unsigned ticks_count_;
+	unsigned ticks_count_{};
 	
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
