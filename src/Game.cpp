@@ -1,4 +1,4 @@
-﻿#include "Game.h"
+#include "Game.h"
 #include <thread>
 #include "SDL.h"
 #include "Exception.h"
@@ -67,7 +67,7 @@ void game::remove_actor(const actor& actor)
 	{
 		const auto found = std::find_if(actors.crbegin(), actors.crend(), predicate);
 		if (found == actors.crend()) return false;
-		actors.erase(found.base()); return true;
+		actors.erase(found.base() - 1); return true;
 	};
 	if (!erase(pending_actors_)) erase(actors_);
 }
