@@ -61,18 +61,6 @@ void game::add_actor(actor_ptr&& actor)
 	}
 }
 
-void game::remove_actor(const actor& actor)
-{
-	const auto predicate = [&](const actor_ptr& a) { return a.get() == &actor; };
-	const auto erase = [&](std::vector<actor_ptr>& actors)
-	{
-		const auto found = std::find_if(actors.crbegin(), actors.crend(), predicate);
-		if (found == actors.crend()) return false;
-		actors.erase(found.base() - 1); return true;
-	};
-	if (!erase(pending_actors_)) erase(actors_);
-}
-
 void game::process_input()
 {
 	SDL_Event event;
@@ -119,7 +107,8 @@ void game::update_game()
 		const auto& actor = **it;
 		if (actor.get_state() == actor::state::dead)
 		{
-			it = std::make_reverse_iterator(actors_.erase(it.base() - 1));
+			const auto next = actors_.erase(it.base() - 1);
+			it = std::make_reverse_iterator(next);
 		}
 		else
 		{

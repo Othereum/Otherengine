@@ -24,13 +24,22 @@ public:
 	void run_loop();
 	void shutdown();
 
-	void add_actor(actor_ptr&& actor);
-	void remove_actor(const actor& actor);
+	template <class T>
+	T& spawn_actor()
+	{
+		static_assert(std::is_base_of_v<actor, T>);
+		auto ptr = std::make_unique<T>(*this);
+		auto& actor = *ptr;
+		add_actor(std::move(ptr));
+		return actor;
+	}
 
 private:
 	void process_input();
 	void update_game();
 	void generate_output() const;
+
+	void add_actor(actor_ptr&& actor);
 
 	struct sdl_raii
 	{
