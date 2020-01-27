@@ -6,11 +6,11 @@
 NEG_BEGIN
 
 template <class... Ts>
-std::string fmt(Ts&&... args)
+std::string join(Ts&&... args)
 {
-	std::ostringstream os;
-	(os << ... << std::forward<Ts>(args));
-	return os.str();
+	std::string str;
+	(str += ... += std::forward<Ts>(args));
+	return str;
 }
 
 NEG_END

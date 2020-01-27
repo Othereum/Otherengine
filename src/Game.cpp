@@ -139,7 +139,7 @@ void game::generate_output() const
 game::sdl_raii::sdl_raii()
 {
 	const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
-	if (sdl_result != 0) throw sdl_error{fmt("Unable to initialize SDL: ", SDL_GetError())};
+	if (sdl_result != 0) throw sdl_error{join("Unable to initialize SDL: ", SDL_GetError())};
 }
 
 game::sdl_raii::~sdl_raii()
