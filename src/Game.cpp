@@ -14,14 +14,14 @@ static constexpr auto screen_h = 768;
 SDL_Window* create_window()
 {	
 	const auto window = SDL_CreateWindow("No Engine Game", 100, 100, screen_w, screen_h, 0);
-	if (!window) throw sdl_error{fmt("Failed to create window: ", SDL_GetError())};
+	if (!window) throw sdl_error{join("Failed to create window: ", SDL_GetError())};
 	return window;
 }
 
 SDL_Renderer* create_renderer(SDL_Window* const window)
 {
 	const auto renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (!renderer) throw sdl_error{fmt("Failed to create renderer: ", SDL_GetError())};
+	if (!renderer) throw sdl_error{join("Failed to create renderer: ", SDL_GetError())};
 	return renderer;
 }
 
