@@ -32,6 +32,8 @@ public:
 	void add_component(comp_ptr&& comp);
 	void remove_component(const component& comp);
 
+	void destroy();
+
 private:
 	void update_components(float delta_time);
 	virtual void update_actor(float delta_time) {}

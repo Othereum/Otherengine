@@ -37,4 +37,9 @@ void actor::remove_component(const component& comp)
 	if (found != comps_.end()) comps_.erase(found);
 }
 
+void actor::destroy()
+{
+	state_ = state::dead;
+}
+
 NEG_END
