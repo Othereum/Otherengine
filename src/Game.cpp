@@ -86,6 +86,7 @@ void game::update_game()
 	constexpr auto time_scale = 1.f;
 	
 	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + 1000ll/max_fps - SDL_GetTicks()});
+	
 	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps) * time_scale;
 	ticks_count_ = SDL_GetTicks();
 
