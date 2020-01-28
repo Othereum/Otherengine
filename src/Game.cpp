@@ -5,6 +5,7 @@
 #include <SDL_image.h>
 #include <MathUtils.h>
 #include <Actors/Actor.h>
+#include <Components/SpriteComponent.h>
 
 NEG_BEGIN
 
@@ -86,6 +87,23 @@ std::shared_ptr<SDL_Texture> game::get_texture(const char* const filename)
 	textures_.emplace(filename, loaded);
 
 	return loaded;
+}
+
+void game::add_sprite(const sprite_component& sprite)
+{
+	auto cmp = [](const sprite_component& a, const sprite_component& b)
+	{
+		return a.get_draw_order() <= b.get_draw_order();
+	};
+	const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
+	sprites_.emplace(pos, sprite);
+}
+
+void game::remove_sprite(const sprite_component& sprite)
+{
+	auto pr = [&](const sprite_component& v) { return &v == &sprite; };
+	const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
+	if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 }
 
 void game::process_input()

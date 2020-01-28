@@ -37,6 +37,9 @@ public:
 	}
 
 	std::shared_ptr<SDL_Texture> get_texture(const char* filename);
+	
+	void add_sprite(const class sprite_component& sprite);
+	void remove_sprite(const sprite_component& sprite);
 
 private:
 	void process_input();
@@ -67,7 +70,8 @@ private:
 
 	std::vector<actor_ptr> actors_;
 	std::vector<actor_ptr> pending_actors_;
-
+	std::vector<std::reference_wrapper<const sprite_component>> sprites_;
+	
 	std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
 };
 
