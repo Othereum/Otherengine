@@ -18,8 +18,9 @@ public:
 	virtual void update(float delta_time) {}
 	[[nodiscard]] int get_update_order() const { return update_order_; }
 
-protected:
-	actor& owner_;
+	actor& owner;
+
+private:
 	int update_order_;
 };
 
