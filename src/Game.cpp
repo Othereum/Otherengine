@@ -61,6 +61,17 @@ void game::add_actor(actor_ptr&& actor)
 	}
 }
 
+std::shared_ptr<SDL_Texture> game::load_texture(const char* const filename) const
+{
+	const std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> surface{IMG_Load(filename), SDL_FreeSurface};
+	if (!surface) throw std::runtime_error{SDL_GetError()};
+
+	std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), SDL_DestroyTexture};
+	if (!texture) throw std::runtime_error{SDL_GetError()};
+
+	return texture;
+}
+
 void game::process_input()
 {
 	SDL_Event event;

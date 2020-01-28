@@ -6,6 +6,7 @@
 
 class SDL_Window;
 class SDL_Renderer;
+class SDL_Texture;
 
 NEG_BEGIN
 
@@ -40,6 +41,8 @@ private:
 	void generate_output() const;
 
 	void add_actor(actor_ptr&& actor);
+
+	std::shared_ptr<SDL_Texture> load_texture(const char* filename) const;
 
 	struct sdl_raii
 	{
