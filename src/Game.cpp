@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <MathUtils.h>
-#include <Actor.h>
+#include <Actors/Actor.h>
 
 NEG_BEGIN
 

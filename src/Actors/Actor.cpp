@@ -1,5 +1,5 @@
-#include <Actor.h>
-#include <Component.h>
+#include <Actors/Actor.h>
+#include <Components/Component.h>
 
 NEG_BEGIN
 
