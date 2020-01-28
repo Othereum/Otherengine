@@ -3,7 +3,7 @@
 
 NEG_BEGIN
 
-actor::actor(neg::game& game)
+actor::actor(class game& game)
 	:game{game}
 {
 }

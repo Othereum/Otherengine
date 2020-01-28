@@ -1,11 +1,19 @@
 #include <Components/SpriteComponent.h>
 #include <SDL.h>
+#include <Actors/Actor.h>
+#include <Game.h>
 
 NEG_BEGIN
 
 sprite_component::sprite_component(actor& owner, const int draw_order, const int update_order)
 	:component{owner, update_order}, draw_order_{draw_order}
 {
+	owner.game.add_sprite(*this);
+}
+
+sprite_component::~sprite_component()
+{
+	owner.game.remove_sprite(*this);
 }
 
 void sprite_component::draw(SDL_Renderer* const renderer) const
