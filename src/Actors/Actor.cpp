@@ -33,8 +33,8 @@ void actor::add_component(comp_ptr&& comp)
 void actor::remove_component(const component& comp)
 {
 	auto p = [&](const comp_ptr& v) { return v.get() == &comp; };
-	const auto found = std::find_if(comps_.begin(), comps_.end(), p);
-	if (found != comps_.end()) comps_.erase(found);
+	const auto found = std::find_if(comps_.crbegin(), comps_.crend(), p);
+	if (found != comps_.crend()) comps_.erase(found.base() - 1);
 }
 
 void actor::destroy()
