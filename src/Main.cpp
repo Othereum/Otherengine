@@ -1,3 +1,4 @@
+#include <iostream>
 #include <Game.h>
 
 int main(const int argc, char** const argv)
@@ -7,8 +8,9 @@ int main(const int argc, char** const argv)
 		neg::game game;
 		game.run_loop();
 	}
-	catch (...)
+	catch (const std::exception& e)
 	{
+		std::cerr << "ERROR: " << e.what() << std::endl;
 		throw;
 	}
 }
