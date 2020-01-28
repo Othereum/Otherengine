@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <memory>
-#include "NEG.h"
+#include <NEG.h>
 #include <vector>
 
 class SDL_Window;

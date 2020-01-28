@@ -1,5 +1,5 @@
-#include "Exception.h"
-#include "SDL.h"
+#include <Exception.h>
+#include <SDL.h>
 
 NEG_BEGIN
 

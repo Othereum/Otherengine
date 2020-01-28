@@ -1,11 +1,11 @@
-﻿#include "Game.h"
+﻿#include <Game.h>
 #include <thread>
-#include "SDL.h"
-#include "SDL_image.h"
-#include "Exception.h"
-#include "StringUtils.h"
-#include "MathUtils.h"
-#include "Actor.h"
+#include <SDL.h>
+#include <SDL_image.h>
+#include <Exception.h>
+#include <StringUtils.h>
+#include <MathUtils.h>
+#include <Actor.h>
 
 NEG_BEGIN
 

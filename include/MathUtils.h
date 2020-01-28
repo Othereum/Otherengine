@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NEG.h"
+#include <NEG.h>
 
 #define MATH_BEGIN namespace math {
 #define MATH_END }

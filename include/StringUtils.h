@@ -1,6 +1,6 @@
 #pragma once
 
-#include "NEG.h"
+#include <NEG.h>
 #include <sstream>
 
 NEG_BEGIN

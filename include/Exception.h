@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdexcept>
-#include "NEG.h"
+#include <NEG.h>
 
 NEG_BEGIN
 
