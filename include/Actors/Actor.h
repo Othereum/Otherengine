@@ -34,6 +34,8 @@ public:
 
 	void destroy();
 
+	game& game;
+	
 private:
 	void update_components(float delta_time);
 	virtual void update_actor(float delta_time) {}
@@ -45,7 +47,6 @@ private:
 	float rot_{};
 	
 	std::vector<comp_ptr> comps_;
-	game& game_;
 };
 
 NEG_END
