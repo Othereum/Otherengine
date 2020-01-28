@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <unordered_map>
 #include <NEG.h>
 
 class SDL_Window;
@@ -35,6 +36,8 @@ public:
 		return actor;
 	}
 
+	std::shared_ptr<SDL_Texture> get_texture(const char* filename);
+
 private:
 	void process_input();
 	void update_game();
@@ -42,7 +45,7 @@ private:
 
 	void add_actor(actor_ptr&& actor);
 
-	std::shared_ptr<SDL_Texture> load_texture(const char* filename) const;
+	std::shared_ptr<SDL_Texture> load_texture(const char* filename);
 
 	struct sdl_raii
 	{
@@ -64,6 +67,8 @@ private:
 
 	std::vector<actor_ptr> actors_;
 	std::vector<actor_ptr> pending_actors_;
+
+	std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
 };
 
 NEG_END

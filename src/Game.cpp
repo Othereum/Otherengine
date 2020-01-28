@@ -61,15 +61,31 @@ void game::add_actor(actor_ptr&& actor)
 	}
 }
 
-std::shared_ptr<SDL_Texture> game::load_texture(const char* const filename) const
+std::shared_ptr<SDL_Texture> game::load_texture(const char* const filename)
 {
 	const std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> surface{IMG_Load(filename), SDL_FreeSurface};
 	if (!surface) throw std::runtime_error{SDL_GetError()};
 
-	std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), SDL_DestroyTexture};
+	auto deleter = [this, filename](SDL_Texture* const texture)
+	{
+		textures_.erase(filename);
+		SDL_DestroyTexture(texture);
+	};
+	std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), std::move(deleter)};
 	if (!texture) throw std::runtime_error{SDL_GetError()};
 
 	return texture;
+}
+
+std::shared_ptr<SDL_Texture> game::get_texture(const char* const filename)
+{
+	const auto found = textures_.find(filename);
+	if (found != textures_.end()) return found->second.lock();
+
+	const auto loaded = load_texture(filename);
+	textures_.emplace(filename, loaded);
+
+	return loaded;
 }
 
 void game::process_input()
