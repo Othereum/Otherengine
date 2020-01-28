@@ -1,6 +1,7 @@
 ﻿#include "Game.h"
 #include <thread>
 #include "SDL.h"
+#include "SDL_image.h"
 #include "Exception.h"
 #include "StringUtils.h"
 #include "MathUtils.h"
@@ -130,10 +131,15 @@ game::sdl_raii::sdl_raii()
 {
 	const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
 	if (sdl_result != 0) throw sdl_error{join("Unable to initialize SDL: ", SDL_GetError())};
+
+	const auto flags = IMG_INIT_PNG;
+	const auto img_result = IMG_Init(flags);
+	if (img_result != flags) throw sdl_error{join("Unable to initialize SDL image: ", IMG_GetError())};
 }
 
 game::sdl_raii::~sdl_raii()
 {
+	IMG_Quit();
 	SDL_Quit();
 }
 
