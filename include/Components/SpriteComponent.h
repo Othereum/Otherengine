@@ -13,7 +13,7 @@ class sprite_component : public component
 public:
 	explicit sprite_component(actor& owner, int draw_order = 100, int update_order = 100);
 
-	virtual void draw(SDL_Renderer& renderer);
+	virtual void draw(SDL_Renderer& renderer) const;
 	virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 
 	[[nodiscard]] unsigned short get_tex_w() const { return tex_w_; }
