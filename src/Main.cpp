@@ -2,6 +2,13 @@
 
 int main(const int argc, char** const argv)
 {
-	neg::game game;
-	game.run_loop();
+	try
+	{
+		neg::game game;
+		game.run_loop();
+	}
+	catch (...)
+	{
+		throw;
+	}
 }
