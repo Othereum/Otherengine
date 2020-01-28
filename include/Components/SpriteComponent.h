@@ -19,7 +19,7 @@ public:
 	sprite_component& operator=(const sprite_component&) = delete;
 	sprite_component& operator=(sprite_component&&) = delete;
 
-	virtual void draw(SDL_Renderer& renderer) const;
+	virtual void draw(SDL_Renderer* renderer) const;
 	virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 
 	[[nodiscard]] unsigned short get_tex_w() const { return tex_w_; }

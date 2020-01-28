@@ -8,7 +8,7 @@ sprite_component::sprite_component(actor& owner, const int draw_order, const int
 {
 }
 
-void sprite_component::draw(SDL_Renderer& renderer) const
+void sprite_component::draw(SDL_Renderer* const renderer) const
 {
 }
 
