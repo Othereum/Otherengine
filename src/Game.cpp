@@ -13,7 +13,7 @@ static constexpr auto screen_h = 768;
 
 static SDL_Window* create_window()
 {	
-	const auto window = SDL_CreateWindow("No Engine Game", 100, 100, screen_w, screen_h, 0);
+	const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, screen_w, screen_h, 0);
 	if (!window) throw std::runtime_error{SDL_GetError()};
 	return window;
 }
