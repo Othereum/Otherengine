@@ -26,6 +26,9 @@ public:
 	actor& operator=(actor&&) = delete;
 
 	[[nodiscard]] state get_state() const { return state_; }
+	[[nodiscard]] const vector2& get_pos() const { return pos_; }
+	[[nodiscard]] float get_scale() const { return scale_; }
+	[[nodiscard]] float get_rot() const { return rot_; }
 
 	void update(float delta_seconds);
 
