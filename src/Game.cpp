@@ -64,7 +64,7 @@ void game::add_actor(actor_ptr&& actor)
 
 std::shared_ptr<SDL_Texture> game::load_texture(const char* const filename)
 {
-	const std::unique_ptr<SDL_Surface, decltype(SDL_FreeSurface)*> surface{IMG_Load(filename), SDL_FreeSurface};
+	const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface{IMG_Load(filename), SDL_FreeSurface};
 	if (!surface) throw std::runtime_error{SDL_GetError()};
 
 	auto deleter = [this, filename](SDL_Texture* const texture)
