@@ -2,6 +2,7 @@
 
 #include <Components/Component.h>
 #include <memory>
+#include "Vector.h"
 
 class SDL_Renderer;
 class SDL_Texture;
@@ -22,12 +23,11 @@ public:
 	virtual void draw(SDL_Renderer* renderer) const;
 	virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 
-	[[nodiscard]] unsigned short get_tex_w() const { return tex_w_; }
-	[[nodiscard]] unsigned short get_tex_h() const { return tex_h_; }
+	[[nodiscard]] const vector2<unsigned short>& get_tex_size() const { return tex_size_; }
 	[[nodiscard]] int get_draw_order() const { return draw_order_; }
 
 private:
-	unsigned short tex_w_{}, tex_h_{};
+	vector2<unsigned short> tex_size_;
 	int draw_order_;
 	std::shared_ptr<SDL_Texture> texture_;
 };

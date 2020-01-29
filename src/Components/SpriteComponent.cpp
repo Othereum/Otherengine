@@ -20,12 +20,10 @@ void sprite_component::draw(SDL_Renderer* const renderer) const
 {
 	if (!texture_) return;
 
-	SDL_Rect rect;
-	rect.w = tex_w_ * owner.get_scale();
-	rect.h = tex_h_ * owner.get_scale();
-	rect.x = owner.get_pos().x - rect.w/2;
-	rect.y = owner.get_pos().y - rect.h/2;
+	const vector2<int> size = tex_size_ * owner.get_scale();
+	const vector2<int> pos = owner.get_pos() - size/2;
 
+	const SDL_Rect rect{pos.x, pos.y, size.x, size.y};
 	SDL_RenderCopyEx(renderer, texture_.get(), nullptr, &rect, owner.get_rot(), nullptr, SDL_FLIP_NONE);
 }
 
@@ -35,8 +33,7 @@ void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)
 
 	int w, h;
 	SDL_QueryTexture(texture_.get(), nullptr, nullptr, &w, &h);
-	tex_w_ = w;
-	tex_h_ = h;
+	tex_size_.reset(w, h);
 }
 
 NEG_END

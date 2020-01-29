@@ -4,24 +4,47 @@
 
 NEG_BEGIN
 
+template <class T = float>
 struct vector2
 {
-	float x, y;
+	T x, y;
 
 	vector2() :x{}, y{} {}
 	explicit vector2(no_init_t) {}
-	vector2(const float x, const float y) :x{x}, y{y} {}
+	vector2(T x, T y) :x{x}, y{y} {}
 
-	vector2& operator+=(const vector2& a)
+	template <class U>
+	vector2(const vector2<U>& v) :x(v.x), y(v.y) {}
+
+	template <class U>
+	vector2(vector2<U>&& v) :x(v.x), y(v.y) {}
+
+	void reset(T x, T y) { this->x = x; this->y = y; }
+
+	template <class U>
+	vector2& operator+=(const vector2<U>& a)
 	{
 		x += a.x;
 		y += a.y;
 		return *this;
 	}
 
-	vector2 operator*(const float f) const
+	template <class U>
+	vector2<std::common_type_t<T, U>> operator*(U f) const
 	{
 		return {x*f, y*f};
+	}
+
+	template <class U>
+	vector2<std::common_type_t<T, U>> operator-(const vector2<U>& v) const
+	{
+		return {x-v.x, y-v.y};
+	}
+
+	template <class U>
+	vector2<std::common_type_t<T, U>> operator/(U f) const
+	{
+		return {x/f, y/f};
 	}
 };
 
