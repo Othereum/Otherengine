@@ -127,18 +127,22 @@ void game::process_input()
 
 void game::update_game()
 {
+	using namespace std::chrono;
+
+	constexpr nanoseconds sec = 1s;
 	constexpr auto max_fps = 60, min_fps = 10;
-	constexpr auto time_scale = 1.f;
-	
-	std::this_thread::sleep_for(std::chrono::milliseconds{ticks_count_ + 1000ll/max_fps - SDL_GetTicks()});
-	
-	const auto delta_time = math::min((SDL_GetTicks() - ticks_count_) / 1000.f, 1.f/min_fps) * time_scale;
-	ticks_count_ = SDL_GetTicks();
+	constexpr auto time_speed = 1;
+
+	std::this_thread::sleep_until(time_ + sec/max_fps);
+
+	const auto now = steady_clock::now();
+	const auto delta_seconds = duration<float>{math::min(now - time_, sec/min_fps) * time_speed}.count();
+	time_ = now;
 
 	is_updating_actors_ = true;
 	for (const auto& actor : actors_)
 	{
-		actor->update(delta_time);
+		actor->update(delta_seconds);
 	}
 	is_updating_actors_ = false;
 
