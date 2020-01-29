@@ -18,6 +18,15 @@ sprite_component::~sprite_component()
 
 void sprite_component::draw(SDL_Renderer* const renderer) const
 {
+	if (!texture_) return;
+
+	SDL_Rect rect;
+	rect.w = tex_w_ * owner.get_scale();
+	rect.h = tex_h_ * owner.get_scale();
+	rect.x = owner.get_pos().x - rect.w/2;
+	rect.y = owner.get_pos().y - rect.h/2;
+
+	SDL_RenderCopyEx(renderer, texture_.get(), nullptr, &rect, owner.get_rot(), nullptr, SDL_FLIP_NONE);
 }
 
 void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)
