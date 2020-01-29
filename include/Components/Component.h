@@ -15,7 +15,7 @@ public:
 	component& operator=(const component&) = delete;
 	component& operator=(component&&) = delete;
 	
-	virtual void update(float delta_time) {}
+	virtual void update(float delta_seconds) {}
 	[[nodiscard]] int get_update_order() const { return update_order_; }
 
 	actor& owner;

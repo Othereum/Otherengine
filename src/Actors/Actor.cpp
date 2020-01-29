@@ -8,16 +8,16 @@ actor::actor(class game& game)
 {
 }
 
-void actor::update(const float delta_time)
+void actor::update(const float delta_seconds)
 {
-	update_components(delta_time);
-	update_actor(delta_time);
+	update_components(delta_seconds);
+	update_actor(delta_seconds);
 }
 
-void actor::update_components(const float delta_time)
+void actor::update_components(const float delta_seconds)
 {
 	for (const auto& comp : comps_)
-		comp->update(delta_time);
+		comp->update(delta_seconds);
 }
 
 void actor::add_component(comp_ptr&& comp)

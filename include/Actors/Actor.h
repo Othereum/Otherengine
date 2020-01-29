@@ -27,7 +27,7 @@ public:
 
 	[[nodiscard]] state get_state() const { return state_; }
 
-	void update(float delta_time);
+	void update(float delta_seconds);
 
 	void add_component(comp_ptr&& comp);
 	void remove_component(const component& comp);
@@ -37,8 +37,8 @@ public:
 	game& game;
 	
 private:
-	void update_components(float delta_time);
-	virtual void update_actor(float delta_time) {}
+	void update_components(float delta_seconds);
+	virtual void update_actor(float delta_seconds) {}
 
 	state state_{};
 	
