@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "math_utils.h"
-#include "actors/Actor.h"
+#include "actors/actor.h"
 #include "components/sprite_component.h"
 
 NEG_BEGIN
@@ -171,6 +171,11 @@ void game::generate_output() const
 {
 	SDL_SetRenderDrawColor(renderer_.get(), 100, 100, 250, 255);
 	SDL_RenderClear(renderer_.get());
+
+	for (auto& sprite : sprites_)
+	{
+		sprite.get().draw(renderer_.get());
+	}
 	
 	SDL_RenderPresent(renderer_.get());
 }
