@@ -1,51 +1,56 @@
 #pragma once
 
-#include "neg.h"
-
-NEG_BEGIN
-
-template <class T = float>
-struct vector2
+namespace game
 {
-	T x, y;
-
-	vector2() :x{}, y{} {}
-	explicit vector2(no_init_t) {}
-	vector2(T x, T y) :x{x}, y{y} {}
-
-	template <class U>
-	vector2(const vector2<U>& v) :x(v.x), y(v.y) {}
-
-	template <class U>
-	vector2(vector2<U>&& v) :x(v.x), y(v.y) {}
-
-	void reset(T x, T y) { this->x = x; this->y = y; }
-
-	template <class U>
-	vector2& operator+=(const vector2<U>& a)
+	template <class T = float>
+	struct vector2
 	{
-		x += a.x;
-		y += a.y;
-		return *this;
-	}
+		T x{}, y{};
 
-	template <class U>
-	vector2<std::common_type_t<T, U>> operator*(U f) const
-	{
-		return {x*f, y*f};
-	}
+		constexpr vector2() noexcept = default;
+		constexpr vector2(T x, T y) noexcept :x{x}, y{y} {}
+		~vector2() noexcept = default;
 
-	template <class U>
-	vector2<std::common_type_t<T, U>> operator-(const vector2<U>& v) const
-	{
-		return {x-v.x, y-v.y};
-	}
+		template <class U>
+		constexpr explicit vector2(const vector2<U>& v) noexcept {*this=v;}
+		constexpr vector2(const vector2&) noexcept = default;
 
-	template <class U>
-	vector2<std::common_type_t<T, U>> operator/(U f) const
-	{
-		return {x/f, y/f};
-	}
-};
+		template <class U>
+		constexpr explicit vector2(vector2<U>&& v) noexcept :vector2{v} {}
+		constexpr vector2(vector2&&) noexcept = default;
 
-NEG_END
+		template <class U>
+		constexpr vector2& operator=(const vector2<U>& v) noexcept { x=T(v.x); y=T(v.y); return *this; }
+		constexpr vector2& operator=(const vector2&) noexcept = default;
+
+		template <class U>
+		constexpr vector2& operator=(vector2<U>&& v) noexcept { return *this = v; }
+		constexpr vector2& operator=(vector2&&) noexcept = default;
+
+		template <class U>
+		constexpr vector2& operator+=(const vector2<U>& a)& noexcept
+		{
+			x += a.x;
+			y += a.y;
+			return *this;
+		}
+
+		template <class U>
+		constexpr vector2<std::common_type_t<T, U>> operator*(U f) const noexcept
+		{
+			return {x*f, y*f};
+		}
+
+		template <class U>
+		constexpr vector2<std::common_type_t<T, U>> operator-(const vector2<U>& v) const noexcept
+		{
+			return {x-v.x, y-v.y};
+		}
+
+		template <class U>
+		constexpr vector2<std::common_type_t<T, U>> operator/(U f) const noexcept
+		{
+			return {x/f, y/f};
+		}
+	};
+}
