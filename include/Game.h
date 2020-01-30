@@ -69,11 +69,11 @@ private:
 	std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
 	std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
 
-	std::vector<actor_ptr> actors_;
-	std::vector<actor_ptr> pending_actors_;
+	std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
 	std::vector<std::reference_wrapper<const sprite_component>> sprites_;
 	
-	std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
+	std::vector<actor_ptr> actors_;
+	std::vector<actor_ptr> pending_actors_;
 };
 
 NEG_END
