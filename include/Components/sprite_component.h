@@ -27,7 +27,7 @@ public:
 	[[nodiscard]] int get_draw_order() const { return draw_order_; }
 
 private:
-	vector2<unsigned short> tex_size_;
+	vector2<uint16_t> tex_size_;
 	int draw_order_;
 	std::shared_ptr<SDL_Texture> texture_;
 };
