@@ -36,15 +36,22 @@ public:
 	[[nodiscard]] float get_scale() const { return scale_; }
 
 	void update(float delta_seconds);
-
-	void add_component(comp_ptr&& comp);
-	void remove_component(const component& comp);
-
 	void destroy();
+
+	template <class T, class... Args>
+	T& add_component(Args&&... args)
+	{
+		static_assert(std::is_base_of_v<component, T>);
+		auto ptr = std::make_unique<T>(*this, std::forward<Args>(args)...);
+		auto& ref = *ptr;
+		register_component(std::move(ptr));
+		return ref;
+	}
 
 	game& game;
 	
 private:
+	void register_component(comp_ptr&& comp);
 	void update_components(float delta_seconds);
 	virtual void update_actor(float delta_seconds) {}
 

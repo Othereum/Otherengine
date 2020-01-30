@@ -1,4 +1,4 @@
-#include "actors/Actor.h"
+#include "actors/actor.h"
 #include "components/component.h"
 
 NEG_BEGIN
@@ -20,7 +20,7 @@ void actor::update_components(const float delta_seconds)
 		comp->update(delta_seconds);
 }
 
-void actor::add_component(comp_ptr&& comp)
+void actor::register_component(comp_ptr&& comp)
 {
 	auto cmp = [](const comp_ptr& a, const comp_ptr& b)
 	{
@@ -28,13 +28,6 @@ void actor::add_component(comp_ptr&& comp)
 	};
 	const auto pos = std::lower_bound(comps_.begin(), comps_.end(), comp, cmp);
 	comps_.insert(pos, std::move(comp));
-}
-
-void actor::remove_component(const component& comp)
-{
-	auto p = [&](const comp_ptr& v) { return v.get() == &comp; };
-	const auto found = std::find_if(comps_.crbegin(), comps_.crend(), p);
-	if (found != comps_.crend()) comps_.erase(found.base() - 1);
 }
 
 void actor::destroy()

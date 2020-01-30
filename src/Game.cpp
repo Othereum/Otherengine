@@ -126,10 +126,9 @@ void game::load_data()
 	
 	auto& a = spawn_actor<othereum>();
 	a.set_pos({screen_w / 2.f, screen_h / 2.f});
-	
-	auto ptr = std::make_unique<sprite_component>(a);
-	ptr->set_texture(get_texture("Othereum.png"));
-	a.add_component(std::move(ptr));
+
+	auto& c = a.add_component<sprite_component>();
+	c.set_texture(get_texture("Othereum.png"));
 }
 
 void game::process_input()
