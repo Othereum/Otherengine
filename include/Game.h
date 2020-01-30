@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <chrono>
 #include <memory>
@@ -61,6 +61,8 @@ private:
 		sdl_raii& operator=(sdl_raii&&) = delete;
 	} sdl_raii_;
 
+	uint8_t refresh_rate_;
+	
 	bool is_running_ : 1;
 	bool is_updating_actors_ : 1;
 	

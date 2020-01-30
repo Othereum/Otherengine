@@ -1,4 +1,4 @@
-﻿#include "game.h"
+#include "game.h"
 #include <thread>
 #include <stdexcept>
 #include <SDL.h>
@@ -13,7 +13,7 @@ static constexpr auto screen_w = 1024;
 static constexpr auto screen_h = 768;
 
 static SDL_Window* create_window()
-{	
+{
 	const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, screen_w, screen_h, 0);
 	if (!window) throw std::runtime_error{SDL_GetError()};
 	return window;
@@ -26,11 +26,19 @@ static SDL_Renderer* create_renderer(SDL_Window* const window)
 	return renderer;
 }
 
-game::game()
-	:is_running_{true}, is_updating_actors_{},
+static uint8_t get_refresh_rate(SDL_Window* const window)
+{
+	SDL_DisplayMode mode;
+	if (SDL_GetWindowDisplayMode(window, &mode) != 0) throw std::runtime_error{SDL_GetError()};
+	return mode.refresh_rate;
+}
+
+game::game():
+	is_running_{true}, is_updating_actors_{},
 	window_{create_window(), SDL_DestroyWindow},
 	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer}
 {
+	refresh_rate_ = get_refresh_rate(window_.get());
 }
 
 game::~game() = default;
@@ -130,13 +138,13 @@ void game::update_game()
 	using namespace std::chrono;
 
 	constexpr nanoseconds sec = 1s;
-	constexpr auto max_fps = 60, min_fps = 10;
+	constexpr auto min_fps = 10;
 	constexpr auto time_speed = 1;
 
-	std::this_thread::sleep_until(time_ + sec/max_fps);
+	std::this_thread::sleep_until(time_ + sec / refresh_rate_);
 
 	const auto now = steady_clock::now();
-	const auto delta_seconds = duration<float>{math::min(now - time_, sec/min_fps) * time_speed}.count();
+	const auto delta_seconds = duration<float>{math::min(now - time_, sec / min_fps) * time_speed}.count();
 	time_ = now;
 
 	is_updating_actors_ = true;
@@ -176,7 +184,7 @@ void game::generate_output() const
 	{
 		sprite.get().draw(renderer_.get());
 	}
-	
+
 	SDL_RenderPresent(renderer_.get());
 }
 
