@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "vector.h"
+#include "rotation.h"
 
 NEG_BEGIN
 
@@ -25,10 +26,14 @@ public:
 	actor& operator=(const actor&) = delete;
 	actor& operator=(actor&&) = delete;
 
-	[[nodiscard]] state get_state() const { return state_; }
+	void set_pos(const vector2<>& new_pos) { pos_ = new_pos; }
 	[[nodiscard]] const vector2<>& get_pos() const { return pos_; }
+
+	void set_rot(const degrees& new_rot) { rot_ = new_rot; }
+	[[nodiscard]] const degrees& get_rot() const { return rot_; }
+
+	[[nodiscard]] state get_state() const { return state_; }
 	[[nodiscard]] float get_scale() const { return scale_; }
-	[[nodiscard]] float get_rot() const { return rot_; }
 
 	void update(float delta_seconds);
 
@@ -46,8 +51,8 @@ private:
 	state state_{};
 	
 	vector2<> pos_;
+	degrees rot_;
 	float scale_{1};
-	float rot_{};
 	
 	std::vector<comp_ptr> comps_;
 };

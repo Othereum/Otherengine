@@ -1,6 +1,6 @@
 #include "components/sprite_component.h"
 #include <SDL.h>
-#include "actors/Actor.h"
+#include "actors/actor.h"
 #include "game.h"
 
 NEG_BEGIN
@@ -24,7 +24,7 @@ void sprite_component::draw(SDL_Renderer* const renderer) const
 	const vector2<int> pos = owner.get_pos() - size/2;
 
 	const SDL_Rect rect{pos.x, pos.y, size.x, size.y};
-	SDL_RenderCopyEx(renderer, texture_.get(), nullptr, &rect, owner.get_rot(), nullptr, SDL_FLIP_NONE);
+	SDL_RenderCopyEx(renderer, texture_.get(), nullptr, &rect, owner.get_rot().get(), nullptr, SDL_FLIP_NONE);
 }
 
 void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)
