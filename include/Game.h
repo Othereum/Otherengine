@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <chrono>
 #include <memory>
@@ -43,10 +43,12 @@ public:
 	void remove_sprite(const sprite_component& sprite);
 
 private:
+	void load_data();
+	
 	void process_input();
 	void update_game();
 	void generate_output() const;
-
+	
 	void add_actor(actor_ptr&& actor);
 
 	std::shared_ptr<SDL_Texture> load_texture(const char* filename);

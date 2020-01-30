@@ -1,4 +1,4 @@
-#include "game.h"
+﻿#include "game.h"
 #include <thread>
 #include <stdexcept>
 #include <SDL.h>
@@ -39,6 +39,7 @@ game::game():
 	renderer_{create_renderer(window_.get()), SDL_DestroyRenderer}
 {
 	refresh_rate_ = get_refresh_rate(window_.get());
+	load_data();
 }
 
 game::~game() = default;
@@ -112,6 +113,23 @@ void game::remove_sprite(const sprite_component& sprite)
 	auto pr = [&](const sprite_component& v) { return &v == &sprite; };
 	const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
 	if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
+}
+
+void game::load_data()
+{
+	class othereum : public actor
+	{
+	public:
+		explicit othereum(neg::game& g): actor{g} {}
+		void update_actor(const float s) override { set_rot(get_rot() + s * 360_deg); }
+	};
+	
+	auto& a = spawn_actor<othereum>();
+	a.set_pos({screen_w / 2.f, screen_h / 2.f});
+	
+	auto ptr = std::make_unique<sprite_component>(a);
+	ptr->set_texture(get_texture("Othereum.png"));
+	a.add_component(std::move(ptr));
 }
 
 void game::process_input()
