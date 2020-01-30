@@ -8,7 +8,8 @@
 NEG_BEGIN
 MATH_BEGIN
 
-constexpr auto pi = 3.14159265f;
+using pi_ratio = std::ratio<5419351, 1725033>;
+constexpr auto pi = static_cast<float>(pi_ratio::num) / pi_ratio::den;
 
 template <class T, class U>
 constexpr auto min(T a, U b) { return a < b ? a : b; }
