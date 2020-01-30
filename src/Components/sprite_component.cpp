@@ -17,7 +17,7 @@ namespace game
 		owner.get_world().get_app().remove_sprite(*this);
 	}
 
-	void sprite_component::draw(SDL_Renderer* const renderer) const
+	void sprite_component::draw(SDL_Renderer& renderer) const
 	{
 		if (!texture_) return;
 
@@ -25,7 +25,7 @@ namespace game
 		const vector2<int> pos{owner.get_pos() - size/2};
 
 		const SDL_Rect rect{pos.x, pos.y, size.x, size.y};
-		SDL_RenderCopyEx(renderer, texture_.get(), nullptr, &rect, owner.get_rot().get(), nullptr, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(&renderer, texture_.get(), nullptr, &rect, owner.get_rot().get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)

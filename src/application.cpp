@@ -13,33 +13,39 @@ namespace game
 	static constexpr auto screen_w = 1024;
 	static constexpr auto screen_h = 768;
 
-	static SDL_Window* create_window()
+	static window_ptr create_window()
 	{
-		const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, screen_w, screen_h, 0);
+		window_ptr window{
+			SDL_CreateWindow(PROJECT_NAME, 100, 100, screen_w, screen_h, 0),
+			SDL_DestroyWindow
+		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return window;
 	}
 
-	static SDL_Renderer* create_renderer(SDL_Window* const window)
+	static renderer_ptr create_renderer(SDL_Window& window)
 	{
-		const auto renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		renderer_ptr renderer{
+			SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
+			SDL_DestroyRenderer
+		};
 		if (!renderer) throw std::runtime_error{SDL_GetError()};
 		return renderer;
 	}
 
-	static uint8_t get_refresh_rate(SDL_Window* const window)
+	static uint8_t get_refresh_rate(SDL_Window& window)
 	{
 		SDL_DisplayMode mode;
-		if (SDL_GetWindowDisplayMode(window, &mode) != 0) throw std::runtime_error{SDL_GetError()};
+		if (SDL_GetWindowDisplayMode(&window, &mode) != 0) throw std::runtime_error{SDL_GetError()};
 		return mode.refresh_rate;
 	}
 
 	application::application():
-		window_{create_window(), SDL_DestroyWindow},
-		renderer_{create_renderer(window_.get()), SDL_DestroyRenderer},
+		window_{create_window()},
+		renderer_{create_renderer(*window_)},
 		world_{std::make_unique<world>(*this)}
 	{
-		refresh_rate_ = get_refresh_rate(window_.get());
+		refresh_rate_ = get_refresh_rate(*window_);
 		load_data();
 	}
 
@@ -160,7 +166,7 @@ namespace game
 
 		for (auto& sprite : sprites_)
 		{
-			sprite.get().draw(renderer_.get());
+			sprite.get().draw(*renderer_);
 		}
 
 		SDL_RenderPresent(renderer_.get());

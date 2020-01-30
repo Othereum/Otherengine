@@ -9,6 +9,9 @@ struct SDL_Texture;
 
 namespace game
 {
+	using window_ptr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
+	using renderer_ptr = std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>;
+	
 	class sprite_component;
 	class world;
 
@@ -54,11 +57,12 @@ namespace game
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 		
-		std::unique_ptr<SDL_Window, void(*)(SDL_Window*)> window_;
-		std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)> renderer_;
-		std::unique_ptr<world> world_;
+		window_ptr window_;
+		renderer_ptr renderer_;
 
 		std::vector<std::reference_wrapper<const sprite_component>> sprites_;
 		std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
-};
+
+		std::unique_ptr<world> world_;
+	};
 }
