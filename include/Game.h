@@ -4,7 +4,7 @@
 #include <memory>
 #include <unordered_map>
 #include <vector>
-#include <NEG.h>
+#include "neg.h"
 
 class SDL_Window;
 class SDL_Renderer;

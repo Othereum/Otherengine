@@ -1,9 +1,9 @@
 #pragma once
 
-#include <NEG.h>
+#include "neg.h"
 #include <memory>
 #include <vector>
-#include <Vector.h>
+#include "vector.h"
 
 NEG_BEGIN
 

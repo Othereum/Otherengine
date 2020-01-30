@@ -1,5 +1,5 @@
 #include <iostream>
-#include <Game.h>
+#include "game.h"
 
 int main(const int argc, char** const argv)
 {

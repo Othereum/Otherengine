@@ -1,7 +1,6 @@
 #pragma once
 #include <ratio>
-#include <NEG.h>
-#include <MathUtils.h>
+#include "math_utils.h"
 NEG_BEGIN
 
 template <class R>

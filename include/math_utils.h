@@ -1,12 +1,14 @@
 #pragma once
 
-#include <NEG.h>
+#include "neg.h"
 
 #define MATH_BEGIN namespace math {
 #define MATH_END }
 
 NEG_BEGIN
 MATH_BEGIN
+
+constexpr auto pi = 3.14159265f;
 
 template <class T, class U>
 constexpr auto min(T a, U b) { return a < b ? a : b; }

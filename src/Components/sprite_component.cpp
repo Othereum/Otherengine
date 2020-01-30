@@ -1,7 +1,7 @@
-#include <Components/SpriteComponent.h>
+#include "components/sprite_component.h"
 #include <SDL.h>
-#include <Actors/Actor.h>
-#include <Game.h>
+#include "actors/Actor.h"
+#include "game.h"
 
 NEG_BEGIN
 

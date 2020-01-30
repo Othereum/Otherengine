@@ -1,4 +1,4 @@
-#include <Components/Component.h>
+#include "components/component.h"
 
 NEG_BEGIN
 

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <Components/Component.h>
 #include <memory>
-#include "Vector.h"
+#include "components/component.h"
+#include "vector.h"
 
 class SDL_Renderer;
 class SDL_Texture;
