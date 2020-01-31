@@ -161,7 +161,6 @@ namespace game
 
 	void application::generate_output() const
 	{
-		SDL_SetRenderDrawColor(renderer_.get(), 100, 100, 250, 255);
 		SDL_RenderClear(renderer_.get());
 
 		for (auto& sprite : sprites_)
