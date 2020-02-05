@@ -7,7 +7,7 @@
 #include "math_utils.h"
 #include "world.h"
 #include "actors/ship.h"
-#include "components/bg_sprite_component.h"
+#include "components/tilemap_component.h"
 
 namespace game
 {
@@ -63,19 +63,9 @@ namespace game
 		auto& temp = world_->spawn_actor<actor>();
 		temp.set_pos({scrsz.x/2, scrsz.y/2});
 
-		auto& far = temp.add_component<bg_sprite_component>();
-		far.set_bg_textures({
-			renderer_.get_texture("Assets/Farback01.png"),
-			renderer_.get_texture("Assets/Farback02.png")
-		});
-		far.set_scroll_speed(-100);
-
-		auto& near = temp.add_component<bg_sprite_component>(50);
-		near.set_bg_textures({
-			renderer_.get_texture("Assets/Stars.png"),
-			renderer_.get_texture("Assets/Stars.png")
-		});
-		near.set_scroll_speed(-200);
+		auto& bg1 = temp.add_component<tilemap_component>();
+		bg1.set_texture(renderer_.get_texture("Assets/Tiles.png"));
+		bg1.load_tile_from_csv("Assets/MapLayer1.csv");
 	}
 
 	void application::process_input()
