@@ -33,14 +33,18 @@ namespace game
 		SDL_RenderPresent(renderer_.get());
 	}
 
-	void renderer::draw(SDL_Texture& texture, fvector2 pos, fvector2 size, degrees angle) const
+	void renderer::draw(SDL_Texture& texture, const frect& dest, degrees angle) const
 	{
-		const vector2<int> p{pos - size/2};
-		const vector2<int> sz{size};
-		const SDL_Rect r{p.x, p.y, sz.x, sz.y};
+		const SDL_Rect r = dest;
 		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.get(), nullptr, SDL_FLIP_NONE);
 	}
-	
+
+	void renderer::draw(SDL_Texture& texture, const SDL_Rect& src, const frect& dest, degrees angle) const
+	{
+		const SDL_Rect r = dest;
+		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &r, angle.get(), nullptr, SDL_FLIP_NONE);
+	}
+
 	void renderer::add_sprite(const sprite_component& sprite)
 	{
 		auto cmp = [](const sprite_component& a, const sprite_component& b)
