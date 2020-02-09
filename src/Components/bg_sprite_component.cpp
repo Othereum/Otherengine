@@ -28,7 +28,7 @@ namespace game
 	{
 		for (const auto& bg : textures_)
 		{
-			renderer.draw(*bg.texture, get_owner().get_pos() + bg.offset, fvector2{scrsz}, 0_deg);
+			renderer.draw(*bg.texture, {get_owner().get_pos() + bg.offset, fvector2{scrsz}}, 0_deg);
 		}
 	}
 
