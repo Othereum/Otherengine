@@ -23,7 +23,7 @@ namespace game
 		if (!texture_) return;
 		
 		auto& owner = get_owner();
-		renderer.draw(*texture_, owner.get_pos(), tex_size_ * owner.get_scale(), owner.get_rot());
+		renderer.draw(*texture_, {owner.get_pos(), tex_size_ * owner.get_scale()}, owner.get_rot());
 	}
 
 	void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)
