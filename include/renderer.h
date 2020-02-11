@@ -22,8 +22,8 @@ namespace game
 		explicit renderer(SDL_Window& window);
 
 		void draw();
-		void draw(SDL_Texture& texture, const frect& dest, degrees angle) const;
-		void draw(SDL_Texture& texture, const SDL_Rect& src, const frect& dest, degrees angle) const;
+		void draw(SDL_Texture& texture, const frect& dest, degrees angle = {}) const;
+		void draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, degrees angle = {}) const;
 		
 		void add_sprite(const sprite_component& sprite);
 		void remove_sprite(const sprite_component& sprite);
