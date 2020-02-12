@@ -39,10 +39,9 @@ namespace game
 		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.get(), nullptr, SDL_FLIP_NONE);
 	}
 
-	void renderer::draw(SDL_Texture& texture, const SDL_Rect& src, const frect& dest, degrees angle) const
+	void renderer::draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, degrees angle) const
 	{
-		const SDL_Rect r = dest;
-		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &r, angle.get(), nullptr, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	void renderer::add_sprite(const sprite_component& sprite)
