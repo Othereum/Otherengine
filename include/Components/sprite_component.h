@@ -21,8 +21,10 @@ namespace game
 		sprite_component& operator=(sprite_component&&) = delete;
 
 		virtual void draw(class renderer& renderer) const;
+		
 		virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 		void set_texture(const std::shared_ptr<SDL_Texture>& texture);
+		[[nodiscard]] SDL_Texture& get_texture() const { return *texture_; }
 
 		[[nodiscard]] const vector2<unsigned short>& get_tex_size() const { return tex_size_; }
 		[[nodiscard]] int get_draw_order() const { return draw_order_; }
