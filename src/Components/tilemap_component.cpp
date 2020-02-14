@@ -2,6 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <string>
+#include "renderer.h"
+#include "actors/actor.h"
 
 namespace game
 {
@@ -23,6 +25,26 @@ namespace game
 				row.push_back(std::stoi(cell));
 			}
 			tile_.push_back(std::move(row));
+		}
+	}
+
+	void tilemap_component::draw(renderer& renderer) const
+	{
+		for (size_t i = 0; i < tile_.size(); ++i)
+		{
+			for (size_t j = 0; j < tile_[i].size(); ++j)
+			{
+				const auto idx = tile_[i][j];
+				if (idx == -1) continue;
+				
+				constexpr auto sz = 32, w = 8;
+				const auto x = static_cast<int>(j), y = static_cast<int>(i);
+				
+				const SDL_Rect src{idx%w * sz, idx/w * sz, sz, sz};
+				const SDL_Rect dest{x*sz, y*sz, sz, sz};
+				
+				renderer.draw(get_texture(), src, dest);
+			}
 		}
 	}
 }
