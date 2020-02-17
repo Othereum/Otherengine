@@ -13,6 +13,7 @@ namespace game
 		void draw(SDL_Renderer& renderer) const override;
 
 		void set_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
+		void add_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
 
 		void set_screen_size(fvector2 size) { screen_size_ = size; }
 		void set_scroll_speed(float speed) { scroll_speed_ = speed; }
