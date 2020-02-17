@@ -2,7 +2,12 @@
 
 namespace game
 {
-	template <class T = float>
+	template <class T>
+	struct vector2;
+
+	using fvector2 = vector2<float>;
+	
+	template <class T>
 	struct vector2
 	{
 		T x{}, y{};

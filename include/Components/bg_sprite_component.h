@@ -14,7 +14,7 @@ namespace game
 
 		void set_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
 
-		void set_screen_size(vector2 size) { screen_size_ = size; }
+		void set_screen_size(fvector2 size) { screen_size_ = size; }
 		void set_scroll_speed(float speed) { scroll_speed_ = speed; }
 		[[nodiscard]] float get_scroll_speed() const { return scroll_speed_; }
 
@@ -22,10 +22,10 @@ namespace game
 		struct bg_texture
 		{
 			std::shared_ptr<SDL_Texture> texture;
-			vector2<> offset;
+			fvector2 offset;
 		};
 		std::vector<bg_texture> textures_;
-		vector2<> screen_size_;
+		fvector2 screen_size_;
 		float scroll_speed_{};
 	};
 }
