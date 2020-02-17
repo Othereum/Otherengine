@@ -3,6 +3,16 @@
 
 namespace game
 {
+	anim_sprite_component::anim_sprite_component(actor& owner, int draw_order, int update_order)
+		:sprite_component{owner, draw_order, update_order}
+	{
+	}
+
+	void anim_sprite_component::set_anim_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures)
+	{
+		anim_textures_ = std::move(textures);
+	}
+
 	void anim_sprite_component::update(const float delta_seconds)
 	{
 		sprite_component::update(delta_seconds);
