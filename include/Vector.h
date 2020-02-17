@@ -53,6 +53,12 @@ namespace game
 		}
 
 		template <class U>
+		constexpr vector2<std::common_type_t<T, U>> operator+(const vector2<U>& v) const noexcept
+		{
+			return {x+v.x, y+v.y};
+		}
+
+		template <class U>
 		constexpr vector2<std::common_type_t<T, U>> operator/(U f) const noexcept
 		{
 			return {x/f, y/f};

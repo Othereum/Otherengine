@@ -1,6 +1,7 @@
 #include "components/bg_sprite_component.h"
 #include <SDL.h>
 #include "application.h"
+#include "actors/actor.h"
 
 namespace game
 {
@@ -16,20 +17,18 @@ namespace game
 		for (auto& bg : textures_)
 		{
 			bg.offset.x -= scroll_speed_ * delta_seconds;
-			if (bg.offset.x < -screen.x)
+			if (bg.offset.x < -scrsz.x)
 			{
-				bg.offset.x = (textures_.size() - 1) * screen.x - 1;
+				bg.offset.x = static_cast<float>((textures_.size() - 1) * scrsz.x - 1);
 			}
 		}
 	}
 
-	void bg_sprite_component::draw(SDL_Renderer& renderer) const
+	void bg_sprite_component::draw(renderer& renderer) const
 	{
 		for (const auto& bg : textures_)
 		{
-			const auto pos = bg.offset - screen / 2;
-			const SDL_Rect rect{pos.x, pos.y, screen.x, screen.y};
-			SDL_RenderCopyEx(&renderer, bg.texture.get(), nullptr, &rect, 0, nullptr, SDL_FLIP_NONE);
+			renderer.draw(*bg.texture, get_owner().get_pos() + bg.offset, fvector2{scrsz}, 0_deg);
 		}
 	}
 
@@ -45,7 +44,7 @@ namespace game
 		{
 			bg_texture texture;
 			texture.texture = std::move(textures[i]);
-			texture.offset.x = i * screen.x;
+			texture.offset.x = static_cast<float>(i * scrsz.x);
 			textures_.push_back(std::move(texture));
 		}
 		textures.clear();

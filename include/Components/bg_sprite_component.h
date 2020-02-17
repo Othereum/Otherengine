@@ -10,7 +10,7 @@ namespace game
 		explicit bg_sprite_component(actor& owner, int draw_order = 10, int update_order = 100);
 		
 		void update(float delta_seconds) override;
-		void draw(SDL_Renderer& renderer) const override;
+		void draw(renderer& renderer) const override;
 
 		void set_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
 		void add_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
@@ -22,7 +22,7 @@ namespace game
 		struct bg_texture
 		{
 			std::shared_ptr<SDL_Texture> texture;
-			vector2<int> offset;
+			fvector2 offset;
 		};
 		std::vector<bg_texture> textures_;
 		float scroll_speed_{};

@@ -13,7 +13,7 @@ namespace game
 	static window_ptr create_window()
 	{
 		window_ptr window{
-			SDL_CreateWindow(PROJECT_NAME, 100, 100, screen.x, screen.y, 0),
+			SDL_CreateWindow(PROJECT_NAME, 100, 100, scrsz.x, scrsz.y, 0),
 			SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -53,50 +53,6 @@ namespace game
 		is_running_ = false;
 	}
 
-	void application::add_sprite(const sprite_component& sprite)
-	{
-		auto cmp = [](const sprite_component& a, const sprite_component& b)
-		{
-			return a.get_draw_order() <= b.get_draw_order();
-		};
-		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
-		sprites_.emplace(pos, sprite);
-	}
-
-	void application::remove_sprite(const sprite_component& sprite)
-	{
-		auto pr = [&](const sprite_component& v) { return &v == &sprite; };
-		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
-		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
-	}
-	
-	std::shared_ptr<SDL_Texture> application::load_texture(const char* const filename)
-	{
-		const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface{IMG_Load(filename), SDL_FreeSurface};
-		if (!surface) throw std::runtime_error{SDL_GetError()};
-
-		auto deleter = [this, filename](SDL_Texture* const texture)
-		{
-			textures_.erase(filename);
-			SDL_DestroyTexture(texture);
-		};
-		std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), std::move(deleter)};
-		if (!texture) throw std::runtime_error{SDL_GetError()};
-
-		return texture;
-	}
-
-	std::shared_ptr<SDL_Texture> application::get_texture(const char* const filename)
-	{
-		const auto found = textures_.find(filename);
-		if (found != textures_.end()) return found->second.lock();
-
-		const auto loaded = load_texture(filename);
-		textures_.emplace(filename, loaded);
-
-		return loaded;
-	}
-
 	void application::load_data()
 	{
 		class othereum : public actor
@@ -107,10 +63,10 @@ namespace game
 		};
 		
 		auto& a = world_->spawn_actor<othereum>();
-		a.set_pos({screen.x / 2.f, screen.y / 2.f});
+		a.set_pos({scrsz.x / 2.f, scrsz.y / 2.f});
 
 		auto& c = a.add_component<sprite_component>();
-		c.set_texture(get_texture("Othereum.png"));
+		c.set_texture(renderer_.get_texture("Othereum.png"));
 	}
 
 	void application::process_input()
@@ -146,16 +102,9 @@ namespace game
 		world_->update(delta_seconds);
 	}
 
-	void application::generate_output() const
+	void application::generate_output()
 	{
-		SDL_RenderClear(renderer_.get());
-
-		for (auto& sprite : sprites_)
-		{
-			sprite.get().draw(*renderer_);
-		}
-
-		SDL_RenderPresent(renderer_.get());
+		renderer_.draw();
 	}
 
 	sdl_raii::sdl_raii()
