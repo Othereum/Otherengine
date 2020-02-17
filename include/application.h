@@ -9,6 +9,9 @@ struct SDL_Texture;
 
 namespace game
 {
+	constexpr auto screen_w = 1024;
+	constexpr auto screen_h = 768;
+
 	using window_ptr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
 	using renderer_ptr = std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>;
 	

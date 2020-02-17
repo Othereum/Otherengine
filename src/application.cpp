@@ -10,9 +10,6 @@
 
 namespace game
 {
-	static constexpr auto screen_w = 1024;
-	static constexpr auto screen_h = 768;
-
 	static window_ptr create_window()
 	{
 		window_ptr window{
