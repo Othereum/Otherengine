@@ -13,7 +13,7 @@ namespace game
 	static window_ptr create_window()
 	{
 		window_ptr window{
-			SDL_CreateWindow(PROJECT_NAME, 100, 100, screen_w, screen_h, 0),
+			SDL_CreateWindow(PROJECT_NAME, 100, 100, screen.x, screen.y, 0),
 			SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -117,7 +117,7 @@ namespace game
 		};
 		
 		auto& a = world_->spawn_actor<othereum>();
-		a.set_pos({screen_w / 2.f, screen_h / 2.f});
+		a.set_pos({screen.x / 2.f, screen.y / 2.f});
 
 		auto& c = a.add_component<sprite_component>();
 		c.set_texture(get_texture("Othereum.png"));
