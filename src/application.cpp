@@ -20,16 +20,6 @@ namespace game
 		return window;
 	}
 
-	static renderer_ptr create_renderer(SDL_Window& window)
-	{
-		renderer_ptr renderer{
-			SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
-			SDL_DestroyRenderer
-		};
-		if (!renderer) throw std::runtime_error{SDL_GetError()};
-		return renderer;
-	}
-
 	static uint8_t get_refresh_rate(SDL_Window& window)
 	{
 		SDL_DisplayMode mode;
@@ -39,10 +29,10 @@ namespace game
 
 	application::application():
 		window_{create_window()},
-		renderer_{create_renderer(*window_)},
-		world_{std::make_unique<world>(*this)}
+		renderer_{*window_},
+		world_{std::make_unique<world>(*this)},
+		refresh_rate_{get_refresh_rate(*window_)}
 	{
-		refresh_rate_ = get_refresh_rate(*window_);
 		load_data();
 	}
 
@@ -168,9 +158,9 @@ namespace game
 		SDL_RenderPresent(renderer_.get());
 	}
 
-	application::sdl_raii::sdl_raii()
+	sdl_raii::sdl_raii()
 	{
-		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
+		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 
 		const auto flags = IMG_INIT_PNG;
@@ -178,7 +168,7 @@ namespace game
 		if (img_result != flags) throw std::runtime_error{IMG_GetError()};
 	}
 
-	application::sdl_raii::~sdl_raii()
+	sdl_raii::~sdl_raii()
 	{
 		IMG_Quit();
 		SDL_Quit();
