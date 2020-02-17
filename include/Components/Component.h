@@ -15,10 +15,10 @@ namespace game
 		
 		virtual void update(float delta_seconds) {}
 		[[nodiscard]] int get_update_order() const { return update_order_; }
-
-		actor& owner;
+		[[nodiscard]] actor& get_owner() const { return owner_; }
 
 	private:
+		actor& owner_;
 		int update_order_;
 	};
 }
