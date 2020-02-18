@@ -55,18 +55,6 @@ namespace game
 
 	void application::load_data()
 	{
-		class othereum : public actor
-		{
-		public:
-			explicit othereum(world& outer): actor{outer} {}
-			void update_actor(const float s) override { set_rot(get_rot() + s * 360_deg); }
-		};
-		
-		auto& a = world_->spawn_actor<othereum>();
-		a.set_pos({scrsz.x / 2.f, scrsz.y / 2.f});
-
-		auto& c = a.add_component<sprite_component>();
-		c.set_texture(renderer_.get_texture("Othereum.png"));
 	}
 
 	void application::process_input()
