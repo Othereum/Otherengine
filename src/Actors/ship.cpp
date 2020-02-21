@@ -4,6 +4,7 @@
 #include "world.h"
 #include "application.h"
 #include "renderer.h"
+#include "math_utils.h"
 
 namespace game
 {
@@ -23,6 +24,8 @@ namespace game
 	void ship::update_actor(const float delta_seconds)
 	{
 		set_pos(get_pos() + velocity_ * delta_seconds);
+		velocity_.x = math::clamp(velocity_.x, 25, 500);
+		velocity_.y = math::clamp(velocity_.y, 25, 743);
 	}
 
 	void ship::process_keyboard(const uint8_t* state)
@@ -30,15 +33,15 @@ namespace game
 		velocity_ = {};
 		
 		if (state[SDL_SCANCODE_W])
-			velocity_.y += 100;
+			velocity_.y += 300;
 
 		if (state[SDL_SCANCODE_S])
-			velocity_.y -= 100;
+			velocity_.y -= 300;
 
 		if (state[SDL_SCANCODE_A])
-			velocity_.x -= 100;
+			velocity_.x -= 250;
 
 		if (state[SDL_SCANCODE_D])
-			velocity_.x += 100;
+			velocity_.x += 250;
 	}
 }
