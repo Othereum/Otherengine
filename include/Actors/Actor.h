@@ -31,6 +31,8 @@ namespace game
 		[[nodiscard]] const degrees& get_rot() const { return rot_; }
 
 		[[nodiscard]] state get_state() const { return state_; }
+		
+		void set_scale(float scale) { scale_ = scale; }
 		[[nodiscard]] float get_scale() const { return scale_; }
 
 		[[nodiscard]] world& get_world() const { return world_; }
