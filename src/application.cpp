@@ -7,6 +7,7 @@
 #include "components/sprite_component.h"
 #include "math_utils.h"
 #include "world.h"
+#include "actors/ship.h"
 
 namespace game
 {
@@ -55,6 +56,9 @@ namespace game
 
 	void application::load_data()
 	{
+		ship_ = world_->spawn_actor<ship>();
+		ship_.get().set_pos({100, 384});
+		ship_.get().set_scale(1.5f);
 	}
 
 	void application::process_input()
