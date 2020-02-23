@@ -75,6 +75,8 @@ namespace game
 
 		const auto keyboard = SDL_GetKeyboardState(nullptr);
 		if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
+
+		ship_.get().process_keyboard(keyboard);
 	}
 
 	void application::update_game()
