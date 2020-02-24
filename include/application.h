@@ -46,7 +46,7 @@ namespace game
 		renderer renderer_;
 
 		std::unique_ptr<world> world_;
-		std::reference_wrapper<class ship> ship_;
+		class ship* ship_{};
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 		bool is_running_ = true;

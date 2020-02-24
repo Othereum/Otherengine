@@ -4,7 +4,6 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include "actors/actor.h"
-#include "components/sprite_component.h"
 #include "math_utils.h"
 #include "world.h"
 #include "actors/ship.h"
@@ -56,9 +55,9 @@ namespace game
 
 	void application::load_data()
 	{
-		ship_ = world_->spawn_actor<ship>();
-		ship_.get().set_pos({100, 384});
-		ship_.get().set_scale(1.5f);
+		ship_ = &world_->spawn_actor<ship>();
+		ship_->set_pos({100, 384});
+		ship_->set_scale(1.5f);
 	}
 
 	void application::process_input()
@@ -76,7 +75,7 @@ namespace game
 		const auto keyboard = SDL_GetKeyboardState(nullptr);
 		if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
 
-		ship_.get().process_keyboard(keyboard);
+		ship_->process_keyboard(keyboard);
 	}
 
 	void application::update_game()
