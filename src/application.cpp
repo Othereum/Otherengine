@@ -7,6 +7,7 @@
 #include "math_utils.h"
 #include "world.h"
 #include "actors/ship.h"
+#include "components/bg_sprite_component.h"
 
 namespace game
 {
@@ -58,6 +59,23 @@ namespace game
 		ship_ = &world_->spawn_actor<ship>();
 		ship_->set_pos({100, 384});
 		ship_->set_scale(1.5f);
+
+		auto& temp = world_->spawn_actor<actor>();
+		temp.set_pos({scrsz.x/2, scrsz.y/2});
+
+		auto& far = temp.add_component<bg_sprite_component>();
+		far.set_bg_textures({
+			renderer_.get_texture("Assets/Farback01.png"),
+			renderer_.get_texture("Assets/Farback02.png")
+		});
+		far.set_scroll_speed(-100);
+
+		auto& near = temp.add_component<bg_sprite_component>(50);
+		near.set_bg_textures({
+			renderer_.get_texture("Assets/Stars.png"),
+			renderer_.get_texture("Assets/Stars.png")
+		});
+		near.set_scroll_speed(-200);
 	}
 
 	void application::process_input()
