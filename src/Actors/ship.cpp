@@ -33,10 +33,10 @@ namespace game
 		velocity_ = {};
 		
 		if (state[SDL_SCANCODE_W])
-			velocity_.y += 300;
+			velocity_.y -= 300;
 
 		if (state[SDL_SCANCODE_S])
-			velocity_.y -= 300;
+			velocity_.y += 300;
 
 		if (state[SDL_SCANCODE_A])
 			velocity_.x -= 250;
