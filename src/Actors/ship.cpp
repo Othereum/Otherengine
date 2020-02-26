@@ -23,9 +23,10 @@ namespace game
 
 	void ship::update_actor(const float delta_seconds)
 	{
-		set_pos(get_pos() + velocity_ * delta_seconds);
-		velocity_.x = math::clamp(velocity_.x, 25, 500);
-		velocity_.y = math::clamp(velocity_.y, 25, 743);
+		auto newpos = get_pos() + velocity_ * delta_seconds;
+		newpos.x = math::clamp(newpos.x, 25, 500);
+		newpos.y = math::clamp(newpos.y, 25, 743);
+		set_pos(newpos);
 	}
 
 	void ship::process_keyboard(const uint8_t* state)
