@@ -16,7 +16,7 @@ namespace game
 
 		for (auto& bg : textures_)
 		{
-			bg.offset.x -= scroll_speed_ * delta_seconds;
+			bg.offset.x += scroll_speed_ * delta_seconds;
 			if (bg.offset.x < -scrsz.x)
 			{
 				bg.offset.x = static_cast<float>((textures_.size() - 1) * scrsz.x - 1);
