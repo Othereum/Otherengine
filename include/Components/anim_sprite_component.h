@@ -17,7 +17,7 @@ namespace game
 		void update(float delta_seconds) override;
 		
 		float cur_frame_{};
-		float anim_fps_{};
+		float anim_fps_{24};
 		
 		std::vector<std::shared_ptr<SDL_Texture>> anim_textures_;
 	};
