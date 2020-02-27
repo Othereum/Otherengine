@@ -1,33 +1,32 @@
 #include "components/anim_sprite_component.h"
 #include <cmath>
+#include "math_utils.h"
 
 namespace game
 {
+	anim_sprite_component::animation::animation(std::initializer_list<std::shared_ptr<SDL_Texture>> textures, float fps, bool loop, float start_frame)
+		:loop{loop}, cur{start_frame}, fps{fps}, textures{textures}
+	{
+	}
+
 	anim_sprite_component::anim_sprite_component(actor& owner, int draw_order, int update_order)
 		:sprite_component{owner, draw_order, update_order}
 	{
 	}
 
-	void anim_sprite_component::set_anim_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures)
+	size_t anim_sprite_component::add_anim(animation&& anim)
 	{
-		anim_textures_ = std::move(textures);
+		anims_.push_back(std::move(anim));
+		return anims_.size() - 1;
 	}
 
 	void anim_sprite_component::update(const float delta_seconds)
 	{
-		sprite_component::update(delta_seconds);
-
-		if (!anim_textures_.empty())
-		{
-			const auto old_frame = static_cast<size_t>(cur_frame_);
-			cur_frame_ += get_anim_fps() * delta_seconds;
-			cur_frame_ = fmod(cur_frame_, static_cast<float>(anim_textures_.size()));
-			const auto new_frame = static_cast<size_t>(cur_frame_);
-			if (old_frame != new_frame)
-			{
-				auto texture = anim_textures_[new_frame];
-				set_texture(std::move(texture));
-			}
-		}
+		auto& anim = anims_[idx_];
+		const auto old_frame = static_cast<size_t>(anim.cur);
+		anim.cur += anim.fps * delta_seconds;
+		anim.cur = anim.loop ? fmod(anim.cur, static_cast<float>(anim.textures.size())) : math::min(anim.cur, anim.textures.size() - 1);
+		const auto new_frame = static_cast<size_t>(anim.cur);
+		if (old_frame != new_frame) set_texture(anim.textures[new_frame]);
 	}
 }

@@ -13,6 +13,7 @@ namespace game
 		[[nodiscard]] fvector2 get_right_speed() const { return velocity_; }
 
 	private:
+		class anim_sprite_component& anim_;
 		fvector2 velocity_;
 	};
 }

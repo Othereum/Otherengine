@@ -7,18 +7,26 @@ namespace game
 	class anim_sprite_component : public sprite_component
 	{
 	public:
-		explicit anim_sprite_component(actor& owner, int draw_order = 100, int update_order = 100);
-		void set_anim_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
+		struct animation
+		{
+			animation(std::initializer_list<std::shared_ptr<SDL_Texture>> textures, float fps = 24, bool loop = true, float start_frame = 0);
+			
+			bool loop;
+			float cur;
+			float fps;
+			std::vector<std::shared_ptr<SDL_Texture>> textures;
+		};
 		
-		void set_anim_fps(float fps) { anim_fps_ = fps; }
-		[[nodiscard]] float get_anim_fps() const { return anim_fps_; }
+		explicit anim_sprite_component(actor& owner, int draw_order = 100, int update_order = 100);
+		
+		size_t add_anim(animation&& anim);
+		void play(size_t idx, bool reset = true) { idx_ = idx; if (reset) play(); }
+		void play() { anims_[idx_].cur = 0; }
 
 	private:
 		void update(float delta_seconds) override;
-		
-		float cur_frame_{};
-		float anim_fps_{24};
-		
-		std::vector<std::shared_ptr<SDL_Texture>> anim_textures_;
+
+		size_t idx_ = 0;
+		std::vector<animation> anims_;
 	};
 }

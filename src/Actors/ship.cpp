@@ -9,16 +9,22 @@
 namespace game
 {
 	ship::ship(world& outer)
-		:actor{outer}
+		:actor{outer}, anim_{add_component<anim_sprite_component>()}
 	{
 		auto& renderer = outer.get_app().get_renderer();
-		auto& anim = add_component<anim_sprite_component>();
-		anim.set_anim_textures({
-			renderer.get_texture("Assets/Ship01.png"),
-			renderer.get_texture("Assets/Ship02.png"),
-			renderer.get_texture("Assets/Ship03.png"),
-			renderer.get_texture("Assets/Ship04.png")
-		});
+		anim_.add_anim({{
+			renderer.get_texture("Assets/Character01.png"),
+			renderer.get_texture("Assets/Character02.png"),
+			renderer.get_texture("Assets/Character03.png"),
+			renderer.get_texture("Assets/Character04.png"),
+			renderer.get_texture("Assets/Character05.png"),
+			renderer.get_texture("Assets/Character06.png"),
+		}, 8, true});
+		anim_.add_anim({{
+			renderer.get_texture("Assets/Character16.png"),
+			renderer.get_texture("Assets/Character17.png"),
+			renderer.get_texture("Assets/Character18.png"),
+		}, 8, false});
 	}
 
 	void ship::update_actor(const float delta_seconds)
@@ -44,5 +50,11 @@ namespace game
 
 		if (state[SDL_SCANCODE_D])
 			velocity_.x += 250;
+
+		if (state[SDL_SCANCODE_Q])
+			anim_.play(0);
+
+		if (state[SDL_SCANCODE_E])
+			anim_.play(1);
 	}
 }
