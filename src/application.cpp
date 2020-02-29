@@ -61,7 +61,7 @@ namespace game
 		ship_->set_scale(1.5f);
 
 		auto& temp = world_->spawn_actor<actor>();
-		temp.set_pos({scrsz.x/2, scrsz.y/2});
+		temp.set_pos({scrsz.x/2.f, scrsz.y/2.f});
 
 		auto& bg1 = temp.add_component<tilemap_component>(101);
 		bg1.set_texture(renderer_.get_texture("Assets/Tiles.png"));
