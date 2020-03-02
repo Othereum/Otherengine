@@ -32,7 +32,7 @@ namespace game
 
 		int w, h;
 		SDL_QueryTexture(texture_.get(), nullptr, nullptr, &w, &h);
-		tex_size_ = vector2{w, h};
+		tex_size_ = vector2{uint16_t(w), uint16_t(h)};
 	}
 
 	void sprite_component::set_texture(const std::shared_ptr<SDL_Texture>& texture)
