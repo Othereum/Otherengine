@@ -1,7 +1,7 @@
 #include <iostream>
 #include "application.h"
 
-int main(const int argc, char** const argv)
+int main()
 {
 	try
 	{
