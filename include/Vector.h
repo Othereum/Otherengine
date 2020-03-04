@@ -18,6 +18,9 @@ namespace game
 		template <class U>
 		constexpr explicit vector2(const vector2<U>& v) noexcept :x{T(v.x)}, y{T(v.y)} {}
 
+		[[nodiscard]] constexpr auto lensqr() const noexcept { return x*x + y*y; }
+		[[nodiscard]] float len() const noexcept { return sqrtf(lensqr()); }
+
 		constexpr vector2& operator+=(const vector2& a)& noexcept
 		{
 			return *this = *this + a;
