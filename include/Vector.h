@@ -24,6 +24,9 @@ namespace game
 		template <class U>
 		[[nodiscard]] float dist(const vector2<U>& v) const noexcept { return (*this - v).len(); }
 
+		void normalize() noexcept { *this /= len(); }
+		[[nodiscard]] vector2 normal() const { auto x = *this; x.normalize(); return x; }
+
 		constexpr vector2& operator+=(const vector2& a)& noexcept
 		{
 			return *this = *this + a;
