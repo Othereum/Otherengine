@@ -21,6 +21,9 @@ namespace game
 		[[nodiscard]] constexpr auto lensqr() const noexcept { return x*x + y*y; }
 		[[nodiscard]] float len() const noexcept { return sqrtf(lensqr()); }
 
+		template <class U>
+		[[nodiscard]] float dist(const vector2<U>& v) const noexcept { return (*this - v).len(); }
+
 		constexpr vector2& operator+=(const vector2& a)& noexcept
 		{
 			return *this = *this + a;
