@@ -7,13 +7,13 @@ namespace game::math
 	constexpr auto pi = static_cast<float>(pi_ratio::num) / pi_ratio::den;
 
 	template <class T, class U>
-	constexpr auto min(T a, U b) { return a < b ? a : b; }
+	constexpr auto min(T a, U b) noexcept { return a < b ? a : b; }
 
 	template <class T, class U>
-	constexpr auto max(T a, U b) { return a > b ? a : b; }
+	constexpr auto max(T a, U b) noexcept { return a > b ? a : b; }
 
 	template <class T, class U, class V>
-	constexpr auto clamp(T v, U min, V max) { return math::max(math::min(v, max), min); }
+	constexpr auto clamp(T v, U min, V max) noexcept { return math::max(math::min(v, max), min); }
 
 	template <class T>
 	constexpr T abs(T v) { return v < 0 ? -v : v; }
