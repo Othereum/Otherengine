@@ -18,7 +18,7 @@ namespace game::math
 	constexpr auto clamp(T v, U min, V max) noexcept { return math::max(math::min(v, max), min); }
 
 	template <class T, class U, class V = float>
-	bool is_nearly_equal(T a, U b, V tolerance = small) noexcept { return abs(a-b) < tolerance; }
+	bool is_nearly_equal(T a, U b, V tolerance = small) noexcept { return std::abs(a-b) < tolerance; }
 
 	template <class T, class U = float>
 	bool is_nearly_zero(T a, U tolerance = small) noexcept { return is_nearly_equal(a, 0, tolerance); }
