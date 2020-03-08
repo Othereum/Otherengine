@@ -3,9 +3,11 @@
 
 int main()
 {
+	using namespace game;
+
 	try
 	{
-		game::application app;
+		application app;
 		app.run_loop();
 	}
 	catch (const std::exception& e)
