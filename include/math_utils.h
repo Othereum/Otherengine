@@ -1,9 +1,8 @@
 #pragma once
-#include <ratio>
+#include "rotation.h"
 
 namespace game::math
 {
-	using pi_ratio = std::ratio<5419351, 1725033>;
 	constexpr auto pi = static_cast<float>(pi_ratio::num) / pi_ratio::den;
 	constexpr auto small = 1e-8f;
 	constexpr auto kinda_small = 1e-4f;

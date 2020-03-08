@@ -1,10 +1,13 @@
 #pragma once
-
 #include <ratio>
-#include "math_utils.h"
 
 namespace game
 {
+	namespace math
+	{
+		using pi_ratio = std::ratio<5419351, 1725033>;
+	}
+	
 	template <class R>
 	class rotation
 	{
