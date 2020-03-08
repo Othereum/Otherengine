@@ -1,4 +1,5 @@
 #pragma once
+#include "math_utils.h"
 
 namespace game
 {
@@ -28,7 +29,9 @@ namespace game
 		[[nodiscard]] float distsqr(const vector2<U>& v) const noexcept { return (*this - v).lensqr(); }
 
 		void normalize() noexcept { *this /= len(); }
-		[[nodiscard]] vector2 normal() const { auto x = *this; x.normalize(); return x; }
+		[[nodiscard]] vector2 normal() const noexcept { auto x = *this; x.normalize(); return x; }
+
+		[[nodiscard]] radians rotation() const noexcept { return math::atan2(y, x); }
 
 		constexpr vector2& operator+=(const vector2& a)& noexcept
 		{
