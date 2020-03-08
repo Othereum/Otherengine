@@ -49,7 +49,7 @@ namespace game
 		class ship* ship_{};
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
+		uint16_t refresh_rate_;
 		bool is_running_ = true;
-		uint8_t refresh_rate_;
 	};
 }

@@ -21,7 +21,7 @@ namespace game
 		return window;
 	}
 
-	static uint8_t get_refresh_rate(SDL_Window& window)
+	static uint16_t get_refresh_rate(SDL_Window& window)
 	{
 		SDL_DisplayMode mode;
 		if (SDL_GetWindowDisplayMode(&window, &mode) != 0) throw std::runtime_error{SDL_GetError()};
