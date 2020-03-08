@@ -19,23 +19,19 @@ namespace game
 		explicit actor(class world& outer);
 		virtual ~actor() = default;
 
-		actor(const actor&) = delete;
-		actor(actor&&) = delete;
-		actor& operator=(const actor&) = delete;
-		actor& operator=(actor&&) = delete;
+		void set_pos(const fvector2& new_pos) noexcept { pos_ = new_pos; }
+		[[nodiscard]] const fvector2& get_pos() const noexcept { return pos_; }
 
-		void set_pos(const fvector2& new_pos) { pos_ = new_pos; }
-		[[nodiscard]] const fvector2& get_pos() const { return pos_; }
+		void set_rot(const degrees& new_rot) noexcept { rot_ = new_rot; }
+		[[nodiscard]] const degrees& get_rot() const noexcept { return rot_; }
+		[[nodiscard]] fvector2 get_forward() const noexcept;
 
-		void set_rot(const degrees& new_rot) { rot_ = new_rot; }
-		[[nodiscard]] const degrees& get_rot() const { return rot_; }
-
-		[[nodiscard]] state get_state() const { return state_; }
+		[[nodiscard]] state get_state() const noexcept { return state_; }
 		
-		void set_scale(float scale) { scale_ = scale; }
-		[[nodiscard]] float get_scale() const { return scale_; }
+		void set_scale(float scale) noexcept { scale_ = scale; }
+		[[nodiscard]] float get_scale() const noexcept { return scale_; }
 
-		[[nodiscard]] world& get_world() const { return world_; }
+		[[nodiscard]] world& get_world() const noexcept { return world_; }
 
 		void update(float delta_seconds);
 		void destroy();
