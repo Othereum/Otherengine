@@ -76,6 +76,12 @@ namespace game
 		{
 			return {x/f, y/f};
 		}
+
+		template <class U>
+		constexpr auto operator|(const vector2<U>& v) const noexcept
+		{
+			return x*v.x + y*v.y;
+		}
 	};
 
 	template <class T, class U>
