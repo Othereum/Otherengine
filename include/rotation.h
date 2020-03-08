@@ -16,23 +16,12 @@ namespace game
 
 		constexpr rotation() noexcept = default;
 		constexpr explicit rotation(const float r) noexcept :r_{r} {}
-		~rotation() noexcept = default;
 		
 		template <class S>
 		constexpr rotation(const rotation<S>& r) noexcept { *this = r; }
-		constexpr rotation(const rotation&) noexcept = default;
-
-		template <class S>
-		constexpr rotation(rotation<S>&& r) noexcept { *this = r; }
-		constexpr rotation(rotation&&) noexcept = default;
 
 		template <class S>
 		constexpr rotation& operator=(const rotation<S>& r) & noexcept { r_ = r.get() / r.ratio * ratio; return *this; }
-		constexpr rotation& operator=(const rotation&) & noexcept = default;
-
-		template <class S>
-		constexpr rotation& operator=(rotation<S>&& r) & noexcept { return *this = r; }
-		constexpr rotation& operator=(rotation&&) & noexcept = default;
 
 		template <class S>
 		constexpr rotation operator+(const rotation<S>& r) const noexcept { return *this + rotation{r}; }
