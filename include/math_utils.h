@@ -21,4 +21,11 @@ namespace game::math
 
 	template <class T, class U = float>
 	bool is_nearly_zero(T a, U tolerance = small) noexcept { return is_nearly_equal(a, 0, tolerance); }
+
+	inline float cos(radians t) noexcept { return cosf(t.get()); }
+	inline float sin(radians t) noexcept { return sinf(t.get()); }
+	inline float tan(radians t) noexcept { return tanf(t.get()); }
+	inline radians acos(float x) noexcept { return radians{acosf(x)}; }
+	inline radians asin(float y) noexcept { return radians{asinf(y)}; }
+	inline radians atan2(float y, float x) noexcept { return radians{atan2f(y, x)}; }
 }
