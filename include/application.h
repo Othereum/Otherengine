@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <chrono>
 #include <memory>
 #include <unordered_map>
@@ -41,6 +41,8 @@ namespace game
 		void process_input();
 		void update_game();
 		void generate_output();
+
+		float update_time();
 		
 		window_ptr window_;
 		renderer renderer_;

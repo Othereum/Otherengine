@@ -1,10 +1,8 @@
-#include "application.h"
-#include <thread>
+﻿#include "application.h"
 #include <stdexcept>
 #include <SDL.h>
 #include <SDL_image.h>
 #include "actors/actor.h"
-#include "math_utils.h"
 #include "world.h"
 #include "components/tilemap_component.h"
 
@@ -76,7 +74,7 @@ namespace game
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT)
+			if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
 			{
 				shutdown();
 				return;
@@ -85,30 +83,26 @@ namespace game
 
 		const auto keyboard = SDL_GetKeyboardState(nullptr);
 		if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
-
-		ship_->process_keyboard(keyboard);
 	}
 
 	void application::update_game()
 	{
-		using namespace std::chrono;
-
-		constexpr nanoseconds sec = 1s;
-		constexpr auto min_fps = 10;
-		constexpr auto time_speed = 1;
-
-		std::this_thread::sleep_until(time_ + sec / refresh_rate_);
-
-		const auto now = steady_clock::now();
-		const auto delta_seconds = duration<float>{math::min(now - time_, sec / min_fps) * time_speed}.count();
-		time_ = now;
-
+		const auto delta_seconds = update_time();
 		world_->update(delta_seconds);
 	}
 
 	void application::generate_output()
 	{
 		renderer_.draw();
+	}
+
+	float application::update_time()
+	{
+		using namespace std::chrono;
+		const auto now = steady_clock::now();
+		const auto delta_seconds = duration<float>{now - time_}.count();
+		time_ = now;
+		return delta_seconds;
 	}
 
 	sdl_raii::sdl_raii()
