@@ -17,7 +17,7 @@ namespace game
 		};
 
 		explicit actor(class world& outer);
-		virtual ~actor() = default;
+		virtual ~actor();
 
 		void set_pos(const fvector2& new_pos) noexcept { pos_ = new_pos; }
 		[[nodiscard]] const fvector2& get_pos() const noexcept { return pos_; }

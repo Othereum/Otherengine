@@ -9,6 +9,8 @@ namespace game
 	{
 	}
 
+	actor::~actor() = default;
+
 	fvector2 actor::get_forward() const noexcept
 	{
 		return {math::cos(rot_), math::sin(rot_)};
