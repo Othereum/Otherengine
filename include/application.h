@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include <chrono>
 #include <memory>
 #include <unordered_map>
@@ -46,7 +46,6 @@ namespace game
 		renderer renderer_;
 
 		std::unique_ptr<world> world_;
-		class ship* ship_{};
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 		uint16_t refresh_rate_;

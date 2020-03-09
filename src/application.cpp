@@ -1,4 +1,4 @@
-﻿#include "application.h"
+#include "application.h"
 #include <thread>
 #include <stdexcept>
 #include <SDL.h>
@@ -6,7 +6,6 @@
 #include "actors/actor.h"
 #include "math_utils.h"
 #include "world.h"
-#include "actors/ship.h"
 #include "components/tilemap_component.h"
 
 namespace game
@@ -56,10 +55,6 @@ namespace game
 
 	void application::load_data()
 	{
-		ship_ = &world_->spawn_actor<ship>();
-		ship_->set_pos({100, 384});
-		ship_->set_scale(1.5f);
-
 		auto& temp = world_->spawn_actor<actor>();
 		temp.set_pos({scrsz.x/2.f, scrsz.y/2.f});
 
