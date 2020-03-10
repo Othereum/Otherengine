@@ -14,7 +14,7 @@ namespace game
 		}
 	}
 
-	void input_component::bind_axis(const input_axis& axis, std::function<void()>&& callback)
+	void input_component::bind_axis(const input_axis& axis, std::function<void(float)>&& callback)
 	{
 		const auto idx = axis_fns_.size();
 		axis_fns_.emplace_back(std::move(callback));

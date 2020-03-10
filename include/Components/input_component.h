@@ -30,7 +30,7 @@ namespace game
 		explicit input_component(class actor& owner, int update_order = 1);
 		
 		void bind_action(const input_action& action, key_event event, std::function<void()>&& callback);
-		void bind_axis(const input_axis& axis, std::function<void()>&& callback);
+		void bind_axis(const input_axis& axis, std::function<void(float)>&& callback);
 		
 	private:
 		using fn_idx_t = size_t;
