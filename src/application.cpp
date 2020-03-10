@@ -101,8 +101,11 @@ namespace game
 				return;
 
 			case SDL_KEYDOWN: case SDL_KEYUP:
-				key_events[event.key.state].push_back(event.key.keysym.sym);
-				break;
+				if (!event.key.repeat)
+				{
+					key_events[event.key.state].push_back(event.key.keysym.sym);
+					break;
+				}
 			}
 		}
 
