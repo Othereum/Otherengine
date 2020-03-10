@@ -67,7 +67,7 @@ namespace game
 		auto& bg3 = temp.add_component<tilemap_component>(9);
 		bg3.set_texture(renderer_.get_texture("Assets/Tiles.png"));
 		bg3.load_tile_from_csv("Assets/MapLayer3.csv");
-}
+	}
 
 	void application::process_input()
 	{
@@ -107,7 +107,7 @@ namespace game
 
 	sdl_raii::sdl_raii()
 	{
-		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
+		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 
 		const auto flags = IMG_INIT_PNG;
