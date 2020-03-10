@@ -14,7 +14,7 @@ namespace game
 
 	using window_ptr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
 	
-	class sprite_component;
+	class input_component;
 	class world;
 
 	class sdl_raii
@@ -33,6 +33,9 @@ namespace game
 		void run_loop();
 		void shutdown();
 
+		void register_input_component(const input_component& comp);
+		void unregister_input_component(const input_component& comp);
+
 		[[nodiscard]] renderer& get_renderer() { return renderer_; }
 
 	private:
@@ -48,6 +51,7 @@ namespace game
 		renderer renderer_;
 
 		std::unique_ptr<world> world_;
+		std::vector<std::reference_wrapper<const input_component>> input_comps_;
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 		uint16_t refresh_rate_;

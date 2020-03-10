@@ -5,6 +5,7 @@
 #include "actors/actor.h"
 #include "world.h"
 #include "components/tilemap_component.h"
+#include "components/input_component.h"
 
 namespace game
 {
@@ -49,6 +50,23 @@ namespace game
 	void application::shutdown()
 	{
 		is_running_ = false;
+	}
+
+	void application::register_input_component(const input_component& comp)
+	{
+		auto cmp = [](const input_component& a, const input_component& b)
+		{
+			return a.get_receive_order() <= b.get_receive_order();
+		};
+		const auto pos = std::lower_bound(input_comps_.begin(), input_comps_.end(), comp, cmp);
+		input_comps_.emplace(pos, comp);
+	}
+
+	void application::unregister_input_component(const input_component& comp)
+	{
+		auto pr = [&](const input_component& v) { return &v == &comp; };
+		const auto found = std::find_if(input_comps_.crbegin(), input_comps_.crend(), pr);
+		if (found != input_comps_.crend()) input_comps_.erase(found.base() - 1);
 	}
 
 	void application::load_data()
