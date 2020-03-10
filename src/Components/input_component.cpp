@@ -14,27 +14,36 @@ namespace game
 		get_app().unregister_input_component(*this);
 	}
 
+	void input_component::process_input(const std::vector<int> (&events)[2], const uint8_t* keyboard) const
+	{
+		for (auto i = 0; i < 2; ++i) for (auto& action : actions_[i]) for (auto key : events[i])
+		{
+			if (action.first.contains(key))
+			{
+				action.second();
+				break;
+			}
+		}
+		
+		for (auto& axis : axises_)
+		{
+			auto val = 0.f;
+			
+			for (auto& key : axis.first)
+				if (keyboard[key.key])
+					val += key.scale;
+			
+			axis.second(val);
+		}
+	}
+
 	void input_component::bind_action(const input_action& action, key_event event, std::function<void()>&& callback)
 	{
-		const auto idx = action_fns_.size();
-		action_fns_.emplace_back(std::move(callback));
-		
-		const auto [keys, size] = action.keys();
-		for (size_t i = 0; i < size; ++i)
-		{
-			actions_[int(event)].emplace(keys[i], idx);
-		}
+		actions_[int(event)].emplace_back(action.keys(), std::move(callback));
 	}
 
 	void input_component::bind_axis(const input_axis& axis, std::function<void(float)>&& callback)
 	{
-		const auto idx = axis_fns_.size();
-		axis_fns_.emplace_back(std::move(callback));
-		
-		const auto [axises, size] = axis.keys();
-		for (size_t i = 0; i < size; ++i)
-		{
-			axises_.emplace_back(axises[i], idx);
-		}
+		axises_.emplace_back(axis.keys(), std::move(callback));
 	}
 }

@@ -89,18 +89,28 @@ namespace game
 
 	void application::process_input()
 	{
+		std::vector<SDL_Keycode> key_events[2];
+		
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
 		{
-			if (event.type == SDL_QUIT || event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
+			switch (event.type)
 			{
+			case SDL_QUIT:
 				shutdown();
 				return;
+
+			case SDL_KEYDOWN: case SDL_KEYUP:
+				key_events[event.key.state].push_back(event.key.keysym.sym);
+				break;
 			}
 		}
 
 		const auto keyboard = SDL_GetKeyboardState(nullptr);
-		if (keyboard[SDL_SCANCODE_ESCAPE]) shutdown();
+		for (auto comp : input_comps_)
+		{
+			comp.get().process_input(key_events, keyboard);
+		}
 	}
 
 	void application::update_game()

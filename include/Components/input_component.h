@@ -1,7 +1,9 @@
 #pragma once
 #include "component.h"
-#include <map>
 #include <functional>
+#include <unordered_set>
+
+struct SDL_KeyboardEvent;
 
 namespace game
 {
@@ -10,7 +12,7 @@ namespace game
 
 	struct input_action
 	{
-		[[nodiscard]] virtual std::pair<const key_t*, size_t> keys() const noexcept = 0;
+		[[nodiscard]] virtual std::unordered_set<key_t> keys() const noexcept = 0;
 	};
 
 	struct axis_t
@@ -21,7 +23,7 @@ namespace game
 	
 	struct input_axis
 	{
-		[[nodiscard]] virtual std::pair<const axis_t*, size_t> keys() const noexcept = 0;
+		[[nodiscard]] virtual std::vector<axis_t> keys() const noexcept = 0;
 	};
 
 	class input_component : public component
@@ -29,6 +31,8 @@ namespace game
 	public:
 		explicit input_component(class actor& owner, int update_order = 100, int input_receive_order = 100);
 		~input_component();
+
+		void process_input(const std::vector<int> (&events)[2], const uint8_t* keyboard) const;
 		
 		void bind_action(const input_action& action, key_event event, std::function<void()>&& callback);
 		void bind_axis(const input_axis& axis, std::function<void(float)>&& callback);
@@ -36,13 +40,8 @@ namespace game
 		[[nodiscard]] int get_receive_order() const noexcept { return receive_order_; }
 		
 	private:
-		using fn_idx_t = size_t;
-		
-		std::multimap<key_t, fn_idx_t> actions_[2];
-		std::vector<std::function<void()>> action_fns_;
-		
-		std::vector<std::pair<axis_t, fn_idx_t>> axises_;
-		std::vector<std::function<void(float)>> axis_fns_;
+		std::vector<std::pair<std::unordered_set<key_t>, std::function<void()>>> actions_[2];
+		std::vector<std::pair<std::vector<axis_t>, std::function<void(float)>>> axises_;
 
 		int receive_order_;
 	};
