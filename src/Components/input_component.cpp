@@ -2,6 +2,11 @@
 
 namespace game
 {
+	input_component::input_component(actor& owner, int update_order)
+		:component{owner, update_order}
+	{
+	}
+
 	void input_component::bind_action(const input_action& action, key_event event, std::function<void()>&& callback)
 	{
 		const auto idx = action_fns_.size();
