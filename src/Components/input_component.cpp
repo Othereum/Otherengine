@@ -1,10 +1,17 @@
 #include "components/input_component.h"
+#include "application.h"
 
 namespace game
 {
 	input_component::input_component(actor& owner, int update_order, int input_receive_order)
 		:component{owner, update_order}, receive_order_{input_receive_order}
 	{
+		get_app().register_input_component(*this);
+	}
+
+	input_component::~input_component()
+	{
+		get_app().unregister_input_component(*this);
 	}
 
 	void input_component::bind_action(const input_action& action, key_event event, std::function<void()>&& callback)
