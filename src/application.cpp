@@ -19,18 +19,10 @@ namespace game
 		return window;
 	}
 
-	static uint16_t get_refresh_rate(SDL_Window& window)
-	{
-		SDL_DisplayMode mode;
-		if (SDL_GetWindowDisplayMode(&window, &mode) != 0) throw std::runtime_error{SDL_GetError()};
-		return mode.refresh_rate;
-	}
-
 	application::application():
 		window_{create_window()},
 		renderer_{*window_},
-		world_{std::make_unique<world>(*this)},
-		refresh_rate_{get_refresh_rate(*window_)}
+		world_{std::make_unique<world>(*this)}
 	{
 		load_data();
 	}

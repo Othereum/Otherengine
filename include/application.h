@@ -54,7 +54,6 @@ namespace game
 		std::unique_ptr<world> world_;
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
-		uint16_t refresh_rate_;
 		bool is_running_ = true;
 	};
 }
