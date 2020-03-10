@@ -2,8 +2,8 @@
 
 namespace game
 {
-	input_component::input_component(actor& owner, int update_order)
-		:component{owner, update_order}
+	input_component::input_component(actor& owner, int update_order, int input_receive_order)
+		:component{owner, update_order}, receive_order_{input_receive_order}
 	{
 	}
 

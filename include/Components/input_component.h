@@ -27,10 +27,12 @@ namespace game
 	class input_component : public component
 	{
 	public:
-		explicit input_component(class actor& owner, int update_order = 1);
+		explicit input_component(class actor& owner, int update_order = 100, int input_receive_order = 100);
 		
 		void bind_action(const input_action& action, key_event event, std::function<void()>&& callback);
 		void bind_axis(const input_axis& axis, std::function<void(float)>&& callback);
+
+		[[nodiscard]] int get_receive_order() const noexcept { return receive_order_; }
 		
 	private:
 		using fn_idx_t = size_t;
@@ -40,5 +42,7 @@ namespace game
 		
 		std::vector<std::pair<axis_t, fn_idx_t>> axises_;
 		std::vector<std::function<void(float)>> axis_fns_;
+
+		int receive_order_;
 	};
 }
