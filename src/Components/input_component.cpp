@@ -1,4 +1,5 @@
 #include "components/input_component.h"
+#include <SDL_keyboard.h>
 #include "application.h"
 
 namespace game
@@ -30,7 +31,7 @@ namespace game
 			auto val = 0.f;
 			
 			for (auto& key : axis.first)
-				if (keyboard[key.key])
+				if (keyboard[SDL_GetScancodeFromKey(key.key)])
 					val += key.scale;
 			
 			axis.second(val);
