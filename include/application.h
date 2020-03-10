@@ -36,7 +36,7 @@ namespace game
 		void register_input_component(const input_component& comp);
 		void unregister_input_component(const input_component& comp);
 
-		[[nodiscard]] renderer& get_renderer() { return renderer_; }
+		[[nodiscard]] renderer& get_renderer() noexcept { return renderer_; }
 
 	private:
 		void load_data();
@@ -50,8 +50,8 @@ namespace game
 		window_ptr window_;
 		renderer renderer_;
 
-		std::unique_ptr<world> world_;
 		std::vector<std::reference_wrapper<const input_component>> input_comps_;
+		std::unique_ptr<world> world_;
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 		uint16_t refresh_rate_;
