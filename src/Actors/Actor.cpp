@@ -1,6 +1,7 @@
 #include "actors/actor.h"
 #include "components/component.h"
 #include "math_utils.h"
+#include "world.h"
 
 namespace game
 {
@@ -14,6 +15,11 @@ namespace game
 	fvector2 actor::get_forward() const noexcept
 	{
 		return {math::cos(rot_), math::sin(rot_)};
+	}
+
+	application& actor::get_app() const noexcept
+	{
+		return get_world().get_app();
 	}
 
 	void actor::update(const float delta_seconds)

@@ -8,6 +8,9 @@
 namespace game
 {
 	class component;
+	class world;
+	class application;
+	
 	class actor
 	{
 	public:
@@ -16,7 +19,7 @@ namespace game
 			active, paused, dead
 		};
 
-		explicit actor(class world& outer);
+		explicit actor(world& outer);
 		virtual ~actor();
 
 		void set_pos(const fvector2& new_pos) noexcept { pos_ = new_pos; }
@@ -32,6 +35,7 @@ namespace game
 		[[nodiscard]] float get_scale() const noexcept { return scale_; }
 
 		[[nodiscard]] world& get_world() const noexcept { return world_; }
+		[[nodiscard]] application& get_app() const noexcept;
 
 		void update(float delta_seconds);
 		void destroy();

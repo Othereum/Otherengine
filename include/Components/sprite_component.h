@@ -9,6 +9,8 @@ struct SDL_Texture;
 
 namespace game
 {
+	class renderer;
+	
 	class sprite_component : public component
 	{
 	public:
@@ -20,14 +22,15 @@ namespace game
 		sprite_component& operator=(const sprite_component&) = delete;
 		sprite_component& operator=(sprite_component&&) = delete;
 
-		virtual void draw(class renderer& renderer) const;
+		virtual void draw(renderer& renderer) const;
 		
 		virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 		void set_texture(const std::shared_ptr<SDL_Texture>& texture);
 		[[nodiscard]] SDL_Texture& get_texture() const { return *texture_; }
 
-		[[nodiscard]] const vector2<unsigned short>& get_tex_size() const { return tex_size_; }
-		[[nodiscard]] int get_draw_order() const { return draw_order_; }
+		[[nodiscard]] const vector2<unsigned short>& get_tex_size() const noexcept { return tex_size_; }
+		[[nodiscard]] int get_draw_order() const noexcept { return draw_order_; }
+		[[nodiscard]] renderer& get_renderer() const noexcept;
 
 	private:
 		vector2<uint16_t> tex_size_;

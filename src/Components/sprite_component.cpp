@@ -3,19 +3,18 @@
 #include "actors/actor.h"
 #include "application.h"
 #include "renderer.h"
-#include "world.h"
 
 namespace game
 {
 	sprite_component::sprite_component(actor& owner, const int draw_order, const int update_order)
 		:component{owner, update_order}, draw_order_{draw_order}
 	{
-		owner.get_world().get_app().get_renderer().add_sprite(*this);
+		get_renderer().add_sprite(*this);
 	}
 
 	sprite_component::~sprite_component()
 	{
-		get_owner().get_world().get_app().get_renderer().remove_sprite(*this);
+		get_renderer().remove_sprite(*this);
 	}
 
 	void sprite_component::draw(renderer& renderer) const
@@ -39,5 +38,10 @@ namespace game
 	{
 		auto temp = texture;
 		set_texture(std::move(temp));
+	}
+
+	renderer& sprite_component::get_renderer() const noexcept
+	{
+		return get_app().get_renderer();
 	}
 }
