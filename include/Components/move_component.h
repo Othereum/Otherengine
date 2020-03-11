@@ -12,10 +12,10 @@ namespace game
 		void update(float delta_seconds) override;
 		
 		void add_movement_input(fvector2 v);
-		void add_rotation_input(float r);
+		void add_rotation_input(degrees r);
 
 	private:
 		fvector2 movement_;
-		float rotation_ = 0;
+		degrees rotation_;
 	};
 }
