@@ -1,5 +1,6 @@
 #pragma once
 #include <ratio>
+#include <random>
 
 namespace game::math
 {
@@ -22,4 +23,22 @@ namespace game::math
 
 	template <class T, class U = float>
 	bool is_nearly_zero(T a, U tolerance = small_number) noexcept { return is_nearly_equal(a, 0, tolerance); }
+
+	
+	inline thread_local std::default_random_engine random_engine{std::random_device{}()};
+
+	// [min, max] for int
+	// [min, max) for float
+	template <class T = float>
+	[[nodiscard]] auto rand(T min = 0, T max = std::is_integral_v<T> ? std::numeric_limits<T>::max() : 1) noexcept
+	{
+		if constexpr (std::is_integral_v<T>)
+		{
+			return std::uniform_int_distribution<T>{min, max}(random_engine);
+		}
+		else
+		{
+			return std::uniform_real_distribution<T>{min, max}(random_engine);
+		}
+	}
 }
