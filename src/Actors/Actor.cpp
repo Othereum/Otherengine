@@ -14,7 +14,7 @@ namespace game
 
 	fvector2 actor::get_forward() const noexcept
 	{
-		return {math::cos(rot_), math::sin(rot_)};
+		return math::r2v(rot_);
 	}
 
 	application& actor::get_app() const noexcept

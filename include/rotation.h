@@ -1,21 +1,16 @@
 #pragma once
-#include <ratio>
+#include "math_core.h"
 
 namespace game
 {
-	namespace math
-	{
-		using pi_ratio = std::ratio<5419351, 1725033>;
-	}
-	
 	template <class R>
 	class rotation
 	{
 	public:
-		static constexpr auto ratio = static_cast<float>(R::num) / R::den;
+		static constexpr auto ratio = float(R::num) / R::den;
 
 		constexpr rotation() noexcept = default;
-		constexpr explicit rotation(const float r) noexcept :r_{r} {}
+		constexpr explicit rotation(float r) noexcept :r_{r} {}
 		
 		template <class S>
 		constexpr rotation(const rotation<S>& r) noexcept { *this = r; }
@@ -42,15 +37,15 @@ namespace game
 	using radians = rotation<std::ratio<math::pi_ratio::num, math::pi_ratio::den * 180>>;
 	using degrees = rotation<std::ratio<1>>;
 
-	constexpr radians operator""_rad(const unsigned long long f) noexcept { return radians{static_cast<float>(f)}; }
-	constexpr radians operator""_rad(const long double f) noexcept { return radians{static_cast<float>(f)}; }
+	constexpr radians operator""_rad(unsigned long long f) noexcept { return radians{float(f)}; }
+	constexpr radians operator""_rad(long double f) noexcept { return radians{float(f)}; }
 
-	constexpr degrees operator""_deg(const unsigned long long f) noexcept { return degrees{static_cast<float>(f)}; }
-	constexpr degrees operator""_deg(const long double f) noexcept { return degrees{static_cast<float>(f)}; }
+	constexpr degrees operator""_deg(unsigned long long f) noexcept { return degrees{float(f)}; }
+	constexpr degrees operator""_deg(long double f) noexcept { return degrees{float(f)}; }
 }
 
 template <class R>
-game::rotation<R> operator*(const float f, const game::rotation<R>& r) noexcept
+game::rotation<R> operator*(float f, const game::rotation<R>& r) noexcept
 {
 	return r * f;
 }
