@@ -4,7 +4,6 @@
 #include <SDL_image.h>
 #include "actors/actor.h"
 #include "world.h"
-#include "components/tilemap_component.h"
 #include "components/input_component.h"
 
 namespace game
@@ -63,20 +62,6 @@ namespace game
 
 	void application::load_data()
 	{
-		auto& temp = world_->spawn_actor<actor>();
-		temp.set_pos({scrsz.x/2.f, scrsz.y/2.f});
-
-		auto& bg1 = temp.add_component<tilemap_component>(101);
-		bg1.set_texture(renderer_.get_texture("Assets/Tiles.png"));
-		bg1.load_tile_from_csv("Assets/MapLayer1.csv");
-
-		auto& bg2 = temp.add_component<tilemap_component>();
-		bg2.set_texture(renderer_.get_texture("Assets/Tiles.png"));
-		bg2.load_tile_from_csv("Assets/MapLayer2.csv");
-
-		auto& bg3 = temp.add_component<tilemap_component>(9);
-		bg3.set_texture(renderer_.get_texture("Assets/Tiles.png"));
-		bg3.load_tile_from_csv("Assets/MapLayer3.csv");
 	}
 
 	void application::process_input()
