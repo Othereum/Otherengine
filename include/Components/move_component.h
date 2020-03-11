@@ -11,11 +11,14 @@ namespace game
 
 		void update(float delta_seconds) override;
 		
-		void add_movement_input(fvector2 v);
-		void add_rotation_input(degrees r);
+		void set_velocity(fvector2 newvel) noexcept { vel_ = newvel; }
+		void set_angular_velocity(degrees newvel) noexcept { rvel_ = newvel; }
+
+		[[nodiscard]] fvector2 get_velocity() const noexcept { return vel_; }
+		[[nodiscard]] degrees get_angular_velocity() const noexcept { return rvel_; }
 
 	private:
-		fvector2 movement_;
-		degrees rotation_;
+		fvector2 vel_;
+		degrees rvel_;
 	};
 }
