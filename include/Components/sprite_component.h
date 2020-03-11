@@ -24,8 +24,9 @@ namespace game
 
 		virtual void draw(renderer& renderer) const;
 		
-		virtual void set_texture(std::shared_ptr<SDL_Texture>&& texture);
+		void set_texture(std::shared_ptr<SDL_Texture>&& texture);
 		void set_texture(const std::shared_ptr<SDL_Texture>& texture);
+		void set_texture(const char* filename);
 		[[nodiscard]] SDL_Texture& get_texture() const { return *texture_; }
 
 		[[nodiscard]] const vector2<unsigned short>& get_tex_size() const noexcept { return tex_size_; }

@@ -40,6 +40,11 @@ namespace game
 		set_texture(std::move(temp));
 	}
 
+	void sprite_component::set_texture(const char* filename)
+	{
+		set_texture(get_renderer().get_texture(filename));
+	}
+
 	renderer& sprite_component::get_renderer() const noexcept
 	{
 		return get_app().get_renderer();
