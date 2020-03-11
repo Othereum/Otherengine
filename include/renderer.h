@@ -28,10 +28,10 @@ namespace game
 		void add_sprite(const sprite_component& sprite);
 		void remove_sprite(const sprite_component& sprite);
 		
-		std::shared_ptr<SDL_Texture> get_texture(const char* filename);
+		[[nodiscard]] std::shared_ptr<SDL_Texture> get_texture(const char* filename);
 		
 	private:
-		std::shared_ptr<SDL_Texture> load_texture(const char* filename);
+		[[nodiscard]] std::shared_ptr<SDL_Texture> load_texture(const char* filename);
 
 		std::vector<std::reference_wrapper<const sprite_component>> sprites_;
 		std::unordered_map<std::string, std::weak_ptr<SDL_Texture>> textures_;
