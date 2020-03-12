@@ -22,11 +22,11 @@ namespace game
 		explicit actor(world& outer);
 		virtual ~actor();
 
-		void set_pos(const fvector2& new_pos) noexcept { pos_ = new_pos; }
-		[[nodiscard]] const fvector2& get_pos() const noexcept { return pos_; }
+		void set_pos(fvector2 new_pos) noexcept { pos_ = new_pos; }
+		[[nodiscard]] fvector2 get_pos() const noexcept { return pos_; }
 
-		void set_rot(const degrees& new_rot) noexcept { rot_ = new_rot; }
-		[[nodiscard]] const degrees& get_rot() const noexcept { return rot_; }
+		void set_rot(degrees new_rot) noexcept { rot_ = new_rot; }
+		[[nodiscard]] degrees get_rot() const noexcept { return rot_; }
 		[[nodiscard]] fvector2 get_forward() const noexcept;
 
 		[[nodiscard]] state get_state() const noexcept { return state_; }
