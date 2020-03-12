@@ -1,5 +1,6 @@
 #pragma once
 #include "component.h"
+#include "rotation.h"
 #include "vector.h"
 
 namespace game
