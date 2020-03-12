@@ -21,4 +21,14 @@ namespace game::math
 	{
 		return {cos(r), sin(r)};
 	}
+
+	inline radians rand_ang() noexcept
+	{
+		return radians{rand(-pi, pi)};
+	}
+
+	inline fvector2 rand_unit_vec() noexcept
+	{
+		return r2v(rand_ang());
+	}
 }
