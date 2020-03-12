@@ -5,6 +5,7 @@ namespace game
 {
 	class asteroid : public actor
 	{
+	public:
 		explicit asteroid(world& outer);
 	};
 }
