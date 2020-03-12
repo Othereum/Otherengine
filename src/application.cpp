@@ -1,10 +1,15 @@
-#include "application.h"
+﻿#include "application.h"
+
 #include <stdexcept>
 #include <SDL.h>
 #include <SDL_image.h>
-#include "actors/actor.h"
+
 #include "world.h"
+#include "actors/actor.h"
 #include "components/input_component.h"
+
+#include "actors/asteroid.h"
+#include "math_utils.h"
 
 namespace game
 {
@@ -63,6 +68,12 @@ namespace game
 
 	void application::load_data()
 	{
+		for (auto i = 0; i < 20; ++i)
+		{
+			auto& ast = world_->spawn_actor<asteroid>();
+			ast.set_pos(math::rand_vec({0, 0}, fvector2{scrsz}));
+			ast.set_rot(math::rand_ang());
+		}
 	}
 
 	void application::process_input()
