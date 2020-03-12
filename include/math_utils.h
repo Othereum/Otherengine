@@ -31,4 +31,9 @@ namespace game::math
 	{
 		return r2v(rand_ang());
 	}
+
+	inline fvector2 rand_vec(fvector2 min, fvector2 max) noexcept
+	{
+		return {rand(min.x, max.x), rand(min.y, max.y)};
+	}
 }
