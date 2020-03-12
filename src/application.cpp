@@ -1,4 +1,4 @@
-﻿#include "application.h"
+#include "application.h"
 #include <stdexcept>
 #include <SDL.h>
 #include <SDL_image.h>
@@ -21,7 +21,8 @@ namespace game
 	application::application():
 		window_{create_window()},
 		renderer_{*window_},
-		world_{std::make_unique<world>(*this)}
+		world_{std::make_unique<world>(*this)},
+		time_{std::chrono::steady_clock::now()}
 	{
 		load_data();
 	}
