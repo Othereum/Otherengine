@@ -28,6 +28,29 @@ namespace game
 		constexpr rotation operator*(const float f) const noexcept { return rotation{r_ * f}; }
 		constexpr rotation operator/(const float f) const noexcept { return rotation{r_ / f}; }
 
+		constexpr rotation operator-() const noexcept { return rotation{-r_}; }
+
+		template <class S>
+		constexpr bool operator==(const rotation<S>& r) const noexcept { return *this == rotation{r}; }
+		constexpr bool operator==(const rotation& r) const noexcept { return r_ == r.r_; }
+
+		template <class S>
+		constexpr bool operator!=(const rotation<S>& r) const noexcept { return !(*this == r); }
+
+		template <class S>
+		constexpr bool operator<(const rotation<S>& r) const noexcept { return *this < rotation{r}; }
+		constexpr bool operator<(const rotation& r) const noexcept { return r_ < r.r_; }
+
+		template <class S>
+		constexpr bool operator<=(const rotation<S>& r) const noexcept { return !(*this > r); }
+
+		template <class S>
+		constexpr bool operator>(const rotation<S>& r) const noexcept { return *this > rotation{r}; }
+		constexpr bool operator>(const rotation& r) const noexcept { return r_ > r.r_; }
+
+		template <class S>
+		constexpr bool operator>=(const rotation<S>& r) const noexcept { return !(*this < r); }
+
 		[[nodiscard]] constexpr float get() const noexcept { return r_; }
 
 	private:
