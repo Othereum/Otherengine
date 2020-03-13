@@ -10,15 +10,12 @@ namespace game
 	void pawn_move_comp::update(float delta_seconds)
 	{
 		const auto lensqr = input_.lensqr();
-		if (lensqr > max_speed_*max_speed_)
-		{
-			input_ *= max_speed_ / sqrtf(lensqr);
-		}
+		if (lensqr > 1) input_ /= sqrtf(lensqr);
 
-		rot_input_ = math::clamp(rot_input_, -max_rot_speed_, max_rot_speed_);
+		rot_input_ = math::clamp(rot_input_, -1, 1);
 
-		set_velocity(input_);
-		set_angular_velocity(rot_input_);
+		set_velocity(input_ * max_speed_);
+		set_angular_velocity(rot_input_ * max_rot_speed_);
 
 		input_ = {};
 		rot_input_ = {};
