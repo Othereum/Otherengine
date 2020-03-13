@@ -9,6 +9,7 @@
 #include "components/input_component.h"
 
 #include "actors/asteroid.h"
+#include "actors/ship.h"
 #include "math_utils.h"
 
 namespace game
@@ -74,6 +75,9 @@ namespace game
 			ast.set_pos(math::rand_vec({0, 0}, fvector2{scrsz}));
 			ast.set_rot(math::rand_ang());
 		}
+
+		auto& sh = world_->spawn_actor<ship>();
+		sh.set_pos(fvector2{scrsz / 2});
 	}
 
 	void application::process_input()
