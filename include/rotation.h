@@ -65,10 +65,10 @@ namespace game
 
 	constexpr degrees operator""_deg(unsigned long long f) noexcept { return degrees{float(f)}; }
 	constexpr degrees operator""_deg(long double f) noexcept { return degrees{float(f)}; }
-}
-
-template <class R>
-game::rotation<R> operator*(float f, const game::rotation<R>& r) noexcept
-{
-	return r * f;
+	
+	template <class R>
+	rotation<R> operator*(float f, const rotation<R>& r) noexcept
+	{
+		return r * f;
+	}
 }
