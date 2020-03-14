@@ -3,7 +3,6 @@
 namespace game
 {
 	class actor;
-	class world;
 	class application;
 	
 	class component
@@ -21,7 +20,6 @@ namespace game
 		[[nodiscard]] int get_update_order() const noexcept { return update_order_; }
 		
 		[[nodiscard]] actor& get_owner() const noexcept { return owner_; }
-		[[nodiscard]] world& get_world() const noexcept;
 		[[nodiscard]] application& get_app() const noexcept;
 
 	private:

@@ -1,11 +1,18 @@
 #include "components/circle_component.h"
 #include "actors/actor.h"
+#include "application.h"
 
 namespace game
 {
 	circle_component::circle_component(actor& owner, int update_order)
 		:component{owner, update_order}
 	{
+		get_app().register_circle_component(*this);
+	}
+
+	circle_component::~circle_component()
+	{
+		get_app().unregister_circle_component(*this);
 	}
 
 	void circle_component::test_overlap(circle_component& other) const

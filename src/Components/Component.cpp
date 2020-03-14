@@ -8,11 +8,6 @@ namespace game
 	{
 	}
 
-	world& component::get_world() const noexcept
-	{
-		return get_owner().get_world();
-	}
-
 	application& component::get_app() const noexcept
 	{
 		return get_owner().get_app();

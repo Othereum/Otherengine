@@ -4,9 +4,10 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include "world.h"
 #include "actors/actor.h"
 #include "components/input_component.h"
+#include "components/sprite_component.h"
+#include "components/circle_component.h"
 
 #include "actors/asteroid.h"
 #include "actors/ship.h"
@@ -24,13 +25,32 @@ namespace game
 		return window;
 	}
 
-	application::application():
-		window_{create_window()},
-		renderer_{*window_},
-		world_{std::make_unique<world>(*this)},
-		time_{std::chrono::steady_clock::now()}
+	static renderer_ptr create_renderer(SDL_Window& window)
 	{
-		load_data();
+		renderer_ptr renderer{
+			SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
+			SDL_DestroyRenderer
+		};
+		if (!renderer) throw std::runtime_error{SDL_GetError()};
+		return renderer;
+	}
+	
+	application::application() :
+		window_{create_window()},
+		renderer_{create_renderer(*window_)},
+		time_{std::chrono::steady_clock::now()},
+		is_updating_actors_{false},
+		is_running_{true}
+	{
+		for (auto i = 0; i < 20; ++i)
+		{
+			auto& ast = spawn_actor<asteroid>();
+			ast.set_pos(math::rand_vec({0, 0}, fvector2{scrsz}));
+			ast.set_rot(math::rand_ang());
+		}
+
+		auto& sh = spawn_actor<ship>();
+		sh.set_pos(fvector2{scrsz / 2});
 	}
 
 	application::~application() = default;
@@ -67,17 +87,55 @@ namespace game
 		if (found != input_comps_.crend()) input_comps_.erase(found.base() - 1);
 	}
 
-	void application::load_data()
+	void application::register_circle_component(circle_component& comp)
 	{
-		for (auto i = 0; i < 20; ++i)
-		{
-			auto& ast = world_->spawn_actor<asteroid>();
-			ast.set_pos(math::rand_vec({0, 0}, fvector2{scrsz}));
-			ast.set_rot(math::rand_ang());
-		}
+		circle_comps_.emplace_back(comp);
+	}
 
-		auto& sh = world_->spawn_actor<ship>();
-		sh.set_pos(fvector2{scrsz / 2});
+	void application::unregister_circle_component(circle_component& comp)
+	{
+		auto pr = [&](const circle_component& v) { return &v == &comp; };
+		const auto found = std::find_if(circle_comps_.crbegin(), circle_comps_.crend(), pr);
+		if (found != circle_comps_.crend()) circle_comps_.erase(found.base() - 1);
+	}
+
+	void application::register_sprite(const sprite_component& sprite)
+	{
+		auto cmp = [](const sprite_component& a, const sprite_component& b)
+		{
+			return a.get_draw_order() <= b.get_draw_order();
+		};
+		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
+		sprites_.emplace(pos, sprite);
+	}
+
+	void application::unregister_sprite(const sprite_component& sprite)
+	{
+		auto pr = [&](const sprite_component& v) { return &v == &sprite; };
+		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
+		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
+	}
+
+	void application::draw(SDL_Texture& texture, const frect& dest, degrees angle) const
+	{
+		const SDL_Rect r = dest;
+		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.get(), nullptr, SDL_FLIP_NONE);
+	}
+
+	void application::draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, degrees angle) const
+	{
+		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.get(), nullptr, SDL_FLIP_NONE);
+	}
+
+	std::shared_ptr<SDL_Texture> application::get_texture(const char* filename)
+	{
+		const auto found = textures_.find(filename);
+		if (found != textures_.end()) return found->second.lock();
+
+		const auto loaded = load_texture(filename);
+		textures_.emplace(filename, loaded);
+
+		return loaded;
 	}
 
 	void application::process_input()
@@ -112,12 +170,45 @@ namespace game
 	void application::update_game()
 	{
 		const auto delta_seconds = update_time();
-		world_->update(delta_seconds);
+
+		is_updating_actors_ = true;
+		for (const auto& actor : actors_)
+		{
+			actor->update(delta_seconds);
+		}
+		is_updating_actors_ = false;
+
+		for (auto&& pending : pending_actors_)
+		{
+			actors_.push_back(std::move(pending));
+		}
+		pending_actors_.clear();
+
+		for (auto it = actors_.rbegin(); it != actors_.rend();)
+		{
+			const auto& actor = **it;
+			if (actor.get_state() == actor::state::dead)
+			{
+				const auto next = actors_.erase(it.base() - 1);
+				it = std::make_reverse_iterator(next);
+			}
+			else
+			{
+				++it;
+			}
+		}
 	}
 
 	void application::generate_output()
 	{
-		renderer_.draw();
+		SDL_RenderClear(renderer_.get());
+
+		for (auto& sprite : sprites_)
+		{
+			sprite.get().draw();
+		}
+
+		SDL_RenderPresent(renderer_.get());
 	}
 
 	float application::update_time()
@@ -127,6 +218,27 @@ namespace game
 		const auto delta_seconds = duration<float>{now - time_}.count();
 		time_ = now;
 		return delta_seconds;
+	}
+
+	void application::register_actor(std::unique_ptr<actor>&& actor)
+	{
+		(is_updating_actors_ ? pending_actors_ : actors_).push_back(std::move(actor));
+	}
+
+	std::shared_ptr<SDL_Texture> application::load_texture(const char* filename)
+	{
+		const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface{IMG_Load(filename), SDL_FreeSurface};
+		if (!surface) throw std::runtime_error{SDL_GetError()};
+
+		auto deleter = [this, filename](SDL_Texture* const texture)
+		{
+			textures_.erase(filename);
+			SDL_DestroyTexture(texture);
+		};
+		std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), std::move(deleter)};
+		if (!texture) throw std::runtime_error{SDL_GetError()};
+
+		return texture;
 	}
 
 	sdl_raii::sdl_raii()

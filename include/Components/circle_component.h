@@ -8,6 +8,7 @@ namespace game
 	{
 	public:
 		explicit circle_component(actor& owner, int update_order = 100);
+		~circle_component();
 
 		void test_overlap(circle_component& other) const;
 

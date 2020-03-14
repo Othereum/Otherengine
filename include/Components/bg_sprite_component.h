@@ -10,7 +10,7 @@ namespace game
 		explicit bg_sprite_component(actor& owner, int draw_order = 10, int update_order = 100);
 		
 		void update(float delta_seconds) override;
-		void draw(renderer& renderer) const override;
+		void draw() const override;
 
 		void set_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);
 		void add_bg_textures(std::vector<std::shared_ptr<SDL_Texture>>&& textures);

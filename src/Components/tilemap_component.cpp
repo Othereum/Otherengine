@@ -2,7 +2,7 @@
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "renderer.h"
+#include "application.h"
 #include "actors/actor.h"
 
 namespace game
@@ -28,7 +28,7 @@ namespace game
 		}
 	}
 
-	void tilemap_component::draw(renderer& renderer) const
+	void tilemap_component::draw() const
 	{
 		for (size_t i = 0; i < tile_.size(); ++i)
 		{
@@ -43,7 +43,7 @@ namespace game
 				const SDL_Rect src{idx%w * sz, idx/w * sz, sz, sz};
 				const SDL_Rect dest{x*sz, y*sz, sz, sz};
 				
-				renderer.draw(get_texture(), src, dest);
+				get_app().draw(get_texture(), src, dest);
 			}
 		}
 	}

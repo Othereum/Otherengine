@@ -24,11 +24,11 @@ namespace game
 		}
 	}
 
-	void bg_sprite_component::draw(renderer& renderer) const
+	void bg_sprite_component::draw() const
 	{
 		for (const auto& bg : textures_)
 		{
-			renderer.draw(*bg.texture, {get_owner().get_pos() + bg.offset, fvector2{scrsz}}, 0_deg);
+			get_app().draw(*bg.texture, {get_owner().get_pos() + bg.offset, fvector2{scrsz}}, 0_deg);
 		}
 	}
 

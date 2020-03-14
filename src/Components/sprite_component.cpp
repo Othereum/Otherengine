@@ -2,27 +2,26 @@
 #include <SDL.h>
 #include "actors/actor.h"
 #include "application.h"
-#include "renderer.h"
 
 namespace game
 {
 	sprite_component::sprite_component(actor& owner, const int draw_order, const int update_order)
 		:component{owner, update_order}, draw_order_{draw_order}
 	{
-		get_renderer().add_sprite(*this);
+		get_app().register_sprite(*this);
 	}
 
 	sprite_component::~sprite_component()
 	{
-		get_renderer().remove_sprite(*this);
+		get_app().unregister_sprite(*this);
 	}
 
-	void sprite_component::draw(renderer& renderer) const
+	void sprite_component::draw() const
 	{
 		if (!texture_) return;
 		
 		auto& owner = get_owner();
-		renderer.draw(*texture_, {owner.get_pos(), tex_size_ * owner.get_scale()}, owner.get_rot());
+		get_app().draw(*texture_, {owner.get_pos(), tex_size_ * owner.get_scale()}, owner.get_rot());
 	}
 
 	void sprite_component::set_texture(std::shared_ptr<SDL_Texture>&& texture)
@@ -42,11 +41,6 @@ namespace game
 
 	void sprite_component::set_texture(const char* filename)
 	{
-		set_texture(get_renderer().get_texture(filename));
-	}
-
-	renderer& sprite_component::get_renderer() const noexcept
-	{
-		return get_app().get_renderer();
+		set_texture(get_app().get_texture(filename));
 	}
 }

@@ -5,8 +5,8 @@
 
 namespace game
 {
-	asteroid::asteroid(world& outer)
-		:actor{outer}
+	asteroid::asteroid(application& app)
+		:actor{app}
 	{
 		auto& sprite = add_component<sprite_component>();
 		sprite.set_texture("Assets/Asteroid.png");

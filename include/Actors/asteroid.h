@@ -6,6 +6,6 @@ namespace game
 	class asteroid : public actor
 	{
 	public:
-		explicit asteroid(world& outer);
+		explicit asteroid(application& app);
 	};
 }

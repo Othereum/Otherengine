@@ -5,8 +5,8 @@
 
 namespace game
 {
-	ship::ship(world& outer)
-		:actor{outer}
+	ship::ship(application& app)
+		:actor{app}
 	{
 		auto& sprite = add_component<sprite_component>();
 		sprite.set_texture("Assets/Ship.png");
