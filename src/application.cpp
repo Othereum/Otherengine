@@ -87,16 +87,16 @@ namespace game
 		if (found != input_comps_.crend()) input_comps_.erase(found.base() - 1);
 	}
 
-	void application::register_circle_component(circle_component& comp)
+	void application::register_collision(circle_component& comp)
 	{
-		circle_comps_.emplace_back(comp);
+		collisions_.emplace_back(comp);
 	}
 
-	void application::unregister_circle_component(circle_component& comp)
+	void application::unregister_collision(circle_component& comp)
 	{
 		auto pr = [&](const circle_component& v) { return &v == &comp; };
-		const auto found = std::find_if(circle_comps_.crbegin(), circle_comps_.crend(), pr);
-		if (found != circle_comps_.crend()) circle_comps_.erase(found.base() - 1);
+		const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
+		if (found != collisions_.crend()) collisions_.erase(found.base() - 1);
 	}
 
 	void application::register_sprite(const sprite_component& sprite)
@@ -170,14 +170,30 @@ namespace game
 	void application::update_game()
 	{
 		const auto delta_seconds = update_time();
+		update_actors(delta_seconds);
+		post_update_actors();
+	}
 
-		is_updating_actors_ = true;
+	void application::update_actors(float delta_seconds)
+	{
+		actor_update_lock lock{*this};
+		
 		for (const auto& actor : actors_)
-		{
 			actor->update(delta_seconds);
-		}
-		is_updating_actors_ = false;
+	}
 
+	void application::update_collisions(float delta_seconds)
+	{
+		actor_update_lock lock{*this};
+		
+		for (size_t i = 0; i < collisions_.size(); ++i)
+			for (auto j = i+1; j < collisions_.size(); ++j)
+				collisions_[i].get().test_overlap(collisions_[j]);
+	}
+
+
+	void application::post_update_actors()
+	{
 		for (auto&& pending : pending_actors_)
 		{
 			actors_.push_back(std::move(pending));

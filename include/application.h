@@ -55,8 +55,8 @@ namespace game
 		void register_input_component(const input_component& comp);
 		void unregister_input_component(const input_component& comp);
 
-		void register_circle_component(circle_component& comp);
-		void unregister_circle_component(circle_component& comp);
+		void register_collision(circle_component& comp);
+		void unregister_collision(circle_component& comp);
 
 		void register_sprite(const sprite_component& sprite);
 		void unregister_sprite(const sprite_component& sprite);
@@ -71,12 +71,26 @@ namespace game
 	private:
 		void process_input();
 		void update_game();
+		void update_actors(float delta_seconds);
+		void update_collisions(float delta_seconds);
+		void post_update_actors();
 		float update_time();
 		void generate_output();
 		
 		void register_actor(std::unique_ptr<actor>&& actor);
 		
 		[[nodiscard]] std::shared_ptr<SDL_Texture> load_texture(const char* filename);
+
+
+		class actor_update_lock
+		{
+		public:
+			explicit actor_update_lock(application& a) noexcept :a_{a} { a.is_updating_actors_ = true; }
+			~actor_update_lock() noexcept { a_.is_updating_actors_ = false; }
+
+		private:
+			application& a_;
+		};
 
 		
 		window_ptr window_;
@@ -86,7 +100,7 @@ namespace game
 		
 		std::vector<std::reference_wrapper<const sprite_component>> sprites_;
 		std::vector<std::reference_wrapper<const input_component>> input_comps_;
-		std::vector<std::reference_wrapper<circle_component>> circle_comps_;
+		std::vector<std::reference_wrapper<circle_component>> collisions_;
 		
 		std::vector<std::unique_ptr<actor>> actors_;
 		std::vector<std::unique_ptr<actor>> pending_actors_;

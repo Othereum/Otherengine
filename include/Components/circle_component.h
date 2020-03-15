@@ -10,10 +10,8 @@ namespace game
 		explicit circle_component(actor& owner, int update_order = 100);
 		~circle_component();
 
-		void test_overlap(circle_component& other) const;
-
+		void test_overlap(circle_component& other);
 		void bind_on_overlap(std::function<void(circle_component&)>&& on_overlap) noexcept;
-		[[nodiscard]] bool is_bound_on_overlap() const noexcept { return !!on_overlap_; }
 
 		void set_radius(float r) noexcept { radius_ = r; }
 		[[nodiscard]] float get_radius() const noexcept { return radius_; }
