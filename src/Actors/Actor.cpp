@@ -11,6 +11,12 @@ namespace game
 
 	actor::~actor() = default;
 
+	void actor::begin_play() const
+	{
+		for (auto& c : comps_)
+			c->begin_play();
+	}
+
 	fvector2 actor::get_forward() const noexcept
 	{
 		return math::r2v(rot_);

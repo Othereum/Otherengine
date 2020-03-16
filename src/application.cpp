@@ -177,8 +177,10 @@ namespace game
 
 		
 		for (auto&& pending : pending_actors_)
+		{
+			pending->begin_play();
 			actors_.push_back(std::move(pending));
-		
+		}
 		pending_actors_.clear();
 
 		

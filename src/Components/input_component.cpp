@@ -7,12 +7,16 @@ namespace game
 	input_component::input_component(actor& owner, int update_order, int input_receive_order)
 		:component{owner, update_order}, receive_order_{input_receive_order}
 	{
-		get_app().register_input_component(*this);
 	}
 
 	input_component::~input_component()
 	{
 		get_app().unregister_input_component(*this);
+	}
+
+	void input_component::begin_play()
+	{
+		get_app().register_input_component(*this);
 	}
 
 	void input_component::process_input(const std::vector<int> (&events)[2], const uint8_t* keyboard) const

@@ -7,12 +7,16 @@ namespace game
 	circle_component::circle_component(actor& owner, int update_order)
 		:component{owner, update_order}
 	{
-		get_app().register_collision(*this);
 	}
 
 	circle_component::~circle_component()
 	{
 		get_app().unregister_collision(*this);
+	}
+
+	void circle_component::begin_play()
+	{
+		get_app().register_collision(*this);
 	}
 
 	void circle_component::test_overlap(circle_component& other)

@@ -32,6 +32,7 @@ namespace game
 		explicit input_component(class actor& owner, int update_order = 100, int input_receive_order = 100);
 		~input_component();
 
+		void begin_play() override;
 		void process_input(const std::vector<int> (&events)[2], const uint8_t* keyboard) const;
 		
 		void bind_action(const input_action& action, key_event event, std::function<void()>&& callback);

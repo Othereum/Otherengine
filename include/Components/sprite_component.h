@@ -17,11 +17,7 @@ namespace game
 		explicit sprite_component(actor& owner, int draw_order = 100, int update_order = 100);
 		~sprite_component();
 
-		sprite_component(const sprite_component&) = delete;
-		sprite_component(sprite_component&&) = delete;
-		sprite_component& operator=(const sprite_component&) = delete;
-		sprite_component& operator=(sprite_component&&) = delete;
-
+		void begin_play() override;
 		virtual void draw() const;
 		
 		void set_texture(std::shared_ptr<SDL_Texture>&& texture);

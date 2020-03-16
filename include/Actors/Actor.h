@@ -21,6 +21,20 @@ namespace game
 		explicit actor(application& app);
 		virtual ~actor();
 
+		void begin_play() const;
+		void update(float delta_seconds);
+		void destroy();
+
+		template <class T, class... Args>
+		T& add_component(Args&&... args)
+		{
+			static_assert(std::is_base_of_v<component, T>);
+			auto ptr = std::make_unique<T>(*this, std::forward<Args>(args)...);
+			auto& ref = *ptr;
+			register_component(std::move(ptr));
+			return ref;
+		}
+
 		void set_pos(fvector2 new_pos) noexcept { pos_ = new_pos; }
 		[[nodiscard]] fvector2 get_pos() const noexcept { return pos_; }
 
@@ -34,19 +48,6 @@ namespace game
 		[[nodiscard]] float get_scale() const noexcept { return scale_; }
 
 		[[nodiscard]] application& get_app() const noexcept { return app_; }
-
-		void update(float delta_seconds);
-		void destroy();
-
-		template <class T, class... Args>
-		T& add_component(Args&&... args)
-		{
-			static_assert(std::is_base_of_v<component, T>);
-			auto ptr = std::make_unique<T>(*this, std::forward<Args>(args)...);
-			auto& ref = *ptr;
-			register_component(std::move(ptr));
-			return ref;
-		}
 
 	private:
 		void register_component(std::unique_ptr<component>&& comp);

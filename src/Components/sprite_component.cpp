@@ -8,12 +8,16 @@ namespace game
 	sprite_component::sprite_component(actor& owner, const int draw_order, const int update_order)
 		:component{owner, update_order}, draw_order_{draw_order}
 	{
-		get_app().register_sprite(*this);
 	}
 
 	sprite_component::~sprite_component()
 	{
 		get_app().unregister_sprite(*this);
+	}
+
+	void sprite_component::begin_play()
+	{
+		get_app().register_sprite(*this);
 	}
 
 	void sprite_component::draw() const

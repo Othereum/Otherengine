@@ -10,6 +10,8 @@ namespace game
 		explicit circle_component(actor& owner, int update_order = 100);
 		~circle_component();
 
+		void begin_play() override;
+		
 		void test_overlap(circle_component& other);
 		void bind_on_overlap(std::function<void(circle_component&)>&& on_overlap) noexcept;
 
