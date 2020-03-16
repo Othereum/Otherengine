@@ -1,15 +1,18 @@
 #include "actors/ship.h"
+#include <array>
 #include "components/sprite_component.h"
 #include "components/input_component.h"
 #include "components/pawn_move_comp.h"
 
 namespace game
 {
+	static constexpr std::array ship_png{"Assets/Ship.png", "Assets/ShipWithThrust.png"};
+	
 	ship::ship(application& app)
 		:actor{app}
 	{
 		auto& sprite = add_component<sprite_component>();
-		sprite.set_texture("Assets/Ship.png");
+		sprite.set_texture(ship_png[0]);
 
 		auto& movement = add_component<pawn_move_comp>();
 
@@ -32,19 +35,13 @@ namespace game
 		auto& input = add_component<input_component>();
 		input.bind_axis(input_forward{}, [&](float f)
 		{
-			if (!math::is_nearly_zero(f))
+			const auto should_move = !math::is_nearly_zero(f);
+			if (should_move) movement.add_input(get_forward() * f);
+
+			if (should_move != is_moving_)
 			{
-				movement.add_input(get_forward() * f);
-				if (!is_moving_)
-				{
-					sprite.set_texture("Assets/ShipWithThrust.png");
-					is_moving_ = true;
-				}
-			}
-			else if (is_moving_)
-			{
-				sprite.set_texture("Assets/Ship.png");
-				is_moving_ = false;
+				sprite.set_texture(ship_png[should_move]);
+				is_moving_ = should_move;
 			}
 		});
 
