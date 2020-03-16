@@ -58,7 +58,7 @@ namespace game
 		
 		fvector2 pos_;
 		degrees rot_;
-		float scale_{1};
+		float scale_ = 1;
 		
 		application& app_;
 		std::vector<std::unique_ptr<component>> comps_;
