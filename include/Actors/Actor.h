@@ -35,7 +35,7 @@ namespace game
 			return ref;
 		}
 
-		void set_lifespan(float new_lifespan);
+		void set_lifespan(float seconds) { lifespan_ = seconds; }
 
 		void set_pos(fvector2 new_pos) noexcept { pos_ = new_pos; }
 		[[nodiscard]] fvector2 get_pos() const noexcept { return pos_; }
