@@ -1,6 +1,7 @@
 #include "actors/asteroid.h"
 #include "components/move_component.h"
 #include "components/sprite_component.h"
+#include "components/circle_component.h"
 #include "math_utils.h"
 
 namespace game
@@ -13,5 +14,7 @@ namespace game
 
 		auto& movement = add_component<move_component>();
 		movement.set_velocity(math::rand_unit_vec() * 150);
+
+		add_component<circle_component>();
 	}
 }
