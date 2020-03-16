@@ -8,6 +8,22 @@ namespace game
 {
 	static constexpr std::array ship_png{"Assets/Ship.png", "Assets/ShipWithThrust.png"};
 	
+	struct input_forward : input_axis
+	{
+		[[nodiscard]] std::vector<axis_t> keys() const noexcept override
+		{
+			return {{'w', 1}, {'s', -1}};
+		}
+	};
+	
+	struct input_rotate : input_axis
+	{
+		[[nodiscard]] std::vector<axis_t> keys() const noexcept override
+		{
+			return {{'a', -1}, {'d', 1}};
+		}
+	};
+
 	ship::ship(application& app)
 		:actor{app}
 	{
@@ -15,22 +31,6 @@ namespace game
 		sprite.set_texture(ship_png[0]);
 
 		auto& movement = add_component<pawn_move_comp>();
-
-		struct input_forward : input_axis
-		{
-			[[nodiscard]] std::vector<axis_t> keys() const noexcept override
-			{
-				return {{'w', 1}, {'s', -1}};
-			}
-		};
-		
-		struct input_rotate : input_axis
-		{
-			[[nodiscard]] std::vector<axis_t> keys() const noexcept override
-			{
-				return {{'a', -1}, {'d', 1}};
-			}
-		};
 
 		auto& input = add_component<input_component>();
 		input.bind_axis(input_forward{}, [&](float f)
