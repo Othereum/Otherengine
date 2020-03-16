@@ -71,28 +71,15 @@ namespace game
 	private:
 		void process_input();
 		void update_game();
-		void update_actors(float delta_seconds);
-		void update_collisions(float delta_seconds);
-		void post_update_actors();
-		float update_time();
 		void generate_output();
+		
+		float update_time();
 		
 		void register_actor(std::unique_ptr<actor>&& actor);
 		
 		[[nodiscard]] std::shared_ptr<SDL_Texture> load_texture(const char* filename);
 
 
-		class actor_update_lock
-		{
-		public:
-			explicit actor_update_lock(application& a) noexcept :a_{a} { a.is_updating_actors_ = true; }
-			~actor_update_lock() noexcept { a_.is_updating_actors_ = false; }
-
-		private:
-			application& a_;
-		};
-
-		
 		window_ptr window_;
 		renderer_ptr renderer_;
 
@@ -107,7 +94,6 @@ namespace game
 		
 		std::chrono::time_point<std::chrono::steady_clock> time_;
 
-		bool is_updating_actors_ : 1;
-		bool is_running_ : 1;
+		bool is_running_ = true;
 	};
 }

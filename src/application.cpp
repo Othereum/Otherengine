@@ -38,9 +38,7 @@ namespace game
 	application::application() :
 		window_{create_window()},
 		renderer_{create_renderer(*window_)},
-		time_{std::chrono::steady_clock::now()},
-		is_updating_actors_{false},
-		is_running_{true}
+		time_{std::chrono::steady_clock::now()}
 	{
 		for (auto i = 0; i < 20; ++i)
 		{
@@ -152,11 +150,10 @@ namespace game
 				return;
 
 			case SDL_KEYDOWN: case SDL_KEYUP:
-				if (!event.key.repeat)
-				{
-					key_events[event.key.state].push_back(event.key.keysym.sym);
-					break;
-				}
+				if (!event.key.repeat) key_events[event.key.state].push_back(event.key.keysym.sym);
+				break;
+				
+			default: ;
 			}
 		}
 
@@ -170,36 +167,21 @@ namespace game
 	void application::update_game()
 	{
 		const auto delta_seconds = update_time();
-		update_actors(delta_seconds);
-		post_update_actors();
-	}
-
-	void application::update_actors(float delta_seconds)
-	{
-		actor_update_lock lock{*this};
-		
 		for (const auto& actor : actors_)
 			actor->update(delta_seconds);
-	}
 
-	void application::update_collisions(float delta_seconds)
-	{
-		actor_update_lock lock{*this};
 		
 		for (size_t i = 0; i < collisions_.size(); ++i)
 			for (auto j = i+1; j < collisions_.size(); ++j)
 				collisions_[i].get().test_overlap(collisions_[j]);
-	}
 
-
-	void application::post_update_actors()
-	{
+		
 		for (auto&& pending : pending_actors_)
-		{
 			actors_.push_back(std::move(pending));
-		}
+		
 		pending_actors_.clear();
 
+		
 		for (auto it = actors_.rbegin(); it != actors_.rend();)
 		{
 			const auto& actor = **it;
@@ -238,7 +220,7 @@ namespace game
 
 	void application::register_actor(std::unique_ptr<actor>&& actor)
 	{
-		(is_updating_actors_ ? pending_actors_ : actors_).push_back(std::move(actor));
+		pending_actors_.push_back(std::move(actor));
 	}
 
 	std::shared_ptr<SDL_Texture> application::load_texture(const char* filename)
