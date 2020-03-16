@@ -35,6 +35,8 @@ namespace game
 			return ref;
 		}
 
+		void set_lifespan(float new_lifespan);
+
 		void set_pos(fvector2 new_pos) noexcept { pos_ = new_pos; }
 		[[nodiscard]] fvector2 get_pos() const noexcept { return pos_; }
 
@@ -52,9 +54,11 @@ namespace game
 	private:
 		void register_component(std::unique_ptr<component>&& comp);
 		void update_components(float delta_seconds);
+		void update_lifespan(float delta_seconds);
 		virtual void update_actor(float delta_seconds) {}
 
 		state state_{};
+		float lifespan_ = 0;
 		
 		fvector2 pos_;
 		degrees rot_;

@@ -24,6 +24,7 @@ namespace game
 
 	void actor::update(const float delta_seconds)
 	{
+		update_lifespan(delta_seconds);
 		update_components(delta_seconds);
 		update_actor(delta_seconds);
 	}
@@ -33,6 +34,14 @@ namespace game
 		for (const auto& comp : comps_)
 		{
 			comp->update(delta_seconds);
+		}
+	}
+
+	void actor::update_lifespan(const float delta_seconds)
+	{
+		if (lifespan_ > 0 && (lifespan_ -= delta_seconds) <= 0)
+		{
+			destroy();
 		}
 	}
 
