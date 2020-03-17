@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <chrono>
 #include <memory>
@@ -65,6 +65,9 @@ namespace Game
 		void Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, TDegrees angle = {}) const;
 		
 		[[nodiscard]] std::shared_ptr<SDL_Texture> GetTexture(const char* filename);
+
+
+		[[nodiscard]] auto GetTime() const noexcept { return time_; }
 
 		
 	private:
