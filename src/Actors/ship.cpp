@@ -10,7 +10,7 @@ namespace game
 	
 	struct input_forward : input_axis
 	{
-		[[nodiscard]] std::vector<axis_t> keys() const noexcept override
+		[[nodiscard]] std::vector<axis_t> keys() const override
 		{
 			return {{'w', 1}, {'s', -1}};
 		}
@@ -18,7 +18,7 @@ namespace game
 	
 	struct input_rotate : input_axis
 	{
-		[[nodiscard]] std::vector<axis_t> keys() const noexcept override
+		[[nodiscard]] std::vector<axis_t> keys() const override
 		{
 			return {{'a', -1}, {'d', 1}};
 		}

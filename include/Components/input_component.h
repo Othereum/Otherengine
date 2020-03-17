@@ -12,7 +12,7 @@ namespace game
 
 	struct input_action
 	{
-		[[nodiscard]] virtual std::unordered_set<key_t> keys() const noexcept = 0;
+		[[nodiscard]] virtual std::unordered_set<key_t> keys() const = 0;
 	};
 
 	struct axis_t
@@ -23,7 +23,7 @@ namespace game
 	
 	struct input_axis
 	{
-		[[nodiscard]] virtual std::vector<axis_t> keys() const noexcept = 0;
+		[[nodiscard]] virtual std::vector<axis_t> keys() const = 0;
 	};
 
 	class input_component : public component
