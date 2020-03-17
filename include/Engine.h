@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <chrono>
 #include <memory>
@@ -91,7 +91,7 @@ namespace Game
 		std::vector<std::unique_ptr<AActor>> actors_;
 		std::vector<std::unique_ptr<AActor>> pendingActors_;
 		
-		std::chrono::time_point<std::chrono::steady_clock> time_;
+		std::chrono::steady_clock::time_point time_;
 
 		bool bIsRunning_ = true;
 	};
