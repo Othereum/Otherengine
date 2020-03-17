@@ -1,9 +1,12 @@
 #include <array>
 #include "Actor/Ship.h"
+
+#include "Actor/Asteroid.h"
 #include "Actor/Laser.h"
 #include "Component/SpriteComponent.h"
 #include "Component/InputComponent.h"
 #include "Component/PawnMoveComponent.h"
+#include "Component/CircleComponent.h"
 #include "Engine.h"
 
 namespace Game
@@ -41,6 +44,17 @@ namespace Game
 		sprite.SetTexture(kShipPng[0]);
 
 		auto& movement = AddComponent<CPawnMoveComp>();
+
+		auto& col = AddComponent<CCircleComponent>();
+		col.BindOnOverlap([this](CCircleComponent& c)
+		{
+			if (dynamic_cast<AAsteroid*>(&c.GetOwner()))
+			{
+				// TODO: delay
+				SetPos(kScrSz/2.f);
+				SetRot({});
+			}
+		});
 
 		auto& input = AddComponent<CInputComponent>();
 		
