@@ -18,7 +18,7 @@ namespace Game
 	static TWindowPtr CreateWindow()
 	{
 		TWindowPtr window{
-			SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrsz.x, kScrsz.y, 0),
+			SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrSz.x, kScrSz.y, 0),
 			SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -43,12 +43,12 @@ namespace Game
 		for (auto i = 0; i < 20; ++i)
 		{
 			auto& ast = SpawnActor<AAsteroid>();
-			ast.SetPos(Math::RandVec({0, 0}, TFVector2{kScrsz}));
+			ast.SetPos(Math::RandVec({0, 0}, TFVector2{kScrSz}));
 			ast.SetRot(Math::RandAng());
 		}
 
 		auto& sh = SpawnActor<ship>();
-		sh.SetPos(TFVector2{kScrsz / 2});
+		sh.SetPos(TFVector2{kScrSz / 2});
 	}
 
 	CEngine::~CEngine() = default;

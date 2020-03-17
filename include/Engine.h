@@ -15,7 +15,7 @@ struct SDL_Rect;
 namespace Game
 {
 	class CSpriteComponent;
-	constexpr FVector2<uint16_t> kScrsz{1024, 768};
+	constexpr FVector2<uint16_t> kScrSz{1024, 768};
 
 	using TWindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
 	using TRendererPtr = std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>;
