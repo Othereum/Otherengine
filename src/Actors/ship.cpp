@@ -1,8 +1,10 @@
 #include "actors/ship.h"
+#include "actors/laser.h"
 #include <array>
 #include "components/sprite_component.h"
 #include "components/input_component.h"
 #include "components/pawn_move_comp.h"
+#include "application.h"
 
 namespace game
 {
@@ -21,6 +23,14 @@ namespace game
 		[[nodiscard]] std::vector<axis_t> keys() const override
 		{
 			return {{'a', -1}, {'d', 1}};
+		}
+	};
+
+	struct input_shoot : input_action
+	{
+		[[nodiscard]] std::unordered_set<key_t> keys() const override
+		{
+			return {' '};
 		}
 	};
 
@@ -48,6 +58,13 @@ namespace game
 		input.bind_axis(input_rotate{}, [&](float f)
 		{
 			movement.add_rotation_input(f);
+		});
+
+		input.bind_action(input_shoot{}, key_event::pressed, [this]()
+		{
+			auto& l = get_app().spawn_actor<laser>();
+			l.set_pos(get_pos());
+			l.set_rot(get_rot());
 		});
 	}
 }
