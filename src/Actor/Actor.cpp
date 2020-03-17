@@ -4,8 +4,8 @@
 
 namespace Game
 {
-	AActor::AActor(CEngine& app)
-		:app_{app}
+	AActor::AActor(CEngine& engine)
+		:engine_{engine}
 	{
 	}
 

@@ -10,6 +10,6 @@ namespace Game
 
 	CEngine& CActorComponent::GetEngine() const noexcept
 	{
-		return GetOwner().GetApp();
+		return GetOwner().GetEngine();
 	}
 }

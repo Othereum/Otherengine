@@ -18,7 +18,7 @@ namespace Game
 			active, paused, dead
 		};
 
-		explicit AActor(CEngine& app);
+		explicit AActor(CEngine& engine);
 		virtual ~AActor();
 
 		void BeginPlay() const;
@@ -49,7 +49,7 @@ namespace Game
 		void SetScale(float scale) noexcept { scale_ = scale; }
 		[[nodiscard]] float GetScale() const noexcept { return scale_; }
 
-		[[nodiscard]] CEngine& GetApp() const noexcept { return app_; }
+		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
 
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);
@@ -64,7 +64,7 @@ namespace Game
 		TDegrees rot_;
 		float scale_ = 1;
 		
-		CEngine& app_;
+		CEngine& engine_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
 	};
 }
