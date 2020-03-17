@@ -34,8 +34,8 @@ namespace Game
 		}
 	};
 
-	ship::ship(CEngine& app)
-		:AActor{app}
+	ship::ship(CEngine& engine)
+		:AActor{engine}
 	{
 		auto& sprite = AddComponent<CSpriteComponent>();
 		sprite.SetTexture(kShipPng[0]);
@@ -63,9 +63,16 @@ namespace Game
 
 		input.BindAction(FInputShoot{}, EKeyEvent::pressed, [this]()
 		{
-			auto& l = GetApp().SpawnActor<ALaser>();
-			l.SetPos(GetPos());
-			l.SetRot(GetRot());
+			const auto cur = GetEngine().GetTime();
+			if (nextAttack_ <= cur)
+			{
+				auto& l = GetEngine().SpawnActor<ALaser>();
+				l.SetPos(GetPos());
+				l.SetRot(GetRot());
+
+				using namespace std::chrono_literals;
+				nextAttack_ = cur + 500ms;
+			}
 		});
 	}
 }
