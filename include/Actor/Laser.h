@@ -7,6 +7,6 @@ namespace Game
 	{
 	public:
 		explicit ALaser(CEngine& app);
-		
+		void UpdateActor(float deltaSeconds) override;
 	};
 }

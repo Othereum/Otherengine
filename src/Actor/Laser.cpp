@@ -11,7 +11,7 @@ namespace Game
 		SetLifespan(1);
 
 		auto& sprite = AddComponent<CSpriteComponent>();
-		sprite.SetTexture("Asset/Laser.png");
+		sprite.SetTexture("Assets/Laser.png");
 
 		auto& col = AddComponent<CCircleComponent>();
 		col.SetRadius(16);
@@ -23,5 +23,10 @@ namespace Game
 				a->Destroy();
 			}
 		});
+	}
+
+	void ALaser::UpdateActor(float deltaSeconds)
+	{
+		SetPos(GetPos() + GetForward() * (800 * deltaSeconds));
 	}
 }
