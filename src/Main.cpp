@@ -1,14 +1,14 @@
 #include <iostream>
-#include "application.h"
+#include "Engine.h"
 
 int main()
 {
-	using namespace game;
+	using namespace Game;
 
 	try
 	{
-		application app;
-		app.run_loop();
+		CEngine app;
+		app.RunLoop();
 	}
 	catch (const std::exception& e)
 	{

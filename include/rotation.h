@@ -1,73 +1,72 @@
 #pragma once
-#include "math_core.h"
+#include "MathCore.h"
 
-namespace game
+namespace Game
 {
 	template <class R>
-	class rotation
+	struct FRotation
 	{
-	public:
 		static constexpr auto ratio = float(R::num) / R::den;
 
-		constexpr rotation() noexcept = default;
-		constexpr explicit rotation(float r) noexcept :r_{r} {}
+		constexpr FRotation() noexcept = default;
+		constexpr explicit FRotation(float r) noexcept :r_{r} {}
 		
 		template <class S>
-		constexpr rotation(const rotation<S>& r) noexcept { *this = r; }
+		constexpr FRotation(const FRotation<S>& r) noexcept { *this = r; }
 
 		template <class S>
-		constexpr rotation& operator=(const rotation<S>& r)& noexcept { r_ = r.get() / r.ratio * ratio; return *this; }
+		constexpr FRotation& operator=(const FRotation<S>& r)& noexcept { r_ = r.Get() / r.ratio * ratio; return *this; }
 
 		template <class S>
-		constexpr rotation& operator+=(const rotation<S>& r)& noexcept { return *this = *this + r; }
+		constexpr FRotation& operator+=(const FRotation<S>& r)& noexcept { return *this = *this + r; }
 
 		template <class S>
-		constexpr rotation operator+(const rotation<S>& r) const noexcept { return *this + rotation{r}; }
-		constexpr rotation operator+(const rotation& r) const noexcept { return rotation{r_ + r.get()}; }
+		constexpr FRotation operator+(const FRotation<S>& r) const noexcept { return *this + FRotation{r}; }
+		constexpr FRotation operator+(const FRotation& r) const noexcept { return FRotation{r_ + r.Get()}; }
 
-		constexpr rotation operator*(const float f) const noexcept { return rotation{r_ * f}; }
-		constexpr rotation operator/(const float f) const noexcept { return rotation{r_ / f}; }
+		constexpr FRotation operator*(const float f) const noexcept { return FRotation{r_ * f}; }
+		constexpr FRotation operator/(const float f) const noexcept { return FRotation{r_ / f}; }
 
-		constexpr rotation operator-() const noexcept { return rotation{-r_}; }
-
-		template <class S>
-		constexpr bool operator==(const rotation<S>& r) const noexcept { return *this == rotation{r}; }
-		constexpr bool operator==(const rotation& r) const noexcept { return r_ == r.r_; }
+		constexpr FRotation operator-() const noexcept { return FRotation{-r_}; }
 
 		template <class S>
-		constexpr bool operator!=(const rotation<S>& r) const noexcept { return !(*this == r); }
+		constexpr bool operator==(const FRotation<S>& r) const noexcept { return *this == FRotation{r}; }
+		constexpr bool operator==(const FRotation& r) const noexcept { return r_ == r.r_; }
 
 		template <class S>
-		constexpr bool operator<(const rotation<S>& r) const noexcept { return *this < rotation{r}; }
-		constexpr bool operator<(const rotation& r) const noexcept { return r_ < r.r_; }
+		constexpr bool operator!=(const FRotation<S>& r) const noexcept { return !(*this == r); }
 
 		template <class S>
-		constexpr bool operator<=(const rotation<S>& r) const noexcept { return !(*this > r); }
+		constexpr bool operator<(const FRotation<S>& r) const noexcept { return *this < FRotation{r}; }
+		constexpr bool operator<(const FRotation& r) const noexcept { return r_ < r.r_; }
 
 		template <class S>
-		constexpr bool operator>(const rotation<S>& r) const noexcept { return *this > rotation{r}; }
-		constexpr bool operator>(const rotation& r) const noexcept { return r_ > r.r_; }
+		constexpr bool operator<=(const FRotation<S>& r) const noexcept { return !(*this > r); }
 
 		template <class S>
-		constexpr bool operator>=(const rotation<S>& r) const noexcept { return !(*this < r); }
+		constexpr bool operator>(const FRotation<S>& r) const noexcept { return *this > FRotation{r}; }
+		constexpr bool operator>(const FRotation& r) const noexcept { return r_ > r.r_; }
 
-		[[nodiscard]] constexpr float get() const noexcept { return r_; }
+		template <class S>
+		constexpr bool operator>=(const FRotation<S>& r) const noexcept { return !(*this < r); }
+
+		[[nodiscard]] constexpr float Get() const noexcept { return r_; }
 
 	private:
 		float r_ = 0.f;
 	};
 
-	using radians = rotation<std::ratio<math::pi_ratio::num, math::pi_ratio::den * 180>>;
-	using degrees = rotation<std::ratio<1>>;
+	using TRadians = FRotation<std::ratio<Math::TPiRatio::num, Math::TPiRatio::den * 180>>;
+	using TDegrees = FRotation<std::ratio<1>>;
 
-	constexpr radians operator""_rad(unsigned long long f) noexcept { return radians{float(f)}; }
-	constexpr radians operator""_rad(long double f) noexcept { return radians{float(f)}; }
+	constexpr TRadians operator""_rad(unsigned long long f) noexcept { return TRadians{float(f)}; }
+	constexpr TRadians operator""_rad(long double f) noexcept { return TRadians{float(f)}; }
 
-	constexpr degrees operator""_deg(unsigned long long f) noexcept { return degrees{float(f)}; }
-	constexpr degrees operator""_deg(long double f) noexcept { return degrees{float(f)}; }
+	constexpr TDegrees operator""_deg(unsigned long long f) noexcept { return TDegrees{float(f)}; }
+	constexpr TDegrees operator""_deg(long double f) noexcept { return TDegrees{float(f)}; }
 	
 	template <class R>
-	rotation<R> operator*(float f, const rotation<R>& r) noexcept
+	FRotation<R> operator*(float f, const FRotation<R>& r) noexcept
 	{
 		return r * f;
 	}

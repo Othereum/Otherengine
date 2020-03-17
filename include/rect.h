@@ -1,26 +1,26 @@
 #pragma once
 #include <SDL_rect.h>
-#include "vector.h"
+#include "Vector.h"
 
-namespace game
+namespace Game
 {
 	template <class T>
-	struct rect;
+	struct FRect;
 
-	using frect = rect<float>;
+	using TFRect = FRect<float>;
 
 	template <class T>
-	struct rect
+	struct FRect
 {
-		vector2<T> center, size;
+		FVector2<T> center, size;
 
-		constexpr rect() noexcept = default;
-		constexpr rect(vector2<T> center, vector2<T> size) noexcept
+		constexpr FRect() noexcept = default;
+		constexpr FRect(FVector2<T> center, FVector2<T> size) noexcept
 			:center{center}, size{size}
 		{
 		}
 		
-		constexpr rect(const SDL_Rect& r) noexcept
+		constexpr FRect(const SDL_Rect& r) noexcept
 			:center{T(r.x), T(r.y)}, size{T(r.w), T(r.h)}
 		{
 			center += size / 2;
@@ -28,8 +28,8 @@ namespace game
 		
 		constexpr operator SDL_Rect() const noexcept
 		{
-			const vector2<int> p{center - size/2};
-			const vector2<int> s{size};
+			const FVector2<int> p{center - size/2};
+			const FVector2<int> s{size};
 			return {p.x, p.y, s.x, s.y};
 		}
 	};
