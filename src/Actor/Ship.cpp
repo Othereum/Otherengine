@@ -1,6 +1,5 @@
-#include <array>
 #include "Actor/Ship.h"
-
+#include <array>
 #include "Actor/Asteroid.h"
 #include "Actor/Laser.h"
 #include "Component/SpriteComponent.h"
@@ -8,6 +7,7 @@
 #include "Component/PawnMoveComponent.h"
 #include "Component/CircleComponent.h"
 #include "Engine.h"
+#include "Renderer.h"
 
 namespace Game
 {

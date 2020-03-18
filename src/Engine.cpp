@@ -4,9 +4,9 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "Renderer.h"
 #include "Actor/Actor.h"
 #include "Component/InputComponent.h"
-#include "Component/SpriteComponent.h"
 #include "Component/CircleComponent.h"
 
 #include "Actor/Asteroid.h"
@@ -15,29 +15,8 @@
 
 namespace Game
 {
-	static TWindowPtr CreateWindow()
-	{
-		TWindowPtr window{
-			SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrSz.x, kScrSz.y, 0),
-			SDL_DestroyWindow
-		};
-		if (!window) throw std::runtime_error{SDL_GetError()};
-		return window;
-	}
-
-	static TRendererPtr CreateRenderer(SDL_Window& window)
-	{
-		TRendererPtr renderer{
-			SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC),
-			SDL_DestroyRenderer
-		};
-		if (!renderer) throw std::runtime_error{SDL_GetError()};
-		return renderer;
-	}
-	
 	CEngine::CEngine() :
-		window_{CreateWindow()},
-		renderer_{CreateRenderer(*window_)},
+		renderer_{std::make_unique<CRenderer>()},
 		time_{std::chrono::steady_clock::now()}
 	{
 		for (auto i = 0; i < 20; ++i)
@@ -95,34 +74,6 @@ namespace Game
 		auto pr = [&](const CCircleComponent& v) { return &v == &comp; };
 		const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
 		if (found != collisions_.crend()) collisions_.erase(found.base() - 1);
-	}
-
-	void CEngine::RegisterSprite(const CSpriteComponent& sprite)
-	{
-		auto cmp = [](const CSpriteComponent& a, const CSpriteComponent& b)
-		{
-			return a.GetDrawOrder() <= b.GetDrawOrder();
-		};
-		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
-		sprites_.emplace(pos, sprite);
-	}
-
-	void CEngine::UnregisterSprite(const CSpriteComponent& sprite)
-	{
-		auto pr = [&](const CSpriteComponent& v) { return &v == &sprite; };
-		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
-		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
-	}
-
-	void CEngine::Draw(SDL_Texture& texture, const TFRect& dest, TDegrees angle) const
-	{
-		const SDL_Rect r = dest;
-		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.Get(), nullptr, SDL_FLIP_NONE);
-	}
-
-	void CEngine::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, TDegrees angle) const
-	{
-		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	std::shared_ptr<SDL_Texture> CEngine::GetTexture(const char* filename)
@@ -199,16 +150,9 @@ namespace Game
 		}
 	}
 
-	void CEngine::GenerateOutput()
+	void CEngine::GenerateOutput() const
 	{
-		SDL_RenderClear(renderer_.get());
-
-		for (auto& sprite : sprites_)
-		{
-			sprite.get().Draw();
-		}
-
-		SDL_RenderPresent(renderer_.get());
+		renderer_->DrawScene();
 	}
 
 	float CEngine::UpdateTime()
@@ -235,7 +179,7 @@ namespace Game
 			textures_.erase(filename);
 			SDL_DestroyTexture(texture);
 		};
-		std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(renderer_.get(), surface.get()), std::move(deleter)};
+		std::shared_ptr<SDL_Texture> texture{SDL_CreateTextureFromSurface(&renderer_->GetSdlRenderer(), surface.get()), std::move(deleter)};
 		if (!texture) throw std::runtime_error{SDL_GetError()};
 
 		return texture;

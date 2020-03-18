@@ -1,7 +1,8 @@
-#include <SDL.h>
 #include "Component/SpriteComponent.h"
+#include <SDL.h>
 #include "Actor/Actor.h"
 #include "Engine.h"
+#include "Renderer.h"
 
 namespace Game
 {
@@ -12,12 +13,12 @@ namespace Game
 
 	CSpriteComponent::~CSpriteComponent()
 	{
-		GetEngine().UnregisterSprite(*this);
+		GetRenderer().UnregisterSprite(*this);
 	}
 
 	void CSpriteComponent::BeginPlay()
 	{
-		GetEngine().RegisterSprite(*this);
+		GetRenderer().RegisterSprite(*this);
 	}
 
 	void CSpriteComponent::Draw() const
@@ -25,7 +26,7 @@ namespace Game
 		if (!texture_) return;
 		
 		auto& owner = GetOwner();
-		GetEngine().Draw(*texture_, {owner.GetPos(), texSize_ * owner.GetScale()}, owner.GetRot());
+		GetRenderer().Draw(*texture_, {owner.GetPos(), texSize_ * owner.GetScale()}, owner.GetRot());
 	}
 
 	void CSpriteComponent::SetTexture(std::shared_ptr<SDL_Texture>&& texture)
@@ -46,5 +47,10 @@ namespace Game
 	void CSpriteComponent::SetTexture(const char* filename)
 	{
 		SetTexture(GetEngine().GetTexture(filename));
+	}
+
+	CRenderer& CSpriteComponent::GetRenderer() const noexcept
+	{
+		return GetEngine().GetRenderer();
 	}
 }

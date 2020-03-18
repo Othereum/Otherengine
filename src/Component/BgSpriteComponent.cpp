@@ -1,7 +1,7 @@
-#include <SDL.h>
 #include "Component/BgSpriteComponent.h"
-#include "Engine.h"
+#include <SDL.h>
 #include "Actor/Actor.h"
+#include "Renderer.h"
 
 namespace Game
 {
@@ -28,7 +28,7 @@ namespace Game
 	{
 		for (const auto& bg : textures_)
 		{
-			GetEngine().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, TFVector2{kScrSz}}, 0_deg);
+			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, TFVector2{kScrSz}}, 0_deg);
 		}
 	}
 

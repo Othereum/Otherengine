@@ -25,6 +25,7 @@ namespace Game
 
 		[[nodiscard]] const FVector2<unsigned short>& GetTexSize() const noexcept { return texSize_; }
 		[[nodiscard]] int GetDrawOrder() const noexcept { return drawOrder_; }
+		[[nodiscard]] class CRenderer& GetRenderer() const noexcept;
 
 	private:
 		FVector2<uint16_t> texSize_;

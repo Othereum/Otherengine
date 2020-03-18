@@ -1,9 +1,9 @@
+#include "Component/TilemapComponent.h"
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Component/TilemapComponent.h"
-#include "Engine.h"
 #include "Actor/Actor.h"
+#include "Renderer.h"
 
 namespace Game
 {
@@ -43,7 +43,7 @@ namespace Game
 				const SDL_Rect src{idx%w * sz, idx/w * sz, sz, sz};
 				const SDL_Rect dest{x*sz, y*sz, sz, sz};
 				
-				GetEngine().Draw(GetTexture(), src, dest);
+				GetRenderer().Draw(GetTexture(), src, dest);
 			}
 		}
 	}
