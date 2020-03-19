@@ -1,11 +1,12 @@
 #include "Actor/Actor.h"
 #include "Component/ActorComponent.h"
 #include "MathUtil.h"
+#include "World.h"
 
 namespace Game
 {
-	AActor::AActor(CEngine& engine)
-		:engine_{engine}
+	AActor::AActor(CWorld& world)
+		:world_{world}
 	{
 	}
 
@@ -29,20 +30,25 @@ namespace Game
 		UpdateActor(deltaSeconds);
 	}
 
-	void AActor::UpdateComponents(const float delta_seconds)
+	void AActor::UpdateComponents(const float deltaSeconds)
 	{
 		for (const auto& comp : comps_)
 		{
-			comp->Update(delta_seconds);
+			comp->Update(deltaSeconds);
 		}
 	}
 
-	void AActor::UpdateLifespan(const float delta_seconds)
+	void AActor::UpdateLifespan(const float deltaSeconds)
 	{
-		if (lifespan_ > 0 && (lifespan_ -= delta_seconds) <= 0)
+		if (lifespan_ > 0 && (lifespan_ -= deltaSeconds) <= 0)
 		{
 			Destroy();
 		}
+	}
+
+	CEngine& AActor::GetEngine() const noexcept
+	{
+		return world_.GetEngine();
 	}
 
 	void AActor::RegisterComponent(std::unique_ptr<CActorComponent>&& comp)

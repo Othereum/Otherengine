@@ -6,7 +6,7 @@ namespace Game
 	class ALaser : public AActor
 	{
 	public:
-		explicit ALaser(CEngine& app);
+		explicit ALaser(CWorld& world);
 		void UpdateActor(float deltaSeconds) override;
 	};
 }

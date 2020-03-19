@@ -6,6 +6,6 @@ namespace Game
 	class AAsteroid : public AActor
 	{
 	public:
-		explicit AAsteroid(CEngine& app);
+		explicit AAsteroid(CWorld& world);
 	};
 }

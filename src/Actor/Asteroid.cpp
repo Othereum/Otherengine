@@ -6,8 +6,8 @@
 
 namespace Game
 {
-	AAsteroid::AAsteroid(CEngine& app)
-		:AActor{app}
+	AAsteroid::AAsteroid(CWorld& world)
+		:AActor{world}
 	{
 		auto& sprite = AddComponent<CSpriteComponent>();
 		sprite.SetTexture("Assets/Asteroid.png");

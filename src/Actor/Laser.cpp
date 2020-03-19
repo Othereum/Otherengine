@@ -5,8 +5,8 @@
 
 namespace Game
 {
-	ALaser::ALaser(CEngine& app)
-		:AActor{app}
+	ALaser::ALaser(CWorld& world)
+		:AActor{world}
 	{
 		SetLifespan(1);
 

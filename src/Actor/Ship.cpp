@@ -6,39 +6,15 @@
 #include "Component/InputComponent.h"
 #include "Component/PawnMoveComponent.h"
 #include "Component/CircleComponent.h"
-#include "Engine.h"
+#include "World.h"
 #include "Renderer.h"
 
 namespace Game
 {
 	static constexpr std::array kShipPng{"Assets/Ship.png", "Assets/ShipWithThrust.png"};
 	
-	struct FInputForward : FInputAxis
-	{
-		[[nodiscard]] std::vector<FAxis> Keys() const override
-		{
-			return {{'w', 1}, {'s', -1}};
-		}
-	};
-	
-	struct FInputRotate : FInputAxis
-	{
-		[[nodiscard]] std::vector<FAxis> Keys() const override
-		{
-			return {{'a', -1}, {'d', 1}};
-		}
-	};
-
-	struct FInputShoot : FInputAction
-	{
-		[[nodiscard]] std::unordered_set<TKey> Keys() const override
-		{
-			return {' '};
-		}
-	};
-
-	ship::ship(CEngine& engine)
-		:AActor{engine}
+	ship::ship(CWorld& world)
+		:AActor{world}
 	{
 		auto& sprite = AddComponent<CSpriteComponent>();
 		sprite.SetTexture(kShipPng[0]);
@@ -58,7 +34,7 @@ namespace Game
 
 		auto& input = AddComponent<CInputComponent>();
 		
-		input.BindAxis(FInputForward{}, [&](float f)
+		input.BindAxis("MoveForward", [&](float f)
 		{
 			const auto bShouldMove = !Math::IsNearlyZero(f);
 			if (bShouldMove) movement.AddInput(GetForward() * f);
@@ -70,17 +46,17 @@ namespace Game
 			}
 		});
 
-		input.BindAxis(FInputRotate{}, [&](float f)
+		input.BindAxis("Turn", [&](float f)
 		{
 			movement.AddRotationInput(f);
 		});
 
-		input.BindAction(FInputShoot{}, EKeyEvent::pressed, [this]()
+		input.BindAction("Shoot", true, [this]()
 		{
-			const auto cur = GetEngine().GetTime();
+			const auto cur = GetWorld().GetTime();
 			if (nextAttack_ <= cur)
 			{
-				auto& l = GetEngine().SpawnActor<ALaser>();
+				auto& l = GetWorld().SpawnActor<ALaser>();
 				l.SetPos(GetPos());
 				l.SetRot(GetRot());
 

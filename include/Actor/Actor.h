@@ -2,13 +2,14 @@
 
 #include <memory>
 #include <vector>
-#include "vector.h"
-#include "rotation.h"
+#include "Vector.h"
+#include "Rotation.h"
 
 namespace Game
 {
-	class CActorComponent;
 	class CEngine;
+	class CWorld;
+	class CActorComponent;
 	
 	class AActor
 	{
@@ -18,7 +19,7 @@ namespace Game
 			active, paused, dead
 		};
 
-		explicit AActor(CEngine& engine);
+		explicit AActor(CWorld& world);
 		virtual ~AActor();
 
 		void BeginPlay() const;
@@ -49,7 +50,8 @@ namespace Game
 		void SetScale(float scale) noexcept { scale_ = scale; }
 		[[nodiscard]] float GetScale() const noexcept { return scale_; }
 
-		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
+		[[nodiscard]] CEngine& GetEngine() const noexcept;
+		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
 
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);
@@ -64,7 +66,7 @@ namespace Game
 		TDegrees rot_;
 		float scale_ = 1;
 		
-		CEngine& engine_;
+		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
 	};
 }

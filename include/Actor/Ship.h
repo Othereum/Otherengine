@@ -7,7 +7,7 @@ namespace Game
 	class ship : public AActor
 	{
 	public:
-		explicit ship(CEngine& engine);
+		explicit ship(CWorld& world);
 
 	private:
 		std::chrono::steady_clock::time_point nextAttack_;
