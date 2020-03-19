@@ -7,6 +7,7 @@ namespace Game
 	struct FName
 	{
 		FName();
+		FName(const char* s);
 		FName(const std::string& s);
 		FName(std::string&& s);
 
