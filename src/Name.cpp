@@ -2,24 +2,29 @@
 
 namespace Game
 {
-	std::unordered_set<std::string> FName::set_{{}};
+	static std::unordered_set<std::string> gSet{{}};
 	
 	FName::FName()
-		:s_{&*set_.find({})}
+		:s_{&*gSet.find({})}
+	{
+	}
+
+	FName::FName(const char* s)
+		:FName{std::string{s}}
 	{
 	}
 
 	FName::FName(const std::string& s)
 	{
-		auto found = set_.find(s);
-		if (found != set_.end()) found = set_.emplace(s).first;
+		auto found = gSet.find(s);
+		if (found == gSet.end()) found = gSet.emplace(s).first;
 		s_ = &*found;
 	}
 
 	FName::FName(std::string&& s)
 	{
-		auto found = set_.find(s);
-		if (found != set_.end()) found = set_.emplace(std::move(s)).first;
+		auto found = gSet.find(s);
+		if (found == gSet.end()) found = gSet.emplace(std::move(s)).first;
 		s_ = &*found;
 	}
 }

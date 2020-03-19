@@ -26,7 +26,6 @@ namespace Game
 
 	private:
 		friend std::hash<FName>;
-		static std::unordered_set<std::string> set_;
 		const std::string* s_;
 	};
 }
