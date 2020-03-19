@@ -1,49 +1,29 @@
 #pragma once
 #include <functional>
-#include <unordered_set>
 #include "ActorComponent.h"
+#include "Name.h"
 
 struct SDL_KeyboardEvent;
 
 namespace Game
 {
-	enum class EKeyEvent { released, pressed };
-	using TKey = int;
-
-	struct FInputAction
-	{
-		[[nodiscard]] virtual std::unordered_set<TKey> Keys() const = 0;
-	};
-
-	struct FAxis
-	{
-		TKey key;
-		float scale;
-	};
-	
-	struct FInputAxis
-	{
-		[[nodiscard]] virtual std::vector<FAxis> Keys() const = 0;
-	};
-
 	class CInputComponent : public CActorComponent
 	{
 	public:
-		explicit CInputComponent(class AActor& owner, int updateOrder = 100, int inputReceiveOrder = 100);
-		~CInputComponent();
-
-		void BeginPlay() override;
-		void ProcessInput(const std::vector<int> (&events)[2], const uint8_t* keyboard) const;
+		explicit CInputComponent(class AActor& owner, int updateOrder = 1);
 		
-		void BindAction(const FInputAction& action, EKeyEvent event, std::function<void()>&& callback);
-		void BindAxis(const FInputAxis& axis, std::function<void(float)>&& callback);
+		void Update(float deltaSeconds) override;
+		
+		void BindAction(FName action, bool bPressed, std::function<void()>&& callback);
+		void BindAxis(FName axis, std::function<void(float)>&& callback);
 
-		[[nodiscard]] int GetReceiveOrder() const noexcept { return receiveOrder_; }
+		[[nodiscard]] const class CInputSystem& GetInputSystem() const noexcept;
 		
 	private:
-		std::vector<std::pair<std::unordered_set<TKey>, std::function<void()>>> actions_[2];
-		std::vector<std::pair<std::vector<FAxis>, std::function<void(float)>>> axises_;
-
-		int receiveOrder_;
+		void ProcessActions() const;
+		void ProcessAxises() const;
+		
+		std::unordered_multimap<FName, std::function<void()>> actions_[2];
+		std::unordered_multimap<FName, std::function<void(float)>> axises_;
 	};
 }
