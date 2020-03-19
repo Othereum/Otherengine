@@ -4,10 +4,12 @@ set(CMAKE_CXX_STANDARD 20)
 
 file(GLOB_RECURSE SRC_FILES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SRC_FILES})
-target_include_directories(${PROJECT_NAME} PRIVATE "include")
 
+find_package(Boost 1.72 REQUIRED)
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
+
+target_include_directories(${PROJECT_NAME} PRIVATE "include" ${Boost_INCLUDE_DIRS})
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2_image)
 
 add_compile_definitions(PROJECT_NAME="${PROJECT_NAME}")
