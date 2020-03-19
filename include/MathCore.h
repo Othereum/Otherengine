@@ -24,6 +24,17 @@ namespace Game::Math
 	template <class T, class U = float>
 	bool IsNearlyZero(T a, U tolerance = kSmallNumber) noexcept { return IsNearlyEqual(a, 0, tolerance); }
 
+	template <class T, class U, class V>
+	float GetRangePct(T min, U max, V val)
+	{
+		const auto divisor = float(max - min);
+		if (IsNearlyZero(divisor))
+		{
+			return (val >= max) ? 1 : 0;
+		}
+
+		return float(val - min) / divisor;
+	}
 	
 	inline thread_local std::default_random_engine gRandomEngine{std::random_device{}()};
 
