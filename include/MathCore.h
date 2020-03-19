@@ -36,6 +36,12 @@ namespace Game::Math
 		return float(val - min) / divisor;
 	}
 	
+	template <class T, class U, class V> 
+	auto Lerp(T a, U b, V alpha)
+	{
+		return a + alpha * (b - a);
+	}
+	
 	inline thread_local std::default_random_engine gRandomEngine{std::random_device{}()};
 
 	// [min, max] for int
