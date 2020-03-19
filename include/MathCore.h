@@ -30,7 +30,7 @@ namespace Game::Math
 		const auto divisor = float(max - min);
 		if (IsNearlyZero(divisor))
 		{
-			return (val >= max) ? 1 : 0;
+			return (val >= max) ? 1.f : 0.f;
 		}
 
 		return float(val - min) / divisor;
