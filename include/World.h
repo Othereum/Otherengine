@@ -3,8 +3,12 @@
 #include <memory>
 #include <vector>
 
+union SDL_Event;
+
 namespace Game
 {
+	class CEngine;
+	class CRenderer;
 	class AActor;
 	class CInputComponent;
 	class CCircleComponent;
@@ -12,6 +16,8 @@ namespace Game
 	class CWorld
 	{
 	public:
+		explicit CWorld(CEngine& engine);
+		
 		template <class T>
 		T& SpawnActor()
 		{
@@ -22,19 +28,26 @@ namespace Game
 			return actor;
 		}
 
+		void Tick();
+
 		void RegisterInputComponent(const CInputComponent& comp);
 		void UnregisterInputComponent(const CInputComponent& comp);
 
 		void RegisterCollision(CCircleComponent& comp);
 		void UnregisterCollision(CCircleComponent& comp);
 		
+		[[nodiscard]] CRenderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] auto GetTime() const noexcept { return time_; }
+		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
 
 	private:
+		void UpdateGame();
 		float UpdateTime();
 		void RegisterActor(std::unique_ptr<AActor>&& actor);
-		
-		std::vector<std::reference_wrapper<const CInputComponent>> inputComps_;
+
+		CEngine& engine_;
+		std::unique_ptr<CRenderer> renderer_;
+
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
 		
 		std::vector<std::unique_ptr<AActor>> actors_;
