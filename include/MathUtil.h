@@ -36,4 +36,29 @@ namespace Game::Math
 	{
 		return {Rand(min.x, max.x), Rand(min.y, max.y)};
 	}
+
+	template <class T>
+	float GetRangePct(FVector2<T> range, T val)
+	{
+		return GetRangePct(range.x, range.y, val);
+	}
+
+	template <class T>
+	T GetRangeValue(FVector2<T> range, float pct)
+	{
+		return Lerp(range.x, range.y, pct);
+	}
+
+	template <class T, class U, class V>
+	float MapRngClamp(FVector2<T> inRng, FVector2<U> outRng, V val)
+	{
+		auto pct = Clamp(GetRangePct(inRng, val), 0, 1);
+		return GetRangeValue(outRng, pct);
+	}
+
+	template <class T, class U, class V>
+	float MapRng(FVector2<T> inRng, FVector2<U> outRng, V val)
+	{
+		return GetRangeValue(outRng, GetRangePct(inRng, val));
+	}
 }
