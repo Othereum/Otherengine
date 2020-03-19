@@ -4,6 +4,7 @@ namespace Game
 {
 	class AActor;
 	class CEngine;
+	class CWorld;
 	
 	class CActorComponent
 	{
@@ -17,6 +18,7 @@ namespace Game
 		
 		[[nodiscard]] AActor& GetOwner() const noexcept { return owner_; }
 		[[nodiscard]] CEngine& GetEngine() const noexcept;
+		[[nodiscard]] CWorld& GetWorld() const noexcept;
 
 	private:
 		AActor& owner_;

@@ -1,6 +1,6 @@
 #include "Component/CircleComponent.h"
 #include "Actor/Actor.h"
-#include "Engine.h"
+#include "World.h"
 
 namespace Game
 {
@@ -11,12 +11,12 @@ namespace Game
 
 	CCircleComponent::~CCircleComponent()
 	{
-		GetEngine().UnregisterCollision(*this);
+		GetWorld().UnregisterCollision(*this);
 	}
 
 	void CCircleComponent::BeginPlay()
 	{
-		GetEngine().RegisterCollision(*this);
+		GetWorld().RegisterCollision(*this);
 	}
 
 	void CCircleComponent::TestOverlap(CCircleComponent& other)

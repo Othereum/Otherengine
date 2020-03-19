@@ -12,4 +12,9 @@ namespace Game
 	{
 		return GetOwner().GetEngine();
 	}
+
+	CWorld& CActorComponent::GetWorld() const noexcept
+	{
+		return GetOwner().GetWorld();
+	}
 }

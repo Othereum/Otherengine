@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "Actor/Actor.h"
 #include "Engine.h"
+#include "World.h"
 #include "Renderer.h"
 
 namespace Game
@@ -51,6 +52,6 @@ namespace Game
 
 	CRenderer& CSpriteComponent::GetRenderer() const noexcept
 	{
-		return GetEngine().GetRenderer();
+		return GetWorld().GetRenderer();
 	}
 }

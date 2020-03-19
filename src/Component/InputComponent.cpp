@@ -1,54 +1,54 @@
-#include <SDL_keyboard.h>
 #include "Component/InputComponent.h"
 #include "Engine.h"
+#include "InputSystem.h"
 
 namespace Game
 {
-	CInputComponent::CInputComponent(AActor& owner, int updateOrder, int inputReceiveOrder)
-		:CActorComponent{owner, updateOrder}, receiveOrder_{inputReceiveOrder}
+	CInputComponent::CInputComponent(AActor& owner, int updateOrder)
+		:CActorComponent{owner, updateOrder}
 	{
 	}
 
-	CInputComponent::~CInputComponent()
+	void CInputComponent::Update(float deltaSeconds)
 	{
-		GetEngine().UnregisterInputComponent(*this);
+		ProcessActions();
+		ProcessAxises();
 	}
 
-	void CInputComponent::BeginPlay()
+	void CInputComponent::BindAction(FName action, bool bPressed, std::function<void()>&& callback)
 	{
-		GetEngine().RegisterInputComponent(*this);
+		actions_[bPressed].emplace(action, std::move(callback));
 	}
 
-	void CInputComponent::ProcessInput(const std::vector<int> (&events)[2], const uint8_t* keyboard) const
+	void CInputComponent::BindAxis(FName axis, std::function<void(float)>&& callback)
 	{
-		for (auto i = 0; i < 2; ++i) for (auto& action : actions_[i]) for (auto key : events[i])
+		axises_.emplace(axis, std::move(callback));
+	}
+
+	const CInputSystem& CInputComponent::GetInputSystem() const noexcept
+	{
+		return GetEngine().GetInputSystem();
+	}
+
+	void CInputComponent::ProcessActions() const
+	{
+		auto& inputSystem = GetInputSystem();
+		for (auto& event : inputSystem.GetEvents())
 		{
-			if (action.first.contains(key))
+			auto [it, end] = actions_[event.bPressed].equal_range(event.name);
+			for (; it != end; ++it)
 			{
-				action.second();
-				break;
+				it->second();
 			}
 		}
-		
-		for (auto& axis : axises_)
+	}
+
+	void CInputComponent::ProcessAxises() const
+	{
+		auto& inputSystem = GetInputSystem();
+		for (auto& axisMap : axises_)
 		{
-			auto val = 0.f;
-			
-			for (auto& key : axis.first)
-				if (keyboard[SDL_GetScancodeFromKey(key.key)])
-					val += key.scale;
-			
-			axis.second(val);
+			axisMap.second(inputSystem.GetAxisValue(axisMap.first));
 		}
-	}
-
-	void CInputComponent::BindAction(const FInputAction& action, EKeyEvent event, std::function<void()>&& callback)
-	{
-		actions_[int(event)].emplace_back(action.Keys(), std::move(callback));
-	}
-
-	void CInputComponent::BindAxis(const FInputAxis& axis, std::function<void(float)>&& callback)
-	{
-		axises_.emplace_back(axis.Keys(), std::move(callback));
 	}
 }
