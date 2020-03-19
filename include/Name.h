@@ -1,27 +1,23 @@
 #pragma once
 #include <string>
-#include <unordered_map>
+#include <unordered_set>
 
 namespace Game
 {
 	struct FName
 	{
-		FName() noexcept = default;
-		
-		template <class T>
-		FName(std::basic_string_view<T> s)
+		FName();
+		FName(const std::string& s);
+		FName(std::string&& s);
+
+		[[nodiscard]] auto& Str() const noexcept
 		{
-			static std::unordered_map<std::string, unsigned> map;
-			if (auto found = map.find(s); found != map.end())
-			{
-				v_ = found->second;
-			}
-			else
-			{
-				static unsigned i = 0;
-				map.emplace(s, ++i);
-				v_ = i;
-			}
+			return *s_;
+		}
+
+		operator const std::string&() const noexcept
+		{
+			return *s_;
 		}
 
 		bool operator==(const FName&) const noexcept = default;
@@ -29,7 +25,8 @@ namespace Game
 
 	private:
 		friend std::hash<FName>;
-		unsigned v_ = 0;
+		static std::unordered_set<std::string> set_;
+		const std::string* s_;
 	};
 }
 
@@ -38,6 +35,6 @@ struct std::hash<Game::FName>
 {
 	size_t operator()(const Game::FName& key) const noexcept
 	{
-		return key.v_;
+		return size_t(key.s_);
 	}
 };
