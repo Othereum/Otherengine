@@ -16,15 +16,15 @@ namespace Game
 
 	FName::FName(const std::string& s)
 	{
-		auto found = gSet.find(s);
-		if (found == gSet.end()) found = gSet.emplace(s).first;
-		s_ = &*found;
+		// It's best way until C++17
+		// find(string_view) is way better since C++20
+		auto [it, bInserted] = gSet.insert(s);
+		s_ = &*it;
 	}
 
 	FName::FName(std::string&& s)
 	{
-		auto found = gSet.find(s);
-		if (found == gSet.end()) found = gSet.emplace(std::move(s)).first;
-		s_ = &*found;
+		auto [it, bInserted] = gSet.insert(std::move(s));
+		s_ = &*it;
 	}
 }
