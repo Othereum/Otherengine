@@ -11,7 +11,7 @@ namespace Game
 		FName(const std::string& s);
 		FName(std::string&& s);
 
-		[[nodiscard]] auto& Str() const noexcept
+		[[nodiscard]] const std::string& Str() const noexcept
 		{
 			return *s_;
 		}
