@@ -55,5 +55,6 @@ namespace Game
 		
 		CWorld& world_;
 		std::unordered_map<FTimerHandle, FTimer> timers_;
+		std::unordered_map<FTimerHandle, FTimer> pending_timers_;
 	};
 }
