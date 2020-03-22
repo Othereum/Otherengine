@@ -4,12 +4,14 @@
 #include "Component/CircleComponent.h"
 #include "Component/InputComponent.h"
 #include "Renderer.h"
+#include "TimerManager.h"
 
 namespace Game
 {
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},
-		renderer_{std::make_unique<CRenderer>()}
+		renderer_{std::make_unique<CRenderer>()},
+		timer_{std::make_unique<CTimerManager>(*this)}
 	{
 	}
 
@@ -41,6 +43,8 @@ namespace Game
 		for (size_t i = 0; i < collisions_.size(); ++i)
 			for (auto j = i+1; j < collisions_.size(); ++j)
 				collisions_[i].get().TestOverlap(collisions_[j]);
+
+		timer_->Update();
 		
 		for (auto&& pending : pendingActors_)
 		{
