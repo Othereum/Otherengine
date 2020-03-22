@@ -1,7 +1,7 @@
 #pragma once
-#include <chrono>
 #include <memory>
 #include <vector>
+#include "TimeUtil.h"
 
 union SDL_Event;
 
@@ -12,7 +12,7 @@ namespace Game
 	class AActor;
 	class CInputComponent;
 	class CCircleComponent;
-	
+
 	class CWorld
 	{
 	public:
@@ -53,6 +53,6 @@ namespace Game
 		std::vector<std::unique_ptr<AActor>> actors_;
 		std::vector<std::unique_ptr<AActor>> pendingActors_;
 		
-		std::chrono::steady_clock::time_point time_;
+		TimePoint time_;
 	};
 }
