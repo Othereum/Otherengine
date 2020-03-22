@@ -31,6 +31,8 @@ namespace Game
 	{
 	}
 
+	CTimerManager::~CTimerManager() = default;
+
 	void CTimerManager::Update()
 	{
 		timers_.merge(pending_timers_);

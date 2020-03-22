@@ -18,6 +18,7 @@ namespace Game
 	{
 	public:
 		explicit CWorld(CEngine& engine);
+		~CWorld();
 		
 		template <class T>
 		T& SpawnActor()

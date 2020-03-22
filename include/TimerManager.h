@@ -34,6 +34,8 @@ namespace Game
 	{
 	public:
 		explicit CTimerManager(class CWorld& world);
+		~CTimerManager();
+		
 		void Update();
 
 		/**

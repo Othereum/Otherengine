@@ -15,6 +15,8 @@ namespace Game
 	{
 	}
 
+	CWorld::~CWorld() = default;
+
 	void CWorld::Tick()
 	{
 		UpdateGame();
