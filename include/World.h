@@ -9,6 +9,7 @@ namespace Game
 {
 	class CEngine;
 	class CRenderer;
+	class CTimerManager;
 	class AActor;
 	class CInputComponent;
 	class CCircleComponent;
@@ -36,9 +37,10 @@ namespace Game
 		void RegisterCollision(CCircleComponent& comp);
 		void UnregisterCollision(CCircleComponent& comp);
 		
-		[[nodiscard]] CRenderer& GetRenderer() const noexcept { return *renderer_; }
-		[[nodiscard]] auto GetTime() const noexcept { return time_; }
 		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
+		[[nodiscard]] CRenderer& GetRenderer() const noexcept { return *renderer_; }
+		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept { return *timer_; }
+		[[nodiscard]] auto GetTime() const noexcept { return time_; }
 
 	private:
 		void UpdateGame();
@@ -47,6 +49,7 @@ namespace Game
 
 		CEngine& engine_;
 		std::unique_ptr<CRenderer> renderer_;
+		std::unique_ptr<CTimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
 		
