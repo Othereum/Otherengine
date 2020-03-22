@@ -34,6 +34,7 @@ namespace Game
 	{
 	public:
 		explicit CTimerManager(class CWorld& world);
+		void Update();
 
 		/**
 		 * \param fn Return false to stop looping
