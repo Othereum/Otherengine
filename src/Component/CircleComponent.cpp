@@ -21,7 +21,8 @@ namespace Game
 
 	void CCircleComponent::TestOverlap(CCircleComponent& other)
 	{
-		if (!onOverlap_ && !other.onOverlap_) return;
+		if (!(IsEnabled() && other.IsEnabled())) return;
+		if (!(onOverlap_ || other.onOverlap_)) return;
 		
 		const auto distsqr = GetOwner().GetPos().DistSqr(other.GetOwner().GetPos());
 		const auto r = radius_ + other.radius_;
