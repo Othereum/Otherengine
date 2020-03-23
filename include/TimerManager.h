@@ -44,7 +44,7 @@ namespace Game
 		template <class R, class P>
 		FTimerHandle SetTimer(duration<R, P> delay, bool loop, std::function<bool()>&& fn)
 		{
-			return SetTimer(duration_cast<Duration>(delay), loop, fn);
+			return SetTimer(duration_cast<Duration>(delay), loop, std::move(fn));
 		}
 		
 		/**
