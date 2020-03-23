@@ -10,6 +10,7 @@ namespace Game
 	class CEngine;
 	class CWorld;
 	class CActorComponent;
+	class CTimerManager;
 	
 	class AActor
 	{
@@ -52,6 +53,7 @@ namespace Game
 
 		[[nodiscard]] CEngine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
+		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept;
 
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);

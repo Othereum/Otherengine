@@ -51,6 +51,11 @@ namespace Game
 		return world_.GetEngine();
 	}
 
+	CTimerManager& AActor::GetTimerManager() const noexcept
+	{
+		return world_.GetTimerManager();
+	}
+
 	void AActor::RegisterComponent(std::unique_ptr<CActorComponent>&& comp)
 	{
 		auto cmp = [](const std::unique_ptr<CActorComponent>& a, const std::unique_ptr<CActorComponent>& b)
