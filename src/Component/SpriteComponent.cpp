@@ -24,7 +24,7 @@ namespace Game
 
 	void CSpriteComponent::DrawSprite() const
 	{
-		if (IsVisible())
+		if (IsEnabled())
 		{
 			Draw();
 		}
