@@ -47,12 +47,15 @@ namespace Game
 				if (timer.loop && valid)
 				{
 					timer.end += timer.delay;
-					++it;
 				}
 				else
 				{
 					it = timers_.erase(it);
 				}
+			}
+			else
+			{
+				++it;
 			}
 		}
 	}
