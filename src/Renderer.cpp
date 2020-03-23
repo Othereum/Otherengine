@@ -58,7 +58,7 @@ namespace Game
 
 		for (auto& sprite : sprites_)
 		{
-			sprite.get().Draw();
+			sprite.get().DrawSprite();
 		}
 
 		SDL_RenderPresent(renderer_.get());

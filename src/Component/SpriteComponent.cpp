@@ -22,6 +22,14 @@ namespace Game
 		GetRenderer().RegisterSprite(*this);
 	}
 
+	void CSpriteComponent::DrawSprite() const
+	{
+		if (IsVisible())
+		{
+			Draw();
+		}
+	}
+
 	void CSpriteComponent::Draw() const
 	{
 		if (!texture_) return;

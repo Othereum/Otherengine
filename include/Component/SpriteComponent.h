@@ -16,7 +16,7 @@ namespace Game
 		~CSpriteComponent();
 
 		void BeginPlay() override;
-		virtual void Draw() const;
+		void DrawSprite() const;
 		
 		void SetTexture(std::shared_ptr<SDL_Texture>&& texture);
 		void SetTexture(const std::shared_ptr<SDL_Texture>& texture);
@@ -27,9 +27,15 @@ namespace Game
 		[[nodiscard]] int GetDrawOrder() const noexcept { return drawOrder_; }
 		[[nodiscard]] class CRenderer& GetRenderer() const noexcept;
 
+		void SetVisibility(bool is_visible) noexcept { is_visible_ = is_visible; }
+		[[nodiscard]] bool IsVisible() const noexcept { return is_visible_; }
+
 	private:
+		virtual void Draw() const;
+
+		std::shared_ptr<SDL_Texture> texture_;
 		FVector2<uint16_t> texSize_;
 		int drawOrder_;
-		std::shared_ptr<SDL_Texture> texture_;
+		bool is_visible_ = true;
 	};
 }
