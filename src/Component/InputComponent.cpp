@@ -11,8 +11,11 @@ namespace Game
 
 	void CInputComponent::Update(float deltaSeconds)
 	{
-		ProcessActions();
-		ProcessAxises();
+		if (IsEnabled())
+		{
+			ProcessActions();
+			ProcessAxises();
+		}
 	}
 
 	void CInputComponent::BindAction(FName action, bool bPressed, std::function<void()>&& callback)
