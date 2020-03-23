@@ -37,6 +37,8 @@ namespace Game
 			return ref;
 		}
 
+		void SetEnabled(bool enable);
+
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 
 		void SetPos(TFVector2 new_pos) noexcept { pos_ = new_pos; }

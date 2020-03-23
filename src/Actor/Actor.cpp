@@ -70,4 +70,12 @@ namespace Game
 	{
 		state_ = EState::dead;
 	}
+
+	void AActor::SetEnabled(bool enable)
+	{
+		for (auto& c : comps_)
+		{
+			c->SetEnabled(enable);
+		}
+	}
 }
