@@ -8,6 +8,7 @@
 #include "Component/CircleComponent.h"
 #include "World.h"
 #include "Renderer.h"
+#include "TimerManager.h"
 
 namespace Game
 {
@@ -22,13 +23,19 @@ namespace Game
 		auto& movement = AddComponent<CPawnMoveComp>();
 
 		auto& col = AddComponent<CCircleComponent>();
-		col.BindOnOverlap([this](CCircleComponent& c)
+		col.BindOnOverlap([&](CCircleComponent& c)
 		{
 			if (dynamic_cast<AAsteroid*>(&c.GetOwner()))
 			{
-				// TODO: delay
-				SetPos(kScrSz/2.f);
-				SetRot({});
+				SetEnabled(false);
+				
+				GetTimerManager().SetTimer(2s, false, [&]()
+				{
+					SetEnabled(true);
+					SetPos(kScrSz/2.f);
+					SetRot({});
+					return true;
+				});
 			}
 		});
 
