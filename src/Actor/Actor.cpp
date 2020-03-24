@@ -18,7 +18,7 @@ namespace game
 			c->BeginPlay();
 	}
 
-	TFVector2 AActor::GetForward() const noexcept
+	FVector2 AActor::GetForward() const noexcept
 	{
 		return Math::R2V(rot_);
 	}

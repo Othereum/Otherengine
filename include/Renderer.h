@@ -13,7 +13,7 @@ namespace game
 {
 	class CSpriteComponent;
 	
-	constexpr FVector2<uint16_t> kScrSz{1024, 768};
+	constexpr Vector2<uint16_t> kScrSz{1024, 768};
 	
 	class CRenderer
 	{

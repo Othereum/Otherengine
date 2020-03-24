@@ -44,7 +44,7 @@ namespace game
 
 		int w, h;
 		SDL_QueryTexture(texture_.get(), nullptr, nullptr, &w, &h);
-		texSize_ = FVector2{uint16_t(w), uint16_t(h)};
+		texSize_ = Vector2{uint16_t(w), uint16_t(h)};
 	}
 
 	void CSpriteComponent::SetTexture(const std::shared_ptr<SDL_Texture>& texture)
