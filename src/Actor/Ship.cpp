@@ -29,12 +29,11 @@ namespace Game
 			{
 				SetEnabled(false);
 				
-				GetTimerManager().SetTimer(2s, false, [&]()
+				GetTimerManager().SetTimer(2s, [&]()
 				{
 					SetEnabled(true);
 					SetPos(kScrSz/2.f);
 					SetRot({});
-					return true;
 				});
 			}
 		});
