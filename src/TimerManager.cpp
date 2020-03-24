@@ -5,17 +5,26 @@ namespace Game
 {
 	struct CTimerManager::FTimer
 	{
-		std::function<bool()> fn;
+		std::function<Loop()> fn;
 		TimePoint end;
 		Duration delay;
-		bool loop;
 	};
 
-	FTimerHandle CTimerManager::SetTimer(Duration delay, bool loop, std::function<bool()>&& fn)
+	FTimerHandle CTimerManager::SetLoopTimer(Duration delay, std::function<Loop()>&& fn)
 	{
 		const auto handle = FTimerHandle::Create();
-		pending_timers_.insert({handle, {std::move(fn), world_.GetTime() + delay, delay, loop}});
+		pending_timers_.insert({handle, {std::move(fn), world_.GetTime() + delay, delay}});
 		return handle;
+	}
+
+	FTimerHandle CTimerManager::SetTimer(Duration delay, std::function<void()>&& fn)
+	{
+		return SetTimer(delay, [func = std::move(fn)]{func(); return Loop::kStop;});
+	}
+
+	void CTimerManager::SetTimerForNextTick(std::function<void()>&& fn)
+	{
+		SetTimer({}, std::move(fn));
 	}
 
 	FTimerHandle FTimerHandle::Create() noexcept
@@ -43,10 +52,11 @@ namespace Game
 			auto& [handle, timer] = *it;
 			if (timer.end <= cur)
 			{
-				const auto valid = timer.fn();
-				if (timer.loop && valid)
+				const auto loop = timer.fn();
+				if (loop == Loop::kContinue)
 				{
 					timer.end += timer.delay;
+					++it;
 				}
 				else
 				{

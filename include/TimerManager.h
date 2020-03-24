@@ -16,6 +16,11 @@ struct std::hash<Game::FTimerHandle>
 
 namespace Game
 {
+	enum class Loop
+	{
+		kStop, kContinue
+	};
+	
 	struct FTimerHandle
 	{
 		bool operator==(const FTimerHandle&) const noexcept = default;
@@ -38,21 +43,26 @@ namespace Game
 		
 		void Update();
 
-		/**
-		 * \param fn Return false to stop looping
-		 */
 		template <class R, class P>
-		FTimerHandle SetTimer(duration<R, P> delay, bool loop, std::function<bool()>&& fn)
+		FTimerHandle SetLoopTimer(duration<R, P> delay, std::function<Loop()>&& fn = DefLoopFn)
 		{
-			return SetTimer(duration_cast<Duration>(delay), loop, std::move(fn));
+			return SetLoopTimer(duration_cast<Duration>(delay), std::move(fn));
 		}
 		
-		/**
-		 * \param fn Return false to stop looping
-		 */
-		FTimerHandle SetTimer(Duration delay, bool loop, std::function<bool()>&& fn);
+		template <class R, class P>
+		FTimerHandle SetTimer(duration<R, P> delay, std::function<void()>&& fn = DefFn)
+		{
+			return SetTimer(duration_cast<Duration>(delay), std::move(fn));
+		}
+		
+		FTimerHandle SetLoopTimer(Duration delay, std::function<Loop()>&& fn = DefLoopFn);
+		FTimerHandle SetTimer(Duration delay, std::function<void()>&& fn = DefFn);
+		void SetTimerForNextTick(std::function<void()>&& fn);
 
 	private:
+		static Loop DefLoopFn() { return Loop::kStop; }
+		static void DefFn() {}
+		
 		struct FTimer;
 		
 		CWorld& world_;
