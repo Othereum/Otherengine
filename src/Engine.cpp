@@ -37,8 +37,8 @@ namespace game
 		for (auto i = 0; i < 20; ++i)
 		{
 			auto& ast = world_->SpawnActor<AAsteroid>();
-			ast.SetPos(Math::RandVec({0, 0}, FVector2{kScrSz}));
-			ast.SetRot(Math::RandAng());
+			ast.SetPos(math::RandVec({0, 0}, FVector2{kScrSz}));
+			ast.SetRot(math::RandAng());
 		}
 
 		auto& sh = world_->SpawnActor<ship>();

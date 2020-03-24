@@ -25,7 +25,7 @@ namespace game
 		auto& anim = anims_[idx_];
 		const auto oldFrame = static_cast<size_t>(anim.cur);
 		anim.cur += anim.fps * deltaSeconds;
-		anim.cur = anim.loop ? fmod(anim.cur, static_cast<float>(anim.textures.size())) : Math::Min(anim.cur, anim.textures.size() - 1);
+		anim.cur = anim.loop ? fmod(anim.cur, static_cast<float>(anim.textures.size())) : math::Min(anim.cur, anim.textures.size() - 1);
 		const auto newFrame = static_cast<size_t>(anim.cur);
 		if (oldFrame != newFrame) SetTexture(anim.textures[newFrame]);
 	}

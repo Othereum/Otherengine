@@ -133,7 +133,7 @@ namespace game
 			{
 				constexpr float min = 328, max = 32440;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
-				return v >= 0 ? Math::MapRngClamp({min, max}, {0, 1}, v) : Math::MapRngClamp({-max, -min}, {-1, 0}, v);
+				return v >= 0 ? math::MapRngClamp({min, max}, {0, 1}, v) : math::MapRngClamp({-max, -min}, {-1, 0}, v);
 			}
 			
 		default:

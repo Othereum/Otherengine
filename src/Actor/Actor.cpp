@@ -20,7 +20,7 @@ namespace game
 
 	FVector2 AActor::GetForward() const noexcept
 	{
-		return Math::R2V(rot_);
+		return math::R2V(rot_);
 	}
 
 	void AActor::Update(const float deltaSeconds)

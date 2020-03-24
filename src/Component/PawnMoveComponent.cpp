@@ -12,7 +12,7 @@ namespace game
 		const auto lensqr = input_.LenSqr();
 		if (lensqr > 1) input_ /= sqrtf(lensqr);
 
-		rotInput_ = Math::Clamp(rotInput_, -1, 1);
+		rotInput_ = math::Clamp(rotInput_, -1, 1);
 
 		SetVelocity(input_ * maxSpeed_);
 		SetAngularVelocity(rotInput_ * maxRotSpeed_);

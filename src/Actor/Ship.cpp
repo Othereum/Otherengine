@@ -42,7 +42,7 @@ namespace game
 		
 		input.BindAxis("MoveForward", [&](float f)
 		{
-			const auto bShouldMove = !Math::IsNearlyZero(f);
+			const auto bShouldMove = !math::IsNearlyZero(f);
 			if (bShouldMove) movement.AddInput(GetForward() * f);
 
 			if (bShouldMove != bIsMoving_)

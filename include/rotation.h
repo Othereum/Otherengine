@@ -56,7 +56,7 @@ namespace game
 		float r_ = 0.f;
 	};
 
-	using Radians = Rotation<std::ratio<Math::TPiRatio::num, Math::TPiRatio::den * 180>>;
+	using Radians = Rotation<std::ratio<math::PiRatio::num, math::PiRatio::den * 180>>;
 	using Degrees = Rotation<std::ratio<1>>;
 
 	constexpr Radians operator""_rad(unsigned long long f) noexcept { return Radians{float(f)}; }

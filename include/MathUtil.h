@@ -2,7 +2,7 @@
 #include "Rotation.h"
 #include "Vector.h"
 
-namespace game::Math
+namespace game::math
 {
 	inline float Cos(Radians t) noexcept { return cosf(t.Get()); }
 	inline float Sin(Radians t) noexcept { return sinf(t.Get()); }

@@ -13,7 +13,7 @@ namespace game
 		sprite.SetTexture("Assets/Asteroid.png");
 
 		auto& movement = AddComponent<CMoveComponent>();
-		movement.SetVelocity(Math::RandUnitVec() * 150);
+		movement.SetVelocity(math::RandUnitVec() * 150);
 
 		AddComponent<CCircleComponent>();
 	}

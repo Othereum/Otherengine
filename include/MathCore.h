@@ -2,10 +2,10 @@
 #include <ratio>
 #include <random>
 
-namespace game::Math
+namespace game::math
 {
-	using TPiRatio = std::ratio<5419351, 1725033>;
-	constexpr auto kPi = static_cast<float>(TPiRatio::num) / TPiRatio::den;
+	using PiRatio = std::ratio<5419351, 1725033>;
+	constexpr auto kPi = static_cast<float>(PiRatio::num) / PiRatio::den;
 	constexpr auto kSmallNumber = 1e-8f;
 	constexpr auto kKindaSmallNumber = 1e-4f;
 
@@ -16,7 +16,7 @@ namespace game::Math
 	constexpr auto Max(T a, U b) noexcept { return a > b ? a : b; }
 
 	template <class T, class U, class V>
-	constexpr auto Clamp(T v, U min, V max) noexcept { return Math::Max(Math::Min(v, max), min); }
+	constexpr auto Clamp(T v, U min, V max) noexcept { return math::Max(math::Min(v, max), min); }
 
 	template <class T, class U, class V = float>
 	bool IsNearlyEqual(T a, U b, V tolerance = kSmallNumber) noexcept { return std::abs(a-b) < tolerance; }
