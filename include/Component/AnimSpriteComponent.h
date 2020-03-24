@@ -2,7 +2,7 @@
 #include <vector>
 #include "SpriteComponent.h"
 
-namespace Game
+namespace game
 {
 	class CAnimSpriteComponent : public CSpriteComponent
 	{

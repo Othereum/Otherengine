@@ -2,7 +2,7 @@
 #include <string>
 #include <unordered_set>
 
-namespace Game
+namespace game
 {
 	struct FName
 	{
@@ -31,9 +31,9 @@ namespace Game
 }
 
 template <>
-struct std::hash<Game::FName>
+struct std::hash<game::FName>
 {
-	size_t operator()(const Game::FName& key) const noexcept
+	size_t operator()(const game::FName& key) const noexcept
 	{
 		return size_t(key.s_);
 	}

@@ -5,7 +5,7 @@
 
 struct SDL_KeyboardEvent;
 
-namespace Game
+namespace game
 {
 	class CInputComponent : public CActorComponent
 	{

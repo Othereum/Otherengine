@@ -1,7 +1,7 @@
 #pragma once
 #include "MathCore.h"
 
-namespace Game
+namespace game
 {
 	template <class R>
 	struct FRotation

@@ -1,6 +1,6 @@
 #include "Component/PawnMoveComponent.h"
 
-namespace Game
+namespace game
 {
 	CPawnMoveComp::CPawnMoveComp(AActor& owner, int updateOrder)
 		:CMoveComponent{owner, updateOrder}

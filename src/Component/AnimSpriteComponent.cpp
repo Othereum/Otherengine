@@ -2,7 +2,7 @@
 #include "Component/AnimSpriteComponent.h"
 #include "MathUtil.h"
 
-namespace Game
+namespace game
 {
 	CAnimSpriteComponent::FAnimation::FAnimation(std::initializer_list<std::shared_ptr<SDL_Texture>> textures, float fps, bool loop, float startFrame)
 		:loop{loop}, cur{startFrame}, fps{fps}, textures{textures}

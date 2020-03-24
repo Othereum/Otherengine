@@ -2,7 +2,7 @@
 #include <SDL_events.h>
 #include "MathUtil.h"
 
-namespace Game
+namespace game
 {
 	static uint16_t GetModState(uint16_t mod)
 	{

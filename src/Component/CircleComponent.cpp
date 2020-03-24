@@ -2,7 +2,7 @@
 #include "Actor/Actor.h"
 #include "World.h"
 
-namespace Game
+namespace game
 {
 	CCircleComponent::CCircleComponent(AActor& owner, int updateOrder)
 		:CActorComponent{owner, updateOrder}

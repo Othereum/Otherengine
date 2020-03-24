@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.h"
 
-namespace Game
+namespace game
 {
 	class AAsteroid : public AActor
 	{

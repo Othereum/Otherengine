@@ -6,7 +6,7 @@
 #include "Renderer.h"
 #include "TimerManager.h"
 
-namespace Game
+namespace game
 {
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},

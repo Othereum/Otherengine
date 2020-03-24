@@ -3,7 +3,7 @@
 
 int main()
 {
-	using namespace Game;
+	using namespace game;
 
 	try
 	{

@@ -3,7 +3,7 @@
 #include "MathUtil.h"
 #include "World.h"
 
-namespace Game
+namespace game
 {
 	AActor::AActor(CWorld& world)
 		:world_{world}

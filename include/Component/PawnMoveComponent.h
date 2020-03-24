@@ -1,7 +1,7 @@
 #pragma once
 #include "MoveComponent.h"
 
-namespace Game
+namespace game
 {
 	class CPawnMoveComp : public CMoveComponent
 	{

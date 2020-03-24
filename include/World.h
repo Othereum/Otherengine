@@ -5,7 +5,7 @@
 
 union SDL_Event;
 
-namespace Game
+namespace game
 {
 	class CEngine;
 	class CRenderer;

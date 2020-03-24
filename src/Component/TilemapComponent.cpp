@@ -5,7 +5,7 @@
 #include "Actor/Actor.h"
 #include "Renderer.h"
 
-namespace Game
+namespace game
 {
 	CTilemapComponent::CTilemapComponent(AActor& owner, int drawOrder, int updateOrder)
 		:CSpriteComponent{owner, drawOrder, updateOrder}

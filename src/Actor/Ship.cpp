@@ -10,7 +10,7 @@
 #include "Renderer.h"
 #include "TimerManager.h"
 
-namespace Game
+namespace game
 {
 	static constexpr std::array kShipPng{"Assets/Ship.png", "Assets/ShipWithThrust.png"};
 	

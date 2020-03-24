@@ -2,7 +2,7 @@
 #include <chrono>
 #include "Actor.h"
 
-namespace Game
+namespace game
 {
 	class ship : public AActor
 	{

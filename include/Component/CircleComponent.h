@@ -2,7 +2,7 @@
 #include <functional>
 #include "ActorComponent.h"
 
-namespace Game
+namespace game
 {
 	class CCircleComponent : public CActorComponent
 	{

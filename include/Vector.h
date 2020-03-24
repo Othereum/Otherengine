@@ -1,7 +1,7 @@
 #pragma once
 #include <type_traits>
 
-namespace Game
+namespace game
 {
 	template <class T>
 	struct FVector2;

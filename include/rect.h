@@ -2,7 +2,7 @@
 #include <SDL_rect.h>
 #include "Vector.h"
 
-namespace Game
+namespace game
 {
 	template <class T>
 	struct FRect;

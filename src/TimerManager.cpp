@@ -1,7 +1,7 @@
 #include "TimerManager.h"
 #include "World.h"
 
-namespace Game
+namespace game
 {
 	struct CTimerManager::FTimer
 	{
@@ -76,7 +76,7 @@ namespace Game
 	}
 }
 
-size_t std::hash<Game::FTimerHandle>::operator()(const Game::FTimerHandle& key) const noexcept
+size_t std::hash<game::FTimerHandle>::operator()(const game::FTimerHandle& key) const noexcept
 {
 	return size_t(key.key);
 }

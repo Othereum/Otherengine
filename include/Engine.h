@@ -9,7 +9,7 @@ struct SDL_Texture;
 struct SDL_Renderer;
 struct SDL_Rect;
 
-namespace Game
+namespace game
 {
 	class CWorld;
 	class CInputSystem;

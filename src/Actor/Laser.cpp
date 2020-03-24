@@ -3,7 +3,7 @@
 #include "Component/SpriteComponent.h"
 #include "Component/CircleComponent.h"
 
-namespace Game
+namespace game
 {
 	ALaser::ALaser(CWorld& world)
 		:AActor{world}

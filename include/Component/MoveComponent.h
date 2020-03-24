@@ -3,7 +3,7 @@
 #include "Rotation.h"
 #include "Vector.h"
 
-namespace Game
+namespace game
 {
 	class CMoveComponent : public CActorComponent
 	{

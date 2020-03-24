@@ -1,6 +1,6 @@
 #include "Name.h"
 
-namespace Game
+namespace game
 {
 	static std::unordered_set<std::string> gSet{{}};
 	

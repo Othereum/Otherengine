@@ -7,7 +7,7 @@
 struct SDL_Renderer;
 struct SDL_Texture;
 
-namespace Game
+namespace game
 {
 	class CSpriteComponent : public CActorComponent
 	{

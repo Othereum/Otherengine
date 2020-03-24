@@ -3,7 +3,7 @@
 #include <SDL.h>
 #include "Component/SpriteComponent.h"
 
-namespace Game
+namespace game
 {
 	static CRenderer::TWindowPtr CreateWindow()
 	{

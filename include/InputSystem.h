@@ -5,7 +5,7 @@
 
 union SDL_Event;
 
-namespace Game
+namespace game
 {	
 	enum class EInputType : char
 	{

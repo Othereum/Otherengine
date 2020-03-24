@@ -3,18 +3,18 @@
 #include <unordered_map>
 #include "TimeUtil.h"
 
-namespace Game
+namespace game
 {
 	struct FTimerHandle;
 }
 
 template <>
-struct std::hash<Game::FTimerHandle>
+struct std::hash<game::FTimerHandle>
 {
-	size_t operator()(const Game::FTimerHandle& key) const noexcept;
+	size_t operator()(const game::FTimerHandle& key) const noexcept;
 };
 
-namespace Game
+namespace game
 {
 	enum class Loop
 	{

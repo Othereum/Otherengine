@@ -14,7 +14,7 @@
 #include "Actor/Ship.h"
 #include "MathUtil.h"
 
-namespace Game
+namespace game
 {
 	CEngine::CEngine() :
 		world_{std::make_unique<CWorld>(*this)},

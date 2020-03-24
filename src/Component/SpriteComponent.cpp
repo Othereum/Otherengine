@@ -5,7 +5,7 @@
 #include "World.h"
 #include "Renderer.h"
 
-namespace Game
+namespace game
 {
 	CSpriteComponent::CSpriteComponent(AActor& owner, const int drawOrder, const int updateOrder)
 		:CActorComponent{owner, updateOrder}, drawOrder_{drawOrder}

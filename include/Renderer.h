@@ -9,7 +9,7 @@ struct SDL_Rect;
 struct SDL_Renderer;
 struct SDL_Window;
 
-namespace Game
+namespace game
 {
 	class CSpriteComponent;
 	

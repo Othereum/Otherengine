@@ -1,7 +1,7 @@
 #include "Component/MoveComponent.h"
 #include "Actor/Actor.h"
 
-namespace Game
+namespace game
 {
 	CMoveComponent::CMoveComponent(AActor& owner, int updateOrder)
 		:CActorComponent{owner, updateOrder}

@@ -4,7 +4,7 @@
 #include "Component/CircleComponent.h"
 #include "MathUtil.h"
 
-namespace Game
+namespace game
 {
 	AAsteroid::AAsteroid(CWorld& world)
 		:AActor{world}

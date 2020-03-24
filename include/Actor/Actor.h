@@ -5,7 +5,7 @@
 #include "Vector.h"
 #include "Rotation.h"
 
-namespace Game
+namespace game
 {
 	class CEngine;
 	class CWorld;

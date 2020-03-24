@@ -2,7 +2,7 @@
 #include <ratio>
 #include <random>
 
-namespace Game::Math
+namespace game::Math
 {
 	using TPiRatio = std::ratio<5419351, 1725033>;
 	constexpr auto kPi = static_cast<float>(TPiRatio::num) / TPiRatio::den;

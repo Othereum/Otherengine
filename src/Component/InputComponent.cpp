@@ -2,7 +2,7 @@
 #include "Engine.h"
 #include "InputSystem.h"
 
-namespace Game
+namespace game
 {
 	CInputComponent::CInputComponent(AActor& owner, int updateOrder)
 		:CActorComponent{owner, updateOrder}
