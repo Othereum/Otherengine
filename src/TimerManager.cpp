@@ -27,6 +27,11 @@ namespace Game
 		SetTimer({}, std::move(fn));
 	}
 
+	bool CTimerManager::IsTimerExists(const FTimerHandle& handle) const noexcept
+	{
+		return timers_.contains(handle) || pending_timers_.contains(handle);
+	}
+
 	FTimerHandle FTimerHandle::Create() noexcept
 	{
 		static auto key = 0;

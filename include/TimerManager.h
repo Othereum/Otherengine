@@ -58,10 +58,11 @@ namespace Game
 		FTimerHandle SetLoopTimer(Duration delay, std::function<Loop()>&& fn = DefLoopFn);
 		FTimerHandle SetTimer(Duration delay, std::function<void()>&& fn = DefFn);
 		void SetTimerForNextTick(std::function<void()>&& fn);
+		[[nodiscard]] bool IsTimerExists(const FTimerHandle& handle) const noexcept;
 
 	private:
-		static Loop DefLoopFn() { return Loop::kStop; }
-		static void DefFn() {}
+		static Loop DefLoopFn() noexcept { return Loop::kStop; }
+		static void DefFn() noexcept {}
 		
 		struct FTimer;
 		
