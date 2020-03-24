@@ -4,27 +4,27 @@
 
 namespace game::Math
 {
-	inline float Cos(TRadians t) noexcept { return cosf(t.Get()); }
-	inline float Sin(TRadians t) noexcept { return sinf(t.Get()); }
-	inline float Tan(TRadians t) noexcept { return tanf(t.Get()); }
-	inline TRadians Acos(float x) noexcept { return TRadians{acosf(x)}; }
-	inline TRadians Asin(float y) noexcept { return TRadians{asinf(y)}; }
-	inline TRadians Atan2(float y, float x) noexcept { return TRadians{atan2f(y, x)}; }
+	inline float Cos(Radians t) noexcept { return cosf(t.Get()); }
+	inline float Sin(Radians t) noexcept { return sinf(t.Get()); }
+	inline float Tan(Radians t) noexcept { return tanf(t.Get()); }
+	inline Radians Acos(float x) noexcept { return Radians{acosf(x)}; }
+	inline Radians Asin(float y) noexcept { return Radians{asinf(y)}; }
+	inline Radians Atan2(float y, float x) noexcept { return Radians{atan2f(y, x)}; }
 
 	template <class T>
-	TRadians V2R(Vector2<T> v) noexcept
+	Radians V2R(Vector2<T> v) noexcept
 	{
 		return Atan2(v.y, v.x);
 	}
 
-	inline FVector2 R2V(TRadians r) noexcept
+	inline FVector2 R2V(Radians r) noexcept
 	{
 		return {Cos(r), Sin(r)};
 	}
 
-	inline TRadians RandAng() noexcept
+	inline Radians RandAng() noexcept
 	{
-		return TRadians{Rand(-kPi, kPi)};
+		return Radians{Rand(-kPi, kPi)};
 	}
 
 	inline FVector2 RandUnitVec() noexcept

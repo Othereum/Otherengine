@@ -13,13 +13,13 @@ namespace game
 		void Update(float deltaSeconds) override;
 		
 		void SetVelocity(FVector2 newvel) noexcept { vel_ = newvel; }
-		void SetAngularVelocity(TDegrees newvel) noexcept { rvel_ = newvel; }
+		void SetAngularVelocity(Degrees newvel) noexcept { rvel_ = newvel; }
 
 		[[nodiscard]] FVector2 GetVelocity() const noexcept { return vel_; }
-		[[nodiscard]] TDegrees GetAngularVelocity() const noexcept { return rvel_; }
+		[[nodiscard]] Degrees GetAngularVelocity() const noexcept { return rvel_; }
 
 	private:
 		FVector2 vel_;
-		TDegrees rvel_;
+		Degrees rvel_;
 	};
 }

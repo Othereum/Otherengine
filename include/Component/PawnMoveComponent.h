@@ -14,13 +14,13 @@ namespace game
 		void AddRotationInput(float r) noexcept { rotInput_ += r; }
 
 		void SetMaxSpeed(float s) noexcept { maxSpeed_ = s; }
-		void SetMaxRotationSpeed(TDegrees s) noexcept { maxRotSpeed_ = s; }
+		void SetMaxRotationSpeed(Degrees s) noexcept { maxRotSpeed_ = s; }
 
 	private:
 		FVector2 input_;
 		float rotInput_ = 0;
 		
 		float maxSpeed_ = 300;
-		TDegrees maxRotSpeed_ = 360_deg;
+		Degrees maxRotSpeed_ = 360_deg;
 	};
 }

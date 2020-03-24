@@ -41,13 +41,13 @@ namespace game
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void CRenderer::Draw(SDL_Texture& texture, const TFRect& dest, TDegrees angle) const
+	void CRenderer::Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle) const
 	{
 		const SDL_Rect r = dest;
 		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}
 
-	void CRenderer::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, TDegrees angle) const
+	void CRenderer::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle) const
 	{
 		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}

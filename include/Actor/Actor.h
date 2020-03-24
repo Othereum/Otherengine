@@ -44,8 +44,8 @@ namespace game
 		void SetPos(FVector2 new_pos) noexcept { pos_ = new_pos; }
 		[[nodiscard]] FVector2 GetPos() const noexcept { return pos_; }
 
-		void SetRot(TDegrees new_rot) noexcept { rot_ = new_rot; }
-		[[nodiscard]] TDegrees GetRot() const noexcept { return rot_; }
+		void SetRot(Degrees new_rot) noexcept { rot_ = new_rot; }
+		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
 		[[nodiscard]] FVector2 GetForward() const noexcept;
 
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
@@ -67,7 +67,7 @@ namespace game
 		float lifespan_ = 0;
 		
 		FVector2 pos_;
-		TDegrees rot_;
+		Degrees rot_;
 		float scale_ = 1;
 		
 		CWorld& world_;
