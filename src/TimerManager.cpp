@@ -19,7 +19,7 @@ namespace Game
 
 	FTimerHandle CTimerManager::SetTimer(Duration delay, std::function<void()>&& fn)
 	{
-		return SetTimer(delay, [func = std::move(fn)]{func(); return Loop::kStop;});
+		return SetLoopTimer(delay, [func = std::move(fn)]{func(); return Loop::kStop;});
 	}
 
 	void CTimerManager::SetTimerForNextTick(std::function<void()>&& fn)
