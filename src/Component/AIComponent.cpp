@@ -19,4 +19,9 @@ namespace game
 		cur_{ai_state::default_state}
 	{
 	}
+
+	void AIComponent::Update(float delta_seconds)
+	{
+		cur_.Update(delta_seconds);
+	}
 }

@@ -29,6 +29,7 @@ namespace game
 	{
 	public:
 		AIComponent(AActor& owner, int update_order = 100);
+		void Update(float delta_seconds) override;
 
 	private:
 		std::unordered_map<FName, std::unique_ptr<ai_state::Base>> states_;
