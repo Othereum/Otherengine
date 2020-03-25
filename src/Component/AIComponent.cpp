@@ -7,6 +7,7 @@ namespace game
 		class Default : public Base
 		{
 		public:
+			Default(): Base{nullptr} {}
 			[[nodiscard]] FName GetName() const override { return "Default"; }
 		};
 

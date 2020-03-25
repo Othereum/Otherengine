@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include "Component/ActorComponent.h"
+#include "ActorComponent.h"
 #include "Name.h"
 
 namespace game
@@ -12,6 +12,7 @@ namespace game
 		{
 		public:
 			explicit Base(class AIComponent& owner) noexcept: owner_{owner} {}
+			explicit Base(class AIComponent* owner) noexcept: owner_{*owner} {}
 			virtual ~Base() = default;
 			virtual void OnEnter(Base& prev) {}
 			virtual void Update(float delta_seconds) {}
