@@ -30,9 +30,17 @@ namespace game
 	public:
 		AIComponent(AActor& owner, int update_order = 100);
 		void Update(float delta_seconds) override;
+		void ChangeState(FName name);
+		void AddState(std::unique_ptr<ai_state::Base>&& state);
+
+		template <class T, class... Args>
+		void AddState(Args&&... args)
+		{
+			AddState(std::make_unique<T>(std::forward<Args>(args)...));
+		}
 
 	private:
 		std::unordered_map<FName, std::unique_ptr<ai_state::Base>> states_;
-		ai_state::Base& cur_;
+		std::reference_wrapper<ai_state::Base> cur_;
 	};
 }

@@ -22,6 +22,16 @@ namespace game
 
 	void AIComponent::Update(float delta_seconds)
 	{
-		cur_.Update(delta_seconds);
+		cur_.get().Update(delta_seconds);
+	}
+
+	void AIComponent::ChangeState(FName name)
+	{
+		cur_ = *states_.at(name);
+	}
+
+	void AIComponent::AddState(std::unique_ptr<ai_state::Base>&& state)
+	{
+		states_.emplace(state->GetName(), std::move(state));
 	}
 }
