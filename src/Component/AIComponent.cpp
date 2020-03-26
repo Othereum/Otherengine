@@ -1,4 +1,5 @@
 #include "Component/AIComponent.h"
+#include "Component/AIState.h"
 
 namespace game
 {
