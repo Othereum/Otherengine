@@ -27,7 +27,11 @@ namespace game
 
 	void AIComponent::ChangeState(FName name)
 	{
-		cur_ = *states_.at(name);
+		auto& prev = cur_.get();
+		auto& next = *states_.at(name);
+		prev.OnExit(next);
+		cur_ = next;
+		next.OnEnter(prev);
 	}
 
 	void AIComponent::AddState(std::unique_ptr<ai_state::Base>&& state)
