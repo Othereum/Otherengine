@@ -7,7 +7,7 @@ namespace game
 {
 	static CRenderer::TWindowPtr CreateWindow()
 	{
-		const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrSz.x, kScrSz.y, 0);
+		const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return {window, &SDL_DestroyWindow};
 	}
