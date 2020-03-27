@@ -6,7 +6,7 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
-struct SDL_Renderer;
+struct SDL_GLContext;
 struct SDL_Window;
 
 namespace game
@@ -19,7 +19,7 @@ namespace game
 	{
 	public:
 		using TWindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
-		using TRendererPtr = std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>;
+		using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
 	
 		CRenderer();
 		
@@ -31,11 +31,9 @@ namespace game
 
 		void DrawScene() const;
 
-		[[nodiscard]] SDL_Renderer& GetSdlRenderer() const noexcept { return *renderer_; }
-
 	private:
 		TWindowPtr window_;
-		TRendererPtr renderer_;
+		GlContextPtr gl_context_;
 
 		std::vector<std::reference_wrapper<const CSpriteComponent>> sprites_;
 	};

@@ -5,32 +5,38 @@
 
 namespace game
 {
+	static void SetGlAttribute(SDL_GLattr attr, int value)
+	{
+		if (0 != SDL_GL_SetAttribute(attr, value))
+			throw std::runtime_error{SDL_GetError()};
+	}
+	
 	static CRenderer::TWindowPtr CreateWindow()
 	{
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-		SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
-		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, true);
-		SDL_GL_SetAttribute(SDL_GL_ACCELERATED_VISUAL, true);
+		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+		SetGlAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SetGlAttribute(SDL_GL_RED_SIZE, 8);
+		SetGlAttribute(SDL_GL_GREEN_SIZE, 8);
+		SetGlAttribute(SDL_GL_BLUE_SIZE, 8);
+		SetGlAttribute(SDL_GL_ALPHA_SIZE, 8);
+		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
+		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 		
 		const auto window = SDL_CreateWindow(PROJECT_NAME, 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return {window, &SDL_DestroyWindow};
 	}
 
-	static CRenderer::TRendererPtr CreateRenderer(SDL_Window& window)
+	static CRenderer::GlContextPtr CreateGlContext(SDL_Window& window)
 	{
-		const auto renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		if (!renderer) throw std::runtime_error{SDL_GetError()};
-		return {renderer, &SDL_DestroyRenderer};
+		const auto context = SDL_GL_CreateContext(&window);
+		if (!context) throw std::runtime_error{SDL_GetError()};
+		return {context, &SDL_GL_DeleteContext};
 	}
 	
 	CRenderer::CRenderer()
-		:window_{CreateWindow()}, renderer_{CreateRenderer(*window_)}
+		:window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
 	{
 	}
 
