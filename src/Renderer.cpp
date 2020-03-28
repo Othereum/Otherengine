@@ -1,6 +1,8 @@
 #include "Renderer.h"
 #include <stdexcept>
 #include <SDL.h>
+#include <GL/glew.h>
+#include <fmt/core.h>
 #include "Component/SpriteComponent.h"
 
 namespace game
@@ -38,6 +40,11 @@ namespace game
 	CRenderer::CRenderer()
 		:window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
 	{
+		glewExperimental = GL_TRUE;
+		if (glewInit() != GLEW_OK)
+		{
+			throw std::runtime_error{fmt::format("Failed to initialize GLEW. Error code: {}", glGetError())};
+		}
 	}
 
 	void CRenderer::RegisterSprite(const CSpriteComponent& sprite)
