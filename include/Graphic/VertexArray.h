@@ -1,12 +1,13 @@
 #pragma once
 #include <gsl/span>
+#include "Vector.h"
 
 namespace game
 {
 	class VertexArray
 	{
 	public:
-		VertexArray(gsl::span<float> verts, gsl::span<unsigned> indices);
+		VertexArray(gsl::span<FVector3> verts, gsl::span<unsigned> indices);
 		~VertexArray();
 
 		void Activate();
