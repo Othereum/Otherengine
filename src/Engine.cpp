@@ -7,7 +7,7 @@
 #include "Component/InputComponent.h"
 #include "Component/CircleComponent.h"
 #include "InputSystem.h"
-#include "Renderer.h"
+#include "Graphic/Renderer.h"
 #include "World.h"
 
 #include "Actor/Asteroid.h"

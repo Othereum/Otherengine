@@ -1,4 +1,4 @@
-#include "Renderer.h"
+#include "Graphic/Renderer.h"
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>

@@ -3,7 +3,7 @@
 #include "Actor/Actor.h"
 #include "Component/CircleComponent.h"
 #include "Component/InputComponent.h"
-#include "Renderer.h"
+#include "Graphic/Renderer.h"
 #include "TimerManager.h"
 
 namespace game
