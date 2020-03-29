@@ -7,6 +7,8 @@ namespace game
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		glBindVertexArray(vertex_array_);
+		glGenBuffers(1, &vertex_buffer_);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
 	}
 
 	VertexArray::~VertexArray()
