@@ -77,13 +77,14 @@ namespace game
 
 	void CRenderer::DrawScene() const
 	{
-		SDL_RenderClear(renderer_.get());
+		glClearColor(.86f, .86f, .86f, 1.f);
+		glClear(GL_COLOR_BUFFER_BIT);
 
 		for (auto& sprite : sprites_)
 		{
 			sprite.get().DrawSprite();
 		}
 
-		SDL_RenderPresent(renderer_.get());
+		SDL_GL_SwapWindow(window_.get());
 	}
 }
