@@ -15,6 +15,9 @@ namespace game
 		glGenBuffers(1, &index_buffer_);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
+
+		glEnableVertexAttribArray(0);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof FVector3, nullptr);
 	}
 
 	VertexArray::~VertexArray()
