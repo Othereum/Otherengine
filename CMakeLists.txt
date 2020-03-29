@@ -10,8 +10,9 @@ find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(fmt CONFIG REQUIRED)
+find_package(gsl-lite CONFIG REQUIRED)
 
 target_include_directories(${PROJECT_NAME} PRIVATE "include" ${Boost_INCLUDE_DIRS})
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2_image GLEW::GLEW fmt::fmt)
+target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2_image GLEW::GLEW fmt::fmt gsl::gsl-lite)
 
 add_compile_definitions(PROJECT_NAME="${PROJECT_NAME}")
