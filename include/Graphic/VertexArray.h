@@ -10,7 +10,7 @@ namespace game
 		VertexArray(gsl::span<FVector3> verts, gsl::span<unsigned> indices);
 		~VertexArray();
 
-		void Activate();
+		void Activate() const;
 
 		[[nodiscard]] unsigned GetNumIndices() const noexcept { return num_indices_; }
 		[[nodiscard]] unsigned GetNumVerts() const noexcept { return num_verts_; }
