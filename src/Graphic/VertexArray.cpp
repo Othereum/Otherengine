@@ -22,6 +22,9 @@ namespace game
 
 	VertexArray::~VertexArray()
 	{
+		glDeleteBuffers(1, &vertex_buffer_);
+		glDeleteBuffers(1, &index_buffer_);
+		glDeleteVertexArrays(1, &vertex_array_);
 	}
 
 	void VertexArray::Activate()
