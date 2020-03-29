@@ -12,12 +12,12 @@ namespace game
 
 		void Activate() const;
 
-		[[nodiscard]] unsigned GetNumIndices() const noexcept { return num_indices_; }
-		[[nodiscard]] unsigned GetNumVerts() const noexcept { return num_verts_; }
+		[[nodiscard]] ptrdiff_t GetNumVerts() const noexcept { return num_verts_; }
+		[[nodiscard]] ptrdiff_t GetNumIndices() const noexcept { return num_indices_; }
 
 	private:
-		unsigned num_verts_;
-		unsigned num_indices_;
+		ptrdiff_t num_verts_;
+		ptrdiff_t num_indices_;
 		unsigned vertex_buffer_;
 		unsigned index_buffer_;
 		unsigned vertex_array_;

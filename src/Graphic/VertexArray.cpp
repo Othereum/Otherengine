@@ -4,6 +4,7 @@
 namespace game
 {
 	VertexArray::VertexArray(gsl::span<FVector3> verts, gsl::span<unsigned> indices)
+		:num_verts_{verts.size()}, num_indices_{indices.size()}
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		glBindVertexArray(vertex_array_);
