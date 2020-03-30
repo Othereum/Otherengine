@@ -5,7 +5,7 @@
 #include "Component/SpriteComponent.h"
 #include "Graphics/VertexArray.h"
 
-namespace game
+namespace game::graphics
 {
 	static void SetGlAttribute(SDL_GLattr attr, int value)
 	{
@@ -55,10 +55,10 @@ namespace game
 	{
 		constexpr FVector3 vertex_buffer[]
 		{
-			{-0.5f, 0.5f, 0.0f},
-			{0.5f, 0.5f, 0.0f},
-			{0.5f, -0.5f, 0.0f},
-			{-0.5f, -0.5f, 0.0f}
+			{-0.5, 0.5, 0},
+			{0.5, 0.5, 0},
+			{0.5, -0.5, 0},
+			{-0.5, -0.5, 0}
 		};
 
 		constexpr Vector3<uint16_t> index_buffer[]

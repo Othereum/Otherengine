@@ -11,29 +11,32 @@ struct SDL_Window;
 namespace game
 {
 	class CSpriteComponent;
-	
-	constexpr Vector2<uint16_t> kScrSz{1024, 768};
-	
-	class CRenderer
+
+	namespace graphics
 	{
-	public:
-		using TWindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
-		using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
-	
-		CRenderer();
+		constexpr Vector2<uint16_t> kScrSz{1024, 768};
 		
-		void RegisterSprite(const CSpriteComponent& sprite);
-		void UnregisterSprite(const CSpriteComponent& sprite);
+		class CRenderer
+		{
+		public:
+			using TWindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
+			using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
+		
+			CRenderer();
+			
+			void RegisterSprite(const CSpriteComponent& sprite);
+			void UnregisterSprite(const CSpriteComponent& sprite);
 
-		void Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle = {}) const;
-		void Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle = {}) const;
+			void Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle = {}) const;
+			void Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle = {}) const;
 
-		void DrawScene() const;
+			void DrawScene() const;
 
-	private:
-		TWindowPtr window_;
-		GlContextPtr gl_context_;
-		std::unique_ptr<class VertexArray> sprite_verts_;
-		std::vector<std::reference_wrapper<const CSpriteComponent>> sprites_;
-	};
+		private:
+			TWindowPtr window_;
+			GlContextPtr gl_context_;
+			std::unique_ptr<class VertexArray> sprite_verts_;
+			std::vector<std::reference_wrapper<const CSpriteComponent>> sprites_;
+		};
+	}
 }

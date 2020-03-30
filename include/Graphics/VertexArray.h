@@ -2,7 +2,7 @@
 #include <gsl/span>
 #include "Vector.h"
 
-namespace game
+namespace game::graphics
 {
 	class VertexArray
 	{

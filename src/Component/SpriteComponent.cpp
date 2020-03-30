@@ -58,7 +58,7 @@ namespace game
 		SetTexture(GetEngine().GetTexture(filename));
 	}
 
-	CRenderer& CSpriteComponent::GetRenderer() const noexcept
+	graphics::CRenderer& CSpriteComponent::GetRenderer() const noexcept
 	{
 		return GetWorld().GetRenderer();
 	}

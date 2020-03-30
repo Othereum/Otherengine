@@ -7,8 +7,11 @@ union SDL_Event;
 
 namespace game
 {
+	namespace graphics
+	{
+		class CRenderer;
+	}
 	class CEngine;
-	class CRenderer;
 	class CTimerManager;
 	class AActor;
 	class CInputComponent;
@@ -39,7 +42,7 @@ namespace game
 		void UnregisterCollision(CCircleComponent& comp);
 		
 		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
-		[[nodiscard]] CRenderer& GetRenderer() const noexcept { return *renderer_; }
+		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept { return *timer_; }
 		[[nodiscard]] auto GetTime() const noexcept { return time_; }
 
@@ -49,7 +52,7 @@ namespace game
 		void RegisterActor(std::unique_ptr<AActor>&& actor);
 
 		CEngine& engine_;
-		std::unique_ptr<CRenderer> renderer_;
+		std::unique_ptr<graphics::CRenderer> renderer_;
 		std::unique_ptr<CTimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;

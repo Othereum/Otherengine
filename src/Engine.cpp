@@ -18,38 +18,38 @@ namespace game
 {
 	CEngine::CEngine() :
 		world_{std::make_unique<CWorld>(*this)},
-		inputSystem_{std::make_unique<CInputSystem>()}
+		input_system_{std::make_unique<CInputSystem>()}
 	{
-		inputSystem_->AddAxis("MoveForward", {
+		input_system_->AddAxis("MoveForward", {
 			{'w', EInputType::keyboard, 1},
 			{'s', EInputType::keyboard, -1},
 		});
 		
-		inputSystem_->AddAxis("Turn", {
+		input_system_->AddAxis("Turn", {
 			{'a', EInputType::keyboard, -1},
 			{'d', EInputType::keyboard, 1},
 		});
 
-		inputSystem_->AddAction("Shoot", {
+		input_system_->AddAction("Shoot", {
 			{' ', EInputType::keyboard}
 		});
 		
 		for (auto i = 0; i < 20; ++i)
 		{
 			auto& ast = world_->SpawnActor<AAsteroid>();
-			ast.SetPos(math::RandVec({0, 0}, FVector2{kScrSz}));
+			ast.SetPos(math::RandVec({0, 0}, FVector2{graphics::kScrSz}));
 			ast.SetRot(math::RandAng());
 		}
 
 		auto& sh = world_->SpawnActor<ship>();
-		sh.SetPos(FVector2{kScrSz / 2});
+		sh.SetPos(FVector2{graphics::kScrSz / 2});
 	}
 
 	CEngine::~CEngine() = default;
 
 	void CEngine::RunLoop()
 	{
-		while (bIsRunning_)
+		while (is_running_)
 		{
 			Tick();
 		}
@@ -57,7 +57,7 @@ namespace game
 
 	void CEngine::Shutdown()
 	{
-		bIsRunning_ = false;
+		is_running_ = false;
 	}
 
 	std::shared_ptr<SDL_Texture> CEngine::GetTexture(FName file)
@@ -79,7 +79,7 @@ namespace game
 
 	void CEngine::ProcessEvent()
 	{
-		inputSystem_->ClearEvents();
+		input_system_->ClearEvents();
 		
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -90,7 +90,7 @@ namespace game
 				return;
 			}
 			
-			inputSystem_->AddEvent(event);
+			input_system_->AddEvent(event);
 		}
 	}
 

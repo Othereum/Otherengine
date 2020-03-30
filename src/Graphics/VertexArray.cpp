@@ -1,7 +1,7 @@
 #include "Graphics/VertexArray.h"
 #include <GL/glew.h>
 
-namespace game
+namespace game::graphics
 {
 	VertexArray::VertexArray(gsl::span<const FVector3> verts, gsl::span<const Vector3<uint16_t>> indices)
 	{

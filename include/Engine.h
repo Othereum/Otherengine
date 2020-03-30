@@ -32,7 +32,7 @@ namespace game
 		
 		[[nodiscard]] std::shared_ptr<SDL_Texture> GetTexture(FName file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
-		[[nodiscard]] const CInputSystem& GetInputSystem() const noexcept { return *inputSystem_; }
+		[[nodiscard]] const CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
 		
 	private:
 		void Tick();
@@ -41,7 +41,7 @@ namespace game
 
 		std::unordered_map<FName, std::weak_ptr<SDL_Texture>> textures_;
 		std::unique_ptr<CWorld> world_;
-		std::unique_ptr<CInputSystem> inputSystem_;
-		bool bIsRunning_ = true;
+		std::unique_ptr<CInputSystem> input_system_;
+		bool is_running_ = true;
 	};
 }

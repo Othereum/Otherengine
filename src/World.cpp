@@ -10,7 +10,7 @@ namespace game
 {
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},
-		renderer_{std::make_unique<CRenderer>()},
+		renderer_{std::make_unique<graphics::CRenderer>()},
 		timer_{std::make_unique<CTimerManager>(*this)}
 	{
 	}
@@ -75,9 +75,9 @@ namespace game
 {
 		using namespace std::chrono;
 		const auto now = steady_clock::now();
-		const auto deltaSeconds = duration<float>{now - time_}.count();
+		const auto delta_seconds = duration<float>{now - time_}.count();
 		time_ = now;
-		return deltaSeconds;
+		return delta_seconds;
 	}
 
 	void CWorld::RegisterActor(std::unique_ptr<AActor>&& actor)

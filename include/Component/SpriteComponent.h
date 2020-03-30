@@ -9,6 +9,11 @@ struct SDL_Texture;
 
 namespace game
 {
+	namespace graphics
+	{
+		class CRenderer;
+	}
+	
 	class CSpriteComponent : public CActorComponent
 	{
 	public:
@@ -25,7 +30,7 @@ namespace game
 
 		[[nodiscard]] const Vector2<unsigned short>& GetTexSize() const noexcept { return texSize_; }
 		[[nodiscard]] int GetDrawOrder() const noexcept { return drawOrder_; }
-		[[nodiscard]] class CRenderer& GetRenderer() const noexcept;
+		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept;
 
 	private:
 		virtual void Draw() const;

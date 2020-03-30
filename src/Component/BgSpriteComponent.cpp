@@ -17,9 +17,9 @@ namespace game
 		for (auto& bg : textures_)
 		{
 			bg.offset.x += scrollSpeed_ * deltaSeconds;
-			if (bg.offset.x < -kScrSz.x)
+			if (bg.offset.x < -graphics::kScrSz.x)
 			{
-				bg.offset.x = static_cast<float>((textures_.size() - 1) * kScrSz.x - 1);
+				bg.offset.x = static_cast<float>((textures_.size() - 1) * graphics::kScrSz.x - 1);
 			}
 		}
 	}
@@ -28,7 +28,7 @@ namespace game
 	{
 		for (const auto& bg : textures_)
 		{
-			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, FVector2{kScrSz}}, 0_deg);
+			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, FVector2{graphics::kScrSz}}, 0_deg);
 		}
 	}
 
@@ -44,7 +44,7 @@ namespace game
 		{
 			FBgTexture texture;
 			texture.texture = std::move(textures[i]);
-			texture.offset.x = static_cast<float>(i * kScrSz.x);
+			texture.offset.x = static_cast<float>(i * graphics::kScrSz.x);
 			textures_.push_back(std::move(texture));
 		}
 		textures.clear();
