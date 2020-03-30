@@ -37,14 +37,18 @@ namespace game
 		return {context, &SDL_GL_DeleteContext};
 	}
 	
-	CRenderer::CRenderer()
-		:window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
+	CRenderer::CRenderer():
+		window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
 	{
 		glewExperimental = GL_TRUE;
-		if (glewInit() != GLEW_OK)
+		
+		if (const auto err = glewInit(); err != GLEW_OK)
 		{
-			throw std::runtime_error{fmt::format("Failed to initialize GLEW. Error code: {}", glGetError())};
+			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
 		}
+		
+		// On some platforms, GLEW will emit a benign error code, so clear it
+		glGetError();
 	}
 
 	void CRenderer::RegisterSprite(const CSpriteComponent& sprite)
