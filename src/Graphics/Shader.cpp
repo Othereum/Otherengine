@@ -5,6 +5,17 @@
 
 namespace game::graphics
 {
+	static std::string Open(std::string_view filename)
+	{
+		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
+		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Shader file not found: {}", filename)};
+
+		std::string code(file.tellg(), 0);
+		file.seekg(0);
+		file.read(code.data(), code.size());
+		return code;
+	}
+	
 	static void Check(unsigned shader)
 	{
 		int is_valid;
@@ -21,16 +32,10 @@ namespace game::graphics
 	
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
-		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Shader file not found: {}", filename)};
-
-		std::string code(file.tellg(), 0);
-		file.seekg(0);
-		file.read(code.data(), code.size());
-
-		const auto str = code.c_str();
+		const auto str = Open(filename);
+		const auto c_str = str.c_str();
 		const auto shader = glCreateShader(type);
-		glShaderSource(shader, 1, &str, nullptr);
+		glShaderSource(shader, 1, &c_str, nullptr);
 		glCompileShader(shader);
 		Check(shader);
 	}
