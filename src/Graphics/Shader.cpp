@@ -5,6 +5,20 @@
 
 namespace game::graphics
 {
+	static void Check(unsigned shader)
+	{
+		int is_valid;
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &is_valid);
+		if (!is_valid)
+		{
+			int len;
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
+			std::string log(len, 0);
+			glGetShaderInfoLog(shader, len, nullptr, log.data());
+			throw std::runtime_error{log};
+		}
+	}
+	
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
 		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
@@ -18,6 +32,7 @@ namespace game::graphics
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &str, nullptr);
 		glCompileShader(shader);
+		Check(shader);
 	}
 	
 	Shader::Shader(std::string_view vert_name, std::string_view frag_name)
