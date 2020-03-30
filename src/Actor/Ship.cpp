@@ -7,7 +7,7 @@
 #include "Component/PawnMoveComponent.h"
 #include "Component/CircleComponent.h"
 #include "World.h"
-#include "Renderer.h"
+#include "Graphics/Renderer.h"
 #include "TimerManager.h"
 
 namespace game

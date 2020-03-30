@@ -3,7 +3,7 @@
 #include "Actor/Actor.h"
 #include "Engine.h"
 #include "World.h"
-#include "Graphic/Renderer.h"
+#include "Graphics/Renderer.h"
 
 namespace game
 {

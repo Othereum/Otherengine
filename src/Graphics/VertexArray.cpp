@@ -1,4 +1,4 @@
-#include "Graphic/VertexArray.h"
+#include "Graphics/VertexArray.h"
 #include <GL/glew.h>
 
 namespace game

@@ -1,9 +1,9 @@
-#include "Graphic/Renderer.h"
+#include "Graphics/Renderer.h"
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
 #include "Component/SpriteComponent.h"
-#include "Graphic/VertexArray.h"
+#include "Graphics/VertexArray.h"
 
 namespace game
 {

@@ -3,7 +3,7 @@
 #include <sstream>
 #include <string>
 #include "Actor/Actor.h"
-#include "Graphic/Renderer.h"
+#include "Graphics/Renderer.h"
 
 namespace game
 {

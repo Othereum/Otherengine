@@ -1,7 +1,7 @@
 #include "Component/BgSpriteComponent.h"
 #include <SDL.h>
 #include "Actor/Actor.h"
-#include "Graphic/Renderer.h"
+#include "Graphics/Renderer.h"
 
 namespace game
 {
