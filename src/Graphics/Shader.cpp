@@ -1,6 +1,6 @@
 #include "Graphics/Shader.h"
 #include <fstream>
-#include <fmt/core.h>
+#include <GL/glew.h>
 
 namespace game::graphics
 {
@@ -13,6 +13,11 @@ namespace game::graphics
 		std::string code(file.tellg(), 0);
 		file.seekg(0);
 		file.read(code.data(), code.size());
+
+		const auto str = code.c_str();
+		const auto shader = glCreateShader(type);
+		glShaderSource(shader, 1, &str, nullptr);
+		glCompileShader(shader);
 	}
 	
 	Shader::Shader(std::string_view vert_name, std::string_view frag_name)
