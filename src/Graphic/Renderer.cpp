@@ -30,25 +30,30 @@ namespace game
 		return {window, &SDL_DestroyWindow};
 	}
 
-	static CRenderer::GlContextPtr CreateGlContext(SDL_Window& window)
-	{
-		const auto context = SDL_GL_CreateContext(&window);
-		if (!context) throw std::runtime_error{SDL_GetError()};
-		return {context, &SDL_GL_DeleteContext};
-	}
-	
-	CRenderer::CRenderer():
-		window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
+	static void InitGl()
 	{
 		glewExperimental = GL_TRUE;
 		
 		if (const auto err = glewInit(); err != GLEW_OK)
-		{
 			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
-		}
 		
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
+	}
+	
+	static auto CreateGlContext(SDL_Window& window)
+	{
+		const auto raw = SDL_GL_CreateContext(&window);
+		if (!raw) throw std::runtime_error{SDL_GetError()};
+		CRenderer::GlContextPtr ptr{raw, &SDL_GL_DeleteContext};
+		
+		InitGl();
+		return ptr;
+	}
+
+	CRenderer::CRenderer():
+		window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
+	{
 	}
 
 	void CRenderer::RegisterSprite(const CSpriteComponent& sprite)

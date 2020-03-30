@@ -6,7 +6,6 @@
 
 struct SDL_Texture;
 struct SDL_Rect;
-struct SDL_GLContext;
 struct SDL_Window;
 
 namespace game
