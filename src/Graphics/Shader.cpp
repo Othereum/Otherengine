@@ -1,14 +1,14 @@
 #include "Graphics/Shader.h"
 #include <fstream>
 #include <GL/glew.h>
+#include <fmt/core.h>
 
 namespace game::graphics
 {
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
-		std::ifstream file;
-		file.exceptions(std::ios_base::failbit);
-		file.open(filename.data(), std::ios_base::in | std::ios_base::ate);
+		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
+		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Shader file not found: {}", filename)};
 
 		std::string code(file.tellg(), 0);
 		file.seekg(0);
