@@ -7,17 +7,12 @@ namespace game
 	class VertexArray
 	{
 	public:
-		VertexArray(gsl::span<FVector3> verts, gsl::span<unsigned> indices);
+		VertexArray(gsl::span<const FVector3> verts, gsl::span<const Vector3<uint16_t>> indices);
 		~VertexArray();
 
 		void Activate() const;
 
-		[[nodiscard]] ptrdiff_t GetNumVerts() const noexcept { return num_verts_; }
-		[[nodiscard]] ptrdiff_t GetNumIndices() const noexcept { return num_indices_; }
-
 	private:
-		ptrdiff_t num_verts_;
-		ptrdiff_t num_indices_;
 		unsigned vertex_buffer_;
 		unsigned index_buffer_;
 		unsigned vertex_array_;
