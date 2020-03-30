@@ -2,8 +2,8 @@
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
-#include <fmt/core.h>
 #include "Component/SpriteComponent.h"
+#include "Graphic/VertexArray.h"
 
 namespace game
 {
@@ -51,8 +51,29 @@ namespace game
 		return ptr;
 	}
 
+	static auto CreateSpriteVerts()
+	{
+		constexpr FVector3 vertex_buffer[]
+		{
+			{-0.5f, 0.5f, 0.0f},
+			{0.5f, 0.5f, 0.0f},
+			{0.5f, -0.5f, 0.0f},
+			{-0.5f, -0.5f, 0.0f}
+		};
+
+		constexpr Vector3<uint16_t> index_buffer[]
+		{
+			{0, 1, 2},
+			{2, 3, 0}
+		};
+
+		return std::make_unique<VertexArray>(vertex_buffer, index_buffer);
+	}
+
 	CRenderer::CRenderer():
-		window_{CreateWindow()}, gl_context_{CreateGlContext(*window_)}
+		window_{CreateWindow()},
+		gl_context_{CreateGlContext(*window_)},
+		sprite_verts_{CreateSpriteVerts()}
 	{
 	}
 
@@ -76,12 +97,12 @@ namespace game
 	void CRenderer::Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle) const
 	{
 		const SDL_Rect r = dest;
-		SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.Get(), nullptr, SDL_FLIP_NONE);
+		// SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	void CRenderer::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle) const
 	{
-		SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.Get(), nullptr, SDL_FLIP_NONE);
+		// SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	void CRenderer::DrawScene() const
