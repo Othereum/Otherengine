@@ -39,8 +39,10 @@ namespace game::graphics
 		glCompileShader(shader);
 		Check(shader);
 	}
-	
-	Shader::Shader(std::string_view vert_name, std::string_view frag_name)
+
+	Shader::Shader(std::string_view vert_name, std::string_view frag_name):
+		vert_shader_{Compile(vert_name, GL_VERTEX_SHADER)},
+		frag_shader_{Compile(frag_name, GL_FRAGMENT_SHADER)}
 	{
 	}
 
