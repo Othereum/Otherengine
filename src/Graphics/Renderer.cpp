@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include "Component/SpriteComponent.h"
 #include "Graphics/VertexArray.h"
+#include "Graphics/Shader.h"
 
 namespace game::graphics
 {
@@ -73,7 +74,8 @@ namespace game::graphics
 	CRenderer::CRenderer():
 		window_{CreateWindow()},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_verts_{CreateSpriteVerts()}
+		sprite_verts_{CreateSpriteVerts()},
+		sprite_shader_{std::make_unique<Shader>("Shaders/Basic.vert", "Shaders/Basic.frag")}
 	{
 	}
 
