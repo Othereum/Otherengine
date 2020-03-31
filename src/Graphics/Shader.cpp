@@ -32,7 +32,11 @@ namespace game::graphics
 
 	static void CheckProgram(unsigned program)
 	{
-		
+		int is_valid;
+		glGetProgramiv(program, GL_LINK_STATUS, &is_valid);
+		if (!is_valid)
+		{
+		}
 	}
 	
 	static unsigned Compile(std::string_view filename, unsigned type)
