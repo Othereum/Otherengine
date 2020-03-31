@@ -1,3 +1,7 @@
 .vs
 out
 CMakeSettings.json
+*.dll
+*.exe
+*.ilk
+*.pdb
