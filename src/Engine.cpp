@@ -96,23 +96,7 @@ namespace game
 
 	std::shared_ptr<SDL_Texture> CEngine::LoadTexture(FName file)
 	{
-		const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface{
-			IMG_Load(file.Str().c_str()),
-			SDL_FreeSurface
-		};
-		if (!surface) throw std::runtime_error{SDL_GetError()};
-
-		std::shared_ptr<SDL_Texture> texture{
-			SDL_CreateTextureFromSurface(&world_->GetRenderer().GetSdlRenderer(), surface.get()),
-			[this, file](SDL_Texture* texture)
-			{
-				textures_.erase(file);
-				SDL_DestroyTexture(texture);
-			}
-		};
-		if (!texture) throw std::runtime_error{SDL_GetError()};
-		
-		return texture;
+		return nullptr;
 	}
 
 	CSdlRaii::CSdlRaii()
