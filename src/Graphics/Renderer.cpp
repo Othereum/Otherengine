@@ -74,8 +74,8 @@ namespace game::graphics
 	CRenderer::CRenderer():
 		window_{CreateWindow()},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_verts_{CreateSpriteVerts()},
-		sprite_shader_{std::make_unique<Shader>("Shaders/Basic.vert", "Shaders/Basic.frag")}
+		sprite_shader_{std::make_unique<Shader>("Shaders/Basic.vert", "Shaders/Basic.frag")},
+		sprite_verts_{CreateSpriteVerts()}
 	{
 	}
 
