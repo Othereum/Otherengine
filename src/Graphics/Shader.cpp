@@ -29,6 +29,11 @@ namespace game::graphics
 			throw std::runtime_error{log};
 		}
 	}
+
+	static void CheckProgram(unsigned program)
+	{
+		
+	}
 	
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
