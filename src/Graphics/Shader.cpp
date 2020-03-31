@@ -38,6 +38,7 @@ namespace game::graphics
 		glShaderSource(shader, 1, &c_str, nullptr);
 		glCompileShader(shader);
 		CheckShader(shader);
+		return shader;
 	}
 
 	Shader::Shader(std::string_view vert_name, std::string_view frag_name):
