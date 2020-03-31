@@ -79,6 +79,8 @@ namespace game::graphics
 	{
 	}
 
+	CRenderer::~CRenderer() = default;
+
 	void CRenderer::RegisterSprite(const CSpriteComponent& sprite)
 	{
 		auto cmp = [](const CSpriteComponent& a, const CSpriteComponent& b)

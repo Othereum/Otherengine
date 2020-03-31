@@ -23,6 +23,7 @@ namespace game
 			using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
 		
 			CRenderer();
+			~CRenderer();
 			
 			void RegisterSprite(const CSpriteComponent& sprite);
 			void UnregisterSprite(const CSpriteComponent& sprite);
