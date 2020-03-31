@@ -32,10 +32,7 @@ namespace game
 
 	void CSpriteComponent::Draw() const
 	{
-		if (!texture_) return;
 		
-		auto& owner = GetOwner();
-		GetRenderer().Draw(*texture_, {owner.GetPos(), texSize_ * owner.GetScale()}, owner.GetRot());
 	}
 
 	void CSpriteComponent::SetTexture(std::shared_ptr<SDL_Texture>&& texture)
