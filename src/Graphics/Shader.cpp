@@ -16,7 +16,7 @@ namespace game::graphics
 		return code;
 	}
 	
-	static void Check(unsigned shader)
+	static void CheckShader(unsigned shader)
 	{
 		int is_valid;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &is_valid);
@@ -37,7 +37,7 @@ namespace game::graphics
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_str, nullptr);
 		glCompileShader(shader);
-		Check(shader);
+		CheckShader(shader);
 	}
 
 	Shader::Shader(std::string_view vert_name, std::string_view frag_name):
