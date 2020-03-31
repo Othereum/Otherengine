@@ -46,6 +46,7 @@ namespace game::graphics
 		shader_program_{glCreateProgram()}
 	{
 		glAttachShader(shader_program_, vert_shader_);
+		glAttachShader(shader_program_, frag_shader_);
 	}
 
 	Shader::~Shader()
