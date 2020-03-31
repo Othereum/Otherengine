@@ -8,7 +8,7 @@
 namespace game
 {
 	CSpriteComponent::CSpriteComponent(AActor& owner, const int draw_order, const int update_order)
-		:CActorComponent{owner, update_order}, drawOrder_{draw_order}
+		:CActorComponent{owner, update_order}, draw_order_{draw_order}
 	{
 	}
 
@@ -32,7 +32,10 @@ namespace game
 
 	void CSpriteComponent::Draw() const
 	{
+		if (!texture_) return;
 		
+		auto& owner = GetOwner();
+		GetRenderer().Draw(*texture_, {owner.GetPos(), tex_size_ * owner.GetScale()}, owner.GetRot());
 	}
 
 	void CSpriteComponent::SetTexture(std::shared_ptr<SDL_Texture>&& texture)
@@ -41,7 +44,7 @@ namespace game
 
 		int w, h;
 		SDL_QueryTexture(texture_.get(), nullptr, nullptr, &w, &h);
-		texSize_ = Vector2{uint16_t(w), uint16_t(h)};
+		tex_size_ = Vector2{uint16_t(w), uint16_t(h)};
 	}
 
 	void CSpriteComponent::SetTexture(const std::shared_ptr<SDL_Texture>& texture)
