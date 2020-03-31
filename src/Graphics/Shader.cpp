@@ -69,5 +69,6 @@ namespace game::graphics
 
 	Shader::~Shader()
 	{
+		glDeleteProgram(shader_program_);
 	}
 }
