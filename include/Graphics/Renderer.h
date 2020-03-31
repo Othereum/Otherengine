@@ -36,6 +36,7 @@ namespace game
 			TWindowPtr window_;
 			GlContextPtr gl_context_;
 			std::unique_ptr<class VertexArray> sprite_verts_;
+			std::unique_ptr<class Shader> sprite_shader_;
 			std::vector<std::reference_wrapper<const CSpriteComponent>> sprites_;
 		};
 	}
