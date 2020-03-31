@@ -98,8 +98,7 @@ namespace game::graphics
 
 	void CRenderer::Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle) const
 	{
-		const SDL_Rect r = dest;
-		// SDL_RenderCopyEx(renderer_.get(), &texture, nullptr, &r, angle.Get(), nullptr, SDL_FLIP_NONE);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	void CRenderer::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle) const
