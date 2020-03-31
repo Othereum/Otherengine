@@ -71,5 +71,6 @@ namespace game::graphics
 	{
 		glDeleteProgram(shader_program_);
 		glDeleteShader(vert_shader_);
+		glDeleteShader(frag_shader_);
 	}
 }
