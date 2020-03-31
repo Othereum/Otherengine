@@ -36,6 +36,11 @@ namespace game::graphics
 		glGetProgramiv(program, GL_LINK_STATUS, &is_valid);
 		if (!is_valid)
 		{
+			int len;
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
+			std::string log(len, 0);
+			glGetProgramInfoLog(program, len, nullptr, log.data());
+			throw std::runtime_error{log};
 		}
 	}
 	
