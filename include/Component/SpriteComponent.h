@@ -17,7 +17,7 @@ namespace game
 	class CSpriteComponent : public CActorComponent
 	{
 	public:
-		explicit CSpriteComponent(AActor& owner, int drawOrder = 100, int updateOrder = 100);
+		explicit CSpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~CSpriteComponent();
 
 		void BeginPlay() override;

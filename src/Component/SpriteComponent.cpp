@@ -7,8 +7,8 @@
 
 namespace game
 {
-	CSpriteComponent::CSpriteComponent(AActor& owner, const int drawOrder, const int updateOrder)
-		:CActorComponent{owner, updateOrder}, drawOrder_{drawOrder}
+	CSpriteComponent::CSpriteComponent(AActor& owner, const int draw_order, const int update_order)
+		:CActorComponent{owner, update_order}, drawOrder_{draw_order}
 	{
 	}
 
