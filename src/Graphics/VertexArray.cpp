@@ -26,9 +26,4 @@ namespace game::graphics
 		glDeleteBuffers(1, &index_buffer_);
 		glDeleteVertexArrays(1, &vertex_array_);
 	}
-
-	void VertexArray::Activate() const
-	{
-		glBindVertexArray(vertex_array_);
-	}
 }

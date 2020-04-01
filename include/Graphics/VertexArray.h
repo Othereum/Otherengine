@@ -10,8 +10,6 @@ namespace game::graphics
 		VertexArray(gsl::span<const FVector3> verts, gsl::span<const Vector3<uint16_t>> indices);
 		~VertexArray();
 
-		void Activate() const;
-
 	private:
 		unsigned vertex_buffer_;
 		unsigned index_buffer_;
