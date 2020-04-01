@@ -40,6 +40,7 @@ namespace game
 
 	void CSpriteComponent::SetTexture(std::shared_ptr<SDL_Texture>&& texture)
 	{
+		if (!texture) return;
 		texture_ = std::move(texture);
 
 		int w, h;
