@@ -32,7 +32,7 @@ namespace game
 
 	void CSpriteComponent::Draw() const
 	{
-		if (!texture_) return;
+		// if (!texture_) return;
 		
 		auto& owner = GetOwner();
 		GetRenderer().Draw(*texture_, {owner.GetPos(), tex_size_ * owner.GetScale()}, owner.GetRot());
