@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <Eigen/Core>
 #include "Vector.h"
 #include "Rotation.h"
 
@@ -63,12 +64,16 @@ namespace game
 		void UpdateLifespan(float deltaSeconds);
 		virtual void UpdateActor(float deltaSeconds) {}
 
+		bool is_world_transform_dirty_ = true;
+		
 		EState state_ = EState::active;
 		float lifespan_ = 0;
 		
 		FVector2 pos_;
 		Degrees rot_;
 		float scale_ = 1;
+
+		Eigen::Matrix4f world_transform_;
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
