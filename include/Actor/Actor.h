@@ -41,18 +41,19 @@ namespace game
 		void SetEnabled(bool enable);
 
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
-
-		void SetPos(FVector2 new_pos) noexcept { pos_ = new_pos; }
+		[[nodiscard]] EState GetState() const noexcept { return state_; }
+		
+		void SetPos(FVector2 new_pos, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] FVector2 GetPos() const noexcept { return pos_; }
 
-		void SetRot(Degrees new_rot) noexcept { rot_ = new_rot; }
+		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
 		[[nodiscard]] FVector2 GetForward() const noexcept;
 
-		[[nodiscard]] EState GetState() const noexcept { return state_; }
-		
-		void SetScale(float scale) noexcept { scale_ = scale; }
+		void SetScale(float scale, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] float GetScale() const noexcept { return scale_; }
+
+		void RecomputeWorldTransform() noexcept;
 
 		[[nodiscard]] CEngine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
@@ -64,8 +65,6 @@ namespace game
 		void UpdateLifespan(float deltaSeconds);
 		virtual void UpdateActor(float deltaSeconds) {}
 
-		bool is_world_transform_dirty_ = true;
-		
 		EState state_ = EState::active;
 		float lifespan_ = 0;
 		
