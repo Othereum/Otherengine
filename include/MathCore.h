@@ -37,7 +37,7 @@ namespace game::math
 	}
 	
 	template <class T, class U, class V> 
-	auto Lerp(T a, U b, V alpha)
+	auto Lerp(T a, U b, V alpha) noexcept
 	{
 		return a + alpha * (b - a);
 	}
