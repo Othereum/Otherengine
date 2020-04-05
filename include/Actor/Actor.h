@@ -67,11 +67,11 @@ namespace game
 		EState state_ = EState::active;
 		float lifespan_ = 0;
 		
-		FVector2 pos_;
+		Vector3f pos_;
 		Degrees rot_;
-		float scale_ = 1;
+		Vector3f scale_ = Vector3f::Ones();
 
-		Eigen::Matrix4f world_transform_;
+		Matrix4f world_transform_;
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
