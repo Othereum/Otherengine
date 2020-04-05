@@ -60,7 +60,7 @@ namespace game
 
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);
-		void UpdateComponents(float deltaSeconds);
+		void UpdateComponents(float delta_seconds);
 		void UpdateLifespan(float deltaSeconds);
 		virtual void UpdateActor(float deltaSeconds) {}
 

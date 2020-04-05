@@ -30,11 +30,11 @@ namespace game
 		UpdateActor(deltaSeconds);
 	}
 
-	void AActor::UpdateComponents(const float deltaSeconds)
+	void AActor::UpdateComponents(const float delta_seconds)
 	{
 		for (const auto& comp : comps_)
 		{
-			comp->Update(deltaSeconds);
+			comp->Update(delta_seconds);
 		}
 	}
 
