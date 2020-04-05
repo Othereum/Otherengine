@@ -42,15 +42,15 @@ namespace game
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
 		
-		void SetPos(FVector2 new_pos, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] FVector2 GetPos() const noexcept { return pos_; }
+		void SetPos(const Vector3f& new_pos, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const Vector3f& GetPos() const noexcept { return pos_; }
 
 		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
-		[[nodiscard]] FVector2 GetForward() const noexcept;
+		[[nodiscard]] Vector3f GetForward() const noexcept;
 
-		void SetScale(float scale, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] float GetScale() const noexcept { return scale_; }
+		void SetScale(const Vector3f& scale, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const Vector3f& GetScale() const noexcept { return scale_; }
 
 		void RecomputeWorldTransform() noexcept;
 
