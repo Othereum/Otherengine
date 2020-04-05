@@ -2,8 +2,7 @@
 
 #include <memory>
 #include <vector>
-#include <Eigen/Core>
-#include "Vector.h"
+#include "Algebra.h"
 #include "Rotation.h"
 
 namespace game
