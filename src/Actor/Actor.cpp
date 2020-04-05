@@ -78,4 +78,26 @@ namespace game
 			c->SetEnabled(enable);
 		}
 	}
+
+	void AActor::SetPos(FVector2 new_pos, bool recompute_world_transform) noexcept
+	{
+		pos_ = new_pos;
+		if (recompute_world_transform) RecomputeWorldTransform();
+	}
+
+	void AActor::SetRot(Degrees new_rot, bool recompute_world_transform) noexcept
+	{
+		rot_ = new_rot;
+		if (recompute_world_transform) RecomputeWorldTransform();
+	}
+	
+	void AActor::SetScale(float scale, bool recompute_world_transform) noexcept
+	{
+		scale_ = scale;
+		if (recompute_world_transform) RecomputeWorldTransform();
+	}
+
+	void AActor::RecomputeWorldTransform() noexcept
+	{
+	}
 }
