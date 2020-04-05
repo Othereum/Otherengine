@@ -25,7 +25,7 @@ namespace game::math
 	bool IsNearlyZero(T a, U tolerance = kSmallNumber) noexcept { return IsNearlyEqual(a, 0, tolerance); }
 
 	template <class T, class U, class V>
-	float GetRangePct(T min, U max, V val)
+	float GetRangePct(T min, U max, V val) noexcept
 	{
 		const auto divisor = float(max - min);
 		if (IsNearlyZero(divisor))
