@@ -35,24 +35,29 @@ namespace game::math
 		return {Rand(min.x(), max.x()), Rand(min.y(), max.y())};
 	}
 
-	inline float GetRangePct(const Vector2f& range, float val)
+	inline float GetRangePct(const Vector2f& range, float val) noexcept
 	{
 		return GetRangePct(range.x(), range.y(), val);
 	}
 
-	inline float GetRangeValue(const Vector2f& range, float pct)
+	inline float GetRangeValue(const Vector2f& range, float pct) noexcept
 	{
 		return Lerp(range.x(), range.y(), pct);
 	}
 
-	inline float MapRngClamp(const Vector2f& in_rng, const Vector2f& out_rng, float val)
+	inline float MapRngClamp(const Vector2f& in_rng, const Vector2f& out_rng, float val) noexcept
 	{
 		const auto pct = Clamp(GetRangePct(in_rng, val), 0, 1);
 		return GetRangeValue(out_rng, pct);
 	}
 
-	inline float MapRng(const Vector2f& in_rng, const Vector2f& out_rng, float val)
+	inline float MapRng(const Vector2f& in_rng, const Vector2f& out_rng, float val) noexcept
 	{
 		return GetRangeValue(out_rng, GetRangePct(in_rng, val));
+	}
+
+	inline Matrix4f CreateScale(const Vector3f& scale) noexcept
+	{
+		
 	}
 }
