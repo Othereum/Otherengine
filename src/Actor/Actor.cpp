@@ -5,8 +5,8 @@
 
 namespace game
 {
-	AActor::AActor(CWorld& world)
-		:world_{world}
+	AActor::AActor(CWorld& world):
+		pos_{}, scale_{1}, world_transform_{}, world_{world}
 	{
 	}
 
@@ -18,16 +18,16 @@ namespace game
 			c->BeginPlay();
 	}
 
-	Vector3f AActor::GetForward() const noexcept
+	vec2 AActor::GetForward() const noexcept
 	{
 		return math::R2V(rot_);
 	}
 
-	void AActor::Update(const float deltaSeconds)
+	void AActor::Update(const float delta_seconds)
 	{
-		UpdateLifespan(deltaSeconds);
-		UpdateComponents(deltaSeconds);
-		UpdateActor(deltaSeconds);
+		UpdateLifespan(delta_seconds);
+		UpdateComponents(delta_seconds);
+		UpdateActor(delta_seconds);
 	}
 
 	void AActor::UpdateComponents(const float delta_seconds)
@@ -38,9 +38,9 @@ namespace game
 		}
 	}
 
-	void AActor::UpdateLifespan(const float deltaSeconds)
+	void AActor::UpdateLifespan(const float delta_seconds)
 	{
-		if (lifespan_ > 0 && (lifespan_ -= deltaSeconds) <= 0)
+		if (lifespan_ > 0 && (lifespan_ -= delta_seconds) <= 0)
 		{
 			Destroy();
 		}
@@ -79,7 +79,7 @@ namespace game
 		}
 	}
 
-	void AActor::SetPos(const Vector3f& new_pos, bool recompute_world_transform) noexcept
+	void AActor::SetPos(const vec2& new_pos, bool recompute_world_transform) noexcept
 	{
 		pos_ = new_pos;
 		if (recompute_world_transform) RecomputeWorldTransform();
@@ -91,7 +91,7 @@ namespace game
 		if (recompute_world_transform) RecomputeWorldTransform();
 	}
 	
-	void AActor::SetScale(const Vector3f& scale, bool recompute_world_transform) noexcept
+	void AActor::SetScale(const vec2& scale, bool recompute_world_transform) noexcept
 	{
 		scale_ = scale;
 		if (recompute_world_transform) RecomputeWorldTransform();
@@ -99,5 +99,6 @@ namespace game
 
 	void AActor::RecomputeWorldTransform() noexcept
 	{
+		
 	}
 }

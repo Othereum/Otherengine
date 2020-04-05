@@ -2,11 +2,14 @@
 
 #include <memory>
 #include <vector>
-#include "Algebra.h"
+#include <glm/ext/vector_float2.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
 #include "Rotation.h"
 
 namespace game
 {
+	using namespace glm;
+	
 	class CEngine;
 	class CWorld;
 	class CActorComponent;
@@ -24,7 +27,7 @@ namespace game
 		virtual ~AActor();
 
 		void BeginPlay() const;
-		void Update(float deltaSeconds);
+		void Update(float delta_seconds);
 		void Destroy();
 
 		template <class T, class... Args>
@@ -42,15 +45,15 @@ namespace game
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
 		
-		void SetPos(const Vector3f& new_pos, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const Vector3f& GetPos() const noexcept { return pos_; }
+		void SetPos(const vec2& new_pos, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const vec2& GetPos() const noexcept { return pos_; }
 
 		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
-		[[nodiscard]] Vector3f GetForward() const noexcept;
+		[[nodiscard]] vec2 GetForward() const noexcept;
 
-		void SetScale(const Vector3f& scale, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const Vector3f& GetScale() const noexcept { return scale_; }
+		void SetScale(const vec2& scale, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const vec2& GetScale() const noexcept { return scale_; }
 
 		void RecomputeWorldTransform() noexcept;
 
@@ -61,17 +64,17 @@ namespace game
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);
 		void UpdateComponents(float delta_seconds);
-		void UpdateLifespan(float deltaSeconds);
-		virtual void UpdateActor(float deltaSeconds) {}
+		void UpdateLifespan(float delta_seconds);
+		virtual void UpdateActor(float delta_seconds) {}
 
 		EState state_ = EState::active;
 		float lifespan_ = 0;
 		
-		Vector3f pos_;
+		vec2 pos_;
 		Degrees rot_;
-		Vector3f scale_ = Vector3f::Ones();
+		vec2 scale_;
 
-		Matrix4f world_transform_;
+		mat4 world_transform_;
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
