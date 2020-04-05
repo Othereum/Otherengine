@@ -5,3 +5,5 @@ CMakeSettings.json
 *.exe
 *.ilk
 *.pdb
+
+*.obj
