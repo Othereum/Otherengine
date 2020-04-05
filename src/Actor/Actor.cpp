@@ -18,7 +18,7 @@ namespace game
 			c->BeginPlay();
 	}
 
-	FVector2 AActor::GetForward() const noexcept
+	Vector3f AActor::GetForward() const noexcept
 	{
 		return math::R2V(rot_);
 	}
@@ -79,7 +79,7 @@ namespace game
 		}
 	}
 
-	void AActor::SetPos(FVector2 new_pos, bool recompute_world_transform) noexcept
+	void AActor::SetPos(const Vector3f& new_pos, bool recompute_world_transform) noexcept
 	{
 		pos_ = new_pos;
 		if (recompute_world_transform) RecomputeWorldTransform();
@@ -91,7 +91,7 @@ namespace game
 		if (recompute_world_transform) RecomputeWorldTransform();
 	}
 	
-	void AActor::SetScale(float scale, bool recompute_world_transform) noexcept
+	void AActor::SetScale(const Vector3f& scale, bool recompute_world_transform) noexcept
 	{
 		scale_ = scale;
 		if (recompute_world_transform) RecomputeWorldTransform();
