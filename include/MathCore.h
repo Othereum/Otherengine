@@ -42,7 +42,7 @@ namespace game::math
 		return a + alpha * (b - a);
 	}
 	
-	inline thread_local std::default_random_engine g_random_engine{std::random_device{}()};
+	inline thread_local std::default_random_engine random_engine{std::random_device{}()};
 
 	// [min, max] for int
 	// [min, max) for float
@@ -51,11 +51,11 @@ namespace game::math
 	{
 		if constexpr (std::is_integral_v<T>)
 		{
-			return std::uniform_int_distribution<T>{min, max}(g_random_engine);
+			return std::uniform_int_distribution<T>{min, max}(random_engine);
 		}
 		else
 		{
-			return std::uniform_real_distribution<T>{min, max}(g_random_engine);
+			return std::uniform_real_distribution<T>{min, max}(random_engine);
 		}
 	}
 }
