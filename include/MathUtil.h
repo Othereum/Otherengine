@@ -25,34 +25,34 @@ namespace game::math
 		return Radians{Rand(-kPi, kPi)};
 	}
 
-	inline FVector2 RandUnitVec() noexcept
+	inline Vector2f RandUnitVec() noexcept
 	{
 		return R2V(RandAng());
 	}
 
-	inline FVector2 RandVec(FVector2 min, FVector2 max) noexcept
+	inline Vector2f RandVec(const Vector2f& min, const Vector2f& max) noexcept
 	{
-		return {Rand(min.x, max.x), Rand(min.y, max.y)};
+		return {Rand(min.x(), max.x()), Rand(min.y(), max.y())};
 	}
 
-	inline float GetRangePct(FVector2 range, float val)
+	inline float GetRangePct(const Vector2f& range, float val)
 	{
-		return GetRangePct(range.x, range.y, val);
+		return GetRangePct(range.x(), range.y(), val);
 	}
 
-	inline float GetRangeValue(FVector2 range, float pct)
+	inline float GetRangeValue(const Vector2f& range, float pct)
 	{
-		return Lerp(range.x, range.y, pct);
+		return Lerp(range.x(), range.y(), pct);
 	}
 
-	inline float MapRngClamp(FVector2 inRng, FVector2 outRng, float val)
+	inline float MapRngClamp(const Vector2f& in_rng, const Vector2f& out_rng, float val)
 	{
-		auto pct = Clamp(GetRangePct(inRng, val), 0, 1);
-		return GetRangeValue(outRng, pct);
+		const auto pct = Clamp(GetRangePct(in_rng, val), 0, 1);
+		return GetRangeValue(out_rng, pct);
 	}
 
-	inline float MapRng(FVector2 inRng, FVector2 outRng, float val)
+	inline float MapRng(const Vector2f& in_rng, const Vector2f& out_rng, float val)
 	{
-		return GetRangeValue(outRng, GetRangePct(inRng, val));
+		return GetRangeValue(out_rng, GetRangePct(in_rng, val));
 	}
 }
