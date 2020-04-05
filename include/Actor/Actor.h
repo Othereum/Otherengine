@@ -8,8 +8,6 @@
 
 namespace game
 {
-	using namespace glm;
-	
 	class CEngine;
 	class CWorld;
 	class CActorComponent;
@@ -45,15 +43,15 @@ namespace game
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
 		
-		void SetPos(const vec2& new_pos, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const vec2& GetPos() const noexcept { return pos_; }
+		void SetPos(const glm::vec2& new_pos, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const glm::vec2& GetPos() const noexcept { return pos_; }
 
 		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
-		[[nodiscard]] vec2 GetForward() const noexcept;
+		[[nodiscard]] glm::vec2 GetForward() const noexcept;
 
-		void SetScale(const vec2& scale, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const vec2& GetScale() const noexcept { return scale_; }
+		void SetScale(const glm::vec2& scale, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const glm::vec2& GetScale() const noexcept { return scale_; }
 
 		void RecomputeWorldTransform() noexcept;
 
@@ -69,12 +67,12 @@ namespace game
 
 		EState state_ = EState::active;
 		float lifespan_ = 0;
-		
-		vec2 pos_;
-		Degrees rot_;
-		vec2 scale_;
 
-		mat4 world_transform_;
+		glm::vec2 pos_;
+		Degrees rot_;
+		glm::vec2 scale_;
+
+		glm::mat4 world_transform_;
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
