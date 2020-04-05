@@ -1,5 +1,6 @@
 #pragma once
 #include "Rotation.h"
+#include "Algebra.h"
 
 namespace game::math
 {
