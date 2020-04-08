@@ -10,5 +10,6 @@ find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
 find_package(GLEW REQUIRED)
 
+target_include_directories(${PROJECT_NAME} PRIVATE "include")
 target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2_image GLEW::GLEW)
 add_compile_definitions(PROJECT_NAME="${PROJECT_NAME}")
