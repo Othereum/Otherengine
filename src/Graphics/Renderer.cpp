@@ -98,7 +98,7 @@ namespace game::graphics
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void CRenderer::Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle) const
+	void CRenderer::Draw(SDL_Texture& texture, const FRect& dest, Degrees angle) const
 	{
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}
