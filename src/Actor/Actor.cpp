@@ -80,7 +80,7 @@ namespace game
 		}
 	}
 
-	void AActor::SetPos(const glm::vec2& new_pos, bool recompute_world_transform) noexcept
+	void AActor::SetPos(const FVector2& new_pos, bool recompute_world_transform) noexcept
 	{
 		pos_ = new_pos;
 		if (recompute_world_transform) RecomputeWorldTransform();
