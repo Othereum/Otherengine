@@ -27,7 +27,7 @@ namespace game
 			void RegisterSprite(const CSpriteComponent& sprite);
 			void UnregisterSprite(const CSpriteComponent& sprite);
 
-			void Draw(SDL_Texture& texture, const TFRect& dest, Degrees angle = {}) const;
+			void Draw(SDL_Texture& texture, const FRect& dest, Degrees angle = {}) const;
 			void Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle = {}) const;
 
 			void DrawScene() const;
