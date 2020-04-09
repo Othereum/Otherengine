@@ -100,8 +100,8 @@ namespace game
 
 	void AActor::RecomputeWorldTransform() noexcept
 	{
-		world_transform_ = scale(glm::mat4{}, glm::vec3{scale_, 1});
-		world_transform_ = rotate(world_transform_, Radians{rot_}.Get(), {0, 0, 1});
-		world_transform_ = translate(world_transform_, {pos_, 0});
+		// world_transform_ = scale(glm::mat4{}, glm::vec3{scale_, 1});
+		// world_transform_ = rotate(world_transform_, Radians{rot_}.Get(), {0, 0, 1});
+		// world_transform_ = translate(world_transform_, {pos_, 0});
 	}
 }
