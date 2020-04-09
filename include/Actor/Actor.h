@@ -42,15 +42,15 @@ namespace game
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
 		
-		void SetPos(const glm::vec2& new_pos, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const glm::vec2& GetPos() const noexcept { return pos_; }
+		void SetPos(const FVector2& new_pos, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const FVector2& GetPos() const noexcept { return pos_; }
 
 		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
 		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
-		[[nodiscard]] glm::vec2 GetForward() const noexcept;
+		[[nodiscard]] FVector2 GetForward() const noexcept;
 
-		void SetScale(const glm::vec2& scale, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const glm::vec2& GetScale() const noexcept { return scale_; }
+		void SetScale(const FVector2& scale, bool recompute_world_transform = true) noexcept;
+		[[nodiscard]] const FVector2& GetScale() const noexcept { return scale_; }
 
 		void RecomputeWorldTransform() noexcept;
 
