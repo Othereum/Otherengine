@@ -2,9 +2,8 @@
 
 #include <memory>
 #include <vector>
-#include <glm/ext/vector_float2.hpp>
-#include <glm/ext/matrix_float4x4.hpp>
 #include "Rotation.h"
+#include "Vector.h"
 
 namespace game
 {
