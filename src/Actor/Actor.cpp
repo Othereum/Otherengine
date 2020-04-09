@@ -19,7 +19,7 @@ namespace game
 			c->BeginPlay();
 	}
 
-	glm::vec2 AActor::GetForward() const noexcept
+	FVector2 AActor::GetForward() const noexcept
 	{
 		return math::R2V(rot_);
 	}
