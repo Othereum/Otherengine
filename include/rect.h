@@ -5,22 +5,22 @@
 namespace game
 {
 	template <class T>
-	struct FRect;
+	struct Rect;
 
-	using TFRect = FRect<float>;
+	using FRect = Rect<float>;
 
 	template <class T>
-	struct FRect
+	struct Rect
 {
 		Vector2<T> center, size;
 
-		constexpr FRect() noexcept = default;
-		constexpr FRect(Vector2<T> center, Vector2<T> size) noexcept
+		constexpr Rect() noexcept = default;
+		constexpr Rect(Vector2<T> center, Vector2<T> size) noexcept
 			:center{center}, size{size}
 		{
 		}
 		
-		constexpr FRect(const SDL_Rect& r) noexcept
+		constexpr Rect(const SDL_Rect& r) noexcept
 			:center{T(r.x), T(r.y)}, size{T(r.w), T(r.h)}
 		{
 			center += size / 2;
