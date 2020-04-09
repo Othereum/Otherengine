@@ -92,7 +92,7 @@ namespace game
 		if (recompute_world_transform) RecomputeWorldTransform();
 	}
 	
-	void AActor::SetScale(const glm::vec2& scale, bool recompute_world_transform) noexcept
+	void AActor::SetScale(const FVector2& scale, bool recompute_world_transform) noexcept
 	{
 		scale_ = scale;
 		if (recompute_world_transform) RecomputeWorldTransform();
