@@ -2,7 +2,6 @@
 #include <memory>
 #include "Rect.h"
 #include "Rotation.h"
-#include "Vector.h"
 
 struct SDL_Texture;
 struct SDL_Rect;
