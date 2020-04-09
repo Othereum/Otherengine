@@ -7,7 +7,7 @@
 namespace game
 {
 	AActor::AActor(CWorld& world):
-		pos_{}, scale_{1}, world_transform_{}, world_{world}
+		scale_{1, 1}, world_{world}
 	{
 	}
 
