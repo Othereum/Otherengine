@@ -10,12 +10,12 @@ namespace game::math
 	inline Radians Asin(float y) noexcept { return Radians{asinf(y)}; }
 	inline Radians Atan2(float y, float x) noexcept { return Radians{atan2f(y, x)}; }
 
-	inline Radians V2R(const glm::vec2& v) noexcept
+	inline Radians V2R(const FVector2& v) noexcept
 	{
 		return Atan2(v.y, v.x);
 	}
 
-	inline glm::vec2 R2V(Radians r) noexcept
+	inline FVector2 R2V(Radians r) noexcept
 	{
 		return {Cos(r), Sin(r)};
 	}
