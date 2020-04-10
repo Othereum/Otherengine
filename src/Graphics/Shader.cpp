@@ -1,21 +1,10 @@
 #include "Graphics/Shader.h"
-#include <fstream>
 #include <GL/glew.h>
-#include <fmt/core.h>
+#include <stdexcept>
+#include "StringUtil.hpp"
 
 namespace game::graphics
 {
-	static std::string Open(std::string_view filename)
-	{
-		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Shader file not found: '{}'", filename)};
-
-		std::string code(file.tellg(), 0);
-		file.seekg(0);
-		file.read(code.data(), code.size());
-		return code;
-	}
-	
 	static void CheckShader(unsigned shader)
 	{
 		int is_valid;
@@ -46,8 +35,8 @@ namespace game::graphics
 	
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
-		const auto str = Open(filename);
-		const auto c_str = str.c_str();
+		const auto code = str::ReadFile(filename);
+		const auto c_str = code.c_str();
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_str, nullptr);
 		glCompileShader(shader);
