@@ -24,6 +24,13 @@ namespace game
 			return *this;
 		}
 
+		constexpr Mat4 operator*(float f) const noexcept { auto c = *this; return c *= f; }
+		constexpr Mat4& operator*=(float f) & noexcept
+		{
+			for (auto& v : flat) v *= f;
+			return *this;
+		}
+
 		Mat4 operator*(const Mat4&) const noexcept;
 		Mat4& operator*=(const Mat4& b) & noexcept { return *this = *this * b; }
 

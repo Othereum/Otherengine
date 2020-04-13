@@ -8,7 +8,7 @@ namespace game
 		0, 0, 1, 0,
 		0, 0, 0, 1
 	};
-	
+
 	Mat4 Mat4::operator*(const Mat4& b) const noexcept
 	{
 		auto& a = *this;
