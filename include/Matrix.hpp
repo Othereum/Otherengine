@@ -28,14 +28,14 @@ namespace game
 		constexpr Mat4 operator+(const Mat4& b) const noexcept { auto c = *this; return c += b; }
 		constexpr Mat4& operator+=(const Mat4& b) & noexcept
 		{
-			for (auto i=0; i<16; ++i) flat[i] += b.flat[i];
+			for (auto i=0; i<16; ++i) m[0][i] += b.m[0][i];
 			return *this;
 		}
 
 		constexpr Mat4 operator*(float f) const noexcept { auto c = *this; return c *= f; }
 		constexpr Mat4& operator*=(float f) & noexcept
 		{
-			for (auto& v : flat) v *= f;
+			for (auto i=0; i<16; ++i) m[0][i] *= f;
 			return *this;
 		}
 
@@ -59,10 +59,6 @@ namespace game
 		constexpr Mat4& operator*=(const Mat4& b) & noexcept { return *this = *this * b; }
 
 	private:
-		union
-		{
-			float m[4][4];
-			float flat[16];
-		};
+		float m[4][4];
 	};
 }
