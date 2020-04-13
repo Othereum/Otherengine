@@ -14,6 +14,7 @@ namespace game
 		constexpr auto& operator[](size_t i) const noexcept { return m[i]; }
 
 		Mat4 operator*(const Mat4&) const noexcept;
+		Mat4& operator*=(const Mat4& b) & noexcept { return *this = *this * b; }
 
 	private:
 		float m[4][4];
