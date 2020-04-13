@@ -17,10 +17,21 @@ namespace game
 		constexpr auto& operator[](size_t i) noexcept { return m[i]; }
 		constexpr auto& operator[](size_t i) const noexcept { return m[i]; }
 
+		constexpr Mat4 operator+(const Mat4& b) const noexcept { auto c = *this; return c += b; }
+		constexpr Mat4& operator+=(const Mat4& b) & noexcept
+		{
+			for (auto i=0; i<16; ++i) flat[i] += b.flat[i];
+			return *this;
+		}
+
 		Mat4 operator*(const Mat4&) const noexcept;
 		Mat4& operator*=(const Mat4& b) & noexcept { return *this = *this * b; }
 
 	private:
-		float m[4][4];
+		union
+		{
+			float m[4][4];
+			float flat[16];
+		};
 	};
 }
