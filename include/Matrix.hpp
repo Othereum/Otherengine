@@ -5,6 +5,7 @@ namespace game
 	struct Mat4
 	{
 		static const Mat4 identity;
+		static const Mat4 zero;
 		
 		template <class... Args>
 		constexpr Mat4(Args... args) noexcept
