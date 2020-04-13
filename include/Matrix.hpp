@@ -10,6 +10,8 @@ namespace game
 		{
 		}
 		
+		constexpr bool operator==(const Mat4&) const noexcept = default;
+		
 		constexpr auto& operator[](size_t i) noexcept { return m[i]; }
 		constexpr auto& operator[](size_t i) const noexcept { return m[i]; }
 
