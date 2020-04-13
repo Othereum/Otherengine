@@ -4,6 +4,8 @@ namespace game
 {
 	struct Mat4
 	{
+		static const Mat4 identity;
+		
 		template <class... Args>
 		constexpr Mat4(Args... args) noexcept
 			:m{float(args)...}
