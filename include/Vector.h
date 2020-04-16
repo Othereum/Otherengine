@@ -3,184 +3,146 @@
 
 namespace game
 {
-	template <class T>
-	struct Vector2;
+	template <class T, size_t L>
+	struct Vector;
 
-	using FVector2 = Vector2<float>;
-	
-	template <class T>
-	struct Vector2
+	namespace detail
 	{
-		T x{}, y{};
-
-		constexpr Vector2() noexcept = default;
-		constexpr Vector2(T x, T y) noexcept :x{x}, y{y} {}
-
-		template <class U>
-		constexpr explicit Vector2(const Vector2<U>& v) noexcept :x{T(v.x)}, y{T(v.y)} {}
-
-		[[nodiscard]] constexpr auto LenSqr() const noexcept { return x*x + y*y; }
-		[[nodiscard]] float Len() const noexcept { return sqrtf(LenSqr()); }
-
-		template <class U>
-		[[nodiscard]] float Dist(const Vector2<U>& v) const noexcept { return (*this - v).Len(); }
-
-		template <class U>
-		[[nodiscard]] float DistSqr(const Vector2<U>& v) const noexcept { return (*this - v).LenSqr(); }
-
-		void Normalize() noexcept { *this /= Len(); }
-		[[nodiscard]] Vector2 Normal() const noexcept { auto x = *this; x.Normalize(); return x; }
-
-		constexpr Vector2& operator+=(const Vector2& a)& noexcept
+		template <class T, size_t L>
+		struct VecBase
 		{
-			return *this = *this + a;
-		}
+			template <class... Args>
+			constexpr VecBase(Args... args) noexcept: data{args...} {}
+			
+			T data[L];
+		};
 
-		constexpr Vector2& operator-=(const Vector2& a)& noexcept
+		template <class T>
+		struct VecBase<T, 2>
 		{
-			return *this = *this - a;
-		}
+			template <class... Args>
+			constexpr VecBase(Args... args) noexcept: data{args...} {}
 
-		constexpr Vector2& operator*=(T f)& noexcept
+			union
+			{
+				T data[2];
+				struct { T x, y; };
+			};
+		};
+
+		template <class T>
+		struct VecBase<T, 3>
 		{
-			return *this = *this * f;
-		}
+			template <class... Args>
+			constexpr VecBase(Args... args) noexcept: data{args...} {}
+			
+			union
+			{
+				T data[3];
+				struct { T x, y, z; };
+			};
+			
+			// Cross product
+			template <class U>
+			constexpr Vector<std::common_type_t<T, U>, 3> operator^(const Vector<U, 3>& v) const noexcept
+			{
+				return {y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x};
+			}
+		};
 
-		constexpr Vector2& operator/=(T f)& noexcept
+		template <class T>
+		struct VecBase<T, 4>
 		{
-			return *this = *this / f;
-		}
+			template <class... Args>
+			constexpr VecBase(Args... args) noexcept: data{args...} {}
 
-		template <class U>
-		constexpr Vector2<std::common_type_t<T, U>> operator+(const Vector2<U>& v) const noexcept
-		{
-			return {x + v.x, y + v.y};
-		}
-
-		template <class U>
-		constexpr Vector2<std::common_type_t<T, U>> operator-(const Vector2<U>& v) const noexcept
-		{
-			return {x - v.x, y - v.y};
-		}
-
-		template <class U>
-		constexpr Vector2<std::common_type_t<T, U>> operator*(Vector2<U> v) const noexcept
-		{
-			return {x*v.x, y*v.y};
-		}
-
-		template <class U>
-		constexpr Vector2<std::common_type_t<T, U>> operator*(U f) const noexcept
-		{
-			return {x*f, y*f};
-		}
-
-		template <class U>
-		constexpr Vector2<std::common_type_t<T, U>> operator/(U f) const noexcept
-		{
-			return {x/f, y/f};
-		}
-
-		template <class U>
-		constexpr auto operator|(const Vector2<U>& v) const noexcept
-		{
-			return x*v.x + y*v.y;
-		}
-	};
-
-	template <class T, class U>
-	constexpr Vector2<std::common_type_t<T, U>> operator*(U f, const Vector2<T>& v) noexcept
-	{
-		return v * f;
+			union
+			{
+				T data[4];
+				struct { T x, y, z, w; };
+			};
+		};
 	}
 
-	template <class T>
-	struct Vector3;
-
-	using FVector3 = Vector3<float>;
-	
-	template <class T>
-	struct Vector3
+	template <class T, size_t L>
+	struct Vector : detail::VecBase<T, L>
 	{
-		T x{}, y{}, z{};
+		template <class... Args>
+		constexpr Vector(Args... args) noexcept: detail::VecBase<T, L>{T(args)...} {}
 
-		constexpr Vector3() noexcept = default;
-		constexpr Vector3(T x, T y, T z) noexcept :x{x}, y{y}, z{z} {}
+		template <class U, size_t M>
+		constexpr explicit Vector(const Vector<U, M>& v) noexcept
+		{
+			std::copy(v.data, v.data + std::min(L, M), this->data);
+		}
 
-		template <class U>
-		constexpr explicit Vector3(const Vector3<U>& v) noexcept :x{T(v.x)}, y{T(v.y)}, z{T(v.z)} {}
-
-		[[nodiscard]] constexpr auto LenSqr() const noexcept { return x*x + y*y + z*z; }
-		[[nodiscard]] float Len() const noexcept { return sqrtf(LenSqr()); }
-
-		template <class U>
-		[[nodiscard]] float Dist(const Vector3<U>& v) const noexcept { return (*this - v).Len(); }
-
-		template <class U>
-		[[nodiscard]] float DistSqr(const Vector3<U>& v) const noexcept { return (*this - v).LenSqr(); }
+		[[nodiscard]] constexpr T LenSqr() const noexcept { return *this | *this; }
+		[[nodiscard]] float Len() const noexcept { return sqrtf(float(LenSqr())); }
+		
+		[[nodiscard]] constexpr T DistSqr(const Vector& v) const noexcept { return (*this - v).LenSqr(); }
+		[[nodiscard]] float Dist(const Vector& v) const noexcept { return (*this - v).Len(); }
 
 		void Normalize() noexcept { *this /= Len(); }
-		[[nodiscard]] Vector3 Normal() const noexcept { auto x = *this; x.Normalize(); return x; }
+		[[nodiscard]] auto Normal() const noexcept { return *this / Len(); }
 
-		constexpr Vector3& operator+=(const Vector3& a)& noexcept
+		constexpr T& operator[](size_t i) noexcept { return this->data[i]; }
+		constexpr T operator[](size_t i) const noexcept { return this->data[i]; }
+
+		template <class Fn>
+		constexpr Vector& Transform(const Vector& other, Fn&& fn) noexcept(std::is_nothrow_invocable_v<Fn, T, T>)
 		{
-			return *this = *this + a;
+			std::transform(this->data, this->data + L, other.data, this->data, std::forward<Fn>(fn));
+			return *this;
 		}
 
-		constexpr Vector3& operator-=(const Vector3& a)& noexcept
+		template <class Fn>
+		constexpr Vector& Transform(Fn&& fn) noexcept(std::is_nothrow_invocable_v<Fn, T>)
 		{
-			return *this = *this - a;
+			std::transform(this->data, this->data + L, this->data, std::forward<Fn>(fn));
+			return *this;
 		}
 
-		constexpr Vector3& operator*=(T f)& noexcept
+		constexpr Vector& operator+=(const Vector& v)& noexcept
 		{
-			return *this = *this * f;
+			return Transform(v, std::plus<>{});
 		}
 
-		constexpr Vector3& operator/=(T f)& noexcept
+		constexpr Vector& operator-=(const Vector& v)& noexcept
 		{
-			return *this = *this / f;
+			return Transform(v, std::minus<>{});
 		}
 
-		template <class U>
-		constexpr Vector3<std::common_type_t<T, U>> operator+(const Vector3<U>& v) const noexcept
+		constexpr Vector& operator*=(const Vector& v)& noexcept
 		{
-			return {x + v.x, y + v.y, z + v.z};
+			return Transform(v, std::multiplies<>{});
+		}
+		
+		constexpr Vector& operator*=(T f)& noexcept
+		{
+			return Transform([f](T v){return v*f;});
 		}
 
-		template <class U>
-		constexpr Vector3<std::common_type_t<T, U>> operator-(const Vector3<U>& v) const noexcept
+		constexpr Vector& operator/=(T f)& noexcept
 		{
-			return {x - v.x, y - v.y, z - v.z};
+			return Transform([f](T v){return v/f;});
 		}
 
-		template <class U>
-		constexpr Vector3<std::common_type_t<T, U>> operator*(U f) const noexcept
-		{
-			return {x*f, y*f, z*f};
-		}
+		constexpr Vector operator+(const Vector& v) const noexcept { auto t = *this; return t += v; }
+		constexpr Vector operator-(const Vector& v) const noexcept { auto t = *this; return t -= v; }
+		constexpr Vector operator*(const Vector& v) const noexcept { auto t = *this; return t *= v; }
+		constexpr Vector operator*(T f) const noexcept { auto t = *this; return t *= f; }
+		constexpr Vector operator/(T f) const noexcept { auto t = *this; return t /= f; }
 
-		template <class U>
-		constexpr Vector3<std::common_type_t<T, U>> operator/(U f) const noexcept
+		constexpr T operator|(const Vector& v) const noexcept
 		{
-			return {x/f, y/f, z/f};
-		}
-
-		template <class U>
-		constexpr auto operator|(const Vector3<U>& v) const noexcept
-		{
-			return x*v.x + y*v.y + z*v.z;
-		}
-
-		template <class U>
-		constexpr Vector3<std::common_type_t<T, U>> operator^(const Vector3<U>& v) const noexcept
-		{
-			return {y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x};
+			T t{};
+			for (size_t i = 0; i < L; ++i) t += (*this)[i] * v[i];
+			return t;
 		}
 	};
-
-	template <class T, class U>
-	constexpr Vector3<std::common_type_t<T, U>> operator*(U f, const Vector3<T>& v) noexcept
+	
+	template <class F, class T, size_t L>
+	constexpr Vector<T, L> operator*(F f, const Vector<T, L>& v) noexcept
 	{
 		return v * f;
 	}
