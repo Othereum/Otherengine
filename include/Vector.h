@@ -6,6 +6,10 @@ namespace game
 	template <class T, size_t L>
 	struct Vector;
 
+	using Vec2 = Vector<float, 2>;
+	using Vec3 = Vector<float, 3>;
+	using Vec4 = Vector<float, 4>;
+
 	namespace detail
 	{
 		template <class T, size_t L>
