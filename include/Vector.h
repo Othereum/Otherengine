@@ -83,10 +83,18 @@ namespace game
 		[[nodiscard]] float Dist(const Vector& v) const noexcept { return (*this - v).Len(); }
 
 		void Normalize() noexcept { *this /= Len(); }
-		[[nodiscard]] auto Normal() const noexcept { return *this / Len(); }
+		[[nodiscard]] Vector Normal() const noexcept { return *this / Len(); }
+
+		[[nodiscard]] constexpr auto& Data() noexcept { return this->data; }
+		[[nodiscard]] constexpr auto& Data() const noexcept { return this->data; }
 
 		constexpr T& operator[](size_t i) noexcept { return this->data[i]; }
 		constexpr T operator[](size_t i) const noexcept { return this->data[i]; }
+
+		constexpr bool operator==(const Vector& other) const noexcept
+		{
+			return std::equal(this->data, this->data + L, other.data);
+		}
 
 		template <class Fn>
 		constexpr Vector& Transform(const Vector& other, Fn&& fn) noexcept(std::is_nothrow_invocable_v<Fn, T, T>)
@@ -102,36 +110,36 @@ namespace game
 			return *this;
 		}
 
-		constexpr Vector& operator+=(const Vector& v)& noexcept
+		constexpr Vector& operator+=(const Vector& v) noexcept
 		{
 			return Transform(v, std::plus<>{});
 		}
 
-		constexpr Vector& operator-=(const Vector& v)& noexcept
+		constexpr Vector& operator-=(const Vector& v) noexcept
 		{
 			return Transform(v, std::minus<>{});
 		}
 
-		constexpr Vector& operator*=(const Vector& v)& noexcept
+		constexpr Vector& operator*=(const Vector& v) noexcept
 		{
 			return Transform(v, std::multiplies<>{});
 		}
 		
-		constexpr Vector& operator*=(T f)& noexcept
+		constexpr Vector& operator*=(T f) noexcept
 		{
 			return Transform([f](T v){return v*f;});
 		}
 
-		constexpr Vector& operator/=(T f)& noexcept
+		constexpr Vector& operator/=(T f) noexcept
 		{
 			return Transform([f](T v){return v/f;});
 		}
 
-		constexpr Vector operator+(const Vector& v) const noexcept { auto t = *this; return t += v; }
-		constexpr Vector operator-(const Vector& v) const noexcept { auto t = *this; return t -= v; }
-		constexpr Vector operator*(const Vector& v) const noexcept { auto t = *this; return t *= v; }
-		constexpr Vector operator*(T f) const noexcept { auto t = *this; return t *= f; }
-		constexpr Vector operator/(T f) const noexcept { auto t = *this; return t /= f; }
+		constexpr Vector operator+(const Vector& v) const noexcept { return Vector{*this} += v; }
+		constexpr Vector operator-(const Vector& v) const noexcept { return Vector{*this} -= v; }
+		constexpr Vector operator*(const Vector& v) const noexcept { return Vector{*this} *= v; }
+		constexpr Vector operator*(T f) const noexcept { return Vector{*this} *= f; }
+		constexpr Vector operator/(T f) const noexcept { return Vector{*this} /= f; }
 
 		constexpr T operator|(const Vector& v) const noexcept
 		{
