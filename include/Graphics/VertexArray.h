@@ -7,7 +7,7 @@ namespace game::graphics
 	class VertexArray
 	{
 	public:
-		VertexArray(gsl::span<const FVector3> verts, gsl::span<const Vector3<uint16_t>> indices);
+		VertexArray(gsl::span<const Vec3> verts, gsl::span<const Vector<uint16_t, 3>> indices);
 		~VertexArray();
 
 	private:

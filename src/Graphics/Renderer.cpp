@@ -54,7 +54,7 @@ namespace game::graphics
 
 	static auto CreateSpriteVerts()
 	{
-		constexpr FVector3 vertex_buffer[]
+		constexpr Vec3 vertex_buffer[]
 		{
 			{-0.5, 0.5, 0},
 			{0.5, 0.5, 0},
@@ -62,7 +62,7 @@ namespace game::graphics
 			{-0.5, -0.5, 0}
 		};
 
-		constexpr Vector3<uint16_t> index_buffer[]
+		constexpr Vector<uint16_t, 3> index_buffer[]
 		{
 			{0, 1, 2},
 			{2, 3, 0}

@@ -22,7 +22,7 @@ namespace game
 		struct FBgTexture
 		{
 			std::shared_ptr<SDL_Texture> texture;
-			FVector2 offset;
+			Vec2 offset;
 		};
 		std::vector<FBgTexture> textures_;
 		float scrollSpeed_{};

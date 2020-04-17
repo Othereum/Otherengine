@@ -32,7 +32,7 @@ namespace game
 				GetTimerManager().SetTimer(2s, [&]()
 				{
 					SetEnabled(true);
-					SetPos(graphics::kScrSz/2.f);
+					SetPos(graphics::kScrSz / 2);
 					SetRot({});
 				});
 			}

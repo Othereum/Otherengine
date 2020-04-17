@@ -13,19 +13,19 @@ namespace game
 		void Update(float delta_seconds) override;
 
 		void SetMass(float mass) noexcept { mass_ = mass; }
-		void AddForce(FVector2 force) noexcept { force_ += force; }
-		void SetVelocity(FVector2 newvel) noexcept { vel_ = newvel; }
+		void AddForce(Vec2 force) noexcept { force_ += force; }
+		void SetVelocity(Vec2 newvel) noexcept { vel_ = newvel; }
 		void SetAngularVelocity(Degrees newvel) noexcept { rvel_ = newvel; }
 
 		[[nodiscard]] float GetMass() const noexcept { return mass_; }
-		[[nodiscard]] FVector2 GetForce() const noexcept { return force_; }
-		[[nodiscard]] FVector2 GetVelocity() const noexcept { return vel_; }
+		[[nodiscard]] Vec2 GetForce() const noexcept { return force_; }
+		[[nodiscard]] Vec2 GetVelocity() const noexcept { return vel_; }
 		[[nodiscard]] Degrees GetAngularVelocity() const noexcept { return rvel_; }
 
 	private:
 		float mass_ = 1;
-		FVector2 force_;
-		FVector2 vel_;
+		Vec2 force_;
+		Vec2 vel_;
 		Degrees rvel_;
 	};
 }

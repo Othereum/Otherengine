@@ -28,7 +28,7 @@ namespace game
 		void SetTexture(const char* filename);
 		[[nodiscard]] SDL_Texture& GetTexture() const { return *texture_; }
 
-		[[nodiscard]] const Vector2<unsigned short>& GetTexSize() const noexcept { return tex_size_; }
+		[[nodiscard]] const Vector<unsigned short, 2>& GetTexSize() const noexcept { return tex_size_; }
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
 		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept;
 
@@ -36,7 +36,7 @@ namespace game
 		virtual void Draw() const;
 
 		std::shared_ptr<SDL_Texture> texture_;
-		Vector2<uint16_t> tex_size_;
+		Vector<uint16_t, 2> tex_size_;
 		int draw_order_;
 	};
 }

@@ -3,7 +3,7 @@
 
 namespace game::graphics
 {
-	VertexArray::VertexArray(gsl::span<const FVector3> verts, gsl::span<const Vector3<uint16_t>> indices)
+	VertexArray::VertexArray(gsl::span<const Vec3> verts, gsl::span<const Vector<uint16_t, 3>> indices)
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		glBindVertexArray(vertex_array_);
@@ -17,7 +17,7 @@ namespace game::graphics
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
 
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof FVector3, nullptr);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof Vec3, nullptr);
 	}
 
 	VertexArray::~VertexArray()

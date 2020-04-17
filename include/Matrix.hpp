@@ -35,7 +35,7 @@ namespace game
 		
 		template <class... Args>
 		constexpr Matrix(Args... args) noexcept
-			:m{static_cast<float>(args)...}
+			:arr{static_cast<T>(args)...}
 		{
 		}
 		
@@ -44,8 +44,8 @@ namespace game
 		constexpr auto& operator[](size_t i) noexcept { return m[i]; }
 		constexpr auto& operator[](size_t i) const noexcept { return m[i]; }
 		constexpr auto& Row(size_t i) noexcept { return m[i]; }
-		constexpr auto& Row(size_t i) const noexcept { return m[i]; }
-		constexpr auto Col(size_t c) const noexcept
+		[[nodiscard]] constexpr auto& Row(size_t i) const noexcept { return m[i]; }
+		[[nodiscard]] constexpr auto Col(size_t c) const noexcept
 		{
 			Vector<T, R> v;
 			for (size_t r=0; r<R; ++r) v[r] = m[r][c];
@@ -66,10 +66,17 @@ namespace game
 			return *this;
 		}
 
-		constexpr Matrix operator*(float f) const noexcept { auto c = *this; return c *= f; }
-		constexpr Matrix& operator*=(float f) noexcept
+		constexpr Matrix operator*(T f) const noexcept { auto c = *this; return c *= f; }
+		constexpr Matrix& operator*=(T f) noexcept
 		{
 			for (auto i=0; i<R; ++i) m[i] *= f;
+			return *this;
+		}
+
+		constexpr Matrix operator/(T f) const noexcept { auto c = *this; return c /= f; }
+		constexpr Matrix& operator/=(T f) noexcept
+		{
+			for (auto i=0; i<R; ++i) m[i] /= f;
 			return *this;
 		}
 
@@ -84,7 +91,11 @@ namespace game
 		}
 		constexpr Matrix& operator*=(const Matrix& b) noexcept { return *this = *this * b; }
 
-		constexpr std::enable_if_t<R==C> transpose() noexcept { *this = transposed(); }
+		constexpr void transpose() noexcept
+		{
+			static_assert(R == C);
+			*this = transposed();
+		}
 		[[nodiscard]] constexpr Matrix<T, C, R> transposed() const noexcept
 		{
 			Matrix<T, C, R> t;
@@ -93,6 +104,22 @@ namespace game
 		}
 
 	private:
-		Vector<T, C> m[R];
+		union
+		{
+			Vector<T, C> m[R];
+			T arr[R][C];
+		};
 	};
+
+	template <class F, class T, size_t R, size_t C>
+	constexpr auto operator*(F f, const Matrix<T, R, C>& m) noexcept { return m * f; }
+	
+	template <class T, size_t R, size_t C>
+	std::ostream& operator<<(std::ostream& os, const Matrix<T, R, C>& m)
+	{
+		os << m[0];
+		for (size_t i = 1; i < R; ++i)
+			os << '\n' << m[i];
+		return os;
+	}
 }

@@ -28,7 +28,7 @@ namespace game
 	{
 		for (const auto& bg : textures_)
 		{
-			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, FVector2{graphics::kScrSz}}, 0_deg);
+			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, Vec2{graphics::kScrSz}}, 0_deg);
 		}
 	}
 

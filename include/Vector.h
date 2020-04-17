@@ -1,5 +1,6 @@
 #pragma once
 #include <numeric>
+#include <ostream>
 
 namespace game
 {
@@ -72,12 +73,13 @@ namespace game
 	struct Vector : detail::VecBase<T, L>
 	{
 		template <class... Args>
-		constexpr Vector(Args... args) noexcept: detail::VecBase<T, L>{T(args)...} {}
+		constexpr Vector(Args... args) noexcept: detail::VecBase<T, L>{static_cast<T>(args)...} {}
 
 		template <class U, size_t M>
-		explicit constexpr Vector(const Vector<U, M>& v) noexcept
+		constexpr Vector(const Vector<U, M>& v) noexcept
 		{
-			std::copy(v.data, v.data + std::min(L, M), this->data);
+			for (size_t i=0; i<L; ++i)
+				(*this)[i] = static_cast<T>(v[i]);
 		}
 
 		[[nodiscard]] constexpr T LenSqr() const noexcept { return *this | *this; }
@@ -141,7 +143,15 @@ namespace game
 
 		constexpr Vector operator+(const Vector& v) const noexcept { return Vector{*this} += v; }
 		constexpr Vector operator-(const Vector& v) const noexcept { return Vector{*this} -= v; }
-		constexpr Vector operator*(const Vector& v) const noexcept { return Vector{*this} *= v; }
+		
+		template <class U>
+		constexpr auto operator*(const Vector<U, L>& v) const noexcept
+		{
+			Vector<std::common_type_t<T, U>, L> r;
+			for (size_t i=0; i<L; ++i) r[i] = (*this)[i] * v[i];
+			return r;
+		}
+		
 		constexpr Vector operator*(T f) const noexcept { return Vector{*this} *= f; }
 		constexpr Vector operator/(T f) const noexcept { return Vector{*this} /= f; }
 
@@ -157,5 +167,14 @@ namespace game
 	constexpr Vector<T, L> operator*(F f, const Vector<T, L>& v) noexcept
 	{
 		return v * f;
+	}
+
+	template <class T, size_t L>
+	std::ostream& operator<<(std::ostream& os, const Vector<T, L>& v)
+	{
+		os << v[0];
+		for (size_t i = 1; i < L; ++i)
+			os << ' ' << v[i];
+		return os;
 	}
 }

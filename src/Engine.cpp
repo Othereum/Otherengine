@@ -37,12 +37,12 @@ namespace game
 		for (auto i = 0; i < 20; ++i)
 		{
 			auto& ast = world_->SpawnActor<AAsteroid>();
-			ast.SetPos(math::RandVec({0, 0}, FVector2{graphics::kScrSz}));
+			ast.SetPos(math::RandVec({0, 0}, Vec2{graphics::kScrSz}));
 			ast.SetRot(math::RandAng());
 		}
 
 		auto& sh = world_->SpawnActor<ship>();
-		sh.SetPos(FVector2{graphics::kScrSz / 2});
+		sh.SetPos(Vec2{graphics::kScrSz / 2});
 	}
 
 	CEngine::~CEngine() = default;

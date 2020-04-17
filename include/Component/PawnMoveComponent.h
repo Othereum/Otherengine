@@ -10,14 +10,14 @@ namespace game
 
 		void Update(float deltaSeconds) override;
 
-		void AddInput(FVector2 v) noexcept { input_ += v; }
+		void AddInput(Vec2 v) noexcept { input_ += v; }
 		void AddRotationInput(float r) noexcept { rotInput_ += r; }
 
 		void SetMaxSpeed(float s) noexcept { maxSpeed_ = s; }
 		void SetMaxRotationSpeed(Degrees s) noexcept { maxRotSpeed_ = s; }
 
 	private:
-		FVector2 input_;
+		Vec2 input_;
 		float rotInput_ = 0;
 		
 		float maxSpeed_ = 300;

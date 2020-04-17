@@ -12,10 +12,10 @@ namespace game
 	template <class T>
 	struct Rect
 {
-		Vector2<T> center, size;
+		Vector<T, 2> center, size;
 
 		constexpr Rect() noexcept = default;
-		constexpr Rect(Vector2<T> center, Vector2<T> size) noexcept
+		constexpr Rect(Vector<T, 2> center, Vector<T, 2> size) noexcept
 			:center{center}, size{size}
 		{
 		}
@@ -28,8 +28,8 @@ namespace game
 		
 		constexpr operator SDL_Rect() const noexcept
 		{
-			const Vector2<int> p{center - size/2};
-			const Vector2<int> s{size};
+			const Vector<int, 2> p{center - size/2};
+			const Vector<int, 2> s{size};
 			return {p.x, p.y, s.x, s.y};
 		}
 	};

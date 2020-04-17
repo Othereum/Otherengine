@@ -13,7 +13,7 @@ namespace game
 
 	namespace graphics
 	{
-		constexpr Vector2<uint16_t> kScrSz{1024, 768};
+		constexpr Vector<uint16_t, 2> kScrSz{1024, 768};
 		
 		class CRenderer
 		{
