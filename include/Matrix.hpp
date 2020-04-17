@@ -4,6 +4,13 @@
 namespace game
 {
 	template <class T, size_t R, size_t C = R>
+	struct Matrix;
+
+	using Mat2 = Matrix<float, 2>;
+	using Mat3 = Matrix<float, 3>;
+	using Mat4 = Matrix<float, 4>;
+	
+	template <class T, size_t R, size_t C>
 	struct Matrix
 	{
 		static constexpr const Matrix& Identity()
