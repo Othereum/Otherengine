@@ -75,13 +75,13 @@ namespace game
 		constexpr Vector(Args... args) noexcept: detail::VecBase<T, L>{T(args)...} {}
 
 		template <class U, size_t M>
-		constexpr explicit Vector(const Vector<U, M>& v) noexcept
+		explicit constexpr Vector(const Vector<U, M>& v) noexcept
 		{
 			std::copy(v.data, v.data + std::min(L, M), this->data);
 		}
 
 		[[nodiscard]] constexpr T LenSqr() const noexcept { return *this | *this; }
-		[[nodiscard]] float Len() const noexcept { return sqrtf(float(LenSqr())); }
+		[[nodiscard]] float Len() const noexcept { return sqrtf(static_cast<float>(LenSqr())); }
 		
 		[[nodiscard]] constexpr T DistSqr(const Vector& v) const noexcept { return (*this - v).LenSqr(); }
 		[[nodiscard]] float Dist(const Vector& v) const noexcept { return (*this - v).Len(); }
