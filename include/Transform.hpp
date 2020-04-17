@@ -6,8 +6,8 @@ namespace game
 {
 	struct Transform
 	{
-		FVector2 pos;
+		Vec2 pos;
 		Degrees rot;
-		FVector2 scale;
+		Vec2 scale;
 	};
 }
