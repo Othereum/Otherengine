@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include "Vector.h"
 
 namespace game
 {
@@ -42,47 +43,46 @@ namespace game
 		
 		constexpr auto& operator[](size_t i) noexcept { return m[i]; }
 		constexpr auto& operator[](size_t i) const noexcept { return m[i]; }
+		constexpr auto& Row(size_t i) noexcept { return m[i]; }
+		constexpr auto& Row(size_t i) const noexcept { return m[i]; }
+		constexpr auto Col(size_t c) const noexcept
+		{
+			Vector<T, R> v;
+			for (size_t r=0; r<R; ++r) v[r] = m[r][c];
+			return v;
+		}
 
 		constexpr Matrix operator+(const Matrix& b) const noexcept { auto c = *this; return c += b; }
-		constexpr Matrix& operator+=(const Matrix& b) & noexcept
+		constexpr Matrix& operator+=(const Matrix& b) noexcept
 		{
-			for (auto i=0; i<R*C; ++i) m[0][i] += b.m[0][i];
+			for (auto i=0; i<R; ++i) m[i] += b[i];
 			return *this;
 		}
 
 		constexpr Matrix operator-(const Matrix& b) const noexcept { auto c = *this; return c -= b; }
-		constexpr Matrix& operator-=(const Matrix& b) & noexcept
+		constexpr Matrix& operator-=(const Matrix& b) noexcept
 		{
-			for (auto i=0; i<R*C; ++i) m[0][i] -= b.m[0][i];
+			for (auto i=0; i<R; ++i) m[i] -= b[i];
 			return *this;
 		}
 
 		constexpr Matrix operator*(float f) const noexcept { auto c = *this; return c *= f; }
-		constexpr Matrix& operator*=(float f) & noexcept
+		constexpr Matrix& operator*=(float f) noexcept
 		{
-			for (auto i=0; i<R*C; ++i) m[0][i] *= f;
+			for (auto i=0; i<R; ++i) m[i] *= f;
 			return *this;
 		}
 
-		constexpr Matrix operator*(const Matrix& b) const noexcept
+		template <size_t C2>
+		constexpr Matrix<T, R, C2> operator*(const Matrix<T, C, C2>& b) const noexcept
 		{
-			/*
-			return {
-				m[0][0]*b[0][0]+m[0][1]*b[1][0]+m[0][2]*b[2][0]+m[0][3]*b[3][0], m[0][0]*b[0][1]+m[0][1]*b[1][1]+m[0][2]*b[2][1]+m[0][3]*b[3][1],
-				m[0][0]*b[0][2]+m[0][1]*b[1][2]+m[0][2]*b[2][2]+m[0][3]*b[3][2], m[0][0]*b[0][3]+m[0][1]*b[1][3]+m[0][2]*b[2][3]+m[0][3]*b[3][3],
-				
-				m[1][0]*b[0][0]+m[1][1]*b[1][0]+m[1][2]*b[2][0]+m[1][3]*b[3][0], m[1][0]*b[0][1]+m[1][1]*b[1][1]+m[1][2]*b[2][1]+m[1][3]*b[3][1],
-				m[1][0]*b[0][2]+m[1][1]*b[1][2]+m[1][2]*b[2][2]+m[1][3]*b[3][2], m[1][0]*b[0][3]+m[1][1]*b[1][3]+m[1][2]*b[2][3]+m[1][3]*b[3][3],
-				
-				m[2][0]*b[0][0]+m[2][1]*b[1][0]+m[2][2]*b[2][0]+m[2][3]*b[3][0], m[2][0]*b[0][1]+m[2][1]*b[1][1]+m[2][2]*b[2][1]+m[2][3]*b[3][1],
-				m[2][0]*b[0][2]+m[2][1]*b[1][2]+m[2][2]*b[2][2]+m[2][3]*b[3][2], m[2][0]*b[0][3]+m[2][1]*b[1][3]+m[2][2]*b[2][3]+m[2][3]*b[3][3],
-				
-				m[3][0]*b[0][0]+m[3][1]*b[1][0]+m[3][2]*b[2][0]+m[3][3]*b[3][0], m[3][0]*b[0][1]+m[3][1]*b[1][1]+m[3][2]*b[2][1]+m[3][3]*b[3][1],
-				m[3][0]*b[0][2]+m[3][1]*b[1][2]+m[3][2]*b[2][2]+m[3][3]*b[3][2], m[3][0]*b[0][3]+m[3][1]*b[1][3]+m[3][2]*b[2][3]+m[3][3]*b[3][3]
-			};
-			*/
+			Matrix<T, R, C2> c;
+			for (size_t i = 0; i < R; ++i)
+				for (size_t j = 0; j < C2; ++j)
+					c[i][j] = Row(i) | b.Col(j);
+			return c;
 		}
-		constexpr Matrix& operator*=(const Matrix& b) & noexcept { return *this = *this * b; }
+		constexpr Matrix& operator*=(const Matrix& b) noexcept { return *this = *this * b; }
 
 		constexpr std::enable_if_t<R==C> transpose() noexcept { *this = transposed(); }
 		[[nodiscard]] constexpr Matrix<T, C, R> transposed() const noexcept
@@ -93,6 +93,6 @@ namespace game
 		}
 
 	private:
-		T m[R][C];
+		Vector<T, C> m[R];
 	};
 }
