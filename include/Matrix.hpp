@@ -14,9 +14,9 @@ namespace game
 	template <class T, size_t R, size_t C>
 	struct Matrix
 	{
-		static constexpr const Matrix& Identity()
+		static constexpr const Matrix& Identity() noexcept
 		{
-			thread_local constexpr auto identity = []
+			static constexpr auto identity = []()
 			{
 				Matrix matrix;
 				for (size_t i = 0; i < std::min(R, C); ++i)
@@ -27,7 +27,7 @@ namespace game
 			return identity;
 		}
 
-		static constexpr const Matrix& Zero()
+		static constexpr const Matrix& Zero() noexcept
 		{
 			thread_local constexpr Matrix zero;
 			return zero;

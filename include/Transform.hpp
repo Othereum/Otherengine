@@ -23,7 +23,7 @@ namespace game
 			return t;
 		}
 
-		[[nodiscard]] constexpr Mat4 RotationZ() const noexcept
+		[[nodiscard]] Mat4 RotationZ() const noexcept
 		{
 			const auto sin = math::Sin(rot), cos = math::Cos(rot);
 			auto r = Mat4::Identity();
