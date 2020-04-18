@@ -1,9 +1,4 @@
 .vs
 out
+Binaries
 CMakeSettings.json
-*.dll
-*.exe
-*.ilk
-*.pdb
-
-*.obj
