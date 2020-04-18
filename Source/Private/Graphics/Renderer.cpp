@@ -25,8 +25,8 @@ namespace oeng::graphics
 		SetGlAttribute(SDL_GL_ALPHA_SIZE, 8);
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
-		
-		const auto window = SDL_CreateWindow("Otherengine", 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
+
+		auto* const window = SDL_CreateWindow("Otherengine", 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return {window, &SDL_DestroyWindow};
 	}
@@ -44,7 +44,7 @@ namespace oeng::graphics
 	
 	static auto CreateGlContext(SDL_Window& window)
 	{
-		const auto raw = SDL_GL_CreateContext(&window);
+		auto* const raw = SDL_GL_CreateContext(&window);
 		if (!raw) throw std::runtime_error{SDL_GetError()};
 		CRenderer::GlContextPtr ptr{raw, &SDL_GL_DeleteContext};
 		
@@ -113,7 +113,7 @@ namespace oeng::graphics
 		glClearColor(.86f, .86f, .86f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		for (auto& sprite : sprites_)
+		for (const auto& sprite : sprites_)
 		{
 			sprite.get().DrawSprite();
 		}
