@@ -2,7 +2,7 @@
 project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
-add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
