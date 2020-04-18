@@ -34,7 +34,7 @@ namespace game
 		}
 
 		template <class... Args>
-		constexpr Matrix(Args ... args) noexcept
+		constexpr Matrix(Args... args) noexcept
 			: arr{static_cast<T>(args)...}
 		{
 		}
