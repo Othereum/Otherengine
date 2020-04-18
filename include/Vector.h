@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <numeric>
 #include <ostream>
+#include "Detail/Iterator.hpp"
 
 namespace game
 {
@@ -18,8 +19,10 @@ namespace game
 		struct VecBase
 		{
 			template <class... Args>
-			constexpr VecBase(Args... args) noexcept: data{args...} {}
-			
+			constexpr VecBase(Args... args) noexcept: data{args...}
+			{
+			}
+
 			T data[L];
 		};
 
@@ -27,12 +30,18 @@ namespace game
 		struct VecBase<T, 2>
 		{
 			template <class... Args>
-			constexpr VecBase(Args... args) noexcept: data{args...} {}
+			constexpr VecBase(Args... args) noexcept: data{args...}
+			{
+			}
 
 			union
 			{
 				T data[2];
-				struct { T x, y; };
+
+				struct
+				{
+					T x, y;
+				};
 			};
 		};
 
@@ -40,19 +49,32 @@ namespace game
 		struct VecBase<T, 3>
 		{
 			template <class... Args>
-			constexpr VecBase(Args... args) noexcept: data{args...} {}
-			
+			constexpr VecBase(Args... args) noexcept: data{args...}
+			{
+			}
+
 			union
 			{
 				T data[3];
-				struct { T x, y, z; };
+
+				struct
+				{
+					T x, y, z;
+				};
 			};
-			
+
 			// Cross product
 			template <class U>
 			constexpr Vector<std::common_type_t<T, U>, 3> operator^(const Vector<U, 3>& v) const noexcept
 			{
-				return {y*v.z - z*v.y, z*v.x - x*v.z, x*v.y - y*v.x};
+				return {y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x};
+			}
+
+			// Cross product
+			template <class U>
+			constexpr VecBase<T, 3>& operator^=(const Vector<U, 3>& v) noexcept
+			{
+				return *this = *this ^ v;
 			}
 		};
 
@@ -60,12 +82,18 @@ namespace game
 		struct VecBase<T, 4>
 		{
 			template <class... Args>
-			constexpr VecBase(Args... args) noexcept: data{args...} {}
+			constexpr VecBase(Args... args) noexcept: data{args...}
+			{
+			}
 
 			union
 			{
 				T data[4];
-				struct { T x, y, z, w; };
+
+				struct
+				{
+					T x, y, z, w;
+				};
 			};
 		};
 	}
@@ -73,19 +101,34 @@ namespace game
 	template <class T, size_t L>
 	struct Vector : detail::VecBase<T, L>
 	{
+		using value_type = T;
+		using size_type = size_t;
+		using difference_type = ptrdiff_t;
+		using reference = T&;
+		using const_reference = const T&;
+		using pointer = T*;
+		using const_pointer = const T*;
+		using iterator = detail::Iterator<Vector>;
+		using const_iterator = detail::ConstIterator<Vector>;
+		using reverse_iterator = std::reverse_iterator<iterator>;
+		using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+		
 		template <class... Args>
-		constexpr Vector(Args... args) noexcept: detail::VecBase<T, L>{static_cast<T>(args)...} {}
+		constexpr Vector(Args... args) noexcept:
+			detail::VecBase<T, L>{static_cast<T>(args)...}
+		{
+		}
 
 		template <class U, size_t M>
 		constexpr Vector(const Vector<U, M>& v) noexcept
 		{
-			for (size_t i=0; i<L; ++i)
+			for (size_t i = 0; i < L; ++i)
 				(*this)[i] = static_cast<T>(v[i]);
 		}
 
 		[[nodiscard]] constexpr T LenSqr() const noexcept { return *this | *this; }
 		[[nodiscard]] float Len() const noexcept { return sqrtf(static_cast<float>(LenSqr())); }
-		
+
 		[[nodiscard]] constexpr T DistSqr(const Vector& v) const noexcept { return (*this - v).LenSqr(); }
 		[[nodiscard]] float Dist(const Vector& v) const noexcept { return (*this - v).Len(); }
 
@@ -131,28 +174,28 @@ namespace game
 		{
 			return Transform(v, std::multiplies<>{});
 		}
-		
+
 		constexpr Vector& operator*=(T f) noexcept
 		{
-			return Transform([f](T v){return v*f;});
+			return Transform([f](T v) { return v * f; });
 		}
 
 		constexpr Vector& operator/=(T f) noexcept
 		{
-			return Transform([f](T v){return v/f;});
+			return Transform([f](T v) { return v / f; });
 		}
 
 		constexpr Vector operator+(const Vector& v) const noexcept { return Vector{*this} += v; }
 		constexpr Vector operator-(const Vector& v) const noexcept { return Vector{*this} -= v; }
-		
+
 		template <class U>
 		constexpr auto operator*(const Vector<U, L>& v) const noexcept
 		{
 			Vector<std::common_type_t<T, U>, L> r;
-			for (size_t i=0; i<L; ++i) r[i] = (*this)[i] * v[i];
+			for (size_t i = 0; i < L; ++i) r[i] = (*this)[i] * v[i];
 			return r;
 		}
-		
+
 		constexpr Vector operator*(T f) const noexcept { return Vector{*this} *= f; }
 		constexpr Vector operator/(T f) const noexcept { return Vector{*this} /= f; }
 
@@ -162,8 +205,26 @@ namespace game
 			for (size_t i = 0; i < L; ++i) t += (*this)[i] * v[i];
 			return t;
 		}
+
+		constexpr iterator operator<<(T v) noexcept { return begin() << v; }
+
+		[[nodiscard]] constexpr iterator begin() noexcept { return this->data; }
+		[[nodiscard]] constexpr const_iterator begin() const noexcept { return this->data; }
+		[[nodiscard]] constexpr const_iterator cbegin() const noexcept { return this->data; }
+
+		[[nodiscard]] constexpr iterator end() noexcept { return this->data + L; }
+		[[nodiscard]] constexpr const_iterator end() const noexcept { return this->data + L; }
+		[[nodiscard]] constexpr const_iterator cend() const noexcept { return this->data + L; }
+		
+		[[nodiscard]] constexpr reverse_iterator rbegin() noexcept { return reverse_iterator{end()}; }
+		[[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept { return const_reverse_iterator{end()}; }
+		[[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept { return const_reverse_iterator{cend()}; }
+
+		[[nodiscard]] constexpr reverse_iterator rend() noexcept { return reverse_iterator{begin()}; }
+		[[nodiscard]] constexpr const_reverse_iterator rend() const noexcept { return const_reverse_iterator{begin()}; }
+		[[nodiscard]] constexpr const_reverse_iterator crend() const noexcept { return const_reverse_iterator{cbegin()}; }
 	};
-	
+
 	template <class F, class T, size_t L>
 	constexpr Vector<T, L> operator*(F f, const Vector<T, L>& v) noexcept
 	{
