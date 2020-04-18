@@ -9,6 +9,6 @@ namespace oeng::str
 	template <class... Args>
 	std::string Concat(std::string s, Args&&... args)
 	{
-		return (s.append(args), ...);
+		return (s.append(std::forward<Args>(args)), ...);
 	}
 }
