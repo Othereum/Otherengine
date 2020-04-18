@@ -1,10 +1,12 @@
 ﻿cmake_minimum_required(VERSION 3.8)
 project("Otherengine")
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/Binaries)
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+    CXX_STANDARD 20
+)
 
 find_package(SDL2 CONFIG REQUIRED)
 find_package(sdl2-image CONFIG REQUIRED)
