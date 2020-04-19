@@ -7,11 +7,11 @@ namespace oeng::graphics
 {
 	static void CheckShader(unsigned shader)
 	{
-		int is_valid;
+		auto is_valid = 0;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &is_valid);
 		if (!is_valid)
 		{
-			int len;
+			auto len = 0;
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 			std::string log(len, 0);
 			glGetShaderInfoLog(shader, len, nullptr, log.data());
@@ -21,11 +21,11 @@ namespace oeng::graphics
 
 	static void CheckProgram(unsigned program)
 	{
-		int is_valid;
+		auto is_valid = 0;
 		glGetProgramiv(program, GL_LINK_STATUS, &is_valid);
 		if (!is_valid)
 		{
-			int len;
+			auto len = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
 			std::string log(len, 0);
 			glGetProgramInfoLog(program, len, nullptr, log.data());
@@ -36,7 +36,7 @@ namespace oeng::graphics
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
 		const auto code = str::ReadFile(filename);
-		const auto c_str = code.c_str();
+		const auto* const c_str = code.c_str();
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_str, nullptr);
 		glCompileShader(shader);

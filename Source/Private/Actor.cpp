@@ -1,6 +1,6 @@
-#include "Actor/Actor.h"
+#include "Actor.h"
 #include <glm/ext/matrix_transform.hpp>
-#include "Component/ActorComponent.h"
+#include "Components/ActorComponent.h"
 #include "MathUtil.h"
 #include "World.h"
 

@@ -3,6 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include "Name.h"
+#include "Vector.hpp"
 
 struct SDL_Window;
 struct SDL_Texture;
@@ -32,7 +33,8 @@ namespace oeng
 		
 		[[nodiscard]] std::shared_ptr<SDL_Texture> GetTexture(FName file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
-		[[nodiscard]] const CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
+		[[nodiscard]] CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
+		[[nodiscard]] const Vector<uint16_t, 2>& GetScreenSize() const noexcept;
 		
 	private:
 		void Tick();

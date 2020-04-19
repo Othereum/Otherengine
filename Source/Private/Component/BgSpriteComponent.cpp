@@ -1,6 +1,6 @@
-#include "Component/BgSpriteComponent.h"
+#include "Components/BgSpriteComponent.h"
 #include <SDL.h>
-#include "Actor/Actor.h"
+#include "Actor.h"
 #include "Graphics/Renderer.h"
 
 namespace oeng

@@ -1,8 +1,8 @@
-#include "Component/TilemapComponent.h"
+#include "Components/TilemapComponent.h"
 #include <fstream>
 #include <sstream>
 #include <string>
-#include "Actor/Actor.h"
+#include "Actor.h"
 #include "Graphics/Renderer.h"
 
 namespace oeng

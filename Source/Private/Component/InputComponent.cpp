@@ -1,4 +1,4 @@
-#include "Component/InputComponent.h"
+#include "Components/InputComponent.h"
 #include "Engine.h"
 #include "InputSystem.h"
 

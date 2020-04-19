@@ -1,5 +1,5 @@
 #include <cmath>
-#include "Component/AnimSpriteComponent.h"
+#include "Components/AnimSpriteComponent.h"
 #include "MathUtil.h"
 
 namespace oeng

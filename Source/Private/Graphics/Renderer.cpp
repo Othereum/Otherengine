@@ -2,7 +2,7 @@
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
-#include "Component/SpriteComponent.h"
+#include "Components/SpriteComponent.h"
 #include "Graphics/VertexArray.h"
 #include "Graphics/Shader.h"
 

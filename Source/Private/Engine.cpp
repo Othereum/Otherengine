@@ -4,45 +4,21 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
-#include "Component/InputComponent.h"
-#include "Component/CircleComponent.h"
+#include "Components/InputComponent.h"
+#include "Components/CircleComponent.h"
 #include "InputSystem.h"
 #include "Graphics/Renderer.h"
 #include "World.h"
 
-#include "Actor/Asteroid.h"
-#include "Actor/Ship.h"
-#include "MathUtil.h"
-
 namespace oeng
 {
+	extern void LoadGameModule(CEngine&);
+	
 	CEngine::CEngine() :
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
 	{
-		input_system_->AddAxis("MoveForward", {
-			{'w', EInputType::keyboard, 1},
-			{'s', EInputType::keyboard, -1},
-		});
-		
-		input_system_->AddAxis("Turn", {
-			{'a', EInputType::keyboard, -1},
-			{'d', EInputType::keyboard, 1},
-		});
-
-		input_system_->AddAction("Shoot", {
-			{' ', EInputType::keyboard}
-		});
-		
-		for (auto i = 0; i < 20; ++i)
-		{
-			auto& ast = world_->SpawnActor<AAsteroid>();
-			ast.SetPos(math::RandVec({0, 0}, Vec2{graphics::kScrSz}));
-			ast.SetRot(math::RandAng());
-		}
-
-		auto& sh = world_->SpawnActor<ship>();
-		sh.SetPos(Vec2{graphics::kScrSz / 2});
+		LoadGameModule(*this);
 	}
 
 	CEngine::~CEngine() = default;
@@ -65,10 +41,15 @@ namespace oeng
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
 
-		const auto loaded = LoadTexture(file);
+		auto loaded = LoadTexture(file);
 		textures_.emplace(file, loaded);
 
 		return loaded;
+	}
+
+	const Vector<uint16_t, 2>& CEngine::GetScreenSize() const noexcept
+	{
+		return graphics::kScrSz;
 	}
 
 	void CEngine::Tick()

@@ -1,5 +1,5 @@
-#include "Component/MoveComponent.h"
-#include "Actor/Actor.h"
+#include "Components/MoveComponent.h"
+#include "Actor.h"
 
 namespace oeng
 {

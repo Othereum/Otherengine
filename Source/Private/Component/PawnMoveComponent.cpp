@@ -1,4 +1,4 @@
-#include "Component/PawnMoveComponent.h"
+#include "Components/PawnMoveComponent.h"
 
 namespace oeng
 {

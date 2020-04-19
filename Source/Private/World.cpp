@@ -1,8 +1,8 @@
 #include "World.h"
 
-#include "Actor/Actor.h"
-#include "Component/CircleComponent.h"
-#include "Component/InputComponent.h"
+#include "Actor.h"
+#include "Components/CircleComponent.h"
+#include "Components/InputComponent.h"
 #include "Graphics/Renderer.h"
 #include "TimerManager.h"
 

@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.13.5)
 project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
@@ -14,4 +14,4 @@ find_package(GLEW REQUIRED)
 add_subdirectory("Source/ThirdParty/ola")
 
 target_include_directories(${PROJECT_NAME} PUBLIC "Source/Public")
-target_link_libraries(${PROJECT_NAME} PRIVATE SDL2::SDL2 SDL2::SDL2_image GLEW::GLEW ola)
+target_link_libraries(${PROJECT_NAME} PUBLIC ola PRIVATE SDL2::SDL2 SDL2::SDL2_image GLEW::GLEW)

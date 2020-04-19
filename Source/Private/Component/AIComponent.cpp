@@ -1,5 +1,5 @@
-#include "Component/AIComponent.h"
-#include "Component/AIState.h"
+#include "Components/AIComponent.h"
+#include "Components/AIState.h"
 
 namespace oeng
 {

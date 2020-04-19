@@ -1,6 +1,6 @@
-#include "Component/SpriteComponent.h"
+#include "Components/SpriteComponent.h"
 #include <SDL.h>
-#include "Actor/Actor.h"
+#include "Actor.h"
 #include "Engine.h"
 #include "World.h"
 #include "Graphics/Renderer.h"
