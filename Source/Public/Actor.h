@@ -15,11 +15,6 @@ namespace oeng
 	class AActor
 	{
 	public:
-		enum class EState
-		{
-			active, paused, dead
-		};
-
 		explicit AActor(CWorld& world);
 		virtual ~AActor();
 
@@ -40,8 +35,8 @@ namespace oeng
 		void SetEnabled(bool enable);
 
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
-		[[nodiscard]] EState GetState() const noexcept { return state_; }
-		
+		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
+
 		void SetTransform(const Transform& new_transform, bool recompute_matrix = true) noexcept;
 		[[nodiscard]] const Transform& GetTransform() const noexcept { return world_transform_; }
 		
@@ -68,7 +63,7 @@ namespace oeng
 		void UpdateLifespan(float delta_seconds);
 		virtual void UpdateActor(float delta_seconds) {}
 
-		EState state_ = EState::active;
+		bool pending_kill_ = false;
 		float lifespan_ = 0;
 
 		Transform world_transform_;

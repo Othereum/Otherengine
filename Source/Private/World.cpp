@@ -59,7 +59,7 @@ namespace oeng
 		for (auto it = actors_.rbegin(); it != actors_.rend();)
 		{
 			const auto& actor = **it;
-			if (actor.GetState() == AActor::EState::dead)
+			if (actor.IsPendingKill())
 			{
 				const auto next = actors_.erase(it.base() - 1);
 				it = std::make_reverse_iterator(next);

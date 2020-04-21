@@ -68,7 +68,7 @@ namespace oeng
 
 	void AActor::Destroy()
 	{
-		state_ = EState::dead;
+		pending_kill_ = true;
 	}
 
 	void AActor::SetEnabled(bool enable)
