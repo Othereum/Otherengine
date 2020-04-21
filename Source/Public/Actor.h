@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include "Rotation.h"
-#include "Vector.hpp"
+#include "Transform.hpp"
 
 namespace oeng
 {
@@ -42,17 +42,21 @@ namespace oeng
 		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] EState GetState() const noexcept { return state_; }
 		
-		void SetPos(const Vec2& new_pos, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const Vec2& GetPos() const noexcept { return pos_; }
+		void SetTransform(const Transform& new_transform, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Transform& GetTransform() const noexcept { return world_transform_; }
+		
+		void SetPos(const Vec2& new_pos, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Vec2& GetPos() const noexcept { return world_transform_.pos; }
 
-		void SetRot(Degrees new_rot, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] Degrees GetRot() const noexcept { return rot_; }
+		void SetRot(Degrees new_rot, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] Degrees GetRot() const noexcept { return world_transform_.rot; }
 		[[nodiscard]] Vec2 GetForward() const noexcept;
 
-		void SetScale(const Vec2& scale, bool recompute_world_transform = true) noexcept;
-		[[nodiscard]] const Vec2& GetScale() const noexcept { return scale_; }
+		void SetScale(const Vec2& scale, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Vec2& GetScale() const noexcept { return world_transform_.scale; }
 
-		void RecomputeWorldTransform() noexcept;
+		void RecomputeMatrix() noexcept;
+		[[nodiscard]] const Mat4& GetTransformMatrix() const noexcept { return transform_matrix_; }
 
 		[[nodiscard]] CEngine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
@@ -67,11 +71,8 @@ namespace oeng
 		EState state_ = EState::active;
 		float lifespan_ = 0;
 
-		Vec2 pos_;
-		Degrees rot_;
-		Vec2 scale_;
-
-		// glm::mat4 world_transform_;
+		Transform world_transform_;
+		Mat4 transform_matrix_;
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;

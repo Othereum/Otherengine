@@ -6,7 +6,7 @@
 namespace oeng
 {
 	AActor::AActor(CWorld& world):
-		scale_{1, 1}, world_{world}
+		world_{world}
 	{
 	}
 
@@ -14,13 +14,13 @@ namespace oeng
 
 	void AActor::BeginPlay() const
 	{
-		for (auto& c : comps_)
+		for (const auto& c : comps_)
 			c->BeginPlay();
 	}
 
 	Vec2 AActor::GetForward() const noexcept
 	{
-		return math::R2V(rot_);
+		return math::R2V(GetRot());
 	}
 
 	void AActor::Update(const float delta_seconds)
@@ -79,28 +79,32 @@ namespace oeng
 		}
 	}
 
-	void AActor::SetPos(const Vec2& new_pos, bool recompute_world_transform) noexcept
+	void AActor::SetTransform(const Transform& new_transform, bool recompute_matrix) noexcept
 	{
-		pos_ = new_pos;
-		if (recompute_world_transform) RecomputeWorldTransform();
+		world_transform_ = new_transform;
+		if (recompute_matrix) RecomputeMatrix();
 	}
 
-	void AActor::SetRot(Degrees new_rot, bool recompute_world_transform) noexcept
+	void AActor::SetPos(const Vec2& new_pos, bool recompute_matrix) noexcept
 	{
-		rot_ = new_rot;
-		if (recompute_world_transform) RecomputeWorldTransform();
+		world_transform_.pos = new_pos;
+		if (recompute_matrix) RecomputeMatrix();
+	}
+
+	void AActor::SetRot(Degrees new_rot, bool recompute_matrix) noexcept
+	{
+		world_transform_.rot = new_rot;
+		if (recompute_matrix) RecomputeMatrix();
 	}
 	
-	void AActor::SetScale(const Vec2& scale, bool recompute_world_transform) noexcept
+	void AActor::SetScale(const Vec2& scale, bool recompute_matrix) noexcept
 	{
-		scale_ = scale;
-		if (recompute_world_transform) RecomputeWorldTransform();
+		world_transform_.scale = scale;
+		if (recompute_matrix) RecomputeMatrix();
 	}
 
-	void AActor::RecomputeWorldTransform() noexcept
+	void AActor::RecomputeMatrix() noexcept
 	{
-		// world_transform_ = scale(glm::mat4{}, glm::vec3{scale_, 1});
-		// world_transform_ = rotate(world_transform_, Radians{rot_}.Get(), {0, 0, 1});
-		// world_transform_ = translate(world_transform_, {pos_, 0});
+		transform_matrix_ = world_transform_.ToMatrix();
 	}
 }
