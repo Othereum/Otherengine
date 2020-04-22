@@ -77,17 +77,29 @@ namespace oeng
 
 	std::shared_ptr<SDL_Texture> CEngine::LoadTexture(FName file)
 	{
-		return nullptr;
+		auto* const surface = IMG_Load(file.Str().c_str());
+		if (!surface) throw std::runtime_error{SDL_GetError()};
+		const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface_deleter{surface, SDL_FreeSurface};
+
+		auto* const texture = SDL_CreateTextureFromSurface(&world_->GetRenderer().GetSdlRenderer(), surface);
+		if (!texture) throw std::runtime_error{SDL_GetError()};
+
+		return {texture, [this, file](SDL_Texture* texture)
+			{
+				textures_.erase(file);
+				SDL_DestroyTexture(texture);
+			}
+		};
 	}
 
 	CSdlRaii::CSdlRaii()
 	{
-		const auto sdlResult = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
-		if (sdlResult != 0) throw std::runtime_error{SDL_GetError()};
+		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
+		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 
 		const auto flags = IMG_INIT_PNG;
-		const auto imgResult = IMG_Init(flags);
-		if (imgResult != flags) throw std::runtime_error{IMG_GetError()};
+		const auto img_result = IMG_Init(flags);
+		if (img_result != flags) throw std::runtime_error{IMG_GetError()};
 	}
 
 	CSdlRaii::~CSdlRaii()
