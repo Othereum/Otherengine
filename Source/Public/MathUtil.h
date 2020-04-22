@@ -1,6 +1,6 @@
 #pragma once
 #include "Rotation.h"
-#include "Vector.hpp"
+#include "Matrix.hpp"
 
 namespace oeng::math
 {
@@ -55,5 +55,30 @@ namespace oeng::math
 	inline float MapRng(const Vec2& in_rng, const Vec2& out_rng, float val) noexcept
 	{
 		return GetRangeValue(out_rng, GetRangePct(in_rng, val));
+	}
+
+	constexpr Mat4 Translation(const Vec2& pos) noexcept
+	{
+		auto t = Mat4::Identity();
+		t[3] << pos.x << pos.y;
+		return t;
+	}
+
+	inline Mat4 RotationZ(Radians rot) noexcept
+	{
+		rot = -rot;
+		const auto sin = Sin(rot), cos = Cos(rot);
+		auto r = Mat4::Identity();
+		r[0] << cos << sin;
+		r[1] << -sin << cos;
+		return r;
+	}
+
+	constexpr Mat4 Scale(const Vec2& scale) noexcept
+	{
+		auto s = Mat4::Identity();
+		s[0][0] = scale.x;
+		s[1][1] = scale.y;
+		return s;
 	}
 }
