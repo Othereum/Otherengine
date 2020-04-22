@@ -31,6 +31,13 @@ namespace oeng::graphics
 		return {window, &SDL_DestroyWindow};
 	}
 
+	static CRenderer::RendererPtr CreateSdlRenderer(SDL_Window& window)
+	{
+		auto* const renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+		if (!renderer) throw std::runtime_error{SDL_GetError()};
+		return {renderer, &SDL_DestroyRenderer};
+	}
+
 	static void InitGl()
 	{
 		glewExperimental = GL_TRUE;
@@ -73,6 +80,7 @@ namespace oeng::graphics
 
 	CRenderer::CRenderer():
 		window_{CreateWindow()},
+		sdl_renderer_{CreateSdlRenderer(*window_)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{std::make_unique<Shader>("../Engine/Shaders/Basic.vert", "../Engine/Shaders/Basic.frag")},
 		sprite_verts_{CreateSpriteVerts()}

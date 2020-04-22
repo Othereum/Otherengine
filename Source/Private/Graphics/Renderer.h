@@ -6,6 +6,7 @@
 struct SDL_Texture;
 struct SDL_Rect;
 struct SDL_Window;
+struct SDL_Renderer;
 
 namespace oeng
 {
@@ -19,6 +20,7 @@ namespace oeng
 		{
 		public:
 			using TWindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
+			using RendererPtr = std::unique_ptr<SDL_Renderer, void(*)(SDL_Renderer*)>;
 			using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
 		
 			CRenderer();
@@ -32,8 +34,11 @@ namespace oeng
 
 			void DrawScene() const;
 
+			[[nodiscard]] SDL_Renderer& GetSdlRenderer() const noexcept { return *sdl_renderer_; }
+
 		private:
 			TWindowPtr window_;
+			RendererPtr sdl_renderer_;
 			GlContextPtr gl_context_;
 			std::unique_ptr<class Shader> sprite_shader_;
 			std::unique_ptr<class VertexArray> sprite_verts_;
