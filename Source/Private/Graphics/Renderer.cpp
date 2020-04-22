@@ -59,6 +59,13 @@ namespace oeng::graphics
 		return ptr;
 	}
 
+	static auto CreateSpriteShader()
+	{
+		auto shader = std::make_unique<Shader>("../Engine/Shaders/Transform.vert", "../Engine/Shaders/Basic.frag");
+		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(kScrSz));
+		return shader;
+	}
+
 	static auto CreateSpriteVerts()
 	{
 		constexpr Vec3 vertex_buffer[]
@@ -82,7 +89,7 @@ namespace oeng::graphics
 		window_{CreateWindow()},
 		sdl_renderer_{CreateSdlRenderer(*window_)},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{std::make_unique<Shader>("../Engine/Shaders/Basic.vert", "../Engine/Shaders/Basic.frag")},
+		sprite_shader_{CreateSpriteShader()},
 		sprite_verts_{CreateSpriteVerts()}
 	{
 	}
