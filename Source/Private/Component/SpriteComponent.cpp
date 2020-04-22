@@ -22,20 +22,17 @@ namespace oeng
 		GetRenderer().RegisterSprite(*this);
 	}
 
-	void CSpriteComponent::DrawSprite() const
+	void CSpriteComponent::DrawSprite(const graphics::CRenderer& renderer) const
 	{
 		if (IsEnabled())
 		{
-			Draw();
+			Draw(renderer);
 		}
 	}
 
-	void CSpriteComponent::Draw() const
+	void CSpriteComponent::Draw(const graphics::CRenderer& renderer) const
 	{
-		// if (!texture_) return;
-		
-		auto& owner = GetOwner();
-		GetRenderer().Draw(*texture_, {owner.GetPos(), tex_size_ * owner.GetScale()}, owner.GetRot());
+		renderer.Draw(math::Scale(tex_size_) * GetOwner().GetTransformMatrix());
 	}
 
 	void CSpriteComponent::SetTexture(std::shared_ptr<SDL_Texture>&& texture)

@@ -113,8 +113,10 @@ namespace oeng::graphics
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void CRenderer::Draw(SDL_Texture& texture, const FRect& dest, Degrees angle) const
+	void CRenderer::Draw(const Mat4& world_transform) const
 	{
+		static const FName name = "uWorldTransform";
+		sprite_shader_->SetMatrixUniform(name, world_transform);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}
 
@@ -130,7 +132,7 @@ namespace oeng::graphics
 
 		for (const auto& sprite : sprites_)
 		{
-			sprite.get().DrawSprite();
+			sprite.get().DrawSprite(*this);
 		}
 
 		SDL_GL_SwapWindow(window_.get());

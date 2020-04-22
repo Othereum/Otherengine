@@ -21,7 +21,7 @@ namespace oeng
 		~CSpriteComponent();
 
 		void BeginPlay() override;
-		void DrawSprite() const;
+		void DrawSprite(const graphics::CRenderer& renderer) const;
 		
 		void SetTexture(std::shared_ptr<SDL_Texture>&& texture);
 		void SetTexture(const std::shared_ptr<SDL_Texture>& texture);
@@ -33,7 +33,7 @@ namespace oeng
 		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept;
 
 	private:
-		virtual void Draw() const;
+		virtual void Draw(const graphics::CRenderer& renderer) const;
 
 		std::shared_ptr<SDL_Texture> texture_;
 		Vector<uint16_t, 2> tex_size_;

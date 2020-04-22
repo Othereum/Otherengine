@@ -2,6 +2,7 @@
 #include <memory>
 #include "Rect.h"
 #include "Rotation.h"
+#include "Matrix.hpp"
 
 struct SDL_Texture;
 struct SDL_Rect;
@@ -29,7 +30,7 @@ namespace oeng
 			void RegisterSprite(const CSpriteComponent& sprite);
 			void UnregisterSprite(const CSpriteComponent& sprite);
 
-			void Draw(SDL_Texture& texture, const FRect& dest, Degrees angle = {}) const;
+			void Draw(const Mat4& world_transform) const;
 			void Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle = {}) const;
 
 			void DrawScene() const;

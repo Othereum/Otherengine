@@ -28,7 +28,7 @@ namespace oeng
 		}
 	}
 
-	void CTilemapComponent::Draw() const
+	void CTilemapComponent::Draw(const graphics::CRenderer& renderer) const
 	{
 		for (size_t i = 0; i < tile_.size(); ++i)
 		{
@@ -43,7 +43,7 @@ namespace oeng
 				const SDL_Rect src{idx%w * sz, idx/w * sz, sz, sz};
 				const SDL_Rect dest{x*sz, y*sz, sz, sz};
 				
-				GetRenderer().Draw(GetTexture(), src, dest);
+				renderer.Draw(GetTexture(), src, dest);
 			}
 		}
 	}

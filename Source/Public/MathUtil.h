@@ -18,6 +18,7 @@ namespace oeng::math
 
 	inline Vec2 R2V(Radians r) noexcept
 	{
+		r = -r;
 		return {Cos(r), Sin(r)};
 	}
 

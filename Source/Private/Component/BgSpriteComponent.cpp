@@ -5,18 +5,18 @@
 
 namespace oeng
 {
-	CBgSpriteComponent::CBgSpriteComponent(AActor& owner, int drawOrder, int updateOrder)
-		:CSpriteComponent{owner, drawOrder, updateOrder}
+	CBgSpriteComponent::CBgSpriteComponent(AActor& owner, int draw_order, int update_order)
+		:CSpriteComponent{owner, draw_order, update_order}
 	{
 	}
 
-	void CBgSpriteComponent::Update(const float deltaSeconds)
+	void CBgSpriteComponent::Update(const float delta_seconds)
 	{
-		CSpriteComponent::Update(deltaSeconds);
+		CSpriteComponent::Update(delta_seconds);
 
 		for (auto& bg : textures_)
 		{
-			bg.offset.x += scrollSpeed_ * deltaSeconds;
+			bg.offset.x += scroll_speed_ * delta_seconds;
 			if (bg.offset.x < -graphics::kScrSz.x)
 			{
 				bg.offset.x = static_cast<float>((textures_.size() - 1) * graphics::kScrSz.x - 1);
@@ -24,11 +24,11 @@ namespace oeng
 		}
 	}
 
-	void CBgSpriteComponent::Draw() const
+	void CBgSpriteComponent::Draw(const graphics::CRenderer& renderer) const
 	{
 		for (const auto& bg : textures_)
 		{
-			GetRenderer().Draw(*bg.texture, {GetOwner().GetPos() + bg.offset, Vec2{graphics::kScrSz}}, 0_deg);
+			renderer.Draw(math::Scale(graphics::kScrSz) * math::Translation(GetOwner().GetPos() + bg.offset));
 		}
 	}
 
