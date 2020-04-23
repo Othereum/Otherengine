@@ -79,17 +79,17 @@ namespace oeng
 		events_.clear();
 	}
 
-	void CInputSystem::AddAxis(FName name, std::vector<FInputAxis>&& keys)
+	void CInputSystem::AddAxis(Name name, std::vector<FInputAxis>&& keys)
 	{
 		axises_.emplace(name, std::move(keys));
 	}
 
-	void CInputSystem::AddAction(FName name, std::vector<FInputAction>&& keys)
+	void CInputSystem::AddAction(Name name, std::vector<FInputAction>&& keys)
 	{
 		actions_.emplace(name, std::move(keys));
 	}
 
-	float CInputSystem::GetAxisValue(FName name) const noexcept
+	float CInputSystem::GetAxisValue(Name name) const noexcept
 	{
 		auto it = axises_.find(name);
 		if (it == axises_.end()) return 0;

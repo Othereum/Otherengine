@@ -41,7 +41,7 @@ namespace oeng
 
 	struct FInputEvent
 	{
-		FName name;
+		Name name;
 		bool bPressed;
 	};
 
@@ -51,10 +51,10 @@ namespace oeng
 		void AddEvent(const SDL_Event& e);
 		void ClearEvents();
 
-		void AddAxis(FName name, std::vector<FInputAxis>&& keys);
-		void AddAction(FName name, std::vector<FInputAction>&& keys);
+		void AddAxis(Name name, std::vector<FInputAxis>&& keys);
+		void AddAction(Name name, std::vector<FInputAction>&& keys);
 		
-		[[nodiscard]] float GetAxisValue(FName name) const noexcept;
+		[[nodiscard]] float GetAxisValue(Name name) const noexcept;
 		[[nodiscard]] static float GetAxisValue(const FInputAxis& axis) noexcept;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
@@ -62,7 +62,7 @@ namespace oeng
 
 	private:
 		std::vector<FInputEvent> events_;
-		std::unordered_map<FName, std::vector<FInputAxis>> axises_;
-		std::unordered_map<FName, std::vector<FInputAction>> actions_;
+		std::unordered_map<Name, std::vector<FInputAxis>> axises_;
+		std::unordered_map<Name, std::vector<FInputAction>> actions_;
 	};
 }

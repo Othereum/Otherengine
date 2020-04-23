@@ -21,7 +21,7 @@ namespace oeng
 		 * \brief Change state. You must add state before change, or std::out_of_bound exception will be thrown
 		 * \param name New state name
 		 */
-		void ChangeState(FName name);
+		void ChangeState(Name name);
 		
 		void AddState(std::unique_ptr<ai_state::Base>&& state);
 
@@ -32,7 +32,7 @@ namespace oeng
 		}
 
 	private:
-		std::unordered_map<FName, std::unique_ptr<ai_state::Base>> states_;
+		std::unordered_map<Name, std::unique_ptr<ai_state::Base>> states_;
 		std::reference_wrapper<ai_state::Base> cur_;
 	};
 }

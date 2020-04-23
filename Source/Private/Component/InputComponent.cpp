@@ -18,12 +18,12 @@ namespace oeng
 		}
 	}
 
-	void CInputComponent::BindAction(FName action, bool bPressed, std::function<void()>&& callback)
+	void CInputComponent::BindAction(Name action, bool bPressed, std::function<void()>&& callback)
 	{
 		actions_[bPressed].emplace(action, std::move(callback));
 	}
 
-	void CInputComponent::BindAxis(FName axis, std::function<void(float)>&& callback)
+	void CInputComponent::BindAxis(Name axis, std::function<void(float)>&& callback)
 	{
 		axises_.emplace(axis, std::move(callback));
 	}

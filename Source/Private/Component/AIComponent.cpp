@@ -9,7 +9,7 @@ namespace oeng
 		{
 		public:
 			Default(): Base{nullptr} {}
-			[[nodiscard]] FName GetName() const override { return "Default"; }
+			[[nodiscard]] Name GetName() const override { return "Default"; }
 		};
 
 		static Default default_state;
@@ -26,7 +26,7 @@ namespace oeng
 		cur_.get().Update(delta_seconds);
 	}
 
-	void AIComponent::ChangeState(FName name)
+	void AIComponent::ChangeState(Name name)
 	{
 		auto& prev = cur_.get();
 		auto& next = *states_.at(name);

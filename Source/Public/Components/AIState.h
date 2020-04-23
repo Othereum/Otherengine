@@ -12,7 +12,7 @@ namespace oeng::ai_state
 		virtual void OnEnter(Base& prev) {}
 		virtual void Update(float delta_seconds) {}
 		virtual void OnExit(Base& next) {}
-		[[nodiscard]] virtual FName GetName() const = 0;
+		[[nodiscard]] virtual Name GetName() const = 0;
 		[[nodiscard]] AIComponent& GetOwner() const noexcept { return owner_; }
 
 	private:

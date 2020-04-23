@@ -14,8 +14,8 @@ namespace oeng
 		
 		void Update(float deltaSeconds) override;
 		
-		void BindAction(FName action, bool bPressed, std::function<void()>&& callback);
-		void BindAxis(FName axis, std::function<void(float)>&& callback);
+		void BindAction(Name action, bool bPressed, std::function<void()>&& callback);
+		void BindAxis(Name axis, std::function<void(float)>&& callback);
 
 		[[nodiscard]] const class CInputSystem& GetInputSystem() const noexcept;
 		
@@ -23,7 +23,7 @@ namespace oeng
 		void ProcessActions() const;
 		void ProcessAxises() const;
 		
-		std::unordered_multimap<FName, std::function<void()>> actions_[2];
-		std::unordered_multimap<FName, std::function<void(float)>> axises_;
+		std::unordered_multimap<Name, std::function<void()>> actions_[2];
+		std::unordered_multimap<Name, std::function<void(float)>> axises_;
 	};
 }

@@ -4,37 +4,30 @@
 
 namespace oeng
 {
-	struct FName
+	struct Name
 	{
-		FName();
-		FName(const char* s);
-		FName(const std::string& s);
-		FName(std::string&& s);
+		Name();
+		Name(const char* s);
+		Name(const std::string& s);
+		Name(std::string&& s);
 
-		[[nodiscard]] const std::string& Str() const noexcept
-		{
-			return *s_;
-		}
+		[[nodiscard]] const std::string& Str() const noexcept { return *sp; }
+		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
 
-		operator const std::string&() const noexcept
-		{
-			return *s_;
-		}
-
-		bool operator==(const FName&) const noexcept = default;
-		bool operator!=(const FName&) const noexcept = default;
+		bool operator==(const Name&) const noexcept = default;
+		bool operator!=(const Name&) const noexcept = default;
 
 	private:
-		friend std::hash<FName>;
-		const std::string* s_;
+		friend std::hash<Name>;
+		const std::string* sp;
 	};
 }
 
 template <>
-struct std::hash<oeng::FName>
+struct std::hash<oeng::Name>
 {
-	size_t operator()(const oeng::FName& key) const noexcept
+	size_t operator()(const oeng::Name& key) const noexcept
 	{
-		return size_t(key.s_);
+		return size_t(key.sp);
 	}
 };

@@ -2,29 +2,29 @@
 
 namespace oeng
 {
-	static std::unordered_set<std::string> gSet{{}};
+	static std::unordered_set<std::string> str_set{{}};
 	
-	FName::FName()
-		:s_{&*gSet.find({})}
+	Name::Name()
+		:sp{&*str_set.find({})}
 	{
 	}
 
-	FName::FName(const char* s)
-		:FName{std::string{s}}
+	Name::Name(const char* s)
+		:Name{std::string{s}}
 	{
 	}
 
-	FName::FName(const std::string& s)
+	Name::Name(const std::string& s)
 	{
 		// It's best way until C++17
 		// find(string_view) is way better since C++20
-		auto [it, bInserted] = gSet.insert(s);
-		s_ = &*it;
+		auto [it, bInserted] = str_set.insert(s);
+		sp = &*it;
 	}
 
-	FName::FName(std::string&& s)
+	Name::Name(std::string&& s)
 	{
-		auto [it, bInserted] = gSet.insert(std::move(s));
-		s_ = &*it;
+		auto [it, bInserted] = str_set.insert(std::move(s));
+		sp = &*it;
 	}
 }
