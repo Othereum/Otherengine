@@ -19,7 +19,6 @@ namespace oeng::graphics
 		size_ = size;
 
 		glGenTextures(1, &id_);
-		glBindTexture(GL_TEXTURE_2D, id_);
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, image.get());
 		
@@ -30,5 +29,10 @@ namespace oeng::graphics
 	Texture::~Texture()
 	{
 		glDeleteTextures(1, &id_);
+	}
+
+	void Texture::Activate() const
+	{
+		glBindTexture(GL_TEXTURE_2D, id_);
 	}
 }

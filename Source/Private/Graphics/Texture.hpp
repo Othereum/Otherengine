@@ -9,6 +9,7 @@ namespace oeng::graphics
 		explicit Texture(const char* name);
 		~Texture();
 
+		void Activate() const;
 		[[nodiscard]] auto& Size() const noexcept { return size_; }
 
 		Texture(const Texture&) = delete;
