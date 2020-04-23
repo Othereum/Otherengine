@@ -5,6 +5,8 @@
 #include "Components/SpriteComponent.h"
 #include "Graphics/VertexArray.h"
 #include "Graphics/Shader.h"
+#include "Graphics/Texture.hpp"
+#include "Actor.h"
 
 namespace oeng::graphics
 {
@@ -29,13 +31,6 @@ namespace oeng::graphics
 		auto* const window = SDL_CreateWindow("Otherengine", 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return {window, &SDL_DestroyWindow};
-	}
-
-	static CRenderer::RendererPtr CreateSdlRenderer(SDL_Window& window)
-	{
-		auto* const renderer = SDL_CreateRenderer(&window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		if (!renderer) throw std::runtime_error{SDL_GetError()};
-		return {renderer, &SDL_DestroyRenderer};
 	}
 
 	static void InitGl()
@@ -68,12 +63,12 @@ namespace oeng::graphics
 
 	static auto CreateSpriteVerts()
 	{
-		constexpr Vec3 vertex_buffer[]
+		constexpr Vertex vertex_buffer[]
 		{
-			{-0.5, 0.5, 0},
-			{0.5, 0.5, 0},
-			{0.5, -0.5, 0},
-			{-0.5, -0.5, 0}
+			{{-0.5, 0.5, 0}, {0, 0}},
+			{{0.5, 0.5, 0}, {1, 0}},
+			{{0.5, -0.5, 0}, {1, 1}},
+			{{-0.5, -0.5, 0}, {0, 1}}
 		};
 
 		constexpr Vector<uint16_t, 3> index_buffer[]
@@ -87,7 +82,6 @@ namespace oeng::graphics
 
 	CRenderer::CRenderer():
 		window_{CreateWindow()},
-		sdl_renderer_{CreateSdlRenderer(*window_)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{CreateSpriteShader()},
 		sprite_verts_{CreateSpriteVerts()}
@@ -113,16 +107,12 @@ namespace oeng::graphics
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void CRenderer::Draw(const Mat4& world_transform) const
+	void CRenderer::Draw(const CSpriteComponent& sprite) const
 	{
-		static const FName name = "uWorldTransform";
-		sprite_shader_->SetMatrixUniform(name, world_transform);
+		static const Name name = "uWorldTransform";
+		sprite_shader_->SetMatrixUniform(name, sprite.GetOwner().GetTransformMatrix());
+		sprite.GetTexture().Activate();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
-	}
-
-	void CRenderer::Draw(SDL_Texture& texture, const SDL_Rect& src, const SDL_Rect& dest, Degrees angle) const
-	{
-		// SDL_RenderCopyEx(renderer_.get(), &texture, &src, &dest, angle.Get(), nullptr, SDL_FLIP_NONE);
 	}
 
 	void CRenderer::DrawScene() const
@@ -132,7 +122,7 @@ namespace oeng::graphics
 
 		for (const auto& sprite : sprites_)
 		{
-			sprite.get().DrawSprite(*this);
+			Draw(sprite);
 		}
 
 		SDL_GL_SwapWindow(window_.get());

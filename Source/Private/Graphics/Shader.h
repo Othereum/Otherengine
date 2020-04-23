@@ -11,12 +11,12 @@ namespace oeng::graphics
 		Shader(std::string_view vert_name, std::string_view frag_name);
 		~Shader();
 
-		void SetMatrixUniform(FName name, const Mat4& matrix);
+		void SetMatrixUniform(Name name, const Mat4& matrix);
 
 	private:
-		int GetUniformLocation(FName name);
+		int GetUniformLocation(Name name);
 		
-		std::unordered_map<FName, int> uniform_;
+		std::unordered_map<Name, int> uniform_;
 		unsigned vert_shader_;
 		unsigned frag_shader_;
 		unsigned shader_program_;

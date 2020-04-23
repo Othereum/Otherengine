@@ -2,16 +2,15 @@
 
 #include <memory>
 #include "ActorComponent.h"
-#include "Vector.hpp"
 
 struct SDL_Renderer;
-struct SDL_Texture;
 
 namespace oeng
 {
 	namespace graphics
 	{
 		class CRenderer;
+		class Texture;
 	}
 	
 	class CSpriteComponent : public CActorComponent
@@ -21,22 +20,17 @@ namespace oeng
 		~CSpriteComponent();
 
 		void BeginPlay() override;
-		void DrawSprite(const graphics::CRenderer& renderer) const;
 		
-		void SetTexture(std::shared_ptr<SDL_Texture>&& texture);
-		void SetTexture(const std::shared_ptr<SDL_Texture>& texture);
+		void SetTexture(std::shared_ptr<graphics::Texture>&& texture);
+		void SetTexture(const std::shared_ptr<graphics::Texture>& texture);
 		void SetTexture(const char* filename);
-		[[nodiscard]] SDL_Texture& GetTexture() const { return *texture_; }
+		[[nodiscard]] graphics::Texture& GetTexture() const { return *texture_; }
 
-		[[nodiscard]] const Vector<unsigned short, 2>& GetTexSize() const noexcept { return tex_size_; }
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
 		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept;
 
 	private:
-		virtual void Draw(const graphics::CRenderer& renderer) const;
-
-		std::shared_ptr<SDL_Texture> texture_;
-		Vector<uint16_t, 2> tex_size_;
+		std::shared_ptr<graphics::Texture> texture_;
 		int draw_order_;
 	};
 }

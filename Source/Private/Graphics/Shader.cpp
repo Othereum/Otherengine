@@ -63,13 +63,13 @@ namespace oeng::graphics
 		glDeleteShader(frag_shader_);
 	}
 
-	void Shader::SetMatrixUniform(FName name, const Mat4& matrix)
+	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
 	{
 		auto loc = GetUniformLocation(name);
 		glUniformMatrix4fv(loc, 1, true, matrix.AsFloats());
 	}
 
-	int Shader::GetUniformLocation(FName name)
+	int Shader::GetUniformLocation(Name name)
 	{
 		if (auto found = uniform_.find(name); found != uniform_.end())
 			return found->second;
