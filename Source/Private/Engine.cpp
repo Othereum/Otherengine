@@ -2,12 +2,12 @@
 
 #include <stdexcept>
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include "Components/InputComponent.h"
 #include "Components/CircleComponent.h"
-#include "InputSystem.h"
 #include "Graphics/Renderer.h"
+#include "Graphics/Texture.hpp"
+#include "InputSystem.h"
 #include "World.h"
 
 namespace oeng
@@ -36,14 +36,21 @@ namespace oeng
 		is_running_ = false;
 	}
 
-	std::shared_ptr<SDL_Texture> CEngine::GetTexture(FName file)
+	std::shared_ptr<graphics::Texture> CEngine::GetTexture(Name file)
 	{
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
 
-		auto loaded = LoadTexture(file);
-		textures_.emplace(file, loaded);
+		std::shared_ptr<graphics::Texture> loaded{
+			new graphics::Texture{file.CStr()},
+			[this, file](graphics::Texture* p) noexcept
+			{
+				textures_.erase(file);
+				delete p;
+			}
+		};
 
+		textures_.emplace(file, loaded);
 		return loaded;
 	}
 
@@ -75,36 +82,14 @@ namespace oeng
 		}
 	}
 
-	std::shared_ptr<SDL_Texture> CEngine::LoadTexture(FName file)
-	{
-		auto* const surface = IMG_Load(file.Str().c_str());
-		if (!surface) throw std::runtime_error{SDL_GetError()};
-		const std::unique_ptr<SDL_Surface, void(*)(SDL_Surface*)> surface_deleter{surface, SDL_FreeSurface};
-
-		auto* const texture = SDL_CreateTextureFromSurface(&world_->GetRenderer().GetSdlRenderer(), surface);
-		if (!texture) throw std::runtime_error{SDL_GetError()};
-
-		return {texture, [this, file](SDL_Texture* texture)
-			{
-				textures_.erase(file);
-				SDL_DestroyTexture(texture);
-			}
-		};
-	}
-
 	CSdlRaii::CSdlRaii()
 	{
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
-
-		const auto flags = IMG_INIT_PNG;
-		const auto img_result = IMG_Init(flags);
-		if (img_result != flags) throw std::runtime_error{IMG_GetError()};
 	}
 
 	CSdlRaii::~CSdlRaii()
 	{
-		IMG_Quit();
 		SDL_Quit();
 	}
 }

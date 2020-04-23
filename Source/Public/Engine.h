@@ -6,12 +6,16 @@
 #include "Vector.hpp"
 
 struct SDL_Window;
-struct SDL_Texture;
 struct SDL_Renderer;
 struct SDL_Rect;
 
 namespace oeng
 {
+	namespace graphics
+	{
+		class Texture;
+	}
+	
 	class CWorld;
 	class CInputSystem;
 
@@ -31,7 +35,7 @@ namespace oeng
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] std::shared_ptr<SDL_Texture> GetTexture(FName file);
+		[[nodiscard]] std::shared_ptr<graphics::Texture> GetTexture(Name file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
 		[[nodiscard]] CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
 		[[nodiscard]] const Vector<uint16_t, 2>& GetScreenSize() const noexcept;
@@ -39,9 +43,8 @@ namespace oeng
 	private:
 		void Tick();
 		void ProcessEvent();
-		[[nodiscard]] std::shared_ptr<SDL_Texture> LoadTexture(FName file);
 
-		std::unordered_map<FName, std::weak_ptr<SDL_Texture>> textures_;
+		std::unordered_map<Name, std::weak_ptr<graphics::Texture>> textures_;
 		std::unique_ptr<CWorld> world_;
 		std::unique_ptr<CInputSystem> input_system_;
 		bool is_running_ = true;
