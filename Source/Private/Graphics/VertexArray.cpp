@@ -16,12 +16,13 @@ namespace oeng::graphics
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof Vector<uint16_t, 3> * num_indices, indices, GL_STATIC_DRAW);
 
+		const auto* const pos_offset = reinterpret_cast<const void*>(offsetof(Vertex, pos));
 		glEnableVertexAttribArray(0);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof Vertex, nullptr);
+		glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof Vertex, pos_offset);
 
-		constexpr auto offset = reinterpret_cast<const void*>(offsetof(Vertex, uv));
+		const auto* const uv_offset = reinterpret_cast<const void*>(offsetof(Vertex, uv));
 		glEnableVertexAttribArray(1);
-		glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof Vertex, offset);
+		glVertexAttribPointer(1, 2, GL_FLOAT, false, sizeof Vertex, uv_offset);
 	}
 
 	VertexArray::~VertexArray()

@@ -19,6 +19,7 @@ namespace oeng::graphics
 		size_ = size;
 
 		glGenTextures(1, &id_);
+		Activate();
 		
 		glTexImage2D(GL_TEXTURE_2D, 0, format, size.x, size.y, 0, format, GL_UNSIGNED_BYTE, image.get());
 		
