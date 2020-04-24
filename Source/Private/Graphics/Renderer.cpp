@@ -20,7 +20,7 @@ namespace oeng::graphics
 			throw std::runtime_error{SDL_GetError()};
 	}
 	
-	static CRenderer::TWindowPtr CreateWindow()
+	static auto CreateWindow()
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -32,14 +32,18 @@ namespace oeng::graphics
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		auto* const window = SDL_CreateWindow(GetGameName(), 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
+		CRenderer::TWindowPtr window
+		{
+			SDL_CreateWindow(GetGameName(), 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL),
+			&SDL_DestroyWindow
+		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
-		return {window, &SDL_DestroyWindow};
+		return window;
 	}
 
 	static void InitGl()
 	{
-		glewExperimental = GL_TRUE;
+		glewExperimental = true;
 		
 		if (const auto err = glewInit(); err != GLEW_OK)
 			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
@@ -50,12 +54,15 @@ namespace oeng::graphics
 	
 	static auto CreateGlContext(SDL_Window& window)
 	{
-		auto* const raw = SDL_GL_CreateContext(&window);
-		if (!raw) throw std::runtime_error{SDL_GetError()};
-		CRenderer::GlContextPtr ptr{raw, &SDL_GL_DeleteContext};
+		CRenderer::GlContextPtr context
+		{
+			SDL_GL_CreateContext(&window),
+			&SDL_GL_DeleteContext
+		};
+		if (!context) throw std::runtime_error{SDL_GetError()};
 		
 		InitGl();
-		return ptr;
+		return context;
 	}
 
 	static auto CreateSpriteShader()
