@@ -67,7 +67,7 @@ namespace oeng
 		float lifespan_ = 0;
 
 		Transform world_transform_;
-		Mat4 transform_matrix_;
+		Mat4 transform_matrix_ = Mat4::Identity();
 		
 		CWorld& world_;
 		std::vector<std::unique_ptr<CActorComponent>> comps_;
