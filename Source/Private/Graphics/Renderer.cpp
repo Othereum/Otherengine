@@ -1,12 +1,16 @@
 #include "Graphics/Renderer.h"
+
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
+
 #include "Components/SpriteComponent.h"
 #include "Graphics/VertexArray.h"
 #include "Graphics/Shader.h"
 #include "Graphics/Texture.hpp"
+
 #include "Actor.h"
+#include "GameModule.hpp"
 
 namespace oeng::graphics
 {
@@ -28,7 +32,7 @@ namespace oeng::graphics
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		auto* const window = SDL_CreateWindow("Otherengine", 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
+		auto* const window = SDL_CreateWindow(GetGameName(), 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL);
 		if (!window) throw std::runtime_error{SDL_GetError()};
 		return {window, &SDL_DestroyWindow};
 	}

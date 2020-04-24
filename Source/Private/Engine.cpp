@@ -3,6 +3,8 @@
 #include <stdexcept>
 #include <SDL.h>
 
+
+#include "GameModule.hpp"
 #include "Components/InputComponent.h"
 #include "Components/CircleComponent.h"
 #include "Graphics/Renderer.h"
@@ -12,8 +14,6 @@
 
 namespace oeng
 {
-	extern void LoadGameModule(CEngine&);
-	
 	CEngine::CEngine() :
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
