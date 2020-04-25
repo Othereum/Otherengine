@@ -11,7 +11,8 @@ namespace oeng
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},
 		renderer_{std::make_unique<graphics::CRenderer>()},
-		timer_{std::make_unique<CTimerManager>(*this)}
+		timer_{std::make_unique<CTimerManager>(*this)},
+		delta_seconds_{0}
 	{
 	}
 
@@ -19,6 +20,7 @@ namespace oeng
 
 	void CWorld::Tick()
 	{
+		UpdateTime();
 		UpdateGame();
 		renderer_->DrawScene();
 	}
@@ -37,10 +39,8 @@ namespace oeng
 
 	void CWorld::UpdateGame()
 	{
-		const auto deltaSeconds = UpdateTime();
-		
 		for (const auto& actor : actors_)
-			actor->Update(deltaSeconds);
+			actor->Update(delta_seconds_);
 		
 		for (size_t i = 0; i < collisions_.size(); ++i)
 			for (auto j = i+1; j < collisions_.size(); ++j)
@@ -71,13 +71,12 @@ namespace oeng
 		}
 	}
 
-	float CWorld::UpdateTime()
+	void CWorld::UpdateTime()
 {
 		using namespace std::chrono;
 		const auto now = steady_clock::now();
-		const auto delta_seconds = duration<float>{now - time_}.count();
+		delta_seconds_ = duration<float>{now - time_}.count();
 		time_ = now;
-		return delta_seconds;
 	}
 
 	void CWorld::RegisterActor(std::unique_ptr<AActor>&& actor)

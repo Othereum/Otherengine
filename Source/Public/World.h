@@ -44,11 +44,12 @@ namespace oeng
 		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept { return *timer_; }
-		[[nodiscard]] auto GetTime() const noexcept { return time_; }
+		[[nodiscard]] TimePoint GetTime() const noexcept { return time_; }
+		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
 
 	private:
 		void UpdateGame();
-		float UpdateTime();
+		void UpdateTime();
 		void RegisterActor(std::unique_ptr<AActor>&& actor);
 
 		CEngine& engine_;
@@ -61,5 +62,6 @@ namespace oeng
 		std::vector<std::unique_ptr<AActor>> pending_actors_;
 		
 		TimePoint time_;
+		float delta_seconds_;
 	};
 }
