@@ -58,7 +58,7 @@ namespace oeng
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
 		
 		std::vector<std::unique_ptr<AActor>> actors_;
-		std::vector<std::unique_ptr<AActor>> pendingActors_;
+		std::vector<std::unique_ptr<AActor>> pending_actors_;
 		
 		TimePoint time_;
 	};

@@ -48,13 +48,13 @@ namespace oeng
 
 		timer_->Update();
 		
-		for (auto&& pending : pendingActors_)
+		for (auto&& pending : pending_actors_)
 		{
 			auto& actor = *pending;
 			actors_.push_back(std::move(pending));
 			actor.BeginPlay();
 		}
-		pendingActors_.clear();
+		pending_actors_.clear();
 
 		for (auto it = actors_.rbegin(); it != actors_.rend();)
 		{
@@ -82,6 +82,6 @@ namespace oeng
 
 	void CWorld::RegisterActor(std::unique_ptr<AActor>&& actor)
 	{
-		pendingActors_.push_back(std::move(actor));
+		pending_actors_.push_back(std::move(actor));
 	}
 }
