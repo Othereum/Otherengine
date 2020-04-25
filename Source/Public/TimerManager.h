@@ -23,8 +23,7 @@ namespace oeng
 	
 	struct FTimerHandle
 	{
-		bool operator==(const FTimerHandle&) const noexcept = default;
-		bool operator!=(const FTimerHandle&) const noexcept = default;
+		constexpr bool operator==(const FTimerHandle&) const noexcept = default;
 		
 	private:
 		friend class CTimerManager;
@@ -32,7 +31,7 @@ namespace oeng
 		
 		static FTimerHandle Create() noexcept;
 		
-		int key = -1;
+		size_t key = 0;
 	};
 
 	class CTimerManager
@@ -57,8 +56,17 @@ namespace oeng
 		
 		FTimerHandle SetLoopTimer(Duration delay, std::function<Loop()>&& fn = DefLoopFn);
 		FTimerHandle SetTimer(Duration delay, std::function<void()>&& fn = DefFn);
+		
+		FTimerHandle SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn = DefLoopFn);
+		FTimerHandle SetTimer(float delay_in_seconds, std::function<void()>&& fn = DefFn);
+		
 		void SetTimerForNextTick(std::function<void()>&& fn);
 		[[nodiscard]] bool IsTimerExists(const FTimerHandle& handle) const noexcept;
+
+		CTimerManager(const CTimerManager&) = delete;
+		CTimerManager(CTimerManager&&) = delete;
+		CTimerManager& operator=(const CTimerManager&) = delete;
+		CTimerManager& operator=(CTimerManager&&) = delete;
 
 	private:
 		static Loop DefLoopFn() noexcept { return Loop::kStop; }

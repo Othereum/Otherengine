@@ -22,9 +22,19 @@ namespace oeng
 		return SetLoopTimer(delay, [func = std::move(fn)]{func(); return Loop::kStop;});
 	}
 
+	FTimerHandle CTimerManager::SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn)
+	{
+		return SetLoopTimer(duration<float>{delay_in_seconds}, std::move(fn));
+	}
+
+	FTimerHandle CTimerManager::SetTimer(float delay_in_seconds, std::function<void()>&& fn)
+	{
+		return SetTimer(duration<float>{delay_in_seconds}, std::move(fn));
+	}
+
 	void CTimerManager::SetTimerForNextTick(std::function<void()>&& fn)
 	{
-		SetTimer({}, std::move(fn));
+		SetTimer(Duration{}, std::move(fn));
 	}
 
 	bool CTimerManager::IsTimerExists(const FTimerHandle& handle) const noexcept
@@ -34,9 +44,9 @@ namespace oeng
 
 	FTimerHandle FTimerHandle::Create() noexcept
 	{
-		static auto key = 0;
+		static size_t key = 0;
 		FTimerHandle handle;
-		handle.key = key++;
+		handle.key = ++key;
 		return handle;
 	}
 
@@ -78,5 +88,5 @@ namespace oeng
 
 size_t std::hash<oeng::FTimerHandle>::operator()(const oeng::FTimerHandle& key) const noexcept
 {
-	return size_t(key.key);
+	return key.key;
 }
