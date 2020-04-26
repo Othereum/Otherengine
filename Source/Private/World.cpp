@@ -11,7 +11,7 @@ namespace oeng
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},
 		renderer_{std::make_unique<graphics::CRenderer>()},
-		timer_{std::make_unique<CTimerManager>(*this)},
+		timer_{std::make_unique<TimerManager>(*this)},
 		delta_seconds_{0}
 	{
 	}
@@ -73,9 +73,8 @@ namespace oeng
 
 	void CWorld::UpdateTime()
 {
-		using namespace std::chrono;
-		const auto now = steady_clock::now();
-		delta_seconds_ = duration<float>{now - time_}.count();
+		const auto now = Clock::now();
+		delta_seconds_ = std::chrono::duration<float>{now - time_}.count();
 		time_ = now;
 	}
 

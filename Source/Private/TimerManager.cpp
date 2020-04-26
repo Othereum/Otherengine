@@ -1,63 +1,88 @@
 #include "TimerManager.h"
+#include <chrono>
 #include "World.h"
 
 namespace oeng
 {
-	struct CTimerManager::FTimer
+	using namespace std::chrono;
+
+	struct TimerManager::FTimer
 	{
 		std::function<Loop()> fn;
-		TimePoint end;
-		Duration delay;
+		Clock::time_point end;
+		Clock::duration delay;
 	};
 
-	FTimerHandle CTimerManager::SetLoopTimer(Duration delay, std::function<Loop()>&& fn)
+	constexpr Clock::duration ToDuration(float sec)
 	{
-		const auto handle = FTimerHandle::Create();
+		return duration_cast<Clock::duration>(duration<float>{sec});
+	}
+
+	constexpr float ToFloat(Clock::duration dur)
+	{
+		return duration_cast<duration<float>>(dur).count();
+	}
+
+	TimerHandle TimerManager::SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn)
+	{
+		const auto handle = TimerHandle::Create();
+		const auto delay = ToDuration(delay_in_seconds);
 		pending_timers_.insert({handle, {std::move(fn), world_.GetTime() + delay, delay}});
 		return handle;
 	}
 
-	FTimerHandle CTimerManager::SetTimer(Duration delay, std::function<void()>&& fn)
+	TimerHandle TimerManager::SetTimer(float delay_in_seconds, std::function<void()>&& fn)
 	{
-		return SetLoopTimer(delay, [func = std::move(fn)]{func(); return Loop::kStop;});
+		return SetLoopTimer(delay_in_seconds, [fn = std::move(fn)] { fn(); return Loop::kStop; });
 	}
 
-	FTimerHandle CTimerManager::SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn)
+	void TimerManager::SetTimerForNextTick(std::function<void()>&& fn)
 	{
-		return SetLoopTimer(duration<float>{delay_in_seconds}, std::move(fn));
+		SetTimer(0, std::move(fn));
 	}
 
-	FTimerHandle CTimerManager::SetTimer(float delay_in_seconds, std::function<void()>&& fn)
+	void TimerManager::UpdateTimer(TimerHandle handle, float new_delay, bool restart)
 	{
-		return SetTimer(duration<float>{delay_in_seconds}, std::move(fn));
+		auto& timer = timers_.at(handle);
+		timer.delay = ToDuration(new_delay);
+
+		if (restart)
+		{
+			timer.end = world_.GetTime() + timer.delay;
+		}
 	}
 
-	void CTimerManager::SetTimerForNextTick(std::function<void()>&& fn)
+	void TimerManager::RemoveTimer(TimerHandle handle)
 	{
-		SetTimer(Duration{}, std::move(fn));
+		timers_.erase(handle);
 	}
 
-	bool CTimerManager::IsTimerExists(const FTimerHandle& handle) const noexcept
+	bool TimerManager::IsTimerExists(TimerHandle handle) const noexcept
 	{
 		return timers_.contains(handle) || pending_timers_.contains(handle);
 	}
 
-	FTimerHandle FTimerHandle::Create() noexcept
+	float TimerManager::TimeLeft(TimerHandle handle) const
+	{
+		return ToFloat(timers_.at(handle).end - world_.GetTime());
+	}
+
+	TimerHandle TimerHandle::Create() noexcept
 	{
 		static size_t key = 0;
-		FTimerHandle handle;
+		TimerHandle handle;
 		handle.key = ++key;
 		return handle;
 	}
 
-	CTimerManager::CTimerManager(CWorld& world):
+	TimerManager::TimerManager(CWorld& world):
 		world_{world}
 	{
 	}
 
-	CTimerManager::~CTimerManager() = default;
+	TimerManager::~TimerManager() = default;
 
-	void CTimerManager::Update()
+	void TimerManager::Update()
 	{
 		timers_.merge(pending_timers_);
 		
@@ -86,7 +111,7 @@ namespace oeng
 	}
 }
 
-size_t std::hash<oeng::FTimerHandle>::operator()(const oeng::FTimerHandle& key) const noexcept
+size_t std::hash<oeng::TimerHandle>::operator()(oeng::TimerHandle key) const noexcept
 {
 	return key.key;
 }

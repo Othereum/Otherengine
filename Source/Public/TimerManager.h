@@ -1,17 +1,16 @@
 #pragma once
 #include <functional>
 #include <unordered_map>
-#include "TimeUtil.h"
 
 namespace oeng
 {
-	struct FTimerHandle;
+	struct TimerHandle;
 }
 
 template <>
-struct std::hash<oeng::FTimerHandle>
+struct std::hash<oeng::TimerHandle>
 {
-	size_t operator()(const oeng::FTimerHandle& key) const noexcept;
+	size_t operator()(oeng::TimerHandle key) const noexcept;
 };
 
 namespace oeng
@@ -21,61 +20,45 @@ namespace oeng
 		kStop, kContinue
 	};
 	
-	struct FTimerHandle
+	struct TimerHandle
 	{
-		constexpr bool operator==(const FTimerHandle&) const noexcept = default;
+		constexpr bool operator==(const TimerHandle&) const noexcept = default;
 		
 	private:
-		friend class CTimerManager;
-		friend std::hash<FTimerHandle>;
+		friend class TimerManager;
+		friend std::hash<TimerHandle>;
 		
-		static FTimerHandle Create() noexcept;
+		static TimerHandle Create() noexcept;
 		
 		size_t key = 0;
 	};
 
-	class CTimerManager
+	class TimerManager
 	{
 	public:
-		explicit CTimerManager(class CWorld& world);
-		~CTimerManager();
+		explicit TimerManager(class CWorld& world);
+		~TimerManager();
 		
 		void Update();
 
-		template <class R, class P>
-		FTimerHandle SetLoopTimer(duration<R, P> delay, std::function<Loop()>&& fn = DefLoopFn)
-		{
-			return SetLoopTimer(duration_cast<Duration>(delay), std::move(fn));
-		}
-		
-		template <class R, class P>
-		FTimerHandle SetTimer(duration<R, P> delay, std::function<void()>&& fn = DefFn)
-		{
-			return SetTimer(duration_cast<Duration>(delay), std::move(fn));
-		}
-		
-		FTimerHandle SetLoopTimer(Duration delay, std::function<Loop()>&& fn = DefLoopFn);
-		FTimerHandle SetTimer(Duration delay, std::function<void()>&& fn = DefFn);
-		
-		FTimerHandle SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn = DefLoopFn);
-		FTimerHandle SetTimer(float delay_in_seconds, std::function<void()>&& fn = DefFn);
-		
+		TimerHandle SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn = []{return Loop::kContinue;});
+		TimerHandle SetTimer(float delay_in_seconds, std::function<void()>&& fn = []{});
 		void SetTimerForNextTick(std::function<void()>&& fn);
-		[[nodiscard]] bool IsTimerExists(const FTimerHandle& handle) const noexcept;
+		void UpdateTimer(TimerHandle handle, float new_delay, bool restart = true);
+		void RemoveTimer(TimerHandle handle);
+		[[nodiscard]] bool IsTimerExists(TimerHandle handle) const noexcept;
+		[[nodiscard]] float TimeLeft(TimerHandle handle) const;
 
-		CTimerManager(const CTimerManager&) = delete;
-		CTimerManager(CTimerManager&&) = delete;
-		CTimerManager& operator=(const CTimerManager&) = delete;
-		CTimerManager& operator=(CTimerManager&&) = delete;
+		TimerManager(const TimerManager&) = delete;
+		TimerManager(TimerManager&&) = delete;
+		TimerManager& operator=(const TimerManager&) = delete;
+		TimerManager& operator=(TimerManager&&) = delete;
 
 	private:
-		static Loop DefLoopFn() noexcept { return Loop::kStop; }
-		static void DefFn() noexcept {}
-		
 		struct FTimer;
 		
 		CWorld& world_;
-		std::unordered_map<FTimerHandle, FTimer> timers_;
-		std::unordered_map<FTimerHandle, FTimer> pending_timers_;
+		std::unordered_map<TimerHandle, FTimer> timers_;
+		std::unordered_map<TimerHandle, FTimer> pending_timers_;
 	};
 }

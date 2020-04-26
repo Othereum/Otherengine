@@ -1,18 +1,20 @@
 #pragma once
+#include <chrono>
 #include <memory>
 #include <vector>
-#include "TimeUtil.h"
 
 union SDL_Event;
 
 namespace oeng
 {
+	using Clock = std::chrono::steady_clock;
+	
 	namespace graphics
 	{
 		class CRenderer;
 	}
 	class CEngine;
-	class CTimerManager;
+	class TimerManager;
 	class AActor;
 	class CInputComponent;
 	class CCircleComponent;
@@ -43,9 +45,14 @@ namespace oeng
 		
 		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept { return *renderer_; }
-		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept { return *timer_; }
-		[[nodiscard]] TimePoint GetTime() const noexcept { return time_; }
+		[[nodiscard]] TimerManager& GetTimerManager() const noexcept { return *timer_; }
+		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
+
+		CWorld(const CWorld&) = delete;
+		CWorld(CWorld&&) = delete;
+		CWorld& operator=(const CWorld&) = delete;
+		CWorld& operator=(CWorld&&) = delete;
 
 	private:
 		void UpdateGame();
@@ -54,14 +61,14 @@ namespace oeng
 
 		CEngine& engine_;
 		std::unique_ptr<graphics::CRenderer> renderer_;
-		std::unique_ptr<CTimerManager> timer_;
+		std::unique_ptr<TimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
 		
 		std::vector<std::unique_ptr<AActor>> actors_;
 		std::vector<std::unique_ptr<AActor>> pending_actors_;
 		
-		TimePoint time_;
+		Clock::time_point time_;
 		float delta_seconds_;
 	};
 }
