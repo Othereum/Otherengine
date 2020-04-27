@@ -13,12 +13,12 @@ namespace oeng
 		Clock::duration delay;
 	};
 
-	constexpr Clock::duration ToDuration(float sec)
+	constexpr Clock::duration ToDuration(float sec) noexcept
 	{
 		return duration_cast<Clock::duration>(duration<float>{sec});
 	}
 
-	constexpr float ToFloat(Clock::duration dur)
+	constexpr float ToFloat(Clock::duration dur) noexcept
 	{
 		return duration_cast<duration<float>>(dur).count();
 	}
@@ -41,20 +41,20 @@ namespace oeng
 		SetTimer(0, std::move(fn));
 	}
 
-	void TimerManager::UpdateTimer(TimerHandle handle, float new_delay, bool restart)
+	bool TimerManager::UpdateTimer(TimerHandle handle, float new_delay, bool restart) noexcept
 	{
-		auto& timer = timers_.at(handle);
+		const auto it = timers_.find(handle);
+		if (it == timers_.end()) return false;
+		auto& timer = it->second;
+		
 		timer.delay = ToDuration(new_delay);
-
-		if (restart)
-		{
-			timer.end = world_.GetTime() + timer.delay;
-		}
+		if (restart) timer.end = world_.GetTime() + timer.delay;
+		return true;
 	}
 
-	void TimerManager::RemoveTimer(TimerHandle handle)
+	bool TimerManager::RemoveTimer(TimerHandle handle) noexcept
 	{
-		timers_.erase(handle);
+		return timers_.erase(handle);
 	}
 
 	bool TimerManager::IsTimerExists(TimerHandle handle) const noexcept
@@ -62,9 +62,11 @@ namespace oeng
 		return timers_.contains(handle) || pending_timers_.contains(handle);
 	}
 
-	float TimerManager::TimeLeft(TimerHandle handle) const
+	float TimerManager::TimeLeft(TimerHandle handle) const noexcept
 	{
-		return ToFloat(timers_.at(handle).end - world_.GetTime());
+		const auto timer = timers_.find(handle);
+		if (timer == timers_.end()) return 0;
+		return ToFloat(timer->second.end - world_.GetTime());
 	}
 
 	TimerHandle TimerHandle::Create() noexcept
@@ -75,7 +77,7 @@ namespace oeng
 		return handle;
 	}
 
-	TimerManager::TimerManager(CWorld& world):
+	TimerManager::TimerManager(CWorld& world) noexcept:
 		world_{world}
 	{
 	}
