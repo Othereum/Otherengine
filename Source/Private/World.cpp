@@ -1,5 +1,4 @@
 #include "World.h"
-
 #include "Actor.h"
 #include "Components/CircleComponent.h"
 #include "TimerManager.h"
@@ -74,7 +73,7 @@ namespace oeng
 		time_ = now;
 	}
 
-	void CWorld::RegisterActor(std::unique_ptr<AActor>&& actor)
+	void CWorld::RegisterActor(std::shared_ptr<AActor> actor)
 	{
 		pending_actors_.push_back(std::move(actor));
 	}

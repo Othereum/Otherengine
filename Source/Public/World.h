@@ -3,8 +3,6 @@
 #include <memory>
 #include <vector>
 
-union SDL_Event;
-
 namespace oeng
 {
 	using Clock = std::chrono::steady_clock;
@@ -22,13 +20,12 @@ namespace oeng
 		~CWorld();
 		
 		template <class T>
-		T& SpawnActor()
+		std::shared_ptr<T> SpawnActor()
 		{
 			static_assert(std::is_base_of_v<AActor, T>);
-			auto ptr = std::make_unique<T>(*this);
-			auto& actor = *ptr;
-			RegisterActor(std::move(ptr));
-			return actor;
+			auto ptr = std::make_shared<T>(*this);
+			RegisterActor(ptr);
+			return ptr;
 		}
 
 		void Tick();
@@ -52,15 +49,15 @@ namespace oeng
 	private:
 		void UpdateGame();
 		void UpdateTime();
-		void RegisterActor(std::unique_ptr<AActor>&& actor);
+		void RegisterActor(std::shared_ptr<AActor> actor);
 
 		CEngine& engine_;
 		std::unique_ptr<TimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
 		
-		std::vector<std::unique_ptr<AActor>> actors_;
-		std::vector<std::unique_ptr<AActor>> pending_actors_;
+		std::vector<std::shared_ptr<AActor>> actors_;
+		std::vector<std::shared_ptr<AActor>> pending_actors_;
 		
 		Clock::time_point time_;
 		float delta_seconds_;

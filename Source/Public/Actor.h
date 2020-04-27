@@ -13,7 +13,7 @@ namespace oeng
 	class CActorComponent;
 	class TimerManager;
 	
-	class AActor
+	class AActor : public std::enable_shared_from_this<AActor>
 	{
 	public:
 		explicit AActor(CWorld& world);

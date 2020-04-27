@@ -10,7 +10,10 @@ namespace oeng
 	{
 	}
 
-	AActor::~AActor() = default;
+	AActor::~AActor()
+	{
+		GetWorld().GetTimerManager().RemoveTimer(lifespan_timer_);
+	}
 
 	void AActor::BeginPlay()
 	{
@@ -92,8 +95,13 @@ namespace oeng
 		}
 		else if (init_lifespan_ > 0)
 		{
-			// TODO: Set destroy timer with safe pointer
-			// timer.SetTimer(lifespan_timer_, [this]{  });
+			lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = weak_from_this()]
+			{
+				if (auto ptr = self.lock())
+				{
+					ptr->Destroy();
+				}
+			});
 		}
 	}
 
