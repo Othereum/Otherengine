@@ -9,10 +9,6 @@ namespace oeng
 {
 	using Clock = std::chrono::steady_clock;
 	
-	namespace graphics
-	{
-		class CRenderer;
-	}
 	class CEngine;
 	class TimerManager;
 	class AActor;
@@ -44,7 +40,6 @@ namespace oeng
 		void UnregisterCollision(CCircleComponent& comp);
 		
 		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
-		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept { return *timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
@@ -60,7 +55,6 @@ namespace oeng
 		void RegisterActor(std::unique_ptr<AActor>&& actor);
 
 		CEngine& engine_;
-		std::unique_ptr<graphics::CRenderer> renderer_;
 		std::unique_ptr<TimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;

@@ -1,7 +1,6 @@
 #include "Components/SpriteComponent.h"
 #include "Actor.h"
 #include "Engine.h"
-#include "World.h"
 #include "Graphics/Renderer.h"
 
 namespace oeng
@@ -38,6 +37,6 @@ namespace oeng
 
 	graphics::CRenderer& CSpriteComponent::GetRenderer() const noexcept
 	{
-		return GetWorld().GetRenderer();
+		return GetEngine().GetRenderer();
 	}
 }

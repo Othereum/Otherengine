@@ -2,15 +2,12 @@
 
 #include "Actor.h"
 #include "Components/CircleComponent.h"
-#include "Components/InputComponent.h"
-#include "Graphics/Renderer.h"
 #include "TimerManager.h"
 
 namespace oeng
 {
 	CWorld::CWorld(CEngine& engine):
 		engine_{engine},
-		renderer_{std::make_unique<graphics::CRenderer>()},
 		timer_{std::make_unique<TimerManager>(*this)},
 		delta_seconds_{0}
 	{
@@ -22,7 +19,6 @@ namespace oeng
 	{
 		UpdateTime();
 		UpdateGame();
-		renderer_->DrawScene();
 	}
 
 	void CWorld::RegisterCollision(CCircleComponent& comp)

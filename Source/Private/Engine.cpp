@@ -3,7 +3,6 @@
 #include <stdexcept>
 #include <SDL.h>
 
-
 #include "GameModule.hpp"
 #include "Components/InputComponent.h"
 #include "Components/CircleComponent.h"
@@ -14,7 +13,8 @@
 
 namespace oeng
 {
-	CEngine::CEngine() :
+	CEngine::CEngine():
+		renderer_{std::make_unique<graphics::CRenderer>()},
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
 	{
@@ -63,6 +63,7 @@ namespace oeng
 	{
 		ProcessEvent();
 		world_->Tick();
+		renderer_->DrawScene();
 	}
 
 	void CEngine::ProcessEvent()

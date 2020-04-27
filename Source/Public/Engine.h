@@ -13,6 +13,7 @@ namespace oeng
 {
 	namespace graphics
 	{
+		class CRenderer;
 		class Texture;
 	}
 	
@@ -38,6 +39,7 @@ namespace oeng
 		[[nodiscard]] std::shared_ptr<graphics::Texture> GetTexture(Name file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
 		[[nodiscard]] CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
+		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] const Vector<uint16_t, 2>& GetScreenSize() const noexcept;
 		
 	private:
@@ -45,6 +47,7 @@ namespace oeng
 		void ProcessEvent();
 
 		std::unordered_map<Name, std::weak_ptr<graphics::Texture>> textures_;
+		std::unique_ptr<graphics::CRenderer> renderer_;
 		std::unique_ptr<CWorld> world_;
 		std::unique_ptr<CInputSystem> input_system_;
 		bool is_running_ = true;
