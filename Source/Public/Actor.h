@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include "Rotation.h"
+#include "TimerManager.h"
 #include "Transform.hpp"
 
 namespace oeng
@@ -10,7 +11,7 @@ namespace oeng
 	class CEngine;
 	class CWorld;
 	class CActorComponent;
-	class CTimerManager;
+	class TimerManager;
 	
 	class AActor
 	{
@@ -18,7 +19,7 @@ namespace oeng
 		explicit AActor(CWorld& world);
 		virtual ~AActor();
 
-		void BeginPlay() const;
+		void BeginPlay();
 		void Update(float delta_seconds);
 		void Destroy();
 
@@ -33,9 +34,15 @@ namespace oeng
 		}
 
 		void SetEnabled(bool enable);
-
-		void SetLifespan(float seconds) { lifespan_ = seconds; }
 		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
+
+		/**
+		 * \brief Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
+		 * \param in_seconds New lifespan in seconds. <=0 means infinite.
+		 */
+		void SetLifespan(float in_seconds);
+		[[nodiscard]] float GetLifespan() const noexcept;
+		[[nodiscard]] float GetInitialLifespan() const noexcept { return init_lifespan_; }
 
 		void SetTransform(const Transform& new_transform, bool recompute_matrix = true) noexcept;
 		[[nodiscard]] const Transform& GetTransform() const noexcept { return world_transform_; }
@@ -55,16 +62,18 @@ namespace oeng
 
 		[[nodiscard]] CEngine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
-		[[nodiscard]] CTimerManager& GetTimerManager() const noexcept;
+		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 
 	private:
 		void RegisterComponent(std::unique_ptr<CActorComponent>&& comp);
 		void UpdateComponents(float delta_seconds);
-		void UpdateLifespan(float delta_seconds);
 		virtual void UpdateActor(float delta_seconds) {}
 
-		bool pending_kill_ = false;
-		float lifespan_ = 0;
+		bool pending_kill_ : 1 = false;
+		bool begun_play_ : 1 = false;
+		
+		float init_lifespan_ = 0;
+		TimerHandle lifespan_timer_;
 
 		Transform world_transform_;
 		Mat4 transform_matrix_ = Mat4::Identity();

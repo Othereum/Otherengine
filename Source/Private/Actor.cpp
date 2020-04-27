@@ -12,10 +12,13 @@ namespace oeng
 
 	AActor::~AActor() = default;
 
-	void AActor::BeginPlay() const
+	void AActor::BeginPlay()
 	{
 		for (const auto& c : comps_)
 			c->BeginPlay();
+
+		begun_play_ = true;
+		SetLifespan(init_lifespan_);
 	}
 
 	Vec2 AActor::GetForward() const noexcept
@@ -25,7 +28,6 @@ namespace oeng
 
 	void AActor::Update(const float delta_seconds)
 	{
-		UpdateLifespan(delta_seconds);
 		UpdateComponents(delta_seconds);
 		UpdateActor(delta_seconds);
 	}
@@ -38,20 +40,12 @@ namespace oeng
 		}
 	}
 
-	void AActor::UpdateLifespan(const float delta_seconds)
-	{
-		if (lifespan_ > 0 && (lifespan_ -= delta_seconds) <= 0)
-		{
-			Destroy();
-		}
-	}
-
 	CEngine& AActor::GetEngine() const noexcept
 	{
 		return world_.GetEngine();
 	}
 
-	CTimerManager& AActor::GetTimerManager() const noexcept
+	TimerManager& AActor::GetTimerManager() const noexcept
 	{
 		return world_.GetTimerManager();
 	}
@@ -77,6 +71,36 @@ namespace oeng
 		{
 			c->SetEnabled(enable);
 		}
+	}
+
+	void AActor::SetLifespan(float in_seconds)
+	{
+		init_lifespan_ = in_seconds;
+		if (!begun_play_) return;
+
+		auto& timer = GetWorld().GetTimerManager();
+		if (timer.IsTimerExists(lifespan_timer_))
+		{
+			if (init_lifespan_ > 0)
+			{
+				timer.UpdateTimer(lifespan_timer_, init_lifespan_);
+			}
+			else
+			{
+				timer.RemoveTimer(lifespan_timer_);
+			}
+		}
+		else if (init_lifespan_ > 0)
+		{
+			// TODO: Set destroy timer with safe pointer
+			// timer.SetTimer(lifespan_timer_, [this]{  });
+		}
+	}
+
+	float AActor::GetLifespan() const noexcept
+	{
+		auto& timer = GetWorld().GetTimerManager();
+		return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
 	}
 
 	void AActor::SetTransform(const Transform& new_transform, bool recompute_matrix) noexcept
