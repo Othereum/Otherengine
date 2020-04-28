@@ -20,12 +20,13 @@ namespace oeng
 		~CWorld();
 		
 		template <class T>
-		std::shared_ptr<T> SpawnActor()
+		std::weak_ptr<T> SpawnActor()
 		{
 			static_assert(std::is_base_of_v<AActor, T>);
-			auto ptr = std::make_shared<T>(*this);
-			RegisterActor(ptr);
-			return ptr;
+			auto actor = std::make_shared<T>(*this);
+			std::weak_ptr weak = actor;
+			RegisterActor(std::move(actor));
+			return weak;
 		}
 
 		void Tick();
@@ -49,7 +50,7 @@ namespace oeng
 	private:
 		void UpdateGame();
 		void UpdateTime();
-		void RegisterActor(std::shared_ptr<AActor> actor);
+		void RegisterActor(std::shared_ptr<AActor>&& actor);
 
 		CEngine& engine_;
 		std::unique_ptr<TimerManager> timer_;
