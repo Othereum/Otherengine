@@ -1,6 +1,6 @@
 #include "InputSystem.h"
 #include <SDL_events.h>
-#include "MathUtil.h"
+#include "Math.hpp"
 
 namespace oeng
 {
@@ -14,29 +14,29 @@ namespace oeng
 		return GetModState(SDL_GetModState());
 	}
 
-	static bool ParseEvent(FInputAction& keyEvent, bool& bPressed, const SDL_Event& e)
+	static bool ParseEvent(FInputAction& key_event, bool& pressed, const SDL_Event& e)
 	{
 		switch (e.type)
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
-			keyEvent.key = e.key.keysym.sym;
-			keyEvent.type = EInputType::keyboard;
-			keyEvent.mod = GetModState(e.key.keysym.mod);
-			bPressed = e.key.state;
+			key_event.key = e.key.keysym.sym;
+			key_event.type = EInputType::keyboard;
+			key_event.mod = GetModState(e.key.keysym.mod);
+			pressed = e.key.state;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
-			keyEvent.key = e.button.button;
-			keyEvent.type = EInputType::mButton;
-			keyEvent.mod = GetModState();
-			bPressed = e.button.state;
+			key_event.key = e.button.button;
+			key_event.type = EInputType::mButton;
+			key_event.mod = GetModState();
+			pressed = e.button.state;
 			break;
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
-			keyEvent.key = e.cbutton.button;
-			keyEvent.type = EInputType::cButton;
-			keyEvent.mod = GetModState();
-			bPressed = e.cbutton.state;
+			key_event.key = e.cbutton.button;
+			key_event.type = EInputType::cButton;
+			key_event.mod = GetModState();
+			pressed = e.cbutton.state;
 			break;
 
 		default:
@@ -48,7 +48,7 @@ namespace oeng
 
 	static bool IsMatch(const FInputAction& event, const std::vector<FInputAction>& keys)
 	{
-		for (auto& key : keys)
+		for (const auto& key : keys)
 		{
 			if (event == key && (event.mod & key.mod) == key.mod)
 			{
@@ -61,15 +61,15 @@ namespace oeng
 
 	void CInputSystem::AddEvent(const SDL_Event& e)
 	{
-		FInputAction keyEvent;
-		bool bPressed;
-		if (!ParseEvent(keyEvent, bPressed, e)) return;
+		FInputAction key_event;
+		bool pressed;
+		if (!ParseEvent(key_event, pressed, e)) return;
 		
 		for (const auto& act : actions_)
 		{
-			if (IsMatch(keyEvent, act.second))
+			if (IsMatch(key_event, act.second))
 			{
-				events_.push_back({act.first, bPressed});
+				events_.push_back({act.first, pressed});
 			}
 		}
 	}
@@ -95,7 +95,7 @@ namespace oeng
 		if (it == axises_.end()) return 0;
 
 		auto val = 0.f;
-		for (auto& axis : it->second)
+		for (const auto& axis : it->second)
 		{
 			val += GetAxisValue(axis);
 		}
@@ -116,14 +116,14 @@ namespace oeng
 			{
 				int x;
 				SDL_GetRelativeMouseState(&x, nullptr);
-				return float(x) * axis.scale;
+				return static_cast<float>(x) * axis.scale;
 			}
 			
 		case EInputType::mAxisY:
 			{
 				int y;
 				SDL_GetRelativeMouseState(nullptr, &y);
-				return float(y) * axis.scale;
+				return static_cast<float>(y) * axis.scale;
 			}
 			
 		case EInputType::cButton:
@@ -133,7 +133,7 @@ namespace oeng
 			{
 				constexpr float min = 328, max = 32440;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
-				return v >= 0 ? math::MapRngClamp({min, max}, {0, 1}, v) : math::MapRngClamp({-max, -min}, {-1, 0}, v);
+				return v >= 0 ? MapRngClamp({min, max}, {0, 1}, v) : MapRngClamp({-max, -min}, {-1, 0}, v);
 			}
 			
 		default:

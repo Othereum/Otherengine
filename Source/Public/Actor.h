@@ -2,9 +2,8 @@
 
 #include <memory>
 #include <vector>
-#include "Rotation.h"
 #include "TimerManager.h"
-#include "Transform.hpp"
+#include "Math.hpp"
 
 namespace oeng
 {
@@ -47,15 +46,14 @@ namespace oeng
 		void SetTransform(const Transform& new_transform, bool recompute_matrix = true) noexcept;
 		[[nodiscard]] const Transform& GetTransform() const noexcept { return world_transform_; }
 		
-		void SetPos(const Vec2& new_pos, bool recompute_matrix = true) noexcept;
-		[[nodiscard]] const Vec2& GetPos() const noexcept { return world_transform_.pos; }
+		void SetPos(const Vec3& new_pos, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Vec3& GetPos() const noexcept { return world_transform_.pos; }
 
-		void SetRot(Degrees new_rot, bool recompute_matrix = true) noexcept;
-		[[nodiscard]] Degrees GetRot() const noexcept { return world_transform_.rot; }
-		[[nodiscard]] Vec2 GetForward() const noexcept;
+		void SetRot(const Quat& new_rot, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Quat& GetRot() const noexcept { return world_transform_.rot; }
 
-		void SetScale(const Vec2& scale, bool recompute_matrix = true) noexcept;
-		[[nodiscard]] const Vec2& GetScale() const noexcept { return world_transform_.scale; }
+		void SetScale(const Vec3& scale, bool recompute_matrix = true) noexcept;
+		[[nodiscard]] const Vec3& GetScale() const noexcept { return world_transform_.scale; }
 
 		void RecomputeMatrix() noexcept;
 		[[nodiscard]] const Mat4& GetTransformMatrix() const noexcept { return transform_matrix_; }

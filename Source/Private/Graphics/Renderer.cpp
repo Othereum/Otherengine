@@ -68,7 +68,7 @@ namespace oeng::graphics
 	static auto CreateSpriteShader()
 	{
 		auto shader = std::make_unique<Shader>("../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag");
-		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(kScrSz));
+		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(Vec2{kScrSz}));
 		return shader;
 	}
 
@@ -123,7 +123,7 @@ namespace oeng::graphics
 		if (sprite.IsEnabled())
 		{
 			static const Name name = "uWorldTransform";
-			sprite_shader_->SetMatrixUniform(name, math::Scale(sprite.GetTexture().Size()) * sprite.GetOwner().GetTransformMatrix());
+			sprite_shader_->SetMatrixUniform(name, Transform::ScaleMatrix({sprite.GetTexture().Size(), 1}) * sprite.GetOwner().GetTransformMatrix());
 			sprite.GetTexture().Activate();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}

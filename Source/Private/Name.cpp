@@ -1,4 +1,5 @@
 #include "Name.h"
+#include <unordered_set>
 
 namespace oeng
 {

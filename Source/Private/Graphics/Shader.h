@@ -1,6 +1,6 @@
 #pragma once
 #include <unordered_map>
-#include "Matrix.hpp"
+#include "Math.hpp"
 #include "Name.h"
 
 namespace oeng::graphics

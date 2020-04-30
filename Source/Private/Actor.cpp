@@ -1,6 +1,5 @@
 #include "Actor.h"
 #include "Components/ActorComponent.h"
-#include "MathUtil.h"
 #include "World.h"
 
 namespace oeng
@@ -22,11 +21,6 @@ namespace oeng
 
 		begun_play_ = true;
 		SetLifespan(init_lifespan_);
-	}
-
-	Vec2 AActor::GetForward() const noexcept
-	{
-		return math::R2V(GetRot());
 	}
 
 	void AActor::Update(const float delta_seconds)
@@ -117,19 +111,19 @@ namespace oeng
 		if (recompute_matrix) RecomputeMatrix();
 	}
 
-	void AActor::SetPos(const Vec2& new_pos, bool recompute_matrix) noexcept
+	void AActor::SetPos(const Vec3& new_pos, bool recompute_matrix) noexcept
 	{
 		world_transform_.pos = new_pos;
 		if (recompute_matrix) RecomputeMatrix();
 	}
 
-	void AActor::SetRot(Degrees new_rot, bool recompute_matrix) noexcept
+	void AActor::SetRot(const Quat& new_rot, bool recompute_matrix) noexcept
 	{
 		world_transform_.rot = new_rot;
 		if (recompute_matrix) RecomputeMatrix();
 	}
 	
-	void AActor::SetScale(const Vec2& scale, bool recompute_matrix) noexcept
+	void AActor::SetScale(const Vec3& scale, bool recompute_matrix) noexcept
 	{
 		world_transform_.scale = scale;
 		if (recompute_matrix) RecomputeMatrix();

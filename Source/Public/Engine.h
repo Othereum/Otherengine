@@ -3,7 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include "Name.h"
-#include "Vector.hpp"
+#include "Math.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;

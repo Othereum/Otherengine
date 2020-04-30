@@ -16,7 +16,7 @@ namespace oeng::graphics
 		if (!image) throw std::runtime_error{str::Concat("Failed to load image ", name, ": ", SOIL_last_result())};
 
 		const auto format = num_channels == 4 ? GL_RGBA : GL_RGB;
-		size_ = size;
+		size_ = Vector<uint16_t, 2>{size};
 
 		glGenTextures(1, &id_);
 		Activate();

@@ -3,8 +3,8 @@
 
 namespace oeng
 {
-	CActorComponent::CActorComponent(AActor& owner, const int updateOrder)
-		:owner_{owner}, updateOrder_{updateOrder}
+	CActorComponent::CActorComponent(AActor& owner, const int update_order)
+		:owner_{owner}, update_order_{update_order}
 	{
 	}
 

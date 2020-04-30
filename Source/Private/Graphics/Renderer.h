@@ -1,7 +1,6 @@
 #pragma once
 #include <memory>
-#include "Rotation.h"
-#include "Matrix.hpp"
+#include "Math.hpp"
 
 struct SDL_Window;
 
