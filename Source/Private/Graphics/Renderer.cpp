@@ -123,7 +123,7 @@ namespace oeng::graphics
 		if (sprite.IsEnabled())
 		{
 			static const Name name = "uWorldTransform";
-			sprite_shader_->SetMatrixUniform(name, Transform::ScaleMatrix({sprite.GetTexture().Size(), 1}) * sprite.GetOwner().GetTransformMatrix());
+			sprite_shader_->SetMatrixUniform(name, Mat4::Scale({sprite.GetTexture().Size(), 1}) * sprite.GetOwner().GetTransformMatrix());
 			sprite.GetTexture().Activate();
 			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
