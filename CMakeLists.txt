@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.13.5)
+﻿cmake_minimum_required(VERSION 3.8)
 project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
@@ -8,9 +8,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
 )
 
-find_package(SDL2 CONFIG REQUIRED)
-find_package(GLEW REQUIRED)
-find_package(soil2 CONFIG REQUIRED)
+find_package(SDL2 2.0.12 REQUIRED)
+find_package(GLEW 2.1.0-7 REQUIRED)
+find_package(soil2 REQUIRED)
 add_subdirectory("Source/ThirdParty/otm")
 
 target_include_directories(${PROJECT_NAME} PUBLIC "Source/Public" PRIVATE "Source/Private")
