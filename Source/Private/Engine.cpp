@@ -13,7 +13,7 @@
 namespace oeng
 {
 	CEngine::CEngine():
-		renderer_{std::make_unique<graphics::Renderer>(Vec2u16{1024, 768})},
+		renderer_{std::make_unique<Renderer>(Vec2u16{1024, 768})},
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
 	{
@@ -35,14 +35,14 @@ namespace oeng
 		is_running_ = false;
 	}
 
-	std::shared_ptr<graphics::Texture> CEngine::GetTexture(Name file)
+	std::shared_ptr<Texture> CEngine::GetTexture(Name file)
 	{
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
 
-		std::shared_ptr<graphics::Texture> loaded{
-			new graphics::Texture{file.CStr()},
-			[this, file](graphics::Texture* p) noexcept
+		std::shared_ptr<Texture> loaded{
+			new Texture{file.CStr()},
+			[this, file](Texture* p) noexcept
 			{
 				textures_.erase(file);
 				delete p;

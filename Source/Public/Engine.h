@@ -1,5 +1,4 @@
 ﻿#pragma once
-
 #include <memory>
 #include <unordered_map>
 #include "Name.h"
@@ -11,12 +10,8 @@ struct SDL_Rect;
 
 namespace oeng
 {
-	namespace graphics
-	{
-		class Renderer;
-		class Texture;
-	}
-	
+	class Renderer;
+	class Texture;
 	class CWorld;
 	class CInputSystem;
 
@@ -36,18 +31,18 @@ namespace oeng
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] std::shared_ptr<graphics::Texture> GetTexture(Name file);
+		[[nodiscard]] std::shared_ptr<Texture> GetTexture(Name file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
 		[[nodiscard]] CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
-		[[nodiscard]] graphics::Renderer& GetRenderer() const noexcept { return *renderer_; }
+		[[nodiscard]] Renderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
 		
 	private:
 		void Tick();
 		void ProcessEvent();
 
-		std::unordered_map<Name, std::weak_ptr<graphics::Texture>> textures_;
-		std::unique_ptr<graphics::Renderer> renderer_;
+		std::unordered_map<Name, std::weak_ptr<Texture>> textures_;
+		std::unique_ptr<Renderer> renderer_;
 		std::unique_ptr<CWorld> world_;
 		std::unique_ptr<CInputSystem> input_system_;
 		bool is_running_ = true;

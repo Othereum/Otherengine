@@ -1,7 +1,7 @@
 #include "Graphics/VertexArray.h"
 #include <GL/glew.h>
 
-namespace oeng::graphics
+namespace oeng
 {
 	VertexArray::VertexArray(const Vertex* verts, size_t num_verts, const Vec3u16* indices, size_t num_indices)
 	{

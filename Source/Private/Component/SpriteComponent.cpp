@@ -20,12 +20,12 @@ namespace oeng
 		GetRenderer().RegisterSprite(*this);
 	}
 
-	void CSpriteComponent::SetTexture(std::shared_ptr<graphics::Texture>&& texture)
+	void CSpriteComponent::SetTexture(std::shared_ptr<Texture>&& texture)
 	{
 		texture_ = std::move(texture);
 	}
 
-	void CSpriteComponent::SetTexture(const std::shared_ptr<graphics::Texture>& texture)
+	void CSpriteComponent::SetTexture(const std::shared_ptr<Texture>& texture)
 	{
 		texture_ = texture;
 	}
@@ -35,7 +35,7 @@ namespace oeng
 		SetTexture(GetEngine().GetTexture(filename));
 	}
 
-	graphics::Renderer& CSpriteComponent::GetRenderer() const noexcept
+	Renderer& CSpriteComponent::GetRenderer() const noexcept
 	{
 		return GetEngine().GetRenderer();
 	}

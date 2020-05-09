@@ -5,7 +5,7 @@
 
 #include "StringUtil.hpp"
 
-namespace oeng::graphics
+namespace oeng
 {
 	Texture::Texture(const char* name)
 	{

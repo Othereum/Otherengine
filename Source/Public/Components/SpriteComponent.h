@@ -7,11 +7,8 @@ struct SDL_Renderer;
 
 namespace oeng
 {
-	namespace graphics
-	{
-		class Renderer;
-		class Texture;
-	}
+	class Renderer;
+	class Texture;
 	
 	class CSpriteComponent : public CActorComponent
 	{
@@ -21,16 +18,16 @@ namespace oeng
 
 		void BeginPlay() override;
 		
-		void SetTexture(std::shared_ptr<graphics::Texture>&& texture);
-		void SetTexture(const std::shared_ptr<graphics::Texture>& texture);
+		void SetTexture(std::shared_ptr<Texture>&& texture);
+		void SetTexture(const std::shared_ptr<Texture>& texture);
 		void SetTexture(const char* filename);
-		[[nodiscard]] graphics::Texture& GetTexture() const { return *texture_; }
+		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
 
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
-		[[nodiscard]] graphics::Renderer& GetRenderer() const noexcept;
+		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
 	private:
-		std::shared_ptr<graphics::Texture> texture_;
+		std::shared_ptr<Texture> texture_;
 		int draw_order_;
 	};
 }

@@ -3,7 +3,7 @@
 #include "Math.hpp"
 #include "Name.h"
 
-namespace oeng::graphics
+namespace oeng
 {
 	class Shader
 	{

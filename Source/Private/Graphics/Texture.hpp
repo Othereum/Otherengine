@@ -1,7 +1,7 @@
 #pragma once
 #include "Math.hpp"
 
-namespace oeng::graphics
+namespace oeng
 {
 	class Texture
 	{

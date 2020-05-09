@@ -3,7 +3,7 @@
 #include <stdexcept>
 #include "StringUtil.hpp"
 
-namespace oeng::graphics
+namespace oeng
 {
 	static void CheckShader(unsigned shader)
 	{

@@ -12,7 +12,7 @@
 #include "Actor.h"
 #include "GameModule.hpp"
 
-namespace oeng::graphics
+namespace oeng
 {
 	static void SetGlAttribute(SDL_GLattr attr, int value)
 	{
