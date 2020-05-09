@@ -35,7 +35,7 @@ namespace oeng
 		SetTexture(GetEngine().GetTexture(filename));
 	}
 
-	graphics::CRenderer& CSpriteComponent::GetRenderer() const noexcept
+	graphics::Renderer& CSpriteComponent::GetRenderer() const noexcept
 	{
 		return GetEngine().GetRenderer();
 	}

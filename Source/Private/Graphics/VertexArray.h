@@ -20,12 +20,12 @@ namespace oeng::graphics
 	{
 	public:
 		template <size_t NumVerts, size_t NumIndices>
-		VertexArray(const Vertex (&verts)[NumVerts], const Vector<uint16_t, 3> (&indices)[NumIndices])
+		VertexArray(const Vertex (&verts)[NumVerts], const Vec3u16 (&indices)[NumIndices])
 			:VertexArray{verts, NumVerts, indices, NumIndices}
 		{
 		}
 		
-		VertexArray(const Vertex* verts, size_t num_verts, const Vector<uint16_t, 3>* indices, size_t num_indices);
+		VertexArray(const Vertex* verts, size_t num_verts, const Vec3u16* indices, size_t num_indices);
 		~VertexArray();
 
 		VertexArray(const VertexArray&) = delete;

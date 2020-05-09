@@ -20,7 +20,7 @@ namespace oeng::graphics
 			throw std::runtime_error{SDL_GetError()};
 	}
 	
-	static auto CreateWindow()
+	static WindowPtr CreateWindow(Vec2u16 scr)
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -32,9 +32,8 @@ namespace oeng::graphics
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		CRenderer::TWindowPtr window
-		{
-			SDL_CreateWindow(GetGameName(), 100, 100, kScrSz.x, kScrSz.y, SDL_WINDOW_OPENGL),
+		WindowPtr window{
+			SDL_CreateWindow(GetGameName(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr.x, scr.y, SDL_WINDOW_OPENGL),
 			&SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -52,10 +51,9 @@ namespace oeng::graphics
 		glGetError();
 	}
 	
-	static auto CreateGlContext(SDL_Window& window)
+	static GlContextPtr CreateGlContext(SDL_Window& window)
 	{
-		CRenderer::GlContextPtr context
-		{
+		GlContextPtr context{
 			SDL_GL_CreateContext(&window),
 			&SDL_GL_DeleteContext
 		};
@@ -65,14 +63,14 @@ namespace oeng::graphics
 		return context;
 	}
 
-	static auto CreateSpriteShader()
+	static std::unique_ptr<Shader> CreateSpriteShader(Vec2u16 scr)
 	{
 		auto shader = std::make_unique<Shader>("../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag");
-		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(Vec2{kScrSz}));
+		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(Vec2{scr}));
 		return shader;
 	}
 
-	static auto CreateSpriteVerts()
+	static std::unique_ptr<VertexArray> CreateSpriteVerts()
 	{
 		constexpr Vertex vertex_buffer[]
 		{
@@ -82,7 +80,7 @@ namespace oeng::graphics
 			{{-0.5, -0.5, 0}, {}, {0, 1}}
 		};
 
-		constexpr Vector<uint16_t, 3> index_buffer[]
+		constexpr Vec3u16 index_buffer[]
 		{
 			{0, 1, 2},
 			{2, 3, 0}
@@ -91,17 +89,17 @@ namespace oeng::graphics
 		return std::make_unique<VertexArray>(vertex_buffer, index_buffer);
 	}
 
-	CRenderer::CRenderer():
-		window_{CreateWindow()},
+	Renderer::Renderer(Vec2u16 scr):
+		window_{CreateWindow(scr)},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{CreateSpriteShader()},
+		sprite_shader_{CreateSpriteShader(scr)},
 		sprite_verts_{CreateSpriteVerts()}
 	{
 	}
 
-	CRenderer::~CRenderer() = default;
+	Renderer::~Renderer() = default;
 
-	void CRenderer::RegisterSprite(const CSpriteComponent& sprite)
+	void Renderer::RegisterSprite(const CSpriteComponent& sprite)
 	{
 		auto cmp = [](const CSpriteComponent& a, const CSpriteComponent& b)
 		{
@@ -111,14 +109,14 @@ namespace oeng::graphics
 		sprites_.emplace(pos, sprite);
 	}
 
-	void CRenderer::UnregisterSprite(const CSpriteComponent& sprite)
+	void Renderer::UnregisterSprite(const CSpriteComponent& sprite)
 	{
 		auto pr = [&](const CSpriteComponent& v) { return &v == &sprite; };
 		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void CRenderer::Draw(const CSpriteComponent& sprite) const
+	void Renderer::Draw(const CSpriteComponent& sprite) const
 	{
 		if (sprite.IsEnabled())
 		{
@@ -129,7 +127,7 @@ namespace oeng::graphics
 		}
 	}
 
-	void CRenderer::DrawScene() const
+	void Renderer::DrawScene() const
 	{
 		glClearColor(.86f, .86f, .86f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -143,5 +141,12 @@ namespace oeng::graphics
 		}
 
 		SDL_GL_SwapWindow(window_.get());
+	}
+
+	Vec2u16 Renderer::GetScreenSize() const noexcept
+	{
+		int w, h;
+		SDL_GetWindowSize(window_.get(), &w, &h);
+		return Vec2u16{Vector{w, h}};
 	}
 }

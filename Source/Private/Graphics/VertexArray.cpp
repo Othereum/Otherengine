@@ -3,7 +3,7 @@
 
 namespace oeng::graphics
 {
-	VertexArray::VertexArray(const Vertex* verts, size_t num_verts, const Vector<uint16_t, 3>* indices, size_t num_indices)
+	VertexArray::VertexArray(const Vertex* verts, size_t num_verts, const Vec3u16* indices, size_t num_indices)
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		glBindVertexArray(vertex_array_);
@@ -14,7 +14,7 @@ namespace oeng::graphics
 
 		glGenBuffers(1, &index_buffer_);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof Vector<uint16_t, 3> * num_indices, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof Vec3u16 * num_indices, indices, GL_STATIC_DRAW);
 
 		constexpr Vertex* v = nullptr;
 
@@ -23,7 +23,7 @@ namespace oeng::graphics
 
 		glEnableVertexAttribArray(1);
 		glVertexAttribPointer(1, 3, GL_FLOAT, false, sizeof Vertex, &v->norm);
-						  
+		
 		glEnableVertexAttribArray(2);
 		glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof Vertex, &v->uv);
 	}

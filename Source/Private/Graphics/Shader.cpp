@@ -13,7 +13,7 @@ namespace oeng::graphics
 		{
 			auto len = 0;
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
-			std::string log(len, 0);
+			std::string log(len, '\0');
 			glGetShaderInfoLog(shader, len, nullptr, log.data());
 			throw std::runtime_error{log};
 		}
@@ -27,7 +27,7 @@ namespace oeng::graphics
 		{
 			auto len = 0;
 			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
-			std::string log(len, 0);
+			std::string log(len, '\0');
 			glGetProgramInfoLog(program, len, nullptr, log.data());
 			throw std::runtime_error{log};
 		}
@@ -65,16 +65,16 @@ namespace oeng::graphics
 
 	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
 	{
-		auto loc = GetUniformLocation(name);
+		const auto loc = GetUniformLocation(name);
 		glUniformMatrix4fv(loc, 1, true, matrix.AsFloats());
 	}
 
 	int Shader::GetUniformLocation(Name name)
 	{
-		if (auto found = uniform_.find(name); found != uniform_.end())
+		if (const auto found = uniform_.find(name); found != uniform_.end())
 			return found->second;
 
-		auto loc = glGetUniformLocation(shader_program_, name.Str().c_str());
+		auto loc = glGetUniformLocation(shader_program_, name.CStr());
 		uniform_.emplace(name, loc);
 		return loc;
 	}

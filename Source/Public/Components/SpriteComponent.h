@@ -9,7 +9,7 @@ namespace oeng
 {
 	namespace graphics
 	{
-		class CRenderer;
+		class Renderer;
 		class Texture;
 	}
 	
@@ -27,7 +27,7 @@ namespace oeng
 		[[nodiscard]] graphics::Texture& GetTexture() const { return *texture_; }
 
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
-		[[nodiscard]] graphics::CRenderer& GetRenderer() const noexcept;
+		[[nodiscard]] graphics::Renderer& GetRenderer() const noexcept;
 
 	private:
 		std::shared_ptr<graphics::Texture> texture_;

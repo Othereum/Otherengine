@@ -5,7 +5,6 @@
 
 #include "GameModule.hpp"
 #include "Components/InputComponent.h"
-#include "Components/CircleComponent.h"
 #include "Graphics/Renderer.h"
 #include "Graphics/Texture.hpp"
 #include "InputSystem.h"
@@ -14,7 +13,7 @@
 namespace oeng
 {
 	CEngine::CEngine():
-		renderer_{std::make_unique<graphics::CRenderer>()},
+		renderer_{std::make_unique<graphics::Renderer>(Vec2u16{1024, 768})},
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
 	{
@@ -54,9 +53,9 @@ namespace oeng
 		return loaded;
 	}
 
-	const Vector<uint16_t, 2>& CEngine::GetScreenSize() const noexcept
+	Vec2u16 CEngine::GetScreenSize() const noexcept
 	{
-		return graphics::kScrSz;
+		return renderer_->GetScreenSize();
 	}
 
 	void CEngine::Tick()
