@@ -1,4 +1,4 @@
-#include "InputSystem.h"
+#include "InputSystem.hpp"
 #include <SDL_events.h>
 #include "Math.hpp"
 

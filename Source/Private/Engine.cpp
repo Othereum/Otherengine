@@ -1,14 +1,14 @@
-﻿#include "Engine.h"
+﻿#include "Engine.hpp"
 
 #include <stdexcept>
 #include <SDL.h>
 
 #include "GameModule.hpp"
-#include "Components/InputComponent.h"
-#include "Graphics/Renderer.h"
+#include "Components/InputComponent.hpp"
+#include "Graphics/Renderer.hpp"
 #include "Graphics/Texture.hpp"
-#include "InputSystem.h"
-#include "World.h"
+#include "InputSystem.hpp"
+#include "World.hpp"
 
 namespace oeng
 {

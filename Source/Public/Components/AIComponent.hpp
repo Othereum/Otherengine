@@ -1,8 +1,8 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include "ActorComponent.h"
-#include "Name.h"
+#include "ActorComponent.hpp"
+#include "Name.hpp"
 
 namespace oeng
 {

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <memory>
-#include "ActorComponent.h"
+#include "ActorComponent.hpp"
 
 struct SDL_Renderer;
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <functional>
-#include "ActorComponent.h"
+#include "ActorComponent.hpp"
 
 namespace oeng
 {

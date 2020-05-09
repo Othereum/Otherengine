@@ -1,4 +1,4 @@
-#include "Graphics/VertexArray.h"
+#include "Graphics/VertexArray.hpp"
 #include <GL/glew.h>
 
 namespace oeng

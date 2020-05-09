@@ -1,6 +1,6 @@
-#include "TimerManager.h"
+#include "TimerManager.hpp"
 #include <chrono>
-#include "World.h"
+#include "World.hpp"
 
 namespace oeng
 {

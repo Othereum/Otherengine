@@ -1,6 +1,6 @@
-#include "Components/InputComponent.h"
-#include "Engine.h"
-#include "InputSystem.h"
+#include "Components/InputComponent.hpp"
+#include "Engine.hpp"
+#include "InputSystem.hpp"
 
 namespace oeng
 {

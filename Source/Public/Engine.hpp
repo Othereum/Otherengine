@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include <memory>
 #include <unordered_map>
-#include "Name.h"
+#include "Name.hpp"
 #include "Math.hpp"
 
 struct SDL_Window;

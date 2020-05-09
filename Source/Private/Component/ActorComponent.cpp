@@ -1,5 +1,5 @@
-#include "Components/ActorComponent.h"
-#include "Actor.h"
+#include "Components/ActorComponent.hpp"
+#include "Actor.hpp"
 
 namespace oeng
 {

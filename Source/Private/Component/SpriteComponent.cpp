@@ -1,7 +1,7 @@
-#include "Components/SpriteComponent.h"
-#include "Actor.h"
-#include "Engine.h"
-#include "Graphics/Renderer.h"
+#include "Components/SpriteComponent.hpp"
+#include "Actor.hpp"
+#include "Engine.hpp"
+#include "Graphics/Renderer.hpp"
 
 namespace oeng
 {

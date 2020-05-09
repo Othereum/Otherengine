@@ -1,15 +1,15 @@
-#include "Graphics/Renderer.h"
+#include "Graphics/Renderer.hpp"
 
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
 
-#include "Components/SpriteComponent.h"
-#include "Graphics/VertexArray.h"
-#include "Graphics/Shader.h"
+#include "Components/SpriteComponent.hpp"
+#include "Graphics/VertexArray.hpp"
+#include "Graphics/Shader.hpp"
 #include "Graphics/Texture.hpp"
 
-#include "Actor.h"
+#include "Actor.hpp"
 #include "GameModule.hpp"
 
 namespace oeng

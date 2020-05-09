@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <unordered_map>
-#include "Name.h"
+#include "Name.hpp"
 
 union SDL_Event;
 

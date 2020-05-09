@@ -1,4 +1,4 @@
-#include "Graphics/Shader.h"
+#include "Graphics/Shader.hpp"
 #include <GL/glew.h>
 #include <stdexcept>
 #include "StringUtil.hpp"

@@ -1,6 +1,6 @@
-#include "Actor.h"
-#include "Components/ActorComponent.h"
-#include "World.h"
+#include "Actor.hpp"
+#include "Components/ActorComponent.hpp"
+#include "World.hpp"
 
 namespace oeng
 {

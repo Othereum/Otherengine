@@ -1,7 +1,7 @@
-#include "World.h"
-#include "Actor.h"
-#include "Components/CircleComponent.h"
-#include "TimerManager.h"
+#include "World.hpp"
+#include "Actor.hpp"
+#include "Components/CircleComponent.hpp"
+#include "TimerManager.hpp"
 
 namespace oeng
 {

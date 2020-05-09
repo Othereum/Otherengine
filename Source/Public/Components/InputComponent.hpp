@@ -1,7 +1,7 @@
 #pragma once
 #include <functional>
-#include "ActorComponent.h"
-#include "Name.h"
+#include "ActorComponent.hpp"
+#include "Name.hpp"
 
 struct SDL_KeyboardEvent;
 

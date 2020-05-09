@@ -1,6 +1,6 @@
-#include "Components/CircleComponent.h"
-#include "Actor.h"
-#include "World.h"
+#include "Components/CircleComponent.hpp"
+#include "Actor.hpp"
+#include "World.hpp"
 
 namespace oeng
 {
