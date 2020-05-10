@@ -1,15 +1,24 @@
 #pragma once
 #include "Math.hpp"
+#include <gsl/span>
+#include "JsonFwd.hpp"
 
 namespace oeng
 {
 	struct Vertex
 	{
-		Vec3 pos;
-		Vec3 norm;
-		Vec2 uv;
+		union
+		{
+			struct
+			{
+				Vec3 pos;
+				Vec3 norm;
+				Vec2 uv;
+			};
+			float data[8];
+		};
 
-		constexpr Vertex() noexcept = default;
+		constexpr Vertex() noexcept :data{} {}
 		constexpr Vertex(const Vec3& pos, const Vec3& norm, const Vec2& uv) noexcept
 			:pos{pos}, norm{norm}, uv{uv}
 		{
@@ -19,14 +28,15 @@ namespace oeng
 	class VertexArray
 	{
 	public:
-		template <size_t NumVerts, size_t NumIndices>
-		VertexArray(const Vertex (&verts)[NumVerts], const Vec3u16 (&indices)[NumIndices])
-			:VertexArray{verts, NumVerts, indices, NumIndices}
-		{
-		}
+		constexpr VertexArray() noexcept = default;
+		VertexArray(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices);
 		
-		VertexArray(const Vertex* verts, size_t num_verts, const Vec3u16* indices, size_t num_indices);
 		~VertexArray();
+		
+		void Construct(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices);
+		void Destruct() noexcept;
+
+		void Activate() const;
 
 		VertexArray(const VertexArray&) = delete;
 		VertexArray(VertexArray&&) = delete;

@@ -3,18 +3,23 @@
 
 namespace oeng
 {
-	VertexArray::VertexArray(const Vertex* verts, size_t num_verts, const Vec3u16* indices, size_t num_indices)
+	VertexArray::VertexArray(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices)
 	{
-		glGenVertexArrays(1, &vertex_array_);
-		glBindVertexArray(vertex_array_);
-		
-		glGenBuffers(1, &vertex_buffer_);
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
-		glBufferData(GL_ARRAY_BUFFER, sizeof Vertex * num_verts, verts, GL_STATIC_DRAW);
+		Construct(verts, indices);
+	}
 
-		glGenBuffers(1, &index_buffer_);
+	void VertexArray::Construct(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices)
+	{
+		if (!vertex_array_) glGenVertexArrays(1, &vertex_array_);
+		Activate();
+
+		if (!vertex_buffer_) glGenBuffers(1, &vertex_buffer_);
+		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
+		glBufferData(GL_ARRAY_BUFFER, verts.size_bytes(), verts.data(), GL_STATIC_DRAW);
+
+		if (!index_buffer_) glGenBuffers(1, &index_buffer_);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof Vec3u16 * num_indices, indices, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
 
 		constexpr Vertex* v = nullptr;
 
@@ -28,10 +33,21 @@ namespace oeng
 		glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof Vertex, &v->uv);
 	}
 
+	void VertexArray::Destruct() noexcept
+	{
+		auto del = [](unsigned& id, auto&& fn) { if (id) { fn(1, &id); id = 0; } };
+		del(vertex_buffer_, glDeleteBuffers);
+		del(index_buffer_, glDeleteBuffers);
+		del(vertex_array_, glDeleteVertexArrays);
+	}
+
+	void VertexArray::Activate() const
+	{
+		glBindVertexArray(vertex_array_);
+	}
+
 	VertexArray::~VertexArray()
 	{
-		glDeleteBuffers(1, &vertex_buffer_);
-		glDeleteBuffers(1, &index_buffer_);
-		glDeleteVertexArrays(1, &vertex_array_);
+		Destruct();
 	}
 }
