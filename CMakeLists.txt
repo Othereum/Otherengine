@@ -12,12 +12,13 @@ find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)
 find_package(soil2 REQUIRED)
 find_package(nlohmann_json 3.7.3 REQUIRED)
+find_package(Microsoft.GSL REQUIRED)
 add_subdirectory("Source/ThirdParty/otm")
 
 target_include_directories(${PROJECT_NAME} PUBLIC "Source/Public" PRIVATE "Source/Private")
 target_link_libraries(${PROJECT_NAME}
-    PUBLIC otm
-    PRIVATE SDL2::SDL2 GLEW::GLEW soil2 nlohmann_json::nlohmann_json
+    PUBLIC otm nlohmann_json::nlohmann_json Microsoft.GSL::GSL
+    PRIVATE SDL2::SDL2 GLEW::GLEW soil2
 )
 
 install(DIRECTORY "Shaders" DESTINATION "Engine")
