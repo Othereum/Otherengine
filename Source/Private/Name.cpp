@@ -1,5 +1,6 @@
 #include "Name.hpp"
 #include <unordered_set>
+#include "Json.hpp"
 
 namespace oeng
 {
@@ -27,5 +28,15 @@ namespace oeng
 	{
 		auto [it, bInserted] = str_set.insert(std::move(s));
 		sp = &*it;
+	}
+
+	void to_json(Json& json, const Name& name)
+	{
+		json = name.Str();
+	}
+
+	void from_json(const Json& json, Name& name)
+	{
+		name = json;
 	}
 }

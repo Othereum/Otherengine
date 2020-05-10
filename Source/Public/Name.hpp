@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "JsonFwd.hpp"
 
 namespace oeng
 {
@@ -20,6 +21,9 @@ namespace oeng
 		friend std::hash<Name>;
 		const std::string* sp;
 	};
+	
+	void to_json(Json& json, const Name& name);
+	void from_json(const Json& json, Name& name);
 }
 
 template <>
