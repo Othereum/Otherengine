@@ -30,18 +30,18 @@ namespace oeng
 	public:
 		constexpr VertexArray() noexcept = default;
 		VertexArray(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices);
+		VertexArray(const VertexArray&) = delete;
+		VertexArray(VertexArray&& other) noexcept;
 		
 		~VertexArray();
 		
+		VertexArray& operator=(const VertexArray&) = delete;
+		VertexArray& operator=(VertexArray&& other) noexcept;
+
 		void Construct(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices);
 		void Destruct() noexcept;
 
 		void Activate() const;
-
-		VertexArray(const VertexArray&) = delete;
-		VertexArray(VertexArray&&) = delete;
-		VertexArray& operator=(const VertexArray&) = delete;
-		VertexArray& operator=(VertexArray&&) = delete;
 
 	private:
 		unsigned vertex_buffer_ = 0;

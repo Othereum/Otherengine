@@ -8,6 +8,24 @@ namespace oeng
 		Construct(verts, indices);
 	}
 
+	VertexArray::VertexArray(VertexArray&& other) noexcept
+	{
+		*this = std::move(other);
+	}
+
+	VertexArray& VertexArray::operator=(VertexArray&& other) noexcept
+	{
+		vertex_buffer_ = other.vertex_buffer_;
+		index_buffer_ = other.index_buffer_;
+		vertex_array_ = other.vertex_array_;
+		
+		other.vertex_buffer_ = 0;
+		other.index_buffer_ = 0;
+		other.vertex_array_ = 0;
+		
+		return *this;
+	}
+
 	void VertexArray::Construct(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices)
 	{
 		if (!vertex_array_) glGenVertexArrays(1, &vertex_array_);
