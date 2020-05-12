@@ -26,6 +26,8 @@ namespace oeng
 		Mesh& operator=(Mesh&&) = delete;
 
 	private:
+		void LoadV1(const Json& json, CEngine& engine);
+		
 		std::vector<std::shared_ptr<Texture>> textures_;
 		std::unique_ptr<VertexArray> vertex_array_;
 		Name shader_name_;

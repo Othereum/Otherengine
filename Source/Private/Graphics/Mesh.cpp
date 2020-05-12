@@ -1,5 +1,6 @@
 #include "Mesh.hpp"
 #include <fstream>
+#include <fmt/core.h>
 #include "Engine.hpp"
 #include "Json.hpp"
 #include "VertexArray.hpp"
@@ -12,6 +13,22 @@ namespace oeng
 		Json json;
 		file >> json;
 
+		const int version = json.at("version");
+		switch (version)
+		{
+		case 1:
+			LoadV1(json, engine);
+			break;
+
+		default:
+			throw std::runtime_error{fmt::format("Invalid version ({}) of mesh file {}", version, filename)};
+		}
+	}
+
+	Mesh::~Mesh() = default;
+
+	void Mesh::LoadV1(const Json& json, CEngine& engine)
+	{
 		for (const auto& tex : json.at("textures"))
 			textures_.push_back(engine.GetTexture(tex));
 
@@ -25,6 +42,4 @@ namespace oeng
 		for (const auto& v : verts) max = Max(max, v.pos.DistSqr({}));
 		radius_ = sqrt(max);
 	}
-
-	Mesh::~Mesh() = default;
 }
