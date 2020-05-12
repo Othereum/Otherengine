@@ -21,4 +21,5 @@ target_link_libraries(${PROJECT_NAME}
     PRIVATE SDL2::SDL2 GLEW::GLEW soil2
 )
 
+install(DIRECTORY "Assets" DESTINATION "Engine")
 install(DIRECTORY "Shaders" DESTINATION "Engine")
