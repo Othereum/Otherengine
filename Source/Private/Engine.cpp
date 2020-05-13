@@ -7,6 +7,7 @@
 #include "Components/InputComponent.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Texture.hpp"
+#include "Graphics/Mesh.hpp"
 #include "InputSystem.hpp"
 #include "World.hpp"
 
@@ -50,6 +51,24 @@ namespace oeng
 		};
 
 		textures_.emplace(file, loaded);
+		return loaded;
+	}
+
+	std::shared_ptr<Mesh> CEngine::GetMesh(Name file)
+	{
+		const auto found = meshes_.find(file);
+		if (found != meshes_.end()) return found->second.lock();
+
+		std::shared_ptr<Mesh> loaded{
+			new Mesh{file.Str(), *this},
+			[this, file](Mesh* p) noexcept
+			{
+				meshes_.erase(file);
+				delete p;
+			}
+		};
+
+		meshes_.emplace(file, loaded);
 		return loaded;
 	}
 

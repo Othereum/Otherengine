@@ -12,6 +12,7 @@ namespace oeng
 {
 	class Renderer;
 	class Texture;
+	class Mesh;
 	class CWorld;
 	class CInputSystem;
 
@@ -32,6 +33,7 @@ namespace oeng
 		void Shutdown();
 		
 		[[nodiscard]] std::shared_ptr<Texture> GetTexture(Name file);
+		[[nodiscard]] std::shared_ptr<Mesh> GetMesh(Name file);
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return *world_; }
 		[[nodiscard]] CInputSystem& GetInputSystem() const noexcept { return *input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept { return *renderer_; }
@@ -42,6 +44,7 @@ namespace oeng
 		void ProcessEvent();
 
 		std::unordered_map<Name, std::weak_ptr<Texture>> textures_;
+		std::unordered_map<Name, std::weak_ptr<Mesh>> meshes_;
 		std::unique_ptr<Renderer> renderer_;
 		std::unique_ptr<CWorld> world_;
 		std::unique_ptr<CInputSystem> input_system_;
