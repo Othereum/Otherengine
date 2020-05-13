@@ -1,9 +1,7 @@
 #include "Texture.hpp"
-
 #include <GL/glew.h>
 #include <SOIL2/SOIL2.h>
-
-#include "StringUtil.hpp"
+#include <fmt/core.h>
 
 namespace oeng
 {
@@ -12,8 +10,8 @@ namespace oeng
 		Vector<int, 2> size;
 		auto num_channels = 0;
 
-		const std::unique_ptr<unsigned char[]> image{SOIL_load_image(name, &size.x, &size.y, &num_channels, SOIL_LOAD_AUTO)};
-		if (!image) throw std::runtime_error{str::Concat("Failed to load image ", name, ": ", SOIL_last_result())};
+		const std::unique_ptr<unsigned char[]> image{SOIL_load_image(name.data(), &size.x, &size.y, &num_channels, SOIL_LOAD_AUTO)};
+		if (!image) throw std::runtime_error{fmt::format("Failed to load image '{}': {}", name, SOIL_last_result())};
 
 		const auto format = num_channels == 4 ? GL_RGBA : GL_RGB;
 		size_ = Vector<uint16_t, 2>{size};

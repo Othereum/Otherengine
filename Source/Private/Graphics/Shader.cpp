@@ -1,10 +1,21 @@
 #include "Graphics/Shader.hpp"
+#include <fstream>
 #include <GL/glew.h>
-#include <stdexcept>
-#include "StringUtil.hpp"
+#include <fmt/core.h>
 
 namespace oeng
 {
+	std::string ReadFile(std::string_view filename)
+	{
+		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
+		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}", filename)};
+
+		std::string code(file.tellg(), '\0');
+		file.seekg(0);
+		file.read(code.data(), code.size());
+		return code;
+	}
+	
 	static void CheckShader(unsigned shader)
 	{
 		auto is_valid = 0;
@@ -35,7 +46,7 @@ namespace oeng
 	
 	static unsigned Compile(std::string_view filename, unsigned type)
 	{
-		const auto code = str::ReadFile(filename);
+		const auto code = ReadFile(filename);
 		const auto* const c_str = code.c_str();
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_str, nullptr);
