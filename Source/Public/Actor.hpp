@@ -58,7 +58,7 @@ namespace oeng
 		void RecomputeMatrix() noexcept;
 		[[nodiscard]] const Mat4& GetTransformMatrix() const noexcept { return transform_matrix_; }
 
-		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3{1, 0, 0}.Rotate(GetRot()); }
+		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3{1, 0, 0}.Rotated(GetRot()); }
 
 		[[nodiscard]] Engine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
