@@ -9,6 +9,7 @@ namespace oeng
 {
 	class Renderer;
 	class Texture;
+	class Shader;
 	
 	class CSpriteComponent : public CActorComponent
 	{
@@ -25,6 +26,8 @@ namespace oeng
 
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
+
+		void Draw(Shader& shader) const;
 
 	private:
 		std::shared_ptr<Texture> texture_;

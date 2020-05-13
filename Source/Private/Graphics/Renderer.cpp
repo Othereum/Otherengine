@@ -116,17 +116,6 @@ namespace oeng
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void Renderer::Draw(const CSpriteComponent& sprite) const
-	{
-		if (sprite.IsEnabled())
-		{
-			static const Name name = "uWorldTransform";
-			sprite_shader_->SetMatrixUniform(name, Mat4::Scale({sprite.GetTexture().Size(), 1}) * sprite.GetOwner().GetTransformMatrix());
-			sprite.GetTexture().Activate();
-			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
-		}
-	}
-
 	void Renderer::DrawScene() const
 	{
 		glClearColor(.86f, .86f, .86f, 1.f);
@@ -135,9 +124,10 @@ namespace oeng
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		for (const auto& sprite : sprites_)
+		for (auto&& sprite_ref : sprites_)
 		{
-			Draw(sprite);
+			auto&& sprite = sprite_ref.get();
+			if (sprite.IsEnabled()) sprite.Draw(*sprite_shader_);
 		}
 
 		SDL_GL_SwapWindow(window_.get());

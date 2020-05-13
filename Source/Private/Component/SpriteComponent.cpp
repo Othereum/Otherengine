@@ -1,7 +1,10 @@
 #include "Components/SpriteComponent.hpp"
+#include <GL/glew.h>
 #include "Actor.hpp"
 #include "Engine.hpp"
 #include "Graphics/Renderer.hpp"
+#include "Graphics/Shader.hpp"
+#include "Graphics/Texture.hpp"
 
 namespace oeng
 {
@@ -38,5 +41,13 @@ namespace oeng
 	Renderer& CSpriteComponent::GetRenderer() const noexcept
 	{
 		return GetEngine().GetRenderer();
+	}
+
+	void CSpriteComponent::Draw(Shader& shader) const
+	{
+		static const Name name = "uWorldTransform";
+		shader.SetMatrixUniform(name, Mat4::Scale({texture_->Size(), 1}) * GetOwner().GetTransformMatrix());
+		texture_->Activate();
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}
 }

@@ -20,7 +20,6 @@ namespace oeng
 		void RegisterSprite(const CSpriteComponent& sprite);
 		void UnregisterSprite(const CSpriteComponent& sprite);
 
-		void Draw(const CSpriteComponent& sprite) const;
 		void DrawScene() const;
 
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
