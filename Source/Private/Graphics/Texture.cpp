@@ -5,7 +5,7 @@
 
 namespace oeng
 {
-	Texture::Texture(const char* name)
+	Texture::Texture(std::string_view name)
 	{
 		Vector<int, 2> size;
 		auto num_channels = 0;
@@ -14,7 +14,7 @@ namespace oeng
 		if (!image) throw std::runtime_error{fmt::format("Failed to load image '{}': {}", name, SOIL_last_result())};
 
 		const auto format = num_channels == 4 ? GL_RGBA : GL_RGB;
-		size_ = Vector<uint16_t, 2>{size};
+		size_ = Vec2u16{size};
 
 		glGenTextures(1, &id_);
 		Activate();

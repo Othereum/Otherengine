@@ -6,7 +6,7 @@ namespace oeng
 	class Texture
 	{
 	public:
-		explicit Texture(const char* name);
+		explicit Texture(std::string_view name);
 		~Texture();
 
 		void Activate() const;
@@ -19,6 +19,6 @@ namespace oeng
 
 	private:
 		unsigned id_ = 0;
-		Vector<uint16_t, 2> size_;
+		Vec2u16 size_;
 	};
 }
