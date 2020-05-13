@@ -37,6 +37,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = json;
+		name = json.get<std::string>();
 	}
 }
