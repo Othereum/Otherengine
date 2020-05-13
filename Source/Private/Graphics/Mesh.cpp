@@ -7,7 +7,7 @@
 
 namespace oeng
 {
-	Mesh::Mesh(std::string_view filename, CEngine& engine)
+	Mesh::Mesh(std::string_view filename, Engine& engine)
 	{
 		std::ifstream file{filename.data()};
 		Json json;
@@ -27,7 +27,7 @@ namespace oeng
 
 	Mesh::~Mesh() = default;
 
-	void Mesh::LoadV1(const Json& json, CEngine& engine)
+	void Mesh::LoadV1(const Json& json, Engine& engine)
 	{
 		for (const auto& tex : json.at("textures"))
 			textures_.push_back(engine.GetTexture(tex));

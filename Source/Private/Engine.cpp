@@ -13,7 +13,7 @@
 
 namespace oeng
 {
-	CEngine::CEngine():
+	Engine::Engine():
 		renderer_{std::make_unique<Renderer>(Vec2u16{1024, 768})},
 		world_{std::make_unique<CWorld>(*this)},
 		input_system_{std::make_unique<CInputSystem>()}
@@ -21,9 +21,9 @@ namespace oeng
 		LoadGameModule(*this);
 	}
 
-	CEngine::~CEngine() = default;
+	Engine::~Engine() = default;
 
-	void CEngine::RunLoop()
+	void Engine::RunLoop()
 	{
 		while (is_running_)
 		{
@@ -31,12 +31,12 @@ namespace oeng
 		}
 	}
 
-	void CEngine::Shutdown()
+	void Engine::Shutdown()
 	{
 		is_running_ = false;
 	}
 
-	std::shared_ptr<Texture> CEngine::GetTexture(Name file)
+	std::shared_ptr<Texture> Engine::GetTexture(Name file)
 	{
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
@@ -54,7 +54,7 @@ namespace oeng
 		return loaded;
 	}
 
-	std::shared_ptr<Mesh> CEngine::GetMesh(Name file)
+	std::shared_ptr<Mesh> Engine::GetMesh(Name file)
 	{
 		const auto found = meshes_.find(file);
 		if (found != meshes_.end()) return found->second.lock();
@@ -72,19 +72,19 @@ namespace oeng
 		return loaded;
 	}
 
-	Vec2u16 CEngine::GetScreenSize() const noexcept
+	Vec2u16 Engine::GetScreenSize() const noexcept
 	{
 		return renderer_->GetScreenSize();
 	}
 
-	void CEngine::Tick()
+	void Engine::Tick()
 	{
 		ProcessEvent();
 		world_->Tick();
 		renderer_->DrawScene();
 	}
 
-	void CEngine::ProcessEvent()
+	void Engine::ProcessEvent()
 	{
 		input_system_->ClearEvents();
 		
@@ -101,13 +101,13 @@ namespace oeng
 		}
 	}
 
-	CSdlRaii::CSdlRaii()
+	SdlRaii::SdlRaii()
 	{
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
 
-	CSdlRaii::~CSdlRaii()
+	SdlRaii::~SdlRaii()
 	{
 		SDL_Quit();
 	}

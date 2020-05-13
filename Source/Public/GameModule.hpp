@@ -3,5 +3,5 @@
 namespace oeng
 {
 	const char* GetGameName() noexcept;
-	void LoadGameModule(class CEngine&);
+	void LoadGameModule(class Engine&);
 }

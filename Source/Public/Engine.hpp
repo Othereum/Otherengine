@@ -16,18 +16,18 @@ namespace oeng
 	class CWorld;
 	class CInputSystem;
 
-	class CSdlRaii
+	class SdlRaii
 	{
 	public:
-		CSdlRaii();
-		~CSdlRaii();
+		SdlRaii();
+		~SdlRaii();
 	};
 	
-	class CEngine : CSdlRaii
+	class Engine : SdlRaii
 	{
 	public:
-		CEngine();
-		~CEngine();
+		Engine();
+		~Engine();
 		
 		void RunLoop();
 		void Shutdown();

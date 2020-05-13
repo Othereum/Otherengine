@@ -7,7 +7,7 @@ namespace oeng
 {
 	using Clock = std::chrono::steady_clock;
 	
-	class CEngine;
+	class Engine;
 	class TimerManager;
 	class AActor;
 	class CInputComponent;
@@ -16,7 +16,7 @@ namespace oeng
 	class CWorld
 	{
 	public:
-		explicit CWorld(CEngine& engine);
+		explicit CWorld(Engine& engine);
 		~CWorld();
 		
 		template <class T>
@@ -37,7 +37,7 @@ namespace oeng
 		void RegisterCollision(CCircleComponent& comp);
 		void UnregisterCollision(CCircleComponent& comp);
 		
-		[[nodiscard]] CEngine& GetEngine() const noexcept { return engine_; }
+		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept { return *timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
@@ -52,7 +52,7 @@ namespace oeng
 		void UpdateTime();
 		void RegisterActor(std::shared_ptr<AActor>&& actor);
 
-		CEngine& engine_;
+		Engine& engine_;
 		std::unique_ptr<TimerManager> timer_;
 
 		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;

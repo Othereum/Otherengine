@@ -3,7 +3,7 @@
 namespace oeng
 {
 	class AActor;
-	class CEngine;
+	class Engine;
 	class CWorld;
 	
 	class CActorComponent
@@ -20,7 +20,7 @@ namespace oeng
 		
 		[[nodiscard]] int GetUpdateOrder() const noexcept { return update_order_; }
 		[[nodiscard]] AActor& GetOwner() const noexcept { return owner_; }
-		[[nodiscard]] CEngine& GetEngine() const noexcept;
+		[[nodiscard]] Engine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept;
 
 	private:

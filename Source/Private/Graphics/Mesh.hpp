@@ -5,14 +5,14 @@
 
 namespace oeng
 {
-	class CEngine;
+	class Engine;
 	class Texture;
 	class VertexArray;
 	
 	class Mesh
 	{
 	public:
-		Mesh(std::string_view filename, CEngine& engine);
+		Mesh(std::string_view filename, Engine& engine);
 		~Mesh();
 
 		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
@@ -26,7 +26,7 @@ namespace oeng
 		Mesh& operator=(Mesh&&) = delete;
 
 	private:
-		void LoadV1(const Json& json, CEngine& engine);
+		void LoadV1(const Json& json, Engine& engine);
 		
 		std::vector<std::shared_ptr<Texture>> textures_;
 		std::unique_ptr<VertexArray> vertex_array_;

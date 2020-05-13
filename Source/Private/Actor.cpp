@@ -37,7 +37,7 @@ namespace oeng
 		}
 	}
 
-	CEngine& AActor::GetEngine() const noexcept
+	Engine& AActor::GetEngine() const noexcept
 	{
 		return world_.GetEngine();
 	}

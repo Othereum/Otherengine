@@ -5,7 +5,7 @@
 
 namespace oeng
 {
-	CWorld::CWorld(CEngine& engine):
+	CWorld::CWorld(Engine& engine):
 		engine_{engine},
 		timer_{std::make_unique<TimerManager>(*this)},
 		delta_seconds_{0}

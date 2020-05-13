@@ -5,7 +5,7 @@ int main()
 {
 	try
 	{
-		oeng::CEngine engine;
+		oeng::Engine engine;
 		engine.RunLoop();
 	}
 	catch (const std::exception& e)

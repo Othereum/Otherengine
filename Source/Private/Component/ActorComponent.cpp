@@ -8,7 +8,7 @@ namespace oeng
 	{
 	}
 
-	CEngine& CActorComponent::GetEngine() const noexcept
+	Engine& CActorComponent::GetEngine() const noexcept
 	{
 		return GetOwner().GetEngine();
 	}
