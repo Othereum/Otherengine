@@ -1,11 +1,13 @@
 #include <iostream>
 #include "Engine.hpp"
 
+using namespace oeng;
+
 int main()
 {
 	try
 	{
-		oeng::Engine engine;
+		Engine engine;
 		engine.RunLoop();
 	}
 	catch (const std::exception& e)
