@@ -1,12 +1,8 @@
 #include "Name.hpp"
 #include <unordered_set>
 #include "Json.hpp"
-
-#ifdef OENG_NAME_THREADSAFE
-	#include "Templates/Monitor.hpp"
-#else
-	#include "Templates/Wrapper.hpp"
-#endif
+#include "Templates/Monitor.hpp"
+#include "Templates/Wrapper.hpp"
 
 namespace oeng
 {
@@ -41,12 +37,7 @@ namespace oeng
 	};
 
 	using Set = std::unordered_set<std::string, NameHasher, NameEqual>;
-
-#ifdef OENG_NAME_THREADSAFE
-	using StrSet = Monitor<Set>;
-#else
-	using StrSet = Wrapper<Set>;
-#endif
+	using StrSet = std::conditional_t<OENG_NAME_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
 	
 	static StrSet str_set{std::string{}};
 	

@@ -7,7 +7,9 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 set(OENG_NAME_THREADSAFE FALSE CACHE BOOL "Should 'Name' class be thread-safe?")
 if(OENG_NAME_THREADSAFE)
-    target_compile_definitions(${PROJECT_NAME} PRIVATE OENG_NAME_THREADSAFE)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE OENG_NAME_THREADSAFE=1)
+else()
+    target_compile_definitions(${PROJECT_NAME} PRIVATE OENG_NAME_THREADSAFE=0)
 endif()
 
 find_package(SDL2 2.0.12 REQUIRED)
