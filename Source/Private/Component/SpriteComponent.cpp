@@ -33,9 +33,9 @@ namespace oeng
 		texture_ = texture;
 	}
 
-	void CSpriteComponent::SetTexture(const char* filename)
+	void CSpriteComponent::SetTexture(Path file)
 	{
-		SetTexture(GetEngine().GetTexture(filename));
+		SetTexture(GetEngine().GetTexture(file));
 	}
 
 	Renderer& CSpriteComponent::GetRenderer() const noexcept

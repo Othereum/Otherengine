@@ -36,13 +36,13 @@ namespace oeng
 		is_running_ = false;
 	}
 
-	std::shared_ptr<Texture> Engine::GetTexture(Name file)
+	std::shared_ptr<Texture> Engine::GetTexture(Path file)
 	{
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
 
 		std::shared_ptr<Texture> loaded{
-			new Texture{file.CStr()},
+			new Texture{file},
 			[this, file](Texture* p) noexcept
 			{
 				textures_.erase(file);
@@ -54,13 +54,13 @@ namespace oeng
 		return loaded;
 	}
 
-	std::shared_ptr<Mesh> Engine::GetMesh(Name file)
+	std::shared_ptr<Mesh> Engine::GetMesh(Path file)
 	{
 		const auto found = meshes_.find(file);
 		if (found != meshes_.end()) return found->second.lock();
 
 		std::shared_ptr<Mesh> loaded{
-			new Mesh{file.Str(), *this},
+			new Mesh{file, *this},
 			[this, file](Mesh* p) noexcept
 			{
 				meshes_.erase(file);

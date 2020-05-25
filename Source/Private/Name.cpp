@@ -1,5 +1,6 @@
 #include "Name.hpp"
 #include <unordered_set>
+#include <otm/Hash.hpp>
 #include "Json.hpp"
 #include "Templates/Monitor.hpp"
 #include "Templates/Wrapper.hpp"
@@ -10,7 +11,7 @@ namespace oeng
 	{
 		[[nodiscard]] constexpr size_t operator()(std::string_view s) const noexcept
 		{
-			return HashRange(s.begin(), s.end(), tolower);
+			return otm::HashRange(s.begin(), s.end(), tolower);
 		}
 	};
 

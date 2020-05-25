@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include "Name.hpp"
+#include "Path.hpp"
 
 namespace oeng
 {
@@ -12,12 +12,12 @@ namespace oeng
 	class Mesh
 	{
 	public:
-		Mesh(std::string_view filename, Engine& engine);
+		Mesh(Path filepath, Engine& engine);
 		~Mesh();
 
 		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
 		[[nodiscard]] VertexArray& GetVertexArray() const noexcept { return *vertex_array_; }
-		[[nodiscard]] Name GetShaderName() const noexcept { return shader_name_; }
+		[[nodiscard]] Path GetShaderPath() const noexcept { return shader_path_; }
 		[[nodiscard]] float GetRadius() const noexcept { return radius_; }
 
 		Mesh(const Mesh&) = delete;
@@ -30,7 +30,7 @@ namespace oeng
 		
 		std::vector<std::shared_ptr<Texture>> textures_;
 		std::unique_ptr<VertexArray> vertex_array_;
-		Name shader_name_;
+		Path shader_path_;
 		float radius_;
 	};
 }

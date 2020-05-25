@@ -1,12 +1,13 @@
 #pragma once
 #include "Math.hpp"
+#include "Path.hpp"
 
 namespace oeng
 {
 	class Texture
 	{
 	public:
-		explicit Texture(std::string_view name);
+		explicit Texture(Path file);
 		~Texture();
 
 		void Activate() const;

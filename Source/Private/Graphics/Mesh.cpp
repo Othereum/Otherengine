@@ -7,9 +7,9 @@
 
 namespace oeng
 {
-	Mesh::Mesh(std::string_view filename, Engine& engine)
+	Mesh::Mesh(Path filepath, Engine& engine)
 	{
-		std::ifstream file{filename.data()};
+		std::ifstream file{filepath};
 		Json json;
 		file >> json;
 
@@ -21,7 +21,7 @@ namespace oeng
 			break;
 
 		default:
-			throw std::runtime_error{fmt::format("Invalid version ({}) of mesh file {}", version, filename)};
+			throw std::runtime_error{fmt::format("Invalid version ({}) of mesh '{}'", version, filepath->string())};
 		}
 	}
 
@@ -36,7 +36,7 @@ namespace oeng
 		const std::vector<Vec3u16> indices = json.at("indices");
 		vertex_array_ = std::make_unique<VertexArray>(verts, indices);
 
-		shader_name_ = json.at("shader");
+		shader_path_ = json.at("shader");
 
 		auto max = 0.f;
 		for (const auto& v : verts) max = Max(max, v.pos.DistSqr({}));

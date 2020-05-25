@@ -1,7 +1,7 @@
 #pragma once
-
 #include <memory>
 #include "ActorComponent.hpp"
+#include "Path.hpp"
 
 struct SDL_Renderer;
 
@@ -21,7 +21,7 @@ namespace oeng
 		
 		void SetTexture(std::shared_ptr<Texture>&& texture);
 		void SetTexture(const std::shared_ptr<Texture>& texture);
-		void SetTexture(const char* filename);
+		void SetTexture(Path file);
 		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
 
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
