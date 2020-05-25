@@ -10,6 +10,9 @@ namespace oeng
 		Path(const std::filesystem::path& path);
 
 		bool operator==(const Path&) const noexcept = default;
+
+		operator const std::filesystem::path&() const noexcept { return *p; }
+		const std::filesystem::path* operator->() const noexcept { return p; }
 		[[nodiscard]] const std::filesystem::path& Get() const noexcept { return *p; }
 
 	private:
