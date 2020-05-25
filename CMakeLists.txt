@@ -1,7 +1,7 @@
-﻿cmake_minimum_required(VERSION 3.8)
+﻿cmake_minimum_required(VERSION 3.16)
 project("Otherengine")
 
-file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
+file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp" "Source/*.hpp")
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
