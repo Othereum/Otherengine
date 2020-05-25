@@ -46,7 +46,7 @@ namespace oeng
 	void CSpriteComponent::Draw(Shader& shader) const
 	{
 		static const Name name = "uWorldTransform";
-		shader.SetMatrixUniform(name, Mat4::Identity(MakeScale(Vec3{texture_->Size(), 1})) * GetOwner().GetTransformMatrix());
+		shader.SetMatrixUniform(name, MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix());
 		texture_->Activate();
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}

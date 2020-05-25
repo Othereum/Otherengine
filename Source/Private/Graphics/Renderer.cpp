@@ -66,7 +66,7 @@ namespace oeng
 	static std::unique_ptr<Shader> CreateSpriteShader(Vec2u16 scr)
 	{
 		auto shader = std::make_unique<Shader>("../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag");
-		shader->SetMatrixUniform("uViewProj", Mat4::Identity(MakeSimpleViewProj(Vec2{scr})));
+		shader->SetMatrixUniform("uViewProj", MakeSimpleViewProj<4>({scr}));
 		return shader;
 	}
 
