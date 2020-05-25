@@ -13,7 +13,7 @@ namespace oeng
 		Json json;
 		file >> json;
 
-		const int version = json.at("version");
+		const auto version = json.at("version").get<int>();
 		switch (version)
 		{
 		case 1:
