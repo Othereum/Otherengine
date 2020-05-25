@@ -33,7 +33,7 @@ namespace oeng
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
 		WindowPtr window{
-			SDL_CreateWindow(GetGameName(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr.x, scr.y, SDL_WINDOW_OPENGL),
+			SDL_CreateWindow(GetGameName(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr[0], scr[1], SDL_WINDOW_OPENGL),
 			&SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -66,7 +66,7 @@ namespace oeng
 	static std::unique_ptr<Shader> CreateSpriteShader(Vec2u16 scr)
 	{
 		auto shader = std::make_unique<Shader>("../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag");
-		shader->SetMatrixUniform("uViewProj", Mat4::SimpleViewProj(Vec2{scr}));
+		shader->SetMatrixUniform("uViewProj", Mat4::Identity(MakeSimpleViewProj(Vec2{scr})));
 		return shader;
 	}
 

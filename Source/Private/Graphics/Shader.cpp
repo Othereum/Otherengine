@@ -77,7 +77,7 @@ namespace oeng
 	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
 	{
 		const auto loc = GetUniformLocation(name);
-		glUniformMatrix4fv(loc, 1, true, matrix.AsFloats());
+		glUniformMatrix4fv(loc, 1, true, matrix.AsFlatArr());
 	}
 
 	int Shader::GetUniformLocation(Name name)
