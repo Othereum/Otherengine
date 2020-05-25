@@ -10,17 +10,7 @@ namespace oeng
 	{
 		[[nodiscard]] constexpr size_t operator()(std::string_view s) const noexcept
 		{
-			constexpr auto offset_basis = []{ if constexpr(sizeof size_t >= 8) { return 14695981039346656037ULL; } else { return 2166136261U; } }();
-			constexpr auto prime = []{ if constexpr(sizeof size_t >= 8) { return 1099511628211ULL; } else { return 16777619U; } }();
-
-			size_t val = offset_basis;
-		    for (auto c : s)
-			{
-		        val ^= tolower(c);
-		        val *= prime;
-		    }
-
-		    return val;
+			return HashRange(s.begin(), s.end(), tolower);
 		}
 	};
 
@@ -41,7 +31,7 @@ namespace oeng
 	
 	static StrSet str_set{std::string{}};
 	
-	Name::Name()
+	Name::Name() noexcept
 		:sp{&*str_set->find({})}
 	{
 	}

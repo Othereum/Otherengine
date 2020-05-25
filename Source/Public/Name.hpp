@@ -6,7 +6,7 @@ namespace oeng
 {
 	struct Name
 	{
-		Name();
+		Name() noexcept;
 		Name(const char* s);
 		Name(const std::string& s);
 		Name(std::string&& s);
@@ -15,7 +15,6 @@ namespace oeng
 		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
 
 		bool operator==(const Name&) const noexcept = default;
-		bool operator!=(const Name&) const noexcept = default;
 
 	private:
 		friend std::hash<Name>;
