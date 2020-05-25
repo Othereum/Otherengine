@@ -2,6 +2,12 @@
 #include <unordered_set>
 #include "Json.hpp"
 
+#ifdef OENG_NAME_THREADSAFE
+	#include "Templates/Monitor.hpp"
+#else
+	#include "Templates/Wrapper.hpp"
+#endif
+
 namespace oeng
 {
 	struct NameHasher
@@ -33,11 +39,19 @@ namespace oeng
 			return true;
 		}
 	};
+
+	using Set = std::unordered_set<std::string, NameHasher, NameEqual>;
+
+#ifdef OENG_NAME_THREADSAFE
+	using StrSet = Monitor<Set>;
+#else
+	using StrSet = Wrapper<Set>;
+#endif
 	
-	static std::unordered_set<std::string, NameHasher, NameEqual> str_set{{}};
+	static StrSet str_set{std::string{}};
 	
 	Name::Name()
-		:sp{&*str_set.find({})}
+		:sp{&*str_set->find({})}
 	{
 	}
 
@@ -48,13 +62,13 @@ namespace oeng
 
 	Name::Name(const std::string& s)
 	{
-		auto [it, inserted] = str_set.insert(s);
+		auto [it, inserted] = str_set->insert(s);
 		sp = &*it;
 	}
 
 	Name::Name(std::string&& s)
 	{
-		auto [it, inserted] = str_set.insert(std::move(s));
+		auto [it, inserted] = str_set->insert(std::move(s));
 		sp = &*it;
 	}
 

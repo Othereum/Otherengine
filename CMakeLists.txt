@@ -3,10 +3,12 @@ project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp" "Source/*.hpp")
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
-set_target_properties(${PROJECT_NAME} PROPERTIES
-    CXX_STANDARD 20
-)
+set(OENG_NAME_THREADSAFE FALSE CACHE BOOL "Should 'Name' class be thread-safe?")
+if(OENG_NAME_THREADSAFE)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE OENG_NAME_THREADSAFE)
+endif()
 
 find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)
