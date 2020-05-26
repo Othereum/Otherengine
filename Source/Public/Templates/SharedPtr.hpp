@@ -350,3 +350,12 @@ namespace oeng
 		WeakPtr<T> weak_;
 	};
 }
+
+template <class T>
+struct std::hash<oeng::SharedPtr<T>>
+{
+	size_t operator()(const oeng::SharedPtr<T>& p) const noexcept
+	{
+		return std::hash<T*>{}(p.Get());
+	}
+};
