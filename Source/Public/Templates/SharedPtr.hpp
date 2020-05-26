@@ -93,8 +93,29 @@ namespace oeng
 				}
 			}
 
-			unsigned long Strong() const noexcept { return strong; }
-			unsigned long Weak() const noexcept { return weak; }
+			unsigned long Strong() const noexcept
+			{
+				if constexpr (OENG_SHARED_PTR_THREADSAFE)
+				{
+					return strong.load(std::memory_order_relaxed);
+				}
+				else
+				{
+					return strong;
+				}
+			}
+			
+			unsigned long Weak() const noexcept
+			{
+				if constexpr (OENG_SHARED_PTR_THREADSAFE)
+				{
+					return weak.load(std::memory_order_relaxed);
+				}
+				else
+				{
+					return weak;
+				}
+			}
 
 		private:
 			virtual ~SharedObjBase() = default;
