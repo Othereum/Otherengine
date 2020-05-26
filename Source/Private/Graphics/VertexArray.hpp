@@ -1,6 +1,6 @@
 #pragma once
+#include <span>
 #include "Math.hpp"
-#include <gsl/span>
 #include "JsonFwd.hpp"
 
 namespace oeng
@@ -30,7 +30,7 @@ namespace oeng
 	class VertexArray
 	{
 	public:
-		VertexArray(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices);
+		VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices);
 		~VertexArray();
 		
 		void Activate() const;

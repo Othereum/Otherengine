@@ -9,7 +9,7 @@ namespace oeng
 		json.get_to(vertex.data);
 	}
 
-	VertexArray::VertexArray(gsl::span<const Vertex> verts, gsl::span<const Vec3u16> indices)
+	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		Activate();
