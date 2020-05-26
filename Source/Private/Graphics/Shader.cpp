@@ -5,10 +5,10 @@
 
 namespace oeng
 {
-	std::string ReadFile(std::string_view filename)
+	std::string ReadFile(Path filepath)
 	{
-		std::ifstream file{filename.data(), std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}", filename)};
+		std::ifstream file{ filepath, std::ios_base::in | std::ios_base::ate};
+		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}", filepath->string())};
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);
@@ -44,9 +44,9 @@ namespace oeng
 		}
 	}
 	
-	static unsigned Compile(std::string_view filename, unsigned type)
+	static unsigned Compile(Path file, unsigned type)
 	{
-		const auto code = ReadFile(filename);
+		const auto code = ReadFile(file);
 		const auto* const c_str = code.c_str();
 		const auto shader = glCreateShader(type);
 		glShaderSource(shader, 1, &c_str, nullptr);
@@ -55,16 +55,16 @@ namespace oeng
 		return shader;
 	}
 
-	Shader::Shader(std::string_view vert_name, std::string_view frag_name):
-		vert_shader_{Compile(vert_name, GL_VERTEX_SHADER)},
-		frag_shader_{Compile(frag_name, GL_FRAGMENT_SHADER)},
+	Shader::Shader(Path vert, Path frag):
+		vert_shader_{Compile(vert, GL_VERTEX_SHADER)},
+		frag_shader_{Compile(frag, GL_FRAGMENT_SHADER)},
 		shader_program_{glCreateProgram()}
 	{
 		glAttachShader(shader_program_, vert_shader_);
 		glAttachShader(shader_program_, frag_shader_);
 		glLinkProgram(shader_program_);
 		CheckProgram(shader_program_);
-		glUseProgram(shader_program_);
+		Activate();
 	}
 
 	Shader::~Shader()
@@ -72,6 +72,11 @@ namespace oeng
 		glDeleteProgram(shader_program_);
 		glDeleteShader(vert_shader_);
 		glDeleteShader(frag_shader_);
+	}
+
+	void Shader::Activate() const
+	{
+		glUseProgram(shader_program_);
 	}
 
 	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)

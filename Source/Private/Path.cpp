@@ -38,6 +38,11 @@ namespace oeng
 	{
 	}
 
+	Path::Path(const char* path)
+		:Path{std::filesystem::path{path}}
+	{
+	}
+
 	Path::Path(const std::filesystem::path& path)
 	{
 		auto [it, has_inserted] = path_set->insert(proximate(path));

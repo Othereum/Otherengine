@@ -7,6 +7,7 @@ namespace oeng
 	struct Path
 	{
 		Path() noexcept;
+		Path(const char* path);
 		Path(const std::filesystem::path& path);
 
 		bool operator==(const Path&) const noexcept = default;
