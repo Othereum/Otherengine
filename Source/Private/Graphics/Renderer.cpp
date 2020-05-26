@@ -65,8 +65,10 @@ namespace oeng
 
 	static std::unique_ptr<Shader> CreateSpriteShader(Vec2u16 scr)
 	{
-		auto shader = std::make_unique<Shader>("../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag");
-		shader->SetMatrixUniform("uViewProj", MakeSimpleViewProj<4>({scr}));
+		auto shader = std::make_unique<Shader>("../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag");
+		const auto view = MakeLookAt({}, Vec3::Forward(), Vec3::Up());
+		const auto proj = MakePerspective(Vec2{scr}, 25.f, 10000.f, 70_deg);
+		shader->SetMatrixUniform("uViewProj", view * proj);
 		return shader;
 	}
 
