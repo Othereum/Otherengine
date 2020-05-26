@@ -147,52 +147,20 @@ namespace oeng
 		constexpr SharedPtr(nullptr_t) noexcept :ptr_{}, obj_{} {}
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		explicit SharedPtr(Y* ptr)
-			:ptr_{ptr}, obj_{new detail::SharedObjPtr<Y, std::default_delete<Y>>{ptr, {}}}
-		{
-			if constexpr (std::is_base_of_v<EnableSharedFromThis<T>, Y>)
-			{
-				ptr->weak_ = *this;
-			}
-		}
+		explicit SharedPtr(Y* ptr) { Reset(ptr); }
 
 		template <class Y, class Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(Y* ptr, Deleter deleter)
-			:ptr_{ptr}, obj_{new detail::SharedObjPtr<Y, Deleter>{ptr, std::move(deleter)}}
-		{
-			if constexpr (std::is_base_of_v<EnableSharedFromThis<T>, Y>)
-			{
-				ptr->weak_ = *this;
-			}
-		}
+		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
-		SharedPtr(const SharedPtr& r) noexcept
-			:ptr_{r.ptr_}, obj_{r.obj_}
-		{
-			if (obj_) obj_->IncStrong();
-		}
+		SharedPtr(const SharedPtr& r) noexcept { *this = r; }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(const SharedPtr<Y>& r) noexcept
-			:ptr_{r.ptr_}, obj_{r.obj_}
-		{
-			if (obj_) obj_->IncStrong();
-		}
+		SharedPtr(const SharedPtr<Y>& r) noexcept { *this = r; }
 
-		SharedPtr(SharedPtr&& r) noexcept
-			:ptr_{r.ptr_}, obj_{r.obj_}
-		{
-			r.ptr_ = nullptr;
-			r.obj_ = nullptr;
-		}
+		SharedPtr(SharedPtr&& r) noexcept { *this = std::move(r); }
 		
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(SharedPtr<Y>&& r) noexcept
-			:ptr_{r.ptr_}, obj_{r.obj_}
-		{
-			r.ptr_ = nullptr;
-			r.obj_ = nullptr;
-		}
+		SharedPtr(SharedPtr<Y>&& r) noexcept { *this = std::move(r); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(const WeakPtr<Y>& r)
