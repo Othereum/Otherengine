@@ -169,10 +169,7 @@ namespace oeng
 			if (!obj_ || !obj_->IncStrongNz()) throw std::bad_weak_ptr{};
 		}
 
-		~SharedPtr()
-		{
-			if (obj_) obj_->DecStrong();
-		}
+		~SharedPtr() { if (obj_) obj_->DecStrong(); }
 
 		SharedPtr& operator=(const SharedPtr& r) noexcept
 		{
@@ -275,6 +272,9 @@ namespace oeng
 		T* ptr_;
 		detail::SharedObjBase* obj_;
 	};
+
+	template <class T>
+	SharedPtr(WeakPtr<T>) -> SharedPtr<T>;
 
 	template <class T>
 	class WeakPtr
