@@ -138,7 +138,7 @@ namespace oeng
 			union { T obj; };
 		};
 
-		template <class T, class Deleter>
+		template <class T, std::invocable<T*> Deleter>
 		struct SharedObjPtr : SharedObjBase
 		{
 			SharedObjPtr(T* ptr, Deleter deleter) noexcept
@@ -170,7 +170,7 @@ namespace oeng
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		explicit SharedPtr(Y* ptr) { Reset(ptr); }
 
-		template <class Y, class Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
 		SharedPtr(const SharedPtr& r) noexcept { *this = r; }
@@ -244,20 +244,8 @@ namespace oeng
 			return *this;
 		}
 
-		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		void Reset(Y* ptr)
-		{
-			if (obj_) obj_->DecStrong();
-			ptr_ = ptr;
-			obj_ = new detail::SharedObjPtr<Y, std::default_delete<Y>>{ptr, {}};
-			if constexpr (std::is_base_of_v<EnableSharedFromThis<T>, Y>)
-			{
-				ptr->weak_ = *this;
-			}
-		}
-
-		template <class Y, class Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		void Reset(Y* ptr, Deleter deleter)
+		template <class Y, std::invocable<Y*> Deleter = std::default_delete<Y>, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		void Reset(Y* ptr, Deleter deleter = {})
 		{
 			if (obj_) obj_->DecStrong();
 			ptr_ = ptr;
