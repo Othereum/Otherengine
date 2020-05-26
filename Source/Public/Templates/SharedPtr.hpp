@@ -173,15 +173,15 @@ namespace oeng
 		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
-		SharedPtr(const SharedPtr& r) noexcept { *this = r; }
+		SharedPtr(const SharedPtr& r) noexcept { CopyFrom(r); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(const SharedPtr<Y>& r) noexcept { *this = r; }
+		SharedPtr(const SharedPtr<Y>& r) noexcept { CopyFrom(r); }
 
-		SharedPtr(SharedPtr&& r) noexcept { *this = std::move(r); }
+		SharedPtr(SharedPtr&& r) noexcept { MoveFrom(std::move(r)); }
 		
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(SharedPtr<Y>&& r) noexcept { *this = std::move(r); }
+		SharedPtr(SharedPtr<Y>&& r) noexcept { MoveFrom(std::move(r)); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(const WeakPtr<Y>& r)
@@ -194,53 +194,27 @@ namespace oeng
 
 		SharedPtr& operator=(const SharedPtr& r) noexcept
 		{
-			if (this != &r)
-			{
-				if (obj_) obj_->DecStrong();
-				ptr_ = r.ptr_;
-				obj_ = r.obj_;
-				if (obj_) obj_->IncStrong();
-			}
+			SharedPtr{r}.Swap(*this);
 			return *this;
 		}
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr& operator=(const SharedPtr<Y>& r) noexcept
 		{
-			if (this != &r)
-			{
-				if (obj_) obj_->DecStrong();
-				ptr_ = r.ptr_;
-				obj_ = r.obj_;
-				if (obj_) obj_->IncStrong();
-			}
+			SharedPtr{r}.Swap(*this);
 			return *this;
 		}
 
 		SharedPtr& operator=(SharedPtr&& r) noexcept
 		{
-			if (this != &r)
-			{
-				if (obj_) obj_->DecStrong();
-				ptr_ = r.ptr_;
-				obj_ = r.obj_;
-				r.ptr_ = nullptr;
-				r.obj_ = nullptr;
-			}
+			SharedPtr{std::move(r)}.Swap(*this);
 			return *this;
 		}
 		
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr& operator=(SharedPtr<Y>&& r) noexcept
 		{
-			if (this != &r)
-			{
-				if (obj_) obj_->DecStrong();
-				ptr_ = r.ptr_;
-				obj_ = r.obj_;
-				r.ptr_ = nullptr;
-				r.obj_ = nullptr;
-			}
+			SharedPtr{std::move(r)}.Swap(*this);
 			return *this;
 		}
 
@@ -254,6 +228,13 @@ namespace oeng
 			{
 				ptr->weak_ = *this;
 			}
+		}
+
+		void Swap(SharedPtr& r) noexcept
+		{
+			using std::swap;
+			swap(ptr_, r.ptr_);
+			swap(obj_, r.obj_);
 		}
 
 		[[nodiscard]] T* Get() const noexcept { return ptr_; }
@@ -278,6 +259,23 @@ namespace oeng
 		std::strong_ordering operator<=>(nullptr_t) noexcept { return ptr_ <=> 0; }
 		
 	private:
+		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		void CopyFrom(const SharedPtr<Y>& r) noexcept
+		{
+			if (r.obj_) r.obj_->IncStrong();
+			ptr_ = r.ptr_;
+			obj_ = r.obj_;
+		}
+		
+		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		void MoveFrom(SharedPtr<Y>&& r) noexcept
+		{
+			ptr_ = r.ptr_;
+			obj_ = r.obj_;
+			r.ptr_ = nullptr;
+			r.obj_ = nullptr;
+		}
+		
 		T* ptr_;
 		detail::SharedObjBase* obj_;
 	};
