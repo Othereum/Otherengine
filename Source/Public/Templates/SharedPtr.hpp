@@ -1,6 +1,6 @@
 #pragma once
 #include <atomic>
-#include <cassert>
+#include <compare>
 #include <memory>
 
 namespace oeng
@@ -198,7 +198,7 @@ namespace oeng
 		SharedPtr(const WeakPtr<Y>& r)
 			:ptr_{r.ptr_}, obj_{r.obj_}
 		{
-			if (!obj_) throw std::bad_weak_ptr{};
+			if (!obj_ || !obj_->IncStrongNz()) throw std::bad_weak_ptr{};
 		}
 
 		~SharedPtr()
@@ -290,6 +290,18 @@ namespace oeng
 		[[nodiscard]] unsigned long UseCount() const noexcept { return obj_ ? obj_->Strong() : 0; }
 
 		explicit operator bool() const noexcept { return ptr_; }
+	
+		template <class U>
+		bool operator==(const SharedPtr<U>& r) const noexcept { return ptr_ == r.ptr_; }
+
+		template <class U>
+		std::strong_ordering operator<=>(const SharedPtr<U>& r) const noexcept
+		{
+			return ptr_ <=> r.ptr_;
+		}
+
+		bool operator==(nullptr_t) const noexcept { return ptr_ == nullptr; }
+		std::strong_ordering operator<=>(nullptr_t) noexcept { return ptr_ <=> 0; }
 		
 	private:
 		T* ptr_;
