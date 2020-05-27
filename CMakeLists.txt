@@ -16,7 +16,7 @@ endfunction()
 
 add_switch(OENG_NAME_THREADSAFE FALSE "Should 'Name' class be thread-safe?")
 add_switch(OENG_PATH_THREADSAFE FALSE "Should 'Path' class be thread-safe?")
-add_switch(OENG_SHARED_PTR_THREADSAFE FALSE "Should 'SharedPtr' class be thread-safe?")
+add_switch(OENG_SHARED_PTR_THREADSAFE FALSE "Should 'SharedPtr' class be thread-safe as default?")
 
 find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)

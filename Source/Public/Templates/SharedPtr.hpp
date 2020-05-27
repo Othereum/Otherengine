@@ -264,8 +264,8 @@ namespace oeng
 		std::strong_ordering operator<=>(nullptr_t) noexcept { return ptr_ <=> 0; }
 		
 	private:
-		template <class Y>
-		friend class WeakPtr<Y, ThreadSafe>;
+		template <class, bool>
+		friend class WeakPtr;
 
 		template <class Y, class... Args>
 		friend SharedPtr<Y, ThreadSafe> MakeShared(Args&&... args);
@@ -413,7 +413,7 @@ namespace oeng
 		}
 
 	private:
-		template <class Y>
+		template <class, bool>
 		friend class SharedPtr;
 		
 		template <class Ptr>
