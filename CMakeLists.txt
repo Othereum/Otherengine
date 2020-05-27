@@ -1,7 +1,7 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 project("Otherengine")
 
-file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp" "Source/*.hpp")
+file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp" "Source/Private/*.hpp" "Source/Public/*.hpp")
 add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
@@ -30,6 +30,19 @@ target_link_libraries(${PROJECT_NAME}
     PUBLIC otm nlohmann_json::nlohmann_json fmt::fmt
     PRIVATE SDL2::SDL2 GLEW::GLEW soil2
 )
+
+set(OENG_BUILD_TESTS FALSE CACHE BOOL "Whether to build a test")
+if(OENG_BUILD_TESTS)
+	file(GLOB_RECURSE TEST_SRC_FILES "Source/Tests/*.cpp")
+	add_executable("${PROJECT_NAME}Test" ${TEST_SRC_FILES})
+	set_target_properties("${PROJECT_NAME}Test" PROPERTIES CXX_STANDARD 20)
+
+	find_package(GTest 1.10.0 REQUIRED)
+	target_link_libraries("${PROJECT_NAME}Test" PRIVATE ${PROJECT_NAME} GTest::GTest)
+
+	enable_testing()
+	add_test(NAME "${PROJECT_NAME} Test" COMMAND "${PROJECT_NAME}Test")
+endif()
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
 install(DIRECTORY "Shaders" DESTINATION "Engine")
