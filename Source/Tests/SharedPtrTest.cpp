@@ -1,3 +1,4 @@
+#include <thread>
 #include <gtest/gtest.h>
 #include "Templates/SharedPtr.hpp"
 
@@ -25,21 +26,78 @@ TEST(SharedPtr, Basic)
 		SharedPtr<Foo> sh1;
 	}
 
-	EXPECT_EQ(n, 0);
+	ASSERT_EQ(n, 0);
 
 	{
 		SharedPtr<Foo> sh2{new Foo{n}};
 		auto sh3 = sh2;
-		EXPECT_EQ(sh2.UseCount(), 2);
-		EXPECT_EQ(sh3.UseCount(), 2);
+		ASSERT_EQ(sh2.UseCount(), 2);
+		ASSERT_EQ(sh3.UseCount(), 2);
 	}
 
-	EXPECT_EQ(n, 2);
+	ASSERT_EQ(n, 2);
 
 	{
 		SharedPtr<Foo> sh4{new Foo{n}, D{n}};
 		SharedPtr<Foo> sh5{new Foo{n}, [&](auto p) { ++n; delete p; }};
 	}
 
-	EXPECT_EQ(n, 8);
+	ASSERT_EQ(n, 8);
+
+	{
+		auto sh6 = MakeShared<Foo>(n);
+		auto sh7 = MakeShared<Foo>(n);
+		ASSERT_EQ(n, 10);
+		sh6 = sh7;
+		ASSERT_EQ(n, 11);
+		ASSERT_EQ(sh6.UseCount(), 2);
+		ASSERT_EQ(sh7.UseCount(), 2);
+	}
+
+	ASSERT_EQ(n, 12);
+	
+	{
+		auto sh8 = MakeShared<Foo>(n);
+		auto sh9 = MakeShared<Foo>(n);
+		ASSERT_EQ(n, 14);
+		sh8 = std::move(sh9);
+		ASSERT_EQ(n, 15);
+		ASSERT_EQ(sh8.UseCount(), 1);
+		ASSERT_EQ(sh9.UseCount(), 0);
+		ASSERT_EQ(sh9, nullptr);
+	}
+
+	ASSERT_EQ(n, 16);
+}
+
+TEST(SharedPtr, Multithread)
+{
+	struct Base
+	{
+		Base(int& n) :n{n} { ++n; }
+		~Base() { ++n; }
+		int& n;
+	};
+
+	struct Derived : Base
+	{
+		Derived(int& n) :Base{n} {}
+	};
+
+	auto n = 0;
+
+	auto thr = [](SharedPtr<Base, true> p)
+	{
+		SharedPtr<Base, true> lp = p;
+	};
+
+	SharedPtr<Base, true> p = MakeShared<Derived, true>(n);
+	ASSERT_EQ(p.UseCount(), 1);
+
+	std::thread t1{thr, p}, t2{thr, p}, t3{thr, p};
+	p.Reset();
+	ASSERT_EQ(p.UseCount(), 0);
+
+	t1.join(); t2.join(); t3.join();
+	ASSERT_EQ(n, 2);
 }
