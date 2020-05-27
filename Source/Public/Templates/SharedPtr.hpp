@@ -115,7 +115,7 @@ namespace oeng
 			union { T obj; };
 		};
 
-		template <class T, std::invocable<T*> Deleter>
+		template <class T, class Deleter>
 		struct SharedObjPtr : SharedObjBase
 		{
 			SharedObjPtr(T* ptr, Deleter deleter) noexcept
@@ -141,8 +141,8 @@ namespace oeng
 	class SharedPtr
 	{
 	public:
-		constexpr SharedPtr() noexcept :ptr_{}, obj_{} {}
-		constexpr SharedPtr(nullptr_t) noexcept :ptr_{}, obj_{} {}
+		constexpr SharedPtr() noexcept = default;
+		constexpr SharedPtr(nullptr_t) noexcept {}
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		explicit SharedPtr(Y* ptr) { Reset(ptr); }
@@ -233,7 +233,7 @@ namespace oeng
 		
 	private:
 		template <class Y>
-		friend WeakPtr<Y>;
+		friend class WeakPtr;
 		
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y>& r) noexcept
@@ -264,16 +264,15 @@ namespace oeng
 			return false;
 		}
 		
-		T* ptr_;
-		detail::SharedObjBase* obj_;
+		T* ptr_ = nullptr;
+		detail::SharedObjBase* obj_ = nullptr;
 	};
 
 	template <class T>
 	class WeakPtr
 	{
 	public:
-		constexpr WeakPtr() noexcept :ptr_{}, obj_{} {}
-
+		constexpr WeakPtr() noexcept = default;
 		WeakPtr(const WeakPtr& r) noexcept { CopyFrom(r); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
@@ -348,7 +347,7 @@ namespace oeng
 
 	private:
 		template <class Y>
-		friend SharedPtr<Y>;
+		friend class SharedPtr;
 		
 		template <class Ptr>
 		void CopyFrom(const Ptr& r) noexcept
@@ -367,8 +366,8 @@ namespace oeng
 			r.obj_ = nullptr;
 		}
 		
-		T* ptr_;
-		detail::SharedObjBase* obj_;
+		T* ptr_ = nullptr;
+		detail::SharedObjBase* obj_ = nullptr;
 	};
 
 	template <class T>
@@ -386,15 +385,15 @@ namespace oeng
 		EnableSharedFromThis& operator=(const EnableSharedFromThis&) noexcept { return *this; }
 		
 	private:
-		friend SharedPtr<T>;
+		friend class SharedPtr<T>;
 		WeakPtr<T> weak_;
 	};
 
 	template <class T>
-	void std::swap(SharedPtr<T>& l, SharedPtr<T>& r) noexcept { l.Swap(r); }
+	void swap(SharedPtr<T>& l, SharedPtr<T>& r) noexcept { l.Swap(r); }
 
 	template <class T>
-	void std::swap(WeakPtr<T>& l, WeakPtr<T>& r) noexcept { l.Swap(r); }
+	void swap(WeakPtr<T>& l, WeakPtr<T>& r) noexcept { l.Swap(r); }
 
 	template <class T>
 	SharedPtr(WeakPtr<T>) -> SharedPtr<T>;
