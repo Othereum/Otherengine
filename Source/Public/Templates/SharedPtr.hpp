@@ -150,6 +150,12 @@ namespace oeng
 		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
+		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		SharedPtr(const SharedPtr<Y>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
+
+		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		SharedPtr(SharedPtr<Y>&& r, T* ptr) noexcept { AliasMoveFrom(std::move(r), ptr); }
+
 		SharedPtr(const SharedPtr& r) noexcept { CopyFrom(r); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
@@ -247,6 +253,23 @@ namespace oeng
 		void MoveFrom(SharedPtr<Y>&& r) noexcept
 		{
 			ptr_ = r.ptr_;
+			obj_ = r.obj_;
+			r.ptr_ = nullptr;
+			r.obj_ = nullptr;
+		}
+
+		template <class Y>
+		void AliasCopyFrom(const SharedPtr<Y>& r, T* ptr) noexcept
+		{
+			if (r.obj_) r.obj_->IncStrong();
+			ptr_ = ptr;
+			obj_ = r.obj_;
+		}
+		
+		template <class Y>
+		void AliasMoveFrom(SharedPtr<Y>&& r, T* ptr) noexcept
+		{
+			ptr_ = ptr;
 			obj_ = r.obj_;
 			r.ptr_ = nullptr;
 			r.obj_ = nullptr;
