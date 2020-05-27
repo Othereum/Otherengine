@@ -13,58 +13,46 @@ namespace oeng
 		{
 			bool IncStrongNz() noexcept
 			{
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					auto count = strong.load();
-					while (count != 0)
-						if (strong.compare_exchange_strong(count, count+1, std::memory_order_relaxed))
-							return true;
-					return false;
-				}
-				else
-				{
-					if (strong == 0) return false;
-					IncStrong();
-					return true;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				auto count = strong.load();
+				while (count != 0)
+					if (strong.compare_exchange_strong(count, count+1, std::memory_order_relaxed))
+						return true;
+				return false;
+#else
+				if (strong == 0) return false;
+				IncStrong();
+				return true;
+#endif
 			}
 			
 			void IncStrong() noexcept
 			{
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					strong.fetch_add(1, std::memory_order_relaxed);
-				}
-				else
-				{
-					++strong;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				strong.fetch_add(1, std::memory_order_relaxed);
+#else
+				++strong;
+#endif
 			}
 			
 			void IncWeak() noexcept
 			{
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					weak.fetch_add(1, std::memory_order_relaxed);
-				}
-				else
-				{
-					++weak;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				weak.fetch_add(1, std::memory_order_relaxed);
+#else
+				++weak;
+#endif
 			}
 
 			void DecStrong() noexcept
 			{
 				unsigned long old_strong;
 
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					old_strong = strong.fetch_sub(1, std::memory_order_acq_rel);
-				}
-				else
-				{
-					old_strong = strong--;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				old_strong = strong.fetch_sub(1, std::memory_order_acq_rel);
+#else
+				old_strong = strong--;
+#endif
 
 				if (old_strong == 1)
 				{
@@ -76,49 +64,38 @@ namespace oeng
 			void DecWeak() noexcept
 			{
 				unsigned long old_weak;
+				
+#if OENG_SHARED_PTR_THREADSAFE
+				old_weak = weak.fetch_sub(1, std::memory_order_acq_rel);
+#else
+				old_weak = weak--;
+#endif
 
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					old_weak = weak.fetch_sub(1, std::memory_order_acq_rel);
-				}
-				else
-				{
-					old_weak = weak--;
-				}
-
-				if (old_weak == 1)
-				{
-					Destroy();
-					DecWeak();
-				}
+				if (old_weak == 1) delete this;
 			}
 
 			unsigned long Strong() const noexcept
 			{
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					return strong.load(std::memory_order_relaxed);
-				}
-				else
-				{
-					return strong;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				return strong.load(std::memory_order_relaxed);
+#else
+				return strong;
+#endif
 			}
 			
 			unsigned long Weak() const noexcept
 			{
-				if constexpr (OENG_SHARED_PTR_THREADSAFE)
-				{
-					return weak.load(std::memory_order_relaxed);
-				}
-				else
-				{
-					return weak;
-				}
+#if OENG_SHARED_PTR_THREADSAFE
+				return weak.load(std::memory_order_relaxed);
+#else
+				return weak;
+#endif
 			}
 
-		private:
+		protected:
 			virtual ~SharedObjBase() = default;
+
+		private:
 			virtual void Destroy() noexcept = 0;
 
 			RefCnt strong = 1;
