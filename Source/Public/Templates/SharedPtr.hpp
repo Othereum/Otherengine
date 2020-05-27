@@ -417,6 +417,9 @@ namespace oeng
 	void std::swap(SharedPtr<T>& l, SharedPtr<T>& r) noexcept { l.Swap(r); }
 
 	template <class T>
+	void std::swap(WeakPtr<T>& l, WeakPtr<T>& r) noexcept { l.Swap(r); }
+
+	template <class T>
 	SharedPtr(WeakPtr<T>) -> SharedPtr<T>;
 
 	template <class T>
