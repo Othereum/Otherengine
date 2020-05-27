@@ -11,7 +11,7 @@ namespace oeng
 	class Texture;
 	class Shader;
 	
-	class CSpriteComponent : public CActorComponent
+	class CSpriteComponent : public ActorComponent
 	{
 	public:
 		explicit CSpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);

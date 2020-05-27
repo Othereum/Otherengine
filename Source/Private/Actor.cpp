@@ -1,11 +1,11 @@
 #include "Actor.hpp"
-#include "Components/ActorComponent.hpp"
+#include "Components/SceneComponent.hpp"
 #include "World.hpp"
 
 namespace oeng
 {
-	AActor::AActor(CWorld& world):
-		world_{world}
+	AActor::AActor(CWorld& world)
+		:world_{world}
 	{
 	}
 
@@ -47,9 +47,9 @@ namespace oeng
 		return world_.GetTimerManager();
 	}
 
-	void AActor::RegisterComponent(std::unique_ptr<CActorComponent>&& comp)
+	void AActor::RegisterComponent(SharedPtr<ActorComponent>&& comp)
 	{
-		auto cmp = [](const std::unique_ptr<CActorComponent>& a, const std::unique_ptr<CActorComponent>& b)
+		auto cmp = [](auto&& a, auto&& b)
 		{
 			return a->GetUpdateOrder() <= b->GetUpdateOrder();
 		};
@@ -89,9 +89,9 @@ namespace oeng
 		}
 		else if (init_lifespan_ > 0)
 		{
-			lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = weak_from_this()]
+			lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = WeakFromThis()]
 			{
-				if (auto ptr = self.lock())
+				if (auto ptr = self.Lock())
 				{
 					ptr->Destroy();
 				}
@@ -105,32 +105,53 @@ namespace oeng
 		return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
 	}
 
-	void AActor::SetTransform(const Transform& new_transform, bool recompute_matrix) noexcept
+	void AActor::SetTransform(const Transform& new_transform, bool recalc_matrix) const noexcept
 	{
-		world_transform_ = new_transform;
-		if (recompute_matrix) RecomputeMatrix();
+		if (root_) root_->SetRelTransform(new_transform, recalc_matrix);
 	}
 
-	void AActor::SetPos(const Vec3& new_pos, bool recompute_matrix) noexcept
+	const Transform& AActor::GetTransform() const noexcept
 	{
-		world_transform_.pos = new_pos;
-		if (recompute_matrix) RecomputeMatrix();
+		return root_ ? root_->GetRelTransform() : Transform::identity;
 	}
 
-	void AActor::SetRot(const Quat& new_rot, bool recompute_matrix) noexcept
+	void AActor::SetPos(const Vec3& new_pos, bool recalc_matrix) const noexcept
 	{
-		world_transform_.rot = new_rot;
-		if (recompute_matrix) RecomputeMatrix();
-	}
-	
-	void AActor::SetScale(const Vec3& scale, bool recompute_matrix) noexcept
-	{
-		world_transform_.scale = scale;
-		if (recompute_matrix) RecomputeMatrix();
+		if (root_) root_->SetRelPos(new_pos, recalc_matrix);
 	}
 
-	void AActor::RecomputeMatrix() noexcept
+	const Vec3& AActor::GetPos() const noexcept
 	{
-		transform_matrix_ = world_transform_.ToMatrix();
+		return root_ ? root_->GetRelPos() : Vec3::zero;
+	}
+
+	void AActor::SetRot(const Quat& new_rot, bool recalc_matrix) const noexcept
+	{
+		if (root_) root_->SetRelRot(new_rot, recalc_matrix);
+	}
+
+	const Quat& AActor::GetRot() const noexcept
+	{
+		return root_ ? root_->GetRelRot() : Quat::identity;
+	}
+
+	void AActor::SetScale(const Vec3& scale, bool recalc_matrix) const noexcept
+	{
+		if (root_) root_->SetRelScale(scale, recalc_matrix);
+	}
+
+	const Vec3& AActor::GetScale() const noexcept
+	{
+		return root_ ? root_->GetRelScale() : Vec3::one;
+	}
+
+	void AActor::RecalcMatrix() const noexcept
+	{
+		if (root_) root_->RecalcMatrix();
+	}
+
+	const Mat4& AActor::GetTransformMatrix() const noexcept
+	{
+		return root_ ? root_->GetTransformMatrix() : Mat4::identity;
 	}
 }

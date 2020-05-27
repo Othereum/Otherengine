@@ -11,7 +11,7 @@ namespace oeng
 		class Base;
 	}
 	
-	class AIComponent : public CActorComponent
+	class AIComponent : public ActorComponent
 	{
 	public:
 		AIComponent(AActor& owner, int update_order = 100);

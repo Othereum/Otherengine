@@ -4,7 +4,7 @@
 
 namespace oeng
 {
-	class CCircleComponent : public CActorComponent
+	class CCircleComponent : public ActorComponent
 	{
 	public:
 		explicit CCircleComponent(AActor& owner, int updateOrder = 100);

@@ -3,17 +3,17 @@
 
 namespace oeng
 {
-	CActorComponent::CActorComponent(AActor& owner, const int update_order)
+	ActorComponent::ActorComponent(AActor& owner, const int update_order)
 		:owner_{owner}, update_order_{update_order}
 	{
 	}
 
-	Engine& CActorComponent::GetEngine() const noexcept
+	Engine& ActorComponent::GetEngine() const noexcept
 	{
 		return GetOwner().GetEngine();
 	}
 
-	CWorld& CActorComponent::GetWorld() const noexcept
+	CWorld& ActorComponent::GetWorld() const noexcept
 	{
 		return GetOwner().GetWorld();
 	}

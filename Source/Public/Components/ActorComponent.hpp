@@ -6,11 +6,11 @@ namespace oeng
 	class Engine;
 	class CWorld;
 	
-	class CActorComponent
+	class ActorComponent
 	{
 	public:
-		explicit CActorComponent(AActor& owner, int update_order = 100);
-		virtual ~CActorComponent() = default;
+		explicit ActorComponent(AActor& owner, int update_order = 100);
+		virtual ~ActorComponent() = default;
 
 		virtual void BeginPlay() {}
 		virtual void Update(float deltaSeconds) {}

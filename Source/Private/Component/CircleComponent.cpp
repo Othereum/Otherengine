@@ -5,7 +5,7 @@
 namespace oeng
 {
 	CCircleComponent::CCircleComponent(AActor& owner, int updateOrder)
-		:CActorComponent{owner, updateOrder}
+		:ActorComponent{owner, updateOrder}
 	{
 	}
 

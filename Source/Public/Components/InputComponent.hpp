@@ -7,7 +7,7 @@ struct SDL_KeyboardEvent;
 
 namespace oeng
 {
-	class CInputComponent : public CActorComponent
+	class CInputComponent : public ActorComponent
 	{
 	public:
 		explicit CInputComponent(class AActor& owner, int updateOrder = 1);

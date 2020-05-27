@@ -29,6 +29,7 @@ namespace oeng
 		SetGlAttribute(SDL_GL_GREEN_SIZE, 8);
 		SetGlAttribute(SDL_GL_BLUE_SIZE, 8);
 		SetGlAttribute(SDL_GL_ALPHA_SIZE, 8);
+		SetGlAttribute(SDL_GL_DEPTH_SIZE, 24);
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
@@ -120,10 +121,14 @@ namespace oeng
 
 	void Renderer::DrawScene() const
 	{
-		glClearColor(.86f, .86f, .86f, 1.f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClearColor(0.f, 0.f, 0.f, 1.f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_BLEND);
 
 		glEnable(GL_BLEND);
+		glDisable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		for (auto&& sprite_ref : sprites_)

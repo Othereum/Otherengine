@@ -9,7 +9,7 @@
 namespace oeng
 {
 	CSpriteComponent::CSpriteComponent(AActor& owner, const int draw_order, const int update_order)
-		:CActorComponent{owner, update_order}, draw_order_{draw_order}
+		:ActorComponent{owner, update_order}, draw_order_{draw_order}
 	{
 	}
 

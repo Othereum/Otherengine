@@ -16,7 +16,7 @@ namespace oeng
 	}
 
 	AIComponent::AIComponent(AActor& owner, int update_order):
-		CActorComponent{owner, update_order},
+		ActorComponent{owner, update_order},
 		cur_{ai_state::default_state}
 	{
 	}
