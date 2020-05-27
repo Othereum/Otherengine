@@ -1,4 +1,5 @@
 #pragma once
+#include <cassert>
 #include <atomic>
 #include <compare>
 #include <memory>
@@ -108,11 +109,11 @@ namespace oeng
 			template <class... Args>
 			SharedObjInline(Args&&... args) :obj{ std::forward<Args>(args)... } {}
 
+			union { T obj; };
+			
 		private:
 			~SharedObjInline() {}
 			void Destroy() noexcept override { obj.~T(); }
-
-			union { T obj; };
 		};
 
 		template <class T, class Deleter>
@@ -128,6 +129,15 @@ namespace oeng
 
 			T* ptr;
 			[[no_unique_address]] Deleter deleter;
+		};
+
+		template <class T, class = void>
+		struct CanEnableShared : std::false_type {};
+
+		template <class T>
+		struct CanEnableShared<T, std::void_t<typename T::EnableSharedFromThisType>>
+			: std::is_convertible<std::remove_cv_t<T>*, typename T::EnableSharedFromThisType*>::type
+		{
 		};
 	}
 
@@ -201,12 +211,7 @@ namespace oeng
 		void Reset(Y* ptr = nullptr, Deleter deleter = {})
 		{
 			if (obj_) obj_->DecStrong();
-			ptr_ = ptr;
-			obj_ = new detail::SharedObjPtr<Y, Deleter>{ptr, std::move(deleter)};
-			if constexpr (std::is_base_of_v<EnableSharedFromThis<T>, Y>)
-			{
-				ptr->weak_ = *this;
-			}
+			SetAndEnableShared(ptr, new detail::SharedObjPtr<Y, Deleter>{ptr, std::move(deleter)});
 		}
 
 		void Swap(SharedPtr& r) noexcept
@@ -240,6 +245,9 @@ namespace oeng
 	private:
 		template <class Y>
 		friend class WeakPtr;
+
+		template <class T, class... Args>
+		friend SharedPtr<T> MakeShared(Args&&... args);
 		
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y>& r) noexcept
@@ -285,6 +293,21 @@ namespace oeng
 				return true;
 			}
 			return false;
+		}
+
+		template <class Y>
+		void SetAndEnableShared(Y* ptr, detail::SharedObjBase* obj) noexcept
+		{
+			ptr_ = ptr;
+			obj_ = obj;
+			if constexpr (detail::CanEnableShared<Y>::value)
+			{
+				if (ptr_)
+				{
+					assert(ptr_->weak_.Expired());
+					ptr->weak_ = SharedPtr<std::remove_cv_t<Y>>{*this, const_cast<std::remove_cv_t<Y>*>(ptr)};
+				}
+			}
 		}
 		
 		T* ptr_ = nullptr;
@@ -397,6 +420,8 @@ namespace oeng
 	class EnableSharedFromThis
 	{
 	public:
+		using EnableSharedFromThisType = EnableSharedFromThis;
+		
 		[[nodiscard]] WeakPtr<T> WeakFromThis() noexcept { return weak_; }
 		[[nodiscard]] WeakPtr<const T> WeakFromThis() const noexcept { return weak_; }
 		[[nodiscard]] SharedPtr<T> SharedFromThis() noexcept { return SharedPtr<T>{weak_}; }
@@ -411,6 +436,15 @@ namespace oeng
 		friend class SharedPtr<T>;
 		WeakPtr<T> weak_;
 	};
+
+	template <class T, class... Args>
+	SharedPtr<T> MakeShared(Args&&... args)
+	{
+		SharedPtr<T> ret;
+		auto obj = new detail::SharedObjInline<T>{std::forward<Args>(args)...};
+		ret.SetAndEnableShared(&ret.obj_->obj, obj);
+		return ret;
+	}
 
 	template <class T>
 	void swap(SharedPtr<T>& l, SharedPtr<T>& r) noexcept { l.Swap(r); }
