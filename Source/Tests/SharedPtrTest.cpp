@@ -101,3 +101,20 @@ TEST(SharedPtr, Multithread)
 	t1.join(); t2.join(); t3.join();
 	ASSERT_EQ(n, 2);
 }
+
+TEST(SharedPtr, WeakPtr)
+{
+	WeakPtr<int> weak;
+	ASSERT_TRUE(weak.Expired());
+	{
+		auto sp = MakeShared<int>(42);
+		weak = sp;
+		ASSERT_EQ(weak.UseCount(), 1);
+		auto spt = weak.Lock();
+		ASSERT_EQ(weak.UseCount(), 2);
+		ASSERT_TRUE(spt);
+		ASSERT_EQ(*spt, 42);
+	}
+	ASSERT_EQ(weak.UseCount(), 0);
+	ASSERT_TRUE(weak.Expired());
+}
