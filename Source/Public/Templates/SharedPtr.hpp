@@ -184,11 +184,7 @@ namespace oeng
 		SharedPtr(SharedPtr<Y>&& r) noexcept { MoveFrom(std::move(r)); }
 
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(const WeakPtr<Y>& r)
-			:ptr_{r.ptr_}, obj_{r.obj_}
-		{
-			if (!obj_ || !obj_->IncStrongNz()) throw std::bad_weak_ptr{};
-		}
+		explicit SharedPtr(const WeakPtr<Y>& r) { if (!FromWeak(r)) throw std::bad_weak_ptr{}; }
 
 		~SharedPtr() { if (obj_) obj_->DecStrong(); }
 
@@ -218,8 +214,8 @@ namespace oeng
 			return *this;
 		}
 
-		template <class Y, std::invocable<Y*> Deleter = std::default_delete<Y>, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		void Reset(Y* ptr, Deleter deleter = {})
+		template <class Y = T, std::invocable<Y*> Deleter = std::default_delete<Y>, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		void Reset(Y* ptr = nullptr, Deleter deleter = {})
 		{
 			if (obj_) obj_->DecStrong();
 			ptr_ = ptr;
@@ -260,6 +256,9 @@ namespace oeng
 		
 	private:
 		template <class Y>
+		friend WeakPtr<Y>;
+		
+		template <class Y>
 		void CopyFrom(const SharedPtr<Y>& r) noexcept
 		{
 			if (r.obj_) r.obj_->IncStrong();
@@ -274,6 +273,18 @@ namespace oeng
 			obj_ = r.obj_;
 			r.ptr_ = nullptr;
 			r.obj_ = nullptr;
+		}
+
+		template <class Y>
+		bool FromWeak(const WeakPtr<Y>& r) noexcept
+		{
+			if (r.obj_ && r.obj_->IncStrongNz())
+			{
+				ptr_ = r.ptr_;
+				obj_ = r.obj_;
+				return true;
+			}
+			return false;
 		}
 		
 		T* ptr_;
@@ -334,7 +345,34 @@ namespace oeng
 			return *this;
 		}
 
+		void Reset() noexcept
+		{
+			if (obj_) obj_->DecWeak();
+			ptr_ = nullptr;
+			obj_ = nullptr;
+		}
+
+		void Swap(WeakPtr& r) noexcept
+		{
+			using std::swap;
+			swap(ptr_, r.ptr_);
+			swap(obj_, r.obj_);
+		}
+
+		[[nodiscard]] unsigned long UseCount() const noexcept { return obj_ ? obj_->Strong() : 0; }
+		[[nodiscard]] bool Expired() const noexcept { return UseCount() == 0; }
+		
+		[[nodiscard]] SharedPtr<T> Lock() const noexcept
+		{
+			SharedPtr<T> ret;
+			ret.FromWeak(*this);
+			return ret;
+		}
+
 	private:
+		template <class Y>
+		friend SharedPtr<Y>;
+		
 		template <class Ptr>
 		void CopyFrom(const Ptr& r) noexcept
 		{
