@@ -135,8 +135,8 @@ namespace oeng
 		struct CanEnableShared : std::false_type {};
 
 		template <class T>
-		struct CanEnableShared<T, std::void_t<typename T::EnableSharedFromThisType>>
-			: std::is_convertible<std::remove_cv_t<T>*, typename T::EnableSharedFromThisType*>::type
+		struct CanEnableShared<T, std::void_t<typename T::EsftType>>
+			: std::is_convertible<std::remove_cv_t<T>*, typename T::EsftType*>::type
 		{
 		};
 	}
@@ -420,7 +420,7 @@ namespace oeng
 	class EnableSharedFromThis
 	{
 	public:
-		using EnableSharedFromThisType = EnableSharedFromThis;
+		using EsftType = EnableSharedFromThis;
 		
 		[[nodiscard]] WeakPtr<T> WeakFromThis() noexcept { return weak_; }
 		[[nodiscard]] WeakPtr<const T> WeakFromThis() const noexcept { return weak_; }
@@ -428,13 +428,15 @@ namespace oeng
 		[[nodiscard]] SharedPtr<const T> SharedFromThis() const noexcept { return SharedPtr<const T>{weak_}; }
 
 	protected:
-		constexpr EnableSharedFromThis() noexcept = default;
-		EnableSharedFromThis(const EnableSharedFromThis&) noexcept {}
+		constexpr EnableSharedFromThis() noexcept :weak_{} {}
+		EnableSharedFromThis(const EnableSharedFromThis&) noexcept :weak_{} {}
 		EnableSharedFromThis& operator=(const EnableSharedFromThis&) noexcept { return *this; }
+		~EnableSharedFromThis() = default;
 		
 	private:
-		friend class SharedPtr<T>;
-		WeakPtr<T> weak_;
+		friend SharedPtr<T>;
+		friend detail::SharedObjInline<T>;
+		mutable WeakPtr<T> weak_;
 	};
 
 	template <class T, class... Args>
@@ -442,7 +444,7 @@ namespace oeng
 	{
 		SharedPtr<T> ret;
 		auto obj = new detail::SharedObjInline<T>{std::forward<Args>(args)...};
-		ret.SetAndEnableShared(&ret.obj_->obj, obj);
+		ret.SetAndEnableShared(&obj->obj, obj);
 		return ret;
 	}
 
