@@ -1,6 +1,5 @@
 #pragma once
 #include "ActorComponent.hpp"
-#include <memory>
 #include <vector>
 #include "Math.hpp"
 
@@ -12,7 +11,7 @@ namespace oeng
 		explicit SceneComponent(AActor& owner, int update_order = 100);
 
 		void SetRelTransform(const Transform& new_transform, bool recalc_matrix = true) noexcept;
-		[[nodiscard]] const Transform& GetRelTransform() const noexcept;
+		[[nodiscard]] const Transform& GetRelTransform() const noexcept { return rel_transform_; }
 
 		void SetRelPos(const Vec3& new_pos, bool recalc_matrix = true) noexcept;
 		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_transform_.pos; }
