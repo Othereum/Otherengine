@@ -200,7 +200,7 @@ namespace oeng
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		explicit SharedPtr(const WeakPtr<Y, ThreadSafe>& r) { if (!FromWeak(r)) throw std::bad_weak_ptr{}; }
 
-		~SharedPtr() { if (obj_) obj_->DecStrong(); }
+		~SharedPtr() { Reset(); }
 
 		SharedPtr& operator=(const SharedPtr& r) noexcept
 		{
@@ -228,8 +228,17 @@ namespace oeng
 			return *this;
 		}
 
+		void Reset() noexcept
+		{
+			if (obj_) obj_->DecStrong();
+			obj_ = nullptr;
+			ptr_ = nullptr;
+		}
+		
+		void Reset(nullptr_t) noexcept { Reset(); }
+
 		template <class Y = T, std::invocable<Y*> Deleter = std::default_delete<Y>, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		void Reset(Y* ptr = nullptr, Deleter deleter = {})
+		void Reset(Y* ptr, Deleter deleter = {})
 		{
 			if (obj_) obj_->DecStrong();
 			SetAndEnableShared(ptr, new detail::SharedObjPtr<Y, Deleter, ThreadSafe>{ptr, std::move(deleter)});
@@ -265,10 +274,13 @@ namespace oeng
 		
 	private:
 		template <class, bool>
+		friend class SharedPtr;
+		
+		template <class, bool>
 		friend class WeakPtr;
 
-		template <class Y, class... Args>
-		friend SharedPtr<Y, ThreadSafe> MakeShared(Args&&... args);
+		template <class Y, bool TSafe, class... Args>
+		friend SharedPtr<Y, TSafe> MakeShared(Args&&... args);
 		
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y, ThreadSafe>& r) noexcept
@@ -415,6 +427,9 @@ namespace oeng
 	private:
 		template <class, bool>
 		friend class SharedPtr;
+		
+		template <class, bool>
+		friend class WeakPtr;
 		
 		template <class Ptr>
 		void CopyFrom(const Ptr& r) noexcept
