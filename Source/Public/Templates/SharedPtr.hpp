@@ -89,7 +89,7 @@ namespace oeng
 				if (old_weak == 1) delete this;
 			}
 
-			unsigned long Strong() const noexcept
+			[[nodiscard]] unsigned long Strong() const noexcept
 			{
 				if constexpr (ThreadSafe)
 				{
@@ -100,8 +100,8 @@ namespace oeng
 					return strong;
 				}
 			}
-			
-			unsigned long Weak() const noexcept
+
+			[[nodiscard]] unsigned long Weak() const noexcept
 			{
 				if constexpr (ThreadSafe)
 				{
@@ -181,10 +181,10 @@ namespace oeng
 		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
-		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		template <class Y>
 		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
 
-		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		template <class Y>
 		SharedPtr(SharedPtr<Y, ThreadSafe>&& r, T* ptr) noexcept { AliasMoveFrom(std::move(r), ptr); }
 
 		SharedPtr(const SharedPtr& r) noexcept { CopyFrom(r); }
