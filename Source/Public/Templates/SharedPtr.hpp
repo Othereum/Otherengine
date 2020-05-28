@@ -484,6 +484,62 @@ namespace oeng
 		return ret;
 	}
 
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> StaticCast(const SharedPtr<U, ThreadSafe>& r) noexcept
+	{
+		auto p = static_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{r, p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> StaticCast(SharedPtr<U, ThreadSafe>&& r) noexcept
+	{
+		auto p = static_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{std::move(r), p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> ConstCast(const SharedPtr<U, ThreadSafe>& r) noexcept
+	{
+		auto p = const_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{r, p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> ConstCast(SharedPtr<U, ThreadSafe>&& r) noexcept
+	{
+		auto p = const_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{std::move(r), p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> DynamicCast(const SharedPtr<U, ThreadSafe>& r) noexcept
+	{
+		auto p = dynamic_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{r, p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> DynamicCast(SharedPtr<U, ThreadSafe>&& r) noexcept
+	{
+		auto p = dynamic_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{std::move(r), p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> ReinterpretCast(const SharedPtr<U, ThreadSafe>& r) noexcept
+	{
+		auto p = reinterpret_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{r, p};
+	}
+
+	template <class T, class U, bool ThreadSafe>
+	SharedPtr<T, ThreadSafe> ReinterpretCast(SharedPtr<U, ThreadSafe>&& r) noexcept
+	{
+		auto p = reinterpret_cast<T*>(r.Get());
+		return SharedPtr<T, ThreadSafe>{std::move(r), p};
+	}
+
 	template <class T, bool ThreadSafe>
 	void swap(SharedPtr<T, ThreadSafe>& l, SharedPtr<T, ThreadSafe>& r) noexcept { l.Swap(r); }
 
