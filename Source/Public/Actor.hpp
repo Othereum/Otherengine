@@ -31,6 +31,13 @@ namespace oeng
 			return weak;
 		}
 
+		/**
+		 * \brief Set root component of this actor. Root component represents this actor's transform.
+		 * \param new_root New root component. It can be nullptr or MUST be owned by this actor. 
+		 */
+		void SetRootComponent(WeakPtr<SceneComponent> new_root) noexcept;
+		[[nodiscard]] const WeakPtr<SceneComponent>& GetRootComponent() const noexcept { return root_; }
+
 		void SetEnabled(bool enable);
 		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
 
@@ -57,7 +64,7 @@ namespace oeng
 		void RecalcMatrix() const noexcept;
 		[[nodiscard]] const Mat4& GetTransformMatrix() const noexcept;
 
-		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::Forward().RotatedBy(GetRot()); }
+		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(GetRot()); }
 
 		[[nodiscard]] Engine& GetEngine() const noexcept;
 		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
@@ -76,6 +83,6 @@ namespace oeng
 		
 		CWorld& world_;
 		std::vector<SharedPtr<ActorComponent>> comps_;
-		SceneComponent* root_;
+		WeakPtr<SceneComponent> root_;
 	};
 }
