@@ -1,4 +1,5 @@
 #pragma once
+#include "Templates/SharedPtr.hpp"
 
 namespace oeng
 {
@@ -6,14 +7,14 @@ namespace oeng
 	class Engine;
 	class CWorld;
 	
-	class ActorComponent
+	class ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
 		explicit ActorComponent(AActor& owner, int update_order = 100);
 		virtual ~ActorComponent() = default;
 
 		virtual void BeginPlay() {}
-		virtual void Update(float deltaSeconds) {}
+		virtual void Update(float delta_seconds) {}
 		
 		void SetEnabled(bool enable) noexcept { is_enabled_ = enable; }
 		[[nodiscard]] bool IsEnabled() const noexcept { return is_enabled_; }
