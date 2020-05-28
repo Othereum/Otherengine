@@ -28,7 +28,7 @@ namespace oeng
 	};
 
 	using Set = std::unordered_set<std::string, NameHasher, NameEqual>;
-	using StrSet = std::conditional_t<OENG_NAME_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
+	using StrSet = std::conditional_t<OE_NAME_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
 	
 	static StrSet str_set{std::string{}};
 	

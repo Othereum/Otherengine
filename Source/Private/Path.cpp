@@ -29,7 +29,7 @@ namespace oeng
 	};
 
 	using Set = std::unordered_set<std::filesystem::path, PathHasher, PathEqual>;
-	using PathSet = std::conditional_t<OENG_PATH_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
+	using PathSet = std::conditional_t<OE_PATH_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
 	
 	static PathSet path_set{std::filesystem::path{}};
 

@@ -162,13 +162,13 @@ namespace oeng
 		};
 	}
 
-	template <class T, bool ThreadSafe = OENG_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
 	class EnableSharedFromThis;
 
-	template <class T, bool ThreadSafe = OENG_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
 	class WeakPtr;
 
-	template <class T, bool ThreadSafe = OENG_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
 	class SharedPtr
 	{
 	public:
@@ -475,7 +475,7 @@ namespace oeng
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
 
-	template <class T, bool ThreadSafe = OENG_SHARED_PTR_THREADSAFE, class... Args>
+	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class... Args>
 	SharedPtr<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		SharedPtr<T, ThreadSafe> ret;
