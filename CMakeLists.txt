@@ -18,6 +18,9 @@ add_switch(OENG_NAME_THREADSAFE FALSE "Should 'Name' class be thread-safe?")
 add_switch(OENG_PATH_THREADSAFE FALSE "Should 'Path' class be thread-safe?")
 add_switch(OENG_SHARED_PTR_THREADSAFE FALSE "Should 'SharedPtr' class be thread-safe as default?")
 
+set(OENG_BUILD_MODE 0 CACHE STRING "0 for debug, 1 for development, 2 for shipping")
+target_compile_definitions(${PROJECT_NAME} PUBLIC OENG_BUILD_MODE=${OENG_BUILD_MODE})
+
 find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)
 find_package(soil2 REQUIRED)
