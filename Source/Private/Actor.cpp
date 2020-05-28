@@ -32,10 +32,7 @@ namespace oeng
 
 	void AActor::UpdateComponents(const float delta_seconds)
 	{
-		for (const auto& comp : comps_)
-		{
-			comp->Update(delta_seconds);
-		}
+		for (const auto& comp : comps_) comp->Update(delta_seconds);
 	}
 
 	Engine& AActor::GetEngine() const noexcept
@@ -50,8 +47,7 @@ namespace oeng
 
 	void AActor::RegisterComponent(SharedPtr<ActorComponent>&& comp)
 	{
-		auto cmp = [](auto&& a, auto&& b)
-		{
+		auto cmp = [](auto&& a, auto&& b) {
 			return a->GetUpdateOrder() <= b->GetUpdateOrder();
 		};
 		const auto pos = std::lower_bound(comps_.begin(), comps_.end(), comp, cmp);
@@ -71,10 +67,7 @@ namespace oeng
 
 	void AActor::SetEnabled(bool enable)
 	{
-		for (auto& c : comps_)
-		{
-			c->SetEnabled(enable);
-		}
+		for (auto& c : comps_) c->SetEnabled(enable);
 	}
 
 	void AActor::SetLifespan(float in_seconds)
@@ -85,23 +78,14 @@ namespace oeng
 		auto& timer = GetWorld().GetTimerManager();
 		if (timer.IsTimerExists(lifespan_timer_))
 		{
-			if (init_lifespan_ > 0)
-			{
-				timer.UpdateTimer(lifespan_timer_, init_lifespan_);
-			}
-			else
-			{
-				timer.RemoveTimer(lifespan_timer_);
-			}
+			if (init_lifespan_ > 0) timer.UpdateTimer(lifespan_timer_, init_lifespan_);
+			else timer.RemoveTimer(lifespan_timer_);
 		}
 		else if (init_lifespan_ > 0)
 		{
 			lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = WeakFromThis()]
 			{
-				if (auto ptr = self.Lock())
-				{
-					ptr->Destroy();
-				}
+				if (auto ptr = self.Lock()) ptr->Destroy();
 			});
 		}
 	}
