@@ -13,6 +13,11 @@ namespace oeng
 		explicit ActorComponent(AActor& owner, int update_order = 100);
 		virtual ~ActorComponent() = default;
 
+		ActorComponent(const ActorComponent&) = delete;
+		ActorComponent(ActorComponent&&) = delete;
+		ActorComponent& operator=(const ActorComponent&) = delete;
+		ActorComponent& operator=(ActorComponent&&) = delete;
+
 		void BeginPlay();
 		void Update(float delta_seconds);
 		
