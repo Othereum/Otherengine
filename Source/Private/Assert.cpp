@@ -1,29 +1,19 @@
 #include "Assert.hpp"
-#include <exception>
 #include <iostream>
 
 namespace oeng::detail
 {
 #if OE_BUILD_MODE == 0 || OE_BUILD_MODE == 1
 
-	class AssertionFailed final : public std::exception
+	void OnAssertionFailed(const char* msg) noexcept
 	{
-	public:
-		explicit AssertionFailed(const char* msg) noexcept :msg_{msg} {}
-		[[nodiscard]] const char* what() const noexcept override { return msg_; }
-
-	private:
-		const char* msg_;
-	};
-
-	void OnAssertionFailed(const char* msg)
-	{
-		throw AssertionFailed{msg};
+		std::cerr << "[FATAL] " << msg << std::endl;
+		std::terminate();
 	}
 	
 #endif
 
-	void OnEnsureFailed(const char* msg)
+	void OnEnsureFailed(const char* msg) noexcept
 	{
 		std::cerr << "[WARNING] " << msg << std::endl;
 	}

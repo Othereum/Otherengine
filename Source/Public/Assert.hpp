@@ -30,8 +30,8 @@
 
 namespace oeng::detail
 {
-	[[noreturn]] void OnAssertionFailed(const char* msg);
-	void OnEnsureFailed(const char* msg);
+	[[noreturn]] void OnAssertionFailed(const char* msg) noexcept;
+	void OnEnsureFailed(const char* msg) noexcept;
 }
 
 #define CHECK_MSG(expr, msg) (void)((!!(expr)) || (::oeng::detail::OnAssertionFailed("Assertion failed: " msg ", file " __FILE__ ", line " LINE_STRING), 0))
