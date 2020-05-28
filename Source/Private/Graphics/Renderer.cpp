@@ -102,9 +102,9 @@ namespace oeng
 
 	Renderer::~Renderer() = default;
 
-	void Renderer::RegisterSprite(const CSpriteComponent& sprite)
+	void Renderer::RegisterSprite(const SpriteComponent& sprite)
 	{
-		auto cmp = [](const CSpriteComponent& a, const CSpriteComponent& b)
+		auto cmp = [](const SpriteComponent& a, const SpriteComponent& b)
 		{
 			return a.GetDrawOrder() <= b.GetDrawOrder();
 		};
@@ -112,9 +112,9 @@ namespace oeng
 		sprites_.emplace(pos, sprite);
 	}
 
-	void Renderer::UnregisterSprite(const CSpriteComponent& sprite)
+	void Renderer::UnregisterSprite(const SpriteComponent& sprite)
 	{
-		auto pr = [&](const CSpriteComponent& v) { return &v == &sprite; };
+		auto pr = [&](const SpriteComponent& v) { return &v == &sprite; };
 		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}

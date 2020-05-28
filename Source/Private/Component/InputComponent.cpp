@@ -4,12 +4,12 @@
 
 namespace oeng
 {
-	CInputComponent::CInputComponent(AActor& owner, int updateOrder)
+	InputComponent::InputComponent(AActor& owner, int updateOrder)
 		:ActorComponent{owner, updateOrder}
 	{
 	}
 
-	void CInputComponent::Update(float deltaSeconds)
+	void InputComponent::OnUpdate(float delta_seconds)
 	{
 		if (IsEnabled())
 		{
@@ -18,27 +18,27 @@ namespace oeng
 		}
 	}
 
-	void CInputComponent::BindAction(Name action, bool bPressed, std::function<void()>&& callback)
+	void InputComponent::BindAction(Name action, bool bPressed, std::function<void()>&& callback)
 	{
 		actions_[bPressed].emplace(action, std::move(callback));
 	}
 
-	void CInputComponent::BindAxis(Name axis, std::function<void(float)>&& callback)
+	void InputComponent::BindAxis(Name axis, std::function<void(float)>&& callback)
 	{
 		axises_.emplace(axis, std::move(callback));
 	}
 
-	const CInputSystem& CInputComponent::GetInputSystem() const noexcept
+	const InputSystem& InputComponent::GetInputSystem() const noexcept
 	{
 		return GetEngine().GetInputSystem();
 	}
 
-	void CInputComponent::ProcessActions() const
+	void InputComponent::ProcessActions() const
 	{
 		auto& inputSystem = GetInputSystem();
 		for (auto& event : inputSystem.GetEvents())
 		{
-			auto [it, end] = actions_[event.bPressed].equal_range(event.name);
+			auto [it, end] = actions_[event.pressed].equal_range(event.name);
 			for (; it != end; ++it)
 			{
 				it->second();
@@ -46,7 +46,7 @@ namespace oeng
 		}
 	}
 
-	void CInputComponent::ProcessAxises() const
+	void InputComponent::ProcessAxises() const
 	{
 		auto& inputSystem = GetInputSystem();
 		for (auto& axisMap : axises_)

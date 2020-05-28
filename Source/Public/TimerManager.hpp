@@ -36,7 +36,7 @@ namespace oeng
 	class TimerManager
 	{
 	public:
-		explicit TimerManager(class CWorld& world) noexcept;
+		explicit TimerManager(class World& world) noexcept;
 		~TimerManager();
 		
 		void Update();
@@ -82,7 +82,7 @@ namespace oeng
 	private:
 		struct FTimer;
 		
-		CWorld& world_;
+		World& world_;
 		std::unordered_map<TimerHandle, FTimer> timers_;
 		std::unordered_map<TimerHandle, FTimer> pending_timers_;
 	};

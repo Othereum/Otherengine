@@ -4,38 +4,38 @@
 
 namespace oeng
 {
-	CCircleComponent::CCircleComponent(AActor& owner, int updateOrder)
-		:ActorComponent{owner, updateOrder}
+	CircleComponent::CircleComponent(AActor& owner, int update_order)
+		:ActorComponent{owner, update_order}
 	{
 	}
 
-	CCircleComponent::~CCircleComponent()
+	CircleComponent::~CircleComponent()
 	{
 		GetWorld().UnregisterCollision(*this);
 	}
 
-	void CCircleComponent::BeginPlay()
-	{
-		GetWorld().RegisterCollision(*this);
-	}
-
-	void CCircleComponent::TestOverlap(CCircleComponent& other)
+	void CircleComponent::TestOverlap(CircleComponent& other)
 	{
 		if (!(IsEnabled() && other.IsEnabled())) return;
-		if (!(onOverlap_ || other.onOverlap_)) return;
+		if (!(on_overlap_ || other.on_overlap_)) return;
 		
 		const auto distsqr = GetOwner().GetPos().DistSqr(other.GetOwner().GetPos());
 		const auto r = radius_ + other.radius_;
 
 		if (distsqr < r*r)
 		{
-			if (onOverlap_) onOverlap_(other);
-			if (other.onOverlap_) other.onOverlap_(*this);
+			if (on_overlap_) on_overlap_(other);
+			if (other.on_overlap_) other.on_overlap_(*this);
 		}
 	}
 
-	void CCircleComponent::BindOnOverlap(std::function<void(CCircleComponent&)>&& onOverlap) noexcept
+	void CircleComponent::BindOnOverlap(std::function<void(CircleComponent&)>&& on_overlap) noexcept
 	{
-		onOverlap_ = std::move(onOverlap);
+		on_overlap_ = std::move(on_overlap);
+	}
+	
+	void CircleComponent::OnBeginPlay()
+	{
+		GetWorld().RegisterCollision(*this);
 	}
 }

@@ -10,14 +10,14 @@ namespace oeng
 	class Engine;
 	class TimerManager;
 	class AActor;
-	class CInputComponent;
-	class CCircleComponent;
+	class InputComponent;
+	class CircleComponent;
 
-	class CWorld
+	class World
 	{
 	public:
-		explicit CWorld(Engine& engine);
-		~CWorld();
+		explicit World(Engine& engine);
+		~World();
 		
 		template <class T>
 		std::weak_ptr<T> SpawnActor()
@@ -31,21 +31,21 @@ namespace oeng
 
 		void Tick();
 
-		void RegisterInputComponent(const CInputComponent& comp);
-		void UnregisterInputComponent(const CInputComponent& comp);
+		void RegisterInputComponent(const InputComponent& comp);
+		void UnregisterInputComponent(const InputComponent& comp);
 
-		void RegisterCollision(CCircleComponent& comp);
-		void UnregisterCollision(CCircleComponent& comp);
+		void RegisterCollision(CircleComponent& comp);
+		void UnregisterCollision(CircleComponent& comp);
 		
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept { return *timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
 
-		CWorld(const CWorld&) = delete;
-		CWorld(CWorld&&) = delete;
-		CWorld& operator=(const CWorld&) = delete;
-		CWorld& operator=(CWorld&&) = delete;
+		World(const World&) = delete;
+		World(World&&) = delete;
+		World& operator=(const World&) = delete;
+		World& operator=(World&&) = delete;
 
 	private:
 		void UpdateGame();
@@ -55,7 +55,7 @@ namespace oeng
 		Engine& engine_;
 		std::unique_ptr<TimerManager> timer_;
 
-		std::vector<std::reference_wrapper<CCircleComponent>> collisions_;
+		std::vector<std::reference_wrapper<CircleComponent>> collisions_;
 		
 		std::vector<std::shared_ptr<AActor>> actors_;
 		std::vector<std::shared_ptr<AActor>> pending_actors_;

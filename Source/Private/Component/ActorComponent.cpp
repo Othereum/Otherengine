@@ -8,12 +8,22 @@ namespace oeng
 	{
 	}
 
+	void ActorComponent::BeginPlay()
+	{
+		OnBeginPlay();
+	}
+
+	void ActorComponent::Update(float delta_seconds)
+	{
+		OnUpdate(delta_seconds);
+	}
+
 	Engine& ActorComponent::GetEngine() const noexcept
 	{
 		return GetOwner().GetEngine();
 	}
 
-	CWorld& ActorComponent::GetWorld() const noexcept
+	World& ActorComponent::GetWorld() const noexcept
 	{
 		return GetOwner().GetWorld();
 	}

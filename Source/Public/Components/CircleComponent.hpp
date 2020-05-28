@@ -4,22 +4,22 @@
 
 namespace oeng
 {
-	class CCircleComponent : public ActorComponent
+	class CircleComponent : public ActorComponent
 	{
 	public:
-		explicit CCircleComponent(AActor& owner, int updateOrder = 100);
-		~CCircleComponent();
+		explicit CircleComponent(AActor& owner, int update_order = 100);
+		~CircleComponent();
 
-		void BeginPlay() override;
-		
-		void TestOverlap(CCircleComponent& other);
-		void BindOnOverlap(std::function<void(CCircleComponent&)>&& onOverlap) noexcept;
+		void TestOverlap(CircleComponent& other);
+		void BindOnOverlap(std::function<void(CircleComponent&)>&& on_overlap) noexcept;
 
 		void SetRadius(float r) noexcept { radius_ = r; }
 		[[nodiscard]] float GetRadius() const noexcept { return radius_; }
 
 	private:
-		std::function<void(CCircleComponent&)> onOverlap_;
+		void OnBeginPlay() override;
+		
+		std::function<void(CircleComponent&)> on_overlap_;
 		float radius_ = 32;
 	};
 }

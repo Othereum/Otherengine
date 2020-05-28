@@ -7,7 +7,7 @@
 namespace oeng
 {
 	class Engine;
-	class CWorld;
+	class World;
 	class ActorComponent;
 	class SceneComponent;
 	class TimerManager;
@@ -15,7 +15,7 @@ namespace oeng
 	class AActor : public EnableSharedFromThis<AActor>
 	{
 	public:
-		explicit AActor(CWorld& world);
+		explicit AActor(World& world);
 		virtual ~AActor();
 
 		void BeginPlay();
@@ -67,13 +67,14 @@ namespace oeng
 		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(GetRot()); }
 
 		[[nodiscard]] Engine& GetEngine() const noexcept;
-		[[nodiscard]] CWorld& GetWorld() const noexcept { return world_; }
+		[[nodiscard]] World& GetWorld() const noexcept { return world_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 
 	private:
 		void RegisterComponent(SharedPtr<ActorComponent>&& comp);
 		void UpdateComponents(float delta_seconds);
-		virtual void UpdateActor(float delta_seconds) {}
+		virtual void OnUpdate(float delta_seconds) {}
+		virtual void OnBeginPlay() {}
 
 		bool pending_kill_ : 1 = false;
 		bool begun_play_ : 1 = false;
@@ -81,7 +82,7 @@ namespace oeng
 		float init_lifespan_ = 0;
 		TimerHandle lifespan_timer_;
 		
-		CWorld& world_;
+		World& world_;
 		std::vector<SharedPtr<ActorComponent>> comps_;
 		WeakPtr<SceneComponent> root_;
 	};

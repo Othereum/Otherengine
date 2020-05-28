@@ -5,34 +5,34 @@
 
 namespace oeng
 {
-	CWorld::CWorld(Engine& engine):
+	World::World(Engine& engine):
 		engine_{engine},
 		timer_{std::make_unique<TimerManager>(*this)},
 		delta_seconds_{0}
 	{
 	}
 
-	CWorld::~CWorld() = default;
+	World::~World() = default;
 
-	void CWorld::Tick()
+	void World::Tick()
 	{
 		UpdateTime();
 		UpdateGame();
 	}
 
-	void CWorld::RegisterCollision(CCircleComponent& comp)
+	void World::RegisterCollision(CircleComponent& comp)
 	{
 		collisions_.emplace_back(comp);
 	}
 
-	void CWorld::UnregisterCollision(CCircleComponent& comp)
+	void World::UnregisterCollision(CircleComponent& comp)
 	{
-		auto pr = [&](const CCircleComponent& v) { return &v == &comp; };
+		auto pr = [&](const CircleComponent& v) { return &v == &comp; };
 		const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
 		if (found != collisions_.crend()) collisions_.erase(found.base() - 1);
 	}
 
-	void CWorld::UpdateGame()
+	void World::UpdateGame()
 	{
 		for (const auto& actor : actors_)
 			actor->Update(delta_seconds_);
@@ -66,14 +66,14 @@ namespace oeng
 		}
 	}
 
-	void CWorld::UpdateTime()
+	void World::UpdateTime()
 {
 		const auto now = Clock::now();
 		delta_seconds_ = std::chrono::duration<float>{now - time_}.count();
 		time_ = now;
 	}
 
-	void CWorld::RegisterActor(std::shared_ptr<AActor>&& actor)
+	void World::RegisterActor(std::shared_ptr<AActor>&& actor)
 	{
 		pending_actors_.push_back(std::move(actor));
 	}

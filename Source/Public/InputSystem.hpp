@@ -7,62 +7,62 @@ union SDL_Event;
 
 namespace oeng
 {	
-	enum class EInputType : char
+	enum class InputType : int8_t
 	{
-		invalid = -1, keyboard, mButton, mAxisX, mAxisY, cButton, cAxis
+		kInvalid = -1, kKeyboard, kMButton, kMAxisX, kMAxisY, kCButton, kCAxis
 	};
 
-	struct FInputKey
+	struct InputKey
 	{
 		int key = -1;
-		EInputType type = EInputType::invalid;
+		InputType type = InputType::kInvalid;
 		
-		constexpr FInputKey() noexcept = default;
-		constexpr FInputKey(int key, EInputType type) noexcept: key{key}, type{type} {}
+		constexpr InputKey() noexcept = default;
+		constexpr InputKey(int key, InputType type) noexcept: key{key}, type{type} {}
 		
-		bool operator==(const FInputKey&) const noexcept = default;
+		bool operator==(const InputKey&) const noexcept = default;
 	};
 
-	struct FInputAxis : FInputKey
+	struct InputAxis : InputKey
 	{
 		float scale = 1;
 		
-		constexpr FInputAxis() noexcept = default;
-		constexpr FInputAxis(int key, EInputType type, float scale) noexcept: FInputKey{key, type}, scale{scale} {}
+		constexpr InputAxis() noexcept = default;
+		constexpr InputAxis(int key, InputType type, float scale) noexcept: InputKey{key, type}, scale{scale} {}
 	};
 
-	struct FInputAction : FInputKey
+	struct InputAction : InputKey
 	{
 		uint16_t mod = 0;
 
-		constexpr FInputAction() noexcept = default;
-		constexpr FInputAction(int key, EInputType type, uint16_t mod = 0) noexcept: FInputKey{key, type}, mod{mod} {}
+		constexpr InputAction() noexcept = default;
+		constexpr InputAction(int key, InputType type, uint16_t mod = 0) noexcept: InputKey{key, type}, mod{mod} {}
 	};
 
-	struct FInputEvent
+	struct InputEvent
 	{
 		Name name;
-		bool bPressed;
+		bool pressed;
 	};
 
-	class CInputSystem
+	class InputSystem
 	{
 	public:
 		void AddEvent(const SDL_Event& e);
 		void ClearEvents();
 
-		void AddAxis(Name name, std::vector<FInputAxis>&& keys);
-		void AddAction(Name name, std::vector<FInputAction>&& keys);
+		void AddAxis(Name name, std::vector<InputAxis>&& keys);
+		void AddAction(Name name, std::vector<InputAction>&& keys);
 		
 		[[nodiscard]] float GetAxisValue(Name name) const noexcept;
-		[[nodiscard]] static float GetAxisValue(const FInputAxis& axis) noexcept;
+		[[nodiscard]] static float GetAxisValue(const InputAxis& axis) noexcept;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
 
 	private:
-		std::vector<FInputEvent> events_;
-		std::unordered_map<Name, std::vector<FInputAxis>> axises_;
-		std::unordered_map<Name, std::vector<FInputAction>> actions_;
+		std::vector<InputEvent> events_;
+		std::unordered_map<Name, std::vector<InputAxis>> axises_;
+		std::unordered_map<Name, std::vector<InputAction>> actions_;
 	};
 }

@@ -7,19 +7,19 @@ struct SDL_KeyboardEvent;
 
 namespace oeng
 {
-	class CInputComponent : public ActorComponent
+	class InputComponent : public ActorComponent
 	{
 	public:
-		explicit CInputComponent(class AActor& owner, int updateOrder = 1);
-		
-		void Update(float deltaSeconds) override;
+		explicit InputComponent(class AActor& owner, int updateOrder = 1);
 		
 		void BindAction(Name action, bool bPressed, std::function<void()>&& callback);
 		void BindAxis(Name axis, std::function<void(float)>&& callback);
 
-		[[nodiscard]] const class CInputSystem& GetInputSystem() const noexcept;
+		[[nodiscard]] const class InputSystem& GetInputSystem() const noexcept;
 		
 	private:
+		void OnUpdate(float delta_seconds) override;
+		
 		void ProcessActions() const;
 		void ProcessAxises() const;
 		

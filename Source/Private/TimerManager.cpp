@@ -77,7 +77,7 @@ namespace oeng
 		return handle;
 	}
 
-	TimerManager::TimerManager(CWorld& world) noexcept:
+	TimerManager::TimerManager(World& world) noexcept:
 		world_{world}
 	{
 	}

@@ -15,8 +15,8 @@ namespace oeng
 {
 	Engine::Engine():
 		renderer_{std::make_unique<Renderer>(Vec2u16{1024, 768})},
-		world_{std::make_unique<CWorld>(*this)},
-		input_system_{std::make_unique<CInputSystem>()}
+		world_{std::make_unique<World>(*this)},
+		input_system_{std::make_unique<InputSystem>()}
 	{
 		LoadGameModule(*this);
 	}

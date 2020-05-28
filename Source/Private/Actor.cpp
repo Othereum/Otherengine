@@ -5,7 +5,7 @@
 
 namespace oeng
 {
-	AActor::AActor(CWorld& world)
+	AActor::AActor(World& world)
 		:world_{world}
 	{
 	}
@@ -22,12 +22,14 @@ namespace oeng
 
 		begun_play_ = true;
 		SetLifespan(init_lifespan_);
+
+		OnBeginPlay();
 	}
 
 	void AActor::Update(const float delta_seconds)
 	{
 		UpdateComponents(delta_seconds);
-		UpdateActor(delta_seconds);
+		OnUpdate(delta_seconds);
 	}
 
 	void AActor::UpdateComponents(const float delta_seconds)

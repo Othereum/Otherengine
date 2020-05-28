@@ -11,14 +11,12 @@ namespace oeng
 	class Texture;
 	class Shader;
 	
-	class CSpriteComponent : public ActorComponent
+	class SpriteComponent : public ActorComponent
 	{
 	public:
-		explicit CSpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
-		~CSpriteComponent();
+		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
+		~SpriteComponent();
 
-		void BeginPlay() override;
-		
 		void SetTexture(std::shared_ptr<Texture>&& texture);
 		void SetTexture(const std::shared_ptr<Texture>& texture);
 		void SetTexture(Path file);
@@ -30,6 +28,8 @@ namespace oeng
 		void Draw(Shader& shader) const;
 
 	private:
+		void OnBeginPlay() override;
+		
 		std::shared_ptr<Texture> texture_;
 		int draw_order_;
 	};

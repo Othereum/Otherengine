@@ -14,27 +14,27 @@ namespace oeng
 		return GetModState(SDL_GetModState());
 	}
 
-	static bool ParseEvent(FInputAction& key_event, bool& pressed, const SDL_Event& e)
+	static bool ParseEvent(InputAction& key_event, bool& pressed, const SDL_Event& e)
 	{
 		switch (e.type)
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
 			key_event.key = e.key.keysym.sym;
-			key_event.type = EInputType::keyboard;
+			key_event.type = InputType::kKeyboard;
 			key_event.mod = GetModState(e.key.keysym.mod);
 			pressed = e.key.state;
 			break;
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
 			key_event.key = e.button.button;
-			key_event.type = EInputType::mButton;
+			key_event.type = InputType::kMButton;
 			key_event.mod = GetModState();
 			pressed = e.button.state;
 			break;
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
 			key_event.key = e.cbutton.button;
-			key_event.type = EInputType::cButton;
+			key_event.type = InputType::kCButton;
 			key_event.mod = GetModState();
 			pressed = e.cbutton.state;
 			break;
@@ -46,7 +46,7 @@ namespace oeng
 		return true;
 	}
 
-	static bool IsMatch(const FInputAction& event, const std::vector<FInputAction>& keys)
+	static bool IsMatch(const InputAction& event, const std::vector<InputAction>& keys)
 	{
 		for (const auto& key : keys)
 		{
@@ -59,9 +59,9 @@ namespace oeng
 		return false;
 	}
 
-	void CInputSystem::AddEvent(const SDL_Event& e)
+	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		FInputAction key_event;
+		InputAction key_event;
 		bool pressed;
 		if (!ParseEvent(key_event, pressed, e)) return;
 		
@@ -74,22 +74,22 @@ namespace oeng
 		}
 	}
 
-	void CInputSystem::ClearEvents()
+	void InputSystem::ClearEvents()
 	{
 		events_.clear();
 	}
 
-	void CInputSystem::AddAxis(Name name, std::vector<FInputAxis>&& keys)
+	void InputSystem::AddAxis(Name name, std::vector<InputAxis>&& keys)
 	{
 		axises_.emplace(name, std::move(keys));
 	}
 
-	void CInputSystem::AddAction(Name name, std::vector<FInputAction>&& keys)
+	void InputSystem::AddAction(Name name, std::vector<InputAction>&& keys)
 	{
 		actions_.emplace(name, std::move(keys));
 	}
 
-	float CInputSystem::GetAxisValue(Name name) const noexcept
+	float InputSystem::GetAxisValue(Name name) const noexcept
 	{
 		auto it = axises_.find(name);
 		if (it == axises_.end()) return 0;
@@ -102,34 +102,34 @@ namespace oeng
 		return val;
 	}
 
-	float CInputSystem::GetAxisValue(const FInputAxis& axis) noexcept
+	float InputSystem::GetAxisValue(const InputAxis& axis) noexcept
 	{
 		switch (axis.type)
 		{
-		case EInputType::keyboard:
+		case InputType::kKeyboard:
 			return SDL_GetKeyboardState(nullptr)[SDL_GetScancodeFromKey(axis.key)] ? axis.scale : 0;
 			
-		case EInputType::mButton:
+		case InputType::kMButton:
 			return SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(axis.key) ? axis.scale : 0;
 			
-		case EInputType::mAxisX:
+		case InputType::kMAxisX:
 			{
 				int x;
 				SDL_GetRelativeMouseState(&x, nullptr);
 				return static_cast<float>(x) * axis.scale;
 			}
 			
-		case EInputType::mAxisY:
+		case InputType::kMAxisY:
 			{
 				int y;
 				SDL_GetRelativeMouseState(nullptr, &y);
 				return static_cast<float>(y) * axis.scale;
 			}
 			
-		case EInputType::cButton:
+		case InputType::kCButton:
 			return SDL_GameControllerGetButton(nullptr, SDL_GameControllerButton(axis.key)) ? axis.scale : 0;
 			
-		case EInputType::cAxis:
+		case InputType::kCAxis:
 			{
 				constexpr float min = 328, max = 32440;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
