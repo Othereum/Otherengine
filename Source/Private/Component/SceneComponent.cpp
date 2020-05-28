@@ -1,4 +1,5 @@
 #include "Components/SceneComponent.hpp"
+#include "Assert.hpp"
 
 namespace oeng
 {
@@ -7,35 +8,70 @@ namespace oeng
 	{
 	}
 
-	void SceneComponent::SetRelTransform(const Transform& new_transform, bool recalc_matrix) noexcept
+	void SceneComponent::AttachTo(const SharedPtr<SceneComponent>& new_parent)
+	{
+		if (const auto old_parent = parent_.Lock())
+		{
+			auto& siblings = old_parent->childs_;
+			const auto me = std::find_if(siblings.begin(), siblings.end(), 
+				[self = SharedFromThis()](const WeakPtr<SceneComponent>& weak_other)
+				{
+					const auto other = weak_other.Lock();
+					CHECK(other);
+					return other == self;
+				}
+			);
+			
+			CHECK(me != siblings.end());
+			siblings.erase(me);
+		}
+
+		parent_ = new_parent;
+
+		if (new_parent)
+		{
+			new_parent->childs_.emplace_back(StaticCast<SceneComponent>(SharedFromThis()));
+		}
+	}
+
+	void SceneComponent::SetRelTransform(const Transform& new_transform, bool recalc_world_transform) noexcept
 	{
 		rel_transform_ = new_transform;
-		if (recalc_matrix) RecalcMatrix();
+		if (recalc_world_transform) RecalcWorldTransform();
 	}
 
-	void SceneComponent::SetRelPos(const Vec3& new_pos, bool recalc_matrix) noexcept
+	void SceneComponent::SetRelPos(const Vec3& new_pos, bool recalc_world_transform) noexcept
 	{
 		rel_transform_.pos = new_pos;
-		if (recalc_matrix) RecalcMatrix();
+		if (recalc_world_transform) RecalcWorldTransform();
 	}
 
-	void SceneComponent::SetRelRot(const Quat& new_rot, bool recalc_matrix) noexcept
+	void SceneComponent::SetRelRot(const Quat& new_rot, bool recalc_world_transform) noexcept
 	{
 		rel_transform_.rot = new_rot;
-		if (recalc_matrix) RecalcMatrix();
+		if (recalc_world_transform) RecalcWorldTransform();
 	}
 
-	void SceneComponent::SetRelScale(const Vec3& scale, bool recalc_matrix) noexcept
+	void SceneComponent::SetRelScale(const Vec3& scale, bool recalc_world_transform) noexcept
 	{
 		rel_transform_.scale = scale;
-		if (recalc_matrix) RecalcMatrix();
+		if (recalc_world_transform) RecalcWorldTransform();
 	}
 
-	void SceneComponent::RecalcMatrix() noexcept
+	void SceneComponent::RecalcWorldTransform(bool propagate) noexcept
 	{
-		if (parent_) transform_matrix_ = parent_->GetTransformMatrix() * rel_transform_.ToMatrix();
-		else transform_matrix_ = rel_transform_.ToMatrix();
+		if (auto p = parent_.Lock()) world_transform_ = p->GetWorldTransform() * rel_transform_.ToMatrix();
+		else world_transform_ = rel_transform_.ToMatrix();
 
-		for (auto c : childs_) c->RecalcMatrix();
+		if (!propagate) return;
+
+		for (auto&& c : childs_)
+		{
+			const auto p = c.Lock();
+			if (ENSURE_MSG(p, "Child cannot be expired. Something's wrong.")) [[likely]]
+			{
+				p->RecalcWorldTransform(propagate);
+			}
+		}
 	}
 }
