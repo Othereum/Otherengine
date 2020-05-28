@@ -17,13 +17,18 @@ namespace oeng
 				[self = SharedFromThis()](const WeakPtr<SceneComponent>& weak_other)
 				{
 					const auto other = weak_other.Lock();
-					CHECK(other);
-					return other == self;
+					IF_ENSURE_MSG(other, "Child should not be expired. Something is wrong.")
+					{
+						return other == self;
+					}
+					return false;
 				}
 			);
 			
-			CHECK(me != siblings.end());
-			siblings.erase(me);
+			IF_ENSURE_MSG(me != siblings.end(), "This component was not in the parent's child list. Something is wrong.")
+			{
+				siblings.erase(me);
+			}
 		}
 
 		parent_ = new_parent;
@@ -68,7 +73,7 @@ namespace oeng
 		for (auto&& c : childs_)
 		{
 			const auto p = c.Lock();
-			IF_ENSURE_MSG(p, "Child cannot be expired. Something's wrong.")
+			IF_ENSURE_MSG(p, "Child should not be expired. Something is wrong.")
 			{
 				p->RecalcWorldTransform(propagate);
 			}
