@@ -1,8 +1,8 @@
 #pragma once
-#include <cassert>
 #include <atomic>
 #include <compare>
 #include <memory>
+#include "Assert.hpp"
 
 namespace oeng
 {
@@ -253,8 +253,8 @@ namespace oeng
 
 		[[nodiscard]] T* Get() const noexcept { return ptr_; }
 
-		T& operator*() const noexcept { return *ptr_; }
-		T* operator->() const noexcept { return ptr_; }
+		T& operator*() const noexcept { CHECK_SLOW(ptr_); return *ptr_; }
+		T* operator->() const noexcept { CHECK_SLOW(ptr_); return ptr_; }
 
 		[[nodiscard]] unsigned long UseCount() const noexcept { return obj_ ? obj_->Strong() : 0; }
 
@@ -337,7 +337,7 @@ namespace oeng
 			{
 				if (ptr_)
 				{
-					assert(ptr_->weak_.Expired());
+					CHECK_SLOW(ptr_->weak_.Expired());
 					ptr->weak_ = SharedPtr<std::remove_cv_t<Y>, ThreadSafe>{*this, const_cast<std::remove_cv_t<Y>*>(ptr)};
 				}
 			}

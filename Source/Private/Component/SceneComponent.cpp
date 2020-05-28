@@ -68,7 +68,7 @@ namespace oeng
 		for (auto&& c : childs_)
 		{
 			const auto p = c.Lock();
-			if (ENSURE_MSG(p, "Child cannot be expired. Something's wrong.")) [[likely]]
+			IF_ENSURE_MSG(p, "Child cannot be expired. Something's wrong.")
 			{
 				p->RecalcWorldTransform(propagate);
 			}
