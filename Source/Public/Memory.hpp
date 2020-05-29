@@ -4,10 +4,12 @@
 
 namespace oeng
 {
-	template <size_t BlockSize>
+	template <size_t BlockSizeLog2>
 	class MemoryPool
 	{
 	public:
+		static constexpr auto BlockSize = 1 << BlockSizeLog2;
+		
 		static MemoryPool& Get() noexcept
 		{
 			thread_local MemoryPool pool;
@@ -41,9 +43,10 @@ namespace oeng
 			return Allocate<T>(containers_.emplace_back(new_blocks), 0, need_blocks);
 		}
 		
-		void Deallocate(void* ptr, size_t count)
+		template <class T>
+		void Deallocate(T* ptr, size_t count) noexcept
 		{
-			// TODO: Implement
+			
 		}
 		
 		MemoryPool(const MemoryPool&) = delete;
@@ -93,15 +96,13 @@ namespace oeng
 	template <class T>
 	T* Allocate(size_t count)
 	{
-		constexpr auto block_size = otm::PadToPowerOf2(sizeof T);
-		return MemoryPool<block_size>::Get().template Allocate<T>(count);
+		return MemoryPool<otm::Log2Ceil(sizeof T)>::Get().template Allocate<T>(count);
 	}
 	
 	template <class T>
-	void Deallocate(T* ptr, size_t count)
+	void Deallocate(T* ptr, size_t count) noexcept
 	{
-		constexpr auto block_size = otm::PadToPowerOf2(sizeof T);
-		return MemoryPool<block_size>::Get().Deallocate(ptr, count);
+		return MemoryPool<otm::Log2Ceil(sizeof T)>::Get().Deallocate(ptr, count);
 	}
 	
 	template <class T>
