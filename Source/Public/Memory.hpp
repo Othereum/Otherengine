@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <thread>
 #include <fmt/core.h>
 #include "Assert.hpp"
 #include "otm/Basic.hpp"
@@ -43,7 +44,11 @@ namespace oeng
 			const auto new_blocks = otm::Max(total_blocks_ / 2, need_blocks);
 			total_blocks_ += new_blocks;
 			peak_blocks_ = otm::Max(peak_blocks_, total_blocks_);
-			return Allocate<T>(containers_.emplace_back(new_blocks), 0, need_blocks);
+			
+			auto& new_container = containers_.emplace_back(new_blocks);
+			peak_containers_ = otm::Max(peak_containers_, containers_.size());
+			
+			return Allocate<T>(new_container, 0, need_blocks);
 		}
 		
 		template <class T>
@@ -61,6 +66,8 @@ namespace oeng
 			}
 			
 			const auto blocks = CountBlocks(sizeof T * count);
+			total_blocks_ -= blocks;
+			
 			it->remaining += blocks;
 			EXPECT(it->remaining <= it->blocks.size());
 			if (it->remaining >= it->blocks.size())
@@ -69,7 +76,7 @@ namespace oeng
 				return;
 			}
 			
-			const auto begin = p - it->blocks.data();
+			const auto begin = static_cast<size_t>(p - it->blocks.data());
 			for (auto i = begin; i < begin+blocks; ++i)
 			{
 				EXPECT_MSG(it->occupied[i], "Deallocating empty block");
@@ -126,14 +133,18 @@ namespace oeng
 		~MemoryPool()
 		{
 			EXPECT_MSG(containers_.empty(), "Memory leak detected");
+
+			std::ostringstream thread_id;
+			thread_id << std::this_thread::get_id();
 			
-			fmt::print("Peak usage of {} byte memory pool: {} blocks ({} bytes)",
-				BlockSize, peak_blocks_, BlockSize*peak_blocks_);
+			fmt::print("Peak usage of {} byte memory pool on thread {}: {} containers with {} blocks ({} bytes)\n",
+				BlockSize, thread_id.str(), peak_containers_, peak_blocks_, BlockSize*peak_blocks_);
 		}
 
 		std::vector<BlockContainer> containers_;
 		size_t total_blocks_ = 0;
 		size_t peak_blocks_ = 0;
+		size_t peak_containers_ = 0;
 	};
 
 	template <class T>
