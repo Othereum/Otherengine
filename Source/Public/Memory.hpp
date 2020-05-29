@@ -11,7 +11,7 @@ namespace oeng
 	class MemoryPool
 	{
 	public:
-		static constexpr auto BlockSize = 1 << BlockSizeLog2;
+		static constexpr auto block_size_ = 1 << BlockSizeLog2;
 		
 		static MemoryPool& Get() noexcept
 		{
@@ -27,13 +27,13 @@ namespace oeng
 			
 			for (auto& c : containers_)
 			{
-				if (c.remaining * BlockSize < need_bytes) continue;
+				if (c.remaining * block_size_ < need_bytes) continue;
 				
 				size_t continuous = 0;
 				for (size_t cur_block = c.first_available; cur_block < c.blocks.size(); ++cur_block)
 				{
 					if (c.occupied[cur_block]) continuous = 0;
-					else if (++continuous * BlockSize >= need_bytes)
+					else if (++continuous * block_size_ >= need_bytes)
 					{
 						const auto begin = cur_block - need_blocks + 1;
 						return Allocate<T>(c, begin, need_blocks);
@@ -96,7 +96,7 @@ namespace oeng
 		{
 			// ReSharper disable once CppPossiblyUninitializedMember
 			Block() noexcept {}
-			char block[BlockSize];
+			char block[block_size_];
 		};
 
 		struct BlockContainer
@@ -114,7 +114,7 @@ namespace oeng
 
 		static constexpr size_t CountBlocks(size_t bytes) noexcept
 		{
-			return bytes/BlockSize + otm::Min(1, bytes%BlockSize);
+			return bytes/block_size_ + otm::Min(1, bytes%block_size_);
 		}
 
 		template <class T>
@@ -136,11 +136,15 @@ namespace oeng
 
 			std::ostringstream thread_id;
 			thread_id << std::this_thread::get_id();
-			
-			fmt::print("Peak usage of {} byte memory pool on thread {}: {} containers with {} blocks ({} bytes)\n",
-				BlockSize, thread_id.str(), peak_containers_, peak_blocks_, BlockSize*peak_blocks_);
-		}
 
+			static constexpr const char* units[]{"B", "KB", "MB", "GB", "TB", "PB", "EB"};
+			const auto bytes = block_size_ * peak_blocks_;
+			const auto log = otm::Log(bytes, 1024);
+
+			fmt::print("Peak usage of {} byte memory pool on thread {}: {} containers with {} blocks ({} {})\n",
+				block_size_, thread_id.str(), peak_containers_, peak_blocks_, bytes >> 10*log, units[log]);
+		}
+		
 		std::vector<BlockContainer> containers_;
 		size_t total_blocks_ = 0;
 		size_t peak_blocks_ = 0;
@@ -150,13 +154,13 @@ namespace oeng
 	template <class T>
 	T* Allocate(size_t count)
 	{
-		return MemoryPool<otm::Log2Ceil(sizeof T)>::Get().template Allocate<T>(count);
+		return MemoryPool<otm::LogCeil(sizeof T, 2)>::Get().template Allocate<T>(count);
 	}
 	
 	template <class T>
 	void Deallocate(T* ptr, size_t count) noexcept
 	{
-		return MemoryPool<otm::Log2Ceil(sizeof T)>::Get().Deallocate(ptr, count);
+		return MemoryPool<otm::LogCeil(sizeof T, 2)>::Get().Deallocate(ptr, count);
 	}
 	
 	template <class T>
