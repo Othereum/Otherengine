@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <vector>
 #include "Memory.hpp"
 
 using namespace oeng;
@@ -38,12 +39,12 @@ TEST(MemoryPool, Arr2)
 }
 
 constexpr size_t kOne = 1;
-constexpr size_t kBytes = 1024*1024;
-constexpr size_t kLog2 = otm::Log2Ceil(kBytes);
+constexpr size_t kCount = 1024*1024;
+constexpr size_t kLog2 = otm::LogCeil(kCount, 2);
 
 TEST(MemoryPool, Huge)
 {
-	Deallocate(Allocate<int>(kBytes), kBytes);
+	Deallocate(Allocate<int>(kCount), kCount);
 }
 
 TEST(MemoryPool, Increase)
@@ -64,12 +65,14 @@ TEST(MemoryPool, IncreaseDealloc)
 
 struct TestStruct
 {
+	TestStruct() {}
+	TestStruct(TestStruct&&) {}
 	float data[9];
 };
 
 TEST(MemoryPool, HugeStruct)
 {
-	Deallocate(Allocate<TestStruct>(kBytes), kBytes);
+	Deallocate(Allocate<TestStruct>(kCount), kCount);
 }
 
 TEST(MemoryPool, IncreaseStruct)
@@ -86,5 +89,11 @@ TEST(MemoryPool, IncreaseDeallocStruct)
 {
 	for (size_t i = 0; i < kLog2; ++i)
 		Deallocate(Allocate<TestStruct>(kOne << i), kOne << i);
+}
+
+TEST(MemoryPool, VectorAllocator)
+{
+	std::vector<TestStruct, Allocator<TestStruct>> vec;
+	for (size_t i=0; i<kCount; ++i) vec.emplace_back();
 }
 
