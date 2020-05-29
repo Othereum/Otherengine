@@ -1,5 +1,7 @@
 #pragma once
 #include <vector>
+#include <fmt/core.h>
+#include "Assert.hpp"
 #include "otm/Basic.hpp"
 
 namespace oeng
@@ -20,7 +22,7 @@ namespace oeng
 		T* Allocate(const size_t count)
 		{
 			const auto need_bytes = count * sizeof T;
-			const auto need_blocks = need_bytes/BlockSize + otm::Min(1, need_bytes%BlockSize);
+			const auto need_blocks = CountBlocks(need_bytes);
 			
 			for (auto& c : containers_)
 			{
@@ -40,13 +42,41 @@ namespace oeng
 
 			const auto new_blocks = otm::Max(total_blocks_ / 2, need_blocks);
 			total_blocks_ += new_blocks;
+			peak_blocks_ = otm::Max(peak_blocks_, total_blocks_);
 			return Allocate<T>(containers_.emplace_back(new_blocks), 0, need_blocks);
 		}
 		
 		template <class T>
 		void Deallocate(T* ptr, size_t count) noexcept
 		{
+			const auto p = reinterpret_cast<Block*>(ptr);
 			
+			auto it = containers_.begin();
+			IF_NOT_ENSURE_MSG(it != containers_.end(), "Attempted to deallocate while no memory allocated") return;
+			
+			while (it->blocks.data() > p || p >= it->blocks.data() + it->blocks.size())
+			{
+				++it;
+				IF_NOT_ENSURE_MSG(it != containers_.end(), "Attempted to deallocate invalid pointer") return;
+			}
+			
+			const auto begin = p - it->blocks.data();
+			const auto blocks = CountBlocks(sizeof T * count);
+			for (auto i = begin; i < begin+blocks; ++i)
+			{
+				ENSURE_LOG_MSG(it->occupied[i], "Deallocating empty block");
+				it->occupied[i] = false;
+			}
+			
+			it->first_available = otm::Min(it->first_available, begin);
+			
+			IF_ENSURE_MSG(it->remaining >= blocks, "Deallocating more than remaining")
+			{
+				it->remaining -= blocks;
+			}
+			else it->remaining = 0;
+			
+			if (it->remaining == 0) containers_.erase(it);
 		}
 		
 		MemoryPool(const MemoryPool&) = delete;
@@ -75,6 +105,11 @@ namespace oeng
 			size_t remaining;
 		};
 
+		static constexpr size_t CountBlocks(size_t bytes) noexcept
+		{
+			return bytes/BlockSize + otm::Min(1, bytes%BlockSize);
+		}
+
 		template <class T>
 		static T* Allocate(BlockContainer& c, size_t begin, size_t blocks)
 		{
@@ -88,9 +123,17 @@ namespace oeng
 		}
 
 		MemoryPool() = default;
-		
+		~MemoryPool()
+		{
+			ENSURE_LOG_MSG(containers_.empty(), "Memory leak detected");
+			
+			fmt::print("Peak usage of {} byte memory pool: {} blocks ({} bytes)",
+				BlockSize, peak_blocks_, BlockSize*peak_blocks_);
+		}
+
 		std::vector<BlockContainer> containers_;
 		size_t total_blocks_ = 0;
+		size_t peak_blocks_ = 0;
 	};
 
 	template <class T>
