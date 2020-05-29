@@ -86,7 +86,7 @@ namespace oeng
 					old_weak = weak--;
 				}
 
-				if (old_weak == 1) delete this;
+				if (old_weak == 1) DeleteThis();
 			}
 
 			[[nodiscard]] unsigned long Strong() const noexcept
@@ -113,43 +113,68 @@ namespace oeng
 				}
 			}
 
-		protected:
-			virtual ~SharedObjBase() = default;
-
 		private:
 			virtual void Destroy() noexcept = 0;
+			virtual void DeleteThis() noexcept = 0;
 
 			using RefCnt = std::conditional_t<ThreadSafe, std::atomic_ulong, unsigned long>;
 			RefCnt strong = 1;
 			RefCnt weak = 1;
 		};
 
-		template <class T, bool ThreadSafe>
+		template <class T, class Alloc, bool ThreadSafe>
 		struct SharedObjInline : SharedObjBase<ThreadSafe>
 		{
 			template <class... Args>
-			SharedObjInline(Args&&... args) :obj{ std::forward<Args>(args)... } {}
+			SharedObjInline(Alloc alloc, Args&&... args)
+				:obj{ std::forward<Args>(args)... }, alloc{std::move(alloc)}
+			{
+			}
 
 			union { T obj; };
 			
 		private:
 			~SharedObjInline() {}
-			void Destroy() noexcept override { obj.~T(); }
+			
+			void Destroy() noexcept override
+			{
+				std::allocator_traits<Alloc>::destroy(alloc, &obj);
+			}
+			
+			void DeleteThis() noexcept override
+			{
+				using MyAl = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjInline>;
+				using MyAlT = std::allocator_traits<MyAl>;
+				MyAl al{std::move(alloc)};
+				MyAlT::destroy(al, this);
+				MyAlT::deallocate(al, this, 1);
+			}
+
+			[[no_unique_address]] Alloc alloc;
 		};
 
-		template <class T, class Deleter, bool ThreadSafe>
+		template <class T, class Deleter, class Alloc, bool ThreadSafe>
 		struct SharedObjPtr : SharedObjBase<ThreadSafe>
 		{
-			SharedObjPtr(T* ptr, Deleter deleter) noexcept
-				:ptr{ptr}, deleter{std::move(deleter)}
+			SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
+				:ptr{ptr}, deleter{std::move(deleter)}, alloc{std::move(alloc)}
 			{
 			}
 
 		private:
-			void Destroy() noexcept override { if (ptr) deleter(ptr); }
+			void Destroy() noexcept override { if (ptr) deleter(ptr); ptr = nullptr; }
+			void DeleteThis() noexcept override
+			{
+				using MyAl = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
+				using MyAlT = std::allocator_traits<MyAl>;
+				MyAl al{std::move(alloc)};
+				MyAlT::destroy(al, this);
+				MyAlT::deallocate(al, this, 1);
+			}
 
 			T* ptr;
 			[[no_unique_address]] Deleter deleter;
+			[[no_unique_address]] Alloc alloc;
 		};
 
 		template <class T, class = void>
@@ -178,8 +203,8 @@ namespace oeng
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		explicit SharedPtr(Y* ptr) { Reset(ptr); }
 
-		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
+		template <class Y, std::invocable<Y*> Deleter, class Alloc, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc) { Reset(ptr, std::move(deleter)); }
 
 		template <class Y>
 		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
