@@ -34,21 +34,26 @@ namespace oeng::detail
 	void OnEnsureFailed(const char* msg) noexcept;
 }
 
-#define CHECK_MSG(expr, msg) (void)((!!(expr)) || (::oeng::detail::OnAssertionFailed("Assertion failed: " msg ", file " __FILE__ ", line " LINE_STRING), 0))
+#define CHECK_MSG(expr, msg) (void)((!!(expr)) || (::oeng::detail::OnAssertionFailed("Assertion failed: " msg ", file " __FILE__ ", line " LINE_STRING), false))
 #define ENSURE_MSG(expr, msg) ((!!(expr)) || (::oeng::detail::OnEnsureFailed("Ensure failed: " msg ", file " __FILE__ ", line " LINE_STRING), false))
+#define ENSURE_LOG_MSG(expr, msg) (void)((!!(expr)) || (::oeng::detail::OnEnsureFailed("Ensure failed: " msg ", file " __FILE__ ", line " LINE_STRING), false))
 
 #else
 
 #define CHECK_MSG(expr, msg) ((void)0)
 #define ENSURE_MSG(expr, msg) (!!(expr))
+#define ENSURE_LOG_MSG(expr, msg) ((void)0)
 
 #endif
 
 
 #define CHECK(expr) CHECK_MSG(expr, #expr)
 #define ENSURE(expr) ENSURE_MSG(expr, #expr)
+#define ENSURE_LOG(expr) ENSURE_LOG_MSG(expr, #expr)
 #define IF_ENSURE_MSG(expr, msg) if (ENSURE_MSG(expr, msg)) [[likely]]
 #define IF_ENSURE(expr) IF_ENSURE_MSG(expr, #expr)
+#define IF_NOT_ENSURE_MSG(expr, msg) if (!ENSURE_MSG(expr, msg)) [[unlikely]]
+#define IF_NOT_ENSURE(expr) IF_NOT_ENSURE_MSG(expr, #expr)
 
 
 #if OE_DO_SLOW_CHECK
