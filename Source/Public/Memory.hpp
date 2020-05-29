@@ -21,14 +21,17 @@ namespace oeng
 			{
 				if (c.remaining < count) continue;
 				
-				size_t bytes = 0, cnt = 0;
-				for (size_t i = 0; i < c.occupied.size(); ++i)
+				size_t bytes = 0;
+				for (size_t i = 0; i < c.blocks.size(); ++i)
 				{
-					if (c.occupied[i]) bytes = 0, cnt = 0;
-					else if ((++cnt, bytes += BlockSize) >= count * sizeof T)
+					if (c.occupied[i]) bytes = 0;
+					else if ((bytes += BlockSize) >= count * sizeof T)
 					{
-						c.occupied[i] = true;
-						return reinterpret_cast<T*>(c.blocks.data() + i);
+						const auto cnt = bytes/BlockSize;
+						const auto idx = i - cnt + 1;
+						c.remaining -= cnt;
+						for (auto j = idx; j <= i; ++j) c.occupied[j] = true;
+						return reinterpret_cast<T*>(c.blocks.data() + idx);
 					}
 				}
 			}
@@ -47,6 +50,7 @@ namespace oeng
 	private:
 		struct Block
 		{
+			// ReSharper disable once CppPossiblyUninitializedMember
 			Block() noexcept {}
 			char block[BlockSize];
 		};
@@ -65,11 +69,13 @@ namespace oeng
 		};
 
 		explicit MemoryPool(size_t initial_size)
+			:total_cnt_{initial_size}
 		{
-			blocks_.emplace_back(initial_size);
+			containers_.emplace_back(initial_size);
 		}
 
 		std::vector<BlockContainer> containers_;
+		size_t total_cnt_;
 	};
 
 	template <class T>
