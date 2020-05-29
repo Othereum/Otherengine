@@ -60,23 +60,23 @@ namespace oeng
 				IF_NOT_ENSURE_MSG(it != containers_.end(), "Attempted to deallocate invalid pointer") return;
 			}
 			
-			const auto begin = p - it->blocks.data();
 			const auto blocks = CountBlocks(sizeof T * count);
+			it->remaining += blocks;
+			EXPECT(it->remaining <= it->blocks.size());
+			if (it->remaining >= it->blocks.size())
+			{
+				containers_.erase(it);
+				return;
+			}
+			
+			const auto begin = p - it->blocks.data();
 			for (auto i = begin; i < begin+blocks; ++i)
 			{
-				ENSURE_LOG_MSG(it->occupied[i], "Deallocating empty block");
+				EXPECT_MSG(it->occupied[i], "Deallocating empty block");
 				it->occupied[i] = false;
 			}
 			
 			it->first_available = otm::Min(it->first_available, begin);
-			
-			IF_ENSURE_MSG(it->remaining >= blocks, "Deallocating more than remaining")
-			{
-				it->remaining -= blocks;
-			}
-			else it->remaining = 0;
-			
-			if (it->remaining == 0) containers_.erase(it);
 		}
 		
 		MemoryPool(const MemoryPool&) = delete;
@@ -125,7 +125,7 @@ namespace oeng
 		MemoryPool() = default;
 		~MemoryPool()
 		{
-			ENSURE_LOG_MSG(containers_.empty(), "Memory leak detected");
+			EXPECT_MSG(containers_.empty(), "Memory leak detected");
 			
 			fmt::print("Peak usage of {} byte memory pool: {} blocks ({} bytes)",
 				BlockSize, peak_blocks_, BlockSize*peak_blocks_);
