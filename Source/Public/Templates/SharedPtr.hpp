@@ -122,19 +122,22 @@ namespace oeng
 			RefCnt weak = 1;
 		};
 
-		template <class T, class Alloc, bool ThreadSafe>
+		template <class T, bool ThreadSafe>
 		struct SharedObjInline : SharedObjBase<ThreadSafe>
 		{
 			template <class... Args>
-			SharedObjInline(Alloc alloc, Args&&... args)
+			SharedObjInline(Args&&... args)
 				:obj{ std::forward<Args>(args)... }, alloc{std::move(alloc)}
 			{
 			}
 
+			~SharedObjInline() {}
+			
 			union { T obj; };
 			
 		private:
-			~SharedObjInline() {}
+			// TODO: Use custom allocator
+			using Alloc = std::allocator<T>;
 			
 			void Destroy() noexcept override
 			{
@@ -153,15 +156,18 @@ namespace oeng
 			[[no_unique_address]] Alloc alloc;
 		};
 
-		template <class T, class Deleter, class Alloc, bool ThreadSafe>
+		template <class T, class Deleter, bool ThreadSafe>
 		struct SharedObjPtr : SharedObjBase<ThreadSafe>
 		{
-			SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
-				:ptr{ptr}, deleter{std::move(deleter)}, alloc{std::move(alloc)}
+			SharedObjPtr(T* ptr, Deleter deleter) noexcept
+				:ptr{ptr}, deleter{std::move(deleter)}
 			{
 			}
 
 		private:
+			// TODO: Use custom allocator
+			using Alloc = std::allocator<T>;
+			
 			void Destroy() noexcept override { if (ptr) deleter(ptr); ptr = nullptr; }
 			void DeleteThis() noexcept override
 			{
@@ -203,8 +209,8 @@ namespace oeng
 		template <class Y, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
 		explicit SharedPtr(Y* ptr) { Reset(ptr); }
 
-		template <class Y, std::invocable<Y*> Deleter, class Alloc, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
-		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc) { Reset(ptr, std::move(deleter)); }
+		template <class Y, std::invocable<Y*> Deleter, std::enable_if_t<std::is_convertible_v<Y*, T*>, int> = 0>
+		SharedPtr(Y* ptr, Deleter deleter) { Reset(ptr, std::move(deleter)); }
 
 		template <class Y>
 		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
