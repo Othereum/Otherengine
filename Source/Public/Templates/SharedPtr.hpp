@@ -11,6 +11,8 @@ namespace oeng
 		template <bool ThreadSafe>
 		struct SharedObjBase
 		{
+			virtual ~SharedObjBase() = default;
+			
 			bool IncStrongNz() noexcept
 			{
 				if constexpr (ThreadSafe)
@@ -86,7 +88,7 @@ namespace oeng
 					old_weak = weak--;
 				}
 
-				if (old_weak == 1) DeleteThis();
+				if (old_weak == 1) delete this;
 			}
 
 			[[nodiscard]] unsigned long Strong() const noexcept
@@ -115,7 +117,6 @@ namespace oeng
 
 		private:
 			virtual void Destroy() noexcept = 0;
-			virtual void DeleteThis() noexcept = 0;
 
 			using RefCnt = std::conditional_t<ThreadSafe, std::atomic_ulong, unsigned long>;
 			RefCnt strong = 1;
@@ -127,7 +128,7 @@ namespace oeng
 		{
 			template <class... Args>
 			SharedObjInline(Args&&... args)
-				:obj{ std::forward<Args>(args)... }, alloc{std::move(alloc)}
+				:obj{ std::forward<Args>(args)... }
 			{
 			}
 
@@ -136,24 +137,7 @@ namespace oeng
 			union { T obj; };
 			
 		private:
-			// TODO: Use custom allocator
-			using Alloc = std::allocator<T>;
-			
-			void Destroy() noexcept override
-			{
-				std::allocator_traits<Alloc>::destroy(alloc, &obj);
-			}
-			
-			void DeleteThis() noexcept override
-			{
-				using MyAl = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjInline>;
-				using MyAlT = std::allocator_traits<MyAl>;
-				MyAl al{std::move(alloc)};
-				MyAlT::destroy(al, this);
-				MyAlT::deallocate(al, this, 1);
-			}
-
-			[[no_unique_address]] Alloc alloc;
+			void Destroy() noexcept override { obj.~T(); }
 		};
 
 		template <class T, class Deleter, bool ThreadSafe>
@@ -165,22 +149,10 @@ namespace oeng
 			}
 
 		private:
-			// TODO: Use custom allocator
-			using Alloc = std::allocator<T>;
-			
-			void Destroy() noexcept override { if (ptr) deleter(ptr); ptr = nullptr; }
-			void DeleteThis() noexcept override
-			{
-				using MyAl = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
-				using MyAlT = std::allocator_traits<MyAl>;
-				MyAl al{std::move(alloc)};
-				MyAlT::destroy(al, this);
-				MyAlT::deallocate(al, this, 1);
-			}
+			void Destroy() noexcept override { if (ptr) deleter(ptr); }
 
 			T* ptr;
 			[[no_unique_address]] Deleter deleter;
-			[[no_unique_address]] Alloc alloc;
 		};
 
 		template <class T, class = void>
