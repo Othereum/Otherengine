@@ -3,6 +3,40 @@
 
 namespace oeng
 {
+	[[nodiscard]] inline void* Alloc(size_t n)
+	{
+		return operator new(n);
+	}
+
+	inline void Free(void* p) noexcept
+	{
+		operator delete(p);
+	}
+	
+	template <class T, class... Args>
+	[[nodiscard]] T* New(Args&&... args)
+	{
+		return new T{std::forward<Args>(args)...};
+	}
+
+	template <class T, class... Args>
+	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
+	{
+		return new T[n]{std::forward<Args>(args)...};
+	}
+
+	template <class T>
+	void Delete(T* p) noexcept
+	{
+		delete p;
+	}
+
+	template <class T>
+	void DeleteArr(T* p) noexcept
+	{
+		delete[] p;
+	}
+
 	template <class T>
 	using Allocator = std::allocator<T>;
 
