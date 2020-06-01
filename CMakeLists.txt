@@ -30,14 +30,14 @@ target_link_libraries(${PROJECT_NAME}
 set(OE_BUILD_TESTS FALSE CACHE BOOL "Whether to build a test")
 if(OE_BUILD_TESTS)
 	file(GLOB_RECURSE TEST_SRC_FILES "Source/Tests/*.cpp")
-	add_executable("${PROJECT_NAME}Test" ${TEST_SRC_FILES})
-	set_target_properties("${PROJECT_NAME}Test" PROPERTIES CXX_STANDARD 20)
+	add_executable("Test${PROJECT_NAME}" ${TEST_SRC_FILES})
+	set_target_properties("Test${PROJECT_NAME}" PROPERTIES CXX_STANDARD 20)
 
 	find_package(GTest 1.10.0 REQUIRED)
-	target_link_libraries("${PROJECT_NAME}Test" PRIVATE ${PROJECT_NAME} GTest::GTest)
+	target_link_libraries("Test${PROJECT_NAME}" PRIVATE ${PROJECT_NAME} GTest::GTest)
 
 	enable_testing()
-	add_test(NAME "${PROJECT_NAME} Test" COMMAND "${PROJECT_NAME}Test")
+	add_test(NAME "Test ${PROJECT_NAME}" COMMAND "Test${PROJECT_NAME}")
 endif()
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
