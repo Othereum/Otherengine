@@ -8,8 +8,6 @@ C++와 OpenGL로 만드는 게임 엔진 (W.I.P)
 
 * 수학 라이브러리 [otm](https://github.com/Othereum/otm)
 
-* 커스텀 메모리 할당자 [omem](https://github.com/Othereum/omem)
-
 * 3D 렌더링
   * 커스텀 GLSL 쉐이더 지원
   * 3D 메시 로드 (.omesh 커스텀 포맷)
