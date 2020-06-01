@@ -12,7 +12,7 @@
 
 namespace oeng
 {
-	Engine::Engine(std::string_view game_name, const std::function<void(Engine&)>& load_game)
+	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
 		:game_name_{game_name},
 		renderer_{MakeUnique<Renderer>(*this, Vec2u16{1024, 768})},
 		world_{MakeUnique<World>(*this)},

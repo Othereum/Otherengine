@@ -3,6 +3,7 @@
 #include "Math.hpp"
 #include "Path.hpp"
 #include "Templates/HashMap.hpp"
+#include "Templates/Function.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -26,7 +27,7 @@ namespace oeng
 	class OEAPI Engine : SdlRaii
 	{
 	public:
-		Engine(std::string_view game_name, const std::function<void(Engine&)>& load_game);
+		Engine(std::string_view game_name, const Function<void(Engine&)>& load_game);
 		~Engine();
 		
 		void RunLoop();
