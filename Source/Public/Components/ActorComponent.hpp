@@ -1,5 +1,5 @@
 #pragma once
-#include "Templates/SharedPtr.hpp"
+#include "Templates/Memory.hpp"
 
 namespace oeng
 {

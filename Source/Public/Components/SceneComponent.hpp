@@ -1,8 +1,7 @@
 #pragma once
 #include "ActorComponent.hpp"
-#include <vector>
 #include "Math.hpp"
-#include "Templates/SharedPtr.hpp"
+#include "Templates/DyArr.hpp"
 
 namespace oeng
 {
@@ -30,7 +29,7 @@ namespace oeng
 
 	private:
 		WeakPtr<SceneComponent> parent_;
-		std::vector<WeakPtr<SceneComponent>> childs_;
+		DyArr<WeakPtr<SceneComponent>> childs_;
 		Transform rel_transform_;
 		Mat4 world_transform_;
 	};

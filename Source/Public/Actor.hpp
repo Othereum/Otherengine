@@ -1,8 +1,8 @@
 #pragma once
-#include <vector>
-#include "Templates/SharedPtr.hpp"
 #include "TimerManager.hpp"
 #include "Math.hpp"
+#include "Templates/DyArr.hpp"
+#include "Templates/Memory.hpp"
 
 namespace oeng
 {
@@ -83,7 +83,7 @@ namespace oeng
 		TimerHandle lifespan_timer_;
 		
 		World& world_;
-		std::vector<SharedPtr<ActorComponent>> comps_;
+		DyArr<SharedPtr<ActorComponent>> comps_;
 		WeakPtr<SceneComponent> root_;
 	};
 }
