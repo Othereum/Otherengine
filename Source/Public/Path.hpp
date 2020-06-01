@@ -1,5 +1,6 @@
 #pragma once
 #include <filesystem>
+#include "API.hpp"
 #include "JsonFwd.hpp"
 
 namespace oeng
@@ -7,10 +8,11 @@ namespace oeng
 	/**
 	 * \brief Lightweight representation of filepath
 	 * \brief Very fast O(1) copy and comparison
+	 * \brief No heap allocation on copy
 	 * \brief Good to use as key for HashMap
 	 * \note Case-insensitive on any platform
 	 */
-	struct Path
+	struct OEAPI Path
 	{
 		Path() noexcept;
 		Path(const char* path);
