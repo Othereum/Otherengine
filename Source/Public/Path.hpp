@@ -4,6 +4,12 @@
 
 namespace oeng
 {
+	/**
+	 * \brief Lightweight representation of filepath
+	 * \brief Very fast O(1) copy and comparison
+	 * \brief Good to use as key for HashMap
+	 * \note Case-insensitive on any platform
+	 */
 	struct Path
 	{
 		Path() noexcept;
