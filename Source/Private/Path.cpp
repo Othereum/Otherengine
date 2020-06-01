@@ -1,9 +1,11 @@
 #include "Path.hpp"
-#include <unordered_set>
 #include <otm/Hash.hpp>
+#include "Assert.hpp"
 #include "Templates/Monitor.hpp"
 #include "Templates/Wrapper.hpp"
+#include "Templates/HashSet.hpp"
 #include "Json.hpp"
+#include "Thread.hpp"
 
 namespace oeng
 {
@@ -28,8 +30,8 @@ namespace oeng
 		}
 	};
 
-	using Set = std::unordered_set<std::filesystem::path, PathHasher, PathEqual>;
-	using PathSet = std::conditional_t<OE_PATH_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
+	using MySet = HashSet<std::filesystem::path, PathHasher, PathEqual>;
+	using PathSet = std::conditional_t<OE_PATH_THREADSAFE, Monitor<MySet>, Wrapper<MySet>>;
 	
 	static PathSet path_set{std::filesystem::path{}};
 
@@ -45,7 +47,11 @@ namespace oeng
 
 	Path::Path(const std::filesystem::path& path)
 	{
-		auto [it, has_inserted] = path_set->insert(proximate(path));
+#if !OE_PATH_THREADSAFE
+		CHECK(IsGameThread());
+#endif
+		
+		auto [it, i] = path_set->insert(proximate(path));
 		p = &*it;
 	}
 

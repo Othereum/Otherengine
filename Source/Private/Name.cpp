@@ -1,9 +1,12 @@
 #include "Name.hpp"
-#include <unordered_set>
 #include <otm/Hash.hpp>
+#include "Assert.hpp"
 #include "Json.hpp"
+#include "Thread.hpp"
+#include "Templates/HashSet.hpp"
 #include "Templates/Monitor.hpp"
 #include "Templates/Wrapper.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng
 {
@@ -27,10 +30,10 @@ namespace oeng
 		}
 	};
 
-	using Set = std::unordered_set<std::string, NameHasher, NameEqual>;
-	using StrSet = std::conditional_t<OE_NAME_THREADSAFE, Monitor<Set>, Wrapper<Set>>;
+	using MySet = HashSet<String, NameHasher, NameEqual>;
+	using StrSet = std::conditional_t<OE_NAME_THREADSAFE, Monitor<MySet>, Wrapper<MySet>>;
 	
-	static StrSet str_set{std::string{}};
+	static StrSet str_set{String{}};
 	
 	Name::Name() noexcept
 		:sp{&*str_set->find({})}
@@ -38,18 +41,16 @@ namespace oeng
 	}
 
 	Name::Name(const char* s)
-		:Name{std::string{s}}
+		:Name{String{s}}
 	{
 	}
 
-	Name::Name(const std::string& s)
+	Name::Name(String s)
 	{
-		auto [it, inserted] = str_set->insert(s);
-		sp = &*it;
-	}
-
-	Name::Name(std::string&& s)
-	{
+#if !OE_NAME_THREADSAFE
+		CHECK(IsGameThread());
+#endif
+		
 		auto [it, inserted] = str_set->insert(std::move(s));
 		sp = &*it;
 	}
@@ -61,6 +62,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = json.get<std::string>();
+		name = json.get<String>();
 	}
 }
