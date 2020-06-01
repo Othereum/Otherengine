@@ -1,20 +1,21 @@
 #pragma once
-#include <memory>
 #include "Math.hpp"
+#include "Templates/DyArr.hpp"
 
 struct SDL_Window;
 
 namespace oeng
 {
+	class Engine;
 	class SpriteComponent;
 
-	using WindowPtr = std::unique_ptr<SDL_Window, void(*)(SDL_Window*)>;
-	using GlContextPtr = std::unique_ptr<void, void(*)(void*)>;
+	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
+	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
 
 	class Renderer
 	{
 	public:
-		explicit Renderer(Vec2u16 scr);
+		explicit Renderer(Engine& engine, Vec2u16 scr);
 		~Renderer();
 		
 		void RegisterSprite(const SpriteComponent& sprite);
@@ -23,6 +24,7 @@ namespace oeng
 		void DrawScene() const;
 
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
+		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 
 		Renderer(const Renderer&) = delete;
 		Renderer(Renderer&&) = delete;
@@ -30,10 +32,11 @@ namespace oeng
 		Renderer& operator=(Renderer&&) = delete;
 
 	private:
+		Engine& engine_;
 		WindowPtr window_;
 		GlContextPtr gl_context_;
-		std::unique_ptr<class Shader> sprite_shader_;
-		std::unique_ptr<class VertexArray> sprite_verts_;
-		std::vector<std::reference_wrapper<const SpriteComponent>> sprites_;
+		UniquePtr<class Shader> sprite_shader_;
+		UniquePtr<class VertexArray> sprite_verts_;
+		DyArr<std::reference_wrapper<const SpriteComponent>> sprites_;
 	};
 }

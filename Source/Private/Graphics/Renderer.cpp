@@ -7,10 +7,8 @@
 #include "Components/SpriteComponent.hpp"
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/Shader.hpp"
-#include "Graphics/Texture.hpp"
-
 #include "Actor.hpp"
-#include "GameModule.hpp"
+#include "Engine.hpp"
 
 namespace oeng
 {
@@ -20,7 +18,7 @@ namespace oeng
 			throw std::runtime_error{SDL_GetError()};
 	}
 	
-	static WindowPtr CreateWindow(Vec2u16 scr)
+	static WindowPtr CreateWindow(const char* title, Vec2u16 scr)
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -34,7 +32,7 @@ namespace oeng
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
 		WindowPtr window{
-			SDL_CreateWindow(GetGameName(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr[0], scr[1], SDL_WINDOW_OPENGL),
+			SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr[0], scr[1], SDL_WINDOW_OPENGL),
 			&SDL_DestroyWindow
 		};
 		if (!window) throw std::runtime_error{SDL_GetError()};
@@ -92,8 +90,9 @@ namespace oeng
 		return std::make_unique<VertexArray>(vertex_buffer, index_buffer);
 	}
 
-	Renderer::Renderer(Vec2u16 scr):
-		window_{CreateWindow(scr)},
+	Renderer::Renderer(Engine& engine, Vec2u16 scr)
+		:engine_{engine},
+		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{CreateSpriteShader(scr)},
 		sprite_verts_{CreateSpriteVerts()}

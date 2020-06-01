@@ -3,7 +3,6 @@
 #include <stdexcept>
 #include <SDL.h>
 
-#include "GameModule.hpp"
 #include "Components/InputComponent.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Texture.hpp"
@@ -13,12 +12,13 @@
 
 namespace oeng
 {
-	Engine::Engine():
-		renderer_{std::make_unique<Renderer>(Vec2u16{1024, 768})},
-		world_{std::make_unique<World>(*this)},
-		input_system_{std::make_unique<InputSystem>()}
+	Engine::Engine(std::string_view game_name, const std::function<void(Engine&)>& load_game)
+		:game_name_{game_name},
+		renderer_{MakeUnique<Renderer>(*this, Vec2u16{1024, 768})},
+		world_{MakeUnique<World>(*this)},
+		input_system_{MakeUnique<InputSystem>()}
 	{
-		LoadGameModule(*this);
+		load_game(*this);
 	}
 
 	Engine::~Engine() = default;
@@ -36,7 +36,7 @@ namespace oeng
 		is_running_ = false;
 	}
 
-	std::shared_ptr<Texture> Engine::GetTexture(Path file)
+	SharedPtr<Texture> Engine::GetTexture(Path file)
 	{
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
@@ -54,7 +54,7 @@ namespace oeng
 		return loaded;
 	}
 
-	std::shared_ptr<Mesh> Engine::GetMesh(Path file)
+	SharedPtr<Mesh> Engine::GetMesh(Path file)
 	{
 		const auto found = meshes_.find(file);
 		if (found != meshes_.end()) return found->second.lock();

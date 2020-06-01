@@ -1,8 +1,8 @@
 ﻿#pragma once
-#include <memory>
-#include <unordered_map>
+#include "API.hpp"
 #include "Math.hpp"
 #include "Path.hpp"
+#include "Templates/HashMap.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -23,21 +23,22 @@ namespace oeng
 		~SdlRaii();
 	};
 	
-	class Engine : SdlRaii
+	class OEAPI Engine : SdlRaii
 	{
 	public:
-		Engine();
+		Engine(std::string_view game_name, const std::function<void(Engine&)>& load_game);
 		~Engine();
 		
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] std::shared_ptr<Texture> GetTexture(Path file);
-		[[nodiscard]] std::shared_ptr<Mesh> GetMesh(Path file);
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
 		[[nodiscard]] World& GetWorld() const noexcept { return *world_; }
 		[[nodiscard]] InputSystem& GetInputSystem() const noexcept { return *input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept { return *renderer_; }
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
+		[[nodiscard]] std::string_view GetGameName() const noexcept { return game_name_; }
 
 		Engine(const Engine&) = delete;
 		Engine(Engine&&) = delete;
@@ -48,11 +49,12 @@ namespace oeng
 		void Tick();
 		void ProcessEvent();
 
-		std::unordered_map<Path, std::weak_ptr<Texture>> textures_;
-		std::unordered_map<Path, std::weak_ptr<Mesh>> meshes_;
-		std::unique_ptr<Renderer> renderer_;
-		std::unique_ptr<World> world_;
-		std::unique_ptr<InputSystem> input_system_;
+		std::string_view game_name_;
+		HashMap<Path, WeakPtr<Texture>> textures_;
+		HashMap<Path, WeakPtr<Mesh>> meshes_;
+		UniquePtr<Renderer> renderer_;
+		UniquePtr<World> world_;
+		UniquePtr<InputSystem> input_system_;
 		bool is_running_ = true;
 	};
 }

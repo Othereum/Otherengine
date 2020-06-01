@@ -2,8 +2,9 @@
 project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp" "Source/Private/*.hpp" "Source/Public/*.hpp")
-add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
+add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
+target_compile_definitions(${PROJECT_NAME} PRIVATE OE_BUILD=1 INTERFACE OE_BUILD=0)
 
 function(add_switch name default description)
     set(${name} ${default} CACHE STRING ${description})
