@@ -88,7 +88,7 @@ TEST(SharedPtr, Multithread)
 
 	auto thr = [](SharedPtr<Base, true> p)
 	{
-		SharedPtr<Base, true> lp = p;
+		auto lp = p;
 	};
 
 	SharedPtr<Base, true> p = MakeShared<Derived, true>(n);
@@ -117,4 +117,24 @@ TEST(SharedPtr, WeakPtr)
 	}
 	ASSERT_EQ(weak.UseCount(), 0);
 	ASSERT_TRUE(weak.Expired());
+}
+
+constexpr auto kCopyCnt = 1000000;
+
+TEST(SharedPtr, Bench_NonThreadSafe)
+{
+	auto ptr = MakeShared<int, false>();
+	for (auto i=0; i<kCopyCnt; ++i) { auto copied = ptr; }
+}
+
+TEST(SharedPtr, Bench_ThreadSafe)
+{
+	auto ptr = MakeShared<int, true>();
+	for (auto i=0; i<kCopyCnt; ++i) { auto copied = ptr; }
+}
+
+TEST(SharedPtr, Bench_Standard)
+{
+	auto ptr = std::make_shared<int>();
+	for (auto i=0; i<kCopyCnt; ++i) { auto copied = ptr; }
 }
