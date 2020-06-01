@@ -1,8 +1,5 @@
 ﻿#include "Engine.hpp"
-
-#include <stdexcept>
 #include <SDL.h>
-
 #include "Components/InputComponent.hpp"
 #include "Graphics/Renderer.hpp"
 #include "Graphics/Texture.hpp"
@@ -41,12 +38,12 @@ namespace oeng
 		const auto found = textures_.find(file);
 		if (found != textures_.end()) return found->second.lock();
 
-		std::shared_ptr<Texture> loaded{
-			new Texture{file},
+		SharedPtr<Texture> loaded{
+			New<Texture>(file),
 			[this, file](Texture* p) noexcept
 			{
 				textures_.erase(file);
-				delete p;
+				Delete(p);
 			}
 		};
 
@@ -59,12 +56,12 @@ namespace oeng
 		const auto found = meshes_.find(file);
 		if (found != meshes_.end()) return found->second.lock();
 
-		std::shared_ptr<Mesh> loaded{
-			new Mesh{file, *this},
+		SharedPtr<Mesh> loaded{
+			New<Mesh>(file, *this),
 			[this, file](Mesh* p) noexcept
 			{
 				meshes_.erase(file);
-				delete p;
+				Delete(p);
 			}
 		};
 
