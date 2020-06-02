@@ -582,8 +582,8 @@ namespace oeng
 	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class Alloc, class... Args>
 	SharedPtr<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
-		using T = detail::SharedObjInline<T, Alloc, ThreadSafe>;
-		using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
+		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
+		using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<Obj>;
 		using Tr = std::allocator_traits<Al>;
 
 		Al al{alloc};
