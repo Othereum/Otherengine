@@ -3,7 +3,18 @@
 
 namespace oeng
 {
-	template <class T>
+	class NullMutex
+	{
+	public:
+		constexpr void lock() const noexcept {}
+		constexpr bool try_lock() const noexcept { return true; }
+		constexpr void unlock() const noexcept {}
+	};
+
+	template <bool ThreadSafe>
+	using CondMutex = std::conditional_t<ThreadSafe, std::mutex, NullMutex>;
+	
+	template <class T, class Mutex = std::mutex>
 	class Monitor
 	{
 		struct Handle
