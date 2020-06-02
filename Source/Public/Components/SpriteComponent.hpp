@@ -1,5 +1,4 @@
 #pragma once
-#include <memory>
 #include "ActorComponent.hpp"
 #include "Path.hpp"
 
@@ -17,8 +16,8 @@ namespace oeng
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
-		void SetTexture(std::shared_ptr<Texture>&& texture);
-		void SetTexture(const std::shared_ptr<Texture>& texture);
+		void SetTexture(SharedPtr<Texture>&& texture);
+		void SetTexture(const SharedPtr<Texture>& texture);
 		void SetTexture(Path file);
 		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
 
@@ -30,7 +29,7 @@ namespace oeng
 	private:
 		void OnBeginPlay() override;
 		
-		std::shared_ptr<Texture> texture_;
+		SharedPtr<Texture> texture_;
 		int draw_order_;
 	};
 }

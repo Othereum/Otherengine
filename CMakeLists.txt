@@ -26,6 +26,7 @@ endfunction()
 
 add_switch(OE_NAME_THREADSAFE 0 "Should 'Name' class be thread-safe?")
 add_switch(OE_PATH_THREADSAFE 0 "Should 'Path' class be thread-safe?")
+add_switch(OE_SHARED_PTR_THREADSAFE 0 "Should 'SharedPtr' class be thread-safe?")
 add_switch(OE_BUILD_MODE 0 "0 for debug, 1 for development, 2 for shipping")
 
 set(OE_BUILD_TESTS FALSE CACHE BOOL "Whether to build a test")

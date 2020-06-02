@@ -32,9 +32,9 @@ namespace oeng
 		for (const auto& tex : json.at("textures"))
 			textures_.push_back(engine.GetTexture(tex));
 
-		const std::vector<Vertex> verts = json.at("vertices");
-		const std::vector<Vec3u16> indices = json.at("indices");
-		vertex_array_ = std::make_unique<VertexArray>(verts, indices);
+		const DyArr<Vertex> verts = json.at("vertices");
+		const DyArr<Vec3u16> indices = json.at("indices");
+		vertex_array_ = MakeUnique<VertexArray>(verts, indices);
 
 		shader_path_ = json.at("shader");
 

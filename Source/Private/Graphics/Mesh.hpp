@@ -1,7 +1,6 @@
 #pragma once
-#include <memory>
-#include <vector>
 #include "Path.hpp"
+#include "Templates/DyArr.hpp"
 
 namespace oeng
 {
@@ -28,8 +27,8 @@ namespace oeng
 	private:
 		void LoadV1(const Json& json, Engine& engine);
 		
-		std::vector<std::shared_ptr<Texture>> textures_;
-		std::unique_ptr<VertexArray> vertex_array_;
+		DyArr<SharedPtr<Texture>> textures_;
+		UniquePtr<VertexArray> vertex_array_;
 		Path shader_path_;
 		float radius_;
 	};

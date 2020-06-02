@@ -18,12 +18,12 @@ namespace oeng
 		GetRenderer().UnregisterSprite(*this);
 	}
 
-	void SpriteComponent::SetTexture(std::shared_ptr<Texture>&& texture)
+	void SpriteComponent::SetTexture(SharedPtr<Texture>&& texture)
 	{
 		texture_ = std::move(texture);
 	}
 
-	void SpriteComponent::SetTexture(const std::shared_ptr<Texture>& texture)
+	void SpriteComponent::SetTexture(const SharedPtr<Texture>& texture)
 	{
 		texture_ = texture;
 	}

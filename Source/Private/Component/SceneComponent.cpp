@@ -35,7 +35,7 @@ namespace oeng
 
 		if (new_parent)
 		{
-			new_parent->childs_.emplace_back(std::static_pointer_cast<SceneComponent>(shared_from_this()));
+			new_parent->childs_.emplace_back(StaticCast<SceneComponent>(shared_from_this()));
 		}
 	}
 
