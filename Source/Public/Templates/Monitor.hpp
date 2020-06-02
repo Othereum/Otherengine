@@ -24,11 +24,21 @@ namespace oeng
 			
 		private:
 			T& object;
-			std::lock_guard<std::mutex> lock;
+			std::lock_guard<Mutex> lock;
+		};
+		
+		struct ConstHandle
+		{
+			explicit ConstHandle(const Monitor& set) :object{set.object_}, lock{set.mutex_} {}
+			const T* operator->() const noexcept { return &object; }
+			
+		private:
+			const T& object;
+			std::lock_guard<Mutex> lock;
 		};
 		
 		T object_;
-		std::mutex mutex_;
+		[[no_unique_address]] Mutex mutex_;
 		
 	public:
 		template <class... Args>
@@ -36,10 +46,12 @@ namespace oeng
 		Monitor(Args&&... args) :object_{std::forward<Args>(args)...} {}
 
 		Handle operator->() { return Lock(); }
-		const T* operator->() const noexcept { return &object_; }
+		ConstHandle operator->() const noexcept { return Lock(); }
 
 		[[nodiscard]] Handle Lock() { return Handle{*this}; }
-		[[nodiscard]] const T& Get() const noexcept { return object_; }
+		[[nodiscard]] ConstHandle Lock() const { return ConstHandle{*this}; }
+
 		[[nodiscard]] T& GetUnsafe() noexcept { return object_; }
+		[[nodiscard]] const T& GetUnsafe() const noexcept { return object_; }
 	};
 }
