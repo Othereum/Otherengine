@@ -2,7 +2,6 @@
 #include <otm/Hash.hpp>
 #include "Assert.hpp"
 #include "Templates/Monitor.hpp"
-#include "Templates/Wrapper.hpp"
 #include "Templates/HashSet.hpp"
 #include "Json.hpp"
 #include "Thread.hpp"
@@ -30,10 +29,7 @@ namespace oeng
 		}
 	};
 
-	using MySet = HashSet<std::filesystem::path, PathHasher, PathEqual>;
-	using PathSet = std::conditional_t<OE_PATH_THREADSAFE, Monitor<MySet>, Wrapper<MySet>>;
-	
-	static PathSet path_set{std::filesystem::path{}};
+	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
 
 	Path::Path() noexcept
 		:p{&*path_set->find({})}

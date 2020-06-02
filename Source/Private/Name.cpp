@@ -5,7 +5,6 @@
 #include "Thread.hpp"
 #include "Templates/HashSet.hpp"
 #include "Templates/Monitor.hpp"
-#include "Templates/Wrapper.hpp"
 #include "Templates/String.hpp"
 
 namespace oeng
@@ -30,10 +29,7 @@ namespace oeng
 		}
 	};
 
-	using MySet = HashSet<String, NameHasher, NameEqual>;
-	using StrSet = std::conditional_t<OE_NAME_THREADSAFE, Monitor<MySet>, Wrapper<MySet>>;
-	
-	static StrSet str_set{String{}};
+	static Monitor<HashSet<String, NameHasher, NameEqual>, CondMutex<OE_NAME_THREADSAFE>> str_set{String{}};
 	
 	Name::Name() noexcept
 		:sp{&*str_set->find({})}
