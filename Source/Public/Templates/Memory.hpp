@@ -57,10 +57,9 @@ namespace oeng
 	namespace detail
 	{
 		template <bool ThreadSafe>
-		struct SharedObjBase  // NOLINT(cppcoreguidelines-special-member-functions)
+		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
+		struct SharedObjBase
 		{
-			virtual ~SharedObjBase() = default;
-
 			bool IncStrongNz() noexcept
 			{
 				if constexpr (ThreadSafe)
@@ -136,7 +135,7 @@ namespace oeng
 					old_weak = weak--;
 				}
 
-				if (old_weak == 1) delete this;
+				if (old_weak == 1) DeleteThis();
 			}
 
 			[[nodiscard]] unsigned long Strong() const noexcept
@@ -165,18 +164,20 @@ namespace oeng
 
 		private:
 			virtual void Destroy() noexcept = 0;
+			virtual void DeleteThis() noexcept = 0;
 
 			using RefCnt = std::conditional_t<ThreadSafe, std::atomic_ulong, unsigned long>;
 			RefCnt strong = 1;
 			RefCnt weak = 1;
 		};
 
-		template <class T, bool ThreadSafe>
+		template <class T, class Alloc, bool ThreadSafe>
+		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
 		struct SharedObjInline : SharedObjBase<ThreadSafe>  // NOLINT(cppcoreguidelines-special-member-functions)
 		{
 			template <class... Args>
-			SharedObjInline(Args&&... args)
-				:obj{ std::forward<Args>(args)... }
+			SharedObjInline(Alloc alloc, Args&&... args)
+				:obj{ std::forward<Args>(args)... }, alloc{std::move(alloc)}
 			{
 			}
 
@@ -185,22 +186,46 @@ namespace oeng
 			union { T obj; };
 
 		private:
-			void Destroy() noexcept override { obj.~T(); }
+			void Destroy() noexcept override
+			{
+				std::allocator_traits<Alloc>::destroy(alloc, &obj);
+			}
+			
+			void DeleteThis() noexcept override
+			{
+				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjInline>;
+				using Tr = std::allocator_traits<Al>;
+				Al al{std::move(alloc)};
+				Tr::destroy(al, this);
+				Tr::deallocate(al, this, 1);
+			}
+
+			[[no_unique_address]] Alloc alloc;
 		};
 
-		template <class T, class Deleter, bool ThreadSafe>
+		template <class T, class Deleter, class Alloc, bool ThreadSafe>
+		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
 		struct SharedObjPtr : SharedObjBase<ThreadSafe>
 		{
-			SharedObjPtr(T* ptr, Deleter deleter) noexcept
-				:ptr{ptr}, deleter{std::move(deleter)}
+			SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
+				:ptr{ptr}, deleter{std::move(deleter)}, alloc{std::move(alloc)}
 			{
 			}
 
 		private:
 			void Destroy() noexcept override { if (ptr) deleter(ptr); }
+			void DeleteThis() noexcept override
+			{
+				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
+				using Tr = std::allocator_traits<Al>;
+				Al al{std::move(alloc)};
+				Tr::destroy(al, this);
+				Tr::deallocate(al, this, 1);
+			}
 
 			T* ptr;
 			[[no_unique_address]] Deleter deleter;
+			[[no_unique_address]] Alloc alloc;
 		};
 
 		template <class T, class = void>
@@ -231,6 +256,9 @@ namespace oeng
 
 		template <class Y, class Deleter>
 		SharedPtr(Y* ptr, Deleter deleter) { reset(ptr, std::move(deleter)); }
+
+		template <class Y, class Deleter, class Alloc>
+		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc) { reset(ptr, std::move(deleter), std::move(alloc)); }
 
 		template <class Y>
 		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
@@ -288,11 +316,20 @@ namespace oeng
 
 		void reset(nullptr_t) noexcept { reset(); }
 
-		template <class Y = T, class Deleter = DefaultDelete<Y>>
-		void reset(Y* ptr, Deleter deleter = {})
+		template <class Y = T, class Deleter = DefaultDelete<Y>, class Alloc = Allocator<Y>>
+		void reset(Y* ptr, Deleter deleter = {}, Alloc alloc = {})
 		{
 			if (obj_) obj_->DecStrong();
-			SetAndEnableShared(ptr, New<detail::SharedObjPtr<Y, Deleter, ThreadSafe>>(ptr, std::move(deleter)));
+
+			using Obj = detail::SharedObjPtr<Y, Deleter, Alloc, ThreadSafe>;
+			using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<Obj>;
+			using Tr = std::allocator_traits<Al>;
+
+			Al al{alloc};
+			auto obj = Tr::allocate(al, 1);
+			Tr::construct(al, obj, ptr, std::move(deleter), std::move(alloc));
+			
+			SetAndEnableShared(ptr, obj);
 		}
 
 		void swap(SharedPtr& r) noexcept
@@ -343,8 +380,8 @@ namespace oeng
 		template <class, bool>
 		friend class WeakPtr;
 
-		template <class Y, bool TSafe, class... Args>
-		friend SharedPtr<Y, TSafe> MakeShared(Args&&... args);
+		template <class Y, bool TSafe, class Al, class... Args>
+		friend SharedPtr<Y, TSafe> AllocateShared(const Al&, Args&&...);  // NOLINT(readability-redundant-declaration)
 
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y, ThreadSafe>& r) noexcept
@@ -535,17 +572,33 @@ namespace oeng
 
 	private:
 		friend SharedPtr<T, ThreadSafe>;
-		friend detail::SharedObjInline<T, ThreadSafe>;
+
+		template <class, class, bool>
+		friend struct detail::SharedObjInline;
+		
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
+
+	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class Alloc, class... Args>
+	SharedPtr<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
+	{
+		using T = detail::SharedObjInline<T, Alloc, ThreadSafe>;
+		using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<T>;
+		using Tr = std::allocator_traits<Al>;
+
+		Al al{alloc};
+		auto obj = Tr::allocate(al, 1);
+		Tr::construct(al, obj, alloc, std::forward<Args>(args)...);
+		
+		SharedPtr<T, ThreadSafe> ret;
+		ret.SetAndEnableShared(&obj->obj, obj);
+		return ret;
+	}
 
 	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class... Args>
 	SharedPtr<T, ThreadSafe> MakeShared(Args&&... args)
 	{
-		SharedPtr<T, ThreadSafe> ret;
-		auto obj = New<detail::SharedObjInline<T, ThreadSafe>>(std::forward<Args>(args)...);
-		ret.SetAndEnableShared(&obj->obj, obj);
-		return ret;
+		return AllocateShared<T, ThreadSafe>(Allocator<T>{}, std::forward<Args>(args)...);
 	}
 
 	template <class T, class U, bool ThreadSafe>
