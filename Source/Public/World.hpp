@@ -1,7 +1,8 @@
 #pragma once
 #include <chrono>
-#include <memory>
-#include <vector>
+
+#include "Templates/DyArr.hpp"
+#include "Templates/Memory.hpp"
 
 namespace oeng
 {
@@ -20,11 +21,11 @@ namespace oeng
 		~World();
 		
 		template <class T>
-		std::weak_ptr<T> SpawnActor()
+		WeakPtr<T> SpawnActor()
 		{
 			static_assert(std::is_base_of_v<AActor, T>);
-			auto actor = std::make_shared<T>(*this);
-			std::weak_ptr weak = actor;
+			auto actor = MakeShared<T>(*this);
+			WeakPtr weak = actor;
 			RegisterActor(std::move(actor));
 			return weak;
 		}
@@ -50,15 +51,15 @@ namespace oeng
 	private:
 		void UpdateGame();
 		void UpdateTime();
-		void RegisterActor(std::shared_ptr<AActor>&& actor);
+		void RegisterActor(SharedPtr<AActor>&& actor);
 
 		Engine& engine_;
-		std::unique_ptr<TimerManager> timer_;
+		UniquePtr<TimerManager> timer_;
 
-		std::vector<std::reference_wrapper<CircleComponent>> collisions_;
+		DyArr<std::reference_wrapper<CircleComponent>> collisions_;
 		
-		std::vector<std::shared_ptr<AActor>> actors_;
-		std::vector<std::shared_ptr<AActor>> pending_actors_;
+		DyArr<SharedPtr<AActor>> actors_;
+		DyArr<SharedPtr<AActor>> pending_actors_;
 		
 		Clock::time_point time_;
 		float delta_seconds_;

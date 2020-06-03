@@ -7,7 +7,7 @@ namespace oeng
 {
 	World::World(Engine& engine):
 		engine_{engine},
-		timer_{std::make_unique<TimerManager>(*this)},
+		timer_{MakeUnique<TimerManager>(*this)},
 		delta_seconds_{0}
 	{
 	}
@@ -73,7 +73,7 @@ namespace oeng
 		time_ = now;
 	}
 
-	void World::RegisterActor(std::shared_ptr<AActor>&& actor)
+	void World::RegisterActor(SharedPtr<AActor>&& actor)
 	{
 		pending_actors_.push_back(std::move(actor));
 	}
