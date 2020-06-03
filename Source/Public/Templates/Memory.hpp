@@ -1,7 +1,9 @@
 #pragma once
 #include <atomic>
 #include <memory>
+#include <omem.hpp>
 #include "Assert.hpp"
+#include "Thread.hpp"
 
 namespace oeng
 {
@@ -18,7 +20,7 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		return new T{std::forward<Args>(args)...};
+		return IsGameThread() ? omem::New<T>(std::forward<Args>(args)...) : new T{std::forward<Args>(args)...};
 	}
 
 	template <class T, class... Args>
@@ -30,7 +32,7 @@ namespace oeng
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-		delete p;
+		IsGameThread() ? omem::Delete<T>(p) : delete p;
 	}
 
 	template <class T>
@@ -40,19 +42,62 @@ namespace oeng
 	}
 
 	template <class T>
-	using Allocator = std::allocator<T>;
+	class Allocator : omem::Allocator<T>
+	{
+	public:
+		using value_type = T;
+		
+		constexpr Allocator() noexcept = default;
+
+		template <class Y>
+		constexpr Allocator(const Allocator<Y>&) noexcept {}
+
+		template <class Y>
+		constexpr bool operator==(const Allocator<Y>&) const noexcept { return true; }
+
+		[[nodiscard]] T* allocate(size_t n) const
+		{
+			return IsGameThread() ? omem::Allocator<T>::allocate(n) : static_cast<T*>(Alloc(n * sizeof T));
+		}
+
+		void deallocate(T* p, size_t n) const noexcept
+		{
+			IsGameThread() ? omem::Allocator<T>::deallocate(p, n) : Free(p);
+		}
+	};
 
 	template <class T>
-	using DefaultDelete = std::default_delete<T>;
+	class DefaultDelete
+	{
+	public:
+		void operator()(T* p) noexcept { Delete(p); }
+	};
+
+	template <class T>
+	class DefaultDelete<T[]>
+	{
+	public:
+		void operator()(T* p) noexcept { DeleteArr(p); }
+	};
 
 	template <class T, class Deleter = DefaultDelete<T>>
 	using UniquePtr = std::unique_ptr<T, Deleter>;
 
-	template <class T, class... Args>
-	UniquePtr<T> MakeUnique(Args&&... args)
+	template <class T, class... Args, std::enable_if_t<!std::is_array_v<T>, int> = 0>
+	[[nodiscard]] UniquePtr<T> MakeUnique(Args&&... args)
 	{
-		return std::make_unique<T>(std::forward<Args>(args)...);
+	    return UniquePtr<T>(oeng::New<T>(std::forward<Args>(args)...));
 	}
+
+	template <class T, std::enable_if_t<std::is_array_v<T> && std::extent_v<T> == 0, int> = 0>
+	[[nodiscard]] UniquePtr<T> MakeUnique(size_t size)
+	{
+	    using Elem = std::remove_extent_t<T>;
+	    return UniquePtr<T>(NewArr<Elem>(size)());
+	}
+
+	template <class T, class... Args, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
+	void MakeUnique(Args&&...) = delete;
 
 	namespace detail
 	{
