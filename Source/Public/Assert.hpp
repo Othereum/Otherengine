@@ -24,14 +24,15 @@
 #error OE_BUILD_MODE must be either 0, 1, or 2
 
 #endif
+#include "API.hpp"
 
 
 #if OE_DO_CHECK
 
 namespace oeng::detail
 {
-	[[noreturn]] void OnAssertionFailed(const char* msg) noexcept;
-	void OnEnsureFailed(const char* msg) noexcept;
+	[[noreturn]] OEAPI void OnAssertionFailed(const char* msg) noexcept;
+	OEAPI void OnEnsureFailed(const char* msg) noexcept;
 }
 
 #define CHECK_MSG(expr, msg) (void)((!!(expr)) || (::oeng::detail::OnAssertionFailed("Assertion failed: " msg ", file " __FILE__ ", line " LINE_STRING), false))
