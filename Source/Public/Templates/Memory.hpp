@@ -17,6 +17,14 @@ namespace oeng
 		operator delete(p);
 	}
 	
+	/**
+	 * \brief Allocate memory and construct new object T.
+	 * \tparam T object type to be created
+	 * \param args arguments to be passed to the constructor of object T.
+	 * \return The pointer to created object
+	 * \note Only allocates from pool if current context is in game thread (for thread-safety).
+	 *		Otherwise, call standard new T(...)
+	 */
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
@@ -42,24 +50,44 @@ namespace oeng
 	}
 
 	template <class T>
-	class Allocator : omem::Allocator<T>
+	using Allocator = std::allocator<T>;
+
+	/**
+	 * \brief Allocator for memory pool
+	 * \note Allocates from pool only for a single object and game thread.
+	 *		Otherwise, allocates by operator new()
+	 * \tparam T Type to be allocated
+	 */
+	template <class T>
+	class PoolAllocator : omem::Allocator<T>
 	{
 	public:
 		using value_type = T;
 		
-		constexpr Allocator() noexcept = default;
+		constexpr PoolAllocator() noexcept = default;
 
 		template <class Y>
-		constexpr Allocator(const Allocator<Y>&) noexcept {}
+		constexpr PoolAllocator(const PoolAllocator<Y>&) noexcept {}
 
 		template <class Y>
-		constexpr bool operator==(const Allocator<Y>&) const noexcept { return true; }
+		constexpr bool operator==(const PoolAllocator<Y>&) const noexcept { return true; }
 
+		/**
+		 * \brief Allocate n * sizeof T bytes of uninitialized memory.
+		 * \param n the number of objects to allocate memory for
+		 * \return The pointer to allocated memory
+		 * \note Allocates from pool only if n == 1 && IsGameThread()
+		 */
 		[[nodiscard]] T* allocate(size_t n) const
 		{
 			return IsGameThread() ? omem::Allocator<T>::allocate(n) : static_cast<T*>(Alloc(n * sizeof T));
 		}
 
+		/**
+		 * \brief Deallocate the memory referenced by p
+		 * \param p pointer to the previously allocated memory
+		 * \param n the number of objects the storage was allocated for (MUST BE SAME)
+		 */
 		void deallocate(T* p, size_t n) const noexcept
 		{
 			IsGameThread() ? omem::Allocator<T>::deallocate(p, n) : Free(p);
@@ -643,7 +671,7 @@ namespace oeng
 	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class... Args>
 	SharedPtr<T, ThreadSafe> MakeShared(Args&&... args)
 	{
-		return AllocateShared<T, ThreadSafe>(Allocator<T>{}, std::forward<Args>(args)...);
+		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
 	}
 
 	template <class T, class U, bool ThreadSafe>
