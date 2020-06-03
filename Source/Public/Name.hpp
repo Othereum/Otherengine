@@ -5,8 +5,6 @@
 
 namespace oeng
 {
-	using NameString = BasicString<Char, std::char_traits<Char>, std::allocator<Char>>;
-	
 	/**
 	 * \brief Lightweight string
 	 * \brief Very fast O(1) copy and comparison
@@ -18,16 +16,16 @@ namespace oeng
 	{
 		Name() noexcept;
 		Name(const char* s);
-		Name(NameString s);
+		Name(String s);
 
-		[[nodiscard]] const NameString& Str() const noexcept { return *sp; }
+		[[nodiscard]] const String& Str() const noexcept { return *sp; }
 		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
 
 		bool operator==(const Name&) const noexcept = default;
 
 	private:
 		friend std::hash<Name>;
-		const NameString* sp;
+		const String* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);

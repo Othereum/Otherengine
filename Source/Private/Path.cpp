@@ -47,8 +47,7 @@ namespace oeng
 		CHECK(IsGameThread());
 #endif
 		
-		auto [it, i] = path_set->insert(proximate(path));
-		p = &*it;
+		p = &*path_set->insert(proximate(path)).first;
 	}
 
 	void to_json(Json& json, const Path& path)
