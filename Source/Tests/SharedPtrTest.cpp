@@ -16,7 +16,7 @@ TEST(SharedPtr, Basic)
 	struct D
 	{
 		D(int& n) :n{n} {}
-		void operator()(Foo* p) const { ++n; delete p; }
+		void operator()(Foo* p) const { ++n; Delete(p); }
 		int& n;
 	};
 
@@ -29,7 +29,7 @@ TEST(SharedPtr, Basic)
 	ASSERT_EQ(n, 0);
 
 	{
-		SharedPtr<Foo> sh2{new Foo{n}};
+		SharedPtr<Foo> sh2{New<Foo>(n)};
 		auto sh3 = sh2;
 		ASSERT_EQ(sh2.use_count(), 2);
 		ASSERT_EQ(sh3.use_count(), 2);
@@ -38,8 +38,8 @@ TEST(SharedPtr, Basic)
 	ASSERT_EQ(n, 2);
 
 	{
-		SharedPtr<Foo> sh4{new Foo{n}, D{n}};
-		SharedPtr<Foo> sh5{new Foo{n}, [&](auto p) { ++n; delete p; }};
+		SharedPtr<Foo> sh4{New<Foo>(n), D{n}};
+		SharedPtr<Foo> sh5{New<Foo>(n), [&](auto p) { ++n; Delete(p); }};
 	}
 
 	ASSERT_EQ(n, 8);

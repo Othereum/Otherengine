@@ -62,16 +62,16 @@ namespace oeng
 		return context;
 	}
 
-	static std::unique_ptr<Shader> CreateSpriteShader(Vec2u16 scr)
+	static UniquePtr<Shader> CreateSpriteShader(Vec2u16 scr)
 	{
-		auto shader = std::make_unique<Shader>("../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag");
+		auto shader = MakeUnique<Shader>("../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag");
 		const auto view = MakeLookAt({}, Vec3::Forward(), Vec3::Up());
 		const auto proj = MakePerspective(Vec2{scr}, 25.f, 10000.f, 70_deg);
 		shader->SetMatrixUniform("uViewProj", view * proj);
 		return shader;
 	}
 
-	static std::unique_ptr<VertexArray> CreateSpriteVerts()
+	static UniquePtr<VertexArray> CreateSpriteVerts()
 	{
 		constexpr Vertex vertex_buffer[]
 		{
@@ -87,7 +87,7 @@ namespace oeng
 			{2, 3, 0}
 		};
 
-		return std::make_unique<VertexArray>(vertex_buffer, index_buffer);
+		return MakeUnique<VertexArray>(vertex_buffer, index_buffer);
 	}
 
 	Renderer::Renderer(Engine& engine, Vec2u16 scr)
