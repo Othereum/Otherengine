@@ -5,7 +5,7 @@ file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
 add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 target_include_directories(${PROJECT_NAME} PUBLIC "Source/Public" PRIVATE "Source/Private")
-target_compile_definitions(${PROJECT_NAME} PRIVATE OE_BUILD=1 INTERFACE OE_BUILD=0)
+target_compile_definitions(${PROJECT_NAME} PRIVATE OE_BUILD=1 INTERFACE OE_BUILD=0 PUBLIC OE_BUILD_STATIC=0)
 
 find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)
@@ -13,9 +13,10 @@ find_package(soil2 REQUIRED)
 find_package(nlohmann_json 3.7.3 REQUIRED)
 find_package(fmt 6.2.0 REQUIRED)
 add_subdirectory("Source/ThirdParty/otm")
+add_subdirectory("Source/ThirdParty/omem")
 
 target_link_libraries(${PROJECT_NAME}
-    PUBLIC otm nlohmann_json::nlohmann_json fmt::fmt
+    PUBLIC otm omem nlohmann_json::nlohmann_json fmt::fmt
     PRIVATE SDL2::SDL2 GLEW::GLEW soil2
 )
 
