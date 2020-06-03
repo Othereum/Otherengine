@@ -5,7 +5,6 @@
 #include "Thread.hpp"
 #include "Templates/HashSet.hpp"
 #include "Templates/Monitor.hpp"
-#include "Templates/String.hpp"
 
 namespace oeng
 {
@@ -29,7 +28,8 @@ namespace oeng
 		}
 	};
 
-	static Monitor<HashSet<String, NameHasher, NameEqual>, CondMutex<OE_NAME_THREADSAFE>> str_set{String{}};
+	using NameSet = HashSet<NameString, NameHasher, NameEqual, std::allocator<NameString>>;
+	static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> str_set{NameString{}};
 	
 	Name::Name() noexcept
 		:sp{&*str_set->find({})}
@@ -37,11 +37,11 @@ namespace oeng
 	}
 
 	Name::Name(const char* s)
-		:Name{String{s}}
+		:Name{NameString{s}}
 	{
 	}
 
-	Name::Name(String s)
+	Name::Name(NameString s)
 	{
 #if !OE_NAME_THREADSAFE
 		CHECK(IsGameThread());
@@ -58,6 +58,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = json.get<String>();
+		name = json.get<NameString>();
 	}
 }

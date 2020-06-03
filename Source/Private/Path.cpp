@@ -29,7 +29,7 @@ namespace oeng
 		}
 	};
 
-	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
+	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual, std::allocator<std::filesystem::path>>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
 
 	Path::Path() noexcept
 		:p{&*path_set->find({})}
