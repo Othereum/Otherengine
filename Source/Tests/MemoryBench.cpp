@@ -9,12 +9,12 @@ static void Benchmark(Al al)
 		T::deallocate(al, T::allocate(al, 1), 1);
 }
 
-TEST(MemBench, oeng)
+TEST(MemBench, Pool)
 {
-	Benchmark(oeng::Allocator<double>{});
+	Benchmark(oeng::PoolAllocator<double>{});
 }
 
-TEST(MemBench, std)
+TEST(MemBench, Raw)
 {
-	Benchmark(std::allocator<double>{});
+	Benchmark(oeng::RawAllocator<double>{});
 }

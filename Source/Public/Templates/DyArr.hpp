@@ -4,6 +4,6 @@
 
 namespace oeng
 {
-	template <class T, class Alloc = Allocator<T>>
+	template <class T, class Alloc = RawAllocator<T>>
 	using DyArr = std::vector<T, Alloc>;
 }

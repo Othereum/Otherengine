@@ -50,7 +50,7 @@ namespace oeng
 	}
 
 	template <class T>
-	using Allocator = std::allocator<T>;
+	using RawAllocator = std::allocator<T>;
 
 	/**
 	 * \brief Allocator for memory pool
@@ -389,7 +389,7 @@ namespace oeng
 
 		void reset(nullptr_t) noexcept { reset(); }
 
-		template <class Y = T, class Deleter = DefaultDelete<Y>, class Alloc = Allocator<Y>>
+		template <class Y = T, class Deleter = DefaultDelete<Y>, class Alloc = RawAllocator<Y>>
 		void reset(Y* ptr, Deleter deleter = {}, Alloc alloc = {})
 		{
 			if (obj_) obj_->DecStrong();
