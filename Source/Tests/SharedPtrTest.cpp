@@ -70,38 +70,6 @@ TEST(SharedPtr, Basic)
 	ASSERT_EQ(n, 16);
 }
 
-TEST(SharedPtr, Multithread)
-{
-	struct Base
-	{
-		Base(int& n) :n{n} { ++n; }
-		~Base() { ++n; }
-		int& n;
-	};
-
-	struct Derived : Base
-	{
-		Derived(int& n) :Base{n} {}
-	};
-
-	auto n = 0;
-
-	auto thr = [](SharedPtr<Base, true> p)
-	{
-		auto lp = p;
-	};
-
-	SharedPtr<Base, true> p = MakeShared<Derived, true>(n);
-	ASSERT_EQ(p.use_count(), 1);
-
-	std::thread t1{thr, p}, t2{thr, p}, t3{thr, p};
-	p.reset();
-	ASSERT_EQ(p.use_count(), 0);
-
-	t1.join(); t2.join(); t3.join();
-	ASSERT_EQ(n, 2);
-}
-
 TEST(SharedPtr, WeakPtr)
 {
 	WeakPtr<int> weak;
@@ -119,7 +87,8 @@ TEST(SharedPtr, WeakPtr)
 	ASSERT_TRUE(weak.expired());
 }
 
-constexpr auto kCopyCnt = 1000000;
+constexpr auto kCopyCnt = 10000000;
+constexpr auto kCopyCntMt = 1000000;
 
 TEST(SharedPtr, Bench_NonThreadSafe)
 {
@@ -137,4 +106,39 @@ TEST(SharedPtr, Bench_Standard)
 {
 	auto ptr = std::make_shared<int>();
 	for (auto i=0; i<kCopyCnt; ++i) { auto copied = ptr; }
+}
+
+template <class Weak, class Shared>
+void MtBench(Shared ptr)
+{
+	auto thr = [](Shared ptr)
+	{
+		for (auto i=0; i<kCopyCntMt; ++i) { auto copied = ptr; }
+	};
+
+	auto thr2 = [](Weak weak)
+	{
+		for (auto i=0; i<kCopyCntMt; ++i)
+		{
+			auto copied = weak;
+			weak.lock();
+		}
+	};
+
+	std::thread t1{thr, ptr}, t2{thr, ptr};
+	Weak weak = ptr;
+	ptr.reset();
+	std::thread t3{thr2, weak};
+	t1.join(); t2.join(); t3.join();
+	ASSERT_TRUE(weak.expired());
+}
+
+TEST(SharedPtr, Multithread)
+{
+	MtBench<WeakPtr<int, true>>(MakeShared<int, true>());
+}
+
+TEST(SharedPtr, MultithreadStd)
+{
+	MtBench<std::weak_ptr<int>>(std::make_shared<int>());
 }
