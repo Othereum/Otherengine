@@ -35,8 +35,8 @@ namespace oeng
 		 * \brief Set root component of this actor. Root component represents this actor's transform.
 		 * \param new_root New root component. It can be nullptr or MUST be owned by this actor. 
 		 */
-		void SetRootComponent(WeakPtr<SceneComponent> new_root) noexcept;
-		[[nodiscard]] const WeakPtr<SceneComponent>& GetRootComponent() const noexcept { return root_; }
+		void SetRootComponent(SceneComponent* new_root) noexcept;
+		[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
 
 		void SetEnabled(bool enable);
 		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
@@ -84,6 +84,6 @@ namespace oeng
 		
 		World& world_;
 		DyArr<SharedPtr<ActorComponent>> comps_;
-		WeakPtr<SceneComponent> root_;
+		SceneComponent* root_ = nullptr;
 	};
 }

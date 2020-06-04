@@ -61,10 +61,10 @@ namespace oeng
 		pending_kill_ = true;
 	}
 
-	void AActor::SetRootComponent(WeakPtr<SceneComponent> new_root) noexcept
+	void AActor::SetRootComponent(SceneComponent* new_root) noexcept
 	{
-		CHECK(new_root.expired() || &new_root.lock()->GetOwner() == this);
-		root_ = std::move(new_root);
+		CHECK(!new_root || &new_root->GetOwner() == this);
+		root_ = new_root;
 	}
 
 	void AActor::SetEnabled(bool enable)
@@ -100,56 +100,51 @@ namespace oeng
 
 	void AActor::SetTransform(const Transform& new_transform, bool recalc_matrix) const noexcept
 	{
-		if (auto r = root_.lock()) r->SetRelTransform(new_transform, recalc_matrix);
+		if (root_) root_->SetRelTransform(new_transform, recalc_matrix);
 	}
 
 	const Transform& AActor::GetTransform() const noexcept
 	{
-		const auto r = root_.lock();
-		return r ? r->GetRelTransform() : Transform::identity;
+		return root_ ? root_->GetRelTransform() : Transform::identity;
 	}
 
 	void AActor::SetPos(const Vec3& new_pos, bool recalc_matrix) const noexcept
 	{
-		if (auto r = root_.lock()) r->SetRelPos(new_pos, recalc_matrix);
+		if (root_) root_->SetRelPos(new_pos, recalc_matrix);
 	}
 
 	const Vec3& AActor::GetPos() const noexcept
 	{
-		const auto r = root_.lock();
-		return r ? r->GetRelPos() : Vec3::zero;
+		return root_ ? root_->GetRelPos() : Vec3::zero;
 	}
 
 	void AActor::SetRot(const Quat& new_rot, bool recalc_matrix) const noexcept
 	{
-		if (auto r = root_.lock()) r->SetRelRot(new_rot, recalc_matrix);
+		if (root_) root_->SetRelRot(new_rot, recalc_matrix);
 	}
 
 	const Quat& AActor::GetRot() const noexcept
 	{
-		const auto r = root_.lock();
-		return r ? r->GetRelRot() : Quat::identity;
+		return root_ ? root_->GetRelRot() : Quat::identity;
 	}
 
 	void AActor::SetScale(const Vec3& scale, bool recalc_matrix) const noexcept
 	{
-		if (auto r = root_.lock()) r->SetRelScale(scale, recalc_matrix);
+		if (root_) root_->SetRelScale(scale, recalc_matrix);
 	}
 
 	const Vec3& AActor::GetScale() const noexcept
 	{
-		const auto r = root_.lock();
-		return r ? r->GetRelScale() : Vec3::one;
+		return root_ ? root_->GetRelScale() : Vec3::one;
 	}
 
 	void AActor::RecalcMatrix() const noexcept
 	{
-		if (auto r = root_.lock()) r->RecalcWorldTransform();
+		if (root_) root_->RecalcWorldTransform();
 	}
 
 	const Mat4& AActor::GetTransformMatrix() const noexcept
 	{
-		const auto r = root_.lock();
-		return r ? r->GetWorldTransform() : Mat4::identity;
+		return root_ ? root_->GetWorldTransform() : Mat4::identity;
 	}
 }
