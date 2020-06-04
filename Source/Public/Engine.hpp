@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include "API.hpp"
+#include "InputSystem.hpp"
 #include "Math.hpp"
 #include "Path.hpp"
+#include "World.hpp"
+#include "Graphics/Renderer.hpp"
 #include "Templates/HashMap.hpp"
 #include "Templates/Function.hpp"
 
@@ -11,11 +14,8 @@ struct SDL_Rect;
 
 namespace oeng
 {
-	class Renderer;
 	class Texture;
 	class Mesh;
-	class World;
-	class InputSystem;
 
 	class SdlRaii
 	{
@@ -35,9 +35,9 @@ namespace oeng
 		
 		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
 		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
-		[[nodiscard]] World& GetWorld() const noexcept { return *world_; }
-		[[nodiscard]] InputSystem& GetInputSystem() const noexcept { return *input_system_; }
-		[[nodiscard]] Renderer& GetRenderer() const noexcept { return *renderer_; }
+		[[nodiscard]] World& GetWorld() noexcept { return world_; }
+		[[nodiscard]] InputSystem& GetInputSystem() noexcept { return input_system_; }
+		[[nodiscard]] Renderer& GetRenderer() noexcept { return renderer_; }
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
 		[[nodiscard]] std::string_view GetGameName() const noexcept { return game_name_; }
 
@@ -53,9 +53,9 @@ namespace oeng
 		std::string_view game_name_;
 		HashMap<Path, WeakPtr<Texture>> textures_;
 		HashMap<Path, WeakPtr<Mesh>> meshes_;
-		UniquePtr<Renderer> renderer_;
-		UniquePtr<World> world_;
-		UniquePtr<InputSystem> input_system_;
+		Renderer renderer_;
+		World world_;
+		InputSystem input_system_;
 		bool is_running_ = true;
 	};
 }

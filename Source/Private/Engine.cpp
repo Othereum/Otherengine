@@ -1,19 +1,15 @@
 ﻿#include "Engine.hpp"
 #include <SDL.h>
 #include "Components/InputComponent.hpp"
-#include "Graphics/Renderer.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/Mesh.hpp"
-#include "InputSystem.hpp"
-#include "World.hpp"
 
 namespace oeng
 {
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
 		:game_name_{game_name},
-		renderer_{MakeUnique<Renderer>(*this, Vec2u16{1024, 768})},
-		world_{MakeUnique<World>(*this)},
-		input_system_{MakeUnique<InputSystem>()}
+		renderer_{*this, {1024, 768}},
+		world_{*this}
 	{
 		load_game(*this);
 	}
@@ -71,19 +67,19 @@ namespace oeng
 
 	Vec2u16 Engine::GetScreenSize() const noexcept
 	{
-		return renderer_->GetScreenSize();
+		return renderer_.GetScreenSize();
 	}
 
 	void Engine::Tick()
 	{
 		ProcessEvent();
-		world_->Tick();
-		renderer_->DrawScene();
+		world_.Tick();
+		renderer_.DrawScene();
 	}
 
 	void Engine::ProcessEvent()
 	{
-		input_system_->ClearEvents();
+		input_system_.ClearEvents();
 		
 		SDL_Event event;
 		while (SDL_PollEvent(&event))
@@ -94,7 +90,7 @@ namespace oeng
 				return;
 			}
 			
-			input_system_->AddEvent(event);
+			input_system_.AddEvent(event);
 		}
 	}
 
