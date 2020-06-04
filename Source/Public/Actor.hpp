@@ -12,7 +12,7 @@ namespace oeng
 	class SceneComponent;
 	class TimerManager;
 	
-	class AActor : public EnableSharedFromThis<AActor>
+	class OEAPI AActor : public EnableSharedFromThis<AActor>
 	{
 	public:
 		explicit AActor(World& world);
