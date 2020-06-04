@@ -8,21 +8,13 @@ namespace oeng
 	{
 	}
 
-	void SceneComponent::AttachTo(const SharedPtr<SceneComponent>& new_parent)
+	void SceneComponent::AttachTo(SceneComponent* new_parent)
 	{
-		if (const auto old_parent = parent_.lock())
+		if (parent_)
 		{
-			auto& siblings = old_parent->childs_;
+			auto& siblings = parent_->childs_;
 			const auto me = std::find_if(siblings.begin(), siblings.end(), 
-				[self = shared_from_this()](const WeakPtr<SceneComponent>& weak_other)
-				{
-					const auto other = weak_other.lock();
-					IF_ENSURE_MSG(other, "Child should not be expired")
-					{
-						return other == self;
-					}
-					return false;
-				}
+				[this](const SceneComponent& other) { return &other == this; }
 			);
 			
 			IF_ENSURE_MSG(me != siblings.end(), "This component was not in the parent's child list")
@@ -35,7 +27,7 @@ namespace oeng
 
 		if (new_parent)
 		{
-			new_parent->childs_.emplace_back(StaticCast<SceneComponent>(shared_from_this()));
+			new_parent->childs_.emplace_back(*this);
 		}
 	}
 
@@ -65,18 +57,14 @@ namespace oeng
 
 	void SceneComponent::RecalcWorldTransform(bool propagate) noexcept
 	{
-		if (auto p = parent_.lock()) world_transform_ = p->GetWorldTransform() * rel_transform_.ToMatrix();
+		if (parent_) world_transform_ = parent_->GetWorldTransform() * rel_transform_.ToMatrix();
 		else world_transform_ = rel_transform_.ToMatrix();
 
 		if (!propagate) return;
 
 		for (auto&& c : childs_)
 		{
-			const auto p = c.lock();
-			IF_ENSURE_MSG(p, "Child should not be expired")
-			{
-				p->RecalcWorldTransform(propagate);
-			}
+			c.get().RecalcWorldTransform(propagate);
 		}
 	}
 }

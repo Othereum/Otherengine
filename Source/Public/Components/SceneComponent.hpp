@@ -10,7 +10,7 @@ namespace oeng
 	public:
 		explicit SceneComponent(AActor& owner, int update_order = 100);
 
-		void AttachTo(const SharedPtr<SceneComponent>& new_parent);
+		void AttachTo(SceneComponent* new_parent);
 
 		void SetRelTransform(const Transform& new_transform, bool recalc_world_transform = true) noexcept;
 		[[nodiscard]] const Transform& GetRelTransform() const noexcept { return rel_transform_; }
@@ -28,8 +28,8 @@ namespace oeng
 		[[nodiscard]] const Mat4& GetWorldTransform() const noexcept { return world_transform_; }
 
 	private:
-		WeakPtr<SceneComponent> parent_;
-		DyArr<WeakPtr<SceneComponent>> childs_;
+		SceneComponent* parent_;
+		DyArr<std::reference_wrapper<SceneComponent>> childs_;
 		Transform rel_transform_;
 		Mat4 world_transform_;
 	};
