@@ -1,4 +1,5 @@
 #pragma once
+#include <compare>
 #include <filesystem>
 #include "API.hpp"
 #include "JsonFwd.hpp"
@@ -18,7 +19,7 @@ namespace oeng
 		Path(const char* path);
 		Path(const std::filesystem::path& path);
 
-		bool operator==(const Path&) const noexcept = default;
+		std::strong_ordering operator<=>(const Path&) const noexcept = default;
 
 		operator const std::filesystem::path&() const noexcept { return *p; }
 		const std::filesystem::path* operator->() const noexcept { return p; }
