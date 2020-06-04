@@ -23,7 +23,7 @@ namespace oeng
 		return duration_cast<duration<float>>(dur).count();
 	}
 
-	TimerHandle TimerManager::SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn)
+	TimerHandle TimerManager::SetLoopTimer(float delay_in_seconds, Function<Loop()>&& fn)
 	{
 		const auto handle = TimerHandle::Create();
 		const auto delay = ToDuration(delay_in_seconds);
@@ -31,12 +31,12 @@ namespace oeng
 		return handle;
 	}
 
-	TimerHandle TimerManager::SetTimer(float delay_in_seconds, std::function<void()>&& fn)
+	TimerHandle TimerManager::SetTimer(float delay_in_seconds, Function<void()>&& fn)
 	{
 		return SetLoopTimer(delay_in_seconds, [fn = std::move(fn)] { fn(); return Loop::kStop; });
 	}
 
-	void TimerManager::SetTimerForNextTick(std::function<void()>&& fn)
+	void TimerManager::SetTimerForNextTick(Function<void()>&& fn)
 	{
 		SetTimer(0, std::move(fn));
 	}

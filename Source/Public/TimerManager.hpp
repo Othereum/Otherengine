@@ -1,6 +1,6 @@
 #pragma once
-#include <functional>
-#include <unordered_map>
+#include "Templates/Function.hpp"
+#include "Templates/HashMap.hpp"
 
 namespace oeng
 {
@@ -41,14 +41,14 @@ namespace oeng
 		
 		void Update();
 
-		TimerHandle SetLoopTimer(float delay_in_seconds, std::function<Loop()>&& fn = []{return Loop::kContinue;});
-		TimerHandle SetTimer(float delay_in_seconds, std::function<void()>&& fn = []{});
+		TimerHandle SetLoopTimer(float delay_in_seconds, Function<Loop()>&& fn = []{return Loop::kContinue;});
+		TimerHandle SetTimer(float delay_in_seconds, Function<void()>&& fn = []{});
 		
 		/**
 		 * \brief Set timer for next tick. Technically, fn is called at the end of the tick.
 		 * \param fn Callback function
 		 */
-		void SetTimerForNextTick(std::function<void()>&& fn);
+		void SetTimerForNextTick(Function<void()>&& fn);
 		
 		/**
 		 * \brief Update timer
@@ -83,7 +83,7 @@ namespace oeng
 		struct FTimer;
 		
 		World& world_;
-		std::unordered_map<TimerHandle, FTimer> timers_;
-		std::unordered_map<TimerHandle, FTimer> pending_timers_;
+		HashMap<TimerHandle, FTimer> timers_;
+		HashMap<TimerHandle, FTimer> pending_timers_;
 	};
 }
