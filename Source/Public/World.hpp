@@ -1,6 +1,6 @@
 #pragma once
 #include <chrono>
-
+#include "TimerManager.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/Memory.hpp"
 
@@ -9,7 +9,6 @@ namespace oeng
 	using Clock = std::chrono::steady_clock;
 	
 	class Engine;
-	class TimerManager;
 	class AActor;
 	class InputComponent;
 	class CircleComponent;
@@ -39,7 +38,7 @@ namespace oeng
 		void UnregisterCollision(CircleComponent& comp);
 		
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
-		[[nodiscard]] TimerManager& GetTimerManager() const noexcept { return *timer_; }
+		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
 
@@ -54,7 +53,7 @@ namespace oeng
 		void RegisterActor(SharedPtr<AActor>&& actor);
 
 		Engine& engine_;
-		UniquePtr<TimerManager> timer_;
+		TimerManager timer_;
 
 		DyArr<std::reference_wrapper<CircleComponent>> collisions_;
 		

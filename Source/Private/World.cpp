@@ -5,10 +5,8 @@
 
 namespace oeng
 {
-	World::World(Engine& engine):
-		engine_{engine},
-		timer_{MakeUnique<TimerManager>(*this)},
-		delta_seconds_{0}
+	World::World(Engine& engine)
+		:engine_{engine}, timer_{*this}, delta_seconds_{0}
 	{
 	}
 
@@ -41,7 +39,7 @@ namespace oeng
 			for (auto j = i+1; j < collisions_.size(); ++j)
 				collisions_[i].get().TestOverlap(collisions_[j]);
 
-		timer_->Update();
+		timer_.Update();
 		
 		for (auto&& pending : pending_actors_)
 		{
