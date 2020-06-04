@@ -22,13 +22,14 @@ namespace oeng
 		void Update(float delta_seconds);
 		void Destroy();
 
-		template <std::derived_from<ActorComponent> T, class... Args>
-		WeakPtr<T> AddComponent(Args&&... args)
+		template <class T, class... Args>
+		T& AddComponent(Args&&... args)
 		{
+			static_assert(std::is_base_of_v<ActorComponent, T>);
 			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
-			WeakPtr weak = ptr;
+			auto& ref = *ptr;
 			RegisterComponent(std::move(ptr));
-			return weak;
+			return ref;
 		}
 
 		/**
