@@ -31,30 +31,6 @@ namespace oeng
 		}
 	}
 
-	void SceneComponent::SetRelTransform(const Transform& new_transform, bool recalc_world_transform) noexcept
-	{
-		rel_transform_ = new_transform;
-		if (recalc_world_transform) RecalcWorldTransform();
-	}
-
-	void SceneComponent::SetRelPos(const Vec3& new_pos, bool recalc_world_transform) noexcept
-	{
-		rel_transform_.pos = new_pos;
-		if (recalc_world_transform) RecalcWorldTransform();
-	}
-
-	void SceneComponent::SetRelRot(const Quat& new_rot, bool recalc_world_transform) noexcept
-	{
-		rel_transform_.rot = new_rot;
-		if (recalc_world_transform) RecalcWorldTransform();
-	}
-
-	void SceneComponent::SetRelScale(const Vec3& scale, bool recalc_world_transform) noexcept
-	{
-		rel_transform_.scale = scale;
-		if (recalc_world_transform) RecalcWorldTransform();
-	}
-
 	void SceneComponent::RecalcWorldTransform(bool propagate) noexcept
 	{
 		if (parent_) world_transform_ = parent_->GetWorldTransform() * rel_transform_.ToMatrix();

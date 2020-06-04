@@ -98,9 +98,9 @@ namespace oeng
 		return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
 	}
 
-	void AActor::SetTransform(const Transform& new_transform, bool recalc_matrix) const noexcept
+	void AActor::SetTransform(const Transform& new_transform) const noexcept
 	{
-		if (root_) root_->SetRelTransform(new_transform, recalc_matrix);
+		if (root_) root_->SetRelTransform(new_transform);
 	}
 
 	const Transform& AActor::GetTransform() const noexcept
@@ -108,9 +108,9 @@ namespace oeng
 		return root_ ? root_->GetRelTransform() : Transform::identity;
 	}
 
-	void AActor::SetPos(const Vec3& new_pos, bool recalc_matrix) const noexcept
+	void AActor::SetPos(const Vec3& new_pos) const noexcept
 	{
-		if (root_) root_->SetRelPos(new_pos, recalc_matrix);
+		if (root_) root_->SetRelPos(new_pos);
 	}
 
 	const Vec3& AActor::GetPos() const noexcept
@@ -118,9 +118,9 @@ namespace oeng
 		return root_ ? root_->GetRelPos() : Vec3::zero;
 	}
 
-	void AActor::SetRot(const Quat& new_rot, bool recalc_matrix) const noexcept
+	void AActor::SetRot(const Quat& new_rot) const noexcept
 	{
-		if (root_) root_->SetRelRot(new_rot, recalc_matrix);
+		if (root_) root_->SetRelRot(new_rot);
 	}
 
 	const Quat& AActor::GetRot() const noexcept
@@ -128,9 +128,9 @@ namespace oeng
 		return root_ ? root_->GetRelRot() : Quat::identity;
 	}
 
-	void AActor::SetScale(const Vec3& scale, bool recalc_matrix) const noexcept
+	void AActor::SetScale(const Vec3& scale) const noexcept
 	{
-		if (root_) root_->SetRelScale(scale, recalc_matrix);
+		if (root_) root_->SetRelScale(scale);
 	}
 
 	const Vec3& AActor::GetScale() const noexcept
