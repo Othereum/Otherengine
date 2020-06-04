@@ -19,7 +19,7 @@ namespace oeng
 		virtual ~AActor();
 
 		void BeginPlay();
-		void Update(float delta_seconds);
+		void Update(Float delta_seconds);
 		void Destroy();
 
 		template <class T, class... Args>
@@ -46,9 +46,9 @@ namespace oeng
 		 * \brief Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
 		 * \param in_seconds New lifespan in seconds. <=0 means infinite.
 		 */
-		void SetLifespan(float in_seconds);
-		[[nodiscard]] float GetLifespan() const noexcept;
-		[[nodiscard]] float GetInitialLifespan() const noexcept { return init_lifespan_; }
+		void SetLifespan(Float in_seconds);
+		[[nodiscard]] Float GetLifespan() const noexcept;
+		[[nodiscard]] Float GetInitialLifespan() const noexcept { return init_lifespan_; }
 
 		void SetTransform(const Transform& new_transform) const noexcept;
 		[[nodiscard]] const Transform& GetTransform() const noexcept;
@@ -73,14 +73,14 @@ namespace oeng
 
 	private:
 		void RegisterComponent(SharedPtr<ActorComponent>&& comp);
-		void UpdateComponents(float delta_seconds);
-		virtual void OnUpdate(float delta_seconds) {}
+		void UpdateComponents(Float delta_seconds);
+		virtual void OnUpdate(Float delta_seconds) {}
 		virtual void OnBeginPlay() {}
 
 		bool pending_kill_ : 1 = false;
 		bool begun_play_ : 1 = false;
 		
-		float init_lifespan_ = 0;
+		Float init_lifespan_ = 0;
 		TimerHandle lifespan_timer_;
 		
 		World& world_;

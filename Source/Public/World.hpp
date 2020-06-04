@@ -40,7 +40,7 @@ namespace oeng
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
-		[[nodiscard]] float GetDeltaSeconds() const noexcept { return delta_seconds_; }
+		[[nodiscard]] Float GetDeltaSeconds() const noexcept { return delta_seconds_; }
 
 		World(const World&) = delete;
 		World(World&&) = delete;
@@ -61,6 +61,6 @@ namespace oeng
 		DyArr<SharedPtr<AActor>> pending_actors_;
 		
 		Clock::time_point time_;
-		float delta_seconds_;
+		Float delta_seconds_;
 	};
 }

@@ -21,7 +21,7 @@ namespace oeng
 	{
 	}
 
-	void AIComponent::OnUpdate(float delta_seconds)
+	void AIComponent::OnUpdate(Float delta_seconds)
 	{
 		cur_.get().Update(delta_seconds);
 	}

@@ -25,10 +25,10 @@ namespace oeng
 
 	struct InputAxis : InputKey
 	{
-		float scale = 1;
+		Float scale = 1;
 		
 		constexpr InputAxis() noexcept = default;
-		constexpr InputAxis(int key, InputType type, float scale) noexcept: InputKey{key, type}, scale{scale} {}
+		constexpr InputAxis(int key, InputType type, Float scale) noexcept: InputKey{key, type}, scale{scale} {}
 	};
 
 	struct InputAction : InputKey
@@ -54,8 +54,8 @@ namespace oeng
 		void AddAxis(Name name, std::vector<InputAxis>&& keys);
 		void AddAction(Name name, std::vector<InputAction>&& keys);
 		
-		[[nodiscard]] float GetAxisValue(Name name) const noexcept;
-		[[nodiscard]] static float GetAxisValue(const InputAxis& axis) noexcept;
+		[[nodiscard]] Float GetAxisValue(Name name) const noexcept;
+		[[nodiscard]] static Float GetAxisValue(const InputAxis& axis) noexcept;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }

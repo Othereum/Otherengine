@@ -1,4 +1,5 @@
 #pragma once
+#include "MathFwd.hpp"
 #include "Templates/Memory.hpp"
 
 namespace oeng
@@ -19,7 +20,7 @@ namespace oeng
 		ActorComponent& operator=(ActorComponent&&) = delete;
 
 		void BeginPlay();
-		void Update(float delta_seconds);
+		void Update(Float delta_seconds);
 		
 		void SetEnabled(bool enable) noexcept { is_enabled_ = enable; }
 		[[nodiscard]] bool IsEnabled() const noexcept { return is_enabled_; }
@@ -31,7 +32,7 @@ namespace oeng
 
 	private:
 		virtual void OnBeginPlay() {}
-		virtual void OnUpdate(float delta_seconds) {}
+		virtual void OnUpdate(Float delta_seconds) {}
 		
 		AActor& owner_;
 		int update_order_;

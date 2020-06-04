@@ -15,7 +15,7 @@ namespace oeng
 				Vec3 norm;
 				Vec2 uv;
 			};
-			float data[8];
+			Float data[8];
 		};
 
 		constexpr Vertex() noexcept :data{} {}

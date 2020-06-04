@@ -1,7 +1,8 @@
 #pragma once
-#include <map>
-#include <string>
-#include <vector>
+#include "Templates/TreeMap.hpp"
+#include "Templates/DyArr.hpp"
+#include "Templates/String.hpp"
+#include "MathFwd.hpp"
 
 namespace nlohmann
 {
@@ -24,5 +25,5 @@ namespace nlohmann
 
 namespace oeng
 {
-	using Json = nlohmann::basic_json<std::map, std::vector, std::string, bool, intptr_t, uintptr_t, float, std::allocator, nlohmann::adl_serializer>;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, String, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
 }

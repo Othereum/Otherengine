@@ -67,7 +67,7 @@ namespace oeng
 	void World::UpdateTime()
 {
 		const auto now = Clock::now();
-		delta_seconds_ = std::chrono::duration<float>{now - time_}.count();
+		delta_seconds_ = std::chrono::duration<Float>{now - time_}.count();
 		time_ = now;
 	}
 

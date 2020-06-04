@@ -13,17 +13,17 @@ namespace oeng
 		Clock::duration delay;
 	};
 
-	constexpr Clock::duration ToDuration(float sec) noexcept
+	constexpr Clock::duration ToDuration(Float sec) noexcept
 	{
-		return duration_cast<Clock::duration>(duration<float>{sec});
+		return duration_cast<Clock::duration>(duration<Float>{sec});
 	}
 
-	constexpr float ToFloat(Clock::duration dur) noexcept
+	constexpr Float ToFloat(Clock::duration dur) noexcept
 	{
-		return duration_cast<duration<float>>(dur).count();
+		return duration_cast<duration<Float>>(dur).count();
 	}
 
-	TimerHandle TimerManager::SetLoopTimer(float delay_in_seconds, Function<Loop()>&& fn)
+	TimerHandle TimerManager::SetLoopTimer(Float delay_in_seconds, Function<Loop()>&& fn)
 	{
 		const auto handle = TimerHandle::Create();
 		const auto delay = ToDuration(delay_in_seconds);
@@ -31,7 +31,7 @@ namespace oeng
 		return handle;
 	}
 
-	TimerHandle TimerManager::SetTimer(float delay_in_seconds, Function<void()>&& fn)
+	TimerHandle TimerManager::SetTimer(Float delay_in_seconds, Function<void()>&& fn)
 	{
 		return SetLoopTimer(delay_in_seconds, [fn = std::move(fn)] { fn(); return Loop::kStop; });
 	}
@@ -41,7 +41,7 @@ namespace oeng
 		SetTimer(0, std::move(fn));
 	}
 
-	bool TimerManager::UpdateTimer(TimerHandle handle, float new_delay, bool restart) noexcept
+	bool TimerManager::UpdateTimer(TimerHandle handle, Float new_delay, bool restart) noexcept
 	{
 		const auto it = timers_.find(handle);
 		if (it == timers_.end()) return false;
@@ -62,7 +62,7 @@ namespace oeng
 		return timers_.contains(handle) || pending_timers_.contains(handle);
 	}
 
-	float TimerManager::TimeLeft(TimerHandle handle) const noexcept
+	Float TimerManager::TimeLeft(TimerHandle handle) const noexcept
 	{
 		const auto timer = timers_.find(handle);
 		if (timer == timers_.end()) return 0;

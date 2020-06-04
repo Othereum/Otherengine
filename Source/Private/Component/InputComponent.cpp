@@ -9,7 +9,7 @@ namespace oeng
 	{
 	}
 
-	void InputComponent::OnUpdate(float delta_seconds)
+	void InputComponent::OnUpdate(Float delta_seconds)
 	{
 		if (IsEnabled())
 		{
@@ -23,7 +23,7 @@ namespace oeng
 		actions_[bPressed].emplace(action, std::move(callback));
 	}
 
-	void InputComponent::BindAxis(Name axis, std::function<void(float)>&& callback)
+	void InputComponent::BindAxis(Name axis, std::function<void(Float)>&& callback)
 	{
 		axises_.emplace(axis, std::move(callback));
 	}

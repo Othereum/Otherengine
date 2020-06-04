@@ -89,7 +89,7 @@ namespace oeng
 		actions_.emplace(name, std::move(keys));
 	}
 
-	float InputSystem::GetAxisValue(Name name) const noexcept
+	Float InputSystem::GetAxisValue(Name name) const noexcept
 	{
 		auto it = axises_.find(name);
 		if (it == axises_.end()) return 0;
@@ -102,7 +102,7 @@ namespace oeng
 		return val;
 	}
 
-	float InputSystem::GetAxisValue(const InputAxis& axis) noexcept
+	Float InputSystem::GetAxisValue(const InputAxis& axis) noexcept
 	{
 		switch (axis.type)
 		{
@@ -116,14 +116,14 @@ namespace oeng
 			{
 				int x;
 				SDL_GetRelativeMouseState(&x, nullptr);
-				return static_cast<float>(x) * axis.scale;
+				return static_cast<Float>(x) * axis.scale;
 			}
 			
 		case InputType::kMAxisY:
 			{
 				int y;
 				SDL_GetRelativeMouseState(nullptr, &y);
-				return static_cast<float>(y) * axis.scale;
+				return static_cast<Float>(y) * axis.scale;
 			}
 			
 		case InputType::kCButton:
@@ -131,7 +131,7 @@ namespace oeng
 			
 		case InputType::kCAxis:
 			{
-				constexpr float min = 328, max = 32440;
+				constexpr Float min = 328, max = 32440;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
 				return v >= 0 ? MapRngClamp({min, max}, {0, 1}, v) : MapRngClamp({-max, -min}, {-1, 0}, v);
 			}

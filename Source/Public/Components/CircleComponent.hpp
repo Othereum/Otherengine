@@ -13,13 +13,13 @@ namespace oeng
 		void TestOverlap(CircleComponent& other);
 		void BindOnOverlap(std::function<void(CircleComponent&)>&& on_overlap) noexcept;
 
-		void SetRadius(float r) noexcept { radius_ = r; }
-		[[nodiscard]] float GetRadius() const noexcept { return radius_; }
+		void SetRadius(Float r) noexcept { radius_ = r; }
+		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
 
 	private:
 		void OnBeginPlay() override;
 		
 		std::function<void(CircleComponent&)> on_overlap_;
-		float radius_ = 32;
+		Float radius_ = 32;
 	};
 }

@@ -26,13 +26,13 @@ namespace oeng
 		OnBeginPlay();
 	}
 
-	void AActor::Update(const float delta_seconds)
+	void AActor::Update(const Float delta_seconds)
 	{
 		UpdateComponents(delta_seconds);
 		OnUpdate(delta_seconds);
 	}
 
-	void AActor::UpdateComponents(const float delta_seconds)
+	void AActor::UpdateComponents(const Float delta_seconds)
 	{
 		for (const auto& comp : comps_) comp->Update(delta_seconds);
 	}
@@ -72,7 +72,7 @@ namespace oeng
 		for (auto& c : comps_) c->SetEnabled(enable);
 	}
 
-	void AActor::SetLifespan(float in_seconds)
+	void AActor::SetLifespan(Float in_seconds)
 	{
 		init_lifespan_ = in_seconds;
 		if (!begun_play_) return;
@@ -92,7 +92,7 @@ namespace oeng
 		}
 	}
 
-	float AActor::GetLifespan() const noexcept
+	Float AActor::GetLifespan() const noexcept
 	{
 		auto& timer = GetWorld().GetTimerManager();
 		return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;

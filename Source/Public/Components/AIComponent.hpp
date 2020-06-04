@@ -31,7 +31,7 @@ namespace oeng
 		}
 
 	private:
-		void OnUpdate(float delta_seconds) override;
+		void OnUpdate(Float delta_seconds) override;
 		
 		std::unordered_map<Name, std::unique_ptr<ai_state::Base>> states_;
 		std::reference_wrapper<ai_state::Base> cur_;

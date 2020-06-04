@@ -1,5 +1,6 @@
 #pragma once
 #include "Path.hpp"
+#include "MathFwd.hpp"
 #include "Templates/DyArr.hpp"
 
 namespace oeng
@@ -17,7 +18,7 @@ namespace oeng
 		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
 		[[nodiscard]] VertexArray& GetVertexArray() const noexcept { return *vertex_array_; }
 		[[nodiscard]] Path GetShaderPath() const noexcept { return shader_path_; }
-		[[nodiscard]] float GetRadius() const noexcept { return radius_; }
+		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
 
 		Mesh(const Mesh&) = delete;
 		Mesh(Mesh&&) = delete;
@@ -30,6 +31,6 @@ namespace oeng
 		DyArr<SharedPtr<Texture>> textures_;
 		UniquePtr<VertexArray> vertex_array_;
 		Path shader_path_;
-		float radius_;
+		Float radius_;
 	};
 }

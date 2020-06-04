@@ -1,4 +1,5 @@
 #pragma once
+#include "MathFwd.hpp"
 #include "Templates/Function.hpp"
 #include "Templates/HashMap.hpp"
 
@@ -41,8 +42,8 @@ namespace oeng
 		
 		void Update();
 
-		TimerHandle SetLoopTimer(float delay_in_seconds, Function<Loop()>&& fn = []{return Loop::kContinue;});
-		TimerHandle SetTimer(float delay_in_seconds, Function<void()>&& fn = []{});
+		TimerHandle SetLoopTimer(Float delay_in_seconds, Function<Loop()>&& fn = []{return Loop::kContinue;});
+		TimerHandle SetTimer(Float delay_in_seconds, Function<void()>&& fn = []{});
 		
 		/**
 		 * \brief Set timer for next tick. Technically, fn is called at the end of the tick.
@@ -57,7 +58,7 @@ namespace oeng
 		 * \param restart Should the timer be restarted based on the current time?
 		 * \return If the timer exists and updated successfully
 		 */
-		bool UpdateTimer(TimerHandle handle, float new_delay, bool restart = true) noexcept;
+		bool UpdateTimer(TimerHandle handle, Float new_delay, bool restart = true) noexcept;
 		
 		/**
 		 * \brief Remove timer
@@ -71,7 +72,7 @@ namespace oeng
 		 * \param handle Handle of timer
 		 * \return Remaining time. If timer not exists, returns 0
 		 */
-		[[nodiscard]] float TimeLeft(TimerHandle handle) const noexcept;
+		[[nodiscard]] Float TimeLeft(TimerHandle handle) const noexcept;
 		[[nodiscard]] bool IsTimerExists(TimerHandle handle) const noexcept;
 
 		TimerManager(const TimerManager&) = delete;

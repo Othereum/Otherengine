@@ -13,17 +13,17 @@ namespace oeng
 		explicit InputComponent(class AActor& owner, int updateOrder = 1);
 		
 		void BindAction(Name action, bool bPressed, std::function<void()>&& callback);
-		void BindAxis(Name axis, std::function<void(float)>&& callback);
+		void BindAxis(Name axis, std::function<void(Float)>&& callback);
 
 		[[nodiscard]] const class InputSystem& GetInputSystem() const noexcept;
 		
 	private:
-		void OnUpdate(float delta_seconds) override;
+		void OnUpdate(Float delta_seconds) override;
 		
 		void ProcessActions() const;
 		void ProcessAxises() const;
 		
 		std::unordered_multimap<Name, std::function<void()>> actions_[2];
-		std::unordered_multimap<Name, std::function<void(float)>> axises_;
+		std::unordered_multimap<Name, std::function<void(Float)>> axises_;
 	};
 }

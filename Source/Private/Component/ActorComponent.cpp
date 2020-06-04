@@ -13,7 +13,7 @@ namespace oeng
 		OnBeginPlay();
 	}
 
-	void ActorComponent::Update(float delta_seconds)
+	void ActorComponent::Update(Float delta_seconds)
 	{
 		OnUpdate(delta_seconds);
 	}
