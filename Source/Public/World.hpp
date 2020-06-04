@@ -13,7 +13,7 @@ namespace oeng
 	class InputComponent;
 	class CircleComponent;
 
-	class World
+	class OEAPI World
 	{
 	public:
 		explicit World(Engine& engine);

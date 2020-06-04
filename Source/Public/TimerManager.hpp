@@ -8,7 +8,7 @@ namespace oeng
 }
 
 template <>
-struct std::hash<oeng::TimerHandle>
+struct OEAPI std::hash<oeng::TimerHandle>
 {
 	size_t operator()(oeng::TimerHandle key) const noexcept;
 };
@@ -20,7 +20,7 @@ namespace oeng
 		kStop, kContinue
 	};
 	
-	struct TimerHandle
+	struct OEAPI TimerHandle
 	{
 		constexpr bool operator==(const TimerHandle&) const noexcept = default;
 		
@@ -33,7 +33,7 @@ namespace oeng
 		size_t key = 0;
 	};
 
-	class TimerManager
+	class OEAPI TimerManager
 	{
 	public:
 		explicit TimerManager(class World& world) noexcept;
