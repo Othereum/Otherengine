@@ -12,11 +12,12 @@ find_package(GLEW 2.1.0-7 REQUIRED)
 find_package(soil2 REQUIRED)
 find_package(nlohmann_json 3.7.3 REQUIRED)
 find_package(fmt 6.2.0 REQUIRED)
+find_package(spdlog 1.4.2 REQUIRED)
 add_subdirectory("Source/ThirdParty/otm")
 add_subdirectory("Source/ThirdParty/omem")
 
 target_link_libraries(${PROJECT_NAME}
-    PUBLIC otm omem nlohmann_json::nlohmann_json fmt::fmt
+    PUBLIC otm omem nlohmann_json::nlohmann_json fmt::fmt spdlog::spdlog
     PRIVATE SDL2::SDL2 GLEW::GLEW soil2
 )
 
