@@ -2,10 +2,19 @@
 project("Otherengine")
 
 file(GLOB_RECURSE SRC_FILES "Source/Private/*.cpp")
-add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+
+set(OE_BUILD_STATIC FALSE CACHE BOOL "false for shared library, true for static library")
+if(OE_BUILD_STATIC)
+	add_library(${PROJECT_NAME} STATIC ${SRC_FILES})
+	target_compile_definitions(${PROJECT_NAME} PUBLIC OE_BUILD_STATIC=1)
+else()
+	add_library(${PROJECT_NAME} SHARED ${SRC_FILES})
+	target_compile_definitions(${PROJECT_NAME} PUBLIC OE_BUILD_STATIC=0)
+endif()
+
 set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 target_include_directories(${PROJECT_NAME} PUBLIC "Source/Public" PRIVATE "Source/Private")
-target_compile_definitions(${PROJECT_NAME} PRIVATE OE_BUILD=1 INTERFACE OE_BUILD=0 PUBLIC OE_BUILD_STATIC=0)
+target_compile_definitions(${PROJECT_NAME} PRIVATE OE_BUILD=1 INTERFACE OE_BUILD=0)
 
 find_package(SDL2 2.0.12 REQUIRED)
 find_package(GLEW 2.1.0-7 REQUIRED)
