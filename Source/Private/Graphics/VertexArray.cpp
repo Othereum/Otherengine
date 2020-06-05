@@ -10,6 +10,7 @@ namespace oeng
 	}
 
 	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
+		:num_verts_{verts.size()}, num_indices_{indices.size()}
 	{
 		glGenVertexArrays(1, &vertex_array_);
 		Activate();

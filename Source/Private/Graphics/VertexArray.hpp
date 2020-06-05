@@ -34,6 +34,8 @@ namespace oeng
 		~VertexArray();
 		
 		void Activate() const;
+		[[nodiscard]] size_t GetNumVerts() const noexcept { return num_verts_; }
+		[[nodiscard]] size_t GetNumIndices() const noexcept { return num_indices_; }
 
 		VertexArray(const VertexArray&) = delete;
 		VertexArray(VertexArray&&) = delete;
@@ -41,6 +43,7 @@ namespace oeng
 		VertexArray& operator=(VertexArray&&) = delete;
 
 	private:
+		size_t num_verts_, num_indices_;
 		unsigned vertex_buffer_ = 0;
 		unsigned index_buffer_ = 0;
 		unsigned vertex_array_ = 0;
