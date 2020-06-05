@@ -12,7 +12,6 @@ namespace oeng
 		world_{*this}
 	{
 		load_game(*this);
-		throw std::runtime_error{"test"};
 	}
 
 	Engine::~Engine() = default;
@@ -97,6 +96,8 @@ namespace oeng
 
 	SdlRaii::SdlRaii()
 	{
+		omem::SetOnPoolDest([](auto&&...){});
+		
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
@@ -104,5 +105,14 @@ namespace oeng
 	SdlRaii::~SdlRaii()
 	{
 		SDL_Quit();
+
+		for (auto pool : omem::GetPools())
+		{
+			const auto& info = pool.get().GetInfo();
+			log::Info("[Mem] Memory pool with {}-byte blocks", info.size);
+			log::Info("[Mem]  Leaked: {} blocks", info.cur);
+			log::Info("[Mem]  Peak usage: {} blocks", info.peak);
+			log::Info("[Mem]  Block fault: {} times", info.fault);
+		}
 	}
 }
