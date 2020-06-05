@@ -18,16 +18,13 @@ namespace oeng
 		GetRenderer().UnregisterSprite(*this);
 	}
 
-	void SpriteComponent::SetTexture(SharedPtr<Texture>&& texture)
+	void SpriteComponent::Draw(Shader& shader) const noexcept
 	{
-		texture_ = std::move(texture);
+		shader.SetTransform(MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix());
+		texture_->Activate();
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 	}
-
-	void SpriteComponent::SetTexture(const SharedPtr<Texture>& texture)
-	{
-		texture_ = texture;
-	}
-
+	
 	void SpriteComponent::SetTexture(Path file)
 	{
 		SetTexture(GetEngine().GetTexture(file));
@@ -38,14 +35,6 @@ namespace oeng
 		return GetEngine().GetRenderer();
 	}
 
-	void SpriteComponent::Draw(Shader& shader) const
-	{
-		static const Name name = "uWorldTransform";
-		shader.SetMatrixUniform(name, MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix());
-		texture_->Activate();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
-	}
-	
 	void SpriteComponent::OnBeginPlay()
 	{
 		GetRenderer().RegisterSprite(*this);
