@@ -6,8 +6,11 @@
 
 namespace oeng::log
 {
-	static std::shared_ptr<spdlog::logger> InitializeLogger()
+	static std::shared_ptr<spdlog::logger> logger_ptr;
+	
+	static spdlog::logger& InitializeLogger()
 	{
+		
 		std::filesystem::create_directory("../Logs");
 		
 		auto daily_file = std::make_shared<spdlog::sinks::daily_file_sink_st>("../Logs/Log.log", 0, 0);
@@ -16,11 +19,11 @@ namespace oeng::log
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
 		spdlog::init_thread_pool(8192, 1);
 		
-		auto logger = std::make_shared<spdlog::async_logger>(std::string{}, list, spdlog::thread_pool());
-		logger->flush_on(spdlog::level::critical);
+		logger_ptr = std::make_shared<spdlog::async_logger>(std::string{}, list, spdlog::thread_pool());
+		logger_ptr->flush_on(spdlog::level::critical);
 
-		return logger;
+		return *logger_ptr;
 	}
 	
-	OEAPI std::shared_ptr<spdlog::logger> logger = InitializeLogger();
+	OEAPI spdlog::logger& logger = InitializeLogger();
 }
