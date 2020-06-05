@@ -10,7 +10,6 @@ namespace oeng::log
 	
 	static spdlog::logger& InitializeLogger()
 	{
-		
 		std::filesystem::create_directory("../Logs");
 		
 		auto daily_file = std::make_shared<spdlog::sinks::daily_file_sink_st>("../Logs/Log.log", 0, 0);
