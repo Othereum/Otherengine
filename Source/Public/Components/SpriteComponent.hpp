@@ -16,15 +16,14 @@ namespace oeng
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
-		void SetTexture(SharedPtr<Texture>&& texture);
-		void SetTexture(const SharedPtr<Texture>& texture);
+		void Draw(Shader& shader) const noexcept;
+
 		void SetTexture(Path file);
+		void SetTexture(SharedPtr<Texture> texture) noexcept { texture_ = std::move(texture); }
 		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
 
 		[[nodiscard]] int GetDrawOrder() const noexcept { return draw_order_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
-
-		void Draw(Shader& shader) const;
 
 	private:
 		void OnBeginPlay() override;

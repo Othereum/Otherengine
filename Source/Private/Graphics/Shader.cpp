@@ -1,14 +1,15 @@
 #include "Graphics/Shader.hpp"
 #include <fstream>
 #include <GL/glew.h>
-#include <fmt/core.h>
+#include "Format.hpp"
+#include "Math.hpp"
 
 namespace oeng
 {
 	std::string ReadFile(Path filepath)
 	{
 		std::ifstream file{ filepath, std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}", filepath->string())};
+		if (!file.is_open()) throw std::ios_base::failure{format("Cannot read file. File not found: {}", filepath->string())};
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);
@@ -83,6 +84,12 @@ namespace oeng
 	{
 		const auto loc = GetUniformLocation(name);
 		glUniformMatrix4fv(loc, 1, true, matrix.AsFlatArr());
+	}
+
+	void Shader::SetTransform(const Mat4& matrix)
+	{
+		static const Name name = "uWorldTransform";
+		SetMatrixUniform(name, matrix);
 	}
 
 	int Shader::GetUniformLocation(Name name)
