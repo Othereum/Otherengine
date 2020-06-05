@@ -12,13 +12,13 @@ namespace oeng::log
 	{
 		std::filesystem::create_directory("../Logs");
 		
-		auto daily_file = std::make_shared<spdlog::sinks::daily_file_sink_st>("../Logs/Log.log", 0, 0);
-		auto stdout_color = std::make_shared<spdlog::sinks::stdout_color_sink_st>();
+		auto daily_file = std::make_shared<spdlog::sinks::daily_file_sink_mt>("../Logs/Log.log", 0, 0);
+		auto stdout_color = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 		
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
 		spdlog::init_thread_pool(8192, 1);
 		
-		logger_ptr = std::make_shared<spdlog::async_logger>(std::string{}, list, spdlog::thread_pool());
+		logger_ptr = std::make_shared<spdlog::logger>(std::string{}, list);
 		logger_ptr->flush_on(spdlog::level::critical);
 
 		return *logger_ptr;
