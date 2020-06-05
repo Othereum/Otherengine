@@ -19,7 +19,7 @@ namespace oeng
 	class SdlRaii
 	{
 	public:
-		explicit SdlRaii(std::string_view game_name);
+		SdlRaii();
 		~SdlRaii();
 	};
 	
