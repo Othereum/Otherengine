@@ -1,13 +1,18 @@
 ﻿#include "Engine.hpp"
 #include <SDL.h>
-#include "Components/InputComponent.hpp"
+#include <spdlog/async.h>
+#include <spdlog/sinks/daily_file_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include "Log.hpp"
+#include "Format.hpp"
 #include "Graphics/Texture.hpp"
 #include "Graphics/Mesh.hpp"
 
 namespace oeng
 {
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
-		:game_name_{game_name},
+		:SdlRaii{game_name},
+		game_name_{game_name},
 		renderer_{*this, {1024, 768}},
 		world_{*this}
 	{
@@ -94,8 +99,20 @@ namespace oeng
 		}
 	}
 
-	SdlRaii::SdlRaii()
+	void InitLog(std::string_view game_name)
 	{
+		std::filesystem::create_directory("../Logs");
+		auto daily_file = std::make_shared<log::sinks::daily_file_sink_mt>(format("../Logs/{}.log", game_name), 0, 0);
+		auto stdout_color = std::make_shared<log::sinks::stdout_color_sink_mt>();
+		log::sinks_init_list sinks{std::move(daily_file), std::move(stdout_color)};
+		auto logger = std::make_shared<log::async_logger>("", sinks, log::thread_pool());
+		set_default_logger(std::move(logger));
+	}
+
+	SdlRaii::SdlRaii(std::string_view game_name)
+	{
+		InitLog(game_name);
+		
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
