@@ -1,19 +1,15 @@
 #include "Mesh.hpp"
-#include <fstream>
-#include <fmt/core.h>
+#include "Format.hpp"
 #include "Engine.hpp"
 #include "Json.hpp"
-#include "VertexArray.hpp"
 
 namespace oeng
 {
 	Mesh::Mesh(Path filepath, Engine& engine)
 	{
-		std::ifstream file{filepath};
-		Json json;
-		file >> json;
+		const auto json = ReadFileAsJson(filepath);
 
-		const auto version = json.at("version").get<int>();
+		const auto version = json.at("version").get<uintptr_t>();
 		switch (version)
 		{
 		case 1:
@@ -21,11 +17,9 @@ namespace oeng
 			break;
 
 		default:
-			throw std::runtime_error{fmt::format("Invalid version ({}) of mesh '{}'", version, filepath->string())};
+			throw std::runtime_error{format("Invalid version ({}) of mesh '{}'", version, filepath->string())};
 		}
 	}
-
-	Mesh::~Mesh() = default;
 
 	void Mesh::LoadV1(const Json& json, Engine& engine)
 	{
@@ -34,12 +28,12 @@ namespace oeng
 
 		const DyArr<Vertex> verts = json.at("vertices");
 		const DyArr<Vec3u16> indices = json.at("indices");
-		vertex_array_ = MakeUnique<VertexArray>(verts, indices);
+		vertex_array_ = {verts, indices};
 
 		shader_path_ = json.at("shader");
 
-		auto max = 0.f;
+		auto max = 0_f;
 		for (const auto& v : verts) max = Max(max, v.pos.DistSqr({}));
-		radius_ = sqrt(max);
+		radius_ = std::sqrt(max);
 	}
 }
