@@ -1,10 +1,18 @@
 #pragma once
-#include <spdlog/async_logger.h>
+#include <spdlog/logger.h>
 #include "API.hpp"
 
 namespace oeng::log
 {
+	namespace level = spdlog::level;
+	
 	extern OEAPI spdlog::logger& logger;
+
+	template <class... Args>
+	void Log(level::level_enum level, std::string_view fmt, const Args&... args)
+	{
+		logger.log(level, fmt, args...);
+	}
 	
 	template <class... Args>
 	void Trace(std::string_view fmt, const Args&... args)
