@@ -1,10 +1,15 @@
 #pragma once
-#include "API.hpp"
+#include <thread>
 
 namespace oeng
 {
+	static const std::thread::id kGameThreadId = std::this_thread::get_id();
+	
 	/**
 	 * \brief Check if current context is in game(main) thread
 	 */
-	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
+	inline bool IsGameThread() noexcept
+	{
+		return std::this_thread::get_id() == kGameThreadId;
+	}
 }
