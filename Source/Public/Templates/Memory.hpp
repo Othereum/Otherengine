@@ -24,7 +24,8 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-		return new T[n]{std::forward<Args>(args)...};
+		auto* p = IsGameThread() ? omem::MemoryPool::Get(n * sizeof T).Alloc() : operator new(n * sizeof T);
+		return new (p) T[n]{std::forward<Args>(args)...};
 	}
 
 	template <class T>
@@ -35,9 +36,10 @@ namespace oeng
 	}
 
 	template <class T>
-	void DeleteArr(T* p) noexcept
+	void DeleteArr(T* p, size_t n) noexcept
 	{
-		delete[] p;
+		for (size_t i=0; i<n; ++i) p[i].~T();
+		IsGameThread() ? omem::MemoryPool::Get(n * sizeof T).Free(p) : operator delete[](p);
 	}
 
 	template <class T>
@@ -67,12 +69,12 @@ namespace oeng
 		 * \brief Allocate n * sizeof T bytes of uninitialized memory.
 		 * \param n the number of objects to allocate memory for
 		 * \return The pointer to allocated memory
-		 * \note Allocates from pool only if n == 1 && IsGameThread()
+		 * \note Allocates from pool only if IsGameThread()
 		 */
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-			return static_cast<T*>(n == 1 && IsGameThread()
-				? omem::MemoryPool::Get(sizeof T).Alloc()
+			return static_cast<T*>(IsGameThread()
+				? omem::MemoryPool::Get(n * sizeof T).Alloc()
 				: operator new(n * sizeof T));
 		}
 
@@ -83,8 +85,8 @@ namespace oeng
 		 */
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			n == 1 && IsGameThread()
-				? omem::MemoryPool::Get(sizeof T).Free(p)
+			IsGameThread()
+				? omem::MemoryPool::Get(n * sizeof T).Free(p)
 				: operator delete(p, n * sizeof T);
 		}
 	};
