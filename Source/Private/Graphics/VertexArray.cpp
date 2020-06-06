@@ -1,4 +1,4 @@
-#include "VertexArray.hpp"
+#include "Graphics/VertexArray.hpp"
 #include <GL/glew.h>
 #include "Json.hpp"
 

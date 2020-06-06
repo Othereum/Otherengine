@@ -18,8 +18,8 @@ namespace oeng
 			Float data[8];
 		};
 
-		Vertex() noexcept :data{} {}
-		Vertex(const Vec3& pos, const Vec3& norm, const Vec2& uv) noexcept  // NOLINT(cppcoreguidelines-pro-type-member-init)
+		constexpr Vertex() noexcept :data{} {}
+		constexpr Vertex(const Vec3& pos, const Vec3& norm, const Vec2& uv) noexcept  // NOLINT(cppcoreguidelines-pro-type-member-init)
 			:pos{pos}, norm{norm}, uv{uv}
 		{
 		}

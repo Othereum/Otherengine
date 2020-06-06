@@ -1,4 +1,4 @@
-#include "Texture.hpp"
+#include "Graphics/Texture.hpp"
 #include <GL/glew.h>
 #include <SOIL2/SOIL2.h>
 #include <fmt/core.h>
