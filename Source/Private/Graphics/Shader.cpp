@@ -68,6 +68,15 @@ namespace oeng
 		Activate();
 	}
 
+	Shader::Shader(Shader&& r) noexcept
+		:uniform_{std::move(r.uniform_)},
+		vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_}
+	{
+		r.vert_shader_ = 0;
+		r.frag_shader_ = 0;
+		r.shader_program_ = 0;
+	}
+
 	Shader::~Shader()
 	{
 		glDeleteProgram(shader_program_);
@@ -89,6 +98,12 @@ namespace oeng
 	void Shader::SetTransform(const Mat4& matrix)
 	{
 		static const Name name = "uWorldTransform";
+		SetMatrixUniform(name, matrix);
+	}
+
+	void Shader::SetViewProj(const Mat4& matrix)
+	{
+		static const Name name = "uViewProj";
 		SetMatrixUniform(name, matrix);
 	}
 
