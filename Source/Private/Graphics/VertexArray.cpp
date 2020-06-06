@@ -55,6 +55,13 @@ namespace oeng
 		glDeleteVertexArrays(1, &vertex_array_);
 	}
 
+	VertexArray& VertexArray::operator=(VertexArray&& r) noexcept
+	{
+		this->~VertexArray();
+		new (this) VertexArray{std::move(r)};
+		return *this;
+	}
+
 	void VertexArray::Activate() const
 	{
 		glBindVertexArray(vertex_array_);
