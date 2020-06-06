@@ -20,13 +20,13 @@ namespace oeng
 		~World();
 		
 		template <class T>
-		WeakPtr<T> SpawnActor()
+		T& SpawnActor()
 		{
 			static_assert(std::is_base_of_v<AActor, T>);
 			auto actor = MakeShared<T>(*this);
-			WeakPtr weak = actor;
+			auto& ref = *actor;
 			RegisterActor(std::move(actor));
-			return weak;
+			return ref;
 		}
 
 		void Tick();
