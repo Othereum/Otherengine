@@ -13,6 +13,11 @@ namespace oeng
 	{
 	}
 
+	MeshComponent::~MeshComponent()
+	{
+		GetRenderer().UnregisterMesh(*this);
+	}
+
 	void MeshComponent::Draw(Shader& shader) const noexcept
 	{
 		if (!mesh_) return;
@@ -29,5 +34,15 @@ namespace oeng
 	void MeshComponent::SetMesh(Path file)
 	{
 		SetMesh(GetEngine().GetMesh(file));
+	}
+
+	Renderer& MeshComponent::GetRenderer() const noexcept
+	{
+		return GetEngine().GetRenderer();
+	}
+
+	void MeshComponent::OnBeginPlay()
+	{
+		GetRenderer().RegisterMesh(*this);
 	}
 }
