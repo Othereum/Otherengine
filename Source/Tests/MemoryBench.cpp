@@ -5,7 +5,7 @@ template <class Al>
 static void Benchmark(Al al)
 {
 	using T = std::allocator_traits<Al>;
-	for (auto i=0; i<10000000; ++i)
+	for (auto i=0; i<2000000; ++i)
 		T::deallocate(al, T::allocate(al, 1), 1);
 }
 
