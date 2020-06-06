@@ -1,5 +1,6 @@
 #pragma once
-#include "Math.hpp"
+#include "Graphics/Shader.hpp"
+#include "Graphics/VertexArray.hpp"
 #include "Templates/DyArr.hpp"
 
 struct SDL_Window;
@@ -8,6 +9,7 @@ namespace oeng
 {
 	class Engine;
 	class SpriteComponent;
+	class MeshComponent;
 
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
@@ -21,7 +23,10 @@ namespace oeng
 		void RegisterSprite(const SpriteComponent& sprite);
 		void UnregisterSprite(const SpriteComponent& sprite);
 
-		void DrawScene() const;
+		void RegisterMesh(const MeshComponent& mesh);
+		void UnregisterMesh(const MeshComponent& mesh);
+
+		void DrawScene();
 
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
@@ -33,10 +38,15 @@ namespace oeng
 
 	private:
 		Engine& engine_;
+		
 		WindowPtr window_;
 		GlContextPtr gl_context_;
-		UniquePtr<class Shader> sprite_shader_;
-		UniquePtr<class VertexArray> sprite_verts_;
+		
+		Shader basic_mesh_shader_;
+		Shader sprite_shader_;
+		VertexArray sprite_verts_;
+		
 		DyArr<std::reference_wrapper<const SpriteComponent>> sprites_;
+		DyArr<std::reference_wrapper<const MeshComponent>> meshes_;
 	};
 }

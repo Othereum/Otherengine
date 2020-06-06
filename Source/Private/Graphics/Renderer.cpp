@@ -5,6 +5,7 @@
 #include <GL/glew.h>
 
 #include "Components/SpriteComponent.hpp"
+#include "Components/MeshComponent.hpp"
 #include "Graphics/VertexArray.hpp"
 #include "Graphics/Shader.hpp"
 #include "Actor.hpp"
@@ -62,23 +63,30 @@ namespace oeng
 		return context;
 	}
 
-	static UniquePtr<Shader> CreateSpriteShader(Vec2u16 scr)
+	static Shader CreateSpriteShader(Vec2u16 scr)
 	{
-		auto shader = MakeUnique<Shader>("../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag");
-		const auto view = MakeLookAt({}, Vec3::Forward(), Vec3::Up());
-		const auto proj = MakePerspective(Vec2{scr}, 25.f, 10000.f, 70_deg);
-		shader->SetMatrixUniform("uViewProj", view * proj);
+		Shader shader{"../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag"};
+		shader.SetViewProj(MakeSimpleViewProj<4>(scr));
 		return shader;
 	}
 
-	static UniquePtr<VertexArray> CreateSpriteVerts()
+	static Shader CreateBasicMeshShader(Vec2u16 scr)
+	{
+		Shader shader{"../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag"};
+		const auto view = MakeLookAt({}, Vec3::Forward(), Vec3::Up());
+		const auto proj = MakePerspective(Vec2{scr}, 25_f, 10000_f, 70_deg);
+		shader.SetViewProj(view * proj);
+		return shader;
+	}
+
+	static VertexArray CreateSpriteVerts()
 	{
 		constexpr Vertex vertex_buffer[]
 		{
-			{{-0.5, 0.5, 0}, {}, {0, 0}},
-			{{0.5, 0.5, 0}, {}, {1, 0}},
-			{{0.5, -0.5, 0}, {}, {1, 1}},
-			{{-0.5, -0.5, 0}, {}, {0, 1}}
+			{{-0.5_f, 0.5_f, 0_f}, {}, {0_f, 0_f}},
+			{{0.5_f, 0.5_f, 0_f}, {}, {1_f, 0_f}},
+			{{0.5_f, -0.5_f, 0_f}, {}, {1_f, 1_f}},
+			{{-0.5_f, -0.5_f, 0_f}, {}, {0_f, 1_f}}
 		};
 
 		constexpr Vec3u16 index_buffer[]
@@ -87,13 +95,14 @@ namespace oeng
 			{2, 3, 0}
 		};
 
-		return MakeUnique<VertexArray>(vertex_buffer, index_buffer);
+		return {vertex_buffer, index_buffer};
 	}
 
 	Renderer::Renderer(Engine& engine, Vec2u16 scr)
 		:engine_{engine},
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
+		basic_mesh_shader_{CreateBasicMeshShader(scr)},
 		sprite_shader_{CreateSpriteShader(scr)},
 		sprite_verts_{CreateSpriteVerts()}
 	{
@@ -118,7 +127,19 @@ namespace oeng
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void Renderer::DrawScene() const
+	void Renderer::RegisterMesh(const MeshComponent& mesh)
+	{
+		meshes_.emplace_back(mesh);
+	}
+
+	void Renderer::UnregisterMesh(const MeshComponent& mesh)
+	{
+		auto pr = [&](const MeshComponent& v) { return &v == &mesh; };
+		const auto found = std::find_if(meshes_.crbegin(), meshes_.crend(), pr);
+		if (found != meshes_.crend()) meshes_.erase(found.base() - 1);
+	}
+
+	void Renderer::DrawScene()
 	{
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -126,14 +147,18 @@ namespace oeng
 		glEnable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
 
+		for (auto mesh : meshes_)
+		{
+			mesh.get().Draw(basic_mesh_shader_);
+		}
+
 		glEnable(GL_BLEND);
 		glDisable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		for (auto&& sprite_ref : sprites_)
+		for (auto sprite : sprites_)
 		{
-			auto&& sprite = sprite_ref.get();
-			if (sprite.IsEnabled()) sprite.Draw(*sprite_shader_);
+			sprite.get().Draw(sprite_shader_);
 		}
 
 		SDL_GL_SwapWindow(window_.get());
