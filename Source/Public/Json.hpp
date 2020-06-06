@@ -2,6 +2,7 @@
 #include "JsonFwd.hpp"
 #include <nlohmann/json.hpp>
 #include <otmfwd.hpp>
+#include "Path.hpp"
 
 namespace otm
 {
@@ -16,4 +17,9 @@ namespace otm
 	{
 		json.get_to(v.data);
 	}
+}
+
+namespace oeng
+{
+	OEAPI Json ReadFileAsJson(Path file);
 }
