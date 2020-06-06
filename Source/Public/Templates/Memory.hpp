@@ -644,7 +644,8 @@ namespace oeng
 		~EnableSharedFromThis() = default;
 
 	private:
-		friend SharedPtr<T, ThreadSafe>;
+		template <class, bool>
+		friend class SharedPtr;
 
 		template <class, class, bool>
 		friend struct detail::SharedObjInline;
