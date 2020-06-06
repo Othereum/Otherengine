@@ -7,28 +7,18 @@
 
 namespace oeng
 {
-	[[nodiscard]] inline void* Alloc(size_t n)
-	{
-		return operator new(n);
-	}
-
-	inline void Free(void* p) noexcept
-	{
-		operator delete(p);
-	}
-	
 	/**
 	 * \brief Allocate memory and construct new object T.
 	 * \tparam T object type to be created
 	 * \param args arguments to be passed to the constructor of object T.
 	 * \return The pointer to created object
-	 * \note Only allocates from pool if current context is in game thread (for thread-safety).
-	 *		Otherwise, call standard new T(...)
+	 * \note Only allocates from pool if current context is in game thread
 	 */
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		return IsGameThread() ? omem::New<T>(std::forward<Args>(args)...) : new T{std::forward<Args>(args)...};
+		auto* p = IsGameThread() ? omem::MemoryPool::Get(sizeof T).Alloc() : operator new(sizeof T);
+		return new (p) T{std::forward<Args>(args)...};
 	}
 
 	template <class T, class... Args>
@@ -40,7 +30,8 @@ namespace oeng
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-		IsGameThread() ? omem::Delete<T>(p) : delete p;
+		p->~T();
+		IsGameThread() ? omem::MemoryPool::Get(sizeof T).Free(p) : operator delete(p);
 	}
 
 	template <class T>
@@ -59,7 +50,7 @@ namespace oeng
 	 * \tparam T Type to be allocated
 	 */
 	template <class T>
-	class PoolAllocator : omem::Allocator<T>
+	class PoolAllocator
 	{
 	public:
 		using value_type = T;
@@ -80,7 +71,9 @@ namespace oeng
 		 */
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-			return IsGameThread() ? omem::Allocator<T>::allocate(n) : static_cast<T*>(Alloc(n * sizeof T));
+			return static_cast<T*>(n == 1 && IsGameThread()
+				? omem::MemoryPool::Get(sizeof T).Alloc()
+				: operator new(n * sizeof T));
 		}
 
 		/**
@@ -90,7 +83,9 @@ namespace oeng
 		 */
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			IsGameThread() ? omem::Allocator<T>::deallocate(p, n) : Free(p);
+			n == 1 && IsGameThread()
+				? omem::MemoryPool::Get(sizeof T).Free(p)
+				: operator delete(p, n * sizeof T);
 		}
 	};
 
