@@ -23,6 +23,7 @@ namespace oeng
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
 
+		// for calculate offset
 		constexpr Vertex* v = nullptr;
 
 		glEnableVertexAttribArray(0);
@@ -48,6 +49,7 @@ namespace oeng
 
 	VertexArray::~VertexArray()
 	{
+		// glDelete functions silently ignores 0 or invalid ID.
 		glDeleteBuffers(1, &vertex_buffer_);
 		glDeleteBuffers(1, &index_buffer_);
 		glDeleteVertexArrays(1, &vertex_array_);
