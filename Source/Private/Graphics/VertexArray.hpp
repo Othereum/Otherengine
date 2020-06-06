@@ -31,16 +31,17 @@ namespace oeng
 	{
 	public:
 		VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices);
+		VertexArray(VertexArray&& r) noexcept;
 		~VertexArray();
 		
+		
+		VertexArray(const VertexArray&) = delete;
+		VertexArray& operator=(const VertexArray&) = delete;
+		VertexArray& operator=(VertexArray&&) = delete;
+
 		void Activate() const;
 		[[nodiscard]] size_t GetNumVerts() const noexcept { return num_verts_; }
 		[[nodiscard]] size_t GetNumIndices() const noexcept { return num_indices_; }
-
-		VertexArray(const VertexArray&) = delete;
-		VertexArray(VertexArray&&) = delete;
-		VertexArray& operator=(const VertexArray&) = delete;
-		VertexArray& operator=(VertexArray&&) = delete;
 
 	private:
 		size_t num_verts_, num_indices_;

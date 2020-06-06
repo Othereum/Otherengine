@@ -35,6 +35,17 @@ namespace oeng
 		glVertexAttribPointer(2, 2, GL_FLOAT, false, sizeof Vertex, &v->uv);
 	}
 
+	VertexArray::VertexArray(VertexArray&& r) noexcept
+		:num_verts_{r.num_verts_}, num_indices_{r.num_indices_},
+		vertex_buffer_{r.vertex_buffer_}, index_buffer_{r.index_buffer_}, vertex_array_{r.vertex_array_}
+	{
+		r.num_verts_ = 0;
+		r.num_indices_ = 0;
+		r.vertex_buffer_ = 0;
+		r.index_buffer_ = 0;
+		r.vertex_array_ = 0;
+	}
+
 	VertexArray::~VertexArray()
 	{
 		glDeleteBuffers(1, &vertex_buffer_);
