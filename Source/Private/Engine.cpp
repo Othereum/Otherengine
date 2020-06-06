@@ -112,13 +112,13 @@ namespace oeng
 	{
 		SDL_Quit();
 
-		for (auto pool : omem::GetPools())
+		for (auto&& [size, pool] : omem::GetPools())
 		{
-			const auto& info = pool.get().GetInfo();
-			log::Info("[Mem] Memory pool with {}-byte blocks", info.size);
-			log::Info("[Mem]  Leaked: {} blocks", info.cur);
+			const auto& info = pool.GetInfo();
+			log::Info("[Mem] Memory pool with {} {}-byte blocks", info.count, info.size);
 			log::Info("[Mem]  Peak usage: {} blocks", info.peak);
 			log::Info("[Mem]  Block fault: {} times", info.fault);
+			log::Log(info.cur ? log::level::warn : log::level::info, "[Mem]  Leaked: {} blocks", info.cur);
 		}
 	}
 }
