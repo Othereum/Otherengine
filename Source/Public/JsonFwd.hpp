@@ -25,5 +25,5 @@ namespace nlohmann
 
 namespace oeng
 {
-	using Json = nlohmann::basic_json<TreeMap, DyArr, String, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, BasicString<char, std::char_traits<char>, RawAllocator<char>>, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
 }

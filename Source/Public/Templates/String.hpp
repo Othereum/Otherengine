@@ -4,7 +4,7 @@
 
 namespace oeng
 {
-	template <class CharT, class Traits = std::char_traits<CharT>, class Alloc = RawAllocator<CharT>>
+	template <class CharT, class Traits = std::char_traits<CharT>, class Alloc = PoolAllocator<CharT>>
 	using BasicString = std::basic_string<CharT, Traits, Alloc>;
 
 	using String = BasicString<char>;
