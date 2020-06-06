@@ -117,8 +117,8 @@ namespace oeng
 			const auto& info = pool.GetInfo();
 			log::Info("[Mem] Memory pool with {} {}-byte blocks", info.count, info.size);
 			log::Info("[Mem]  Peak usage: {} blocks", info.peak);
-			log::Info("[Mem]  Block fault: {} times", info.fault);
-			log::Log(info.cur ? log::level::warn : log::level::info, "[Mem]  Leaked: {} blocks", info.cur);
+			if (info.fault) log::Info("[Mem]  Block fault: {} times", info.fault);
+			if (info.cur) log::Warn("[Mem]  Leaked: {} blocks", info.cur);
 		}
 	}
 }
