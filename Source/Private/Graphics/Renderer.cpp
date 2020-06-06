@@ -149,7 +149,8 @@ namespace oeng
 
 		for (auto mesh : meshes_)
 		{
-			mesh.get().Draw(basic_mesh_shader_);
+			auto&& m = mesh.get();
+			if (m.IsEnabled()) m.Draw(basic_mesh_shader_);
 		}
 
 		glEnable(GL_BLEND);
@@ -158,7 +159,8 @@ namespace oeng
 
 		for (auto sprite : sprites_)
 		{
-			sprite.get().Draw(sprite_shader_);
+			auto&& s = sprite.get();
+			if (s.IsEnabled()) s.Draw(sprite_shader_);
 		}
 
 		SDL_GL_SwapWindow(window_.get());
