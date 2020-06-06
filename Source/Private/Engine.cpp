@@ -7,17 +7,20 @@
 namespace oeng
 {
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
-		:game_name_{game_name},
-		renderer_{*this, {1024, 768}},
-		world_{*this}
+		:game_name_{game_name}, renderer_{*this, {1024, 768}}, world_{*this}
 	{
+		log::Info("Engine initialization successful.");
+		log::Info("Loading game module...");
 		load_game(*this);
+		log::Info("Game module loaded.");
 	}
 
 	Engine::~Engine() = default;
 
 	void Engine::RunLoop()
 	{
+		log::Info("Engine loop started.");
+		
 		while (is_running_)
 		{
 			Tick();
@@ -27,6 +30,7 @@ namespace oeng
 	void Engine::Shutdown()
 	{
 		is_running_ = false;
+		log::Info("Engine shutdown requested.");
 	}
 
 	SharedPtr<Texture> Engine::GetTexture(Path file)
@@ -96,6 +100,8 @@ namespace oeng
 
 	SdlRaii::SdlRaii()
 	{
+		log::Info("Initializing engine...");
+		
 		omem::SetOnPoolDest([](auto&&...){});
 		
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
