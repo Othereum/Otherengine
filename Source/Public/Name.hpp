@@ -17,16 +17,16 @@ namespace oeng
 	{
 		Name() noexcept;
 		Name(const char* s);
-		Name(String s);
+		Name(std::string s);
 
-		[[nodiscard]] const String& Str() const noexcept { return *sp; }
+		[[nodiscard]] const std::string& Str() const noexcept { return *sp; }
 		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
 
 		std::strong_ordering operator<=>(const Name&) const noexcept = default;
 
 	private:
 		friend std::hash<Name>;
-		const String* sp;
+		const std::string* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);

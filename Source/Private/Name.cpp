@@ -28,8 +28,8 @@ namespace oeng
 		}
 	};
 
-	using NameSet = HashSet<String, NameHasher, NameEqual, std::allocator<String>>;
-	static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> str_set{String{}};
+	using NameSet = HashSet<std::string, NameHasher, NameEqual, std::allocator<std::string>>;
+	static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> str_set{std::string{}};
 	
 	Name::Name() noexcept
 		:sp{&*str_set->find({})}
@@ -37,11 +37,11 @@ namespace oeng
 	}
 
 	Name::Name(const char* s)
-		:Name{String{s}}
+		:Name{std::string{s}}
 	{
 	}
 
-	Name::Name(String s)
+	Name::Name(std::string s)
 	{
 #if !OE_NAME_THREADSAFE
 		CHECK(IsGameThread());
@@ -57,6 +57,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = json.get<String>();
+		name = json.get<std::string>();
 	}
 }
