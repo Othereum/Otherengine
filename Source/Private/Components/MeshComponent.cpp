@@ -22,6 +22,7 @@ namespace oeng
 	{
 		if (!mesh_) return;
 
+		shader.Activate();
 		shader.SetTransform(GetWorldTransform());
 		mesh_->GetTextures()[texture_idx_]->Activate();
 
