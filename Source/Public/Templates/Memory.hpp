@@ -3,10 +3,30 @@
 #include <memory>
 #include <omem.hpp>
 #include "Assert.hpp"
-#include "Thread.hpp"
+#include "Core.hpp"
 
 namespace oeng
 {
+	namespace detail
+	{
+		inline void CheckMemSafe() noexcept
+		{
+			CHECK((OMEM_THREADSAFE || IsGameThread()) && IsEngineExists());
+		}
+	}
+	
+	[[nodiscard]] inline void* Alloc(size_t size)
+	{
+		if (size <= OMEM_POOL_SIZE) return omem::MemoryPool::Get(size).Alloc();
+		return operator new(size);
+	}
+
+	inline void Free(void* p, size_t size) noexcept
+	{
+		if (size <= OMEM_POOL_SIZE) omem::MemoryPool::Get(size).Free(p);
+		else operator delete(p, size);
+	}
+
 	/**
 	 * \brief Allocate memory and construct new object T.
 	 * \tparam T object type to be created
@@ -17,39 +37,31 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-#if !OMEM_THREADSAFE
-		CHECK(IsGameThread());
-#endif
-		return new (omem::Alloc(sizeof T)) T{std::forward<Args>(args)...};
+		detail::CheckMemSafe();
+		return new (Alloc(sizeof T)) T{std::forward<Args>(args)...};
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-#if !OMEM_THREADSAFE
-		CHECK(IsGameThread());
-#endif
-		return new (omem::Alloc(n * sizeof T)) T[n]{std::forward<Args>(args)...};
+		detail::CheckMemSafe();
+		return new (Alloc(n * sizeof T)) T[n]{std::forward<Args>(args)...};
 	}
 
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-#if !OMEM_THREADSAFE
-		CHECK(IsGameThread());
-#endif
+		detail::CheckMemSafe();
 		p->~T();
-		omem::Free(p, sizeof T);
+		Free(p, sizeof T);
 	}
 
 	template <class T>
 	void DeleteArr(T* p, size_t n) noexcept
 	{
-#if !OMEM_THREADSAFE
-		CHECK(IsGameThread());
-#endif
+		detail::CheckMemSafe();
 		for (size_t i=0; i<n; ++i) p[i].~T();
-		omem::Free(p, n * sizeof T);
+		Free(p, n * sizeof T);
 	}
 
 	template <class T>
@@ -81,12 +93,11 @@ namespace oeng
 		 * \return The pointer to allocated memory
 		 * \note Allocates from pool only if IsGameThread()
 		 */
+		// ReSharper disable once CppMemberFunctionMayBeStatic
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-#if !OMEM_THREADSAFE
-			CHECK(IsGameThread());
-#endif
-			return static_cast<T*>(omem::Alloc(n * sizeof T));
+			detail::CheckMemSafe();
+			return static_cast<T*>(Alloc(n * sizeof T));
 		}
 
 		/**
@@ -94,12 +105,11 @@ namespace oeng
 		 * \param p pointer to the previously allocated memory
 		 * \param n the number of objects the storage was allocated for (MUST BE SAME)
 		 */
+		// ReSharper disable once CppMemberFunctionMayBeStatic
 		void deallocate(T* p, size_t n) const noexcept
 		{
-#if !OMEM_THREADSAFE
-			CHECK(IsGameThread());
-#endif
-			omem::Free(p, n * sizeof T);
+			detail::CheckMemSafe();
+			Free(p, n * sizeof T);
 		}
 	};
 
@@ -123,7 +133,7 @@ namespace oeng
 	template <class T, class... Args, std::enable_if_t<!std::is_array_v<T>, int> = 0>
 	[[nodiscard]] UniquePtr<T> MakeUnique(Args&&... args)
 	{
-	    return UniquePtr<T>(oeng::New<T>(std::forward<Args>(args)...));
+	    return UniquePtr<T>(New<T>(std::forward<Args>(args)...));
 	}
 
 	template <class T, std::enable_if_t<std::is_array_v<T> && std::extent_v<T> == 0, int> = 0>
@@ -520,7 +530,7 @@ namespace oeng
 			{
 				if (ptr_)
 				{
-					CHECK_SLOW(ptr_->weak_.Expired());
+					CHECK_SLOW(ptr_->weak_.expired());
 					ptr->weak_ = SharedPtr<std::remove_cv_t<Y>, ThreadSafe>{*this, const_cast<std::remove_cv_t<Y>*>(ptr)};
 				}
 			}
