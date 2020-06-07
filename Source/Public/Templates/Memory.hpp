@@ -17,29 +17,39 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		auto* p = IsGameThread() ? omem::MemoryPool::Get(sizeof T).Alloc() : operator new(sizeof T);
-		return new (p) T{std::forward<Args>(args)...};
+#if !OMEM_THREADSAFE
+		CHECK(IsGameThread());
+#endif
+		return new (omem::Alloc(sizeof T)) T{std::forward<Args>(args)...};
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-		auto* p = IsGameThread() ? omem::MemoryPool::Get(n * sizeof T).Alloc() : operator new(n * sizeof T);
-		return new (p) T[n]{std::forward<Args>(args)...};
+#if !OMEM_THREADSAFE
+		CHECK(IsGameThread());
+#endif
+		return new (omem::Alloc(n * sizeof T)) T[n]{std::forward<Args>(args)...};
 	}
 
 	template <class T>
 	void Delete(T* p) noexcept
 	{
+#if !OMEM_THREADSAFE
+		CHECK(IsGameThread());
+#endif
 		p->~T();
-		IsGameThread() ? omem::MemoryPool::Get(sizeof T).Free(p) : operator delete(p);
+		omem::Free(p, sizeof T);
 	}
 
 	template <class T>
 	void DeleteArr(T* p, size_t n) noexcept
 	{
+#if !OMEM_THREADSAFE
+		CHECK(IsGameThread());
+#endif
 		for (size_t i=0; i<n; ++i) p[i].~T();
-		IsGameThread() ? omem::MemoryPool::Get(n * sizeof T).Free(p) : operator delete[](p);
+		omem::Free(p, n * sizeof T);
 	}
 
 	template <class T>
@@ -73,9 +83,10 @@ namespace oeng
 		 */
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-			return static_cast<T*>(IsGameThread()
-				? omem::MemoryPool::Get(n * sizeof T).Alloc()
-				: operator new(n * sizeof T));
+#if !OMEM_THREADSAFE
+			CHECK(IsGameThread());
+#endif
+			return static_cast<T*>(omem::Alloc(n * sizeof T));
 		}
 
 		/**
@@ -85,9 +96,10 @@ namespace oeng
 		 */
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			IsGameThread()
-				? omem::MemoryPool::Get(n * sizeof T).Free(p)
-				: operator delete(p, n * sizeof T);
+#if !OMEM_THREADSAFE
+			CHECK(IsGameThread());
+#endif
+			omem::Free(p, n * sizeof T);
 		}
 	};
 
