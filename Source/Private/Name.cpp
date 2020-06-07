@@ -28,7 +28,7 @@ namespace oeng
 		}
 	};
 
-	using NameSet = HashSet<std::string, NameHasher, NameEqual, std::allocator<std::string>>;
+	using NameSet = HashSet<std::string, NameHasher, NameEqual, RawAllocator<std::string>>;
 	static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> str_set{std::string{}};
 	
 	Name::Name() noexcept
@@ -43,10 +43,7 @@ namespace oeng
 
 	Name::Name(std::string s)
 	{
-#if !OE_NAME_THREADSAFE
-		CHECK(IsGameThread());
-#endif
-		
+		CHECK(OE_NAME_THREADSAFE || IsGameThread());
 		sp = &*str_set->insert(std::move(s)).first;
 	}
 

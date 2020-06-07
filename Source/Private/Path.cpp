@@ -29,7 +29,7 @@ namespace oeng
 		}
 	};
 
-	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual, std::allocator<std::filesystem::path>>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
+	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual, RawAllocator<std::filesystem::path>>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
 
 	Path::Path() noexcept
 		:p{&*path_set->find({})}
@@ -43,10 +43,7 @@ namespace oeng
 
 	Path::Path(const std::filesystem::path& path)
 	{
-#if !OE_PATH_THREADSAFE
-		CHECK(IsGameThread());
-#endif
-		
+		CHECK(OE_PATH_THREADSAFE || IsGameThread());
 		p = &*path_set->insert(proximate(path)).first;
 	}
 

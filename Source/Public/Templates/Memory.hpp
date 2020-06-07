@@ -11,7 +11,8 @@ namespace oeng
 	{
 		inline void CheckMemSafe() noexcept
 		{
-			CHECK((OMEM_THREADSAFE || IsGameThread()) && IsEngineExists());
+			CHECK(OMEM_THREADSAFE || IsGameThread());
+			CHECK(IsEngineExists());
 		}
 	}
 	
