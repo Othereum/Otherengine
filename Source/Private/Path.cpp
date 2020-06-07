@@ -4,7 +4,7 @@
 #include "Templates/Monitor.hpp"
 #include "Templates/HashSet.hpp"
 #include "Json.hpp"
-#include "Thread.hpp"
+#include "Core.hpp"
 
 namespace oeng
 {

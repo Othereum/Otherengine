@@ -2,7 +2,7 @@
 #include <otm/Hash.hpp>
 #include "Assert.hpp"
 #include "Json.hpp"
-#include "Thread.hpp"
+#include "Core.hpp"
 #include "Templates/HashSet.hpp"
 #include "Templates/Monitor.hpp"
 

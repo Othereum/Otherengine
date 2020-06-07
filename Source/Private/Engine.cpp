@@ -98,10 +98,32 @@ namespace oeng
 		}
 	}
 
+	static bool engine_exist = false;
+
+	static std::thread::id GetGameThreadId() noexcept
+	{
+		static const auto game_thread_id = std::this_thread::get_id();
+		return game_thread_id;
+	}
+
+	OEAPI bool IsGameThread() noexcept
+	{
+		return std::this_thread::get_id() == GetGameThreadId();
+	}
+	
+	OEAPI bool IsEngineExists() noexcept
+	{
+		return engine_exist;
+	}
+	
 	SdlRaii::SdlRaii()
 	{
-		log::Info("Initializing engine...");
+		if (engine_exist) throw std::runtime_error{"Only 1 engine instance can exists"};
+		engine_exist = true;
+
+		if (!IsGameThread()) throw std::runtime_error{"The engine instance must be created on the main thread"};
 		
+		log::Info("Initializing engine...");
 		omem::SetOnPoolDest([](auto&&...){});
 		
 		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
