@@ -141,7 +141,7 @@ namespace oeng
 
 	void Renderer::DrawScene()
 	{
-		glClearColor(0.f, 0.f, 0.f, 1.f);
+		glClearColor(0, 0, 0, 1);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		glEnable(GL_DEPTH_TEST);
