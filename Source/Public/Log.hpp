@@ -6,47 +6,47 @@ namespace oeng::log
 {
 	namespace level = spdlog::level;
 	
-	extern OEAPI spdlog::logger& logger;
+	OEAPI spdlog::logger& GetLogger();
 
 	template <class... Args>
 	void Log(level::level_enum level, std::string_view fmt, const Args&... args)
 	{
-		logger.log(level, fmt, args...);
+		GetLogger().log(level, fmt, args...);
 	}
 	
 	template <class... Args>
 	void Trace(std::string_view fmt, const Args&... args)
 	{
-		logger.trace(fmt, args...);
+		GetLogger().trace(fmt, args...);
 	}
 
 	template <class... Args>
 	void Debug(std::string_view fmt, const Args&... args)
 	{
-		logger.debug(fmt, args...);
+		GetLogger().debug(fmt, args...);
 	}
 
 	template <class... Args>
 	void Info(std::string_view fmt, const Args&... args)
 	{
-		logger.info(fmt, args...);
+		GetLogger().info(fmt, args...);
 	}
 
 	template <class... Args>
 	void Warn(std::string_view fmt, const Args&... args)
 	{
-		logger.warn(fmt, args...);
+		GetLogger().warn(fmt, args...);
 	}
 
 	template <class... Args>
 	void Error(std::string_view fmt, const Args&... args)
 	{
-		logger.error(fmt, args...);
+		GetLogger().error(fmt, args...);
 	}
 
 	template <class... Args>
 	void Critical(std::string_view fmt, const Args&... args)
 	{
-		logger.critical(fmt, args...);
+		GetLogger().critical(fmt, args...);
 	}
 }
