@@ -4,7 +4,7 @@
 namespace oeng
 {
 	SceneComponent::SceneComponent(AActor& owner, int update_order)
-		:ActorComponent{owner, update_order}
+		:ActorComponent{owner, update_order}, parent_{}
 	{
 	}
 
