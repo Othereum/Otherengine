@@ -1,4 +1,5 @@
 #pragma once
+#include "Interfaces/Drawable.hpp"
 #include "SceneComponent.hpp"
 #include "Path.hpp"
 
@@ -8,13 +9,13 @@ namespace oeng
 	class Mesh;
 	class Renderer;
 	
-	class OEAPI MeshComponent : public SceneComponent
+	class OEAPI MeshComponent : public SceneComponent, public IMesh
 	{
 	public:
 		explicit MeshComponent(AActor& owner, int update_order = 100);
 		~MeshComponent();
 
-		void Draw(Shader& shader) const noexcept;
+		void Draw() const noexcept override;
 
 		void SetMesh(Path file);
 		void SetMesh(SharedPtr<Mesh> mesh) noexcept { mesh_ = std::move(mesh); }
