@@ -1,15 +1,13 @@
-#include "Graphics/Renderer.hpp"
+#include "Renderer.hpp"
 
 #include <stdexcept>
 #include <SDL.h>
 #include <GL/glew.h>
 
-#include "Components/SpriteComponent.hpp"
-#include "Components/MeshComponent.hpp"
-#include "Graphics/VertexArray.hpp"
-#include "Graphics/Shader.hpp"
-#include "Actor.hpp"
-#include "Engine.hpp"
+#include "VertexArray.hpp"
+#include "Shader.hpp"
+#include "Interfaces/Engine.hpp"
+#include "Interfaces/Drawable.hpp"
 
 namespace oeng
 {
@@ -82,7 +80,7 @@ namespace oeng
 		return {vertex_buffer, index_buffer};
 	}
 
-	Renderer::Renderer(Engine& engine, Vec2u16 scr)
+	Renderer::Renderer(IEngine& engine, Vec2u16 scr)
 		:engine_{engine}, scr_sz_{scr},
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
@@ -95,9 +93,9 @@ namespace oeng
 
 	Renderer::~Renderer() = default;
 
-	void Renderer::RegisterSprite(const SpriteComponent& sprite)
+	void Renderer::RegisterSprite(const ISprite& sprite)
 	{
-		auto cmp = [](const SpriteComponent& a, const SpriteComponent& b)
+		auto cmp = [](const ISprite& a, const ISprite& b)
 		{
 			return a.GetDrawOrder() <= b.GetDrawOrder();
 		};
@@ -105,21 +103,21 @@ namespace oeng
 		sprites_.emplace(pos, sprite);
 	}
 
-	void Renderer::UnregisterSprite(const SpriteComponent& sprite)
+	void Renderer::UnregisterSprite(const ISprite& sprite)
 	{
-		auto pr = [&](const SpriteComponent& v) { return &v == &sprite; };
+		auto pr = [&](const ISprite& v) { return &v == &sprite; };
 		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void Renderer::RegisterMesh(const MeshComponent& mesh)
+	void Renderer::RegisterMesh(const IMesh& mesh)
 	{
 		meshes_.emplace_back(mesh);
 	}
 
-	void Renderer::UnregisterMesh(const MeshComponent& mesh)
+	void Renderer::UnregisterMesh(const IMesh& mesh)
 	{
-		auto pr = [&](const MeshComponent& v) { return &v == &mesh; };
+		auto pr = [&](const IMesh& v) { return &v == &mesh; };
 		const auto found = std::find_if(meshes_.crbegin(), meshes_.crend(), pr);
 		if (found != meshes_.crend()) meshes_.erase(found.base() - 1);
 	}
@@ -139,7 +137,7 @@ namespace oeng
 		for (auto mesh : meshes_)
 		{
 			auto&& m = mesh.get();
-			if (m.IsEnabled()) m.Draw(basic_mesh_shader_);
+			m.Draw();
 		}
 
 		glEnable(GL_BLEND);
@@ -150,7 +148,7 @@ namespace oeng
 		for (auto sprite : sprites_)
 		{
 			auto&& s = sprite.get();
-			if (s.IsEnabled()) s.Draw(sprite_shader_);
+			s.Draw(sprite_shader_);
 		}
 
 		SDL_GL_SwapWindow(window_.get());

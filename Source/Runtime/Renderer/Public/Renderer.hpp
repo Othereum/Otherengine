@@ -7,9 +7,9 @@ struct SDL_Window;
 
 namespace oeng
 {
-	class Engine;
-	class SpriteComponent;
-	class MeshComponent;
+	class ISprite;
+	class IMesh;
+	class IEngine;
 
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
@@ -17,19 +17,19 @@ namespace oeng
 	class Renderer
 	{
 	public:
-		explicit Renderer(Engine& engine, Vec2u16 scr);
+		explicit Renderer(IEngine& engine, Vec2u16 scr);
 		~Renderer();
 		
-		void RegisterSprite(const SpriteComponent& sprite);
-		void UnregisterSprite(const SpriteComponent& sprite);
+		void RegisterSprite(const ISprite& sprite);
+		void UnregisterSprite(const ISprite& sprite);
 
-		void RegisterMesh(const MeshComponent& mesh);
-		void UnregisterMesh(const MeshComponent& mesh);
+		void RegisterMesh(const IMesh& mesh);
+		void UnregisterMesh(const IMesh& mesh);
 
 		void DrawScene();
 
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
-		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
+		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
 		Renderer(const Renderer&) = delete;
 		Renderer(Renderer&&) = delete;
@@ -37,7 +37,7 @@ namespace oeng
 		Renderer& operator=(Renderer&&) = delete;
 
 	private:
-		Engine& engine_;
+		IEngine& engine_;
 
 		Vec2u16 scr_sz_;
 		WindowPtr window_;
@@ -47,7 +47,7 @@ namespace oeng
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
 		
-		DyArr<std::reference_wrapper<const SpriteComponent>> sprites_;
-		DyArr<std::reference_wrapper<const MeshComponent>> meshes_;
+		DyArr<std::reference_wrapper<const ISprite>> sprites_;
+		DyArr<std::reference_wrapper<const IMesh>> meshes_;
 	};
 }
