@@ -28,7 +28,7 @@ namespace oeng
 		auto& va = mesh_->GetVertexArray();
 		va.Activate();
 
-		glDrawElements(GL_TRIANGLES, va.GetNumIndices(), GL_UNSIGNED_SHORT, nullptr);
+		glDrawElements(GL_TRIANGLES, va.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	void MeshComponent::SetMesh(Path file)
