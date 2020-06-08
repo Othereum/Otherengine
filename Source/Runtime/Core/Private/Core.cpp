@@ -3,7 +3,7 @@
 
 namespace oeng
 {
-	OE_EXPORT bool engine_exist = false;
+	OEAPI bool engine_exist = false;
 
 	static std::thread::id GetGameThreadId() noexcept
 	{
