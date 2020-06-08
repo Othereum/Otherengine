@@ -29,10 +29,16 @@ namespace oeng
 		}
 	};
 
-	static Monitor<HashSet<std::filesystem::path, PathHasher, PathEqual, RawAllocator<std::filesystem::path>>, CondMutex<OE_PATH_THREADSAFE>> path_set{std::filesystem::path{}};
+	static auto& GetSet()
+	{
+		CHECK(OE_PATH_THREADSAFE || IsGameThread());
+		using PathSet = HashSet<std::filesystem::path, PathHasher, PathEqual, RawAllocator<std::filesystem::path>>;
+		static Monitor<PathSet, CondMutex<OE_PATH_THREADSAFE>> set;
+		return set;
+	};
 
 	Path::Path() noexcept
-		:p{&*path_set->find({})}
+		:p{&*GetSet()->find({})}
 	{
 	}
 
@@ -42,9 +48,8 @@ namespace oeng
 	}
 
 	Path::Path(const std::filesystem::path& path)
+		:p{&*GetSet()->insert(proximate(path)).first}
 	{
-		CHECK(OE_PATH_THREADSAFE || IsGameThread());
-		p = &*path_set->insert(proximate(path)).first;
 	}
 
 	void to_json(Json& json, const Path& path)
