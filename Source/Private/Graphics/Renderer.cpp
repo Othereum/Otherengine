@@ -132,6 +132,10 @@ namespace oeng
 		glEnable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
 
+		basic_mesh_shader_.Activate();
+		const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
+		const auto proj = MakePerspective(Vec2{GetScreenSize()}, 25_f, 10000_f, 70_deg);
+		basic_mesh_shader_.SetViewProj(view * proj);
 		for (auto mesh : meshes_)
 		{
 			auto&& m = mesh.get();
@@ -142,6 +146,7 @@ namespace oeng
 		glDisable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+		sprite_shader_.Activate();
 		for (auto sprite : sprites_)
 		{
 			auto&& s = sprite.get();
