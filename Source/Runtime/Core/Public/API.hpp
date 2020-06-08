@@ -2,12 +2,17 @@
 
 #if OE_BUILD_STATIC
 	#define OEAPI
+	#define OE_EXPORT
+	#define OE_IMPORT
 #else
 	#ifdef _WIN32
+		#define OE_EXPORT __declspec(dllexport)
+		#define OE_IMPORT __declspec(dllimport)
+
 		#if OE_BUILD
-			#define OEAPI __declspec(dllexport)
+			#define OEAPI OE_EXPORT
 		#else
-			#define OEAPI __declspec(dllimport)
+			#define OEAPI OE_IMPORT
 		#endif
 	#else
 		#if defined(__GNUC__) && __GNUC__>=4
@@ -17,5 +22,8 @@
 		#else
 			#define OEAPI
 		#endif
+
+		#define OE_IMPORT OEAPI
+		#define OE_EXPORT OEAPI
 	#endif
 #endif
