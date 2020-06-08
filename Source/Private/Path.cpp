@@ -33,7 +33,7 @@ namespace oeng
 	{
 		CHECK(OE_PATH_THREADSAFE || IsGameThread());
 		using PathSet = HashSet<std::filesystem::path, PathHasher, PathEqual, RawAllocator<std::filesystem::path>>;
-		static Monitor<PathSet, CondMutex<OE_PATH_THREADSAFE>> set;
+		static Monitor<PathSet, CondMutex<OE_PATH_THREADSAFE>> set{std::filesystem::path{}};
 		return set;
 	};
 
