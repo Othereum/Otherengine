@@ -28,6 +28,7 @@ namespace oeng
 		IEngine& operator=(IEngine&&) = delete;
 		
 	protected:
+		constexpr IEngine() noexcept = default;
 		~IEngine() = default;
 	};
 }
