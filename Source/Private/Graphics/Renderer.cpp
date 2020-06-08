@@ -99,7 +99,7 @@ namespace oeng
 	}
 
 	Renderer::Renderer(Engine& engine, Vec2u16 scr)
-		:engine_{engine},
+		:engine_{engine}, scr_sz_{scr},
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
 		basic_mesh_shader_{CreateBasicMeshShader(scr)},
@@ -164,12 +164,5 @@ namespace oeng
 		}
 
 		SDL_GL_SwapWindow(window_.get());
-	}
-
-	Vec2u16 Renderer::GetScreenSize() const noexcept
-	{
-		int w, h;
-		SDL_GetWindowSize(window_.get(), &w, &h);
-		return Vec2u16{Vector{w, h}};
 	}
 }

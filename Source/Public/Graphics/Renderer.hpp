@@ -28,7 +28,7 @@ namespace oeng
 
 		void DrawScene();
 
-		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
+		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 
 		Renderer(const Renderer&) = delete;
@@ -38,7 +38,8 @@ namespace oeng
 
 	private:
 		Engine& engine_;
-		
+
+		Vec2u16 scr_sz_;
 		WindowPtr window_;
 		GlContextPtr gl_context_;
 		
