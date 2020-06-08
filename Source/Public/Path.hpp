@@ -7,11 +7,12 @@
 namespace oeng
 {
 	/**
-	 * \brief Lightweight representation of filepath
-	 * \brief Very fast O(1) copy and comparison
-	 * \brief No heap allocation on copy
-	 * \brief Good to use as key for HashMap
+	 * \brief Lightweight representation of filepath.
+	 * Very fast O(1) copy and comparison.
+	 * No heap allocation on copy.
+	 * Good to use as key for Map/Set.
 	 * \note Case-insensitive on any platform
+	 * \note Comparisons are not lexical.
 	 */
 	struct OEAPI Path
 	{

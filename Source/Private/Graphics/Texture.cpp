@@ -19,7 +19,8 @@ namespace oeng
 
 		glGenTextures(1, &id_);
 		Activate();
-		
+
+		// BUG: Crash when format == GL_RGB(6407 0x1907)
 		glTexImage2D(GL_TEXTURE_2D, 0, format, size[0], size[1], 0, format, GL_UNSIGNED_BYTE, image.get());
 		
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);

@@ -9,11 +9,12 @@ namespace oeng
 	using NameStr = BasicString<char, std::char_traits<char>, RawAllocator<char>>;
 	
 	/**
-	 * \brief Lightweight string
-	 * \brief Very fast O(1) copy and comparison
-	 * \brief No heap allocation on copy
-	 * \brief Good to use as key for HashMap
-	 * \note Case-insensitive
+	 * \brief Lightweight string.
+	 * Very fast O(1) copy and comparison.
+	 * No heap allocation on copy.
+	 * Good to use as key for Map/Set.
+	 * \note Case-insensitive.
+	 * \note Comparisons are not lexical.
 	 */
 	struct OEAPI Name
 	{
