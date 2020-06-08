@@ -98,24 +98,8 @@ namespace oeng
 		}
 	}
 
-	static bool engine_exist = false;
+	extern OE_IMPORT bool engine_exist;
 
-	static std::thread::id GetGameThreadId() noexcept
-	{
-		static const auto game_thread_id = std::this_thread::get_id();
-		return game_thread_id;
-	}
-
-	OEAPI bool IsGameThread() noexcept
-	{
-		return std::this_thread::get_id() == GetGameThreadId();
-	}
-	
-	OEAPI bool IsEngineExists() noexcept
-	{
-		return engine_exist;
-	}
-	
 	SdlRaii::SdlRaii()
 	{
 		if (engine_exist) throw std::runtime_error{"Only 1 engine instance can exists"};
