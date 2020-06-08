@@ -63,22 +63,6 @@ namespace oeng
 		return context;
 	}
 
-	static Shader CreateSpriteShader(Vec2u16 scr)
-	{
-		Shader shader{"../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag"};
-		shader.SetViewProj(MakeSimpleViewProj<4>(scr));
-		return shader;
-	}
-
-	static Shader CreateBasicMeshShader(Vec2u16 scr)
-	{
-		Shader shader{"../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag"};
-		const auto view = MakeLookAt({}, Vec3::Forward(), Vec3::Up());
-		const auto proj = MakePerspective(Vec2{scr}, 25_f, 10000_f, 70_deg);
-		shader.SetViewProj(view * proj);
-		return shader;
-	}
-
 	static VertexArray CreateSpriteVerts()
 	{
 		constexpr Vertex vertex_buffer[]
@@ -102,10 +86,11 @@ namespace oeng
 		:engine_{engine}, scr_sz_{scr},
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
-		basic_mesh_shader_{CreateBasicMeshShader(scr)},
-		sprite_shader_{CreateSpriteShader(scr)},
+		basic_mesh_shader_{"../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag"},
+		sprite_shader_{"../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag"},
 		sprite_verts_{CreateSpriteVerts()}
 	{
+		sprite_shader_.SetViewProj(MakeSimpleViewProj<4>(scr));
 	}
 
 	Renderer::~Renderer() = default;
