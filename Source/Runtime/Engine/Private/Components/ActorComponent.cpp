@@ -1,5 +1,5 @@
 #include "Components/ActorComponent.hpp"
-#include "Actor.hpp"
+#include "GameFramework/Actor.hpp"
 
 namespace oeng
 {

@@ -1,10 +1,10 @@
 #include "Components/SpriteComponent.hpp"
 #include <GL/glew.h>
-#include "Actor.hpp"
+#include "GameFramework/Actor.hpp"
 #include "Engine.hpp"
-#include "Graphics/Renderer.hpp"
-#include "Graphics/Shader.hpp"
-#include "Graphics/Texture.hpp"
+#include "Renderer.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
 
 namespace oeng
 {

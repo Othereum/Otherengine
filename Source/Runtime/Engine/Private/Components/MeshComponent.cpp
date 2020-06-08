@@ -1,9 +1,9 @@
 #include "Components/MeshComponent.hpp"
 #include <GL/glew.h>
-#include "Graphics/Shader.hpp"
-#include "Graphics/Mesh.hpp"
-#include "Graphics/Texture.hpp"
-#include "Graphics/VertexArray.hpp"
+#include "Shader.hpp"
+#include "Mesh.hpp"
+#include "Texture.hpp"
+#include "VertexArray.hpp"
 #include "Engine.hpp"
 
 namespace oeng
@@ -18,11 +18,12 @@ namespace oeng
 		GetRenderer().UnregisterMesh(*this);
 	}
 
-	void MeshComponent::Draw(Shader& shader) const noexcept
+	void MeshComponent::Draw() const noexcept
 	{
 		if (!mesh_) return;
 
-		shader.SetTransform(GetWorldTransform());
+		// TODO: Private shader
+		// shader.SetTransform(GetWorldTransform());
 		mesh_->GetTextures()[texture_idx_]->Activate();
 
 		auto& va = mesh_->GetVertexArray();
