@@ -1,11 +1,11 @@
-#include "Graphics/Mesh.hpp"
+#include "Mesh.hpp"
 #include "Format.hpp"
-#include "Engine.hpp"
+#include "Interfaces/Engine.hpp"
 #include "Json.hpp"
 
 namespace oeng
 {
-	Mesh::Mesh(Path filepath, Engine& engine)
+	Mesh::Mesh(Path filepath, IEngine& engine)
 	{
 		const auto json = ReadFileAsJson(filepath);
 
@@ -21,7 +21,7 @@ namespace oeng
 		}
 	}
 
-	void Mesh::LoadV1(const Json& json, Engine& engine)
+	void Mesh::LoadV1(const Json& json, IEngine& engine)
 	{
 		for (const auto& tex : json.at("textures"))
 			textures_.push_back(engine.GetTexture(tex));

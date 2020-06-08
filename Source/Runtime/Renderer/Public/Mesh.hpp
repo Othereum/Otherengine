@@ -5,14 +5,14 @@
 
 namespace oeng
 {
-	class Engine;
+	class IEngine;
 	class Texture;
 	class VertexArray;
 	
 	class Mesh
 	{
 	public:
-		Mesh(Path filepath, Engine& engine);
+		Mesh(Path filepath, IEngine& engine);
 
 		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
 		[[nodiscard]] const VertexArray& GetVertexArray() const noexcept { return vertex_array_; }
@@ -26,7 +26,7 @@ namespace oeng
 		Mesh& operator=(Mesh&&) = delete;
 
 	private:
-		void LoadV1(const Json& json, Engine& engine);
+		void LoadV1(const Json& json, IEngine& engine);
 		
 		DyArr<SharedPtr<Texture>> textures_;
 		VertexArray vertex_array_;
