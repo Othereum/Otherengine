@@ -3,7 +3,7 @@
 #include "Math.hpp"
 #include "Path.hpp"
 #include "World.hpp"
-#include "Graphics/Renderer.hpp"
+#include "Renderer.hpp"
 #include "Templates/HashMap.hpp"
 #include "Templates/Function.hpp"
 

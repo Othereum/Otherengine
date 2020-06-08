@@ -1,8 +1,8 @@
 ﻿#include "Engine.hpp"
 #include <SDL.h>
 #include "Log.hpp"
-#include "Graphics/Texture.hpp"
-#include "Graphics/Mesh.hpp"
+#include "Texture.hpp"
+#include "Mesh.hpp"
 
 namespace oeng
 {

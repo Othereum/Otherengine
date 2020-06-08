@@ -1,6 +1,6 @@
 #pragma once
-#include "Graphics/Shader.hpp"
-#include "Graphics/VertexArray.hpp"
+#include "Shader.hpp"
+#include "VertexArray.hpp"
 #include "Templates/DyArr.hpp"
 
 struct SDL_Window;
