@@ -1,7 +1,7 @@
 ﻿#pragma once
+#include "Interfaces/Engine.hpp"
 #include "InputSystem.hpp"
 #include "Math.hpp"
-#include "Path.hpp"
 #include "World.hpp"
 #include "Renderer.hpp"
 #include "Templates/HashMap.hpp"
@@ -23,7 +23,7 @@ namespace oeng
 		~SdlRaii();
 	};
 	
-	class OEAPI Engine : SdlRaii
+	class OEAPI Engine : public IEngine, SdlRaii
 	{
 	public:
 		Engine(std::string_view game_name, const Function<void(Engine&)>& load_game);
@@ -32,13 +32,13 @@ namespace oeng
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
-		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
-		[[nodiscard]] World& GetWorld() noexcept { return world_; }
-		[[nodiscard]] InputSystem& GetInputSystem() noexcept { return input_system_; }
-		[[nodiscard]] Renderer& GetRenderer() noexcept { return renderer_; }
-		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept;
-		[[nodiscard]] std::string_view GetGameName() const noexcept { return game_name_; }
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file) override;
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file) override;
+		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
+		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
+		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
+		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept override;
+		[[nodiscard]] std::string_view GetGameName() const noexcept override { return game_name_; }
 
 		Engine(const Engine&) = delete;
 		Engine(Engine&&) = delete;
