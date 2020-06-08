@@ -6,6 +6,8 @@
 
 namespace oeng
 {
+	using NameStr = BasicString<char, std::char_traits<char>, RawAllocator<char>>;
+	
 	/**
 	 * \brief Lightweight string
 	 * \brief Very fast O(1) copy and comparison
@@ -17,16 +19,16 @@ namespace oeng
 	{
 		Name() noexcept;
 		Name(const char* s);
-		Name(std::string s);
+		Name(NameStr s);
 
-		[[nodiscard]] const std::string& Str() const noexcept { return *sp; }
+		[[nodiscard]] const NameStr& Str() const noexcept { return *sp; }
 		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
 
 		std::strong_ordering operator<=>(const Name&) const noexcept = default;
 
 	private:
 		friend std::hash<Name>;
-		const std::string* sp;
+		const NameStr* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);
