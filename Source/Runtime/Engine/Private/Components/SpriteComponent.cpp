@@ -14,7 +14,7 @@ namespace oeng
 
 	SpriteComponent::~SpriteComponent()
 	{
-		GetRenderer().UnregisterSprite(*this);
+		if (BegunPlay()) GetRenderer().UnregisterSprite(*this);
 	}
 
 	std::optional<ISprite::DrawInfo> SpriteComponent::Draw() const noexcept

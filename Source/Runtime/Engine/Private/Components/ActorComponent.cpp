@@ -11,6 +11,7 @@ namespace oeng
 	void ActorComponent::BeginPlay()
 	{
 		OnBeginPlay();
+		begun_play_ = true;
 	}
 
 	void ActorComponent::Update(Float delta_seconds)

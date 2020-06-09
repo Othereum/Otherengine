@@ -13,7 +13,7 @@ namespace oeng
 
 	MeshComponent::~MeshComponent()
 	{
-		GetRenderer().UnregisterMesh(*this);
+		if (BegunPlay()) GetRenderer().UnregisterMesh(*this);
 	}
 
 	std::optional<IMesh::DrawInfo> MeshComponent::Draw() const noexcept
