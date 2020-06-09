@@ -6,10 +6,10 @@
 
 namespace oeng
 {
-	std::string ReadFile(Path filepath)
+	std::string ReadFile(const std::filesystem::path& path)
 	{
-		std::ifstream file{ filepath, std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{format("Cannot read file. File not found: {}", filepath->string())};
+		std::ifstream file{ path, std::ios_base::in | std::ios_base::ate};
+		if (!file.is_open()) throw std::ios_base::failure{format("Cannot read file. File not found: {}", path.string())};
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);
@@ -45,7 +45,7 @@ namespace oeng
 		}
 	}
 	
-	static unsigned Compile(Path file, unsigned type)
+	static unsigned Compile(const std::filesystem::path& file, unsigned type)
 	{
 		const auto code = ReadFile(file);
 		const auto* const c_str = code.c_str();
@@ -56,9 +56,16 @@ namespace oeng
 		return shader;
 	}
 
-	Shader::Shader(Path vert, Path frag):
-		vert_shader_{Compile(vert, GL_VERTEX_SHADER)},
-		frag_shader_{Compile(frag, GL_FRAGMENT_SHADER)},
+	static auto WithExt(std::filesystem::path path, const char* ext)
+	{
+		path.concat(ext);
+		return path;
+	}
+
+	Shader::Shader(Path path)
+		:path_{path},
+		vert_shader_{Compile(WithExt(path, ".vert"), GL_VERTEX_SHADER)},
+		frag_shader_{Compile(WithExt(path, ".frag"), GL_FRAGMENT_SHADER)},
 		shader_program_{glCreateProgram()}
 	{
 		glAttachShader(shader_program_, vert_shader_);

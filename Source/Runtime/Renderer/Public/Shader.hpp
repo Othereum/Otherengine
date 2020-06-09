@@ -1,6 +1,6 @@
 #pragma once
-#include "Name.hpp"
 #include "Path.hpp"
+#include "Name.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
@@ -8,11 +8,12 @@ namespace oeng
 	class OEAPI Shader
 	{
 	public:
-		Shader(Path vert, Path frag);
-		Shader(Shader&& r) noexcept;
+		explicit Shader(Path path);
 		~Shader();
 
+		Shader(Shader&& r) noexcept;
 		Shader& operator=(Shader&& r) noexcept;
+
 		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
 
@@ -20,6 +21,8 @@ namespace oeng
 		{
 			return shader_program_ <=> r.shader_program_;
 		}
+
+		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 
 		void Activate() const;
 		void SetMatrixUniform(Name name, const Mat4& matrix);
