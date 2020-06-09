@@ -1,7 +1,7 @@
 #pragma once
 #include <memory>
 #include <unordered_map>
-#include "ActorComponent.hpp"
+#include "Components/ActorComponent.hpp"
 #include "Name.hpp"
 
 namespace oeng
