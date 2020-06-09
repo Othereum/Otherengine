@@ -1,4 +1,5 @@
 #pragma once
+#include <optional>
 #include "Path.hpp"
 #include "Math.hpp"
 
@@ -9,7 +10,7 @@ namespace oeng
 	public:
 		struct DrawInfo { Mat4 transform; };
 	
-		[[nodiscard]] virtual DrawInfo Draw() const noexcept = 0;
+		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
 		[[nodiscard]] virtual int GetDrawOrder() const noexcept = 0;
 
 		ISprite(const ISprite&) = delete;
@@ -25,9 +26,9 @@ namespace oeng
 	class IMesh
 	{
 	public:
-		struct DrawInfo { Mat4 transform; int vertices; };
+		struct DrawInfo { Mat4 transform; size_t vertices; };
 	
-		[[nodiscard]] virtual DrawInfo Draw() const noexcept = 0;
+		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
 		[[nodiscard]] virtual Path GetShaderPath() const noexcept = 0;
 
 		IMesh(const IMesh&) = delete;
