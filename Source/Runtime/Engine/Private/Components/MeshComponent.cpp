@@ -25,7 +25,7 @@ namespace oeng
 		auto& va = mesh_->GetVertexArray();
 		va.Activate();
 
-		return DrawInfo{GetWorldTransform(), va.GetNumIndices() * 3};
+		return DrawInfo{GetWorldMatrix(), va.GetNumIndices() * 3};
 	}
 
 	Path MeshComponent::GetShaderPath() const noexcept

@@ -145,6 +145,6 @@ namespace oeng
 
 	const Mat4& AActor::GetTransformMatrix() const noexcept
 	{
-		return root_ ? root_->GetWorldTransform() : Mat4::identity;
+		return root_ ? root_->GetWorldMatrix() : Mat4::identity;
 	}
 }
