@@ -1,5 +1,4 @@
 #include "Components/SpriteComponent.hpp"
-#include <GL/glew.h>
 #include "GameFramework/Actor.hpp"
 #include "Engine.hpp"
 #include "Renderer.hpp"
@@ -18,16 +17,17 @@ namespace oeng
 		GetRenderer().UnregisterSprite(*this);
 	}
 
-	void SpriteComponent::Draw(Shader& shader) const noexcept
+	std::optional<ISprite::DrawInfo> SpriteComponent::Draw() const noexcept
 	{
-		shader.SetTransform(MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix());
+		if (!IsEnabled()) return {};
+		
 		texture_->Activate();
-		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+		return DrawInfo{MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix()};
 	}
-	
+
 	void SpriteComponent::SetTexture(Path file)
 	{
-		SetTexture(GetEngine().GetTexture(file));
+		SetTexture(GetRenderer().GetTexture(file));
 	}
 
 	Renderer& SpriteComponent::GetRenderer() const noexcept

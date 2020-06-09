@@ -1,6 +1,4 @@
 #include "Components/MeshComponent.hpp"
-#include <GL/glew.h>
-#include "Shader.hpp"
 #include "Mesh.hpp"
 #include "Texture.hpp"
 #include "VertexArray.hpp"
@@ -18,23 +16,26 @@ namespace oeng
 		GetRenderer().UnregisterMesh(*this);
 	}
 
-	void MeshComponent::Draw() const noexcept
+	std::optional<IMesh::DrawInfo> MeshComponent::Draw() const noexcept
 	{
-		if (!mesh_) return;
+		if (!IsEnabled()) return {};
 
-		// TODO: Private shader
-		// shader.SetTransform(GetWorldTransform());
 		mesh_->GetTextures()[texture_idx_]->Activate();
 
 		auto& va = mesh_->GetVertexArray();
 		va.Activate();
 
-		glDrawElements(GL_TRIANGLES, va.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
+		return DrawInfo{GetWorldTransform(), va.GetNumIndices() * 3};
+	}
+
+	Path MeshComponent::GetShaderPath() const noexcept
+	{
+		return mesh_->GetShaderPath();
 	}
 
 	void MeshComponent::SetMesh(Path file)
 	{
-		SetMesh(GetEngine().GetMesh(file));
+		SetMesh(GetRenderer().GetMesh(file));
 	}
 
 	Renderer& MeshComponent::GetRenderer() const noexcept

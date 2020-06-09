@@ -15,7 +15,8 @@ namespace oeng
 		explicit MeshComponent(AActor& owner, int update_order = 100);
 		~MeshComponent();
 
-		void Draw() const noexcept override;
+		std::optional<DrawInfo> Draw() const noexcept override;
+		Path GetShaderPath() const noexcept override;
 
 		void SetMesh(Path file);
 		void SetMesh(SharedPtr<Mesh> mesh) noexcept { mesh_ = std::move(mesh); }

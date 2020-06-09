@@ -16,7 +16,7 @@ namespace oeng
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
-		void Draw(Shader& shader) const noexcept override;
+		std::optional<DrawInfo> Draw() const noexcept override;
 
 		void SetTexture(Path file);
 		void SetTexture(SharedPtr<Texture> texture) noexcept { texture_ = std::move(texture); }
