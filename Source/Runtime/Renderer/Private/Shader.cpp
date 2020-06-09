@@ -77,6 +77,13 @@ namespace oeng
 		r.shader_program_ = 0;
 	}
 
+	Shader& Shader::operator=(Shader&& r) noexcept
+	{
+		this->~Shader();
+		new (this) Shader{std::move(r)};
+		return *this;
+	}
+
 	Shader::~Shader()
 	{
 		// glDelete functions silently ignores 0 or invalid ID.

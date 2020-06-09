@@ -12,9 +12,10 @@ namespace oeng
 		Shader(Shader&& r) noexcept;
 		~Shader();
 
+		Shader& operator=(Shader&& r) noexcept;
 		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
-		Shader& operator=(Shader&&) = delete;
+
 
 		void Activate() const;
 		void SetMatrixUniform(Name name, const Mat4& matrix);
