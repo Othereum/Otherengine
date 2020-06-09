@@ -12,22 +12,25 @@ namespace oeng
 
 		void AttachTo(SceneComponent* new_parent);
 
-		void SetRelTransform(const Transform& transform) noexcept { rel_transform_ = transform; RecalcWorldTransform(); }
+		void SetRelTransform(const Transform& transform) noexcept { rel_transform_ = transform; TransformChanged(); }
 		[[nodiscard]] const Transform& GetRelTransform() const noexcept { return rel_transform_; }
 
-		void SetRelPos(const Vec3& new_pos) noexcept { rel_transform_.pos = new_pos; RecalcWorldTransform(); }
+		void SetRelPos(const Vec3& new_pos) noexcept { rel_transform_.pos = new_pos; TransformChanged(); }
 		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_transform_.pos; }
 
-		void SetRelRot(const Quat& new_rot) noexcept { rel_transform_.rot = new_rot; RecalcWorldTransform(); }
+		void SetRelRot(const Quat& new_rot) noexcept { rel_transform_.rot = new_rot; TransformChanged(); }
 		[[nodiscard]] const Quat& GetRelRot() const noexcept { return rel_transform_.rot; }
 
-		void SetRelScale(const Vec3& scale) noexcept { rel_transform_.scale = scale; RecalcWorldTransform(); }
+		void SetRelScale(const Vec3& scale) noexcept { rel_transform_.scale = scale; TransformChanged(); }
 		[[nodiscard]] const Vec3& GetRelScale() const noexcept { return rel_transform_.scale; }
 
 		void RecalcWorldTransform(bool propagate = true) noexcept;
 		[[nodiscard]] const Mat4& GetWorldTransform() const noexcept { return world_transform_; }
 
 	private:
+		void TransformChanged() { RecalcWorldTransform(); OnTransformChanged(); }
+		virtual void OnTransformChanged() {}
+		
 		SceneComponent* parent_;
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
 		Transform rel_transform_;
