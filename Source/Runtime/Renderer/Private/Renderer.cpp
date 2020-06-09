@@ -6,6 +6,8 @@
 
 #include "VertexArray.hpp"
 #include "Shader.hpp"
+#include "Texture.hpp"
+#include "Mesh.hpp"
 #include "Interfaces/Engine.hpp"
 #include "Interfaces/Drawable.hpp"
 
@@ -84,8 +86,7 @@ namespace oeng
 		:engine_{engine}, scr_sz_{scr},
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
-		basic_mesh_shader_{"../Engine/Shaders/BasicMesh.vert", "../Engine/Shaders/BasicMesh.frag"},
-		sprite_shader_{"../Engine/Shaders/Sprite.vert", "../Engine/Shaders/Sprite.frag"},
+		sprite_shader_{"../Engine/Shaders/Sprite"},
 		sprite_verts_{CreateSpriteVerts()}
 	{
 		sprite_shader_.SetViewProj(MakeSimpleViewProj<4>(scr));
@@ -112,14 +113,18 @@ namespace oeng
 
 	void Renderer::RegisterMesh(const IMesh& mesh)
 	{
-		meshes_.emplace_back(mesh);
+		auto shader_path = mesh.GetShaderPath();
+		shaders_.try_emplace(shader_path, shader_path);
+		mesh_comps_[shader_path].emplace_back(mesh);
 	}
 
 	void Renderer::UnregisterMesh(const IMesh& mesh)
 	{
+		auto& vec = mesh_comps_.at(mesh.GetShaderPath());
 		auto pr = [&](const IMesh& v) { return &v == &mesh; };
-		const auto found = std::find_if(meshes_.crbegin(), meshes_.crend(), pr);
-		if (found != meshes_.crend()) meshes_.erase(found.base() - 1);
+		const auto found = std::find_if(vec.crbegin(), vec.crend(), pr);
+		if (found != vec.crend()) vec.erase(found.base() - 1);
+		// TODO: Delete shader if no referencing mesh left
 	}
 
 	void Renderer::DrawScene()
@@ -130,14 +135,23 @@ namespace oeng
 		glEnable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
 
-		basic_mesh_shader_.Activate();
 		const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
 		const auto proj = MakePerspective(Vec2{GetScreenSize()}, 25_f, 10000_f, 70_deg);
-		basic_mesh_shader_.SetViewProj(view * proj);
-		for (auto mesh : meshes_)
+		const auto view_proj = view * proj;
+		
+		for (auto& pair : mesh_comps_)
 		{
-			auto&& m = mesh.get();
-			m.Draw();
+			auto& shader = shaders_.at(pair.first);
+			shader.SetViewProj(view_proj);
+			
+			for (auto mesh : pair.second)
+			{
+				if (auto info = mesh.get().Draw())
+				{
+					shader.SetTransform(info->transform);
+					glDrawElements(GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
+				}
+			}
 		}
 
 		glEnable(GL_BLEND);
@@ -147,10 +161,49 @@ namespace oeng
 		sprite_shader_.Activate();
 		for (auto sprite : sprites_)
 		{
-			auto&& s = sprite.get();
-			s.Draw(sprite_shader_);
+			if (auto info = sprite.get().Draw())
+			{
+				sprite_shader_.SetTransform(info->transform);
+				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+			}
 		}
 
 		SDL_GL_SwapWindow(window_.get());
+	}
+
+	SharedPtr<Texture> Renderer::GetTexture(Path file)
+	{
+		const auto found = textures_.find(file);
+		if (found != textures_.end()) return found->second.lock();
+
+		SharedPtr<Texture> loaded{
+			New<Texture>(file),
+			[this, file](Texture* p) noexcept
+			{
+				textures_.erase(file);
+				Delete(p);
+			}
+		};
+
+		textures_.emplace(file, loaded);
+		return loaded;
+	}
+
+	SharedPtr<Mesh> Renderer::GetMesh(Path file)
+	{
+		const auto found = meshes_.find(file);
+		if (found != meshes_.end()) return found->second.lock();
+
+		SharedPtr<Mesh> loaded{
+			New<Mesh>(file, *this),
+			[this, file](Mesh* p) noexcept
+			{
+				meshes_.erase(file);
+				Delete(p);
+			}
+		};
+
+		meshes_.emplace(file, loaded);
+		return loaded;
 	}
 }
