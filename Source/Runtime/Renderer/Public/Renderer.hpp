@@ -22,15 +22,11 @@ namespace oeng
 	class DefaultCamera : public ICamera
 	{
 	public:
-		explicit DefaultCamera(Vec2u16 scr) noexcept;
-		Mat4 GetViewProj(Vec2u16 scr) const noexcept override;
+		Mat4 GetViewProj() noexcept override;
+		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
 
 	private:
-		void RecalcViewProj() const noexcept;
-		
-		mutable Vec2u16 scr_;
-		mutable Mat4 proj_;
-		mutable Mat4 view_proj_;
+		Mat4 view_proj_;
 	};
 	
 	class OEAPI Renderer
@@ -45,8 +41,21 @@ namespace oeng
 		void RegisterMesh(const IMesh& mesh);
 		void UnregisterMesh(const IMesh& mesh);
 
-		void RegisterCamera(const ICamera& camera) noexcept { camera_ = &camera;}
-		void UnregisterCamera() noexcept;
+		void RegisterCamera(ICamera& camera) noexcept
+		{
+			camera_ = &camera;
+			camera.OnScreenSizeChanged(GetScreenSize());
+		}
+		
+		void UnregisterCamera(ICamera& camera) noexcept
+		{
+			if (camera_ == &camera) UnregisterCamera();
+		}
+		
+		void UnregisterCamera() noexcept
+		{
+			RegisterCamera(default_camera_);
+		}
 
 		void DrawScene();
 
@@ -75,7 +84,7 @@ namespace oeng
 		HashMap<Path, WeakPtr<Mesh>> meshes_;
 		HashMap<Path, Shader> shaders_;
 
-		const ICamera* camera_;
+		ICamera* camera_ = nullptr;
 		DefaultCamera default_camera_;
 		
 		DyArr<std::reference_wrapper<const ISprite>> sprites_;

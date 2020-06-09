@@ -82,23 +82,16 @@ namespace oeng
 		return {vertex_buffer, index_buffer};
 	}
 
-	DefaultCamera::DefaultCamera(Vec2u16 scr) noexcept
-		:scr_{scr}
-	{
-		RecalcViewProj();
-	}
-
-	Mat4 DefaultCamera::GetViewProj(Vec2u16 scr) const noexcept
-	{
-		if (scr != scr_) [[unlikely]] RecalcViewProj();
-		return view_proj_;
-	}
-
-	void DefaultCamera::RecalcViewProj() const noexcept
+	void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr) noexcept
 	{
 		static const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
-		proj_ = MakePerspective(Vec2{scr_}, 25_f, 10000_f, 70_deg);
-		view_proj_ = view * proj_;
+		const auto proj = MakePerspective(Vec2{scr}, 25_f, 10000_f, 70_deg);
+		view_proj_ = view * proj;
+	}
+
+	Mat4 DefaultCamera::GetViewProj() noexcept
+	{
+		return view_proj_;
 	}
 
 	Renderer::Renderer(IEngine& engine, Vec2u16 scr)
@@ -106,10 +99,9 @@ namespace oeng
 		window_{CreateWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{"../Engine/Shaders/Sprite"},
-		sprite_verts_{CreateSpriteVerts()},
-		camera_{&default_camera_},
-		default_camera_{scr}
+		sprite_verts_{CreateSpriteVerts()}
 	{
+		UnregisterCamera();
 		sprite_shader_.SetViewProj(MakeSimpleViewProj<4>(scr));
 	}
 
@@ -156,11 +148,6 @@ namespace oeng
 		}
 	}
 
-	void Renderer::UnregisterCamera() noexcept
-	{
-		camera_ = &default_camera_;
-	}
-
 	void Renderer::DrawScene()
 	{
 		glClearColor(0, 0, 0, 1);
@@ -169,7 +156,7 @@ namespace oeng
 		glEnable(GL_DEPTH_TEST);
 		glDisable(GL_BLEND);
 
-		const auto view_proj = camera_->GetViewProj(GetScreenSize());
+		const auto view_proj = camera_->GetViewProj();
 
 		for (auto& pair : mesh_comps_)
 		{
