@@ -1,14 +1,15 @@
 #pragma once
+#include "Path.hpp"
+#include "Math.hpp"
 
 namespace oeng
 {
-	class Shader;
-	class Renderer;
-	
 	class ISprite
 	{
 	public:
-		virtual void Draw(Shader& shader) const noexcept = 0;
+		struct DrawInfo { Mat4 transform; };
+	
+		[[nodiscard]] virtual DrawInfo Draw() const noexcept = 0;
 		[[nodiscard]] virtual int GetDrawOrder() const noexcept = 0;
 
 		ISprite(const ISprite&) = delete;
@@ -24,7 +25,10 @@ namespace oeng
 	class IMesh
 	{
 	public:
-		virtual void Draw() const noexcept = 0;
+		struct DrawInfo { Mat4 transform; int vertices; };
+	
+		[[nodiscard]] virtual DrawInfo Draw() const noexcept = 0;
+		[[nodiscard]] virtual Path GetShaderPath() const noexcept = 0;
 
 		IMesh(const IMesh&) = delete;
 		IMesh(IMesh&&) = delete;
