@@ -4,7 +4,7 @@
 
 namespace oeng
 {
-	class Texture
+	class OEAPI Texture
 	{
 	public:
 		explicit Texture(Path file);

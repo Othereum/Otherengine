@@ -9,7 +9,7 @@ namespace oeng
 	class Texture;
 	class VertexArray;
 	
-	class Mesh
+	class OEAPI Mesh
 	{
 	public:
 		Mesh(Path filepath, IEngine& engine);

@@ -5,7 +5,7 @@
 
 namespace oeng
 {
-	class Shader
+	class OEAPI Shader
 	{
 	public:
 		Shader(Path vert, Path frag);

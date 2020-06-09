@@ -31,8 +31,8 @@ namespace oeng
 		const std::filesystem::path* p;
 	};
 	
-	void to_json(Json& json, const Path& path);
-	void from_json(const Json& json, Path& path);
+	OEAPI void to_json(Json& json, const Path& path);
+	OEAPI void from_json(const Json& json, Path& path);
 }
 
 template <>

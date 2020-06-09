@@ -14,7 +14,7 @@ namespace oeng
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
 
-	class Renderer
+	class OEAPI Renderer
 	{
 	public:
 		explicit Renderer(IEngine& engine, Vec2u16 scr);

@@ -5,7 +5,7 @@
 
 namespace oeng
 {
-	struct Vertex
+	struct OEAPI Vertex
 	{
 		union
 		{
@@ -25,9 +25,9 @@ namespace oeng
 		}
 	};
 	
-	void from_json(const Json& json, Vertex& vertex);
+	OEAPI void from_json(const Json& json, Vertex& vertex);
 
-	class VertexArray
+	class OEAPI VertexArray
 	{
 	public:
 		constexpr VertexArray() noexcept = default;
