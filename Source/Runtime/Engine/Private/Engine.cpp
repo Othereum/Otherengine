@@ -1,8 +1,6 @@
 ﻿#include "Engine.hpp"
 #include <SDL.h>
 #include "Log.hpp"
-#include "Texture.hpp"
-#include "Mesh.hpp"
 
 namespace oeng
 {
@@ -31,42 +29,6 @@ namespace oeng
 	{
 		is_running_ = false;
 		log::Info("Engine shutdown requested.");
-	}
-
-	SharedPtr<Texture> Engine::GetTexture(Path file)
-	{
-		const auto found = textures_.find(file);
-		if (found != textures_.end()) return found->second.lock();
-
-		SharedPtr<Texture> loaded{
-			New<Texture>(file),
-			[this, file](Texture* p) noexcept
-			{
-				textures_.erase(file);
-				Delete(p);
-			}
-		};
-
-		textures_.emplace(file, loaded);
-		return loaded;
-	}
-
-	SharedPtr<Mesh> Engine::GetMesh(Path file)
-	{
-		const auto found = meshes_.find(file);
-		if (found != meshes_.end()) return found->second.lock();
-
-		SharedPtr<Mesh> loaded{
-			New<Mesh>(file, *this),
-			[this, file](Mesh* p) noexcept
-			{
-				meshes_.erase(file);
-				Delete(p);
-			}
-		};
-
-		meshes_.emplace(file, loaded);
-		return loaded;
 	}
 
 	Vec2u16 Engine::GetScreenSize() const noexcept

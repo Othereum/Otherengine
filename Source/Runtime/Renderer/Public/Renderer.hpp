@@ -1,4 +1,5 @@
 #pragma once
+#include "Path.hpp"
 #include "Shader.hpp"
 #include "VertexArray.hpp"
 #include "Templates/DyArr.hpp"
@@ -7,9 +8,11 @@ struct SDL_Window;
 
 namespace oeng
 {
-	class ISprite;
 	class IMesh;
+	class ISprite;
 	class IEngine;
+	class Texture;
+	class Mesh;
 
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
@@ -28,6 +31,9 @@ namespace oeng
 
 		void DrawScene();
 
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
+		
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
@@ -43,11 +49,14 @@ namespace oeng
 		WindowPtr window_;
 		GlContextPtr gl_context_;
 		
-		Shader basic_mesh_shader_;
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
 		
+		HashMap<Path, WeakPtr<Texture>> textures_;
+		HashMap<Path, WeakPtr<Mesh>> meshes_;
+		HashMap<Path, Shader> shaders_;
+		
 		DyArr<std::reference_wrapper<const ISprite>> sprites_;
-		DyArr<std::reference_wrapper<const IMesh>> meshes_;
+		HashMap<Path, DyArr<std::reference_wrapper<const IMesh>>> mesh_comps_;
 	};
 }

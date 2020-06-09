@@ -4,7 +4,6 @@
 #include "Math.hpp"
 #include "World.hpp"
 #include "Renderer.hpp"
-#include "Templates/HashMap.hpp"
 #include "Templates/Function.hpp"
 
 struct SDL_Window;
@@ -32,8 +31,6 @@ namespace oeng
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file) override;
-		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file) override;
 		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
 		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
@@ -50,8 +47,6 @@ namespace oeng
 		void ProcessEvent();
 
 		std::string_view game_name_;
-		HashMap<Path, WeakPtr<Texture>> textures_;
-		HashMap<Path, WeakPtr<Mesh>> meshes_;
 		Renderer renderer_;
 		World world_;
 		InputSystem input_system_;
