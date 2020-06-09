@@ -13,14 +13,13 @@ namespace oeng
 		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
 		[[nodiscard]] virtual int GetDrawOrder() const noexcept = 0;
 
+		constexpr ISprite() noexcept = default;
+		virtual ~ISprite() = default;
+		
 		ISprite(const ISprite&) = delete;
 		ISprite(ISprite&&) = delete;
 		ISprite& operator=(const ISprite&) = delete;
 		ISprite& operator=(ISprite&&) = delete;
-
-	protected:
-		constexpr ISprite() noexcept = default;
-		~ISprite() = default;
 	};
 
 	class IMesh
@@ -31,13 +30,12 @@ namespace oeng
 		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
 		[[nodiscard]] virtual Path GetShaderPath() const noexcept = 0;
 
+		constexpr IMesh() noexcept = default;
+		virtual ~IMesh() = default;
+		
 		IMesh(const IMesh&) = delete;
 		IMesh(IMesh&&) = delete;
 		IMesh& operator=(const IMesh&) = delete;
 		IMesh& operator=(IMesh&&) = delete;
-
-	protected:
-		constexpr IMesh() noexcept = default;
-		~IMesh() = default;
 	};
 }
