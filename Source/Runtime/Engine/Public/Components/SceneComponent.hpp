@@ -25,8 +25,9 @@ namespace oeng
 		[[nodiscard]] const Vec3& GetRelScale() const noexcept { return rel_trsf_.scale; }
 
 		void RecalcWorldTransform(bool propagate = true) noexcept;
-		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
 		[[nodiscard]] const Mat4& GetWorldMatrix() const noexcept { return world_mat_; }
+		
+		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
 
 	private:
 		void TransformChanged() { RecalcWorldTransform(); OnTransformChanged(); }

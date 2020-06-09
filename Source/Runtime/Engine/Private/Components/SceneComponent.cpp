@@ -37,7 +37,7 @@ namespace oeng
 			? parent_->GetWorldMatrix() * rel_trsf_.ToMatrix()
 			: rel_trsf_.ToMatrix();
 
-		// TODO: Decompose world_mat_ to world_trsf_
+		world_trsf_ = Transform{world_mat_};
 
 		if (propagate)
 		{
