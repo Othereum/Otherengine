@@ -1,5 +1,4 @@
 #pragma once
-#include "Templates/Memory.hpp"
 #include "MathFwd.hpp"
 #include "Path.hpp"
 
@@ -14,8 +13,6 @@ namespace oeng
 	class IEngine
 	{
 	public:
-		[[nodiscard]] virtual SharedPtr<Texture> GetTexture(Path file) = 0;
-		[[nodiscard]] virtual SharedPtr<Mesh> GetMesh(Path file) = 0;
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
 		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;
 		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;

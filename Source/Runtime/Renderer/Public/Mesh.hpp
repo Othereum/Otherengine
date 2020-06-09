@@ -5,14 +5,14 @@
 
 namespace oeng
 {
-	class IEngine;
+	class Renderer;
 	class Texture;
 	class VertexArray;
 	
 	class OEAPI Mesh
 	{
 	public:
-		Mesh(Path filepath, IEngine& engine);
+		Mesh(Path filepath, Renderer& renderer);
 
 		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
 		[[nodiscard]] const VertexArray& GetVertexArray() const noexcept { return vertex_array_; }
@@ -26,7 +26,7 @@ namespace oeng
 		Mesh& operator=(Mesh&&) = delete;
 
 	private:
-		void LoadV1(const Json& json, IEngine& engine);
+		void LoadV1(const Json& json, Renderer& renderer);
 		
 		DyArr<SharedPtr<Texture>> textures_;
 		VertexArray vertex_array_;

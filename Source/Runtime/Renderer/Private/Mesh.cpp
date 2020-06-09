@@ -1,11 +1,11 @@
 #include "Mesh.hpp"
 #include "Format.hpp"
-#include "Interfaces/Engine.hpp"
 #include "Json.hpp"
+#include "Renderer.hpp"
 
 namespace oeng
 {
-	Mesh::Mesh(Path filepath, IEngine& engine)
+	Mesh::Mesh(Path filepath, Renderer& renderer)
 	{
 		const auto json = ReadFileAsJson(filepath);
 
@@ -13,7 +13,7 @@ namespace oeng
 		switch (version)
 		{
 		case 1:
-			LoadV1(json, engine);
+			LoadV1(json, renderer);
 			break;
 
 		default:
@@ -21,10 +21,10 @@ namespace oeng
 		}
 	}
 
-	void Mesh::LoadV1(const Json& json, IEngine& engine)
+	void Mesh::LoadV1(const Json& json, Renderer& renderer)
 	{
 		for (const auto& tex : json.at("textures"))
-			textures_.push_back(engine.GetTexture(tex));
+			textures_.push_back(renderer.GetTexture(tex));
 
 		const DyArr<Vertex> verts = json.at("vertices");
 		const DyArr<Vec3u16> indices = json.at("indices");
