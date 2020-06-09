@@ -120,11 +120,19 @@ namespace oeng
 
 	void Renderer::UnregisterMesh(const IMesh& mesh)
 	{
-		auto& vec = mesh_comps_.at(mesh.GetShaderPath());
+		const auto shader = mesh.GetShaderPath();
+		const auto vec_it = mesh_comps_.find(shader);
+		auto& vec = vec_it->second;
+		
 		auto pr = [&](const IMesh& v) { return &v == &mesh; };
 		const auto found = std::find_if(vec.crbegin(), vec.crend(), pr);
 		if (found != vec.crend()) vec.erase(found.base() - 1);
-		// TODO: Delete shader if no referencing mesh left
+		
+		if (vec.empty())
+		{
+			shaders_.erase(shader);
+			mesh_comps_.erase(vec_it);
+		}
 	}
 
 	void Renderer::DrawScene()
