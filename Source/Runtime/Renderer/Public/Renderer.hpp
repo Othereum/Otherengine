@@ -19,11 +19,11 @@ namespace oeng
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
 
-	class DefaultCamera : public ICamera
+	class DefaultCamera final : public ICamera
 	{
 	public:
-		Mat4 GetViewProj() noexcept override;
-		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
+		Mat4 GetViewProj() override;
+		void OnScreenSizeChanged(Vec2u16 scr) override;
 
 	private:
 		Mat4 view_proj_;
