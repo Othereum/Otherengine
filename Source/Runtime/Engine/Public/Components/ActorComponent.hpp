@@ -24,6 +24,7 @@ namespace oeng
 		
 		void SetEnabled(bool enable) noexcept { is_enabled_ = enable; }
 		[[nodiscard]] bool IsEnabled() const noexcept { return is_enabled_; }
+		[[nodiscard]] bool BegunPlay() const noexcept { return begun_play_; }
 		
 		[[nodiscard]] int GetUpdateOrder() const noexcept { return update_order_; }
 		[[nodiscard]] AActor& GetOwner() const noexcept { return owner_; }
@@ -36,6 +37,7 @@ namespace oeng
 		
 		AActor& owner_;
 		int update_order_;
-		bool is_enabled_ = true;
+		bool is_enabled_ : 1 = true;
+		bool begun_play_ : 1 = false;
 	};
 }
