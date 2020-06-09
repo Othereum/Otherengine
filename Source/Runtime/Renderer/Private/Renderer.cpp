@@ -175,6 +175,7 @@ namespace oeng
 		{
 			auto& shader = shaders_.at(pair.first);
 			shader.SetViewProj(view_proj);
+			shader.Activate();
 			
 			for (auto mesh : pair.second)
 			{
