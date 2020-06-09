@@ -33,14 +33,18 @@ namespace oeng
 
 	void SceneComponent::RecalcWorldTransform(bool propagate) noexcept
 	{
-		if (parent_) world_transform_ = parent_->GetWorldTransform() * rel_transform_.ToMatrix();
-		else world_transform_ = rel_transform_.ToMatrix();
+		world_mat_ = parent_
+			? parent_->GetWorldMatrix() * rel_trsf_.ToMatrix()
+			: rel_trsf_.ToMatrix();
 
-		if (!propagate) return;
+		// TODO: Decompose world_mat_ to world_trsf_
 
-		for (auto&& c : childs_)
+		if (propagate)
 		{
-			c.get().RecalcWorldTransform(propagate);
+			for (auto c : childs_)
+			{
+				c.get().RecalcWorldTransform(propagate);
+			}
 		}
 	}
 }
