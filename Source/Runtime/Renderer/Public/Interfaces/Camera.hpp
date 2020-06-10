@@ -6,7 +6,7 @@ namespace oeng
 	class ICamera
 	{
 	public:
-		[[nodiscard]] virtual Mat4 GetViewProj() = 0;
+		[[nodiscard]] virtual const Mat4& GetViewProj() const noexcept = 0;
 		virtual void OnScreenSizeChanged(Vec2u16 scr) = 0;
 		
 		constexpr ICamera() noexcept = default;

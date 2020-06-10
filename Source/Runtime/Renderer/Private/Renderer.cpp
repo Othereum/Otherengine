@@ -82,16 +82,16 @@ namespace oeng
 		return {vertex_buffer, index_buffer};
 	}
 
+	const Mat4& DefaultCamera::GetViewProj() const noexcept
+	{
+		return view_proj_;
+	}
+
 	void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr)
 	{
 		static const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
 		const auto proj = MakePerspective(Vec2{scr}, 25_f, 10000_f, 70_deg);
 		view_proj_ = view * proj;
-	}
-
-	Mat4 DefaultCamera::GetViewProj()
-	{
-		return view_proj_;
 	}
 
 	Renderer::Renderer(IEngine& engine, Vec2u16 scr)
