@@ -52,7 +52,7 @@ namespace oeng
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
 		Transform rel_trsf_;
 		Transform world_trsf_;
-		Mat4 world_mat_;
+		Mat4 world_mat_ = Mat4::identity;
 	};
 }
  
