@@ -1,6 +1,6 @@
 #pragma once
 #include "Interfaces/Drawable.hpp"
-#include "ActorComponent.hpp"
+#include "SceneComponent.hpp"
 #include "Path.hpp"
 
 struct SDL_Renderer;
@@ -10,7 +10,7 @@ namespace oeng
 	class Renderer;
 	class Texture;
 	
-	class SpriteComponent : public ActorComponent, public ISprite
+	class SpriteComponent : public SceneComponent, public ISprite
 	{
 	public:
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);

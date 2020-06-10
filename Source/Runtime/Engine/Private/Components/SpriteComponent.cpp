@@ -8,7 +8,7 @@
 namespace oeng
 {
 	SpriteComponent::SpriteComponent(AActor& owner, const int draw_order, const int update_order)
-		:ActorComponent{owner, update_order}, draw_order_{draw_order}
+		:SceneComponent{owner, update_order}, draw_order_{draw_order}
 	{
 	}
 
@@ -22,7 +22,7 @@ namespace oeng
 		if (!IsEnabled()) return {};
 		
 		texture_->Activate();
-		return DrawInfo{MakeScale<4>({texture_->Size(), 1}) * GetOwner().GetTransformMatrix()};
+		return DrawInfo{MakeScale<4>({texture_->Size(), 1}) * GetWorldMatrix()};
 	}
 
 	void SpriteComponent::SetTexture(Path file)
