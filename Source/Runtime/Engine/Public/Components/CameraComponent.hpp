@@ -13,7 +13,7 @@ namespace oeng
 		void Activate() noexcept;
 
 		void SetHFov(Rad hfov) noexcept { hfov_ = hfov; RecalcProj(); }
-		void SetNearFar(Float near, Float far) noexcept { near_ = near; far_ = far; RecalcProj(); }
+		void SetNearFar(Float near, Float far) noexcept;
 		
 		[[nodiscard]] Rad GetHFov() const noexcept { return hfov_; }
 		[[nodiscard]] Float GetNear() const noexcept { return near_; }
@@ -27,9 +27,12 @@ namespace oeng
 		void RecalcView() noexcept;
 		void RecalcProj() noexcept;
 		
-		Mat4 view_, proj_, view_proj_;
+		Mat4 view_, proj_;
+		Mat4 view_proj_;
+		
 		Float near_ = 25, far_ = 10000;
 		Rad hfov_ = 70_deg;
+		
 		Vec2 scr_;
 	};
 }

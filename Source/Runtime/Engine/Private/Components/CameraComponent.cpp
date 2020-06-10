@@ -4,7 +4,8 @@
 namespace oeng
 {
 	CameraComponent::CameraComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order}
+		:SceneComponent{owner, update_order},
+		view_{MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up)}
 	{
 	}
 
@@ -16,6 +17,13 @@ namespace oeng
 	void CameraComponent::Activate() noexcept
 	{
 		GetEngine().GetRenderer().RegisterCamera(*this);
+	}
+
+	void CameraComponent::SetNearFar(Float near, Float far) noexcept
+	{
+		near_ = near;
+		far_ = far;
+		RecalcProj();
 	}
 
 	void CameraComponent::RecalcView() noexcept
