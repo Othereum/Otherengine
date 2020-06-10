@@ -28,7 +28,7 @@ namespace oeng
 
 	void CameraComponent::RecalcView() noexcept
 	{
-		view_ = MakeLookAt(GetWorldPos(), GetForward(), Vec3::up);
+		view_ = MakeLookAt(GetWorldPos(), GetWorldPos() + *GetForward(), Vec3::up);
 		view_proj_ = view_ * proj_;
 	}
 
