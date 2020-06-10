@@ -9,7 +9,7 @@ if(OE_BUILD_TESTS)
 	set_target_properties(${TEST_TARGET} PROPERTIES CXX_STANDARD 20)
 
 	find_package(GTest 1.10.0 REQUIRED)
-	target_link_libraries(${TEST_TARGET} PRIVATE ${PROJECT_NAME} GTest::GTest)
+	target_link_libraries(${TEST_TARGET} PRIVATE ${PROJECT_NAME}-Core GTest::GTest)
 
 	enable_testing()
 	add_test(NAME "${PROJECT_NAME} Test" COMMAND ${TEST_TARGET})
