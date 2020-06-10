@@ -50,20 +50,17 @@ namespace oeng
 		[[nodiscard]] Float GetLifespan() const noexcept;
 		[[nodiscard]] Float GetInitialLifespan() const noexcept { return init_lifespan_; }
 
-		void SetTransform(const Transform& new_transform) const noexcept;
-		[[nodiscard]] const Transform& GetTransform() const noexcept;
+		void SetTrsf(const Transform& trsf) const noexcept;
+		[[nodiscard]] const Transform& GetTrsf() const noexcept;
 		
-		void SetPos(const Vec3& new_pos) const noexcept;
+		void SetPos(const Vec3& pos) const noexcept;
 		[[nodiscard]] const Vec3& GetPos() const noexcept;
 
-		void SetRot(const Quat& new_rot) const noexcept;
+		void SetRot(const Quat& rot) const noexcept;
 		[[nodiscard]] const Quat& GetRot() const noexcept;
 
 		void SetScale(const Vec3& scale) const noexcept;
 		[[nodiscard]] const Vec3& GetScale() const noexcept;
-
-		void RecalcMatrix() const noexcept;
-		[[nodiscard]] const Mat4& GetTransformMatrix() const noexcept;
 
 		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(GetRot()); }
 
