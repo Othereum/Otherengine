@@ -161,8 +161,8 @@ namespace oeng
 		for (auto& pair : mesh_comps_)
 		{
 			auto& shader = shaders_.at(pair.first);
-			shader.SetViewProj(view_proj);
 			shader.Activate();
+			shader.SetViewProj(view_proj);
 			
 			for (auto mesh : pair.second)
 			{

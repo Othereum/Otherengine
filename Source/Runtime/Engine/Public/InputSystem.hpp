@@ -45,7 +45,7 @@ namespace oeng
 		bool pressed;
 	};
 
-	class InputSystem
+	class OEAPI InputSystem
 	{
 	public:
 		void AddEvent(const SDL_Event& e);

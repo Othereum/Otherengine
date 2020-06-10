@@ -25,7 +25,7 @@ namespace oeng
 		void SetWorldPos(const Vec3& pos) noexcept { world_trsf_.pos = pos; RecalcRelTrsf(); }
 		void SetWorldRot(const Quat& rot) noexcept { world_trsf_.rot = rot; RecalcRelTrsf(); }
 		void SetWorldScale(const Vec3& scale) noexcept { world_trsf_.scale = scale; RecalcRelTrsf(); }
-				
+		
 		[[nodiscard]] const Transform& GetRelTrsf() const noexcept { return rel_trsf_; }
 		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_trsf_.pos; }
 		[[nodiscard]] const Quat& GetRelRot() const noexcept { return rel_trsf_.rot; }
@@ -35,12 +35,12 @@ namespace oeng
 		[[nodiscard]] const Quat& GetWorldRot() const noexcept { return world_trsf_.rot; }
 		[[nodiscard]] const Vec3& GetWorldScale() const noexcept { return world_trsf_.scale; }
 
-		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(world_trsf_.rot); }
-		[[nodiscard]] Vec3 GetBackward() const noexcept { return Vec3::backward.RotatedBy(world_trsf_.rot); }
-		[[nodiscard]] Vec3 GetRight() const noexcept { return Vec3::right.RotatedBy(world_trsf_.rot); }
-		[[nodiscard]] Vec3 GetLeft() const noexcept { return Vec3::left.RotatedBy(world_trsf_.rot); }
-		[[nodiscard]] Vec3 GetUp() const noexcept { return Vec3::up.RotatedBy(world_trsf_.rot); }
-		[[nodiscard]] Vec3 GetDown() const noexcept { return Vec3::down.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetForward() const noexcept { return UVec3::forward.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetBackward() const noexcept { return UVec3::backward.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetRight() const noexcept { return UVec3::right.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetLeft() const noexcept { return UVec3::left.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetUp() const noexcept { return UVec3::up.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] UVec3 GetDown() const noexcept { return UVec3::down.RotatedBy(world_trsf_.rot); }
 
 		[[nodiscard]] const Mat4& GetWorldMatrix() const noexcept { return world_mat_; }
 		
