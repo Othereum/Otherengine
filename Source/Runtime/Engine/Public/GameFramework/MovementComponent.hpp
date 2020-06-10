@@ -16,7 +16,7 @@ namespace oeng
 	private:
 		void OnUpdate(Float delta_seconds) override;
 		
-		Float max_speed_ = 300;
+		Float max_speed_ = 1;
 		Vec3 input_;
 	};
 }
