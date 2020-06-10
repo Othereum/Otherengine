@@ -12,33 +12,31 @@ namespace oeng
 
 		void AttachTo(SceneComponent* new_parent);
 
-		
 		void SetRelTrsf(const Transform& trsf) noexcept { rel_trsf_ = trsf; RecalcWorldTrsf(); }
-		[[nodiscard]] const Transform& GetRelTrsf() const noexcept { return rel_trsf_; }
-
 		void SetRelPos(const Vec3& pos) noexcept { rel_trsf_.pos = pos; RecalcWorldTrsf(); }
-		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_trsf_.pos; }
-
 		void SetRelRot(const Quat& rot) noexcept { rel_trsf_.rot = rot; RecalcWorldTrsf(); }
-		[[nodiscard]] const Quat& GetRelRot() const noexcept { return rel_trsf_.rot; }
-
 		void SetRelScale(const Vec3& scale) noexcept { rel_trsf_.scale = scale; RecalcWorldTrsf(); }
-		[[nodiscard]] const Vec3& GetRelScale() const noexcept { return rel_trsf_.scale; }
-
-		
 		void SetWorldTransform(const Transform& trsf) noexcept { world_trsf_ = trsf; RecalcRelTrsf(); }
-		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
-
 		void SetWorldPos(const Vec3& pos) noexcept { world_trsf_.pos = pos; RecalcRelTrsf(); }
-		[[nodiscard]] const Vec3& GetWorldPos() const noexcept { return world_trsf_.pos; }
-
 		void SetWorldRot(const Quat& rot) noexcept { world_trsf_.rot = rot; RecalcRelTrsf(); }
-		[[nodiscard]] const Quat& GetWorldRot() const noexcept { return world_trsf_.rot; }
-
 		void SetWorldScale(const Vec3& scale) noexcept { world_trsf_.scale = scale; RecalcRelTrsf(); }
+				
+		[[nodiscard]] const Transform& GetRelTrsf() const noexcept { return rel_trsf_; }
+		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_trsf_.pos; }
+		[[nodiscard]] const Quat& GetRelRot() const noexcept { return rel_trsf_.rot; }
+		[[nodiscard]] const Vec3& GetRelScale() const noexcept { return rel_trsf_.scale; }
+		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
+		[[nodiscard]] const Vec3& GetWorldPos() const noexcept { return world_trsf_.pos; }
+		[[nodiscard]] const Quat& GetWorldRot() const noexcept { return world_trsf_.rot; }
 		[[nodiscard]] const Vec3& GetWorldScale() const noexcept { return world_trsf_.scale; }
 
-		
+		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] Vec3 GetBackward() const noexcept { return Vec3::backward.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] Vec3 GetRight() const noexcept { return Vec3::right.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] Vec3 GetLeft() const noexcept { return Vec3::left.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] Vec3 GetUp() const noexcept { return Vec3::up.RotatedBy(world_trsf_.rot); }
+		[[nodiscard]] Vec3 GetDown() const noexcept { return Vec3::down.RotatedBy(world_trsf_.rot); }
+
 		[[nodiscard]] const Mat4& GetWorldMatrix() const noexcept { return world_mat_; }
 		
 	private:
