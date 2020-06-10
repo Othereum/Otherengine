@@ -4,8 +4,8 @@
 
 namespace oeng
 {
-	InputComponent::InputComponent(AActor& owner, int updateOrder)
-		:ActorComponent{owner, updateOrder}
+	InputComponent::InputComponent(AActor& owner, int update_order)
+		:ActorComponent{owner, update_order}
 	{
 	}
 
@@ -35,8 +35,8 @@ namespace oeng
 
 	void InputComponent::ProcessActions() const
 	{
-		auto& inputSystem = GetInputSystem();
-		for (auto& event : inputSystem.GetEvents())
+		const auto& input_system = GetInputSystem();
+		for (const auto& event : input_system.GetEvents())
 		{
 			auto [it, end] = actions_[event.pressed].equal_range(event.name);
 			for (; it != end; ++it)
@@ -48,10 +48,10 @@ namespace oeng
 
 	void InputComponent::ProcessAxises() const
 	{
-		auto& inputSystem = GetInputSystem();
-		for (auto& axisMap : axises_)
+		const auto& input_system = GetInputSystem();
+		for (const auto& axis_map : axises_)
 		{
-			axisMap.second(inputSystem.GetAxisValue(axisMap.first));
+			axis_map.second(input_system.GetAxisValue(axis_map.first));
 		}
 	}
 }

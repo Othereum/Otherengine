@@ -7,10 +7,10 @@ struct SDL_KeyboardEvent;
 
 namespace oeng
 {
-	class InputComponent : public ActorComponent
+	class OEAPI InputComponent : public ActorComponent
 	{
 	public:
-		explicit InputComponent(class AActor& owner, int updateOrder = 1);
+		explicit InputComponent(class AActor& owner, int update_order = 1);
 		
 		void BindAction(Name action, bool bPressed, std::function<void()>&& callback);
 		void BindAxis(Name axis, std::function<void(Float)>&& callback);
