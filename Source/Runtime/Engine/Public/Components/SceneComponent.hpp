@@ -5,12 +5,17 @@
 
 namespace oeng
 {
+	enum class AttachRule
+	{
+		kKeepRelative, kKeepWorld
+	};
+	
 	class OEAPI SceneComponent : public ActorComponent
 	{
 	public:
 		explicit SceneComponent(AActor& owner, int update_order = 100);
 
-		void AttachTo(SceneComponent* new_parent);
+		void AttachTo(SceneComponent* new_parent, AttachRule rule);
 
 		void SetRelTrsf(const Transform& trsf) noexcept { rel_trsf_ = trsf; RecalcWorldTrsf(); }
 		void SetRelPos(const Vec3& pos) noexcept { rel_trsf_.pos = pos; RecalcWorldTrsf(); }

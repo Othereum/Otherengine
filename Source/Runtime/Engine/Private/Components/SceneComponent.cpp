@@ -8,7 +8,7 @@ namespace oeng
 	{
 	}
 
-	void SceneComponent::AttachTo(SceneComponent* new_parent)
+	void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
 	{
 		if (parent_)
 		{
@@ -28,6 +28,13 @@ namespace oeng
 		if (new_parent)
 		{
 			new_parent->childs_.emplace_back(*this);
+		}
+
+		switch (rule)
+		{
+		case AttachRule::kKeepRelative: RecalcWorldTrsf(); break;
+		case AttachRule::kKeepWorld: RecalcRelTrsf(); break;
+		default: throw std::invalid_argument{"Unknown attach rule"};
 		}
 	}
 
