@@ -31,7 +31,7 @@ namespace oeng
 		}
 	}
 
-	void SceneComponent::RecalcWorldTransform() noexcept
+	void SceneComponent::RecalcWorldTrsf() noexcept
 	{
 		world_mat_ = parent_
 			? parent_->GetWorldMatrix() * rel_trsf_.ToMatrix()
@@ -41,44 +41,44 @@ namespace oeng
 
 		for (auto c : childs_)
 		{
-			c.get().RecalcWorldTransform();
+			c.get().RecalcWorldTrsf();
 		}
+
+		OnTrsfChanged();
 	}
 
-	void SceneComponent::SetWorldTransform(const Transform& trsf) noexcept
+	void SceneComponent::RecalcRelTrsf() noexcept
 	{
-		// pw: parent's world transform
-		// r: unknown new relative transform to parent
-		// w: desired world transform
-		// 
-		// pw * r = w
-		// pw(-1) * pw * r = pw(-1) * w
-		// r = pw(-1) * w
-
-		world_trsf_ = trsf;
-		world_mat_ = trsf.ToMatrix();
+		world_mat_ = world_trsf_.ToMatrix();
 		
 		if (parent_)
 		{
 			if (const auto pwi = parent_->GetWorldMatrix().Inv())
 			{
+				// pw: parent's world transform
+				// r: unknown new relative transform to parent
+				// w: desired world transform
+				// 
+				// pw * r = w
+				// pw(-1) * pw * r = pw(-1) * w
+				// r = pw(-1) * w
 				rel_trsf_ = Transform{*pwi * world_mat_};
 			}
 			else
 			{
-				rel_trsf_ = trsf;
+				rel_trsf_ = world_trsf_;
 			}
 		}
 		else
 		{
-			rel_trsf_ = trsf;
+			rel_trsf_ = world_trsf_;
 		}
 
 		for (auto c : childs_)
 		{
-			c.get().RecalcWorldTransform();
+			c.get().RecalcWorldTrsf();
 		}
 
-		OnTransformChanged();
+		OnTrsfChanged();
 	}
 }

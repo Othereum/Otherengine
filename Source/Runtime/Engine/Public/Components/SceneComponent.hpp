@@ -12,27 +12,43 @@ namespace oeng
 
 		void AttachTo(SceneComponent* new_parent);
 
-		void SetRelTransform(const Transform& transform) noexcept { rel_trsf_ = transform; TransformChanged(); }
-		[[nodiscard]] const Transform& GetRelTransform() const noexcept { return rel_trsf_; }
+		
+		void SetRelTrsf(const Transform& trsf) noexcept { rel_trsf_ = trsf; RecalcWorldTrsf(); }
+		[[nodiscard]] const Transform& GetRelTrsf() const noexcept { return rel_trsf_; }
 
-		void SetRelPos(const Vec3& new_pos) noexcept { rel_trsf_.pos = new_pos; TransformChanged(); }
+		void SetRelPos(const Vec3& pos) noexcept { rel_trsf_.pos = pos; RecalcWorldTrsf(); }
 		[[nodiscard]] const Vec3& GetRelPos() const noexcept { return rel_trsf_.pos; }
 
-		void SetRelRot(const Quat& new_rot) noexcept { rel_trsf_.rot = new_rot; TransformChanged(); }
+		void SetRelRot(const Quat& rot) noexcept { rel_trsf_.rot = rot; RecalcWorldTrsf(); }
 		[[nodiscard]] const Quat& GetRelRot() const noexcept { return rel_trsf_.rot; }
 
-		void SetRelScale(const Vec3& scale) noexcept { rel_trsf_.scale = scale; TransformChanged(); }
+		void SetRelScale(const Vec3& scale) noexcept { rel_trsf_.scale = scale; RecalcWorldTrsf(); }
 		[[nodiscard]] const Vec3& GetRelScale() const noexcept { return rel_trsf_.scale; }
 
-		void RecalcWorldTransform() noexcept;
+		
+		void SetWorldTransform(const Transform& trsf) noexcept { world_trsf_ = trsf; RecalcRelTrsf(); }
+		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
+
+		void SetWorldPos(const Vec3& pos) noexcept { world_trsf_.pos = pos; RecalcRelTrsf(); }
+		[[nodiscard]] const Vec3& GetWorldPos() const noexcept { return world_trsf_.pos; }
+
+		void SetWorldRot(const Quat& rot) noexcept { world_trsf_.rot = rot; RecalcRelTrsf(); }
+		[[nodiscard]] const Quat& GetWorldRot() const noexcept { return world_trsf_.rot; }
+
+		void SetWorldScale(const Vec3& scale) noexcept { world_trsf_.scale = scale; RecalcRelTrsf(); }
+		[[nodiscard]] const Vec3& GetWorldScale() const noexcept { return world_trsf_.scale; }
+
+		
 		[[nodiscard]] const Mat4& GetWorldMatrix() const noexcept { return world_mat_; }
 		
-		[[nodiscard]] const Transform& GetWorldTransform() const noexcept { return world_trsf_; }
-		void SetWorldTransform(const Transform& trsf) noexcept;
-
 	private:
-		void TransformChanged() { RecalcWorldTransform(); OnTransformChanged(); }
-		virtual void OnTransformChanged() {}
+		// Recalculate world transform with relative transform
+		void RecalcWorldTrsf() noexcept;
+
+		// Recalculate relative transform with world transform
+		void RecalcRelTrsf() noexcept;
+		
+		virtual void OnTrsfChanged() {}
 		
 		SceneComponent* parent_;
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
