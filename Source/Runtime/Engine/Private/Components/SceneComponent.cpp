@@ -40,11 +40,16 @@ namespace oeng
 
 	void SceneComponent::RecalcWorldTrsf() noexcept
 	{
-		world_mat_ = parent_
-			? parent_->GetWorldMatrix() * rel_trsf_.ToMatrix()
-			: rel_trsf_.ToMatrix();
-
-		world_trsf_ = Transform{world_mat_};
+		if (parent_)
+		{
+			world_mat_ = parent_->GetWorldMatrix() * rel_trsf_.ToMatrix();
+			world_trsf_ = Transform{world_mat_};
+		}
+		else
+		{
+			world_mat_ = rel_trsf_.ToMatrix();
+			world_trsf_ = rel_trsf_;
+		}
 
 		for (auto c : childs_)
 		{
