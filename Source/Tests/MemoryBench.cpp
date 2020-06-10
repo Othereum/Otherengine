@@ -1,20 +1,26 @@
 #include <gtest/gtest.h>
 #include "Templates/Memory.hpp"
 
-template <class Al>
-static void Benchmark(Al al)
+namespace oeng
 {
-	using T = std::allocator_traits<Al>;
-	for (auto i=0; i<2000000; ++i)
-		T::deallocate(al, T::allocate(al, 1), 1);
-}
+	template <class Al>
+	static void Benchmark(Al al)
+	{
+		using T = std::allocator_traits<Al>;
+		for (auto i=0; i<1000000; ++i)
+			T::deallocate(al, T::allocate(al, 1), 1);
+	}
 
-TEST(MemBench, Pool)
-{
-	Benchmark(oeng::PoolAllocator<double>{});
-}
+	extern OE_IMPORT bool engine_exist;
 
-TEST(MemBench, Raw)
-{
-	Benchmark(oeng::RawAllocator<double>{});
+	TEST(MemBench, Pool)
+	{
+		engine_exist = true;
+		Benchmark(oeng::PoolAllocator<double>{});
+	}
+
+	TEST(MemBench, Raw)
+	{
+		Benchmark(oeng::RawAllocator<double>{});
+	}
 }
