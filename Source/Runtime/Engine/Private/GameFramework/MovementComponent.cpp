@@ -1,5 +1,4 @@
 #include "GameFramework/MovementComponent.hpp"
-#include "Math.hpp"
 #include "GameFramework/Actor.hpp"
 
 namespace oeng
@@ -7,11 +6,6 @@ namespace oeng
 	MovementComponent::MovementComponent(AActor& owner, int update_order)
 		:ActorComponent{owner, update_order}
 	{
-	}
-
-	void MovementComponent::AddInput(const Vec3& input)
-	{
-		input_ += input;
 	}
 
 	void MovementComponent::OnUpdate(Float delta_seconds)
