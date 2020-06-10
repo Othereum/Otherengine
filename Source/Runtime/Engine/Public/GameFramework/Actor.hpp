@@ -62,7 +62,12 @@ namespace oeng
 		void SetScale(const Vec3& scale) const noexcept;
 		[[nodiscard]] const Vec3& GetScale() const noexcept;
 
-		[[nodiscard]] Vec3 GetForward() const noexcept { return Vec3::forward.RotatedBy(GetRot()); }
+		[[nodiscard]] UVec3 GetForward() const noexcept;
+		[[nodiscard]] UVec3 GetBackward() const noexcept;
+		[[nodiscard]] UVec3 GetRight() const noexcept;
+		[[nodiscard]] UVec3 GetLeft() const noexcept;
+		[[nodiscard]] UVec3 GetUp() const noexcept;
+		[[nodiscard]] UVec3 GetDown() const noexcept;
 
 		[[nodiscard]] Engine& GetEngine() const noexcept;
 		[[nodiscard]] World& GetWorld() const noexcept { return world_; }

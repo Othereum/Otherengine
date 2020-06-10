@@ -98,43 +98,20 @@ namespace oeng
 		return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
 	}
 
-	void AActor::SetTrsf(const Transform& trsf) const noexcept
-	{
-		if (root_) root_->SetRelTrsf(trsf);
-	}
+	void AActor::SetTrsf(const Transform& trsf) const noexcept { if (root_) root_->SetRelTrsf(trsf); }
+	void AActor::SetPos(const Vec3& pos) const noexcept { if (root_) root_->SetRelPos(pos); }
+	void AActor::SetRot(const Quat& rot) const noexcept { if (root_) root_->SetRelRot(rot); }
+	void AActor::SetScale(const Vec3& scale) const noexcept { if (root_) root_->SetRelScale(scale); }
 
-	const Transform& AActor::GetTrsf() const noexcept
-	{
-		return root_ ? root_->GetRelTrsf() : Transform::identity;
-	}
+	const Transform& AActor::GetTrsf() const noexcept { return root_ ? root_->GetRelTrsf() : Transform::identity; }
+	const Vec3& AActor::GetPos() const noexcept { return root_ ? root_->GetRelPos() : Vec3::zero; }
+	const Quat& AActor::GetRot() const noexcept { return root_ ? root_->GetRelRot() : Quat::identity; }
+	const Vec3& AActor::GetScale() const noexcept { return root_ ? root_->GetRelScale() : Vec3::one; }
 
-	void AActor::SetPos(const Vec3& pos) const noexcept
-	{
-		if (root_) root_->SetRelPos(pos);
-	}
-
-	const Vec3& AActor::GetPos() const noexcept
-	{
-		return root_ ? root_->GetRelPos() : Vec3::zero;
-	}
-
-	void AActor::SetRot(const Quat& rot) const noexcept
-	{
-		if (root_) root_->SetRelRot(rot);
-	}
-
-	const Quat& AActor::GetRot() const noexcept
-	{
-		return root_ ? root_->GetRelRot() : Quat::identity;
-	}
-
-	void AActor::SetScale(const Vec3& scale) const noexcept
-	{
-		if (root_) root_->SetRelScale(scale);
-	}
-
-	const Vec3& AActor::GetScale() const noexcept
-	{
-		return root_ ? root_->GetRelScale() : Vec3::one;
-	}
+	UVec3 AActor::GetForward() const noexcept { return root_ ? root_->GetForward() : UVec3::forward; }
+	UVec3 AActor::GetBackward() const noexcept { return root_ ? root_->GetBackward() : UVec3::backward; }
+	UVec3 AActor::GetRight() const noexcept { return root_ ? root_->GetRight() : UVec3::right; }
+	UVec3 AActor::GetLeft() const noexcept { return root_ ? root_->GetLeft() : UVec3::left; }
+	UVec3 AActor::GetUp() const noexcept { return root_ ? root_->GetUp() : UVec3::up; }
+	UVec3 AActor::GetDown() const noexcept { return root_ ? root_->GetDown() : UVec3::down; }
 }
