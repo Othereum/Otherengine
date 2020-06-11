@@ -47,9 +47,11 @@ namespace oeng
 		void ProcessEvent();
 
 		std::string_view game_name_;
+		
 		Renderer renderer_;
 		World world_;
 		InputSystem input_system_;
+
 		bool is_running_ = true;
 	};
 }

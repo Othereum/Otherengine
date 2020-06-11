@@ -19,10 +19,17 @@ namespace oeng
 	{
 		log::Info("Engine loop started.");
 		
+		const auto start = Clock::now();
+		auto tick = 0ull;
+		
 		while (is_running_)
 		{
 			Tick();
+			++tick;
 		}
+
+		const auto sec = duration_cast<std::chrono::seconds>(Clock::now() - start).count();
+		if (sec > 0) log::Info("Average fps: {}", tick / sec);
 	}
 
 	void Engine::Shutdown()
