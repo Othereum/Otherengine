@@ -5,7 +5,7 @@
 namespace oeng
 {
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
-		:game_name_{game_name}, renderer_{*this, {1024, 768}}, world_{*this}
+		:game_name_{game_name}, renderer_{*this, {1600, 900}}, world_{*this}
 	{
 		log::Info("Engine initialization successful.");
 		log::Info("Loading game module...");
