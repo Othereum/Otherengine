@@ -25,9 +25,11 @@ namespace oeng
 		if (const auto err = glGetError()) throw OpenGlError{err};
 	}
 
-	inline void GlWarnError()
+	inline unsigned GlLogError()
 	{
-		if (const auto err = glGetError()) log::Warn("OpenGL error occured (code: {})", err);
+		const auto err = glGetError();
+		if (err) log::Error("OpenGL error occured (code: {})", err);
+		return err;
 	}
 
 	template <class... Args, std::invocable<Args...> Fn>
@@ -48,18 +50,18 @@ namespace oeng
 	}
 
 	template <class... Args, std::invocable<Args...> Fn>
-	decltype(auto) gl(std::nothrow_t, Fn fn, Args&&... args) noexcept
+	decltype(auto) gl(unsigned& err, Fn fn, Args&&... args) noexcept
 	{
 		using R = std::invoke_result_t<Fn, Args...>;
 		if constexpr (std::is_void_v<R>)
 		{
 			fn(std::forward<Args>(args)...);
-			GlWarnError();
+			err = GlLogError();
 		}
 		else
 		{
 			R ret = fn(std::forward<Args>(args)...);
-			GlWarnError();
+			err = GlLogError();
 			return static_cast<R>(ret);
 		}
 	}
