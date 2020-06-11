@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 #include <SDL.h>
-#include <GL/glew.h>
+#include "OpenGL.hpp"
 
 #include "VertexArray.hpp"
 #include "Shader.hpp"
@@ -19,7 +19,7 @@ namespace oeng
 			throw std::runtime_error{SDL_GetError()};
 	}
 	
-	static WindowPtr CreateWindow(const char* title, Vec2u16 scr)
+	static WindowPtr MakeWindow(const char* title, Vec2u16 scr)
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -96,7 +96,7 @@ namespace oeng
 
 	Renderer::Renderer(IEngine& engine, Vec2u16 scr)
 		:engine_{engine}, scr_sz_{scr},
-		window_{CreateWindow(engine.GetGameName().data(), scr)},
+		window_{MakeWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{"../Engine/Shaders/Sprite"},
 		sprite_verts_{CreateSpriteVerts()}
@@ -150,12 +150,12 @@ namespace oeng
 
 	void Renderer::DrawScene()
 	{
-		glClearColor(0, 0, 0, 1);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		gl(glClearColor, 0, 0, 0, 1);
+		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		glEnable(GL_DEPTH_TEST);
-		glDisable(GL_BLEND);
-
+		gl(glEnable, GL_DEPTH_TEST);
+		gl(glDisable, GL_BLEND);
+		
 		const auto view_proj = camera_->GetViewProj();
 
 		for (auto& pair : mesh_comps_)
@@ -169,14 +169,14 @@ namespace oeng
 				if (auto info = mesh.get().Draw())
 				{
 					shader.SetTransform(info->transform);
-					glDrawElements(GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
+					gl(glDrawElements, GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
 				}
 			}
 		}
 
-		glEnable(GL_BLEND);
-		glDisable(GL_DEPTH_TEST);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		gl(glEnable, GL_BLEND);
+		gl(glDisable, GL_DEPTH_TEST);
+		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
 		for (auto sprite : sprites_)
@@ -184,7 +184,7 @@ namespace oeng
 			if (auto info = sprite.get().Draw())
 			{
 				sprite_shader_.SetTransform(info->transform);
-				glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+				gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 			}
 		}
 

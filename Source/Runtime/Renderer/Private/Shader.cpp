@@ -1,8 +1,7 @@
 #include "Shader.hpp"
 #include <fstream>
-#include <GL/glew.h>
-#include "Format.hpp"
 #include "Math.hpp"
+#include "OpenGL.hpp"
 
 namespace oeng
 {
@@ -20,13 +19,15 @@ namespace oeng
 	static void CheckShader(unsigned shader)
 	{
 		auto is_valid = 0;
-		glGetShaderiv(shader, GL_COMPILE_STATUS, &is_valid);
+		gl(glGetShaderiv, shader, GL_COMPILE_STATUS, &is_valid);
 		if (!is_valid)
 		{
 			auto len = 0;
-			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
+			gl(glGetShaderiv, shader, GL_INFO_LOG_LENGTH, &len);
+			
 			std::string log(len, '\0');
-			glGetShaderInfoLog(shader, len, nullptr, log.data());
+			gl(glGetShaderInfoLog, shader, len, nullptr, log.data());
+			
 			throw std::runtime_error{log};
 		}
 	}
@@ -34,13 +35,15 @@ namespace oeng
 	static void CheckProgram(unsigned program)
 	{
 		auto is_valid = 0;
-		glGetProgramiv(program, GL_LINK_STATUS, &is_valid);
+		gl(glGetProgramiv, program, GL_LINK_STATUS, &is_valid);
 		if (!is_valid)
 		{
 			auto len = 0;
-			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
+			gl(glGetProgramiv, program, GL_INFO_LOG_LENGTH, &len);
+			
 			std::string log(len, '\0');
-			glGetProgramInfoLog(program, len, nullptr, log.data());
+			gl(glGetProgramInfoLog, program, len, nullptr, log.data());
+			
 			throw std::runtime_error{log};
 		}
 	}
@@ -49,28 +52,27 @@ namespace oeng
 	{
 		const auto code = ReadFile(file);
 		const auto* const c_str = code.c_str();
-		const auto shader = glCreateShader(type);
-		glShaderSource(shader, 1, &c_str, nullptr);
-		glCompileShader(shader);
+		const auto shader = gl(glCreateShader, type);
+		gl(glShaderSource, shader, 1, &c_str, nullptr);
+		gl(glCompileShader, shader);
 		CheckShader(shader);
 		return shader;
 	}
 
-	static auto WithExt(std::filesystem::path path, const char* ext)
+	static auto Ext(std::filesystem::path path, const char* ext)
 	{
-		path.concat(ext);
-		return path;
+		return path += ext;
 	}
 
 	Shader::Shader(Path path)
 		:path_{path},
-		vert_shader_{Compile(WithExt(path, ".vert"), GL_VERTEX_SHADER)},
-		frag_shader_{Compile(WithExt(path, ".frag"), GL_FRAGMENT_SHADER)},
-		shader_program_{glCreateProgram()}
+		vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
+		frag_shader_{Compile(Ext(path, ".frag"), GL_FRAGMENT_SHADER)},
+		shader_program_{gl(glCreateProgram)}
 	{
-		glAttachShader(shader_program_, vert_shader_);
-		glAttachShader(shader_program_, frag_shader_);
-		glLinkProgram(shader_program_);
+		gl(glAttachShader, shader_program_, vert_shader_);
+		gl(glAttachShader, shader_program_, frag_shader_);
+		gl(glLinkProgram, shader_program_);
 		CheckProgram(shader_program_);
 		Activate();
 	}
@@ -94,20 +96,20 @@ namespace oeng
 	Shader::~Shader()
 	{
 		// glDelete functions silently ignores 0 or invalid ID.
-		glDeleteProgram(shader_program_);
-		glDeleteShader(vert_shader_);
-		glDeleteShader(frag_shader_);
+		gl(std::nothrow, glDeleteProgram, shader_program_);
+		gl(std::nothrow, glDeleteShader, vert_shader_);
+		gl(std::nothrow, glDeleteShader, frag_shader_);
 	}
 
 	void Shader::Activate() const
 	{
-		glUseProgram(shader_program_);
+		gl(glUseProgram, shader_program_);
 	}
 
 	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
 	{
 		const auto loc = GetUniformLocation(name);
-		glUniformMatrix4fv(loc, 1, true, matrix.AsFlatArr());
+		gl(glUniformMatrix4fv, loc, 1, true, matrix.AsFlatArr());
 	}
 
 	void Shader::SetTransform(const Mat4& matrix)
@@ -127,7 +129,7 @@ namespace oeng
 		if (const auto found = uniform_.find(name); found != uniform_.end())
 			return found->second;
 
-		auto loc = glGetUniformLocation(shader_program_, name.CStr());
+		auto loc = gl(glGetUniformLocation, shader_program_, name.CStr());
 		uniform_.emplace(name, loc);
 		return loc;
 	}

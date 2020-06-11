@@ -1,7 +1,6 @@
 #include "Texture.hpp"
-#include <GL/glew.h>
 #include <SOIL2/SOIL2.h>
-#include "Format.hpp"
+#include "OpenGL.hpp"
 
 namespace oeng
 {
@@ -16,7 +15,7 @@ namespace oeng
 
 		size_ = Vec2u16{size};
 
-		glGenTextures(1, &id_);
+		gl(glGenTextures, 1, &id_);
 		Activate();
 
 		int img_format;
@@ -36,20 +35,20 @@ namespace oeng
 			throw std::runtime_error{format("Invalid image format for '{}'. num_channels was {}", str, num_channels)};
 		}
 
-		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
-		glTexImage2D(GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, image.get());
+		gl(glPixelStorei, GL_UNPACK_ALIGNMENT, alignment);
+		gl(glTexImage2D, GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, image.get());
 		
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		gl(glTexParameteri, GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		gl(glTexParameteri, GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
 	Texture::~Texture()
 	{
-		glDeleteTextures(1, &id_);
+		gl(std::nothrow, glDeleteTextures, 1, &id_);
 	}
 
 	void Texture::Activate() const
 	{
-		glBindTexture(GL_TEXTURE_2D, id_);
+		gl(glBindTexture, GL_TEXTURE_2D, id_);
 	}
 }
