@@ -83,6 +83,11 @@ namespace oeng
 		return {vertex_buffer, index_buffer};
 	}
 
+	const Vec3& DefaultCamera::GetPos() const noexcept
+	{
+		return Vec3::zero;
+	}
+
 	const Mat4& DefaultCamera::GetViewProj() const noexcept
 	{
 		return view_proj_;

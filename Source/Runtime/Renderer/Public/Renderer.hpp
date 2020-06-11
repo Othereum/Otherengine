@@ -24,6 +24,7 @@ namespace oeng
 	class DefaultCamera final : public ICamera
 	{
 	public:
+		[[nodiscard]] const Vec3& GetPos() const noexcept override;
 		[[nodiscard]] const Mat4& GetViewProj() const noexcept override;
 		void OnScreenSizeChanged(Vec2u16 scr) override;
 
