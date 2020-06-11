@@ -115,6 +115,14 @@ namespace oeng
 		gl(glClearColor, 0, 0, 0, 1);
 		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		Draw3D();
+		Draw2D();
+
+		SDL_GL_SwapWindow(window_.get());
+	}
+
+	void Renderer::Draw3D()
+	{
 		gl(glEnable, GL_DEPTH_TEST);
 		gl(glDisable, GL_BLEND);
 		
@@ -135,7 +143,10 @@ namespace oeng
 				}
 			}
 		}
+	}
 
+	void Renderer::Draw2D()
+	{
 		gl(glEnable, GL_BLEND);
 		gl(glDisable, GL_DEPTH_TEST);
 		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -149,8 +160,6 @@ namespace oeng
 				gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 			}
 		}
-
-		SDL_GL_SwapWindow(window_.get());
 	}
 
 	void Renderer::UnregisterDirLight() noexcept

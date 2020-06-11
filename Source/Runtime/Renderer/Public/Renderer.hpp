@@ -65,6 +65,9 @@ namespace oeng
 		Renderer& operator=(Renderer&&) = delete;
 
 	private:
+		void Draw3D();
+		void Draw2D();
+		
 		IEngine& engine_;
 
 		Vec2u16 scr_sz_;
