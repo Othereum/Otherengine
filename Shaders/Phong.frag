@@ -7,9 +7,9 @@ struct DirLight
 };
 
 uniform sampler2D uTexture;
+uniform float uSpecular;
 uniform vec3 uCamPos;
-uniform vec3 uAmbientLight;
-uniform float uSpecPower;
+uniform vec3 uSkyLight;
 uniform DirLight uDirLight;
 
 in vec2 fragTexCoord;
@@ -25,8 +25,8 @@ void main()
 	vec3 reflected = reflect(uDirLight.dir, normal);
 
 	float diffuse = max(0, -dot(normal, uDirLight.dir));
-	float specular = max(0, dot(reflected, toCam));
-	vec3 light = uAmbientLight + uDirLight.color * (diffuse + specular);
+	float specular = uSpecular * max(0, dot(reflected, toCam));
+	vec3 light = uSkyLight + uDirLight.color * (diffuse + specular);
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(light, 1);
 }
