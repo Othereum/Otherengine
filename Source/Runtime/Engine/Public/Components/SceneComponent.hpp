@@ -52,6 +52,17 @@ namespace oeng
 		void RecalcRelTrsf() noexcept;
 		
 		virtual void OnTrsfChanged() {}
+
+		/*
+		 * SceneComponent이 정적 개체에 사용되는 경우, 매 프레임마다 transform을 재계산할 필요가 없습니다. transform이 변경되는 즉시 재계산을 해주면 됩니다.
+		 * 그러나 동적 개체에서는 transform 변경이 빈번히 일어납니다. 그때마다 재계산을 하면 한 프레임에 불필요한 재계산이 여러번 일어날 수 있습니다.
+		 * 이를 방지하기 위해 MovementComponent에서 직접 재계산 시점을 결정하도록 합니다.
+		 * 
+		 * If SceneComponent is used for static objects, it is not necessary to recalculate transforms for each frame. It can just recalculate as soon as transform changes.
+		 * However, transform changes occur frequently on dynamic objects. Recalculating each time can cause multiple unnecessary recalculations in one frame.
+		 * To prevent this, make MovementComponent to decide itself when to recalculate.
+		 */
+		friend class MovementComponent;
 		
 		SceneComponent* parent_;
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
