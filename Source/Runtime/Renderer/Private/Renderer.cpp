@@ -107,47 +107,6 @@ namespace oeng
 
 	Renderer::~Renderer() = default;
 
-	void Renderer::RegisterSprite(const ISprite& sprite)
-	{
-		auto cmp = [](const ISprite& a, const ISprite& b)
-		{
-			return a.GetDrawOrder() <= b.GetDrawOrder();
-		};
-		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
-		sprites_.emplace(pos, sprite);
-	}
-
-	void Renderer::UnregisterSprite(const ISprite& sprite)
-	{
-		auto pr = [&](const ISprite& v) { return &v == &sprite; };
-		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
-		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
-	}
-
-	void Renderer::RegisterMesh(const IMesh& mesh)
-	{
-		auto shader_path = mesh.GetShaderPath();
-		shaders_.try_emplace(shader_path, shader_path);
-		mesh_comps_[shader_path].emplace_back(mesh);
-	}
-
-	void Renderer::UnregisterMesh(const IMesh& mesh)
-	{
-		const auto shader = mesh.GetShaderPath();
-		const auto vec_it = mesh_comps_.find(shader);
-		auto& vec = vec_it->second;
-		
-		auto pr = [&](const IMesh& v) { return &v == &mesh; };
-		const auto found = std::find_if(vec.crbegin(), vec.crend(), pr);
-		if (found != vec.crend()) vec.erase(found.base() - 1);
-		
-		if (vec.empty())
-		{
-			shaders_.erase(shader);
-			mesh_comps_.erase(vec_it);
-		}
-	}
-
 	void Renderer::DrawScene()
 	{
 		gl(glClearColor, 0, 0, 0, 1);
@@ -158,13 +117,13 @@ namespace oeng
 		
 		const auto view_proj = camera_->GetViewProj();
 
-		for (auto& pair : mesh_comps_)
+		for (auto& [shader_name, meshes] : mesh_comps_)
 		{
-			auto& shader = shaders_.at(pair.first);
+			auto& shader = shaders_.at(shader_name);
 			shader.Activate();
 			shader.SetViewProj(view_proj);
 			
-			for (auto mesh : pair.second)
+			for (auto mesh : meshes)
 			{
 				if (auto info = mesh.get().Draw())
 				{
@@ -225,5 +184,43 @@ namespace oeng
 
 		meshes_.emplace(file, loaded);
 		return loaded;
+	}
+
+	void Renderer::RegisterSprite(const ISprite& sprite)
+	{
+		auto cmp = [](const ISprite& a, const ISprite& b) { return a.GetDrawOrder() <= b.GetDrawOrder(); };
+		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
+		sprites_.emplace(pos, sprite);
+	}
+
+	void Renderer::UnregisterSprite(const ISprite& sprite)
+	{
+		auto pr = [&](const ISprite& v) { return &v == &sprite; };
+		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
+		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
+	}
+
+	void Renderer::RegisterMesh(const IMesh& mesh)
+	{
+		auto shader_path = mesh.GetShaderPath();
+		shaders_.try_emplace(shader_path, shader_path);
+		mesh_comps_[shader_path].emplace_back(mesh);
+	}
+
+	void Renderer::UnregisterMesh(const IMesh& mesh)
+	{
+		const auto shader = mesh.GetShaderPath();
+		const auto vec_it = mesh_comps_.find(shader);
+		auto& vec = vec_it->second;
+		
+		auto pr = [&](const IMesh& v) { return &v == &mesh; };
+		const auto found = std::find_if(vec.crbegin(), vec.crend(), pr);
+		if (found != vec.crend()) vec.erase(found.base() - 1);
+		
+		if (vec.empty())
+		{
+			shaders_.erase(shader);
+			mesh_comps_.erase(vec_it);
+		}
 	}
 }
