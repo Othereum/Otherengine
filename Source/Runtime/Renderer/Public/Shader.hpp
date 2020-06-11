@@ -5,6 +5,8 @@
 
 namespace oeng
 {
+	class OpenGlError;
+	
 	class OEAPI Shader
 	{
 	public:
@@ -27,21 +29,39 @@ namespace oeng
 		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 
 		void Activate() const;
-		void SetMatrixUniform(Name name, const Mat4& matrix);
-		void SetMatrixUniform(int location, const Mat4& matrix) const;
 		
-		void SetTransform(const Mat4& matrix);
-		void SetViewProj(const Mat4& matrix);
-		[[nodiscard]] int GetUniformLocation(Name name);
+		/**
+		 * \brief Set uniform variable of this shader with given name.
+		 * \param name The name of the uniform variable. If is invalid, does nothing.
+		 * \param value The new value to be set.
+		 */
+		template <class T>
+		void SetUniform(Name name, const T& value)
+		{
+			SetUniform(GetUniformLocation(name), value);
+		}
+		
+		/**
+		 * \brief Set uniform variable of this shader with given location.
+		 * \param location The location of the uniform variable. Does nothing if is invalid_uniform_. Otherwise, It must be valid location.
+		 * \throw OpenGlError If location is invalid and not invalid_uniform_
+		 */
+		void SetUniform(int location, const Mat4& matrix);
+		void SetUniform(int location, const Vec3& vector);
+		void SetUniform(int location, float value);
+		
+		[[nodiscard]] int GetUniformLocation(Name name) const noexcept;
 
 	private:
 		friend std::hash<Shader>;
 
+		void InvalidUniform(Name name) const;
+		
 		Path path_;
-		HashMap<Name, int> uniform_;
 		unsigned vert_shader_;
 		unsigned frag_shader_;
 		unsigned shader_program_;
+		mutable HashMap<Name, int> uniform_;
 	};
 }
 

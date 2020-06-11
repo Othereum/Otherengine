@@ -78,8 +78,8 @@ namespace oeng
 	}
 
 	Shader::Shader(Shader&& r) noexcept
-		:uniform_{std::move(r.uniform_)},
-		vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_}
+		:vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_},
+		uniform_{std::move(r.uniform_)}
 	{
 		r.vert_shader_ = 0;
 		r.frag_shader_ = 0;
@@ -95,10 +95,11 @@ namespace oeng
 
 	Shader::~Shader()
 	{
+		unsigned err;
 		// glDelete functions silently ignores 0.
-		gl(std::nothrow, glDeleteProgram, shader_program_);
-		gl(std::nothrow, glDeleteShader, vert_shader_);
-		gl(std::nothrow, glDeleteShader, frag_shader_);
+		gl(err, glDeleteProgram, shader_program_);
+		gl(err, glDeleteShader, vert_shader_);
+		gl(err, glDeleteShader, frag_shader_);
 	}
 
 	void Shader::Activate() const
@@ -106,39 +107,35 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
-	{
-		const auto location = GetUniformLocation(name);
-		SetMatrixUniform(location, matrix);
-	}
-
-	void Shader::SetMatrixUniform(int location, const Mat4& matrix) const
+	void Shader::SetUniform(int location, const Mat4& matrix)
 	{
 		gl(glUniformMatrix4fv, location, 1, true, matrix.AsFlatArr());
 	}
 
-	void Shader::SetTransform(const Mat4& matrix)
+	void Shader::SetUniform(int location, const Vec3& vector)
 	{
-		static const Name name = "uWorldTransform";
-		SetMatrixUniform(name, matrix);
+		gl(glUniform3fv, location, 1, vector.data);
 	}
 
-	void Shader::SetViewProj(const Mat4& matrix)
+	void Shader::SetUniform(int location, float value)
 	{
-		static const Name name = "uViewProj";
-		SetMatrixUniform(name, matrix);
+		gl(glUniform1f, location, value);
 	}
 
-	int Shader::GetUniformLocation(Name name)
+	int Shader::GetUniformLocation(Name name) const noexcept
 	{
 		if (const auto found = uniform_.find(name); found != uniform_.end())
 			return found->second;
 
-		auto loc = gl(glGetUniformLocation, shader_program_, name.CStr());
-		if (loc != invalid_uniform_)
-		{
-			uniform_.try_emplace(name, loc);
-		}
+		unsigned err;
+		const auto loc = gl(err, glGetUniformLocation, shader_program_, name->c_str());
+		if (loc != invalid_uniform_) uniform_.try_emplace(name, loc);
 		return loc;
 	}
+
+	void Shader::InvalidUniform(Name name) const
+	{
+		log::Error("Attempted to set invalid uniform {} for shader {}", *name, GetPath()->string());
+	}
+
 }
