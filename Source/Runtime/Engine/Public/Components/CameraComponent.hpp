@@ -12,10 +12,10 @@ namespace oeng
 
 		void Activate() noexcept;
 
-		void SetHFov(Rad hfov) noexcept { hfov_ = hfov; RecalcProj(); }
+		void SetVFov(Rad vfov) noexcept { vfov_ = vfov; RecalcProj(); }
 		void SetNearFar(Float near, Float far) noexcept;
 		
-		[[nodiscard]] Rad GetHFov() const noexcept { return hfov_; }
+		[[nodiscard]] Rad GetVFov() const noexcept { return vfov_; }
 		[[nodiscard]] Float GetNear() const noexcept { return near_; }
 		[[nodiscard]] Float GetFar() const noexcept { return far_; }
 
@@ -31,8 +31,8 @@ namespace oeng
 		Mat4 view_, proj_;
 		Mat4 view_proj_;
 		
-		Float near_ = 25, far_ = 10000;
-		Rad hfov_ = 70_deg;
+		Float near_ = 10, far_ = 10000;
+		Rad vfov_ = 60_deg;
 		
 		Vec2 scr_;
 	};

@@ -96,7 +96,7 @@ namespace oeng
 	void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr)
 	{
 		static const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
-		const auto proj = MakePerspective(Vec2{scr}, 25_f, 10000_f, 70_deg);
+		const auto proj = MakePerspective(Vec2{scr}, 10_f, 10000_f, 60_deg);
 		view_proj_ = view * proj;
 	}
 
@@ -151,7 +151,7 @@ namespace oeng
 				if (auto info = mesh.get().Draw())
 				{
 					// TODO: Load specular data from mesh
-					shader.SetUniform(NAME("uSpecular"), 0.1f);
+					shader.SetUniform(NAME("uSpecular"), 0.2f);
 					shader.SetUniform(NAME("uWorldTransform"), info->transform);
 					gl(glDrawElements, GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
 				}

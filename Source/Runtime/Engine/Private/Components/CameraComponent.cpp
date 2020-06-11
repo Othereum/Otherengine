@@ -35,7 +35,7 @@ namespace oeng
 
 	void CameraComponent::RecalcProj() noexcept
 	{
-		proj_ = MakePerspective(scr_, near_, far_, hfov_);
+		proj_ = MakePerspective(scr_, near_, far_, vfov_);
 		view_proj_ = view_ * proj_;
 	}
 }
