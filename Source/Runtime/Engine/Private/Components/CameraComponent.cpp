@@ -26,6 +26,27 @@ namespace oeng
 		RecalcProj();
 	}
 
+	const Vec3& CameraComponent::GetPos() const noexcept
+	{
+		return GetWorldPos();
+	}
+
+	const Mat4& CameraComponent::GetViewProj() const noexcept
+	{
+		return view_proj_;
+	}
+
+	void CameraComponent::OnScreenSizeChanged(Vec2u16 scr) noexcept
+	{
+		scr_ = Vec2{scr};
+		RecalcProj();
+	}
+
+	void CameraComponent::OnTrsfChanged() noexcept
+	{
+		RecalcView();
+	}
+
 	void CameraComponent::RecalcView() noexcept try
 	{
 		view_ = MakeLookAt(GetWorldPos(), GetWorldPos() + *GetForward(), Vec3::up);

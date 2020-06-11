@@ -19,12 +19,12 @@ namespace oeng
 		[[nodiscard]] Float GetNear() const noexcept { return near_; }
 		[[nodiscard]] Float GetFar() const noexcept { return far_; }
 
-		const Vec3& GetPos() const noexcept override { return GetWorldPos(); }
-		const Mat4& GetViewProj() const noexcept override { return view_proj_; }
-		void OnScreenSizeChanged(Vec2u16 scr) noexcept override { scr_ = Vec2{scr}; RecalcProj(); }
+		const Vec3& GetPos() const noexcept override;
+		const Mat4& GetViewProj() const noexcept override;
+		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
 
 	private:
-		void OnTrsfChanged() noexcept override { RecalcView(); }
+		void OnTrsfChanged() noexcept override;
 		void RecalcView() noexcept;
 		void RecalcProj() noexcept;
 		
