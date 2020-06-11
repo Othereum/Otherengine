@@ -10,6 +10,7 @@
 #include "Mesh.hpp"
 #include "Interfaces/Engine.hpp"
 #include "Interfaces/Drawable.hpp"
+#include "Interfaces/Light.hpp"
 
 namespace oeng
 {
@@ -102,6 +103,8 @@ namespace oeng
 		sprite_verts_{CreateSpriteVerts()}
 	{
 		UnregisterCamera();
+		UnregisterDirLight();
+		UnregisterSkyLight();
 		sprite_shader_.SetViewProj(MakeSimpleViewProj<4>(scr));
 	}
 
@@ -148,6 +151,37 @@ namespace oeng
 		}
 
 		SDL_GL_SwapWindow(window_.get());
+	}
+
+	void Renderer::UnregisterDirLight() noexcept
+	{
+		class Def : public IDirLight
+		{
+		public:
+			[[nodiscard]] const Data& GetData() const noexcept override
+			{
+				static const Data data{UVec3::down, Vec3::zero};
+				return data;
+			}
+		};
+
+		static const Def def;
+		dir_light_ = &def;
+	}
+
+	void Renderer::UnregisterSkyLight() noexcept
+	{
+		class Def : public ISkyLight
+		{
+		public:
+			[[nodiscard]] const Vec3& GetColor() const noexcept override
+			{
+				return Vec3::zero;
+			}
+		};
+
+		static const Def def;
+		sky_light_ = &def;
 	}
 
 	SharedPtr<Texture> Renderer::GetTexture(Path file)

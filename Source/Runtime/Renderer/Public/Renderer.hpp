@@ -50,9 +50,9 @@ namespace oeng
 		void UnregisterCamera(const ICamera& camera) noexcept { if (camera_ == &camera) UnregisterCamera(); }
 		void UnregisterCamera() noexcept { RegisterCamera(default_camera_); }
 		void UnregisterDirLight(const IDirLight& light) noexcept { if (dir_light_ == &light) UnregisterDirLight(); }
-		void UnregisterDirLight() noexcept { dir_light_ = nullptr; }
+		void UnregisterDirLight() noexcept;
 		void UnregisterSkyLight(const ISkyLight& light) noexcept { if (sky_light_ == &light) UnregisterSkyLight(); }
-		void UnregisterSkyLight() noexcept { sky_light_ = nullptr; }
+		void UnregisterSkyLight() noexcept;
 
 		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
 		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
