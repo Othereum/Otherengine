@@ -8,6 +8,8 @@ namespace oeng
 	class OEAPI Shader
 	{
 	public:
+		static constexpr int invalid_uniform_ = -1;
+		
 		explicit Shader(Path path);
 		~Shader();
 
@@ -26,12 +28,14 @@ namespace oeng
 
 		void Activate() const;
 		void SetMatrixUniform(Name name, const Mat4& matrix);
+		void SetMatrixUniform(int location, const Mat4& matrix) const;
+		
 		void SetTransform(const Mat4& matrix);
 		void SetViewProj(const Mat4& matrix);
+		[[nodiscard]] int GetUniformLocation(Name name);
 
 	private:
 		friend std::hash<Shader>;
-		[[nodiscard]] int GetUniformLocation(Name name);
 
 		Path path_;
 		HashMap<Name, int> uniform_;

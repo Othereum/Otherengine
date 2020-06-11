@@ -95,7 +95,7 @@ namespace oeng
 
 	Shader::~Shader()
 	{
-		// glDelete functions silently ignores 0 or invalid ID.
+		// glDelete functions silently ignores 0.
 		gl(std::nothrow, glDeleteProgram, shader_program_);
 		gl(std::nothrow, glDeleteShader, vert_shader_);
 		gl(std::nothrow, glDeleteShader, frag_shader_);
@@ -108,8 +108,13 @@ namespace oeng
 
 	void Shader::SetMatrixUniform(Name name, const Mat4& matrix)
 	{
-		const auto loc = GetUniformLocation(name);
-		gl(glUniformMatrix4fv, loc, 1, true, matrix.AsFlatArr());
+		const auto location = GetUniformLocation(name);
+		SetMatrixUniform(location, matrix);
+	}
+
+	void Shader::SetMatrixUniform(int location, const Mat4& matrix) const
+	{
+		gl(glUniformMatrix4fv, location, 1, true, matrix.AsFlatArr());
 	}
 
 	void Shader::SetTransform(const Mat4& matrix)
@@ -130,7 +135,10 @@ namespace oeng
 			return found->second;
 
 		auto loc = gl(glGetUniformLocation, shader_program_, name.CStr());
-		uniform_.emplace(name, loc);
+		if (loc != invalid_uniform_)
+		{
+			uniform_.try_emplace(name, loc);
+		}
 		return loc;
 	}
 }
