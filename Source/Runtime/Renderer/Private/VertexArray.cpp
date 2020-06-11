@@ -52,10 +52,11 @@ namespace oeng
 
 	VertexArray::~VertexArray()
 	{
+		unsigned err;
 		// glDelete functions silently ignores 0 or invalid ID.
-		gl(std::nothrow, glDeleteBuffers, 1, &vertex_buffer_);
-		gl(std::nothrow, glDeleteBuffers, 1, &index_buffer_);
-		gl(std::nothrow, glDeleteVertexArrays, 1, &vertex_array_);
+		gl(err, glDeleteBuffers, 1, &vertex_buffer_);
+		gl(err, glDeleteBuffers, 1, &index_buffer_);
+		gl(err, glDeleteVertexArrays, 1, &vertex_array_);
 	}
 
 	VertexArray& VertexArray::operator=(VertexArray&& r) noexcept
