@@ -53,7 +53,7 @@ namespace oeng
 
 	void to_json(Json& json, const Name& name)
 	{
-		json = name.Str();
+		json = *name;
 	}
 
 	void from_json(const Json& json, Name& name)

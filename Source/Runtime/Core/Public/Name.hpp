@@ -22,8 +22,9 @@ namespace oeng
 		Name(const char* s);
 		Name(NameStr s);
 
-		[[nodiscard]] const NameStr& Str() const noexcept { return *sp; }
-		[[nodiscard]] const char* CStr() const noexcept { return sp->c_str(); }
+		operator const NameStr&() const noexcept { return *sp; }
+		const NameStr& operator*() const noexcept { return *sp; }
+		const NameStr* operator->() const noexcept { return sp; }
 
 		std::strong_ordering operator<=>(const Name&) const noexcept = default;
 
