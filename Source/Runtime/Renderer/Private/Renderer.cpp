@@ -110,7 +110,7 @@ namespace oeng
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetViewProj(MakeSimpleViewProj<4>(scr));
+		sprite_shader_.SetUniform(NAME("uViewProj"), MakeSimpleViewProj<4>(scr));
 	}
 
 	Renderer::~Renderer() = default;
@@ -137,13 +137,22 @@ namespace oeng
 		{
 			auto& shader = shaders_.at(shader_name);
 			shader.Activate();
-			shader.SetViewProj(view_proj);
+			
+			shader.SetUniform(NAME("uViewProj"), view_proj);
+			shader.SetUniform(NAME("uCamPos"), camera_->GetPos());
+			shader.SetUniform(NAME("uSkyLight"), sky_light_->GetColor());
+
+			const auto& dir_light = dir_light_->GetData();
+			shader.SetUniform(NAME("uDirLight.dir"), dir_light.dir);
+			shader.SetUniform(NAME("uDirLight.color"), dir_light.color);
 			
 			for (auto mesh : meshes)
 			{
 				if (auto info = mesh.get().Draw())
 				{
-					shader.SetTransform(info->transform);
+					// TODO: Load specular data from mesh
+					shader.SetUniform(NAME("uSpecular"), 0.1f);
+					shader.SetUniform(NAME("uWorldTransform"), info->transform);
 					gl(glDrawElements, GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
 				}
 			}
@@ -161,7 +170,7 @@ namespace oeng
 		{
 			if (auto info = sprite.get().Draw())
 			{
-				sprite_shader_.SetTransform(info->transform);
+				sprite_shader_.SetUniform(NAME("uWorldTransform"), info->transform);
 				gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 			}
 		}
@@ -174,7 +183,7 @@ namespace oeng
 		public:
 			[[nodiscard]] const Data& GetData() const noexcept override
 			{
-				static const Data data{UVec3::down, Vec3::zero};
+				static const Data data{Vec3{1, 1, -1}.Unit(), Vec3::one};
 				return data;
 			}
 		};
@@ -190,7 +199,8 @@ namespace oeng
 		public:
 			[[nodiscard]] const Vec3& GetColor() const noexcept override
 			{
-				return Vec3::zero;
+				static const Vec3 color{All{}, 0.1_f};
+				return color;
 			}
 		};
 
