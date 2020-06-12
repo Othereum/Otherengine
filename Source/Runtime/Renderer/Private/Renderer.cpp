@@ -259,27 +259,30 @@ namespace oeng
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
 
-	void Renderer::RegisterMesh(const IMesh& mesh)
+	void Renderer::RegisterMesh(const IMeshComponent& mesh)
 	{
-		auto shader_path = mesh.GetShaderPath();
-		shaders_.try_emplace(shader_path, shader_path);
-		mesh_comps_[shader_path].emplace_back(mesh);
+		auto cmp = [](const IMeshComponent& a, const IMeshComponent& b)
+		{
+			auto &mat1 = a.GetMaterial(), &mat2 = b.GetMaterial();
+			auto &s1 = mat1.GetShader(), &s2 = mat2.GetShader();
+			if (&s1 != &s2) return &s1 < &s2;
+			if (&mat1 != &mat2)
+			{
+				auto &t1 = mat1.GetTexture(), &t2 = mat2.GetTexture();
+				if (&t1 != &t2) return &t1 < &t2;
+				return &mat1 < &mat2;
+			}
+			auto &mesh1 = a.GetMesh(), &mesh2 = b.GetMesh();
+			return &mesh1 < &mesh2;
+		};
+		const auto pos = std::lower_bound(mesh_comps_.begin(), mesh_comps_.end(), mesh, cmp);
+		mesh_comps_.emplace(pos, mesh);
 	}
 
-	void Renderer::UnregisterMesh(const IMesh& mesh)
+	void Renderer::UnregisterMesh(const IMeshComponent& mesh)
 	{
-		const auto shader = mesh.GetShaderPath();
-		const auto vec_it = mesh_comps_.find(shader);
-		auto& vec = vec_it->second;
-		
-		auto pr = [&](const IMesh& v) { return &v == &mesh; };
-		const auto found = std::find_if(vec.crbegin(), vec.crend(), pr);
-		if (found != vec.crend()) vec.erase(found.base() - 1);
-		
-		if (vec.empty())
-		{
-			shaders_.erase(shader);
-			mesh_comps_.erase(vec_it);
-		}
+		auto pr = [&](const IMeshComponent& m) { return &m == &mesh; };
+		const auto found = std::find_if(mesh_comps_.rbegin(), mesh_comps_.rend(), pr);
+		if (found != mesh_comps_) mesh_comps_.erase(found.base() - 1);
 	}
 }
