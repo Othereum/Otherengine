@@ -261,6 +261,7 @@ namespace oeng
 
 	void Renderer::RegisterMesh(const IMeshComponent& mesh)
 	{
+		// Group mesh components in order of importance for [Shader -> Materials -> Texture -> Mesh]
 		auto cmp = [](const IMeshComponent& a, const IMeshComponent& b)
 		{
 			auto &mat1 = a.GetMaterial(), &mat2 = b.GetMaterial();
