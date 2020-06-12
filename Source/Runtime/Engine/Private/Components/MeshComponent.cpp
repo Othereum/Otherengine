@@ -1,5 +1,6 @@
 #include "Components/MeshComponent.hpp"
 #include "Engine.hpp"
+#include "Mesh.hpp"
 
 namespace oeng
 {
@@ -15,7 +16,16 @@ namespace oeng
 
 	void MeshComponent::SetMesh(Path file)
 	{
-		SetMesh(GetRenderer().GetMesh(file));
+		if (auto mesh = GetRenderer().GetMesh(file))
+		{
+			SetMaterial(mesh->GetMaterialPtr());
+			SetMesh(std::move(mesh));
+		}
+		else
+		{
+			// TODO: Better error handling
+			std::terminate();
+		}
 	}
 
 	void MeshComponent::SetMaterial(Path path)
