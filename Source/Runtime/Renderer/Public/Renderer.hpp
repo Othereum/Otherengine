@@ -9,8 +9,8 @@ struct SDL_Window;
 
 namespace oeng
 {
-	class IMesh;
-	class ISprite;
+	class IMeshComponent;
+	class ISpriteComponent;
 	class IEngine;
 	class ICamera;
 	class IDirLight;
@@ -41,14 +41,14 @@ namespace oeng
 		
 		void DrawScene();
 
-		void RegisterSprite(const ISprite& sprite);
-		void RegisterMesh(const IMesh& mesh);
+		void RegisterSprite(const ISpriteComponent& sprite);
+		void RegisterMesh(const IMeshComponent& mesh);
 		void RegisterCamera(ICamera& camera) noexcept { camera_ = &camera; camera.OnScreenSizeChanged(GetScreenSize()); }
 		void RegisterDirLight(const IDirLight& light) noexcept { dir_light_ = &light; }
 		void RegisterSkyLight(const ISkyLight& light) noexcept { sky_light_ = &light; }
 		
-		void UnregisterSprite(const ISprite& sprite);
-		void UnregisterMesh(const IMesh& mesh);
+		void UnregisterSprite(const ISpriteComponent& sprite);
+		void UnregisterMesh(const IMeshComponent& mesh);
 		void UnregisterCamera(const ICamera& camera) noexcept { if (camera_ == &camera) UnregisterCamera(); }
 		void UnregisterCamera() noexcept { RegisterCamera(default_camera_); }
 		void UnregisterDirLight(const IDirLight& light) noexcept { if (dir_light_ == &light) UnregisterDirLight(); }
@@ -56,6 +56,7 @@ namespace oeng
 		void UnregisterSkyLight(const ISkyLight& light) noexcept { if (sky_light_ == &light) UnregisterSkyLight(); }
 		void UnregisterSkyLight() noexcept;
 
+		// TODO: Return nullptr if path is invalid
 		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
 		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
 		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
@@ -93,7 +94,7 @@ namespace oeng
 		const IDirLight* dir_light_ = nullptr;
 		const ISkyLight* sky_light_ = nullptr;
 		
-		DyArr<std::reference_wrapper<const ISprite>> sprites_;
-		DyArr<std::reference_wrapper<const IMesh>> mesh_comps_;
+		DyArr<std::reference_wrapper<const ISpriteComponent>> sprites_;
+		DyArr<std::reference_wrapper<const IMeshComponent>> mesh_comps_;
 	};
 }
