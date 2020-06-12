@@ -61,13 +61,22 @@ namespace oeng
 
 	VertexArray& VertexArray::operator=(VertexArray&& r) noexcept
 	{
-		this->~VertexArray();
-		new (this) VertexArray{std::move(r)};
+		VertexArray{std::move(r)}.swap(*this);
 		return *this;
 	}
 
 	void VertexArray::Activate() const
 	{
 		gl(glBindVertexArray, vertex_array_);
+	}
+
+	void VertexArray::swap(VertexArray& r) noexcept
+	{
+		using std::swap;
+		swap(num_verts_, r.num_verts_);
+		swap(num_indices_, r.num_indices_);
+		swap(vertex_buffer_, r.vertex_buffer_);
+		swap(index_buffer_, r.index_buffer_);
+		swap(vertex_array_, r.vertex_array_);
 	}
 }

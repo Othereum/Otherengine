@@ -44,6 +44,8 @@ namespace oeng
 		[[nodiscard]] size_t GetNumVerts() const noexcept { return num_verts_; }
 		[[nodiscard]] size_t GetNumIndices() const noexcept { return num_indices_; }
 
+		void swap(VertexArray& r) noexcept;
+
 	private:
 		size_t num_verts_ = 0;
 		size_t num_indices_ = 0;
@@ -51,4 +53,6 @@ namespace oeng
 		unsigned index_buffer_ = 0;
 		unsigned vertex_array_ = 0;
 	};
+
+	inline void swap(VertexArray& a, VertexArray& b) noexcept { a.swap(b); }
 }
