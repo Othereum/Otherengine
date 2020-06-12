@@ -94,6 +94,6 @@ namespace oeng
 		const ISkyLight* sky_light_ = nullptr;
 		
 		DyArr<std::reference_wrapper<const ISprite>> sprites_;
-		HashMap<Path, DyArr<std::reference_wrapper<const IMesh>>> mesh_comps_;
+		DyArr<std::reference_wrapper<const IMesh>> mesh_comps_;
 	};
 }
