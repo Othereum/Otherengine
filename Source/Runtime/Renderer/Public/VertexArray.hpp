@@ -33,11 +33,10 @@ namespace oeng
 		constexpr VertexArray() noexcept = default;
 		VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices);
 		VertexArray(VertexArray&& r) noexcept;
+		VertexArray(const VertexArray&) = delete;
 		~VertexArray();
 		
 		VertexArray& operator=(VertexArray&& r) noexcept;
-
-		VertexArray(const VertexArray&) = delete;
 		VertexArray& operator=(const VertexArray&) = delete;
 
 		void Activate() const;

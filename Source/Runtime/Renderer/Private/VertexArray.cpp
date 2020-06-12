@@ -53,7 +53,7 @@ namespace oeng
 	VertexArray::~VertexArray()
 	{
 		unsigned err;
-		// glDelete functions silently ignores 0 or invalid ID.
+		// glDelete functions silently ignores 0
 		gl(err, glDeleteBuffers, 1, &vertex_buffer_);
 		gl(err, glDeleteBuffers, 1, &index_buffer_);
 		gl(err, glDeleteVertexArrays, 1, &vertex_array_);
