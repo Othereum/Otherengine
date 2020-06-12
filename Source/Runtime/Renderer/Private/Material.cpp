@@ -11,9 +11,8 @@ namespace oeng
 	{
 		const auto json = ReadFileAsJson(path);
 
-		// TODO
-		// shader_ = renderer.GetShader(json["shader"]);
-		texture_ = renderer.GetTexture(json["texture"]);
+		shader_ = renderer.GetShader(json.at("shader"));
+		texture_ = renderer.GetTexture(json.at("texture"));
 
 		if (const auto uniforms = json.find("uniforms"); uniforms != json.end())
 		{
