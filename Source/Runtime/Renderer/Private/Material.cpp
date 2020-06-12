@@ -42,7 +42,7 @@ namespace oeng
 		}
 	}
 
-	void Material::LoadUniform(const std::string& name, const Json& value) noexcept
+	void Material::LoadUniform(const std::string& name, const Json& value)
 	{
 		switch (value.type())
 		{
