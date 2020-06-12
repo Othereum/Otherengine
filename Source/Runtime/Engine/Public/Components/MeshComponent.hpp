@@ -5,21 +5,30 @@
 
 namespace oeng
 {
-	class Shader;
 	class Mesh;
+	class Material;
 	class Renderer;
 	
-	class OEAPI MeshComponent : public SceneComponent, public IMesh
+	class OEAPI MeshComponent : public SceneComponent, public IMeshComponent
 	{
 	public:
 		explicit MeshComponent(AActor& owner, int update_order = 100);
 		~MeshComponent();
 
-		std::optional<DrawInfo> Draw() const noexcept override;
-		Path GetShaderPath() const noexcept override;
+		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsEnabled(); }
+		[[nodiscard]] Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
+		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
+		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
 
-		void SetMesh(Path file);
+		void SetMesh(Path path);
 		void SetMesh(SharedPtr<Mesh> mesh) noexcept { mesh_ = std::move(mesh); }
+		
+		/**
+		 * \brief Override default material of the mesh
+		 * \param path Material path
+		 */
+		void SetMaterial(Path path);
+		void SetMaterial(SharedPtr<Material> material) noexcept { material_ = std::move(material); }
 
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
@@ -32,6 +41,6 @@ namespace oeng
 		void OnBeginPlay() override;
 		
 		SharedPtr<Mesh> mesh_;
-		size_t texture_idx_ = 0;
+		SharedPtr<Material> material_;
 	};
 }

@@ -1,7 +1,4 @@
 #include "Components/MeshComponent.hpp"
-#include "Mesh.hpp"
-#include "Texture.hpp"
-#include "VertexArray.hpp"
 #include "Engine.hpp"
 
 namespace oeng
@@ -16,26 +13,14 @@ namespace oeng
 		if (BegunPlay()) GetRenderer().UnregisterMesh(*this);
 	}
 
-	std::optional<IMesh::DrawInfo> MeshComponent::Draw() const noexcept
-	{
-		if (!IsEnabled()) return {};
-
-		mesh_->GetTextures()[texture_idx_]->Activate();
-
-		auto& va = mesh_->GetVertexArray();
-		va.Activate();
-
-		return DrawInfo{GetWorldMatrix(), va.GetNumIndices() * 3};
-	}
-
-	Path MeshComponent::GetShaderPath() const noexcept
-	{
-		return mesh_->GetShaderPath();
-	}
-
 	void MeshComponent::SetMesh(Path file)
 	{
 		SetMesh(GetRenderer().GetMesh(file));
+	}
+
+	void MeshComponent::SetMaterial(Path path)
+	{
+		SetMaterial(GetRenderer().GetMaterial(path));
 	}
 
 	Renderer& MeshComponent::GetRenderer() const noexcept

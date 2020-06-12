@@ -10,19 +10,19 @@ namespace oeng
 	class Renderer;
 	class Texture;
 	
-	class SpriteComponent : public SceneComponent, public ISprite
+	class OEAPI SpriteComponent : public SceneComponent, public ISpriteComponent
 	{
 	public:
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
-		std::optional<DrawInfo> Draw() const noexcept override;
+		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsEnabled(); }
+		[[nodiscard]] int GetDrawOrder() const noexcept override { return draw_order_; }
+		[[nodiscard]] const Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
 
 		void SetTexture(Path file);
 		void SetTexture(SharedPtr<Texture> texture) noexcept { texture_ = std::move(texture); }
 		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
-
-		[[nodiscard]] int GetDrawOrder() const noexcept override { return draw_order_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
 		SpriteComponent(const SpriteComponent&) = delete;

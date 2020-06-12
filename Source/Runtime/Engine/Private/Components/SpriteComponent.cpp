@@ -2,8 +2,6 @@
 #include "GameFramework/Actor.hpp"
 #include "Engine.hpp"
 #include "Renderer.hpp"
-#include "Shader.hpp"
-#include "Texture.hpp"
 
 namespace oeng
 {
@@ -15,14 +13,6 @@ namespace oeng
 	SpriteComponent::~SpriteComponent()
 	{
 		if (BegunPlay()) GetRenderer().UnregisterSprite(*this);
-	}
-
-	std::optional<ISprite::DrawInfo> SpriteComponent::Draw() const noexcept
-	{
-		if (!IsEnabled()) return {};
-		
-		texture_->Activate();
-		return DrawInfo{MakeScale<4>({texture_->Size(), 1}) * GetWorldMatrix()};
 	}
 
 	void SpriteComponent::SetTexture(Path file)
