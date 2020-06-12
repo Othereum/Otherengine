@@ -11,22 +11,20 @@ namespace oeng
 	{
 	public:
 		static constexpr int invalid_uniform_ = -1;
-		
+
+		constexpr Shader() noexcept = default;
 		explicit Shader(Path path);
+		Shader(Shader&& r) noexcept;
+		Shader(const Shader&) = delete;
 		~Shader();
 
-		Shader(Shader&& r) noexcept;
 		Shader& operator=(Shader&& r) noexcept;
-
-		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
 
 		std::strong_ordering operator<=>(const Shader& r) const noexcept
 		{
 			return shader_program_ <=> r.shader_program_;
 		}
-
-		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 
 		void Activate() const;
 		
@@ -46,25 +44,31 @@ namespace oeng
 		 * \param location The location of the uniform variable. Does nothing if is invalid_uniform_. Otherwise, It must be valid location.
 		 * \throw OpenGlError If location is invalid and not invalid_uniform_
 		 */
-		void SetUniform(int location, const Mat4& matrix);
-		void SetUniform(int location, const Vec4& vector);
-		void SetUniform(int location, const Vec3& vector);
-		void SetUniform(int location, const Vec2& vector);
-		void SetUniform(int location, float value);
+		void SetUniform(int location, const Mat4& matrix) const;
+		void SetUniform(int location, const Vec4& vector) const;
+		void SetUniform(int location, const Vec3& vector) const;
+		void SetUniform(int location, const Vec2& vector) const;
+		void SetUniform(int location, float value) const;
 		
-		[[nodiscard]] int GetUniformLocation(Name name) const noexcept;
+		/**
+		 * \brief Get location of the uniform variable
+		 * \param name The name of the uniform
+		 * \return Location of the uniform or -1 if name is invalid
+		 */
+		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
+
+		void swap(Shader& r) noexcept;
 
 	private:
 		friend std::hash<Shader>;
 
-		void InvalidUniform(Name name) const;
-		
-		Path path_;
-		unsigned vert_shader_;
-		unsigned frag_shader_;
-		unsigned shader_program_;
-		mutable HashMap<Name, int> uniform_;
+		unsigned vert_shader_ = 0;
+		unsigned frag_shader_ = 0;
+		unsigned shader_program_ = 0;
+		HashMap<Name, int> uniform_;
 	};
+
+	inline void swap(Shader& a, Shader& b) noexcept { a.swap(b); }
 }
 
 template <>

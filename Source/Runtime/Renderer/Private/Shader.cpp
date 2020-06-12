@@ -65,8 +65,7 @@ namespace oeng
 	}
 
 	Shader::Shader(Path path)
-		:path_{path},
-		vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
+		:vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
 		frag_shader_{Compile(Ext(path, ".frag"), GL_FRAGMENT_SHADER)},
 		shader_program_{gl(glCreateProgram)}
 	{
@@ -88,8 +87,7 @@ namespace oeng
 
 	Shader& Shader::operator=(Shader&& r) noexcept
 	{
-		this->~Shader();
-		new (this) Shader{std::move(r)};
+		Shader{std::move(r)}.swap(*this);
 		return *this;
 	}
 
@@ -107,32 +105,32 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	void Shader::SetUniform(int location, const Mat4& matrix)
+	void Shader::SetUniform(int location, const Mat4& matrix) const
 	{
 		gl(glUniformMatrix4fv, location, 1, true, matrix.AsFlatArr());
 	}
 
-	void Shader::SetUniform(int location, const Vec4& vector)
+	void Shader::SetUniform(int location, const Vec4& vector) const
 	{
 		gl(glUniform4fv, location, 1, vector.data);
 	}
 
-	void Shader::SetUniform(int location, const Vec3& vector)
+	void Shader::SetUniform(int location, const Vec3& vector) const
 	{
 		gl(glUniform3fv, location, 1, vector.data);
 	}
 
-	void Shader::SetUniform(int location, const Vec2& vector)
+	void Shader::SetUniform(int location, const Vec2& vector) const
 	{
 		gl(glUniform2fv, location, 1, vector.data);
 	}
 
-	void Shader::SetUniform(int location, float value)
+	void Shader::SetUniform(int location, float value) const
 	{
 		gl(glUniform1f, location, value);
 	}
 
-	int Shader::GetUniformLocation(Name name) const noexcept
+	int Shader::GetUniformLocation(Name name) noexcept
 	{
 		if (const auto found = uniform_.find(name); found != uniform_.end())
 			return found->second;
@@ -143,9 +141,12 @@ namespace oeng
 		return loc;
 	}
 
-	void Shader::InvalidUniform(Name name) const
+	void Shader::swap(Shader& r) noexcept
 	{
-		log::Error("Attempted to set invalid uniform {} for shader {}", *name, GetPath()->string());
+		using std::swap;
+		swap(vert_shader_, r.vert_shader_);
+		swap(frag_shader_, r.frag_shader_);
+		swap(shader_program_, r.shader_program_);
+		swap(uniform_, r.uniform_);
 	}
-
 }
