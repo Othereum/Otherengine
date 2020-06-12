@@ -42,7 +42,7 @@ namespace oeng
 	{
 		if (parent_)
 		{
-			world_mat_ = parent_->GetWorldMatrix() * rel_trsf_.ToMatrix();
+			world_mat_ = parent_->GetWorldTrsfMatrix() * rel_trsf_.ToMatrix();
 			world_trsf_ = Transform{world_mat_};
 		}
 		else
@@ -65,7 +65,7 @@ namespace oeng
 		
 		if (parent_)
 		{
-			if (const auto pwi = parent_->GetWorldMatrix().Inv())
+			if (const auto pwi = parent_->GetWorldTrsfMatrix().Inv())
 			{
 				// pw: parent's world transform
 				// r: unknown new relative transform to parent
