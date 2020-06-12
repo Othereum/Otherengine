@@ -131,32 +131,56 @@ namespace oeng
 	{
 		gl(glEnable, GL_DEPTH_TEST);
 		gl(glDisable, GL_BLEND);
+
+		Shader* prev_shader = nullptr;
+		Material* prev_material = nullptr;
+		Texture* prev_texture = nullptr;
+		Mesh* prev_mesh = nullptr;
 		
 		const auto view_proj = camera_->GetViewProj();
 
-		for (auto& [shader_name, meshes] : mesh_comps_)
+		for (auto mesh_comp_ref : mesh_comps_)
 		{
-			auto& shader = shaders_.at(shader_name);
-			shader.Activate();
+			const auto& mesh_comp = mesh_comp_ref.get();
+			if (!mesh_comp.ShouldDraw()) continue;
 			
-			shader.SetUniform(NAME("uViewProj"), view_proj);
-			shader.SetUniform(NAME("uCamPos"), camera_->GetPos());
-			shader.SetUniform(NAME("uSkyLight"), sky_light_->GetColor());
-
-			const auto& dir_light = dir_light_->GetData();
-			shader.SetUniform(NAME("uDirLight.dir"), dir_light.dir);
-			shader.SetUniform(NAME("uDirLight.color"), dir_light.color);
+			auto& material = mesh_comp.GetMaterial();
+			auto& shader = material.GetShader();
+			auto& texture = material.GetTexture();
+			auto& mesh = mesh_comp.GetMesh();
 			
-			for (auto mesh : meshes)
+			if (&shader != prev_shader)
 			{
-				if (auto info = mesh.get().Draw())
-				{
-					// TODO: Load specular data from mesh
-					shader.SetUniform(NAME("uSpecular"), 0.2f);
-					shader.SetUniform(NAME("uWorldTransform"), info->transform);
-					gl(glDrawElements, GL_TRIANGLES, info->vertices, GL_UNSIGNED_SHORT, nullptr);
-				}
+				const auto& dir_light = dir_light_->GetData();
+				shader.SetUniform(NAME("uDirLight.dir"), dir_light.dir);
+				shader.SetUniform(NAME("uDirLight.color"), dir_light.color);
+				shader.SetUniform(NAME("uViewProj"), view_proj);
+				shader.SetUniform(NAME("uCamPos"), camera_->GetPos());
+				shader.SetUniform(NAME("uSkyLight"), sky_light_->GetColor());
+				prev_shader = &shader;
 			}
+
+			if (&material != prev_material)
+			{
+				material.SetUniforms();
+				prev_material = &material;
+			}
+
+			if (&texture != prev_texture)
+			{
+				texture.Activate();
+				prev_texture = &texture;
+			}
+
+			auto& verts = mesh.GetVertexArray();
+			if (&mesh != prev_mesh)
+			{
+				verts.Activate();
+				prev_mesh = &mesh;
+			}
+			
+			shader.SetUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsf());
+			gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
 		}
 	}
 
@@ -167,13 +191,13 @@ namespace oeng
 		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
-		for (auto sprite : sprites_)
+		for (auto sprite_ref : sprites_)
 		{
-			if (auto info = sprite.get().Draw())
-			{
-				sprite_shader_.SetUniform(NAME("uWorldTransform"), info->transform);
-				gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
-			}
+			const auto& sprite = sprite_ref.get();
+			if (!sprite.ShouldDraw()) continue;
+
+			sprite_shader_.SetUniform(NAME("uWorldTransform"), sprite.GetDrawTrsf());
+			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 	}
 
@@ -184,7 +208,7 @@ namespace oeng
 		public:
 			[[nodiscard]] const Data& GetData() const noexcept override
 			{
-				static const Data data{Vec3{1, 1, -1}.Unit(), Vec3::one};
+				static const Data data{*Vec3{1, 1, -1}.Unit(std::nothrow), Vec3::one};
 				return data;
 			}
 		};
