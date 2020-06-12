@@ -21,9 +21,15 @@ namespace nlohmann
 
 	template<typename BasicJsonType>
 	class json_pointer;
+
+	namespace detail
+	{
+		enum class value_t : std::uint8_t;
+	}
 }
 
 namespace oeng
 {
-	using Json = nlohmann::basic_json<TreeMap, DyArr, BasicString<char, std::char_traits<char>, RawAllocator<char>>, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
+	using JsonType = nlohmann::detail::value_t;
 }
