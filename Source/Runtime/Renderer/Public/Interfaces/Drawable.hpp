@@ -1,11 +1,12 @@
 #pragma once
 #include <optional>
-#include "Path.hpp"
 #include "Math.hpp"
 
 namespace oeng
 {
-	class ISprite
+	class Material;
+	
+	class ISpriteComponent
 	{
 	public:
 		struct DrawInfo { Mat4 transform; };
@@ -13,29 +14,30 @@ namespace oeng
 		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
 		[[nodiscard]] virtual int GetDrawOrder() const noexcept = 0;
 
-		constexpr ISprite() noexcept = default;
-		virtual ~ISprite() = default;
+		constexpr ISpriteComponent() noexcept = default;
+		virtual ~ISpriteComponent() = default;
 		
-		ISprite(const ISprite&) = delete;
-		ISprite(ISprite&&) = delete;
-		ISprite& operator=(const ISprite&) = delete;
-		ISprite& operator=(ISprite&&) = delete;
+		ISpriteComponent(const ISpriteComponent&) = delete;
+		ISpriteComponent(ISpriteComponent&&) = delete;
+		ISpriteComponent& operator=(const ISpriteComponent&) = delete;
+		ISpriteComponent& operator=(ISpriteComponent&&) = delete;
 	};
 
-	class IMesh
+	class IMeshComponent
 	{
 	public:
-		struct DrawInfo { Mat4 transform; size_t vertices; };
-	
-		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
-		[[nodiscard]] virtual Path GetShaderPath() const noexcept = 0;
+		struct DrawInfo { Mat4 transform; size_t vertices{}; };
 
-		constexpr IMesh() noexcept = default;
-		virtual ~IMesh() = default;
+		[[nodiscard]] virtual std::optional<DrawInfo> Draw() const noexcept = 0;
+		[[nodiscard]] virtual Material& GetMaterial() const noexcept = 0;
+		[[nodiscard]] virtual Mesh& GetMesh() const noexcept = 0;
+
+		constexpr IMeshComponent() noexcept = default;
+		virtual ~IMeshComponent() = default;
 		
-		IMesh(const IMesh&) = delete;
-		IMesh(IMesh&&) = delete;
-		IMesh& operator=(const IMesh&) = delete;
-		IMesh& operator=(IMesh&&) = delete;
+		IMeshComponent(const IMeshComponent&) = delete;
+		IMeshComponent(IMeshComponent&&) = delete;
+		IMeshComponent& operator=(const IMeshComponent&) = delete;
+		IMeshComponent& operator=(IMeshComponent&&) = delete;
 	};
 }
