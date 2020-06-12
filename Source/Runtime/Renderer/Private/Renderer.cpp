@@ -235,28 +235,26 @@ namespace oeng
 	}
 
 	template <class T, class... Args>
-	SharedPtr<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args) try
+	SharedPtr<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args)
 	{
 		auto& map = cache.map;
 		const auto found = map.find(path);
 		if (found != map.end()) return found->second.lock();
 
-		SharedPtr<T> loaded{
-			New<T>(path, std::forward<Args>(args)...),
-			[&map, path](T* p)
-			{
-				map.erase(path);
-				Delete(p);
-			}
-		};
+		SharedPtr<T> loaded;
+		try
+		{
+			loaded.reset(New<T>(path, std::forward<Args>(args)...),
+				[&map, path](T* p) { map.erase(path); Delete(p); });
+		}
+		catch (const std::exception& e)
+		{
+			log::Error("Failed to load {}: {}", path->string(), e.what());
+			return cache.default_obj;
+		}
 
 		map.emplace(path, loaded);
 		return loaded;
-	}
-	catch (const std::exception& e)
-	{
-		log::Error("Failed to load {}: {}", path->string(), e.what());
-		return cache.default_obj;
 	}
 
 	SharedPtr<Texture> Renderer::GetTexture(Path path)
