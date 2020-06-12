@@ -8,6 +8,7 @@
 #include "Shader.hpp"
 #include "Texture.hpp"
 #include "Mesh.hpp"
+#include "Material.hpp"
 #include "Interfaces/Engine.hpp"
 #include "Interfaces/Drawable.hpp"
 #include "Interfaces/Light.hpp"
@@ -208,52 +209,52 @@ namespace oeng
 		sky_light_ = &def;
 	}
 
-	SharedPtr<Texture> Renderer::GetTexture(Path file)
+	SharedPtr<Texture> Renderer::GetTexture(Path path)
 	{
-		const auto found = textures_.find(file);
+		const auto found = textures_.find(path);
 		if (found != textures_.end()) return found->second.lock();
 
 		SharedPtr<Texture> loaded{
-			New<Texture>(file),
-			[this, file](Texture* p) noexcept
+			New<Texture>(path),
+			[this, path](Texture* p) noexcept
 			{
-				textures_.erase(file);
+				textures_.erase(path);
 				Delete(p);
 			}
 		};
 
-		textures_.emplace(file, loaded);
+		textures_.emplace(path, loaded);
 		return loaded;
 	}
 
-	SharedPtr<Mesh> Renderer::GetMesh(Path file)
+	SharedPtr<Mesh> Renderer::GetMesh(Path path)
 	{
-		const auto found = meshes_.find(file);
+		const auto found = meshes_.find(path);
 		if (found != meshes_.end()) return found->second.lock();
 
 		SharedPtr<Mesh> loaded{
-			New<Mesh>(file, *this),
-			[this, file](Mesh* p) noexcept
+			New<Mesh>(path, *this),
+			[this, path](Mesh* p) noexcept
 			{
-				meshes_.erase(file);
+				meshes_.erase(path);
 				Delete(p);
 			}
 		};
 
-		meshes_.emplace(file, loaded);
+		meshes_.emplace(path, loaded);
 		return loaded;
 	}
 
-	void Renderer::RegisterSprite(const ISprite& sprite)
+	void Renderer::RegisterSprite(const ISpriteComponent& sprite)
 	{
-		auto cmp = [](const ISprite& a, const ISprite& b) { return a.GetDrawOrder() <= b.GetDrawOrder(); };
+		auto cmp = [](const ISpriteComponent& a, const ISpriteComponent& b) { return a.GetDrawOrder() <= b.GetDrawOrder(); };
 		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
 		sprites_.emplace(pos, sprite);
 	}
 
-	void Renderer::UnregisterSprite(const ISprite& sprite)
+	void Renderer::UnregisterSprite(const ISpriteComponent& sprite)
 	{
-		auto pr = [&](const ISprite& v) { return &v == &sprite; };
+		auto pr = [&](const ISpriteComponent& v) { return &v == &sprite; };
 		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
 		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
 	}
