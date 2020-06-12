@@ -235,14 +235,15 @@ namespace oeng
 	}
 
 	template <class T, class... Args>
-	SharedPtr<T> Get(HashMap<Path, WeakPtr<T>>& map, Path path, Args&&... args) noexcept try
+	SharedPtr<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args) try
 	{
+		auto& map = cache.map;
 		const auto found = map.find(path);
 		if (found != map.end()) return found->second.lock();
 
 		SharedPtr<T> loaded{
 			New<T>(path, std::forward<Args>(args)...),
-			[&map, path](T* p) noexcept
+			[&map, path](T* p)
 			{
 				map.erase(path);
 				Delete(p);
@@ -252,27 +253,28 @@ namespace oeng
 		map.emplace(path, loaded);
 		return loaded;
 	}
-	catch (...)
+	catch (const std::exception& e)
 	{
-		return nullptr;
+		log::Error("Failed to load {}: {}", path->string(), e.what());
+		return cache.default_obj;
 	}
 
-	SharedPtr<Texture> Renderer::GetTexture(Path path) noexcept
+	SharedPtr<Texture> Renderer::GetTexture(Path path)
 	{
 		return Get(textures_, path);
 	}
 
-	SharedPtr<Mesh> Renderer::GetMesh(Path path) noexcept
+	SharedPtr<Mesh> Renderer::GetMesh(Path path)
 	{
 		return Get(meshes_, path, *this);
 	}
 
-	SharedPtr<Shader> Renderer::GetShader(Path path) noexcept
+	SharedPtr<Shader> Renderer::GetShader(Path path)
 	{
 		return Get(shaders_, path);
 	}
 
-	SharedPtr<Material> Renderer::GetMaterial(Path path) noexcept
+	SharedPtr<Material> Renderer::GetMaterial(Path path)
 	{
 		return Get(materials_, path, *this);
 	}

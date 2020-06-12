@@ -59,30 +59,30 @@ namespace oeng
 		/**
 		 * \brief Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
 		 * \param path Texture file path
-		 * \return The pointer to the texture or nullptr if failed to load
+		 * \return The pointer to the loaded texture or default texture if failed to load
 		 */
-		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path) noexcept;
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
 		
 		/**
 		 * \brief Returns the mesh corresponding to a given path. It will be loaded from file if it isn't in the cache.
 		 * \param path Mesh file path
-		 * \return The pointer to the mesh or nullptr if failed to load
+		 * \return The pointer to the loaded mesh or default mesh if failed to load
 		 */
-		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path) noexcept;
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
 
 		/**
 		 * \brief Returns the shader corresponding to a given path. It will be loaded from file if it isn't in the cache.
 		 * \param path Shader file path without extenstion
-		 * \return The pointer to the shader or nullptr if failed to load
+		 * \return The pointer to the loaded shader or default shader if failed to load
 		 */
-		[[nodiscard]] SharedPtr<Shader> GetShader(Path path) noexcept;
+		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
 		
 		/**
 		 * \brief Returns the material corresponding to a given path. It will be loaded from file if it isn't in the cache.
 		 * \param path Material file path
-		 * \return The pointer to the material or nullptr if failed to load
+		 * \return The pointer to the loaded material or default material if failed to load
 		 */
-		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path) noexcept;
+		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
 		
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
@@ -104,11 +104,18 @@ namespace oeng
 		
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
+
+		template <class T>
+		struct Cache
+		{
+			HashMap<Path, WeakPtr<T>> map;
+			const SharedPtr<T> default_obj = MakeShared<T>();
+		};
 		
-		HashMap<Path, WeakPtr<Texture>> textures_;
-		HashMap<Path, WeakPtr<Mesh>> meshes_;
-		HashMap<Path, WeakPtr<Shader>> shaders_;
-		HashMap<Path, WeakPtr<Material>> materials_;
+		Cache<Texture> textures_;
+		Cache<Mesh> meshes_;
+		Cache<Shader> shaders_;
+		Cache<Material> materials_;
 
 		ICamera* camera_ = nullptr;
 		DefaultCamera default_camera_;
