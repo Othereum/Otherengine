@@ -151,6 +151,7 @@ namespace oeng
 			
 			if (&shader != prev_shader)
 			{
+				shader.Activate();
 				const auto& dir_light = dir_light_->GetData();
 				shader.SetUniform(NAME("uDirLight.dir"), dir_light.dir);
 				shader.SetUniform(NAME("uDirLight.color"), dir_light.color);
