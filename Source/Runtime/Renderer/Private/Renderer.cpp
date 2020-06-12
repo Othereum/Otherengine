@@ -247,8 +247,8 @@ namespace oeng
 
 	void Renderer::RegisterSprite(const ISpriteComponent& sprite)
 	{
-		auto cmp = [](const ISpriteComponent& a, const ISpriteComponent& b) { return a.GetDrawOrder() <= b.GetDrawOrder(); };
-		const auto pos = std::lower_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
+		auto cmp = [](const ISpriteComponent& a, const ISpriteComponent& b) { return a.GetDrawOrder() < b.GetDrawOrder(); };
+		const auto pos = std::upper_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
 		sprites_.emplace(pos, sprite);
 	}
 
@@ -276,7 +276,7 @@ namespace oeng
 			auto &mesh1 = a.GetMesh(), &mesh2 = b.GetMesh();
 			return &mesh1 < &mesh2;
 		};
-		const auto pos = std::lower_bound(mesh_comps_.begin(), mesh_comps_.end(), mesh, cmp);
+		const auto pos = std::upper_bound(mesh_comps_.begin(), mesh_comps_.end(), mesh, cmp);
 		mesh_comps_.emplace(pos, mesh);
 	}
 
