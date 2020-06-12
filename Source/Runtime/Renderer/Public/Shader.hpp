@@ -47,7 +47,9 @@ namespace oeng
 		 * \throw OpenGlError If location is invalid and not invalid_uniform_
 		 */
 		void SetUniform(int location, const Mat4& matrix);
+		void SetUniform(int location, const Vec4& vector);
 		void SetUniform(int location, const Vec3& vector);
+		void SetUniform(int location, const Vec2& vector);
 		void SetUniform(int location, float value);
 		
 		[[nodiscard]] int GetUniformLocation(Name name) const noexcept;

@@ -112,9 +112,19 @@ namespace oeng
 		gl(glUniformMatrix4fv, location, 1, true, matrix.AsFlatArr());
 	}
 
+	void Shader::SetUniform(int location, const Vec4& vector)
+	{
+		gl(glUniform4fv, location, 1, vector.data);
+	}
+
 	void Shader::SetUniform(int location, const Vec3& vector)
 	{
 		gl(glUniform3fv, location, 1, vector.data);
+	}
+
+	void Shader::SetUniform(int location, const Vec2& vector)
+	{
+		gl(glUniform2fv, location, 1, vector.data);
 	}
 
 	void Shader::SetUniform(int location, float value)
