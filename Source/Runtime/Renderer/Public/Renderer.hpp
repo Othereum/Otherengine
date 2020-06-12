@@ -56,11 +56,33 @@ namespace oeng
 		void UnregisterSkyLight(const ISkyLight& light) noexcept { if (sky_light_ == &light) UnregisterSkyLight(); }
 		void UnregisterSkyLight() noexcept;
 
-		// TODO: Return nullptr if path is invalid
-		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
-		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
-		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
-		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
+		/**
+		 * \brief Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
+		 * \param path Texture file path
+		 * \return The pointer to the texture or nullptr if failed to load
+		 */
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path) noexcept;
+		
+		/**
+		 * \brief Returns the mesh corresponding to a given path. It will be loaded from file if it isn't in the cache.
+		 * \param path Mesh file path
+		 * \return The pointer to the mesh or nullptr if failed to load
+		 */
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path) noexcept;
+
+		/**
+		 * \brief Returns the shader corresponding to a given path. It will be loaded from file if it isn't in the cache.
+		 * \param path Shader file path without extenstion
+		 * \return The pointer to the shader or nullptr if failed to load
+		 */
+		[[nodiscard]] SharedPtr<Shader> GetShader(Path path) noexcept;
+		
+		/**
+		 * \brief Returns the material corresponding to a given path. It will be loaded from file if it isn't in the cache.
+		 * \param path Material file path
+		 * \return The pointer to the material or nullptr if failed to load
+		 */
+		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path) noexcept;
 		
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
