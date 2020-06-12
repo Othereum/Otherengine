@@ -27,9 +27,18 @@ namespace oeng
 		}
 	}
 
+	void Material::SetUniforms()
+	{	
+		for (auto& [name, var] : uniforms_)
+		{
+			auto set_uniform = [=](auto& val) { shader_->SetUniform(name, val); };
+			std::visit(set_uniform, var);
+		}
+	}
+
 	void Material::LoadUniforms(const Json& uniforms)
 	{
-		for (auto&& [name, value] : uniforms.items())
+		for (auto& [name, value] : uniforms.items())
 		{
 			try
 			{

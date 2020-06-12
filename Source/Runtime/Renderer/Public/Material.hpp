@@ -16,6 +16,8 @@ namespace oeng
 		Material() noexcept = default;
 		Material(Path path, Renderer& renderer);
 		
+		void SetUniforms();
+		
 		[[nodiscard]] Shader& GetShader() const noexcept { return *shader_; }
 		[[nodiscard]] Texture& GetTexture() const noexcept { return *texture_; }
 
