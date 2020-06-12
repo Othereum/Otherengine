@@ -6,31 +6,32 @@
 namespace oeng
 {
 	class Renderer;
-	class Texture;
-	class VertexArray;
+	class Material;
 	
 	class OEAPI Mesh
 	{
 	public:
-		Mesh(Path filepath, Renderer& renderer);
+		Mesh(Path path, Renderer& renderer);
+		Mesh(Mesh&& r) noexcept;
+		Mesh(const Mesh&) = delete;
+		~Mesh() = default;
 
-		[[nodiscard]] auto& GetTextures() const noexcept { return textures_; }
+		Mesh& operator=(Mesh&& r) noexcept;
+		Mesh& operator=(const Mesh&) = delete;
+
+		[[nodiscard]] Material& GetMaterial() const noexcept { return *material_; }
+		[[nodiscard]] SharedPtr<Material> GetMaterialPtr() const noexcept { return material_; }
 		[[nodiscard]] const VertexArray& GetVertexArray() const noexcept { return vertex_array_; }
 		[[nodiscard]] VertexArray& GetVertexArray() noexcept { return vertex_array_; }
-		[[nodiscard]] Path GetShaderPath() const noexcept { return shader_path_; }
 		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
 
-		Mesh(const Mesh&) = delete;
-		Mesh(Mesh&&) = delete;
-		Mesh& operator=(const Mesh&) = delete;
-		Mesh& operator=(Mesh&&) = delete;
+		void swap(Mesh& r) noexcept;
 
-	private:
-		void LoadV1(const Json& json, Renderer& renderer);
-		
-		DyArr<SharedPtr<Texture>> textures_;
+	private:		
+		SharedPtr<Material> material_;
 		VertexArray vertex_array_;
-		Path shader_path_;
 		Float radius_;
 	};
+
+	inline void swap(Mesh& a, Mesh& b) noexcept { a.swap(b); }
 }
