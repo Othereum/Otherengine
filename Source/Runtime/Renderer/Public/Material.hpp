@@ -15,6 +15,9 @@ namespace oeng
 	public:
 		Material() noexcept = default;
 		Material(Path path, Renderer& renderer);
+		
+		[[nodiscard]] Shader& GetShader() const noexcept { return *shader_; }
+		[[nodiscard]] Texture& GetTexture() const noexcept { return *texture_; }
 
 	private:
 		void LoadUniforms(const Json& uniforms);
