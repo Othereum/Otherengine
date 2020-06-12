@@ -770,10 +770,10 @@ namespace oeng
 	constexpr bool operator>=(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p >= nullptr; }
 
 	template <class T, bool ThreadSafe>
-	void swap(SharedPtr<T, ThreadSafe>& l, SharedPtr<T, ThreadSafe>& r) noexcept { l.Swap(r); }
+	void swap(SharedPtr<T, ThreadSafe>& l, SharedPtr<T, ThreadSafe>& r) noexcept { l.swap(r); }
 
 	template <class T, bool ThreadSafe>
-	void swap(WeakPtr<T, ThreadSafe>& l, WeakPtr<T, ThreadSafe>& r) noexcept { l.Swap(r); }
+	void swap(WeakPtr<T, ThreadSafe>& l, WeakPtr<T, ThreadSafe>& r) noexcept { l.swap(r); }
 
 	template <class T, bool ThreadSafe>
 	SharedPtr(WeakPtr<T, ThreadSafe>) -> SharedPtr<T, ThreadSafe>;
