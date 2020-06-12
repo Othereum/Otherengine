@@ -10,7 +10,7 @@ namespace oeng
 
 	MeshComponent::~MeshComponent()
 	{
-		if (BegunPlay()) GetRenderer().UnregisterMesh(*this);
+		if (HasBegunPlay()) GetRenderer().UnregisterMesh(*this);
 	}
 
 	void MeshComponent::SetMesh(Path file)

@@ -11,7 +11,7 @@ namespace oeng
 
 	CircleComponent::~CircleComponent()
 	{
-		if (BegunPlay()) GetWorld().UnregisterCollision(*this);
+		if (HasBegunPlay()) GetWorld().UnregisterCollision(*this);
 	}
 
 	void CircleComponent::TestOverlap(CircleComponent& other)

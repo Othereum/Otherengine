@@ -12,7 +12,7 @@ namespace oeng
 
 	SpriteComponent::~SpriteComponent()
 	{
-		if (BegunPlay()) GetRenderer().UnregisterSprite(*this);
+		if (HasBegunPlay()) GetRenderer().UnregisterSprite(*this);
 	}
 
 	void SpriteComponent::SetTexture(Path file)
