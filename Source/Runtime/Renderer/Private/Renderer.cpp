@@ -209,60 +209,76 @@ namespace oeng
 		sky_light_ = &def;
 	}
 
-	SharedPtr<Texture> Renderer::GetTexture(Path path)
+	template <class T, class... Args>
+	SharedPtr<T> Get(HashMap<Path, WeakPtr<T>>& map, Path path, Args&&... args) noexcept try
 	{
-		const auto found = textures_.find(path);
-		if (found != textures_.end()) return found->second.lock();
+		const auto found = map.find(path);
+		if (found != map.end()) return found->second.lock();
 
-		SharedPtr<Texture> loaded{
-			New<Texture>(path),
-			[this, path](Texture* p) noexcept
+		SharedPtr<T> loaded{
+			New<T>(path, std::forward<Args>(args)...),
+			[&map, path](T* p) noexcept
 			{
-				textures_.erase(path);
+				map.erase(path);
 				Delete(p);
 			}
 		};
 
-		textures_.emplace(path, loaded);
+		map.emplace(path, loaded);
 		return loaded;
 	}
-
-	SharedPtr<Mesh> Renderer::GetMesh(Path path)
+	catch (...)
 	{
-		const auto found = meshes_.find(path);
-		if (found != meshes_.end()) return found->second.lock();
+		return nullptr;
+	}
 
-		SharedPtr<Mesh> loaded{
-			New<Mesh>(path, *this),
-			[this, path](Mesh* p) noexcept
-			{
-				meshes_.erase(path);
-				Delete(p);
-			}
-		};
+	SharedPtr<Texture> Renderer::GetTexture(Path path) noexcept
+	{
+		return Get(textures_, path);
+	}
 
-		meshes_.emplace(path, loaded);
-		return loaded;
+	SharedPtr<Mesh> Renderer::GetMesh(Path path) noexcept
+	{
+		return Get(meshes_, path, *this);
+	}
+
+	SharedPtr<Shader> Renderer::GetShader(Path path) noexcept
+	{
+		return Get(shaders_, path);
+	}
+
+	SharedPtr<Material> Renderer::GetMaterial(Path path) noexcept
+	{
+		return Get(materials_, path, *this);
+	}
+
+	template <class T, class Compare>
+	void Register(DyArr<std::reference_wrapper<T>>& arr, T& obj, Compare cmp)
+	{
+		const auto pos = std::upper_bound(arr.begin(), arr.end(), obj, cmp);
+		arr.emplace(pos, obj);
+	}
+
+	template <class T>
+	void Unregister(DyArr<std::reference_wrapper<T>>& arr, T& obj)
+	{
+		const auto cmp = [&obj](T& x) { return &x == &obj; };
+		const auto found = std::find_if(arr.rbegin(), arr.rend(), cmp);
+		if (found != arr.rend()) arr.erase(found.base() - 1);
 	}
 
 	void Renderer::RegisterSprite(const ISpriteComponent& sprite)
 	{
-		auto cmp = [](const ISpriteComponent& a, const ISpriteComponent& b) { return a.GetDrawOrder() < b.GetDrawOrder(); };
-		const auto pos = std::upper_bound(sprites_.begin(), sprites_.end(), sprite, cmp);
-		sprites_.emplace(pos, sprite);
-	}
-
-	void Renderer::UnregisterSprite(const ISpriteComponent& sprite)
-	{
-		auto pr = [&](const ISpriteComponent& v) { return &v == &sprite; };
-		const auto found = std::find_if(sprites_.crbegin(), sprites_.crend(), pr);
-		if (found != sprites_.crend()) sprites_.erase(found.base() - 1);
+		Register(sprites_, sprite, [](const ISpriteComponent& a, const ISpriteComponent& b)
+		{
+			return a.GetDrawOrder() < b.GetDrawOrder();
+		});
 	}
 
 	void Renderer::RegisterMesh(const IMeshComponent& mesh)
 	{
 		// Group mesh components in order of importance for [Shader -> Materials -> Texture -> Mesh]
-		auto cmp = [](const IMeshComponent& a, const IMeshComponent& b)
+		Register(mesh_comps_, mesh, [](const IMeshComponent& a, const IMeshComponent& b)
 		{
 			auto &mat1 = a.GetMaterial(), &mat2 = b.GetMaterial();
 			auto &s1 = mat1.GetShader(), &s2 = mat2.GetShader();
@@ -275,15 +291,16 @@ namespace oeng
 			}
 			auto &mesh1 = a.GetMesh(), &mesh2 = b.GetMesh();
 			return &mesh1 < &mesh2;
-		};
-		const auto pos = std::upper_bound(mesh_comps_.begin(), mesh_comps_.end(), mesh, cmp);
-		mesh_comps_.emplace(pos, mesh);
+		});
+	}
+
+	void Renderer::UnregisterSprite(const ISpriteComponent& sprite)
+	{
+		Unregister(sprites_, sprite);
 	}
 
 	void Renderer::UnregisterMesh(const IMeshComponent& mesh)
 	{
-		auto pr = [&](const IMeshComponent& m) { return &m == &mesh; };
-		const auto found = std::find_if(mesh_comps_.rbegin(), mesh_comps_.rend(), pr);
-		if (found != mesh_comps_) mesh_comps_.erase(found.base() - 1);
+		Unregister(mesh_comps_, mesh);
 	}
 }
