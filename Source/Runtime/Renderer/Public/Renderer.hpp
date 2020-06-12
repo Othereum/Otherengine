@@ -17,6 +17,7 @@ namespace oeng
 	class ISkyLight;
 	class Texture;
 	class Mesh;
+	class Material;
 
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
@@ -55,8 +56,11 @@ namespace oeng
 		void UnregisterSkyLight(const ISkyLight& light) noexcept { if (sky_light_ == &light) UnregisterSkyLight(); }
 		void UnregisterSkyLight() noexcept;
 
-		[[nodiscard]] SharedPtr<Texture> GetTexture(Path file);
-		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path file);
+		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
+		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
+		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
+		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
+		
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
@@ -80,7 +84,8 @@ namespace oeng
 		
 		HashMap<Path, WeakPtr<Texture>> textures_;
 		HashMap<Path, WeakPtr<Mesh>> meshes_;
-		HashMap<Path, Shader> shaders_;
+		HashMap<Path, WeakPtr<Shader>> shaders_;
+		HashMap<Path, WeakPtr<Material>> materials_;
 
 		ICamera* camera_ = nullptr;
 		DefaultCamera default_camera_;
