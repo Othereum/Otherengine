@@ -33,20 +33,43 @@ namespace oeng
 	 * \tparam T object type to be created
 	 * \param args arguments to be passed to the constructor of object T.
 	 * \return The pointer to created object
-	 * \note Only allocates from pool if current context is in game thread
+	 * \throw std::bad_alloc If failed to allocate memory
+	 * \throw ... Any exceptions thrown by constructor of T
 	 */
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
 		detail::CheckMemSafe();
-		return new (Alloc(sizeof T)) T{std::forward<Args>(args)...};
+		const auto p = Alloc(sizeof T);
+		if (!p) throw std::bad_alloc{};
+
+		try
+		{
+			return new (p) T{std::forward<Args>(args)...};
+		}
+		catch (...)
+		{
+			Free(p, sizeof T);
+			throw;
+		}
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
 		detail::CheckMemSafe();
-		return new (Alloc(n * sizeof T)) T[n]{std::forward<Args>(args)...};
+		const auto p = Alloc(n * sizeof T);
+		if (!p) throw std::bad_alloc{};
+
+		try
+		{
+			return new (p) T[n]{std::forward<Args>(args)...};
+		}
+		catch (...)
+		{
+			Free(p, n * sizeof T);
+			throw;
+		}
 	}
 
 	template <class T>
