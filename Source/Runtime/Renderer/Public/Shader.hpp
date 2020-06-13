@@ -14,6 +14,12 @@ namespace oeng
 
 		constexpr Shader() noexcept = default;
 		explicit Shader(Path path);
+		
+		void Load(Path path)
+		{
+			Shader{path}.swap(*this);
+		}
+		
 		~Shader();
 		
 		Shader(Shader&& r) noexcept
@@ -53,15 +59,16 @@ namespace oeng
 		}
 		
 		/**
-		 * \brief Set uniform variable of this shader with given location.
+		 * \brief Set uniform variable with given location.
 		 * \param location The location of the uniform variable. Does nothing if is invalid_uniform_. Otherwise, It must be valid location.
+		 * \param value New value of uniform
 		 * \throw OpenGlError If location is invalid and not invalid_uniform_
 		 */
-		void SetUniform(int location, const Mat4& matrix) const;
-		void SetUniform(int location, const Vec4& vector) const;
-		void SetUniform(int location, const Vec3& vector) const;
-		void SetUniform(int location, const Vec2& vector) const;
-		void SetUniform(int location, float value) const;
+		static void SetUniform(int location, const Mat4& value);
+		static void SetUniform(int location, const Vec4& value);
+		static void SetUniform(int location, const Vec3& value);
+		static void SetUniform(int location, const Vec2& value);
+		static void SetUniform(int location, float value);
 		
 		/**
 		 * \brief Get location of the uniform variable

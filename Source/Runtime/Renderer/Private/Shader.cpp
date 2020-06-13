@@ -90,27 +90,27 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	void Shader::SetUniform(int location, const Mat4& matrix) const
+	void Shader::SetUniform(int location, const Mat4& value)
 	{
-		gl(glUniformMatrix4fv, location, 1, true, matrix.AsFlatArr());
+		gl(glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
 	}
 
-	void Shader::SetUniform(int location, const Vec4& vector) const
+	void Shader::SetUniform(int location, const Vec4& value)
 	{
-		gl(glUniform4fv, location, 1, vector.data);
+		gl(glUniform4fv, location, 1, value.data);
 	}
 
-	void Shader::SetUniform(int location, const Vec3& vector) const
+	void Shader::SetUniform(int location, const Vec3& value)
 	{
-		gl(glUniform3fv, location, 1, vector.data);
+		gl(glUniform3fv, location, 1, value.data);
 	}
 
-	void Shader::SetUniform(int location, const Vec2& vector) const
+	void Shader::SetUniform(int location, const Vec2& value)
 	{
-		gl(glUniform2fv, location, 1, vector.data);
+		gl(glUniform2fv, location, 1, value.data);
 	}
 
-	void Shader::SetUniform(int location, float value) const
+	void Shader::SetUniform(int location, float value)
 	{
 		gl(glUniform1f, location, value);
 	}
