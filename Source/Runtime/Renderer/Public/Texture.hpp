@@ -8,7 +8,7 @@ namespace oeng
 	{
 	public:
 		/**
-		 * \brief Default black texture of 1x1 size. It can be used for rendering, just like normal loaded textures.
+		 * \brief Default black texture of 1x1 size.
 		 */
 		constexpr Texture() noexcept = default;
 
@@ -19,30 +19,47 @@ namespace oeng
 		 */
 		explicit Texture(Path path);
 		
-		Texture(Texture&& r) noexcept;
-		Texture(const Texture&) = delete;
-		~Texture();
-
-		Texture& operator=(Texture&& r) noexcept;
-		Texture& operator=(const Texture&) = delete;
-
 		/**
 		 * \brief Load texture from image file (png, jpg, ...)
 		 * \param path Image file path
 		 * \throw std::runtime_error If failed to load texture
 		 */
-		void Load(Path path);
+		void Load(Path path)
+		{
+			Texture{path}.swap(*this);
+		}
 		
+		~Texture();
+
+		Texture(Texture&& r) noexcept
+			:id_{r.id_}, size_{r.size_}
+		{
+			r.id_ = 0;
+			r.size_ = {1, 1};
+		}
+
+		Texture& operator=(Texture&& r) noexcept
+		{
+			Texture{std::move(r)}.swap(*this);
+			return *this;
+		}
+
+		Texture(const Texture&) = delete;
+		Texture& operator=(const Texture&) = delete;
+
 		void Activate() const;
 		
 		[[nodiscard]] bool Loaded() const noexcept { return id_ != 0; }
 		[[nodiscard]] Vec2u16 Size() const noexcept { return size_; }
 
-		void swap(Texture& r) noexcept;
+		void swap(Texture& r) noexcept
+		{
+			using std::swap;
+			swap(id_, r.id_);
+			swap(size_, r.size_);
+		}
 
 	private:
-		void LoadInternal(Path path);
-
 		unsigned id_ = 0;
 		Vec2u16 size_{1, 1};
 	};

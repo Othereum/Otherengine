@@ -6,31 +6,6 @@ namespace oeng
 {
 	Texture::Texture(Path path)
 	{
-		LoadInternal(path);
-	}
-
-	Texture::Texture(Texture&& r) noexcept
-		:id_{r.id_}, size_{r.size_}
-	{
-		r.id_ = 0;
-		r.size_ = {1, 1};
-	}
-
-	Texture::~Texture()
-	{
-		unsigned err;
-		// glDelete silently ignores 0
-		gl(err, glDeleteTextures, 1, &id_);
-	}
-
-	Texture& Texture::operator=(Texture&& r) noexcept
-	{
-		Texture{std::move(r)}.swap(*this);
-		return *this;
-	}
-
-	void Texture::LoadInternal(Path path)
-	{
 		Vector<int, 2> size;
 		auto num_channels = 0;
 		
@@ -63,20 +38,15 @@ namespace oeng
 		gl(glTexParameteri, GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
-	void Texture::Load(Path path)
+	Texture::~Texture()
 	{
-		Texture{path}.swap(*this);
+		unsigned err;
+		// glDelete silently ignores 0
+		gl(err, glDeleteTextures, 1, &id_);
 	}
 
 	void Texture::Activate() const
 	{
 		gl(glBindTexture, GL_TEXTURE_2D, id_);
-	}
-
-	void Texture::swap(Texture& r) noexcept
-	{
-		using std::swap;
-		swap(id_, r.id_);
-		swap(size_, r.size_);
 	}
 }
