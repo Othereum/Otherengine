@@ -76,21 +76,6 @@ namespace oeng
 		Activate();
 	}
 
-	Shader::Shader(Shader&& r) noexcept
-		:vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_},
-		uniform_{std::move(r.uniform_)}
-	{
-		r.vert_shader_ = 0;
-		r.frag_shader_ = 0;
-		r.shader_program_ = 0;
-	}
-
-	Shader& Shader::operator=(Shader&& r) noexcept
-	{
-		Shader{std::move(r)}.swap(*this);
-		return *this;
-	}
-
 	Shader::~Shader()
 	{
 		unsigned err;
@@ -139,14 +124,5 @@ namespace oeng
 		const auto loc = gl(err, glGetUniformLocation, shader_program_, name->c_str());
 		if (loc != invalid_uniform_) uniform_.try_emplace(name, loc);
 		return loc;
-	}
-
-	void Shader::swap(Shader& r) noexcept
-	{
-		using std::swap;
-		swap(vert_shader_, r.vert_shader_);
-		swap(frag_shader_, r.frag_shader_);
-		swap(shader_program_, r.shader_program_);
-		swap(uniform_, r.uniform_);
 	}
 }

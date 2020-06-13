@@ -14,11 +14,24 @@ namespace oeng
 
 		constexpr Shader() noexcept = default;
 		explicit Shader(Path path);
-		Shader(Shader&& r) noexcept;
-		Shader(const Shader&) = delete;
 		~Shader();
+		
+		Shader(Shader&& r) noexcept
+			:vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_},
+			uniform_{std::move(r.uniform_)}
+		{
+			r.vert_shader_ = 0;
+			r.frag_shader_ = 0;
+			r.shader_program_ = 0;
+		}
+		
+		Shader& operator=(Shader&& r) noexcept
+		{
+			Shader{std::move(r)}.swap(*this);
+			return *this;
+		}
 
-		Shader& operator=(Shader&& r) noexcept;
+		Shader(const Shader&) = delete;
 		Shader& operator=(const Shader&) = delete;
 
 		std::strong_ordering operator<=>(const Shader& r) const noexcept
@@ -57,7 +70,14 @@ namespace oeng
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
 
-		void swap(Shader& r) noexcept;
+		void swap(Shader& r) noexcept
+		{
+			using std::swap;
+			swap(vert_shader_, r.vert_shader_);
+			swap(frag_shader_, r.frag_shader_);
+			swap(shader_program_, r.shader_program_);
+			swap(uniform_, r.uniform_);
+		}
 
 	private:
 		friend std::hash<Shader>;
