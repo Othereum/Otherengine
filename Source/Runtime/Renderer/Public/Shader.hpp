@@ -66,7 +66,7 @@ namespace oeng
 		/**
 		 * \brief Get location of the uniform variable
 		 * \param name The name of the uniform
-		 * \return Location of the uniform or -1 if name is invalid
+		 * \return Location of the uniform or invalid_uniform_ if name is invalid
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
 
