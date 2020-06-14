@@ -1,13 +1,10 @@
 #pragma once
-#include <chrono>
 #include "TimerManager.hpp"
+#include "Templates/Time.hpp"
 #include "Templates/DyArr.hpp"
-#include "Templates/Memory.hpp"
 
 namespace oeng
 {
-	using Clock = std::chrono::steady_clock;
-	
 	class Engine;
 	class AActor;
 	class InputComponent;
