@@ -1,7 +1,7 @@
 #pragma once
 #include <variant>
+#include "Asset.hpp"
 #include "Name.hpp"
-#include "Path.hpp"
 #include "Math.hpp"
 #include "Templates/HashMap.hpp"
 
@@ -11,7 +11,7 @@ namespace oeng
 	class Shader;
 	class Texture;
 	
-	class OEAPI Material
+	class OEAPI Material : public Asset
 	{
 	public:
 		Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept
@@ -31,15 +31,15 @@ namespace oeng
 			Material{path, renderer}.swap(*this);
 		}
 		
-		void SetUniforms();
+		void TryUniforms();
 		
 		[[nodiscard]] Shader& GetShader() const noexcept { return *shader_; }
 		[[nodiscard]] Texture& GetTexture() const noexcept { return *texture_; }
 
 		void swap(Material& r) noexcept
 		{
+			Asset::swap(r);
 			using std::swap;
-			swap(path_, r.path_);
 			swap(shader_, r.shader_);
 			swap(texture_, r.texture_);
 			swap(uniforms_, r.uniforms_);
@@ -47,12 +47,11 @@ namespace oeng
 
 	private:
 		void LoadUniforms(const Json& uniforms);
-		void LoadUniform(const std::string& name, const Json& value);
+		void LoadUniform(int location, const Json& value);
 
-		Path path_;
 		SharedPtr<Shader> shader_;
 		SharedPtr<Texture> texture_;
-		HashMap<Name, std::variant<Float, Vec2, Vec3, Vec4>> uniforms_;
+		HashMap<int, std::variant<Float, Vec2, Vec3, Vec4>> uniforms_;
 	};
 
 	inline void swap(Material& a, Material& b) noexcept
