@@ -31,19 +31,48 @@ namespace oeng
 	{
 	public:
 		constexpr VertexArray() noexcept = default;
+		
 		VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices);
-		VertexArray(VertexArray&& r) noexcept;
-		VertexArray(const VertexArray&) = delete;
+		void Load(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
+		{
+			VertexArray{verts, indices}.swap(*this);
+		}
+		
+		VertexArray(VertexArray&& r) noexcept
+			:num_verts_{r.num_verts_}, num_indices_{r.num_indices_},
+			vertex_buffer_{r.vertex_buffer_}, index_buffer_{r.index_buffer_}, vertex_array_{r.vertex_array_}
+		{
+			r.num_verts_ = 0;
+			r.num_indices_ = 0;
+			r.vertex_buffer_ = 0;
+			r.index_buffer_ = 0;
+			r.vertex_array_ = 0;
+		}
+
+		VertexArray& operator=(VertexArray&& r) noexcept
+		{
+			VertexArray{std::move(r)}.swap(*this);
+			return *this;
+		}
+		
 		~VertexArray();
 		
-		VertexArray& operator=(VertexArray&& r) noexcept;
+		VertexArray(const VertexArray&) = delete;
 		VertexArray& operator=(const VertexArray&) = delete;
 
 		void Activate() const;
 		[[nodiscard]] size_t GetNumVerts() const noexcept { return num_verts_; }
 		[[nodiscard]] size_t GetNumIndices() const noexcept { return num_indices_; }
 
-		void swap(VertexArray& r) noexcept;
+		void swap(VertexArray& r) noexcept
+		{
+			using std::swap;
+			swap(num_verts_, r.num_verts_);
+			swap(num_indices_, r.num_indices_);
+			swap(vertex_buffer_, r.vertex_buffer_);
+			swap(index_buffer_, r.index_buffer_);
+			swap(vertex_array_, r.vertex_array_);
+		}
 
 	private:
 		size_t num_verts_ = 0;

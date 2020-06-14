@@ -39,17 +39,6 @@ namespace oeng
 		gl(glVertexAttribPointer, 2, 2, type, false, sizeof Vertex, &v->uv);
 	}
 
-	VertexArray::VertexArray(VertexArray&& r) noexcept
-		:num_verts_{r.num_verts_}, num_indices_{r.num_indices_},
-		vertex_buffer_{r.vertex_buffer_}, index_buffer_{r.index_buffer_}, vertex_array_{r.vertex_array_}
-	{
-		r.num_verts_ = 0;
-		r.num_indices_ = 0;
-		r.vertex_buffer_ = 0;
-		r.index_buffer_ = 0;
-		r.vertex_array_ = 0;
-	}
-
 	VertexArray::~VertexArray()
 	{
 		unsigned err;
@@ -59,24 +48,8 @@ namespace oeng
 		gl(err, glDeleteVertexArrays, 1, &vertex_array_);
 	}
 
-	VertexArray& VertexArray::operator=(VertexArray&& r) noexcept
-	{
-		VertexArray{std::move(r)}.swap(*this);
-		return *this;
-	}
-
 	void VertexArray::Activate() const
 	{
 		gl(glBindVertexArray, vertex_array_);
-	}
-
-	void VertexArray::swap(VertexArray& r) noexcept
-	{
-		using std::swap;
-		swap(num_verts_, r.num_verts_);
-		swap(num_indices_, r.num_indices_);
-		swap(vertex_buffer_, r.vertex_buffer_);
-		swap(index_buffer_, r.index_buffer_);
-		swap(vertex_array_, r.vertex_array_);
 	}
 }
