@@ -13,7 +13,10 @@ namespace oeng
 	class OEAPI Material
 	{
 	public:
-		Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept;
+		Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept
+			:shader_{std::move(shader)}, texture_{std::move(texture)}
+		{
+		}
 		
 		/**
 		 * \brief Load material from file
@@ -22,7 +25,10 @@ namespace oeng
 		 * \throw std::runtime_error If failed to open or parse
 		 */
 		Material(Path path, Renderer& renderer);
-		void Load(Path path, Renderer& renderer);
+		void Load(Path path, Renderer& renderer)
+		{
+			Material{path, renderer}.swap(*this);
+		}
 		
 		void SetUniforms();
 		

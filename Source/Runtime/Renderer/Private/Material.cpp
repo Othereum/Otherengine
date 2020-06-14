@@ -6,11 +6,6 @@
 
 namespace oeng
 {
-	Material::Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept
-		:shader_{std::move(shader)}, texture_{std::move(texture)}
-	{
-	}
-
 	Material::Material(Path path, Renderer& renderer)
 		:path_{path}
 	{
@@ -30,11 +25,6 @@ namespace oeng
 				log::Error("'{}': failed to load uniforms: {}", e.what());
 			}
 		}
-	}
-
-	void Material::Load(Path path, Renderer& renderer)
-	{
-		Material{path, renderer}.swap(*this);
 	}
 
 	void Material::SetUniforms()
