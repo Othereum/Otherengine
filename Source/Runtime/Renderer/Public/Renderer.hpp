@@ -90,8 +90,11 @@ namespace oeng
 		template <class T>
 		struct Cache
 		{
+			template <class... Args>
+			Cache(Args&&... args) :default_obj{MakeShared<T>(std::forward<Args>(args)...)} {}
+			
 			HashMap<Path, WeakPtr<T>> map;
-			const SharedPtr<T> default_obj = MakeShared<T>();
+			const SharedPtr<T> default_obj;
 		};
 		
 		Cache<Texture> textures_;
