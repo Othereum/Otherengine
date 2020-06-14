@@ -65,7 +65,8 @@ namespace oeng
 	}
 
 	Shader::Shader(Path path)
-		:vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
+		:path_{path},
+		vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
 		frag_shader_{Compile(Ext(path, ".frag"), GL_FRAGMENT_SHADER)},
 		shader_program_{gl(glCreateProgram)}
 	{
@@ -90,29 +91,39 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	void Shader::SetUniform(int location, const Mat4& value)
+	bool Shader::TryUniform(int location, const Mat4& value) noexcept
 	{
-		gl(glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
+		unsigned err;
+		gl(err, glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
+		return err;
 	}
 
-	void Shader::SetUniform(int location, const Vec4& value)
+	bool Shader::TryUniform(int location, const Vec4& value) noexcept
 	{
-		gl(glUniform4fv, location, 1, value.data);
+		unsigned err;
+		gl(err, glUniform4fv, location, 1, value.data);
+		return err;
 	}
 
-	void Shader::SetUniform(int location, const Vec3& value)
+	bool Shader::TryUniform(int location, const Vec3& value) noexcept
 	{
-		gl(glUniform3fv, location, 1, value.data);
+		unsigned err;
+		gl(err, glUniform3fv, location, 1, value.data);
+		return err;
 	}
 
-	void Shader::SetUniform(int location, const Vec2& value)
+	bool Shader::TryUniform(int location, const Vec2& value) noexcept
 	{
-		gl(glUniform2fv, location, 1, value.data);
+		unsigned err;
+		gl(err, glUniform2fv, location, 1, value.data);
+		return err;
 	}
 
-	void Shader::SetUniform(int location, float value)
+	bool Shader::TryUniform(int location, float value) noexcept
 	{
-		gl(glUniform1f, location, value);
+		unsigned err;
+		gl(err, glUniform1f, location, value);
+		return err;
 	}
 
 	int Shader::GetUniformLocation(Name name) noexcept

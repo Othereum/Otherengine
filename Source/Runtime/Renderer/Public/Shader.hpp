@@ -5,8 +5,6 @@
 
 namespace oeng
 {
-	class OpenGlError;
-	
 	class OEAPI Shader
 	{
 	public:
@@ -23,9 +21,10 @@ namespace oeng
 		~Shader();
 		
 		Shader(Shader&& r) noexcept
-			:vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_}, shader_program_{r.shader_program_},
-			uniform_{std::move(r.uniform_)}
+			:path_{r.path_}, vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_},
+			shader_program_{r.shader_program_}, uniform_{std::move(r.uniform_)}
 		{
+			r.path_ = {};
 			r.vert_shader_ = 0;
 			r.frag_shader_ = 0;
 			r.shader_program_ = 0;
@@ -49,26 +48,52 @@ namespace oeng
 		
 		/**
 		 * \brief Set uniform variable of this shader with given name.
-		 * \param name The name of the uniform variable. If is invalid, does nothing.
+		 * \param name The name of the uniform variable. Must be valid.
 		 * \param value The new value to be set.
+		 * \throw std::out_of_range If name is invalid
 		 */
 		template <class T>
 		void SetUniform(Name name, const T& value)
 		{
 			SetUniform(GetUniformLocation(name), value);
 		}
+
+		/**
+		 * \brief Set uniform variable of this shader with given name.
+		 * \param location The location of the uniform variable. Must be valid.
+		 * \param value The new value to be set.
+		 * \throw std::out_of_range If name is invalid
+		 */
+		template <class T>
+		void SetUniform(int location, const T& value)
+		{
+			if (!TryUniform(location, value))
+				throw std::out_of_range{"location is invalid"};
+		}
 		
 		/**
-		 * \brief Set uniform variable with given location.
-		 * \param location The location of the uniform variable. Does nothing if is invalid_uniform_. Otherwise, It must be valid location.
-		 * \param value New value of uniform
-		 * \throw OpenGlError If location is invalid and not invalid_uniform_
+		 * \brief Try to set uniform variable of this shader with given name.
+		 * \param name The name of the uniform variable. Must be valid.
+		 * \param value The new value to be set.
+		 * \return true if successful
 		 */
-		static void SetUniform(int location, const Mat4& value);
-		static void SetUniform(int location, const Vec4& value);
-		static void SetUniform(int location, const Vec3& value);
-		static void SetUniform(int location, const Vec2& value);
-		static void SetUniform(int location, float value);
+		template <class T>
+		bool TryUniform(Name name, const T& value) noexcept
+		{
+			return TryUniform(GetUniformLocation(name), value);
+		}
+
+		/**
+		 * \brief Set uniform variable with given location.
+		 * \param location The location of the uniform variable. Must be valid.
+		 * \param value New value of uniform
+		 * \return true if successful
+		 */
+		static bool TryUniform(int location, const Mat4& value) noexcept;
+		static bool TryUniform(int location, const Vec4& value) noexcept;
+		static bool TryUniform(int location, const Vec3& value) noexcept;
+		static bool TryUniform(int location, const Vec2& value) noexcept;
+		static bool TryUniform(int location, float value) noexcept;
 		
 		/**
 		 * \brief Get location of the uniform variable
@@ -76,10 +101,12 @@ namespace oeng
 		 * \return Location of the uniform or invalid_uniform_ if name is invalid
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
+		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 
 		void swap(Shader& r) noexcept
 		{
 			using std::swap;
+			swap(path_, r.path_);
 			swap(vert_shader_, r.vert_shader_);
 			swap(frag_shader_, r.frag_shader_);
 			swap(shader_program_, r.shader_program_);
@@ -89,6 +116,7 @@ namespace oeng
 	private:
 		friend std::hash<Shader>;
 
+		Path path_;
 		unsigned vert_shader_ = 0;
 		unsigned frag_shader_ = 0;
 		unsigned shader_program_ = 0;
