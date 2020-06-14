@@ -16,20 +16,6 @@ namespace oeng
 		{
 		}
 		
-		Mesh(Mesh&& r) noexcept
-			:material_{std::move(r.material_)},
-			vertex_array_{std::move(r.vertex_array_)},
-			radius_{r.radius_}
-		{
-			r.radius_ = 0;
-		}
-		
-		Mesh& operator=(Mesh&& r) noexcept
-		{
-			Mesh{std::move(r)}.swap(*this);
-			return *this;
-		}
-
 		/**
 		 * \brief Load mesh from file
 		 * \param path File path
@@ -42,18 +28,19 @@ namespace oeng
 			Mesh{path, renderer}.swap(*this);
 		}
 		
-		~Mesh() = default;
-		
-		Mesh(const Mesh&) = delete;
-		Mesh& operator=(const Mesh&) = delete;
-
 		[[nodiscard]] Material& GetMaterial() const noexcept { return *material_; }
 		[[nodiscard]] SharedPtr<Material> GetMaterialPtr() const noexcept { return material_; }
 		[[nodiscard]] const VertexArray& GetVertexArray() const noexcept { return vertex_array_; }
 		[[nodiscard]] VertexArray& GetVertexArray() noexcept { return vertex_array_; }
 		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
 
-		void swap(Mesh& r) noexcept;
+		void swap(Mesh& r) noexcept
+		{
+			using std::swap;
+			swap(material_, r.material_);
+			swap(vertex_array_, r.vertex_array_);
+			swap(radius_, r.radius_);
+		}
 
 	private:		
 		SharedPtr<Material> material_;

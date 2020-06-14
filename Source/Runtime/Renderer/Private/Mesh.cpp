@@ -19,12 +19,4 @@ namespace oeng
 		for (const auto& v : verts) max = Max(max, v.pos.DistSqr({}));
 		radius_ = std::sqrt(max);
 	}
-
-	void Mesh::swap(Mesh& r) noexcept
-	{
-		using std::swap;
-		swap(material_, r.material_);
-		swap(vertex_array_, r.vertex_array_);
-		swap(radius_, r.radius_);
-	}
 }
