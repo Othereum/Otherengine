@@ -62,26 +62,8 @@ namespace oeng
 		 * \return The pointer to the loaded texture or default texture if failed to load
 		 */
 		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
-		
-		/**
-		 * \brief Returns the mesh corresponding to a given path. It will be loaded from file if it isn't in the cache.
-		 * \param path Mesh file path
-		 * \return The pointer to the loaded mesh or default mesh if failed to load
-		 */
 		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
-
-		/**
-		 * \brief Returns the shader corresponding to a given path. It will be loaded from file if it isn't in the cache.
-		 * \param path Shader file path without extenstion
-		 * \return The pointer to the loaded shader or default shader if failed to load
-		 */
 		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
-		
-		/**
-		 * \brief Returns the material corresponding to a given path. It will be loaded from file if it isn't in the cache.
-		 * \param path Material file path
-		 * \return The pointer to the loaded material or default material if failed to load
-		 */
 		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
 		
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
