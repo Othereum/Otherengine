@@ -22,4 +22,5 @@ target_compile_definitions(${PROJECT_NAME}-Core INTERFACE OE_BUILD=0 PUBLIC OE_B
 add_switch(Core OE_NAME_THREADSAFE 0 "Should 'Name' class be thread-safe?")
 add_switch(Core OE_PATH_THREADSAFE 0 "Should 'Path' class be thread-safe?")
 add_switch(Core OE_SHARED_PTR_THREADSAFE 0 "Should 'SharedPtr' class be thread-safe?")
+add_switch(Core OE_LOG_THREADSAFE 0 "Should logging be thread-safe?")
 add_switch(Core OE_BUILD_CONFIG 0 "0 for debug, 1 for development, 2 for shipping")
