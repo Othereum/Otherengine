@@ -65,7 +65,7 @@ namespace oeng
 	}
 
 	Shader::Shader(Path path)
-		:path_{path},
+		:Asset{path},
 		vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
 		frag_shader_{Compile(Ext(path, ".frag"), GL_FRAGMENT_SHADER)},
 		shader_program_{gl(glCreateProgram)}
@@ -95,35 +95,35 @@ namespace oeng
 	{
 		unsigned err;
 		gl(err, glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
-		return err;
+		return !err;
 	}
 
 	bool Shader::TryUniform(int location, const Vec4& value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniform4fv, location, 1, value.data);
-		return err;
+		return !err;
 	}
 
 	bool Shader::TryUniform(int location, const Vec3& value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniform3fv, location, 1, value.data);
-		return err;
+		return !err;
 	}
 
 	bool Shader::TryUniform(int location, const Vec2& value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniform2fv, location, 1, value.data);
-		return err;
+		return !err;
 	}
 
 	bool Shader::TryUniform(int location, float value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniform1f, location, value);
-		return err;
+		return !err;
 	}
 
 	int Shader::GetUniformLocation(Name name) noexcept

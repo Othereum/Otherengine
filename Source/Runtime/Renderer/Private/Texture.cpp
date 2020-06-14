@@ -5,6 +5,7 @@
 namespace oeng
 {
 	Texture::Texture(Path path)
+		:Asset{path}
 	{
 		Vector<int, 2> size;
 		auto num_channels = 0;

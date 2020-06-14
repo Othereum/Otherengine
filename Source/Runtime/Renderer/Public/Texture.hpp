@@ -1,10 +1,10 @@
 #pragma once
 #include "Math.hpp"
-#include "Path.hpp"
+#include "Asset.hpp"
 
 namespace oeng
 {
-	class OEAPI Texture
+	class OEAPI Texture : public Asset
 	{
 	public:
 		/**
@@ -32,7 +32,7 @@ namespace oeng
 		~Texture();
 
 		Texture(Texture&& r) noexcept
-			:id_{r.id_}, size_{r.size_}
+			:Asset{std::move(r)}, id_{r.id_}, size_{r.size_}
 		{
 			r.id_ = 0;
 			r.size_ = {1, 1};
@@ -54,6 +54,7 @@ namespace oeng
 
 		void swap(Texture& r) noexcept
 		{
+			Asset::swap(r);
 			using std::swap;
 			swap(id_, r.id_);
 			swap(size_, r.size_);

@@ -1,11 +1,10 @@
 #pragma once
-#include "Path.hpp"
-#include "Name.hpp"
+#include "Asset.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
 {
-	class OEAPI Shader
+	class OEAPI Shader : public Asset
 	{
 	public:
 		static constexpr int invalid_uniform_ = -1;
@@ -21,10 +20,9 @@ namespace oeng
 		~Shader();
 		
 		Shader(Shader&& r) noexcept
-			:path_{r.path_}, vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_},
+			:Asset{std::move(r)}, vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_},
 			shader_program_{r.shader_program_}, uniform_{std::move(r.uniform_)}
 		{
-			r.path_ = {};
 			r.vert_shader_ = 0;
 			r.frag_shader_ = 0;
 			r.shader_program_ = 0;
@@ -101,12 +99,11 @@ namespace oeng
 		 * \return Location of the uniform or invalid_uniform_ if name is invalid
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
-		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 
 		void swap(Shader& r) noexcept
 		{
+			Asset::swap(r);
 			using std::swap;
-			swap(path_, r.path_);
 			swap(vert_shader_, r.vert_shader_);
 			swap(frag_shader_, r.frag_shader_);
 			swap(shader_program_, r.shader_program_);
@@ -116,7 +113,6 @@ namespace oeng
 	private:
 		friend std::hash<Shader>;
 
-		Path path_;
 		unsigned vert_shader_ = 0;
 		unsigned frag_shader_ = 0;
 		unsigned shader_program_ = 0;

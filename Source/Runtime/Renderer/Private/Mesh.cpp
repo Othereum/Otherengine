@@ -6,6 +6,7 @@
 namespace oeng
 {
 	Mesh::Mesh(Path path, Renderer& renderer)
+		:Asset{path}
 	{
 		const auto json = ReadFileAsJson(path);
 		
