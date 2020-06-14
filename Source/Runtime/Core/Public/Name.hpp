@@ -5,9 +5,7 @@
 #include "Templates/String.hpp"
 
 namespace oeng
-{
-	using NameStr = BasicString<char, std::char_traits<char>, RawAllocator<char>>;
-	
+{	
 	/**
 	 * \brief Lightweight string.
 	 * Very fast O(1) copy and comparison.
@@ -18,19 +16,23 @@ namespace oeng
 	 */
 	struct OEAPI Name
 	{
+		using Str = BasicString<char, std::char_traits<char>, RawAllocator<char>>;
+		
 		Name() noexcept;
-		Name(const char* s);
-		Name(NameStr s);
+		Name(const char* s) :Name{Str{s}} {}
+		Name(Str&& s);
+		Name(const Str& s);
 
-		operator const NameStr&() const noexcept { return *sp; }
-		const NameStr& operator*() const noexcept { return *sp; }
-		const NameStr* operator->() const noexcept { return sp; }
+		operator const Str&() const noexcept { return *sp; }
+		const Str& operator*() const noexcept { return *sp; }
+		const Str* operator->() const noexcept { return sp; }
 
 		std::strong_ordering operator<=>(const Name&) const noexcept = default;
 
 	private:
 		friend std::hash<Name>;
-		const NameStr* sp;
+		explicit Name(const Str* s) noexcept :sp{s} {}
+		const Str* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);
@@ -46,4 +48,4 @@ struct std::hash<oeng::Name>
 	}
 };
 
-#define NAME(s) []{static ::oeng::Name n=s;return n;}()
+#define NAME(s) []{static ::oeng::Name n{s};return n;}()

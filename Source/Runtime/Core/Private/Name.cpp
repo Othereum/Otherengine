@@ -4,7 +4,7 @@
 #include "Json.hpp"
 #include "Core.hpp"
 #include "Templates/HashSet.hpp"
-#include "Templates/Monitor.hpp"
+#include "Templates/Sync.hpp"
 
 namespace oeng
 {
@@ -31,23 +31,24 @@ namespace oeng
 	static auto& GetSet()
 	{
 		CHECK(OE_NAME_THREADSAFE || IsGameThread());
-		using NameSet = HashSet<NameStr, NameHasher, NameEqual, RawAllocator<NameStr>>;
-		static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> set{NameStr{}};
+		using NameSet = HashSet<Name::Str, NameHasher, NameEqual, RawAllocator<Name::Str>>;
+		static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> set{Name::Str{}};
 		return set;
 	}
 	
 	Name::Name() noexcept
-		:sp{&*GetSet()->find({})}
 	{
+		static const Name default_name{&*GetSet()->find({})};
+		sp = default_name.sp;
 	}
 
-	Name::Name(const char* s)
-		:Name{NameStr{s}}
-	{
-	}
-
-	Name::Name(NameStr s)
+	Name::Name(Str&& s)
 		:sp{&*GetSet()->insert(std::move(s)).first}
+	{
+	}
+
+	Name::Name(const Str& s)
+		:sp{&*GetSet()->insert(s).first}
 	{
 	}
 
@@ -58,6 +59,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = json.get<NameStr>();
+		name = Name{json.get<Name::Str>()};
 	}
 }
