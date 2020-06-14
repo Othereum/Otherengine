@@ -12,7 +12,7 @@ namespace oeng
 	public:
 		static constexpr int invalid_uniform_ = -1;
 
-		constexpr Shader() noexcept = default;
+		Shader() = default;
 		explicit Shader(Path path);
 		
 		void Load(Path path)
