@@ -106,7 +106,8 @@ namespace oeng
 		window_{MakeWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
 		sprite_shader_{"../Engine/Shaders/Sprite"},
-		sprite_verts_{CreateSpriteVerts()}
+		sprite_verts_{CreateSpriteVerts()},
+		materials_{shaders_.default_obj, textures_.default_obj}
 	{
 		UnregisterCamera();
 		UnregisterDirLight();
