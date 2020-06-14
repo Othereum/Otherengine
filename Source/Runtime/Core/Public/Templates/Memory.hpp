@@ -4,6 +4,7 @@
 #include <omem.hpp>
 #include "Assert.hpp"
 #include "Core.hpp"
+#include "Templates/Sync.hpp"
 
 namespace oeng
 {
@@ -178,60 +179,26 @@ namespace oeng
 		{
 			bool IncStrongNz() noexcept
 			{
-				if constexpr (ThreadSafe)
-				{
-					auto count = strong.load();
-					while (count != 0)
-						if (strong.compare_exchange_strong(count, count+1, std::memory_order_relaxed))
-							return true;
-					return false;
-				}
-				else
-				{
-					if (strong == 0) return false;
-					IncStrong();
-					return true;
-				}
+				auto count = strong.load();
+				while (count != 0)
+					if (strong.compare_exchange_strong(count, count+1, std::memory_order_relaxed))
+						return true;
+				return false;
 			}
 
 			void IncStrong() noexcept
 			{
-				if constexpr (ThreadSafe)
-				{
-					strong.fetch_add(1, std::memory_order_relaxed);
-				}
-				else
-				{
-					++strong;
-				}
+				strong.fetch_add(1, std::memory_order_relaxed);
 			}
 
 			void IncWeak() noexcept
 			{
-				if constexpr (ThreadSafe)
-				{
-					weak.fetch_add(1, std::memory_order_relaxed);
-				}
-				else
-				{
-					++weak;
-				}
+				weak.fetch_add(1, std::memory_order_relaxed);
 			}
 
 			void DecStrong() noexcept
 			{
-				unsigned long old_strong;
-
-				if constexpr (ThreadSafe)
-				{
-					old_strong = strong.fetch_sub(1, std::memory_order_acq_rel);
-				}
-				else
-				{
-					old_strong = strong--;
-				}
-
-				if (old_strong == 1)
+				if (1 == strong.fetch_sub(1, std::memory_order_acq_rel))
 				{
 					Destroy();
 					DecWeak();
@@ -240,49 +207,27 @@ namespace oeng
 
 			void DecWeak() noexcept
 			{
-				unsigned long old_weak;
-
-				if constexpr (ThreadSafe)
+				if (1 == weak.fetch_sub(1, std::memory_order_acq_rel))
 				{
-					old_weak = weak.fetch_sub(1, std::memory_order_acq_rel);
+					DeleteThis();
 				}
-				else
-				{
-					old_weak = weak--;
-				}
-
-				if (old_weak == 1) DeleteThis();
 			}
 
 			[[nodiscard]] unsigned long Strong() const noexcept
 			{
-				if constexpr (ThreadSafe)
-				{
-					return strong.load(std::memory_order_relaxed);
-				}
-				else
-				{
-					return strong;
-				}
+				return strong.load(std::memory_order_relaxed);
 			}
 
 			[[nodiscard]] unsigned long Weak() const noexcept
 			{
-				if constexpr (ThreadSafe)
-				{
-					return weak.load(std::memory_order_relaxed);
-				}
-				else
-				{
-					return weak;
-				}
+				return weak.load(std::memory_order_relaxed);
 			}
 
 		private:
 			virtual void Destroy() noexcept = 0;
 			virtual void DeleteThis() noexcept = 0;
 
-			using RefCnt = std::conditional_t<ThreadSafe, std::atomic_ulong, unsigned long>;
+			using RefCnt = CondAtomic<unsigned, ThreadSafe>;
 			RefCnt strong = 1;
 			RefCnt weak = 1;
 		};
