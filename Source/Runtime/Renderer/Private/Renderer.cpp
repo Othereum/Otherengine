@@ -105,7 +105,7 @@ namespace oeng
 		:engine_{engine}, scr_sz_{scr},
 		window_{MakeWindow(engine.GetGameName().data(), scr)},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{"../Engine/Shaders/Sprite"},
+		sprite_shader_{Path{"../Engine/Shaders/Sprite"}},
 		sprite_verts_{CreateSpriteVerts()},
 		materials_{shaders_.default_obj, textures_.default_obj},
 		meshes_{materials_.default_obj}
@@ -123,8 +123,17 @@ namespace oeng
 		gl(glClearColor, 0, 0, 0, 1);
 		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		Draw3D();
-		Draw2D();
+		auto try_draw = [](auto name, auto draw)
+		{
+			try { draw(); }
+			catch (const std::exception& e)
+			{
+				OE_DLOG(1s, log::level::err, "Error occured while drawing '{}': {}", name, e.what());
+			}
+		};
+
+		try_draw("3D scene", [&]{ Draw3D(); });
+		try_draw("2D scene", [&]{ Draw2D(); });
 
 		SDL_GL_SwapWindow(window_.get());
 	}
@@ -141,40 +150,39 @@ namespace oeng
 		
 		const auto view_proj = camera_->GetViewProj();
 
-		for (auto mesh_comp_ref : mesh_comps_)
+		for (auto mesh_comp_ref : mesh_comps_) try
 		{
 			const auto& mesh_comp = mesh_comp_ref.get();
 			if (!mesh_comp.ShouldDraw()) continue;
 			
 			auto& material = mesh_comp.GetMaterial();
 			auto& shader = material.GetShader();
-			auto& texture = material.GetTexture();
-			auto& mesh = mesh_comp.GetMesh();
-			
 			if (&shader != prev_shader)
 			{
 				shader.Activate();
 				const auto& dir_light = dir_light_->GetData();
-				shader.SetUniform(NAME("uDirLight.dir"), dir_light.dir);
-				shader.SetUniform(NAME("uDirLight.color"), dir_light.color);
-				shader.SetUniform(NAME("uViewProj"), view_proj);
-				shader.SetUniform(NAME("uCamPos"), camera_->GetPos());
-				shader.SetUniform(NAME("uSkyLight"), sky_light_->GetColor());
+				shader.TryUniform(NAME("uDirLight.dir"), dir_light.dir);
+				shader.TryUniform(NAME("uDirLight.color"), dir_light.color);
+				shader.TryUniform(NAME("uViewProj"), view_proj);
+				shader.TryUniform(NAME("uCamPos"), camera_->GetPos());
+				shader.TryUniform(NAME("uSkyLight"), sky_light_->GetColor());
 				prev_shader = &shader;
 			}
 
 			if (&material != prev_material)
 			{
-				material.SetUniforms();
+				material.TryUniforms();
 				prev_material = &material;
 			}
 
+			auto& texture = material.GetTexture();
 			if (&texture != prev_texture)
 			{
 				texture.Activate();
 				prev_texture = &texture;
 			}
 
+			auto& mesh = mesh_comp.GetMesh();
 			auto& verts = mesh.GetVertexArray();
 			if (&mesh != prev_mesh)
 			{
@@ -182,8 +190,13 @@ namespace oeng
 				prev_mesh = &mesh;
 			}
 			
-			shader.SetUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsf());
+			shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsf());
 			gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
+		}
+		catch (const std::exception& e)
+		{
+			const auto stem = mesh_comp_ref.get().GetMesh().GetStem();
+			OE_DLOG(1s, log::level::err, "Failed to draw mesh '{}': {}", *stem, e.what());
 		}
 	}
 
@@ -194,13 +207,18 @@ namespace oeng
 		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
-		for (auto sprite_ref : sprites_)
+		for (auto sprite_ref : sprites_) try
 		{
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
 			sprite_shader_.SetUniform(NAME("uWorldTransform"), sprite.GetDrawTrsf());
 			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+		}
+		catch (const std::exception& e)
+		{
+			const auto stem = sprite_ref.get().GetTexture().GetStem();
+			OE_DLOG(1s, log::level::err, "Failed to draw sprite '{}': {}", *stem, e.what());
 		}
 	}
 
@@ -251,7 +269,7 @@ namespace oeng
 		}
 		catch (const std::exception& e)
 		{
-			log::Error("Failed to load {}: {}", path->string(), e.what());
+			log::Error("Failed to load '{}': {}", path->string(), e.what());
 			return cache.default_obj;
 		}
 
