@@ -20,20 +20,6 @@ namespace oeng
 		radius_ = std::sqrt(max);
 	}
 
-	Mesh::Mesh(Mesh&& r) noexcept
-		:material_{std::move(r.material_)},
-		vertex_array_{std::move(r.vertex_array_)},
-		radius_{r.radius_}
-	{
-		r.radius_ = 0;
-	}
-
-	Mesh& Mesh::operator=(Mesh&& r) noexcept
-	{
-		Mesh{std::move(r)}.swap(*this);
-		return *this;
-	}
-
 	void Mesh::swap(Mesh& r) noexcept
 	{
 		using std::swap;

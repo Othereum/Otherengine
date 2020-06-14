@@ -98,9 +98,9 @@ namespace oeng
 		};
 		
 		Cache<Texture> textures_;
-		Cache<Mesh> meshes_;
 		Cache<Shader> shaders_;
 		Cache<Material> materials_;
+		Cache<Mesh> meshes_;
 
 		ICamera* camera_ = nullptr;
 		DefaultCamera default_camera_;
