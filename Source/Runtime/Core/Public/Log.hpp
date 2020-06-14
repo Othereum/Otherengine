@@ -1,6 +1,7 @@
 #pragma once
 #include <spdlog/logger.h>
 #include "API.hpp"
+#include "Templates/Time.hpp"
 
 namespace oeng::log
 {
@@ -49,4 +50,44 @@ namespace oeng::log
 	{
 		GetLogger().critical(fmt, args...);
 	}
+
+	OEAPI void LogDelay(Duration delay, level::level_enum level, std::string_view msg);
+
+	namespace detail
+	{
+		class OEAPI LogDelay
+		{
+		public:
+			LogDelay() noexcept;
+			
+			void operator()(Duration delay, level::level_enum level, std::string_view msg) const;
+
+			template <class Rep, class Period, class... Args>
+			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::string_view msg) const
+			{
+				operator()(time::duration_cast<Duration>(delay), level, msg);
+			}
+
+			template <class Rep, class Period, class... Args>
+			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::string_view fmt, const Args&... args) const
+			{
+				operator()(time::duration_cast<Duration>(delay), level, fmt::format(fmt, args...));
+			}
+
+		private:
+			unsigned id_;
+		};
+	}
 }
+
+/**
+ * \brief Log with delay (no spam)
+ * \param delay time::duration
+ * \param level log::level
+ * \param format message format
+ */
+#define OE_DLOG(delay, level, format, ...) [&] \
+{ \
+	static const ::oeng::log::detail::LogDelay log_delay; \
+	log_delay(delay, level, format, ##__VA_ARGS__); \
+}()

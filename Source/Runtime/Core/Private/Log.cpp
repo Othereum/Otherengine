@@ -3,6 +3,7 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
+#include "Templates/HashMap.hpp"
 #include "Templates/Sync.hpp"
 
 namespace oeng::log
@@ -35,5 +36,32 @@ namespace oeng::log
 	{
 		static const auto logger_ptr = InitializeLogger();
 		return *logger_ptr;
+	}
+
+	namespace detail
+	{
+		static auto& GetLogs()
+		{
+			static Monitor<HashMap<unsigned, TimePoint>, CondMutex<kThreadSafe>> logs;
+			return logs;
+		}
+		
+		LogDelay::LogDelay() noexcept
+		{
+			static CondAtomic<unsigned, kThreadSafe> id = 0u;
+			id_ = id++;
+		}
+
+		void LogDelay::operator()(Duration delay, level::level_enum level, std::string_view msg) const
+		{
+			{
+				const auto logs = GetLogs().Lock();
+				auto& next = (*logs)[id_];
+				const auto now = Clock::now();
+				if (next > now) return;
+				next = now + delay;
+			}
+			Log(level, msg);
+		}
 	}
 }
