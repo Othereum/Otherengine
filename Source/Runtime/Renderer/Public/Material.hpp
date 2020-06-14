@@ -2,6 +2,7 @@
 #include <variant>
 #include "Name.hpp"
 #include "Path.hpp"
+#include "Math.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
