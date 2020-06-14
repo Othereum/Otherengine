@@ -25,13 +25,6 @@ namespace oeng
 		if (const auto err = glGetError()) throw OpenGlError{err};
 	}
 
-	inline unsigned GlLogError()
-	{
-		const auto err = glGetError();
-		if (err) log::Error("OpenGL error occured (code: {})", err);
-		return err;
-	}
-
 	template <class... Args, std::invocable<Args...> Fn>
 	decltype(auto) gl(Fn fn, Args&&... args)
 	{
@@ -56,12 +49,12 @@ namespace oeng
 		if constexpr (std::is_void_v<R>)
 		{
 			fn(std::forward<Args>(args)...);
-			err = GlLogError();
+			err = glGetError();
 		}
 		else
 		{
 			R ret = fn(std::forward<Args>(args)...);
-			err = GlLogError();
+			err = glGetError();
 			return static_cast<R>(ret);
 		}
 	}
