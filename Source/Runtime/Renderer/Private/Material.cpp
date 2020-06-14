@@ -1,11 +1,16 @@
 #include "Material.hpp"
+#include "Log.hpp"
 #include "Format.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
-#include "Log.hpp"
 
 namespace oeng
 {
+	Material::Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept
+		:shader_{std::move(shader)}, texture_{std::move(texture)}
+	{
+	}
+
 	Material::Material(Path path, Renderer& renderer)
 		:path_{path}
 	{
@@ -27,11 +32,16 @@ namespace oeng
 		}
 	}
 
+	void Material::Load(Path path, Renderer& renderer)
+	{
+		Material{path, renderer}.swap(*this);
+	}
+
 	void Material::SetUniforms()
 	{	
 		for (auto& [name, var] : uniforms_)
 		{
-			auto set_uniform = [=](auto& val) { shader_->SetUniform(name, val); };
+			auto set_uniform = [&](auto& val) { shader_->SetUniform(name, val); };
 			std::visit(set_uniform, var);
 		}
 	}
