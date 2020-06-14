@@ -22,7 +22,7 @@ namespace oeng
 
 		void SetTexture(Path file);
 		void SetTexture(SharedPtr<Texture> texture) noexcept { texture_ = std::move(texture); }
-		[[nodiscard]] Texture& GetTexture() const { return *texture_; }
+		[[nodiscard]] Texture& GetTexture() const noexcept override { return *texture_; }
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
 		SpriteComponent(const SpriteComponent&) = delete;

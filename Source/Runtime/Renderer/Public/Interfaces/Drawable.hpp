@@ -5,6 +5,7 @@ namespace oeng
 {
 	class Mesh;
 	class Material;
+	class Texture;
 
 	class IDrawable
 	{
@@ -25,6 +26,7 @@ namespace oeng
 	{
 	public:
 		[[nodiscard]] virtual int GetDrawOrder() const noexcept = 0;
+		[[nodiscard]] virtual Texture& GetTexture() const noexcept = 0;
 	};
 
 	class IMeshComponent : public IDrawable
