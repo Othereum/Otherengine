@@ -1,8 +1,6 @@
 #pragma once
-#include <compare>
 #include <filesystem>
-#include "API.hpp"
-#include "JsonFwd.hpp"
+#include "Name.hpp"
 
 namespace oeng
 {
@@ -16,19 +14,28 @@ namespace oeng
 	 */
 	struct OEAPI Path
 	{
+		using Pair = std::pair<const Name, std::filesystem::path>;
+		
 		Path() noexcept;
-		Path(const char* path);
+		Path(const char* s) :Path{Name{s}} {}
+		Path(Name path);
+		Path(std::filesystem::path&& path);
 		Path(const std::filesystem::path& path);
 
 		std::strong_ordering operator<=>(const Path&) const noexcept = default;
 
-		operator const std::filesystem::path&() const noexcept { return *p; }
-		const std::filesystem::path* operator->() const noexcept { return p; }
-		[[nodiscard]] const std::filesystem::path& Get() const noexcept { return *p; }
+		[[nodiscard]] Name AsName() const noexcept { return p->first; }
+		[[nodiscard]] const Name::Str& Str() const noexcept { return p->first; }
+		operator Name() const noexcept { return p->first; }
+		operator const Name::Str&() const noexcept { return p->first; }
+		operator const std::filesystem::path&() const noexcept { return p->second; }
+		const std::filesystem::path& operator*() const noexcept { return p->second; }
+		const std::filesystem::path* operator->() const noexcept { return &p->second; }
 
 	private:
 		friend std::hash<Path>;
-		const std::filesystem::path* p;
+		explicit Path(const Pair* p) noexcept :p{p} {}
+		const Pair* p;
 	};
 	
 	OEAPI void to_json(Json& json, const Path& path);
@@ -43,3 +50,5 @@ struct std::hash<oeng::Path>
 		return reinterpret_cast<size_t>(key.p);
 	}
 };
+
+#define PATH(s) []{static ::oeng::Path n{::oeng::Name{s}};return n;}()

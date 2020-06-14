@@ -1,64 +1,48 @@
 #include "Path.hpp"
-#include <otm/Hash.hpp>
 #include "Assert.hpp"
-#include "Templates/Monitor.hpp"
-#include "Templates/HashSet.hpp"
+#include "Templates/Sync.hpp"
+#include "Templates/HashMap.hpp"
 #include "Json.hpp"
 #include "Core.hpp"
 
 namespace oeng
 {
-	struct PathHasher
-	{
-		[[nodiscard]] size_t operator()(const std::filesystem::path& path) const noexcept
-		{
-			auto&& s = path.native();
-			return otm::HashRange(s.begin(), s.end(), tolower);
-		}
-	};
-
-	struct PathEqual
-	{
-		[[nodiscard]] bool operator()(const std::filesystem::path& p1, const std::filesystem::path& p2) const
-		{
-			auto &&s1 = p1.native(), &&s2 = p2.native();
-			return std::equal(s1.begin(), s1.end(), s2.begin(), s2.end(), [](auto c1, auto c2)
-			{
-				return tolower(c1) == tolower(c2);
-			});
-		}
-	};
-
-	static auto& GetSet()
+	static auto& GetMap()
 	{
 		CHECK(OE_PATH_THREADSAFE || IsGameThread());
-		using PathSet = HashSet<std::filesystem::path, PathHasher, PathEqual, RawAllocator<std::filesystem::path>>;
-		static Monitor<PathSet, CondMutex<OE_PATH_THREADSAFE>> set{std::filesystem::path{}};
-		return set;
+		using PathMap = HashMap<Name, std::filesystem::path, std::hash<Name>, std::equal_to<>, RawAllocator<Path::Pair>>;
+		static Monitor<PathMap, CondMutex<OE_PATH_THREADSAFE>> map{Path::Pair{}};
+		return map;
 	};
 
 	Path::Path() noexcept
-		:p{&*GetSet()->find({})}
+	{
+		static const Path default_path{&*GetMap()->find({})};
+		p = default_path.p;
+	}
+
+	Path::Path(Name path)
+		:p{&*GetMap()->try_emplace(path, *path).first}
 	{
 	}
 
-	Path::Path(const char* path)
-		:Path{std::filesystem::path{path}}
+	Path::Path(std::filesystem::path&& path)
+		:p{&*GetMap()->try_emplace(Name{path.string()}, std::move(path)).first}
 	{
 	}
 
 	Path::Path(const std::filesystem::path& path)
-		:p{&*GetSet()->insert(proximate(path)).first}
+		:p{&*GetMap()->try_emplace(Name{path.string()}, path).first}
 	{
 	}
 
 	void to_json(Json& json, const Path& path)
 	{
-		json = path.Get().string();
+		to_json(json, path.AsName());
 	}
 
 	void from_json(const Json& json, Path& path)
 	{
-		path = {json.get<std::string>()};
+		path = Path{json.get<Name>()};
 	}
 }
