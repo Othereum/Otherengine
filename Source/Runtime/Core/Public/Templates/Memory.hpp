@@ -402,8 +402,8 @@ namespace oeng
 
 		[[nodiscard]] T* get() const noexcept { return ptr_; }
 
-		T& operator*() const noexcept { CHECK_SLOW(ptr_); return *ptr_; }
-		T* operator->() const noexcept { CHECK_SLOW(ptr_); return ptr_; }
+		T& operator*() const noexcept { CHECK(ptr_); return *ptr_; }
+		T* operator->() const noexcept { CHECK(ptr_); return ptr_; }
 
 		[[nodiscard]] unsigned long use_count() const noexcept { return obj_ ? obj_->Strong() : 0; }
 
