@@ -5,7 +5,7 @@ namespace oeng
 {
 	class CameraComponent;
 	
-	class ACameraActor : public AActor
+	class OEAPI ACameraActor : public AActor
 	{
 	public:
 		explicit ACameraActor(World& world);
