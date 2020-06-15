@@ -4,6 +4,11 @@
 
 namespace oeng
 {
+	DirLightComponent::DirLightComponent(AActor& owner, int update_order)
+		:SceneComponent{owner, update_order}, data_{GetForward(), Vec3::one}
+	{
+	}
+
 	DirLightComponent::~DirLightComponent()
 	{
 		GetEngine().GetRenderer().UnregisterDirLight(*this);
