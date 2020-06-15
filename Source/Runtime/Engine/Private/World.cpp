@@ -1,5 +1,5 @@
 #include "World.hpp"
-#include "GameFramework/Actor.hpp"
+#include "Actors/Actor.hpp"
 #include "Components/CircleComponent.hpp"
 #include "TimerManager.hpp"
 

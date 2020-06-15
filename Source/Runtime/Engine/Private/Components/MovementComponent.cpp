@@ -1,5 +1,5 @@
-#include "GameFramework/MovementComponent.hpp"
-#include "GameFramework/Actor.hpp"
+#include "Components/MovementComponent.hpp"
+#include "Actors/Actor.hpp"
 #include "Components/SceneComponent.hpp"
 
 namespace oeng

@@ -1,5 +1,5 @@
-#include "GameFramework/AIComponent.hpp"
-#include "GameFramework/AIState.hpp"
+#include "AI/AIComponent.hpp"
+#include "AI/AIState.hpp"
 
 namespace oeng
 {

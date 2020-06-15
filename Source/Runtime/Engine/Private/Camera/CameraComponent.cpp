@@ -1,4 +1,4 @@
-#include "Components/CameraComponent.hpp"
+#include "Camera/CameraComponent.hpp"
 #include "Engine.hpp"
 
 namespace oeng

@@ -1,5 +1,5 @@
 #include "Components/CircleComponent.hpp"
-#include "GameFramework/Actor.hpp"
+#include "Actors/Actor.hpp"
 #include "World.hpp"
 
 namespace oeng

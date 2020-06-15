@@ -1,5 +1,5 @@
 #pragma once
-#include "SceneComponent.hpp"
+#include "Components/SceneComponent.hpp"
 #include "Interfaces/Camera.hpp"
 
 namespace oeng

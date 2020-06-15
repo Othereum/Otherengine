@@ -1,5 +1,5 @@
 #include "Components/SpriteComponent.hpp"
-#include "GameFramework/Actor.hpp"
+#include "Actors/Actor.hpp"
 #include "Engine.hpp"
 #include "Renderer.hpp"
 
