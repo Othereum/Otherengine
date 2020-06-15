@@ -1,5 +1,6 @@
 ﻿#include "Engine.hpp"
 #include <filesystem>
+#include <fstream>
 #include <SDL.h>
 #include "Log.hpp"
 #include "Json.hpp"
@@ -17,7 +18,7 @@ namespace oeng
 			
 			for (const auto& entry : fs::directory_iterator{path}) try
 			{
-				if (!entry.is_regular_file()) continue;
+				if (!entry.is_regular_file() || entry.path().extension() != ".json") continue;
 				
 				auto name = entry.path().stem().string();
 				auto parsed = ReadFileAsJson(entry.path());
@@ -45,7 +46,7 @@ namespace oeng
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
 		:game_name_{game_name},
 		configs_{LoadConfigs()},
-		renderer_{*this, configs_.at("Engine").at("resolution").get<Vec2u16>()},
+		renderer_{*this},
 		world_{*this}
 	{
 		log::Info("Engine initialization successful.");
@@ -79,18 +80,31 @@ namespace oeng
 		log::Info("Engine shutdown requested.");
 	}
 
-	Vec2u16 Engine::GetScreenSize() const noexcept
+	Vec2u16 Engine::GetWindowSize() const noexcept
 	{
-		return renderer_.GetScreenSize();
+		return renderer_.GetWindowSize();
 	}
 
-	const Json& Engine::GetConfig(Name name) const noexcept
+	bool Engine::SaveConfig(Name name) noexcept
 	{
-		if (const auto found = configs_.find(name); found != configs_.end())
-			return found->second;
+		try
+		{
+			std::filesystem::create_directory("../Config");
+			std::ofstream file{fmt::format("../Config/{}.json", *name)};
+			file.exceptions(std::ios_base::failbit);
+			file << configs_[name].dump(4);
+			return true;
+		}
+		catch (const std::exception& e)
+		{
+			log::Error("Failed to save config '{}': {}", *name, e.what());
+			return false;
+		}
+	}
 
-		static const Json default_json;
-		return default_json;
+	Json& Engine::Config(Name name)
+	{
+		return configs_[name];
 	}
 
 	void Engine::Tick()
@@ -129,7 +143,7 @@ namespace oeng
 		log::Info("Initializing engine...");
 		omem::SetOnPoolDest([](auto&&...){});
 		
-		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_GAMECONTROLLER);
+		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
 

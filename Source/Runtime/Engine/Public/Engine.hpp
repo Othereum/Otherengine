@@ -35,9 +35,22 @@ namespace oeng
 		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
 		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
-		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept override;
+		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept override;
 		[[nodiscard]] std::string_view GetGameName() const noexcept override { return game_name_; }
-		[[nodiscard]] const Json& GetConfig(Name name) const noexcept override;
+
+		/**
+		 * \brief Find config or create if not found.
+		 * \param name Config name
+		 * \return Reference to non-const json config object
+		 */
+		[[nodiscard]] Json& Config(Name name) override;
+		
+		/**
+		 * \brief Save config as file. Existing files will be overwritten. Log error if fails
+		 * \param name Config name
+		 * \return true if successful
+		 */
+		bool SaveConfig(Name name) noexcept override;
 
 		Engine(const Engine&) = delete;
 		Engine(Engine&&) = delete;
