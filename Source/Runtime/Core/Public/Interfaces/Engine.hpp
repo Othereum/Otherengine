@@ -1,6 +1,7 @@
 #pragma once
 #include "MathFwd.hpp"
 #include "Path.hpp"
+#include "JsonFwd.hpp"
 
 namespace oeng
 {
@@ -18,7 +19,8 @@ namespace oeng
 		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;
 		[[nodiscard]] virtual Vec2u16 GetScreenSize() const noexcept = 0;
 		[[nodiscard]] virtual std::string_view GetGameName() const noexcept = 0;
-
+		[[nodiscard]] virtual const Json& GetConfig(Name name) const noexcept = 0;
+		
 		constexpr IEngine() noexcept = default;
 		virtual ~IEngine() = default;
 		

@@ -2,6 +2,7 @@
 #include "Interfaces/Engine.hpp"
 #include "InputSystem.hpp"
 #include "Math.hpp"
+#include "JsonFwd.hpp"
 #include "World.hpp"
 #include "Renderer.hpp"
 #include "Templates/Function.hpp"
@@ -36,6 +37,7 @@ namespace oeng
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
 		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept override;
 		[[nodiscard]] std::string_view GetGameName() const noexcept override { return game_name_; }
+		[[nodiscard]] const Json& GetConfig(Name name) const noexcept override;
 
 		Engine(const Engine&) = delete;
 		Engine(Engine&&) = delete;
@@ -47,6 +49,7 @@ namespace oeng
 		void ProcessEvent();
 
 		std::string_view game_name_;
+		HashMap<Name, Json> configs_;
 		
 		Renderer renderer_;
 		World world_;

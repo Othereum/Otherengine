@@ -1,11 +1,52 @@
 ﻿#include "Engine.hpp"
+#include <filesystem>
 #include <SDL.h>
 #include "Log.hpp"
+#include "Json.hpp"
 
 namespace oeng
 {
+	static auto LoadConfigs()
+	{
+		namespace fs = std::filesystem;
+		HashMap<Name, Json> configs;
+
+		auto load = [&](const fs::path& path)
+		{
+			if (!exists(path)) return;
+			
+			for (const auto& entry : fs::directory_iterator{path}) try
+			{
+				if (!entry.is_regular_file()) continue;
+				
+				auto name = entry.path().stem().string();
+				auto parsed = ReadFileAsJson(entry.path());
+				auto [it, inserted] = configs.try_emplace(std::move(name), std::move(parsed));
+				
+				if (inserted) continue;
+				
+				for (auto& [key, value] : parsed.items())  // NOLINT(bugprone-use-after-move)
+				{
+					it->second[key] = std::move(value);
+				}
+			}
+			catch (const std::exception& e)
+			{
+				log::Error("Failed to load config '{}': {}", entry.path().string(), e.what());
+			}
+		};
+
+		load("../Engine/Config");
+		load("../Config");
+		
+		return configs;
+	}
+	
 	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
-		:game_name_{game_name}, renderer_{*this, {1600, 900}}, world_{*this}
+		:game_name_{game_name},
+		configs_{LoadConfigs()},
+		renderer_{*this, configs_.at("Engine").at("resolution").get<Vec2u16>()},
+		world_{*this}
 	{
 		log::Info("Engine initialization successful.");
 		log::Info("Loading game module...");
@@ -41,6 +82,15 @@ namespace oeng
 	Vec2u16 Engine::GetScreenSize() const noexcept
 	{
 		return renderer_.GetScreenSize();
+	}
+
+	const Json& Engine::GetConfig(Name name) const noexcept
+	{
+		if (const auto found = configs_.find(name); found != configs_.end())
+			return found->second;
+
+		static const Json default_json;
+		return default_json;
 	}
 
 	void Engine::Tick()
@@ -87,7 +137,7 @@ namespace oeng
 	{
 		SDL_Quit();
 
-		for (auto&& [size, pool] : omem::GetPools())
+		for (const auto& [size, pool] : omem::GetPools())
 		{
 			const auto& info = pool.GetInfo();
 			log::Info("[Mem] Memory pool with {} {}-byte blocks", info.count, info.size);
