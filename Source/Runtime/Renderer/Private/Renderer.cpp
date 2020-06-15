@@ -2,7 +2,9 @@
 
 #include <stdexcept>
 #include <SDL.h>
+
 #include "OpenGL.hpp"
+#include "Json.hpp"
 
 #include "VertexArray.hpp"
 #include "Shader.hpp"
@@ -21,7 +23,51 @@ namespace oeng
 			throw std::runtime_error{SDL_GetError()};
 	}
 	
-	static WindowPtr MakeWindow(const char* title, Vec2u16 scr)
+	static int LoadDisplayIdx(Json& config)
+	{
+		const auto num_dp = SDL_GetNumVideoDisplays();
+		if (num_dp <= 0) throw std::runtime_error{"No display detected"};
+		
+		auto& dp_ref = config.at("Display");
+		auto dp = dp_ref.get<int>();
+		if (dp >= num_dp)
+		{
+			log::Warn("Attempted to use a non-existent display (tried: {}, max: {})", dp, num_dp-1);
+			log::Warn("Using display 0...");
+			dp_ref = 0, dp = 0;
+		}
+
+		return dp;
+	}
+
+	static int LoadDisplayMode(int dp, Json& config)
+	{
+		const auto num_dm = SDL_GetNumDisplayModes(dp);
+		if (num_dm <= 0) throw std::runtime_error{"No display mode detected"};
+
+		auto& modes = config["DisplayModes"];
+		modes = {};
+		for (auto i=0; i<num_dm; ++i)
+		{
+			SDL_DisplayMode dm;
+			SDL_GetDisplayMode(dp, i, &dm);
+			modes.emplace_back(format("[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate));
+		}
+
+		auto& dm_ref = config.at("DisplayMode");
+		auto dm = dm_ref.get<int>();
+		if (dm >= num_dm)
+		{
+			const auto& display = modes.at(0);
+			log::Warn("Attempted to use a non-existent display mode (tried: {}, max: {})", dm, num_dm-1);
+			log::Warn("Using display mode {}", display.get<std::string>());
+			dm_ref = 0, dm = 0;
+		}
+
+		return dm;
+	}
+
+	static WindowPtr MakeWindow(IEngine& engine)
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -34,11 +80,29 @@ namespace oeng
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
+		const Name config_name = "Display";
+		auto& config = engine.Config(config_name);
+		const auto dp = LoadDisplayIdx(config);
+		const auto dm = LoadDisplayMode(dp, config);
+		const auto fs = config.at("Fullscreen").get<bool>();
+		engine.SaveConfig(config_name);
+
+		SDL_DisplayMode display;
+		SDL_GetDisplayMode(dp, dm, &display);
+
+		uint32_t flags = SDL_WINDOW_OPENGL;
+		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
+
 		WindowPtr window{
-			SDL_CreateWindow(title, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, scr[0], scr[1], SDL_WINDOW_OPENGL),
+			SDL_CreateWindow(engine.GetGameName().data(),
+				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
+				display.w, display.h, flags),
 			&SDL_DestroyWindow
 		};
+		
 		if (!window) throw std::runtime_error{SDL_GetError()};
+		SDL_SetWindowDisplayMode(window.get(), &display);
+		
 		return window;
 	}
 
@@ -101,11 +165,11 @@ namespace oeng
 		view_proj_ = view * proj;
 	}
 
-	Renderer::Renderer(IEngine& engine, Vec2u16 scr)
-		:engine_{engine}, scr_sz_{scr},
-		window_{MakeWindow(engine.GetGameName().data(), scr)},
+	Renderer::Renderer(IEngine& engine)
+		:engine_{engine}, 
+		window_{MakeWindow(engine)},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{Path{"../Engine/Shaders/Sprite"}},
+		sprite_shader_{"../Engine/Shaders/Sprite"},
 		sprite_verts_{CreateSpriteVerts()},
 		materials_{shaders_.default_obj, textures_.default_obj},
 		meshes_{materials_.default_obj}
@@ -113,7 +177,7 @@ namespace oeng
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetUniform(NAME("uViewProj"), MakeSimpleViewProj<4>(scr));
+		sprite_shader_.SetUniform(NAME("uViewProj"), MakeSimpleViewProj<4>(GetWindowSize()));
 	}
 
 	Renderer::~Renderer() = default;
@@ -295,6 +359,13 @@ namespace oeng
 	SharedPtr<Material> Renderer::GetMaterial(Path path)
 	{
 		return Get(materials_, path, *this);
+	}
+
+	Vec2u16 Renderer::GetWindowSize() const noexcept
+	{
+		int w, h;
+		SDL_GetWindowSize(window_.get(), &w, &h);
+		return Vec2u16(w, h);
 	}
 
 	template <class T, class Compare>

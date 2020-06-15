@@ -36,14 +36,14 @@ namespace oeng
 	class OEAPI Renderer
 	{
 	public:
-		explicit Renderer(IEngine& engine, Vec2u16 scr);
+		explicit Renderer(IEngine& engine);
 		~Renderer();
 		
 		void DrawScene();
 
 		void RegisterSprite(const ISpriteComponent& sprite);
 		void RegisterMesh(const IMeshComponent& mesh);
-		void RegisterCamera(ICamera& camera) noexcept { camera_ = &camera; camera.OnScreenSizeChanged(GetScreenSize()); }
+		void RegisterCamera(ICamera& camera) noexcept { camera_ = &camera; camera.OnScreenSizeChanged(GetWindowSize()); }
 		void RegisterDirLight(const IDirLight& light) noexcept { dir_light_ = &light; }
 		void RegisterSkyLight(const ISkyLight& light) noexcept { sky_light_ = &light; }
 		
@@ -66,7 +66,7 @@ namespace oeng
 		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
 		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
 		
-		[[nodiscard]] Vec2u16 GetScreenSize() const noexcept { return scr_sz_; }
+		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
 		Renderer(const Renderer&) = delete;
@@ -79,8 +79,7 @@ namespace oeng
 		void Draw2D();
 		
 		IEngine& engine_;
-
-		Vec2u16 scr_sz_;
+		
 		WindowPtr window_;
 		GlContextPtr gl_context_;
 		
