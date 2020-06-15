@@ -25,6 +25,6 @@
   * Multiplayer support (planned)
 
 * Modules and dependencies (*italics* means private)
-  * [**Core**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Core) - [nlohmann-json](https://github.com/nlohmann/json) [fmt](https://github.com/fmtlib/fmt) [spdlog](https://github.com/gabime/spdlog)
+  * [**Core**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Core) - otm omem [nlohmann-json](https://github.com/nlohmann/json) [fmt](https://github.com/fmtlib/fmt) [spdlog](https://github.com/gabime/spdlog)
   * [**Engine**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Engine) - Core Renderer [*SDL2*](https://www.libsdl.org/download-2.0.php)
-  * [**Renderer**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Renderer) - Core [*SDL2*](https://www.libsdl.org/download-2.0.php) [*GLEW*](https://github.com/nigels-com/glew) [*SOIL2*](https://github.com/SpartanJ/SOIL2)
+  * [**Renderer**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Renderer) - Core *SDL2* [*GLEW*](https://github.com/nigels-com/glew) [*SOIL2*](https://github.com/SpartanJ/SOIL2)
