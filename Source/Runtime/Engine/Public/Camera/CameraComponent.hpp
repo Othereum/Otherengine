@@ -23,6 +23,11 @@ namespace oeng
 		const Mat4& GetViewProj() const noexcept override;
 		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
 
+		CameraComponent(const CameraComponent&) = delete;
+		CameraComponent(CameraComponent&&) = delete;
+		CameraComponent& operator=(const CameraComponent&) = delete;
+		CameraComponent& operator=(CameraComponent&&) = delete;
+
 	private:
 		void OnTrsfChanged() noexcept override;
 		void RecalcView() noexcept;
