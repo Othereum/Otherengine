@@ -59,12 +59,16 @@ namespace oeng
 		/**
 		 * \brief Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
 		 * \param path Texture file path
-		 * \return The pointer to the loaded texture or default texture if failed to load
+		 * \return The pointer to the loaded texture or default texture if failed to load. Never returns nullptr
 		 */
 		[[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
 		[[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
 		[[nodiscard]] SharedPtr<Shader> GetShader(Path path);
 		[[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
+		[[nodiscard]] SharedPtr<Texture> GetDefaultTexture() const noexcept { return textures_.default_obj; }
+		[[nodiscard]] SharedPtr<Mesh> GetDefaultMesh() const noexcept { return meshes_.default_obj; }
+		[[nodiscard]] SharedPtr<Shader> GetDefaultShader() const noexcept { return shaders_.default_obj; }
+		[[nodiscard]] SharedPtr<Material> GetDefaultMaterial() const noexcept { return materials_.default_obj; }
 		
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
