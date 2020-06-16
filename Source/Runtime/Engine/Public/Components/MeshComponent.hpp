@@ -31,7 +31,7 @@ namespace oeng
 		 * \param mesh Pointer to mesh. Must not be nullptr
 		 * \throw std::invalid_argument If mesh is nullptr
 		 */
-		void SetMesh(SharedPtr<Mesh> mesh);
+		void SetMesh(SharedRef<Mesh> mesh);
 		
 		/**
 		 * \brief Override default material of the mesh. If not found, set to engine's default.
@@ -44,7 +44,7 @@ namespace oeng
 		 * \param material Pointer to material. Must not be nullptr
 		 * \throw std::invalid_argument If material is nullptr
 		 */
-		void SetMaterial(SharedPtr<Material> material);
+		void SetMaterial(SharedRef<Material> material);
 
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
@@ -57,7 +57,7 @@ namespace oeng
 		void OnBeginPlay() override;
 		void ReRegister() const;
 		
-		SharedPtr<Mesh> mesh_;
-		SharedPtr<Material> material_;
+		SharedRef<Mesh> mesh_;
+		SharedRef<Material> material_;
 	};
 }

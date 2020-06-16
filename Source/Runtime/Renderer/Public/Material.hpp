@@ -14,7 +14,7 @@ namespace oeng
 	class OEAPI Material : public Asset
 	{
 	public:
-		Material(SharedPtr<Shader> shader, SharedPtr<Texture> texture) noexcept
+		Material(SharedRef<Shader> shader, SharedRef<Texture> texture) noexcept
 			:shader_{std::move(shader)}, texture_{std::move(texture)}
 		{
 		}
@@ -46,11 +46,13 @@ namespace oeng
 		}
 
 	private:
+		Material(Path path, Renderer& renderer, const Json& json);
+		
 		void LoadUniforms(const Json& uniforms);
 		void LoadUniform(int location, const Json& value);
 
-		SharedPtr<Shader> shader_;
-		SharedPtr<Texture> texture_;
+		SharedRef<Shader> shader_;
+		SharedRef<Texture> texture_;
 		HashMap<int, std::variant<Float, Vec2, Vec3, Vec4>> uniforms_;
 	};
 

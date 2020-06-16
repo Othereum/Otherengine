@@ -5,11 +5,10 @@
 namespace oeng
 {
 	MeshComponent::MeshComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order}
+		:SceneComponent{owner, update_order},
+		mesh_{GetRenderer().GetDefaultMesh()},
+		material_{GetRenderer().GetDefaultMaterial()}
 	{
-		auto& renderer = GetRenderer();
-		mesh_ = renderer.GetDefaultMesh();
-		material_ = renderer.GetDefaultMaterial();
 	}
 
 	MeshComponent::~MeshComponent()
@@ -20,11 +19,11 @@ namespace oeng
 	void MeshComponent::SetMesh(Path file)
 	{
 		auto mesh = GetRenderer().GetMesh(file);
-		material_ = mesh->GetMaterialPtr();
+		material_ = mesh->GetMaterialShared();
 		SetMesh(std::move(mesh));
 	}
 
-	void MeshComponent::SetMesh(SharedPtr<Mesh> mesh)
+	void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
 	{
 		if (!mesh) throw std::invalid_argument{"Mesh cannot be set to nullptr"};
 		mesh_ = std::move(mesh);
@@ -36,7 +35,7 @@ namespace oeng
 		SetMaterial(GetRenderer().GetMaterial(path));
 	}
 
-	void MeshComponent::SetMaterial(SharedPtr<Material> material)
+	void MeshComponent::SetMaterial(SharedRef<Material> material)
 	{
 		if (!material) throw std::invalid_argument{"Material cannot be set to nullptr"};
 		material_ = std::move(material);

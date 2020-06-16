@@ -11,7 +11,7 @@ namespace oeng
 	class OEAPI Mesh : public Asset
 	{
 	public:
-		explicit Mesh(SharedPtr<Material> material) noexcept
+		explicit Mesh(SharedRef<Material> material) noexcept
 			:material_{std::move(material)}, vertex_array_{{}, {}}, radius_{}
 		{
 		}
@@ -29,7 +29,7 @@ namespace oeng
 		}
 
 		[[nodiscard]] Material& GetMaterial() const noexcept { return *material_; }
-		[[nodiscard]] SharedPtr<Material> GetMaterialPtr() const noexcept { return material_; }
+		[[nodiscard]] SharedRef<Material> GetMaterialShared() const noexcept { return material_; }
 		[[nodiscard]] const VertexArray& GetVertexArray() const noexcept { return vertex_array_; }
 		[[nodiscard]] VertexArray& GetVertexArray() noexcept { return vertex_array_; }
 		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
@@ -47,7 +47,7 @@ namespace oeng
 		Mesh(Path path, Renderer& renderer, const Json& json);
 		Mesh(Path path, Renderer& renderer, const Json& json, std::span<const Vertex> verts, std::span<const Vec3u16> indices);
 		
-		SharedPtr<Material> material_;
+		SharedRef<Material> material_;
 		VertexArray vertex_array_;
 		Float radius_;
 	};

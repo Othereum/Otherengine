@@ -319,44 +319,43 @@ namespace oeng
 	}
 
 	template <class T, class... Args>
-	SharedPtr<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args)
+	SharedRef<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args)
 	{
 		auto& map = cache.map;
 		const auto found = map.find(path);
-		if (found != map.end()) return found->second.lock();
+		if (found != map.end()) return SharedRef<T>{found->second};
 
-		SharedPtr<T> loaded;
 		try
 		{
-			loaded.reset(New<T>(path, std::forward<Args>(args)...),
+			SharedRef<T> loaded(New<T>(path, std::forward<Args>(args)...),
 				[&map, path](T* p) { map.erase(path); Delete(p); });
+			
+			map.emplace(path, loaded);
+			return loaded;
 		}
 		catch (const std::exception& e)
 		{
 			log::Error("Failed to load '{}': {}", path->string(), e.what());
 			return cache.default_obj;
 		}
-
-		map.emplace(path, loaded);
-		return loaded;
 	}
 
-	SharedPtr<Texture> Renderer::GetTexture(Path path)
+	SharedRef<Texture> Renderer::GetTexture(Path path)
 	{
 		return Get(textures_, path);
 	}
 
-	SharedPtr<Mesh> Renderer::GetMesh(Path path)
+	SharedRef<Mesh> Renderer::GetMesh(Path path)
 	{
 		return Get(meshes_, path, *this);
 	}
 
-	SharedPtr<Shader> Renderer::GetShader(Path path)
+	SharedRef<Shader> Renderer::GetShader(Path path)
 	{
 		return Get(shaders_, path);
 	}
 
-	SharedPtr<Material> Renderer::GetMaterial(Path path)
+	SharedRef<Material> Renderer::GetMaterial(Path path)
 	{
 		return Get(materials_, path, *this);
 	}

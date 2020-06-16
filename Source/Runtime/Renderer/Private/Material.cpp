@@ -7,13 +7,15 @@
 namespace oeng
 {
 	Material::Material(Path path, Renderer& renderer)
-		:Asset{path}
+		:Material{path, renderer, ReadFileAsJson(path)}
 	{
-		const auto json = ReadFileAsJson(path);
+	}
 
-		shader_ = renderer.GetShader(json.at("shader"));
-		texture_ = renderer.GetTexture(json.at("texture"));
-
+	Material::Material(Path path, Renderer& renderer, const Json& json)
+		:Asset{path},
+		shader_{renderer.GetShader(json.at("shader"))},
+		texture_{renderer.GetTexture(json.at("texture"))}
+	{
 		if (const auto uniforms = json.find("uniforms"); uniforms != json.end())
 		{
 			try
