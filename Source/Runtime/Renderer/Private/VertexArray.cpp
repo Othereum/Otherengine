@@ -1,8 +1,14 @@
 #include "VertexArray.hpp"
 #include "OpenGL.hpp"
+#include "Json.hpp"
 
 namespace oeng
 {
+	void from_json(const Json& json, Vertex& vertex)
+	{
+		json.get_to(vertex.data);
+	}
+
 	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
 		:num_verts_{verts.size()}, num_indices_{indices.size()}
 	{

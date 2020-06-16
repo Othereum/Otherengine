@@ -1,6 +1,7 @@
 #pragma once
 #include <span>
 #include "API.hpp"
+#include "JsonFwd.hpp"
 #include "Math.hpp"
 
 namespace oeng
@@ -24,6 +25,8 @@ namespace oeng
 		{
 		}
 	};
+
+	OEAPI void from_json(const Json& json, Vertex& vertex);
 
 	class OEAPI VertexArray
 	{
