@@ -1,11 +1,13 @@
 #pragma once
 #include "Math.hpp"
+#include "Interfaces/Base.hpp"
 
 namespace oeng
 {
 	class IDirLight
 	{
-	public:
+		OE_INTERFACE_BODY(IDirLight);
+		
 		struct Data
 		{
 			UVec3 dir;
@@ -13,27 +15,42 @@ namespace oeng
 		};
 		
 		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
-		
-		constexpr IDirLight() noexcept = default;
-		virtual ~IDirLight() = default;
-		
-		IDirLight(const IDirLight&) = delete;
-		IDirLight(IDirLight&&) = delete;
-		IDirLight& operator=(const IDirLight&) = delete;
-		IDirLight& operator=(IDirLight&&) = delete;
 	};
 
 	class ISkyLight
 	{
-	public:
+		OE_INTERFACE_BODY(ISkyLight);
+		
 		[[nodiscard]] virtual const Vec3& GetColor() const noexcept = 0;
+	};
+
+	class IPointLight
+	{
+		OE_INTERFACE_BODY(IPointLight);
 		
-		constexpr ISkyLight() noexcept = default;
-		virtual ~ISkyLight() = default;
+		struct Data
+		{
+			Vec3 pos;
+			Vec3 color;
+			Float radius;
+		};
+
+		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
+	};
+
+	class ISpotLight
+	{
+		OE_INTERFACE_BODY(ISpotLight);
 		
-		ISkyLight(const ISkyLight&) = delete;
-		ISkyLight(ISkyLight&&) = delete;
-		ISkyLight& operator=(const ISkyLight&) = delete;
-		ISkyLight& operator=(ISkyLight&&) = delete;
+		struct Data
+		{
+			Vec3 pos;
+			Vec3 color;
+			UVec3 dir;
+			Rad angle;
+			Float radius;
+		};
+
+		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
 	};
 }
