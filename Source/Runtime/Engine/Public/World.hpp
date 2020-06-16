@@ -28,9 +28,6 @@ namespace oeng
 
 		void Tick();
 
-		void RegisterInputComponent(const InputComponent& comp);
-		void UnregisterInputComponent(const InputComponent& comp);
-
 		void RegisterCollision(CircleComponent& comp);
 		void UnregisterCollision(CircleComponent& comp);
 		
