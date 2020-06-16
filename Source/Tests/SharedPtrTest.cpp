@@ -70,6 +70,24 @@ namespace oeng
 		ASSERT_EQ(n, 16);
 	}
 
+	TEST(SharedPtr, Array)
+	{
+		struct TestObj
+		{
+			TestObj(int& n) :n{n} { ++n; }
+			~TestObj() { --n; }
+			int& n;
+		};
+
+		auto cnt = 0;
+		
+		SharedPtr<TestObj[]> ptr{ NewArr<TestObj>(2, cnt, cnt), [](TestObj* p) { DeleteArr(p, 2); } };
+		EXPECT_EQ(cnt, 2);
+
+		ptr.reset();
+		EXPECT_EQ(cnt, 0);
+	}
+
 	TEST(SharedPtr, WeakPtr)
 	{
 		WeakPtr<int> weak;
@@ -121,7 +139,7 @@ namespace oeng
 			for (auto i=0; i<kCopyCntMt; ++i)
 			{
 				auto copied = weak;
-				weak.lock();
+				(void)weak.lock();
 			}
 		};
 
