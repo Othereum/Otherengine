@@ -8,6 +8,8 @@
 
 namespace oeng
 {
+	inline constexpr bool kThreadSafe = OE_SHARED_PTR_THREADSAFE;
+	
 	namespace detail
 	{
 		inline void CheckMemSafe() noexcept
@@ -35,7 +37,7 @@ namespace oeng
 	 * \param args arguments to be passed to the constructor of object T.
 	 * \return The pointer to created object
 	 * \throw std::bad_alloc If failed to allocate memory
-	 * \throw ... Any exceptions thrown by constructor of T
+	 * \throw std::exception Any exceptions thrown by constructor of T
 	 */
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
@@ -139,20 +141,17 @@ namespace oeng
 	};
 
 	template <class T>
-	class DefaultDelete
+	using RawDeleter = std::default_delete<T>;
+
+	template <class T>
+	class PoolDeleter
 	{
 	public:
+		static_assert(!std::is_array_v<T>, "Can't delete array because size is unknown. Use RawDeleter instead.");
 		void operator()(T* p) noexcept { Delete(p); }
 	};
 
-	template <class T>
-	class DefaultDelete<T[]>
-	{
-	public:
-		void operator()(T* p) noexcept { DeleteArr(p); }
-	};
-
-	template <class T, class Deleter = DefaultDelete<T>>
+	template <class T, class Deleter = PoolDeleter<T>>
 	using UniquePtr = std::unique_ptr<T, Deleter>;
 
 	template <class T, class... Args, std::enable_if_t<!std::is_array_v<T>, int> = 0>
@@ -299,27 +298,52 @@ namespace oeng
 		};
 	}
 
-	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = kThreadSafe>
 	class EnableSharedFromThis;
 
-	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = kThreadSafe>
 	class WeakPtr;
 
-	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE>
+	template <class T, bool ThreadSafe = kThreadSafe>
 	class SharedPtr
 	{
 	public:
+		using element_type = std::remove_extent_t<T>;
+		using weak_type = WeakPtr<T, ThreadSafe>;
+		
 		constexpr SharedPtr() noexcept = default;
 		constexpr SharedPtr(nullptr_t) noexcept {}
 
-		template <class Y>
-		explicit SharedPtr(Y* ptr) { reset(ptr); }
+		/**
+		 * \brief Construct with raw pointer
+		 * \param ptr Must be allocated by New<T>() because it uses PoolDeleter<Y> to delete ptr
+		 * \note Only participates in overload if T is not array
+		 */
+		template <class Y, class Deleter = std::enable_if_t<!std::is_array_v<T>, PoolDeleter<Y>>>
+		explicit SharedPtr(Y* ptr)
+			:SharedPtr{ptr, Deleter{}}
+		{
+		}
 
-		template <class Y, class Deleter>
-		SharedPtr(Y* ptr, Deleter deleter) { reset(ptr, std::move(deleter)); }
+		/**
+		 * \brief Construct with raw pointer and custom deleter/allocator
+		 * \param ptr Raw pointer
+		 * \param deleter To be used to delete ptr
+		 * \param alloc To be used to allocate/deallocate control block
+		 */
+		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
+		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc = {})
+		{
+			using Obj = detail::SharedObjPtr<Y, Deleter, Alloc, ThreadSafe>;
+			using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<Obj>;
+			using Tr = std::allocator_traits<Al>;
 
-		template <class Y, class Deleter, class Alloc>
-		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc) { reset(ptr, std::move(deleter), std::move(alloc)); }
+			Al al{alloc};
+			auto obj = Tr::allocate(al, 1);
+			Tr::construct(al, obj, ptr, std::move(deleter), std::move(alloc));
+			
+			SetAndEnableShared(ptr, obj);
+		}
 
 		template <class Y>
 		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
@@ -377,20 +401,22 @@ namespace oeng
 
 		void reset(nullptr_t) noexcept { reset(); }
 
-		template <class Y = T, class Deleter = DefaultDelete<Y>, class Alloc = RawAllocator<Y>>
-		void reset(Y* ptr, Deleter deleter = {}, Alloc alloc = {})
+		template <class Y>
+		void reset(Y* ptr)
 		{
-			if (obj_) obj_->DecStrong();
+			SharedPtr{ptr}.swap(*this);
+		}
 
-			using Obj = detail::SharedObjPtr<Y, Deleter, Alloc, ThreadSafe>;
-			using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<Obj>;
-			using Tr = std::allocator_traits<Al>;
+		template <class Y, class Deleter>
+		void reset(Y* ptr, Deleter deleter)
+		{
+			SharedPtr{ptr, std::move(deleter)}.swap(*this);
+		}
 
-			Al al{alloc};
-			auto obj = Tr::allocate(al, 1);
-			Tr::construct(al, obj, ptr, std::move(deleter), std::move(alloc));
-			
-			SetAndEnableShared(ptr, obj);
+		template <class Y, class Deleter, class Alloc>
+		void reset(Y* ptr, Deleter deleter, Alloc alloc)
+		{
+			SharedPtr{ptr, std::move(deleter), std::move(alloc)}.swap(*this);
 		}
 
 		void swap(SharedPtr& r) noexcept
@@ -400,10 +426,12 @@ namespace oeng
 			swap(obj_, r.obj_);
 		}
 
-		[[nodiscard]] T* get() const noexcept { return ptr_; }
+		[[nodiscard]] element_type* get() const noexcept { return ptr_; }
 
 		T& operator*() const noexcept { CHECK(ptr_); return *ptr_; }
 		T* operator->() const noexcept { CHECK(ptr_); return ptr_; }
+		
+		element_type& operator[](ptrdiff_t idx) const noexcept { return ptr_[idx]; }
 
 		[[nodiscard]] unsigned long use_count() const noexcept { return obj_ ? obj_->Strong() : 0; }
 
@@ -505,7 +533,7 @@ namespace oeng
 			}
 		}
 
-		T* ptr_ = nullptr;
+		element_type* ptr_ = nullptr;
 		detail::SharedObjBase<ThreadSafe>* obj_ = nullptr;
 	};
 
