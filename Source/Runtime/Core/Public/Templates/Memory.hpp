@@ -349,10 +349,10 @@ namespace oeng
 		}
 
 		template <class Y>
-		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept { AliasCopyFrom(r, ptr); }
+		SharedPtr(const SharedPtr<Y, ThreadSafe>& r, element_type* ptr) noexcept { AliasCopyFrom(r, ptr); }
 
 		template <class Y>
-		SharedPtr(SharedPtr<Y, ThreadSafe>&& r, T* ptr) noexcept { AliasMoveFrom(std::move(r), ptr); }
+		SharedPtr(SharedPtr<Y, ThreadSafe>&& r, element_type* ptr) noexcept { AliasMoveFrom(std::move(r), ptr); }
 
 		SharedPtr(const SharedPtr& r) noexcept { CopyFrom(r); }
 
@@ -493,7 +493,7 @@ namespace oeng
 		}
 
 		template <class Y>
-		void AliasCopyFrom(const SharedPtr<Y, ThreadSafe>& r, T* ptr) noexcept
+		void AliasCopyFrom(const SharedPtr<Y, ThreadSafe>& r, element_type* ptr) noexcept
 		{
 			if (r.obj_) r.obj_->IncStrong();
 			ptr_ = ptr;
@@ -501,7 +501,7 @@ namespace oeng
 		}
 
 		template <class Y>
-		void AliasMoveFrom(SharedPtr<Y, ThreadSafe>&& r, T* ptr) noexcept
+		void AliasMoveFrom(SharedPtr<Y, ThreadSafe>&& r, element_type* ptr) noexcept
 		{
 			ptr_ = ptr;
 			obj_ = r.obj_;
