@@ -45,7 +45,7 @@ namespace oeng
 		const auto num_dm = SDL_GetNumDisplayModes(dp);
 		if (num_dm <= 0) throw std::runtime_error{"No display mode detected"};
 
-		auto& modes = config["DisplayModes"];
+		auto& modes = config["DisplayModesReadOnly"];
 		modes = {};
 		for (auto i=0; i<num_dm; ++i)
 		{
