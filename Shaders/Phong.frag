@@ -6,11 +6,31 @@ struct DirLight
 	vec3 color;
 };
 
+struct PointLight
+{
+	vec3 color;
+	vec3 pos;
+	vec3 radius;
+};
+
+struct SpotLight
+{
+	vec3 pos;
+	vec3 color;
+	vec3 dir;
+	float angle;
+	float radius;
+};
+
 uniform sampler2D uTexture;
 uniform float uSpecular;
 uniform vec3 uCamPos;
 uniform vec3 uSkyLight;
 uniform DirLight uDirLight;
+uniform PointLight uPointLights[4];
+uniform SpotLight uSpotLights[4];
+uniform uint uNumPointLights;
+uniform uint uNumSpotLights;
 
 in vec2 fragTexCoord;
 in vec3 fragWorldPos;
