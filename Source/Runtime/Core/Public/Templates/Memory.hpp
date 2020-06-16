@@ -546,6 +546,9 @@ namespace oeng
 		using Base = SharedPtr<T, ThreadSafe>;
 		
 	public:
+		using Base::element_type;
+		using Base::weak_type;
+		
 		SharedRef(nullptr_t) = delete;
 		
 		/**
@@ -569,6 +572,18 @@ namespace oeng
 		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
 		SharedRef(Y* ptr, Deleter deleter, Alloc alloc = {})
 			:Base{ThrowIfNull(ptr), std::move(deleter), std::move(alloc)}
+		{
+		}
+
+		template <class Y>
+		SharedRef(const SharedRef<Y>& r, element_type* p) noexcept
+			:Base{r, ThrowIfNull(p)}
+		{
+		}
+
+		template <class Y>
+		SharedRef(SharedRef<Y>&& r, element_type* p) noexcept
+			:Base{std::move(r), ThrowIfNull(p)}
 		{
 		}
 
