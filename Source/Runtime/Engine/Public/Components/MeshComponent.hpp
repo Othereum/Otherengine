@@ -20,30 +20,9 @@ namespace oeng
 		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
 		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
 
-		/**
-		 * \brief Set mesh. If not found, set to engine's default.
-		 * \param path Mesh path
-		 */
 		void SetMesh(Path path);
-		
-		/**
-		 * \brief Set mesh
-		 * \param mesh Pointer to mesh. Must not be nullptr
-		 * \throw std::invalid_argument If mesh is nullptr
-		 */
 		void SetMesh(SharedRef<Mesh> mesh);
-		
-		/**
-		 * \brief Override default material of the mesh. If not found, set to engine's default.
-		 * \param path Material path
-		 */
 		void SetMaterial(Path path);
-		
-		/**
-		 * \brief Override default material of the mesh
-		 * \param material Pointer to material. Must not be nullptr
-		 * \throw std::invalid_argument If material is nullptr
-		 */
 		void SetMaterial(SharedRef<Material> material);
 
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;

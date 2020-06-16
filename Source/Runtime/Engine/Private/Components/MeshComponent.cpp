@@ -25,7 +25,6 @@ namespace oeng
 
 	void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
 	{
-		if (!mesh) throw std::invalid_argument{"Mesh cannot be set to nullptr"};
 		mesh_ = std::move(mesh);
 		ReRegister();
 	}
@@ -37,7 +36,6 @@ namespace oeng
 
 	void MeshComponent::SetMaterial(SharedRef<Material> material)
 	{
-		if (!material) throw std::invalid_argument{"Material cannot be set to nullptr"};
 		material_ = std::move(material);
 		ReRegister();
 	}
