@@ -368,16 +368,16 @@ namespace oeng
 	}
 
 	template <class T, class Compare>
-	void Register(DyArr<std::reference_wrapper<T>>& arr, T& obj, Compare cmp)
+	void Register(Renderer::CompArr<T>& arr, const T& obj, Compare cmp)
 	{
 		const auto pos = std::upper_bound(arr.begin(), arr.end(), obj, cmp);
 		arr.emplace(pos, obj);
 	}
 
 	template <class T>
-	void Unregister(DyArr<std::reference_wrapper<T>>& arr, T& obj)
+	void Unregister(Renderer::CompArr<T>& arr, const T& obj)
 	{
-		const auto cmp = [&obj](T& x) { return &x == &obj; };
+		const auto cmp = [&obj](const T& x) { return &x == &obj; };
 		const auto found = std::find_if(arr.rbegin(), arr.rend(), cmp);
 		if (found != arr.rend()) arr.erase(found.base() - 1);
 	}
@@ -417,5 +417,15 @@ namespace oeng
 	void Renderer::UnregisterMesh(const IMeshComponent& mesh)
 	{
 		Unregister(mesh_comps_, mesh);
+	}
+
+	void Renderer::UnregisterPointLight(const IPointLight& light)
+	{
+		Unregister(point_lights_, light);
+	}
+
+	void Renderer::UnregisterSpotLight(const ISpotLight& light)
+	{
+		Unregister(spot_lights_, light);
 	}
 }

@@ -9,12 +9,17 @@ struct SDL_Window;
 
 namespace oeng
 {
+	class IEngine;
+	
 	class IMeshComponent;
 	class ISpriteComponent;
-	class IEngine;
 	class ICamera;
+	
 	class IDirLight;
 	class ISkyLight;
+	class IPointLight;
+	class ISpotLight;
+	
 	class Texture;
 	class Mesh;
 	class Material;
@@ -46,6 +51,8 @@ namespace oeng
 		void RegisterCamera(ICamera& camera) noexcept { camera_ = &camera; camera.OnScreenSizeChanged(GetWindowSize()); }
 		void RegisterDirLight(const IDirLight& light) noexcept { dir_light_ = &light; }
 		void RegisterSkyLight(const ISkyLight& light) noexcept { sky_light_ = &light; }
+		void RegisterPointLight(const IPointLight& light) { point_lights_.emplace_back(light); }
+		void RegisterSpotLight(const ISpotLight& light) { spot_lights_.emplace_back(light); }
 		
 		void UnregisterSprite(const ISpriteComponent& sprite);
 		void UnregisterMesh(const IMeshComponent& mesh);
@@ -55,6 +62,8 @@ namespace oeng
 		void UnregisterDirLight() noexcept;
 		void UnregisterSkyLight(const ISkyLight& light) noexcept { if (sky_light_ == &light) UnregisterSkyLight(); }
 		void UnregisterSkyLight() noexcept;
+		void UnregisterPointLight(const IPointLight& light);
+		void UnregisterSpotLight(const ISpotLight& light);
 
 		/**
 		 * \brief Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
@@ -110,8 +119,14 @@ namespace oeng
 
 		const IDirLight* dir_light_ = nullptr;
 		const ISkyLight* sky_light_ = nullptr;
+
+		template <class T>
+		using CompArr = DyArr<std::reference_wrapper<const T>>;
+
+		CompArr<IPointLight> point_lights_;
+		CompArr<ISpotLight> spot_lights_;
 		
-		DyArr<std::reference_wrapper<const ISpriteComponent>> sprites_;
-		DyArr<std::reference_wrapper<const IMeshComponent>> mesh_comps_;
+		CompArr<ISpriteComponent> sprites_;
+		CompArr<IMeshComponent> mesh_comps_;
 	};
 }
