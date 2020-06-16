@@ -299,6 +299,9 @@ namespace oeng
 	}
 
 	template <class T, bool ThreadSafe = kThreadSafe>
+	class SharedRef;
+	
+	template <class T, bool ThreadSafe = kThreadSafe>
 	class EnableSharedFromThis;
 
 	template <class T, bool ThreadSafe = kThreadSafe>
@@ -470,7 +473,7 @@ namespace oeng
 		friend class WeakPtr;
 
 		template <class Y, bool TSafe, class Al, class... Args>
-		friend SharedPtr<Y, TSafe> AllocateShared(const Al&, Args&&...);  // NOLINT(readability-redundant-declaration)
+		friend SharedRef<Y, TSafe> AllocateShared(const Al&, Args&&...);  // NOLINT(readability-redundant-declaration)
 
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y, ThreadSafe>& r) noexcept
@@ -535,6 +538,131 @@ namespace oeng
 
 		element_type* ptr_ = nullptr;
 		detail::SharedObjBase<ThreadSafe>* obj_ = nullptr;
+	};
+
+	template <class T, bool ThreadSafe>
+	class SharedRef : public SharedPtr<T, ThreadSafe>
+	{
+		using Base = SharedPtr<T, ThreadSafe>;
+		
+	public:
+		SharedRef(nullptr_t) = delete;
+		
+		/**
+		 * \brief Construct SharedRef with raw pointer.
+		 * \param ptr Must not be nullptr
+		 * \throw std::invalid_argument If ptr is nullptr
+		 */
+		template <class Y>
+		explicit SharedRef(Y* ptr)
+			:Base{ThrowIfNull(ptr)}
+		{
+		}
+
+		/**
+		 * \brief Construct SharedRef with raw pointer and custom deleter/allocator
+		 * \param ptr Must not be nullptr
+		 * \param deleter To be used to delete ptr
+		 * \param alloc To be used to allocate/deallocate control block
+		 * \throw std::invalid_argument If ptr is nullptr
+		 */
+		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
+		SharedRef(Y* ptr, Deleter deleter, Alloc alloc = {})
+			:Base{ThrowIfNull(ptr), std::move(deleter), std::move(alloc)}
+		{
+		}
+
+		template <class Y>
+		SharedRef(const SharedRef<Y, ThreadSafe>& r) noexcept
+			:Base{r}
+		{
+		}
+
+		template <class Y>
+		SharedRef(SharedRef<Y, ThreadSafe>&& r) noexcept
+			:Base{std::move(r)}
+		{
+		}
+
+		/**
+		 * \brief Construct from WeakPtr
+		 * \param weak Must not be (expired or nullptr)
+		 * \throw std::bad_weak_ptr if weak is expired
+		 * \throw std::invalid_argument if weak is nullptr
+		 */
+		template <class Y>
+		explicit SharedRef(const WeakPtr<Y, ThreadSafe>& weak)
+			:Base{weak}
+		{
+			ThrowIfNull(this->get());
+		}
+
+		/**
+		 * \brief Construct from SharedPtr
+		 * \param p Must not be nullptr
+		 * \throw std::invalid_argument if p is nullptr
+		 */
+		template <class Y>
+		explicit SharedRef(const SharedPtr<Y, ThreadSafe>& p)
+			:Base{ThrowIfNull(p)}
+		{
+		}
+
+		/**
+		 * \brief Construct from SharedPtr
+		 * \param p Must not be nullptr
+		 * \throw std::invalid_argument if p is nullptr
+		 */
+		template <class Y>
+		explicit SharedRef(SharedPtr<Y, ThreadSafe>&& p)
+			:Base{ThrowIfNull(std::move(p))}
+		{
+		}
+
+		template <class Y>
+		SharedRef& operator=(const SharedRef<Y, ThreadSafe>& r)
+		{
+			Base::operator=(r);
+			return *this;
+		}
+
+		template <class Y>
+		SharedRef& operator=(SharedRef<Y, ThreadSafe>&& r)
+		{
+			Base::operator=(std::move(r));
+			return *this;
+		}
+
+		void reset(nullptr_t) = delete;
+
+		template <class Y>
+		void reset(Y* ptr)
+		{
+			ThrowIfNull(ptr);
+			Base::reset(ptr);
+		}
+
+		template <class Y, class Deleter>
+		void reset(Y* ptr, Deleter deleter)
+		{
+			ThrowIfNull(ptr);
+			Base::reset(ptr, std::move(deleter));
+		}
+
+		template <class Y, class Deleter, class Alloc>
+		void reset(Y* ptr, Deleter deleter, Alloc alloc)
+		{
+			ThrowIfNull(ptr);
+			Base::reset(ptr, std::move(deleter), std::move(alloc));
+		}
+		
+	private:
+		template <class Ptr>
+		static Ptr&& ThrowIfNull(Ptr&& p)
+		{
+			if (!p) throw std::invalid_argument{"SharedRef cannot be null"};
+			return std::forward<Ptr>(p);
+		}
 	};
 
 	template <class T, bool ThreadSafe>
@@ -670,7 +798,7 @@ namespace oeng
 	};
 
 	template <class T, bool ThreadSafe = kThreadSafe, class Alloc, class... Args>
-	SharedPtr<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
+	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
 		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
 		using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<Obj>;
@@ -685,7 +813,7 @@ namespace oeng
 			{
 				SharedPtr<T, ThreadSafe> ret;
 				ret.SetAndEnableShared(&obj->obj, obj);
-				return ret;
+				return SharedRef<T, ThreadSafe>{std::move(ret)};
 			}
 			catch (...)
 			{
@@ -701,7 +829,7 @@ namespace oeng
 	}
 
 	template <class T, bool ThreadSafe = kThreadSafe, class... Args>
-	SharedPtr<T, ThreadSafe> MakeShared(Args&&... args)
+	SharedRef<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
 	}

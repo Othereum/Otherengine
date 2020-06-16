@@ -153,7 +153,8 @@ namespace oeng
 
 	TEST(SharedPtr, Multithread)
 	{
-		MtBench<WeakPtr<int, true>>(MakeShared<int, true>());
+		SharedPtr p = MakeShared<int, true>();
+		MtBench<WeakPtr<int, true>>(std::move(p));
 	}
 
 	TEST(SharedPtr, MultithreadStd)
