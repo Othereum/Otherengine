@@ -12,7 +12,7 @@ namespace oeng
 	{
 	public:
 		explicit Mesh(SharedPtr<Material> material) noexcept
-			:material_{std::move(material)}, radius_{}
+			:material_{std::move(material)}, vertex_array_{{}, {}}, radius_{}
 		{
 		}
 		
@@ -44,6 +44,9 @@ namespace oeng
 		}
 
 	private:
+		Mesh(Path path, Renderer& renderer, const Json& json);
+		Mesh(Path path, Renderer& renderer, const Json& json, std::span<const Vertex> verts, std::span<const Vec3u16> indices);
+		
 		SharedPtr<Material> material_;
 		VertexArray vertex_array_;
 		Float radius_;
