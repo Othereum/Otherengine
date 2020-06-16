@@ -669,7 +669,7 @@ namespace oeng
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
 
-	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class Alloc, class... Args>
+	template <class T, bool ThreadSafe = kThreadSafe, class Alloc, class... Args>
 	SharedPtr<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
 		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
@@ -677,15 +677,30 @@ namespace oeng
 		using Tr = std::allocator_traits<Al>;
 
 		Al al{alloc};
-		auto obj = Tr::allocate(al, 1);
-		Tr::construct(al, obj, alloc, std::forward<Args>(args)...);
-		
-		SharedPtr<T, ThreadSafe> ret;
-		ret.SetAndEnableShared(&obj->obj, obj);
-		return ret;
+		auto* const obj = Tr::allocate(al, 1);
+		try
+		{
+			Tr::construct(al, obj, alloc, std::forward<Args>(args)...);
+			try
+			{
+				SharedPtr<T, ThreadSafe> ret;
+				ret.SetAndEnableShared(&obj->obj, obj);
+				return ret;
+			}
+			catch (...)
+			{
+				Tr::destroy(al, obj);
+				throw;
+			}
+		}
+		catch (...)
+		{
+			Tr::deallocate(al, obj, 1);
+			throw;
+		}
 	}
 
-	template <class T, bool ThreadSafe = OE_SHARED_PTR_THREADSAFE, class... Args>
+	template <class T, bool ThreadSafe = kThreadSafe, class... Args>
 	SharedPtr<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
