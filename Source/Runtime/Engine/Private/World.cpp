@@ -71,7 +71,7 @@ namespace oeng
 		time_ = now;
 	}
 
-	void World::RegisterActor(SharedPtr<AActor>&& actor)
+	void World::RegisterActor(SharedRef<AActor>&& actor)
 	{
 		pending_actors_.push_back(std::move(actor));
 	}

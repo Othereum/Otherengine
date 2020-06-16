@@ -793,8 +793,8 @@ namespace oeng
 
 		[[nodiscard]] WeakPtr<T, ThreadSafe> weak_from_this() noexcept { return weak_; }
 		[[nodiscard]] WeakPtr<const T, ThreadSafe> weak_from_this() const noexcept { return weak_; }
-		[[nodiscard]] SharedPtr<T, ThreadSafe> shared_from_this() noexcept { return SharedPtr<T, ThreadSafe>{weak_}; }
-		[[nodiscard]] SharedPtr<const T, ThreadSafe> shared_from_this() const noexcept { return SharedPtr<const T, ThreadSafe>{weak_}; }
+		[[nodiscard]] SharedRef<T, ThreadSafe> shared_from_this() { return SharedRef<T, ThreadSafe>{weak_}; }
+		[[nodiscard]] SharedRef<const T, ThreadSafe> shared_from_this() const { return SharedRef<const T, ThreadSafe>{weak_}; }
 
 	protected:
 		constexpr EnableSharedFromThis() noexcept :weak_{} {}

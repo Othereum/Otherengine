@@ -74,7 +74,7 @@ namespace oeng
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 
 	private:
-		void RegisterComponent(SharedPtr<ActorComponent>&& comp);
+		void RegisterComponent(SharedRef<ActorComponent>&& comp);
 		void UpdateComponents(Float delta_seconds);
 		virtual void OnUpdate(Float delta_seconds) {}
 		virtual void OnBeginPlay() {}
@@ -86,7 +86,7 @@ namespace oeng
 		TimerHandle lifespan_timer_;
 		
 		World& world_;
-		DyArr<SharedPtr<ActorComponent>> comps_;
+		DyArr<SharedRef<ActorComponent>> comps_;
 		SceneComponent* root_ = nullptr;
 	};
 }

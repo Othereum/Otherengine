@@ -6,7 +6,9 @@
 namespace oeng
 {
 	SpriteComponent::SpriteComponent(AActor& owner, const int draw_order, const int update_order)
-		:SceneComponent{owner, update_order}, draw_order_{draw_order}
+		:SceneComponent{owner, update_order},
+		texture_{GetRenderer().GetDefaultTexture()},
+		draw_order_{draw_order}
 	{
 	}
 

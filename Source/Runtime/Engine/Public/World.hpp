@@ -47,15 +47,15 @@ namespace oeng
 	private:
 		void UpdateGame();
 		void UpdateTime();
-		void RegisterActor(SharedPtr<AActor>&& actor);
+		void RegisterActor(SharedRef<AActor>&& actor);
 
 		Engine& engine_;
 		TimerManager timer_;
 
 		DyArr<std::reference_wrapper<CircleComponent>> collisions_;
 		
-		DyArr<SharedPtr<AActor>> actors_;
-		DyArr<SharedPtr<AActor>> pending_actors_;
+		DyArr<SharedRef<AActor>> actors_;
+		DyArr<SharedRef<AActor>> pending_actors_;
 		
 		Clock::time_point time_;
 		Float delta_seconds_;
