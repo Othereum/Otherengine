@@ -1,14 +1,8 @@
 #include "VertexArray.hpp"
 #include "OpenGL.hpp"
-#include "Json.hpp"
 
 namespace oeng
 {
-	void from_json(const Json& json, Vertex& vertex)
-	{
-		json.get_to(vertex.data);
-	}
-
 	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
 		:num_verts_{verts.size()}, num_indices_{indices.size()}
 	{
@@ -42,7 +36,6 @@ namespace oeng
 	VertexArray::~VertexArray()
 	{
 		unsigned err;
-		// glDelete functions silently ignores 0
 		gl(err, glDeleteBuffers, 1, &vertex_buffer_);
 		gl(err, glDeleteBuffers, 1, &index_buffer_);
 		gl(err, glDeleteVertexArrays, 1, &vertex_array_);
