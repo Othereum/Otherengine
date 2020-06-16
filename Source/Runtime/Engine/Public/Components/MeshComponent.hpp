@@ -20,15 +20,31 @@ namespace oeng
 		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
 		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
 
+		/**
+		 * \brief Set mesh. If not found, set to engine's default.
+		 * \param path Mesh path
+		 */
 		void SetMesh(Path path);
-		void SetMesh(SharedPtr<Mesh> mesh) noexcept { mesh_ = std::move(mesh); }
 		
 		/**
-		 * \brief Override default material of the mesh
+		 * \brief Set mesh
+		 * \param mesh Pointer to mesh. Must not be nullptr
+		 * \throw std::invalid_argument If mesh is nullptr
+		 */
+		void SetMesh(SharedPtr<Mesh> mesh);
+		
+		/**
+		 * \brief Override default material of the mesh. If not found, set to engine's default.
 		 * \param path Material path
 		 */
 		void SetMaterial(Path path);
-		void SetMaterial(SharedPtr<Material> material) noexcept { material_ = std::move(material); }
+		
+		/**
+		 * \brief Override default material of the mesh
+		 * \param material Pointer to material. Must not be nullptr
+		 * \throw std::invalid_argument If material is nullptr
+		 */
+		void SetMaterial(SharedPtr<Material> material);
 
 		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
@@ -39,6 +55,7 @@ namespace oeng
 		
 	private:
 		void OnBeginPlay() override;
+		void ReRegister() const;
 		
 		SharedPtr<Mesh> mesh_;
 		SharedPtr<Material> material_;
