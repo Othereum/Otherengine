@@ -159,5 +159,7 @@ namespace oeng
 			if (info.fault) log::Info("[Mem]  Block fault: {} times", info.fault);
 			if (info.cur) log::Warn("[Mem]  Leaked: {} blocks", info.cur);
 		}
+
+		engine_exist = false;
 	}
 }
