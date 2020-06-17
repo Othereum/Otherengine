@@ -293,7 +293,7 @@ namespace oeng
 		public:
 			[[nodiscard]] const Data& GetData() const noexcept override
 			{
-				static const Data data{*Vec3{1, 1, -1}.Unit(std::nothrow), Vec3::one};
+				static const Data data{*Vec3{1, 1, -1}.Unit(), Vec3::one};
 				return data;
 			}
 		};
