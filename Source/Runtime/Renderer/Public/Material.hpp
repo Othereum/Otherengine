@@ -46,13 +46,11 @@ namespace oeng
 
 	private:
 		Material(Path path, Renderer& renderer, const Json& json);
-		
 		void LoadUniforms(const Json& uniforms);
-		void LoadUniform(int location, const Json& value);
 
 		SharedRef<Shader> shader_;
 		SharedRef<Texture> texture_;
-		HashMap<int, Uniform> uniforms_;
+		HashMap<Name, Uniform> uniforms_;
 	};
 
 	inline void swap(Material& a, Material& b) noexcept

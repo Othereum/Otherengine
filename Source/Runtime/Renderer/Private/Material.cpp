@@ -33,24 +33,9 @@ namespace oeng
 		for (auto& [name, var] : uniforms_)
 		{
 			auto set_uniform = [&](auto& val) { return shader_->TryUniform(name, val); };
-			std::visit(set_uniform, var);
-		}
-	}
-
-	void Material::LoadUniforms(const Json& uniforms)
-	{
-		for (auto& [name, value] : uniforms.items())
-		{
-			try
+			if (!std::visit(set_uniform, var))
 			{
-				const auto location = shader_->GetUniformLocation(name);
-				if (location == Shader::invalid_uniform_) throw std::out_of_range{"could not be found"};
-				
-				LoadUniform(location, value);
-			}
-			catch (const std::exception& e)
-			{
-				log::Error("'{}': invalid uniform '{}': {}", GetPath().Str(), name, e.what());
+				OE_DLOG(1s, log::level::err, "{}: Failed to set uniform '{}'", GetPath().Str(), *name);
 			}
 		}
 	}
@@ -95,46 +80,56 @@ namespace oeng
 		}
 	}
 
-	void Material::LoadUniform(int location, const Json& value)
+	static Uniform LoadUniform(const Json& value)
 	{
-		auto emplace = [&]<class T>(T&& val) { uniforms_.try_emplace(location, std::forward<T>(val)); };
-		
 		switch (value.type())
 		{
 		case JsonType::array:
 			switch (value.at(0).type())
 			{
 			case JsonType::array:
-				emplace(LoadMatrix(value));
-				break;
+				return LoadMatrix(value);
 				
 			case JsonType::boolean:
 			case JsonType::number_integer:
 			case JsonType::number_unsigned:
-				emplace(LoadVector<int32_t>(value));
-				break;
+				return LoadVector<int>(value);
 				
 			case JsonType::number_float:
-				emplace(LoadVector<Float>(value));
-				break;
+				return LoadVector<Float>(value);
 
 			default:
 				throw std::domain_error{"Only bool, int, float types are supported for vec element"};
 			}
-			break;
 			
 		case JsonType::boolean:
 		case JsonType::number_integer:
 		case JsonType::number_unsigned:
-			uniforms_.try_emplace(location, value.get<int32_t>());
-			break;
+			return value.get<int>();
 			
 		case JsonType::number_float:
-			uniforms_.try_emplace(location, value.get<Float>());
-			break;
+			return value.get<Float>();
 			
 		default:
 			throw std::domain_error{"Only bool, int, float, vecn, ivecn, bvecn, matn, matnxn types are supported"};
+		}
+	}
+	
+	void Material::LoadUniforms(const Json& uniforms)
+	{
+		for (auto& [name, value] : uniforms.items())
+		{
+			try
+			{
+				if (shader_->GetUniformLocation(name) == Shader::invalid_uniform_)
+					throw std::out_of_range{"could not be found"};
+				
+				uniforms_.try_emplace(name, LoadUniform(value));
+			}
+			catch (const std::exception& e)
+			{
+				log::Error("'{}': invalid uniform '{}': {}", GetPath().Str(), name, e.what());
+			}
 		}
 	}
 }
