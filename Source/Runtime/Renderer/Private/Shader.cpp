@@ -133,13 +133,6 @@ namespace oeng
 		return err == GL_NO_ERROR;
 	}
 
-	static bool GlUniform(int location, uint32_t value) noexcept
-	{
-		unsigned err;
-		gl(err, glUniform1ui, location, value);
-		return err == GL_NO_ERROR;
-	}
-
 	bool Shader::TryUniform(int location, const Uniform& value)
 	{
 		if (location == invalid_uniform_) return false;
