@@ -1,7 +1,6 @@
 #pragma once
-#include <variant>
-#include "Math.hpp"
 #include "Asset.hpp"
+#include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
@@ -9,7 +8,6 @@ namespace oeng
 	class OEAPI Shader : public Asset
 	{
 	public:
-		using Uniform = std::variant<Mat4, Vec4, Vec3, Vec2, float, int32_t, uint32_t>;
 		static constexpr int invalid_uniform_ = -1;
 
 		Shader() = default;

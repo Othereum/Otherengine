@@ -1,8 +1,7 @@
 #pragma once
-#include <variant>
 #include "Asset.hpp"
 #include "Name.hpp"
-#include "Math.hpp"
+#include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
@@ -53,7 +52,7 @@ namespace oeng
 
 		SharedRef<Shader> shader_;
 		SharedRef<Texture> texture_;
-		HashMap<int, std::variant<Float, Vec2, Vec3, Vec4>> uniforms_;
+		HashMap<int, Uniform> uniforms_;
 	};
 
 	inline void swap(Material& a, Material& b) noexcept
