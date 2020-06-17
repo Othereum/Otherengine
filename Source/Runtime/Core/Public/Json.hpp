@@ -1,7 +1,7 @@
 #pragma once
 #include "JsonFwd.hpp"
 #include <nlohmann/json.hpp>
-#include <otmfwd.hpp>
+#include <otm/otmfwd.hpp>
 #include "Path.hpp"
 
 namespace otm
