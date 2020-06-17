@@ -78,6 +78,8 @@ namespace oeng
 			break;
 		case JsonType::number_integer:
 		case JsonType::number_unsigned:
+			uniforms_.try_emplace(location, value.get<int32_t>());
+			break;
 		case JsonType::number_float:
 			uniforms_.try_emplace(location, value.get<Float>());
 			break;
