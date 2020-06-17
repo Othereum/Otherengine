@@ -1,9 +1,9 @@
 #include "Name.hpp"
+#include <unordered_set>
 #include <otm/Hash.hpp>
 #include "Assert.hpp"
 #include "Json.hpp"
 #include "Core.hpp"
-#include "Templates/HashSet.hpp"
 #include "Templates/Sync.hpp"
 
 namespace oeng
@@ -30,9 +30,11 @@ namespace oeng
 
 	static auto& GetSet()
 	{
-		CHECK(OE_NAME_THREADSAFE || IsGameThread());
-		using NameSet = HashSet<Name::Str, NameHasher, NameEqual, RawAllocator<Name::Str>>;
-		static Monitor<NameSet, CondMutex<OE_NAME_THREADSAFE>> set{Name::Str{}};
+		constexpr bool thread_safe = OE_NAME_THREADSAFE;
+		CHECK(thread_safe || IsGameThread());
+		
+		using NameSet = std::unordered_set<Name::Str, NameHasher, NameEqual>;
+		static CondMonitor<NameSet, thread_safe> set{Name::Str{}};
 		return set;
 	}
 	
