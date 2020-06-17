@@ -91,47 +91,39 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	static bool GlUniform(int location, const Mat4& value) noexcept
+	template <class... Args, std::invocable<int, Args...> Fn>
+	static bool GlUniform(Fn fn, int location, Args... args) noexcept
 	{
 		unsigned err;
-		gl(err, glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
+		gl(err, fn, location, args...);
 		return err == GL_NO_ERROR;
 	}
 
-	static bool GlUniform(int location, Vec4 value) noexcept
+	template <class Fn, size_t Row, size_t Col>
+	static bool GlUniform(Fn fn, int l, const Matrix<Float, Row, Col>& v) noexcept
 	{
-		unsigned err;
-		gl(err, glUniform4f, location, value[0], value[1], value[2], value[3]);
-		return err == GL_NO_ERROR;
+		return GlUniform(fn, l, 1, true, v.AsFlatArr());
 	}
+	
+	static bool GlUniform(int l, const Matrix<Float, 2, 2>& v) noexcept { return GlUniform(glUniformMatrix2fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 2, 3>& v) noexcept { return GlUniform(glUniformMatrix2x3fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 2, 4>& v) noexcept { return GlUniform(glUniformMatrix2x4fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 3, 2>& v) noexcept { return GlUniform(glUniformMatrix3x2fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 3, 3>& v) noexcept { return GlUniform(glUniformMatrix3fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 3, 4>& v) noexcept { return GlUniform(glUniformMatrix3x4fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 4, 2>& v) noexcept { return GlUniform(glUniformMatrix4x2fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 4, 3>& v) noexcept { return GlUniform(glUniformMatrix4x3fv, l, v); }
+	static bool GlUniform(int l, const Matrix<Float, 4, 4>& v) noexcept { return GlUniform(glUniformMatrix4fv, l, v); }
 
-	static bool GlUniform(int location, Vec3 value) noexcept
-	{
-		unsigned err;
-		gl(err, glUniform3f, location, value[0], value[1], value[2]);
-		return err == GL_NO_ERROR;
-	}
+	static bool GlUniform(int l, Vec2 v) noexcept { return GlUniform(glUniform2f, l, v[0], v[1]); }
+	static bool GlUniform(int l, Vec3 v) noexcept { return GlUniform(glUniform3f, l, v[0], v[1], v[2]); }
+	static bool GlUniform(int l, Vec4 v) noexcept { return GlUniform(glUniform4f, l, v[0], v[1], v[2], v[3]); }
+	static bool GlUniform(int l, Vector<int, 2> v) noexcept { return GlUniform(glUniform2i, l, v[0], v[1]); }
+	static bool GlUniform(int l, Vector<int, 3> v) noexcept { return GlUniform(glUniform3i, l, v[0], v[1], v[2]); }
+	static bool GlUniform(int l, Vector<int, 4> v) noexcept { return GlUniform(glUniform4i, l, v[0], v[1], v[2], v[3]); }
 
-	static bool GlUniform(int location, Vec2 value) noexcept
-	{
-		unsigned err;
-		gl(err, glUniform2f, location, value[0], value[1]);
-		return err == GL_NO_ERROR;
-	}
-
-	static bool GlUniform(int location, float value) noexcept
-	{
-		unsigned err;
-		gl(err, glUniform1f, location, value);
-		return err == GL_NO_ERROR;
-	}
-
-	static bool GlUniform(int location, int32_t value) noexcept
-	{
-		unsigned err;
-		gl(err, glUniform1i, location, value);
-		return err == GL_NO_ERROR;
-	}
+	static bool GlUniform(int l, float v) noexcept { return GlUniform(glUniform1f, l, v); }
+	static bool GlUniform(int l, int v) noexcept { return GlUniform(glUniform1i, l, v); }
 
 	bool Shader::TryUniform(int location, const Uniform& value)
 	{
