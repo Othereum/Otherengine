@@ -1,4 +1,6 @@
 #pragma once
+#include <variant>
+#include "Math.hpp"
 #include "Asset.hpp"
 #include "Templates/HashMap.hpp"
 
@@ -7,6 +9,7 @@ namespace oeng
 	class OEAPI Shader : public Asset
 	{
 	public:
+		using Uniform = std::variant<Mat4, Vec4, Vec3, Vec2, float, int32_t, uint32_t>;
 		static constexpr int invalid_uniform_ = -1;
 
 		Shader() = default;
@@ -21,7 +24,8 @@ namespace oeng
 		
 		Shader(Shader&& r) noexcept
 			:Asset{std::move(r)}, vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_},
-			shader_program_{r.shader_program_}, uniform_{std::move(r.uniform_)}
+			shader_program_{r.shader_program_}, loc_cache_{std::move(r.loc_cache_)},
+			uniform_cache_{std::move(r.uniform_cache_)}
 		{
 			r.vert_shader_ = 0;
 			r.frag_shader_ = 0;
@@ -50,8 +54,7 @@ namespace oeng
 		 * \param value The new value to be set.
 		 * \throw std::out_of_range If name is invalid
 		 */
-		template <class T>
-		void SetUniform(Name name, const T& value)
+		void SetUniform(Name name, const Uniform& value)
 		{
 			SetUniform(GetUniformLocation(name), value);
 		}
@@ -62,8 +65,7 @@ namespace oeng
 		 * \param value The new value to be set.
 		 * \throw std::out_of_range If name is invalid
 		 */
-		template <class T>
-		void SetUniform(int location, const T& value)
+		void SetUniform(int location, const Uniform& value)
 		{
 			if (!TryUniform(location, value))
 				throw std::out_of_range{"location is invalid"};
@@ -75,8 +77,7 @@ namespace oeng
 		 * \param value The new value to be set.
 		 * \return true if successful
 		 */
-		template <class T>
-		bool TryUniform(Name name, const T& value) noexcept
+		bool TryUniform(Name name, const Uniform& value)
 		{
 			return TryUniform(GetUniformLocation(name), value);
 		}
@@ -87,11 +88,7 @@ namespace oeng
 		 * \param value New value of uniform
 		 * \return true if successful
 		 */
-		static bool TryUniform(int location, const Mat4& value) noexcept;
-		static bool TryUniform(int location, const Vec4& value) noexcept;
-		static bool TryUniform(int location, const Vec3& value) noexcept;
-		static bool TryUniform(int location, const Vec2& value) noexcept;
-		static bool TryUniform(int location, float value) noexcept;
+		bool TryUniform(int location, const Uniform& value);
 		
 		/**
 		 * \brief Get location of the uniform variable
@@ -107,7 +104,8 @@ namespace oeng
 			swap(vert_shader_, r.vert_shader_);
 			swap(frag_shader_, r.frag_shader_);
 			swap(shader_program_, r.shader_program_);
-			swap(uniform_, r.uniform_);
+			swap(loc_cache_, r.loc_cache_);
+			swap(uniform_cache_, r.uniform_cache_);
 		}
 
 	private:
@@ -116,7 +114,8 @@ namespace oeng
 		unsigned vert_shader_ = 0;
 		unsigned frag_shader_ = 0;
 		unsigned shader_program_ = 0;
-		HashMap<Name, int> uniform_;
+		HashMap<Name, int> loc_cache_;
+		HashMap<int, Uniform> uniform_cache_;
 	};
 
 	inline void swap(Shader& a, Shader& b) noexcept { a.swap(b); }

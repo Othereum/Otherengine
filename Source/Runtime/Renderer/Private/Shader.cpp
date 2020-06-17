@@ -91,49 +91,83 @@ namespace oeng
 		gl(glUseProgram, shader_program_);
 	}
 
-	bool Shader::TryUniform(int location, const Mat4& value) noexcept
+	static bool GlUniform(int location, const Mat4& value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniformMatrix4fv, location, 1, true, value.AsFlatArr());
-		return !err;
+		return err == GL_NO_ERROR;
 	}
 
-	bool Shader::TryUniform(int location, const Vec4& value) noexcept
+	static bool GlUniform(int location, Vec4 value) noexcept
 	{
 		unsigned err;
-		gl(err, glUniform4fv, location, 1, value.data);
-		return !err;
+		gl(err, glUniform4f, location, value[0], value[1], value[2], value[3]);
+		return err == GL_NO_ERROR;
 	}
 
-	bool Shader::TryUniform(int location, const Vec3& value) noexcept
+	static bool GlUniform(int location, Vec3 value) noexcept
 	{
 		unsigned err;
-		gl(err, glUniform3fv, location, 1, value.data);
-		return !err;
+		gl(err, glUniform3f, location, value[0], value[1], value[2]);
+		return err == GL_NO_ERROR;
 	}
 
-	bool Shader::TryUniform(int location, const Vec2& value) noexcept
+	static bool GlUniform(int location, Vec2 value) noexcept
 	{
 		unsigned err;
-		gl(err, glUniform2fv, location, 1, value.data);
-		return !err;
+		gl(err, glUniform2f, location, value[0], value[1]);
+		return err == GL_NO_ERROR;
 	}
 
-	bool Shader::TryUniform(int location, float value) noexcept
+	static bool GlUniform(int location, float value) noexcept
 	{
 		unsigned err;
 		gl(err, glUniform1f, location, value);
-		return !err;
+		return err == GL_NO_ERROR;
+	}
+
+	static bool GlUniform(int location, int32_t value) noexcept
+	{
+		unsigned err;
+		gl(err, glUniform1i, location, value);
+		return err == GL_NO_ERROR;
+	}
+
+	static bool GlUniform(int location, uint32_t value) noexcept
+	{
+		unsigned err;
+		gl(err, glUniform1ui, location, value);
+		return err == GL_NO_ERROR;
+	}
+
+	bool Shader::TryUniform(int location, const Uniform& value)
+	{
+		if (location == invalid_uniform_) return false;
+
+		const auto cache = uniform_cache_.find(location);
+		if (cache != uniform_cache_.end())
+		{
+			auto equals = []<class T0, class T1>(const T0& a, const T1& b)
+			{
+				if constexpr (!std::is_same_v<T0, T1>) { return false; }
+				else { return IsNearlyEqual(a, b); }
+			};
+			if (std::visit(equals, cache->second, value)) return true;
+		}
+
+		const auto success = std::visit([&](const auto& v) { return GlUniform(location, v); }, value);
+		if (success) uniform_cache_.insert_or_assign(cache, location, value);
+		return success;
 	}
 
 	int Shader::GetUniformLocation(Name name) noexcept
 	{
-		if (const auto found = uniform_.find(name); found != uniform_.end())
+		if (const auto found = loc_cache_.find(name); found != loc_cache_.end())
 			return found->second;
 
 		unsigned err;
 		const auto loc = gl(err, glGetUniformLocation, shader_program_, name->c_str());
-		if (loc != invalid_uniform_) uniform_.try_emplace(name, loc);
+		if (loc != invalid_uniform_) loc_cache_.try_emplace(name, loc);
 		return loc;
 	}
 }
