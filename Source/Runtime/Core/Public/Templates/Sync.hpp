@@ -123,4 +123,7 @@ namespace oeng
 		[[nodiscard]] T& GetUnsafe() noexcept { return object_; }
 		[[nodiscard]] const T& GetUnsafe() const noexcept { return object_; }
 	};
+
+	template <class T, bool ThreadSafe>
+	using CondMonitor = Monitor<T, CondMutex<ThreadSafe>>;
 }
