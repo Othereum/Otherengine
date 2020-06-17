@@ -1,6 +1,5 @@
 #include "Material.hpp"
 #include "Log.hpp"
-#include "Format.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
 
@@ -56,35 +55,86 @@ namespace oeng
 		}
 	}
 
+	[[noreturn]] static void ThrowLength()
+	{
+		throw std::length_error{"The length must be 2 to 4"};
+	}
+
+	template <size_t Row>
+	static Uniform LoadMatrix(const Json& value)
+	{
+		switch (value.at(0).size())
+		{
+		case 2: return value.get<Matrix<Float, Row, 2>>();
+		case 3: return value.get<Matrix<Float, Row, 3>>();
+		case 4: return value.get<Matrix<Float, Row, 4>>();
+		default: ThrowLength();
+		}
+	}
+
+	static Uniform LoadMatrix(const Json& value)
+	{
+		switch (value.size())
+		{
+		case 2: return LoadMatrix<2>(value);
+		case 3: return LoadMatrix<3>(value);
+		case 4: return LoadMatrix<4>(value);
+		default: ThrowLength();
+		}
+	}
+
+	template <class T>
+	static Uniform LoadVector(const Json& value)
+	{
+		switch (value.size())
+		{
+		case 2: return value.get<Vector<T, 2>>();
+		case 3: return value.get<Vector<T, 3>>();
+		case 4: return value.get<Vector<T, 4>>();
+		default: ThrowLength();
+		}
+	}
+
 	void Material::LoadUniform(int location, const Json& value)
 	{
+		auto emplace = [&]<class T>(T&& val) { uniforms_.try_emplace(location, std::forward<T>(val)); };
+		
 		switch (value.type())
 		{
 		case JsonType::array:
-			switch (const auto size = value.size())
+			switch (value.at(0).type())
 			{
-			case 2:
-				uniforms_.try_emplace(location, value.get<Vec2>());
+			case JsonType::array:
+				emplace(LoadMatrix(value));
 				break;
-			case 3:
-				uniforms_.try_emplace(location, value.get<Vec3>());
+				
+			case JsonType::boolean:
+			case JsonType::number_integer:
+			case JsonType::number_unsigned:
+				emplace(LoadVector<int32_t>(value));
 				break;
-			case 4:
-				uniforms_.try_emplace(location, value.get<Vec4>());
+				
+			case JsonType::number_float:
+				emplace(LoadVector<Float>(value));
 				break;
+
 			default:
-				throw std::domain_error{format("The length of the vector must be 2 to 4. (actual: {})", size)};
+				throw std::domain_error{"Only bool, int, float types are supported for vec element"};
 			}
 			break;
+			
+		case JsonType::boolean:
 		case JsonType::number_integer:
 		case JsonType::number_unsigned:
 			uniforms_.try_emplace(location, value.get<int32_t>());
 			break;
+			
 		case JsonType::number_float:
 			uniforms_.try_emplace(location, value.get<Float>());
 			break;
+			
 		default:
-			throw std::domain_error{"Only float, vec2, vec3, and vec4 types are supported."};
+			throw std::domain_error{"Only bool, int, float, vecn, ivecn, bvecn, matn, matnxn types are supported"};
 		}
 	}
 }

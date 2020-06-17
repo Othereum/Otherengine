@@ -4,5 +4,15 @@
 
 namespace oeng
 {
-	using Uniform = std::variant<Mat4, Vec4, Vec3, Vec2, float, int32_t>;
+	using Uniform = std::variant<
+		float, int32_t,
+	
+		Vec2, Vec3, Vec4,
+		Vector<int32_t, 2>, Vector<int32_t, 3>, Vector<int32_t, 4>,
+	
+		Mat2, Mat3, Mat4,
+		Matrix<Float, 2, 3>, Matrix<Float, 2, 4>,
+		Matrix<Float, 3, 2>, Matrix<Float, 3, 4>,
+		Matrix<Float, 4, 2>, Matrix<Float, 4, 3>
+	>;
 }
