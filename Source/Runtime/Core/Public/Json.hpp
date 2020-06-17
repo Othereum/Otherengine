@@ -17,6 +17,18 @@ namespace otm
 	{
 		json.get_to(v.data);
 	}
+
+	template <class T, size_t Row, size_t Col>
+	void to_json(oeng::Json& json, const Matrix<T, Row, Col>& m)
+	{
+		for (auto& v : m) json.emplace_back(v);
+	}
+
+	template <class T, size_t Row, size_t Col>
+	void from_json(const oeng::Json& json, Matrix<T, Row, Col>& m)
+	{
+		for (auto i=0; i<Row; ++i) from_json(json.at(i), m[i]);
+	}
 }
 
 namespace oeng
