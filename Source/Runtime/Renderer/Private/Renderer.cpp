@@ -177,7 +177,7 @@ namespace oeng
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetUniform(NAME("uViewProj"), MakeSimpleViewProj<4>(GetWindowSize()));
+		sprite_shader_.SetUniform("uViewProj", MakeSimpleViewProj<4>(GetWindowSize()));
 	}
 
 	Renderer::~Renderer() = default;
