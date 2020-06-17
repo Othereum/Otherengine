@@ -3,7 +3,6 @@
 #include <spdlog/async.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include "Templates/HashMap.hpp"
 #include "Templates/Sync.hpp"
 
 namespace oeng::log
@@ -42,7 +41,8 @@ namespace oeng::log
 	{
 		static auto& GetLogs()
 		{
-			static Monitor<HashMap<unsigned, TimePoint>, CondMutex<kThreadSafe>> logs;
+			using LogMap = std::unordered_map<unsigned, TimePoint>;
+			static CondMonitor<LogMap, kThreadSafe> logs;
 			return logs;
 		}
 		
