@@ -20,8 +20,7 @@ namespace oeng
 		[[nodiscard]] bool ShouldAffect() const noexcept override;
 
 	private:
-		void OnActivated() override;
-		void OnDeactivated() override;
+		void OnBeginPlay() override;
 		void OnTrsfChanged() override { data_.pos = GetWorldPos(); }
 		
 		Data data_;

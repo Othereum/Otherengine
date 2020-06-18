@@ -11,7 +11,7 @@ namespace oeng
 
 	PointLightComponent::~PointLightComponent()
 	{
-		PointLightComponent::OnDeactivated();
+		GetRenderer().UnregisterPointLight(*this);
 	}
 
 	bool PointLightComponent::ShouldAffect() const noexcept
@@ -19,13 +19,8 @@ namespace oeng
 		return IsActive() && data_.radius > kSmallNum && data_.color.LenSqr() > kSmallNum;
 	}
 
-	void PointLightComponent::OnActivated()
+	void PointLightComponent::OnBeginPlay()
 	{
 		GetRenderer().RegisterPointLight(*this);
-	}
-
-	void PointLightComponent::OnDeactivated()
-	{
-		GetRenderer().UnregisterPointLight(*this);
 	}
 }
