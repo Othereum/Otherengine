@@ -7,6 +7,7 @@ namespace oeng
 	void from_json(const Json& json, Vertex& vertex)
 	{
 		json.get_to(vertex.data);
+		vertex.norm.Normalize();
 	}
 
 	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
