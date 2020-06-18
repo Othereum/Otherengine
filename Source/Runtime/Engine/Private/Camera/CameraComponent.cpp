@@ -1,5 +1,5 @@
 #include "Camera/CameraComponent.hpp"
-#include "Engine.hpp"
+#include "Renderer.hpp"
 
 namespace oeng
 {
@@ -11,19 +11,7 @@ namespace oeng
 
 	CameraComponent::~CameraComponent()
 	{
-		GetEngine().GetRenderer().UnregisterCamera(*this);
-	}
-
-	void CameraComponent::Activate() noexcept
-	{
-		GetEngine().GetRenderer().RegisterCamera(*this);
-	}
-
-	void CameraComponent::SetNearFar(Float near, Float far) noexcept
-	{
-		near_ = near;
-		far_ = far;
-		RecalcProj();
+		CameraComponent::OnDeactivated();
 	}
 
 	const Vec3& CameraComponent::GetPos() const noexcept
@@ -47,16 +35,29 @@ namespace oeng
 		RecalcView();
 	}
 
-	void CameraComponent::RecalcView() noexcept try
+	void CameraComponent::RecalcView() noexcept
 	{
-		view_ = MakeLookAt(GetWorldPos(), GetWorldPos() + *GetForward(), Vec3::up);
-		view_proj_ = view_ * proj_;
+		try
+		{
+			view_ = MakeLookAt(GetWorldPos(), GetWorldPos() + *GetForward(), Vec3::up);
+			view_proj_ = view_ * proj_;
+		}
+		catch (...) {}
 	}
-	catch (...) {}
 
 	void CameraComponent::RecalcProj() noexcept
 	{
-		proj_ = MakePerspective(scr_, near_, far_, vfov_);
+		proj_ = MakePerspective(scr_, data_.near, data_.far, data_.vfov);
 		view_proj_ = view_ * proj_;
+	}
+
+	void CameraComponent::OnActivated()
+	{
+		GetRenderer().RegisterCamera(*this);
+	}
+
+	void CameraComponent::OnDeactivated()
+	{
+		GetRenderer().UnregisterCamera(*this);
 	}
 }

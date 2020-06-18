@@ -7,38 +7,29 @@ namespace oeng
 	class OEAPI CameraComponent : public SceneComponent, public ICamera
 	{
 	public:
+		OE_DELETE_CPMV(CameraComponent);
+		
 		explicit CameraComponent(AActor& owner, int update_order = 100);
 		~CameraComponent();
 
-		void Activate() noexcept;
-
-		void SetVFov(Rad vfov) noexcept { vfov_ = vfov; RecalcProj(); }
-		void SetNearFar(Float near, Float far) noexcept;
-		
-		[[nodiscard]] Rad GetVFov() const noexcept { return vfov_; }
-		[[nodiscard]] Float GetNear() const noexcept { return near_; }
-		[[nodiscard]] Float GetFar() const noexcept { return far_; }
+		void SetVFov(Rad vfov) noexcept { data_.vfov = vfov; RecalcProj(); }
+		void SetNearFar(Float near, Float far) noexcept { data_.near = near; data_.far = far; RecalcProj(); }
 
 		const Vec3& GetPos() const noexcept override;
+		const Data& GetData() const noexcept override { return data_;}
 		const Mat4& GetViewProj() const noexcept override;
 		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
-
-		CameraComponent(const CameraComponent&) = delete;
-		CameraComponent(CameraComponent&&) = delete;
-		CameraComponent& operator=(const CameraComponent&) = delete;
-		CameraComponent& operator=(CameraComponent&&) = delete;
 
 	private:
 		void OnTrsfChanged() noexcept override;
 		void RecalcView() noexcept;
 		void RecalcProj() noexcept;
+		void OnActivated() override;
+		void OnDeactivated() override;
 		
 		Mat4 view_, proj_;
 		Mat4 view_proj_;
-		
-		Float near_ = 10, far_ = 10000;
-		Rad vfov_ = 60_deg;
-		
+		Data data_{10, 10000, 60_deg};
 		Vec2 scr_;
 	};
 }

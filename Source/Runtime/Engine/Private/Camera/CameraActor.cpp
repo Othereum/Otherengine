@@ -26,16 +26,16 @@ namespace oeng
 
 	Rad ACameraActor::GetVFov() const noexcept
 	{
-		return camera_.GetVFov();
+		return camera_.GetData().vfov;
 	}
 
 	Float ACameraActor::GetNear() const noexcept
 	{
-		return camera_.GetNear();
+		return camera_.GetData().near;
 	}
 
 	Float ACameraActor::GetFar() const noexcept
 	{
-		return camera_.GetFar();
+		return camera_.GetData().far;
 	}
 }
