@@ -8,7 +8,7 @@ namespace oeng
 	class Material;
 	class Texture;
 
-	class ISpriteComponent
+	class OEAPI ISpriteComponent
 	{
 	public:
 		OE_INTERFACE_BODY(ISpriteComponent);
@@ -19,11 +19,12 @@ namespace oeng
 		[[nodiscard]] virtual Texture& GetTexture() const noexcept = 0;
 	};
 
-	class IMeshComponent
+	class OEAPI IMeshComponent
 	{
 	public:
 		OE_INTERFACE_BODY(IMeshComponent);
-		
+
+		[[nodiscard]] Float GetRadius() const noexcept;
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
 		[[nodiscard]] virtual const Transform& GetDrawTrsf() const noexcept = 0;
 		[[nodiscard]] virtual const Mat4& GetDrawTrsfMatrix() const noexcept = 0;
