@@ -56,8 +56,8 @@ void main()
 	for (int i=0; i<uNumPointLights; ++i)
 	{
 		vec3 lightDir = fragWorldPos - uPointLights[i].pos;
-		float intensity = uPointLights[i].radius / max(dot(lightDir, lightDir), 1/uPointLights[i].radius);
-		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * intensity);
+		float intensity = max(0, 1 - length(lightDir) / uPointLights[i].radius);
+		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * (intensity*intensity));
 	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(light, 1);
