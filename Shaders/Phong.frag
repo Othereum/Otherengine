@@ -1,4 +1,5 @@
 #version 330
+#define MAX_LIGHTS 4
 
 struct DirLight
 {
@@ -27,10 +28,10 @@ uniform float uSpecular;
 uniform vec3 uCamPos;
 uniform vec3 uSkyLight;
 uniform DirLight uDirLight;
-uniform PointLight uPointLights[4];
-uniform SpotLight uSpotLights[4];
-uniform uint uNumPointLights;
-uniform uint uNumSpotLights;
+uniform PointLight uPointLights[MAX_LIGHTS];
+uniform SpotLight uSpotLights[MAX_LIGHTS];
+uniform int uNumPointLights;
+uniform int uNumSpotLights;
 
 in vec2 fragTexCoord;
 in vec3 fragWorldPos;
@@ -38,15 +39,27 @@ in vec3 fragWorldNormal;
 
 out vec4 outColor;
 
+vec3 Phong(vec3 normal, vec3 toCam, vec3 lightDir, vec3 lightColor)
+{
+	float diffuse = max(-dot(normal, lightDir), 0);
+	float specular = uSpecular * max(dot(reflect(lightDir, normal), toCam), 0);
+	return lightColor * (diffuse + specular);
+}
+
 void main()
 {
 	vec3 normal = normalize(fragWorldNormal);
 	vec3 toCam = normalize(uCamPos - fragWorldPos);
-	vec3 reflected = reflect(uDirLight.dir, normal);
 
-	float diffuse = max(0, -dot(normal, uDirLight.dir));
-	float specular = uSpecular * max(0, dot(reflected, toCam));
-	vec3 light = uSkyLight + uDirLight.color * (diffuse + specular);
+	vec3 light = uSkyLight + Phong(normal, toCam, uDirLight.dir, uDirLight.color);
+
+	int numPointLights = min(MAX_LIGHTS, uNumPointLights);
+	for (int i=0; i<numPointLights; ++i)
+	{
+		vec3 lightDir = fragWorldPos - uPointLights[i].pos;
+		float intensity = dot(lightDir, lightDir) / (uPointLights[i].radius * uPointLights[i].radius);
+		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * intensity);
+	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(light, 1);
 }
