@@ -61,7 +61,7 @@ namespace oeng
 		 * \brief Set uniform variable of this shader with given name.
 		 * \param location The location of the uniform variable. Must be valid.
 		 * \param value The new value to be set.
-		 * \throw std::out_of_range If name is invalid
+		 * \throw std::out_of_range If location is invalid
 		 */
 		void SetUniform(int location, const Uniform& value)
 		{
