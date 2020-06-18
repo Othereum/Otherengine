@@ -42,7 +42,7 @@ namespace oeng
 	{
 		if (parent_)
 		{
-			world_mat_ = parent_->GetWorldTrsfMatrix() * rel_trsf_.ToMatrix();
+			world_mat_ = rel_trsf_.ToMatrix() * parent_->GetWorldTrsfMatrix();
 			world_trsf_ = Transform{world_mat_};
 		}
 		else
