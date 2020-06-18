@@ -22,11 +22,6 @@ namespace oeng
 		SetTexture(GetRenderer().GetTexture(file));
 	}
 
-	Renderer& SpriteComponent::GetRenderer() const noexcept
-	{
-		return GetEngine().GetRenderer();
-	}
-
 	void SpriteComponent::OnBeginPlay()
 	{
 		GetRenderer().RegisterSprite(*this);

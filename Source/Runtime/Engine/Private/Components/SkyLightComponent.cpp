@@ -1,16 +1,29 @@
 #include "Components/SkyLightComponent.hpp"
-#include "Engine.hpp"
+#include "Log.hpp"
 #include "Renderer.hpp"
 
 namespace oeng
 {
 	SkyLightComponent::~SkyLightComponent()
 	{
-		GetEngine().GetRenderer().UnregisterSkyLight(*this);
+		SkyLightComponent::OnDeactivated();
 	}
 
-	void SkyLightComponent::Activate() const noexcept
+	void SkyLightComponent::OnActivated()
 	{
-		GetEngine().GetRenderer().RegisterSkyLight(*this);
+		GetRenderer().RegisterSkyLight(*this);
+	}
+
+	void SkyLightComponent::OnDeactivated()
+	{
+		GetRenderer().UnregisterSkyLight(*this);
+	}
+
+	void SkyLightComponent::OnBeginPlay()
+	{
+		if (IsAutoActivate() && GetRenderer().IsSkyLightRegistered())
+		{
+			log::Warn("Only one sky light can be activated at the same time.");
+		}
 	}
 }

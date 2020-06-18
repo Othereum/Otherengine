@@ -1,5 +1,5 @@
 #include "Components/MeshComponent.hpp"
-#include "Engine.hpp"
+#include "Renderer.hpp"
 #include "Mesh.hpp"
 
 namespace oeng
@@ -38,11 +38,6 @@ namespace oeng
 	{
 		material_ = std::move(material);
 		ReRegister();
-	}
-
-	Renderer& MeshComponent::GetRenderer() const noexcept
-	{
-		return GetEngine().GetRenderer();
 	}
 
 	void MeshComponent::OnBeginPlay()

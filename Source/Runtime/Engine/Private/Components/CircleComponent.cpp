@@ -16,7 +16,7 @@ namespace oeng
 
 	void CircleComponent::TestOverlap(CircleComponent& other)
 	{
-		if (!(IsEnabled() && other.IsEnabled())) return;
+		if (!(IsActive() && other.IsActive())) return;
 		if (!(on_overlap_ || other.on_overlap_)) return;
 		
 		const auto distsqr = GetOwner().GetPos().DistSqr(other.GetOwner().GetPos());

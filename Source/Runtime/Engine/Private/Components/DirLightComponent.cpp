@@ -1,5 +1,5 @@
 #include "Components/DirLightComponent.hpp"
-#include "Engine.hpp"
+#include "Log.hpp"
 #include "Renderer.hpp"
 
 namespace oeng
@@ -11,11 +11,24 @@ namespace oeng
 
 	DirLightComponent::~DirLightComponent()
 	{
-		GetEngine().GetRenderer().UnregisterDirLight(*this);
+		DirLightComponent::OnDeactivated();
 	}
 
-	void DirLightComponent::Activate() const noexcept
+	void DirLightComponent::OnActivated()
 	{
-		GetEngine().GetRenderer().RegisterDirLight(*this);
+		GetRenderer().RegisterDirLight(*this);
+	}
+
+	void DirLightComponent::OnDeactivated()
+	{
+		GetRenderer().UnregisterDirLight(*this);
+	}
+
+	void DirLightComponent::OnBeginPlay()
+	{
+		if (IsAutoActivate() && GetRenderer().IsDirLightRegistered())
+		{
+			log::Warn("Only one directional light can be activated at the same time.");
+		}
 	}
 }

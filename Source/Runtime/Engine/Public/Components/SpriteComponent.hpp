@@ -16,14 +16,13 @@ namespace oeng
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
-		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsEnabled(); }
+		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
 		[[nodiscard]] int GetDrawOrder() const noexcept override { return draw_order_; }
 		[[nodiscard]] const Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
 
 		void SetTexture(Path file);
 		void SetTexture(SharedRef<Texture> texture) noexcept { texture_ = std::move(texture); }
 		[[nodiscard]] Texture& GetTexture() const noexcept override { return *texture_; }
-		[[nodiscard]] Renderer& GetRenderer() const noexcept;
 
 		SpriteComponent(const SpriteComponent&) = delete;
 		SpriteComponent(SpriteComponent&&) = delete;

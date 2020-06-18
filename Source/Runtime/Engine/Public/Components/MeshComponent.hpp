@@ -12,10 +12,12 @@ namespace oeng
 	class OEAPI MeshComponent : public SceneComponent, public IMeshComponent
 	{
 	public:
+		OE_DELETE_CPMV(MeshComponent);
+		
 		explicit MeshComponent(AActor& owner, int update_order = 100);
 		~MeshComponent();
 
-		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsEnabled(); }
+		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
 		[[nodiscard]] const Transform& GetDrawTrsf() const noexcept override { return GetWorldTrsf(); }
 		[[nodiscard]] const Mat4& GetDrawTrsfMatrix() const noexcept override { return GetWorldTrsfMatrix(); }
 		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
@@ -25,13 +27,6 @@ namespace oeng
 		void SetMesh(SharedRef<Mesh> mesh);
 		void SetMaterial(Path path);
 		void SetMaterial(SharedRef<Material> material);
-
-		[[nodiscard]] Renderer& GetRenderer() const noexcept;
-
-		MeshComponent(const MeshComponent&) = delete;
-		MeshComponent(MeshComponent&&) = delete;
-		MeshComponent& operator=(const MeshComponent&) = delete;
-		MeshComponent& operator=(MeshComponent&&) = delete;
 		
 	private:
 		void OnBeginPlay() override;

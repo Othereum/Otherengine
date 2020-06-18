@@ -11,7 +11,7 @@ namespace oeng
 
 	void InputComponent::OnUpdate(Float delta_seconds)
 	{
-		if (IsEnabled())
+		if (IsActive())
 		{
 			ProcessActions();
 			ProcessAxises();

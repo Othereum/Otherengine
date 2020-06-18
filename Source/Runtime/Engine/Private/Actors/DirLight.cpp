@@ -21,6 +21,6 @@ namespace oeng
 
 	const Vec3& ADirLight::GetColor() const noexcept
 	{
-		return light_.GetColor();
+		return light_.GetData().color;
 	}
 }

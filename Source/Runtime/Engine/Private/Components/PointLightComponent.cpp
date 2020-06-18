@@ -11,11 +11,21 @@ namespace oeng
 
 	PointLightComponent::~PointLightComponent()
 	{
-		GetEngine().GetRenderer().UnregisterPointLight(*this);
+		PointLightComponent::OnDeactivated();
 	}
 
-	void PointLightComponent::OnBeginPlay()
+	bool PointLightComponent::ShouldAffect() const noexcept
 	{
-		GetEngine().GetRenderer().RegisterPointLight(*this);
+		return IsActive() && data_.radius > kSmallNum && data_.color.LenSqr() > kSmallNum;
+	}
+
+	void PointLightComponent::OnActivated()
+	{
+		GetRenderer().RegisterPointLight(*this);
+	}
+
+	void PointLightComponent::OnDeactivated()
+	{
+		GetRenderer().UnregisterPointLight(*this);
 	}
 }

@@ -17,13 +17,11 @@ namespace oeng
 		[[nodiscard]] float GetRadius() const noexcept { return data_.radius; }
 		[[nodiscard]] const Vec3& GetColor() const noexcept { return data_.color; }
 		[[nodiscard]] const Data& GetData() const noexcept override { return data_; }
-		[[nodiscard]] bool ShouldAffect() const noexcept override
-		{
-			return IsEnabled() && data_.radius > kSmallNum && data_.color.LenSqr() > kSmallNum;
-		}
+		[[nodiscard]] bool ShouldAffect() const noexcept override;
 
 	private:
-		void OnBeginPlay() override;
+		void OnActivated() override;
+		void OnDeactivated() override;
 		void OnTrsfChanged() override { data_.pos = GetWorldPos(); }
 		
 		Data data_;
