@@ -1,8 +1,8 @@
 #pragma once
 #include <span>
-#include "API.hpp"
-#include "JsonFwd.hpp"
+#include "Core.hpp"
 #include "Math.hpp"
+#include "JsonFwd.hpp"
 
 namespace oeng
 {
