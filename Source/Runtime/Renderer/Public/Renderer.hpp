@@ -41,6 +41,8 @@ namespace oeng
 	class OEAPI Renderer
 	{
 	public:
+		OE_DELETE_CPMV(Renderer);
+		
 		explicit Renderer(IEngine& engine);
 		~Renderer();
 		
@@ -82,14 +84,11 @@ namespace oeng
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
-		Renderer(const Renderer&) = delete;
-		Renderer(Renderer&&) = delete;
-		Renderer& operator=(const Renderer&) = delete;
-		Renderer& operator=(Renderer&&) = delete;
-
 	private:
 		void Draw3D();
 		void Draw2D();
+		void DrawMesh(const IMeshComponent& mesh_comp);
+		void DrawLights(const IMeshComponent& mesh_comp);
 		
 		IEngine& engine_;
 		
@@ -128,5 +127,13 @@ namespace oeng
 		
 		CompArr<ISpriteComponent> sprites_;
 		CompArr<IMeshComponent> mesh_comps_;
+
+		struct
+		{
+			Shader* shader;
+			Material* material;
+			Texture* texture;
+			Mesh* mesh;
+		} prev_{};
 	};
 }

@@ -207,60 +207,19 @@ namespace oeng
 		gl(glEnable, GL_DEPTH_TEST);
 		gl(glDisable, GL_BLEND);
 
-		Shader* prev_shader = nullptr;
-		Material* prev_material = nullptr;
-		Texture* prev_texture = nullptr;
-		Mesh* prev_mesh = nullptr;
+		prev_ = {};
 		
-		const auto view_proj = camera_->GetViewProj();
-
-		for (auto mesh_comp_ref : mesh_comps_) try
+		for (auto mesh_comp : mesh_comps_)
 		{
-			const auto& mesh_comp = mesh_comp_ref.get();
-			if (!mesh_comp.ShouldDraw()) continue;
-			
-			auto& material = mesh_comp.GetMaterial();
-			auto& shader = material.GetShader();
-			if (&shader != prev_shader)
+			try
 			{
-				shader.Activate();
-				const auto& dir_light = dir_light_->GetData();
-				shader.TryUniform(NAME("uDirLight.dir"), dir_light.dir);
-				shader.TryUniform(NAME("uDirLight.color"), dir_light.color);
-				shader.TryUniform(NAME("uViewProj"), view_proj);
-				shader.TryUniform(NAME("uCamPos"), camera_->GetPos());
-				shader.TryUniform(NAME("uSkyLight"), sky_light_->GetColor());
-				prev_shader = &shader;
+				DrawMesh(mesh_comp);
 			}
-
-			if (&material != prev_material)
+			catch (const std::exception& e)
 			{
-				material.TryUniforms();
-				prev_material = &material;
+				const auto stem = mesh_comp.get().GetMesh().GetStem();
+				OE_DLOG(1s, log::level::err, "Failed to draw mesh '{}': {}", *stem, e.what());
 			}
-
-			auto& texture = material.GetTexture();
-			if (&texture != prev_texture)
-			{
-				texture.Activate();
-				prev_texture = &texture;
-			}
-
-			auto& mesh = mesh_comp.GetMesh();
-			auto& verts = mesh.GetVertexArray();
-			if (&mesh != prev_mesh)
-			{
-				verts.Activate();
-				prev_mesh = &mesh;
-			}
-			
-			shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsf());
-			gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
-		}
-		catch (const std::exception& e)
-		{
-			const auto stem = mesh_comp_ref.get().GetMesh().GetStem();
-			OE_DLOG(1s, log::level::err, "Failed to draw mesh '{}': {}", *stem, e.what());
 		}
 	}
 
@@ -286,6 +245,84 @@ namespace oeng
 		}
 	}
 
+	void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
+	{
+		if (!mesh_comp.ShouldDraw()) return;
+		
+		auto& material = mesh_comp.GetMaterial();
+		auto& shader = material.GetShader();
+		if (&shader != prev_.shader)
+		{
+			shader.Activate();
+			shader.TryUniform(NAME("uViewProj"), camera_->GetViewProj());
+			shader.TryUniform(NAME("uCamPos"), camera_->GetPos());
+			
+			const auto& dir_light = dir_light_->GetData();
+			shader.TryUniform(NAME("uDirLight.dir"), dir_light.dir);
+			shader.TryUniform(NAME("uDirLight.color"), dir_light.color);
+			shader.TryUniform(NAME("uSkyLight"), sky_light_->GetColor());
+
+			prev_.shader = &shader;
+		}
+
+		if (&material != prev_.material)
+		{
+			material.TryUniforms();
+			prev_.material = &material;
+		}
+
+		auto& texture = material.GetTexture();
+		if (&texture != prev_.texture)
+		{
+			texture.Activate();
+			prev_.texture = &texture;
+		}
+
+		auto& mesh = mesh_comp.GetMesh();
+		auto& verts = mesh.GetVertexArray();
+		if (&mesh != prev_.mesh)
+		{
+			verts.Activate();
+			prev_.mesh = &mesh;
+		}
+
+		DrawLights(mesh_comp);
+
+		shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsfMatrix());
+		gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
+	}
+
+	void Renderer::DrawLights(const IMeshComponent& mesh_comp)
+	{
+		auto& shader = mesh_comp.GetMaterial().GetShader();
+		const auto loc_num = shader.GetUniformLocation(NAME("uNumPointLights"));
+		if (loc_num == Shader::invalid_uniform_) return;
+		
+		constexpr auto max_lights = 4;
+		const auto& trsf = mesh_comp.GetDrawTrsf();
+		const auto radius = Max(trsf.scale) * mesh_comp.GetMesh().GetRadius();
+		
+		auto pl_idx = 0;
+		for (auto pl_ref : point_lights_)
+		{
+			if (pl_idx >= max_lights) break;
+			
+			const auto& pl = pl_ref.get();
+			if (!pl.ShouldAffect()) continue;
+			
+			const auto& data = pl.GetData();
+			const auto max_dist = data.radius + radius;
+			if (trsf.pos.DistSqr(data.pos) > max_dist*max_dist) continue;
+			
+			shader.TryUniform(format("uPointLights[{}].color", pl_idx), data.color);
+			shader.TryUniform(format("uPointLights[{}].pos", pl_idx), data.pos);
+			shader.TryUniform(format("uPointLights[{}].radius", pl_idx), data.radius);
+			++pl_idx;
+		}
+		
+		shader.TryUniform(loc_num, pl_idx);
+	}
+
 	void Renderer::UnregisterDirLight() noexcept
 	{
 		class Def : public IDirLight
@@ -293,7 +330,7 @@ namespace oeng
 		public:
 			[[nodiscard]] const Data& GetData() const noexcept override
 			{
-				static const Data data{*Vec3{1, 1, -1}.Unit(), Vec3::one};
+				static const Data data{UVec3::down, Vec3::zero};
 				return data;
 			}
 		};
@@ -309,8 +346,7 @@ namespace oeng
 		public:
 			[[nodiscard]] const Vec3& GetColor() const noexcept override
 			{
-				static const Vec3 color{All{}, 0.1_f};
-				return color;
+				return Vec3::zero;
 			}
 		};
 
