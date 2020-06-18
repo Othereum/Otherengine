@@ -1,6 +1,6 @@
 #pragma once
+#include "Core.hpp"
 #include "MathFwd.hpp"
-#include "Interfaces/Base.hpp"
 
 namespace oeng
 {
@@ -10,6 +10,7 @@ namespace oeng
 
 	class ISpriteComponent
 	{
+	public:
 		OE_INTERFACE_BODY(ISpriteComponent);
 		
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
@@ -20,10 +21,12 @@ namespace oeng
 
 	class IMeshComponent
 	{
+	public:
 		OE_INTERFACE_BODY(IMeshComponent);
 		
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
-		[[nodiscard]] virtual const Mat4& GetDrawTrsf() const noexcept = 0;
+		[[nodiscard]] virtual const Transform& GetDrawTrsf() const noexcept = 0;
+		[[nodiscard]] virtual const Mat4& GetDrawTrsfMatrix() const noexcept = 0;
 		[[nodiscard]] virtual Material& GetMaterial() const noexcept = 0;
 		[[nodiscard]] virtual Mesh& GetMesh() const noexcept = 0;
 	};

@@ -16,7 +16,8 @@ namespace oeng
 		~MeshComponent();
 
 		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsEnabled(); }
-		[[nodiscard]] const Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
+		[[nodiscard]] const Transform& GetDrawTrsf() const noexcept override { return GetWorldTrsf(); }
+		[[nodiscard]] const Mat4& GetDrawTrsfMatrix() const noexcept override { return GetWorldTrsfMatrix(); }
 		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
 		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
 
