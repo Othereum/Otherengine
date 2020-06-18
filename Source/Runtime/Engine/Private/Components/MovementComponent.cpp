@@ -1,4 +1,5 @@
 #include "Components/MovementComponent.hpp"
+#include "Log.hpp"
 #include "Actors/Actor.hpp"
 #include "Components/SceneComponent.hpp"
 
@@ -12,7 +13,11 @@ namespace oeng
 	void MovementComponent::OnUpdate(Float delta_seconds)
 	{
 		auto* root = GetOwner().GetRootComponent();
-		CHECK_MSG(root, "Why do you use MoveComponent without RootComponent?");
+		if (!root) [[unlikely]]
+		{
+			OE_DLOG(1s, log::level::warn, "MoveComponent: The owner actor does not have a root component");
+			return;
+		}
 
 		const auto moved = Move(*root, delta_seconds);
 		const auto rotated = Rotate(*root);
