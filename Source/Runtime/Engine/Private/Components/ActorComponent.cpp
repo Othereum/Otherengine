@@ -1,5 +1,6 @@
 #include "Components/ActorComponent.hpp"
 #include "Actors/Actor.hpp"
+#include "Engine.hpp"
 
 namespace oeng
 {
@@ -12,6 +13,7 @@ namespace oeng
 	{
 		OnBeginPlay();
 		begun_play_ = true;
+		if (auto_activate_) Activate();
 	}
 
 	void ActorComponent::Update(Float delta_seconds)
@@ -21,11 +23,16 @@ namespace oeng
 
 	Engine& ActorComponent::GetEngine() const noexcept
 	{
-		return GetOwner().GetEngine();
+		return owner_.GetEngine();
 	}
 
 	World& ActorComponent::GetWorld() const noexcept
 	{
-		return GetOwner().GetWorld();
+		return owner_.GetWorld();
+	}
+
+	Renderer& ActorComponent::GetRenderer() const noexcept
+	{
+		return GetEngine().GetRenderer();
 	}
 }
