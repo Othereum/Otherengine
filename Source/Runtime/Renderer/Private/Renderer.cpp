@@ -334,7 +334,7 @@ namespace oeng
 		if (!mesh_comp.ShouldDraw()) return false;
 		
 		const Sphere mesh_sphere{mesh_comp.GetDrawTrsf().pos, mesh_comp.GetRadius()};
-		const Sphere camera_sphere{camera_->GetPos(), camera_->GetData().far};
+		const Sphere camera_sphere{camera_->GetPos(), mesh_comp.GetMaxDrawDist()};
 		if (!IsOverlapped(mesh_sphere, camera_sphere)) return false;
 
 		return true;

@@ -24,7 +24,8 @@ namespace oeng
 	public:
 		OE_INTERFACE_BODY(IMeshComponent);
 
-		[[nodiscard]] Float GetRadius() const noexcept;
+		[[nodiscard]] virtual Float GetMaxDrawDist() const noexcept = 0;
+		[[nodiscard]] virtual Float GetRadius() const noexcept = 0;
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
 		[[nodiscard]] virtual const Transform& GetDrawTrsf() const noexcept = 0;
 		[[nodiscard]] virtual const Mat4& GetDrawTrsfMatrix() const noexcept = 0;

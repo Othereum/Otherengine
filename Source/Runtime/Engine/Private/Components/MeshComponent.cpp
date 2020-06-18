@@ -27,6 +27,7 @@ namespace oeng
 	{
 		mesh_ = std::move(mesh);
 		ReRegister();
+		RecalcRadius();
 	}
 
 	void MeshComponent::SetMaterial(Path path)
@@ -45,6 +46,11 @@ namespace oeng
 		GetRenderer().RegisterMesh(*this);
 	}
 
+	void MeshComponent::OnTrsfChanged()
+	{
+		RecalcRadius();
+	}
+
 	void MeshComponent::ReRegister() const
 	{
 		if (HasBegunPlay())
@@ -53,5 +59,10 @@ namespace oeng
 			renderer.UnregisterMesh(*this);
 			renderer.RegisterMesh(*this);
 		}
+	}
+
+	void MeshComponent::RecalcRadius() noexcept
+	{
+		radius_ = Max(GetWorldScale()) * mesh_->GetRadius();
 	}
 }
