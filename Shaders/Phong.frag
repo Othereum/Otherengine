@@ -53,11 +53,10 @@ void main()
 
 	vec3 light = uSkyLight + Phong(normal, toCam, uDirLight.dir, uDirLight.color);
 
-	int numPointLights = min(MAX_LIGHTS, uNumPointLights);
-	for (int i=0; i<numPointLights; ++i)
+	for (int i=0; i<uNumPointLights; ++i)
 	{
 		vec3 lightDir = fragWorldPos - uPointLights[i].pos;
-		float intensity = dot(lightDir, lightDir) / (uPointLights[i].radius * uPointLights[i].radius);
+		float intensity = uPointLights[i].radius / max(dot(lightDir, lightDir), 1/uPointLights[i].radius);
 		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * intensity);
 	}
 
