@@ -161,8 +161,15 @@ namespace oeng
 	void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr)
 	{
 		static const auto view = MakeLookAt(Vec3::zero, Vec3::forward, Vec3::up);
-		const auto proj = MakePerspective(Vec2{scr}, 10_f, 10000_f, 60_deg);
+		const auto& data = GetData();
+		const auto proj = MakePerspective(Vec2{scr}, data.near, data.far, data.vfov);
 		view_proj_ = view * proj;
+	}
+
+	const ICamera::Data& DefaultCamera::GetData() const noexcept
+	{
+		static const Data data{10, 10000, 60_deg};
+		return data;
 	}
 
 	Renderer::Renderer(IEngine& engine)
@@ -247,7 +254,7 @@ namespace oeng
 
 	void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
 	{
-		if (!mesh_comp.ShouldDraw()) return;
+		if (!ShouldDraw(mesh_comp)) return;
 		
 		auto& material = mesh_comp.GetMaterial();
 		auto& shader = material.GetShader();
@@ -299,8 +306,8 @@ namespace oeng
 		if (loc_num == Shader::invalid_uniform_) return;
 		
 		constexpr auto max_lights = 4;
-		const auto& trsf = mesh_comp.GetDrawTrsf();
-		const auto radius = Max(trsf.scale) * mesh_comp.GetMesh().GetRadius();
+		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
+		const auto mesh_radius = mesh_comp.GetRadius();
 		
 		auto pl_idx = 0;
 		for (auto pl_ref : point_lights_)
@@ -311,8 +318,7 @@ namespace oeng
 			if (!pl.ShouldAffect()) continue;
 			
 			const auto& data = pl.GetData();
-			const auto max_dist = data.radius + radius;
-			if (trsf.pos.DistSqr(data.pos) > max_dist*max_dist) continue;
+			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 			
 			shader.TryUniform(format("uPointLights[{}].color", pl_idx), data.color);
 			shader.TryUniform(format("uPointLights[{}].pos", pl_idx), data.pos);
@@ -323,37 +329,63 @@ namespace oeng
 		shader.TryUniform(loc_num, pl_idx);
 	}
 
+	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
+	{
+		if (!mesh_comp.ShouldDraw()) return false;
+		
+		const Sphere mesh_sphere{mesh_comp.GetDrawTrsf().pos, mesh_comp.GetRadius()};
+		const Sphere camera_sphere{camera_->GetPos(), camera_->GetData().far};
+		if (!IsOverlapped(mesh_sphere, camera_sphere)) return false;
+
+		return true;
+	}
+
+	
+	class DefaultDirLight : public IDirLight
+	{
+	public:
+		[[nodiscard]] const Data& GetData() const noexcept override
+		{
+			return data_;
+		}
+
+	private:
+		const Data data_{UVec3::down, Vec3::zero};
+	};
+
+	class DefaultSkyLight : public ISkyLight
+	{
+	public:
+		[[nodiscard]] const Vec3& GetColor() const noexcept override
+		{
+			return Vec3::zero;
+		}
+	};
+
+	static const DefaultDirLight kDefaultDirLight;
+	static const DefaultSkyLight kDefaultSkyLight;
+
 	void Renderer::UnregisterDirLight() noexcept
 	{
-		class Def : public IDirLight
-		{
-		public:
-			[[nodiscard]] const Data& GetData() const noexcept override
-			{
-				static const Data data{UVec3::down, Vec3::zero};
-				return data;
-			}
-		};
-
-		static const Def def;
-		dir_light_ = &def;
+		dir_light_ = &kDefaultDirLight;
 	}
 
 	void Renderer::UnregisterSkyLight() noexcept
 	{
-		class Def : public ISkyLight
-		{
-		public:
-			[[nodiscard]] const Vec3& GetColor() const noexcept override
-			{
-				return Vec3::zero;
-			}
-		};
-
-		static const Def def;
-		sky_light_ = &def;
+		sky_light_ = &kDefaultSkyLight;
 	}
 
+	bool Renderer::IsDirLightRegistered() const noexcept
+	{
+		return dir_light_ != &kDefaultDirLight;
+	}
+
+	bool Renderer::IsSkyLightRegistered() const noexcept
+	{
+		return sky_light_ != &kDefaultSkyLight;
+	}
+
+	
 	template <class T, class... Args>
 	SharedRef<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args)
 	{
