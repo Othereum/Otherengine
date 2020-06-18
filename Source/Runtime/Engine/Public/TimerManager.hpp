@@ -37,6 +37,8 @@ namespace oeng
 	class OEAPI TimerManager
 	{
 	public:
+		OE_DELETE_CPMV(TimerManager);
+		
 		explicit TimerManager(class World& world) noexcept;
 		~TimerManager();
 		
@@ -74,11 +76,6 @@ namespace oeng
 		 */
 		[[nodiscard]] Float TimeLeft(TimerHandle handle) const noexcept;
 		[[nodiscard]] bool IsTimerExists(TimerHandle handle) const noexcept;
-
-		TimerManager(const TimerManager&) = delete;
-		TimerManager(TimerManager&&) = delete;
-		TimerManager& operator=(const TimerManager&) = delete;
-		TimerManager& operator=(TimerManager&&) = delete;
 
 	private:
 		struct FTimer;

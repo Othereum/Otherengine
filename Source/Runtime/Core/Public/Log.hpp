@@ -1,6 +1,6 @@
 #pragma once
 #include <spdlog/logger.h>
-#include "API.hpp"
+#include "Core.hpp"
 #include "Templates/Time.hpp"
 
 namespace oeng::log

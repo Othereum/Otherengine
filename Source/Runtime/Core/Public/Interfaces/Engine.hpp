@@ -2,7 +2,6 @@
 #include "MathFwd.hpp"
 #include "Path.hpp"
 #include "JsonFwd.hpp"
-#include "Interfaces/Base.hpp"
 
 namespace oeng
 {
@@ -14,6 +13,7 @@ namespace oeng
 	
 	class IEngine
 	{
+	public:
 		OE_INTERFACE_BODY(IEngine);
 		
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;

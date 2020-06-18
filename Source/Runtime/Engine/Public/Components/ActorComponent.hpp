@@ -11,13 +11,10 @@ namespace oeng
 	class ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
+		OE_DELETE_CPMV(ActorComponent);
+
 		explicit ActorComponent(AActor& owner, int update_order = 100);
 		virtual ~ActorComponent() = default;
-
-		ActorComponent(const ActorComponent&) = delete;
-		ActorComponent(ActorComponent&&) = delete;
-		ActorComponent& operator=(const ActorComponent&) = delete;
-		ActorComponent& operator=(ActorComponent&&) = delete;
 
 		void BeginPlay();
 		void Update(Float delta_seconds);

@@ -26,6 +26,8 @@ namespace oeng
 	class OEAPI Engine : public IEngine, SdlRaii
 	{
 	public:
+		OE_DELETE_CPMV(Engine);
+		
 		Engine(std::string_view game_name, const Function<void(Engine&)>& load_game);
 		~Engine();
 		
@@ -51,11 +53,6 @@ namespace oeng
 		 * \return true if successful
 		 */
 		bool SaveConfig(Name name) noexcept override;
-
-		Engine(const Engine&) = delete;
-		Engine(Engine&&) = delete;
-		Engine& operator=(const Engine&) = delete;
-		Engine& operator=(Engine&&) = delete;
 		
 	private:
 		void Tick();

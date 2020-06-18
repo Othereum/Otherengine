@@ -1,11 +1,11 @@
 #pragma once
 #include "Math.hpp"
-#include "Interfaces/Base.hpp"
 
 namespace oeng
 {
 	class ICamera
 	{
+	public:
 		OE_INTERFACE_BODY(ICamera);
 		
 		[[nodiscard]] virtual const Vec3& GetPos() const noexcept = 0;

@@ -13,6 +13,8 @@ namespace oeng
 	class OEAPI World
 	{
 	public:
+		OE_DELETE_CPMV(World);
+		
 		explicit World(Engine& engine);
 		~World();
 		
@@ -35,11 +37,6 @@ namespace oeng
 		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
 		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
 		[[nodiscard]] Float GetDeltaSeconds() const noexcept { return delta_seconds_; }
-
-		World(const World&) = delete;
-		World(World&&) = delete;
-		World& operator=(const World&) = delete;
-		World& operator=(World&&) = delete;
 
 	private:
 		void UpdateGame();

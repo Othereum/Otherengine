@@ -1,7 +1,7 @@
 #pragma once
 #include <compare>
+#include "Core.hpp"
 #include "JsonFwd.hpp"
-#include "API.hpp"
 #include "Templates/String.hpp"
 
 namespace oeng

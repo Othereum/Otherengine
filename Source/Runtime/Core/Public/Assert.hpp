@@ -1,5 +1,5 @@
 #pragma once
-#include "API.hpp"
+#include "Core.hpp"
 
 #define STRINGIZE_IMPL(x) #x
 #define STRINGIZE(x) STRINGIZE_IMPL(x)
