@@ -39,7 +39,6 @@ namespace oeng
 		void SetRootComponent(SceneComponent* new_root) noexcept;
 		[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
 
-		void SetEnabled(bool enable);
 		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
 
 		/**

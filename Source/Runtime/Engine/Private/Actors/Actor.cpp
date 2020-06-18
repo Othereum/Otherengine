@@ -67,11 +67,6 @@ namespace oeng
 		root_ = new_root;
 	}
 
-	void AActor::SetEnabled(bool enable)
-	{
-		for (auto& c : comps_) c->SetEnabled(enable);
-	}
-
 	void AActor::SetLifespan(Float in_seconds)
 	{
 		init_lifespan_ = in_seconds;
