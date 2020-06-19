@@ -51,8 +51,14 @@ namespace oeng
 			Vec3 pos;
 			Vec3 color;
 			UVec3 dir;
-			Float angle_cos;
 			Float radius;
+			
+			struct Cone
+			{
+				Cone(Rad inner, Rad outer) :inner{Cos(inner)}, outer{Min(this->inner, Cos(outer))} {}
+				Float inner;
+				Float outer;
+			} angle_cos;
 		};
 
 		[[nodiscard]] virtual bool ShouldAffect() const noexcept = 0;
