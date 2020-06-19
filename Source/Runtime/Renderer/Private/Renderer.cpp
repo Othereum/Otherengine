@@ -300,48 +300,19 @@ namespace oeng
 		gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
 	}
 
-	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp)
+	template <class Light, class Fn>
+	static void DrawLights(const char* name, const Renderer::CompArr<Light>& lights,
+		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
-		const auto loc_num = shader.GetUniformLocation(NAME("uNumPointLights"));
+		const auto loc_num = shader.GetUniformLocation(format("uNum{}Lights", name));
 		if (loc_num == Shader::invalid_uniform_) return;
 		
-		constexpr auto max_lights = 4;
-		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
-		const auto mesh_radius = mesh_comp.GetRadius();
-		
-		auto pl_idx = 0;
-		for (auto pl_ref : point_lights_)
-		{
-			if (pl_idx >= max_lights) break;
-			
-			const auto& pl = pl_ref.get();
-			if (!pl.ShouldAffect()) continue;
-			
-			const auto& data = pl.GetData();
-			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
-			
-			shader.TryUniform(format("uPointLights[{}].color", pl_idx), data.color);
-			shader.TryUniform(format("uPointLights[{}].pos", pl_idx), data.pos);
-			shader.TryUniform(format("uPointLights[{}].radius", pl_idx), data.radius);
-			++pl_idx;
-		}
-		
-		shader.TryUniform(loc_num, pl_idx);
-	}
-
-	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp)
-	{
-		auto& shader = mesh_comp.GetMaterial().GetShader();
-		const auto loc_num = shader.GetUniformLocation(NAME("uNumSpotLights"));
-		if (loc_num == Shader::invalid_uniform_) return;
-		
-		constexpr auto max_lights = 4;
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
 		const auto mesh_radius = mesh_comp.GetRadius();
 		
 		auto idx = 0;
-		for (auto ref : spot_lights_)
+		for (auto ref : lights)
 		{
 			if (idx >= max_lights) break;
 			
@@ -350,17 +321,41 @@ namespace oeng
 			
 			const auto& data = l.GetData();
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
+
 			
-			shader.TryUniform(format("uSpotLights[{}].color", idx), data.color);
-			shader.TryUniform(format("uSpotLights[{}].pos", idx), data.pos);
-			shader.TryUniform(format("uSpotLights[{}].dir", idx), data.dir);
-			shader.TryUniform(format("uSpotLights[{}].radius", idx), data.radius);
-			shader.TryUniform(format("uSpotLights[{}].inner", idx), data.angle_cos.inner);
-			shader.TryUniform(format("uSpotLights[{}].outer", idx), data.angle_cos.outer);
+			auto try_uniform = [&]<class T>(const char* uniform, T&& value)
+			{
+				return shader.TryUniform(
+					format("u{}Lights[{}].{}", name, idx, uniform),
+					std::forward<T>(value)
+				);
+			};
+
+			try_uniform("color", data.color);
+			try_uniform("pos", data.pos);
+			try_uniform("radius", data.radius);
+			try_extra_uniforms(try_uniform, data);
+			
 			++idx;
 		}
 		
 		shader.TryUniform(loc_num, idx);
+	}
+
+	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
+	{
+		DrawLights("Point", point_lights_, 4, mesh_comp, [](auto&&...){});
+	}
+
+	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp) const
+	{
+		auto try_uniforms = [](auto&& try_uniform, const ISpotLight::Data& data)
+		{
+			try_uniform("dir", data.dir);
+			try_uniform("inner", data.angle_cos.inner);
+			try_uniform("outer", data.angle_cos.outer);
+		};
+		DrawLights("Spot", spot_lights_, 4, mesh_comp, try_uniforms);
 	}
 
 	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
