@@ -293,13 +293,14 @@ namespace oeng
 			prev_.mesh = &mesh;
 		}
 
-		DrawLights(mesh_comp);
+		DrawPointLights(mesh_comp);
+		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsfMatrix());
 		gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
 	}
 
-	void Renderer::DrawLights(const IMeshComponent& mesh_comp)
+	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
 		const auto loc_num = shader.GetUniformLocation(NAME("uNumPointLights"));
@@ -327,6 +328,38 @@ namespace oeng
 		}
 		
 		shader.TryUniform(loc_num, pl_idx);
+	}
+
+	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp)
+	{
+		auto& shader = mesh_comp.GetMaterial().GetShader();
+		const auto loc_num = shader.GetUniformLocation(NAME("uNumSpotLights"));
+		if (loc_num == Shader::invalid_uniform_) return;
+		
+		constexpr auto max_lights = 4;
+		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
+		const auto mesh_radius = mesh_comp.GetRadius();
+		
+		auto idx = 0;
+		for (auto ref : spot_lights_)
+		{
+			if (idx >= max_lights) break;
+			
+			const auto& l = ref.get();
+			if (!l.ShouldAffect()) continue;
+			
+			const auto& data = l.GetData();
+			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
+			
+			shader.TryUniform(format("uSpotLights[{}].color", idx), data.color);
+			shader.TryUniform(format("uSpotLights[{}].pos", idx), data.pos);
+			shader.TryUniform(format("uSpotLights[{}].radius", idx), data.radius);
+			shader.TryUniform(format("uSpotLights[{}].dir", idx), data.dir);
+			shader.TryUniform(format("uSpotLights[{}].angleCos", idx), data.angle_cos);
+			++idx;
+		}
+		
+		shader.TryUniform(loc_num, idx);
 	}
 
 	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept

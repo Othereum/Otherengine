@@ -96,7 +96,8 @@ namespace oeng
 		void Draw3D();
 		void Draw2D();
 		void DrawMesh(const IMeshComponent& mesh_comp);
-		void DrawLights(const IMeshComponent& mesh_comp);
+		void DrawPointLights(const IMeshComponent& mesh_comp);
+		void DrawSpotLights(const IMeshComponent& mesh_comp);
 		[[nodiscard]] bool ShouldDraw(const IMeshComponent& mesh_comp) const noexcept;
 		
 		IEngine& engine_;
