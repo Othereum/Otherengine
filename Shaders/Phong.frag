@@ -19,7 +19,7 @@ struct SpotLight
 	vec3 color;
 	vec3 pos;
 	vec3 dir;
-	float angle;
+	float angleCos;
 	float radius;
 };
 
@@ -46,6 +46,12 @@ vec3 Phong(vec3 normal, vec3 toCam, vec3 lightDir, vec3 lightColor)
 	return lightColor * (diffuse + specular);
 }
 
+float FallOff(vec3 unnormLightDir, float lightRadius)
+{
+	float i = max(0, 1 - length(unnormLightDir) / lightRadius);
+	return i * i;
+}
+
 void main()
 {
 	vec3 normal = normalize(fragWorldNormal);
@@ -56,8 +62,20 @@ void main()
 	for (int i=0; i<uNumPointLights; ++i)
 	{
 		vec3 lightDir = fragWorldPos - uPointLights[i].pos;
-		float intensity = max(0, 1 - length(lightDir) / uPointLights[i].radius);
-		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * (intensity*intensity));
+		float intensity = FallOff(lightDir, uPointLights[i].radius);
+		light += Phong(normal, toCam, normalize(lightDir), uPointLights[i].color * intensity);
+	}
+
+	for (int i=0; i<uNumSpotLights; ++i)
+	{
+		vec3 lightDir = fragWorldPos - uSpotLights[i].pos;
+		float intensity = FallOff(lightDir, uSpotLights[i].radius);
+		lightDir = normalize(lightDir);
+
+		float theta = dot(uSpotLights[i].dir, lightDir);
+		intensity *= max(0, (theta - uSpotLights[i].angleCos) / (1 - uSpotLights[i].angleCos));
+
+		light += Phong(normal, toCam, lightDir, uSpotLights[i].color * intensity);
 	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(light, 1);
