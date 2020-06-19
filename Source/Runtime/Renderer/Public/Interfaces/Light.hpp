@@ -51,7 +51,7 @@ namespace oeng
 			Vec3 pos;
 			Vec3 color;
 			UVec3 dir;
-			Rad angle;
+			Float angle_cos;
 			Float radius;
 		};
 
