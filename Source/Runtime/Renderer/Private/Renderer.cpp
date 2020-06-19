@@ -353,9 +353,10 @@ namespace oeng
 			
 			shader.TryUniform(format("uSpotLights[{}].color", idx), data.color);
 			shader.TryUniform(format("uSpotLights[{}].pos", idx), data.pos);
-			shader.TryUniform(format("uSpotLights[{}].radius", idx), data.radius);
 			shader.TryUniform(format("uSpotLights[{}].dir", idx), data.dir);
-			shader.TryUniform(format("uSpotLights[{}].angleCos", idx), data.angle_cos);
+			shader.TryUniform(format("uSpotLights[{}].radius", idx), data.radius);
+			shader.TryUniform(format("uSpotLights[{}].inner", idx), data.angle_cos.inner);
+			shader.TryUniform(format("uSpotLights[{}].outer", idx), data.angle_cos.outer);
 			++idx;
 		}
 		
