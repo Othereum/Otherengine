@@ -14,7 +14,7 @@ namespace oeng
 
 		void SetRadius(float radius) noexcept { data_.radius = radius; }
 		void SetColor(const Vec3& color) noexcept { data_.color = color; }
-		void SetAngle(Rad angle) noexcept { data_.angle_cos = Cos(angle); }
+		void SetAngle(Data::Cone angle) noexcept { data_.angle_cos = angle; }
 		[[nodiscard]] const Data& GetData() const noexcept override { return data_; }
 		[[nodiscard]] bool ShouldAffect() const noexcept override;
 

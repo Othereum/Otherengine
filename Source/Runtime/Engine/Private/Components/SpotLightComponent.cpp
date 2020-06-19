@@ -6,7 +6,7 @@ namespace oeng
 {
 	SpotLightComponent::SpotLightComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order},
-		data_{GetWorldPos(), Vec3::one, GetForward(), Cos(44_deg), 1000}
+		data_{GetWorldPos(), Vec3::one, GetForward(), 1000, {0_deg, 44_deg}}
 	{
 	}
 
@@ -20,7 +20,7 @@ namespace oeng
 		return IsActive()
 			& (data_.radius > kSmallNum)
 			& (data_.color.LenSqr() > kSmallNum)
-			& !IsNearlyEqual(data_.angle_cos, 1);
+			& !IsNearlyEqual(data_.angle_cos.outer, 1);
 	}
 
 	void SpotLightComponent::OnBeginPlay()
