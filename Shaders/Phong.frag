@@ -19,8 +19,9 @@ struct SpotLight
 	vec3 color;
 	vec3 pos;
 	vec3 dir;
-	float angleCos;
 	float radius;
+	float inner;
+	float outer;
 };
 
 uniform sampler2D uTexture;
@@ -73,10 +74,15 @@ void main()
 		lightDir = normalize(lightDir);
 
 		float theta = dot(uSpotLights[i].dir, lightDir);
-		intensity *= max(0, (theta - uSpotLights[i].angleCos) / (1 - uSpotLights[i].angleCos));
+		float inner = uSpotLights[i].inner;
+		float outer = uSpotLights[i].outer;
+		intensity *= clamp((theta-outer)*(inner/(inner-outer)), 0, 1);
 
 		light += Phong(normal, toCam, lightDir, uSpotLights[i].color * intensity);
 	}
 
 	outColor = texture(uTexture, fragTexCoord) * vec4(light, 1);
 }
+
+// [outer, inner] -> [0, 1]
+// (x-outer)*(inner/outer)
