@@ -1,7 +1,7 @@
 #pragma once
-#include <vector>
-#include <unordered_map>
 #include "Name.hpp"
+#include "Templates/DyArr.hpp"
+#include "Templates/HashMap.hpp"
 
 union SDL_Event;
 
@@ -48,21 +48,25 @@ namespace oeng
 	class OEAPI InputSystem
 	{
 	public:
+		InputSystem();
+		
 		void AddEvent(const SDL_Event& e);
 		void ClearEvents();
+		void PostAddAllEvents();
 
-		void AddAxis(Name name, std::vector<InputAxis>&& keys);
-		void AddAction(Name name, std::vector<InputAction>&& keys);
+		void AddAxis(Name name, DyArr<InputAxis>&& keys);
+		void AddAction(Name name, DyArr<InputAction>&& keys);
 		
 		[[nodiscard]] Float GetAxisValue(Name name) const noexcept;
-		[[nodiscard]] static Float GetAxisValue(const InputAxis& axis) noexcept;
+		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const noexcept;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
 
 	private:
-		std::vector<InputEvent> events_;
-		std::unordered_map<Name, std::vector<InputAxis>> axises_;
-		std::unordered_map<Name, std::vector<InputAction>> actions_;
+		DyArr<InputEvent> events_;
+		HashMap<Name, DyArr<InputAxis>> axises_;
+		HashMap<Name, DyArr<InputAction>> actions_;
+		struct { float x, y; } mouse_{};
 	};
 }

@@ -1,4 +1,4 @@
-#include "Engine.hpp"
+﻿#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL.h>
@@ -72,7 +72,7 @@ namespace oeng
 		
 		const auto start = Clock::now();
 		auto tick = 0ull;
-		
+
 		while (is_running_)
 		{
 			Tick();
@@ -98,7 +98,7 @@ namespace oeng
 	{
 		try
 		{
-			std::filesystem::create_directory("../Config");
+			fs::create_directory("../Config");
 			std::ofstream file{fmt::format("../Config/{}.json", *name)};
 			file.exceptions(std::ios_base::failbit);
 			file << configs_[name].dump(4);
@@ -138,6 +138,8 @@ namespace oeng
 			
 			input_system_.AddEvent(event);
 		}
+
+		input_system_.PostAddAllEvents();
 	}
 
 	extern OE_IMPORT bool engine_exist;

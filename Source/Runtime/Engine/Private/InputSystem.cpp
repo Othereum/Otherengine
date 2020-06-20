@@ -46,7 +46,7 @@ namespace oeng
 		return true;
 	}
 
-	static bool IsMatch(const InputAction& event, const std::vector<InputAction>& keys)
+	static bool IsMatch(const InputAction& event, const DyArr<InputAction>& keys)
 	{
 		for (const auto& key : keys)
 		{
@@ -57,6 +57,12 @@ namespace oeng
 		}
 		
 		return false;
+	}
+
+	InputSystem::InputSystem()
+	{
+		if (0 != SDL_SetRelativeMouseMode(SDL_TRUE))
+			throw std::runtime_error{SDL_GetError()};
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
@@ -79,12 +85,20 @@ namespace oeng
 		events_.clear();
 	}
 
-	void InputSystem::AddAxis(Name name, std::vector<InputAxis>&& keys)
+	void InputSystem::PostAddAllEvents()
+	{
+		int x, y;
+		SDL_GetRelativeMouseState(&x, &y);
+		mouse_.x = static_cast<float>(x);
+		mouse_.y = static_cast<float>(y);
+	}
+
+	void InputSystem::AddAxis(Name name, DyArr<InputAxis>&& keys)
 	{
 		axises_.emplace(name, std::move(keys));
 	}
 
-	void InputSystem::AddAction(Name name, std::vector<InputAction>&& keys)
+	void InputSystem::AddAction(Name name, DyArr<InputAction>&& keys)
 	{
 		actions_.emplace(name, std::move(keys));
 	}
@@ -102,7 +116,7 @@ namespace oeng
 		return val;
 	}
 
-	Float InputSystem::GetAxisValue(const InputAxis& axis) noexcept
+	Float InputSystem::GetAxisValue(const InputAxis& axis) const noexcept
 	{
 		switch (axis.type)
 		{
@@ -113,18 +127,10 @@ namespace oeng
 			return SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(axis.key) ? axis.scale : 0;
 			
 		case InputType::kMAxisX:
-			{
-				int x;
-				SDL_GetRelativeMouseState(&x, nullptr);
-				return static_cast<Float>(x) * axis.scale;
-			}
+			return mouse_.x * axis.scale;
 			
 		case InputType::kMAxisY:
-			{
-				int y;
-				SDL_GetRelativeMouseState(nullptr, &y);
-				return static_cast<Float>(y) * axis.scale;
-			}
+			return mouse_.y * axis.scale;
 			
 		case InputType::kCButton:
 			return SDL_GameControllerGetButton(nullptr, SDL_GameControllerButton(axis.key)) ? axis.scale : 0;
