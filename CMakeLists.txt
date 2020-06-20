@@ -5,3 +5,4 @@ add_subdirectory(Source)
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
 install(DIRECTORY "Shaders" DESTINATION "Engine")
+install(DIRECTORY "Config" DESTINATION "Engine")
