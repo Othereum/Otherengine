@@ -137,7 +137,7 @@ namespace oeng
 			
 		case InputType::kCAxis:
 			{
-				constexpr Float min = 328, max = 32440;
+				constexpr auto min = 328_f, max = 32440_f;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
 				return v >= 0 ? MapRngClamp({min, max}, {0, 1}, v) : MapRngClamp({-max, -min}, {-1, 0}, v);
 			}
