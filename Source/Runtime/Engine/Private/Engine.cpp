@@ -1,4 +1,4 @@
-﻿#include "Engine.hpp"
+#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL.h>
@@ -7,38 +7,47 @@
 
 namespace oeng
 {
-	static auto LoadConfigs()
-	{
-		namespace fs = std::filesystem;
-		HashMap<Name, Json> configs;
+	namespace fs = std::filesystem;
 
-		auto load = [&](const fs::path& path)
+	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
+	{
+		if (!is_regular_file(file) || file.extension() != ".json") return;
+		
+		auto name = file.stem().string();
+		auto parsed = ReadFileAsJson(file);
+		
+		auto [it, inserted] = configs.try_emplace(std::move(name), std::move(parsed));
+		if (inserted) return;
+		
+		for (auto& [key, value] : parsed.items())  // NOLINT(bugprone-use-after-move)
 		{
-			if (!exists(path)) return;
-			
-			for (const auto& entry : fs::directory_iterator{path}) try
+			it->second[key] = std::move(value);
+		}
+	}
+	
+	static void LoadConfigs(HashMap<Name, Json>& configs, const fs::path& directory)
+	{
+		if (!exists(directory)) return;
+		
+		for (const auto& entry : fs::directory_iterator{directory})
+		{
+			try
 			{
-				if (!entry.is_regular_file() || entry.path().extension() != ".json") continue;
-				
-				auto name = entry.path().stem().string();
-				auto parsed = ReadFileAsJson(entry.path());
-				auto [it, inserted] = configs.try_emplace(std::move(name), std::move(parsed));
-				
-				if (inserted) continue;
-				
-				for (auto& [key, value] : parsed.items())  // NOLINT(bugprone-use-after-move)
-				{
-					it->second[key] = std::move(value);
-				}
+				LoadConfig(configs, entry);
 			}
 			catch (const std::exception& e)
 			{
 				log::Error("Failed to load config '{}': {}", entry.path().string(), e.what());
 			}
-		};
+		}
+	}
+	
+	static HashMap<Name, Json> LoadConfigs()
+	{
+		HashMap<Name, Json> configs;
 
-		load("../Engine/Config");
-		load("../Config");
+		LoadConfigs(configs, "../Engine/Config");
+		LoadConfigs(configs, "../Config");
 		
 		return configs;
 	}
