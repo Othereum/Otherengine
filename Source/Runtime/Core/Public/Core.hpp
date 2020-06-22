@@ -9,7 +9,7 @@
 		#define OE_EXPORT __declspec(dllexport)
 		#define OE_IMPORT __declspec(dllimport)
 
-		#if OE_BUILD
+		#ifdef OE_BUILD
 			#define OEAPI OE_EXPORT
 		#else
 			#define OEAPI OE_IMPORT
