@@ -9,14 +9,16 @@ namespace nlohmann
 	template<typename T, typename SFINAE>
 	struct adl_serializer;
 
-	template<template<typename U, typename V, typename... Args> class ObjectType,
-	         template<typename U, typename... Args> class ArrayType,
-	         class StringType, class BooleanType,
-	         class NumberIntegerType,
-	         class NumberUnsignedType,
-	         class NumberFloatType,
-	         template<typename U> class AllocatorType,
-	         template<typename T, typename SFINAE> class JSONSerializer>
+	template<
+		template<typename U, typename V, typename... Args> class ObjectType,
+		template<typename U, typename... Args> class ArrayType,
+		class StringType, class BooleanType,
+		class NumberIntegerType,
+		class NumberUnsignedType,
+		class NumberFloatType,
+		template<typename U> class AllocatorType,
+		template<typename T, typename SFINAE> class JSONSerializer,
+		class BinaryType>
 	class basic_json;
 
 	template<typename BasicJsonType>
@@ -30,6 +32,6 @@ namespace nlohmann
 
 namespace oeng
 {
-	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, intptr_t, uintptr_t, Float, PoolAllocator, nlohmann::adl_serializer>;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<uint8_t>>;
 	using JsonType = nlohmann::detail::value_t;
 }
