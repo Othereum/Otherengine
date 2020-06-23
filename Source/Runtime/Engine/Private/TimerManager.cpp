@@ -5,13 +5,6 @@ namespace oeng
 {
 	using namespace std::chrono;
 
-	struct TimerManager::FTimer
-	{
-		std::function<Loop()> fn;
-		Clock::time_point end;
-		Clock::duration delay;
-	};
-
 	constexpr Clock::duration ToDuration(Float sec) noexcept
 	{
 		return duration_cast<Clock::duration>(duration<Float>{sec});

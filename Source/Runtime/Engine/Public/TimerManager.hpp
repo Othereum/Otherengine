@@ -1,5 +1,6 @@
 #pragma once
 #include "MathFwd.hpp"
+#include "Templates/Time.hpp"
 #include "Templates/Function.hpp"
 #include "Templates/HashMap.hpp"
 
@@ -78,7 +79,12 @@ namespace oeng
 		[[nodiscard]] bool IsTimerExists(TimerHandle handle) const noexcept;
 
 	private:
-		struct FTimer;
+		struct FTimer
+		{
+			std::function<Loop()> fn;
+			Clock::time_point end;
+			Clock::duration delay;
+		};
 		
 		World& world_;
 		HashMap<TimerHandle, FTimer> timers_;

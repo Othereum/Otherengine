@@ -2,7 +2,7 @@
 #include "Interfaces/Engine.hpp"
 #include "InputSystem.hpp"
 #include "Math.hpp"
-#include "JsonFwd.hpp"
+#include "Json.hpp"
 #include "World.hpp"
 #include "Renderer.hpp"
 #include "Templates/Function.hpp"
