@@ -6,8 +6,8 @@ namespace oeng
 {
 	void from_json(const Json& json, Vertex& vertex)
 	{
-		json.get_to(vertex.data);
-		vertex.norm.Normalize();
+		json.get_to(vertex.arr);
+		vertex.data.norm.Normalize();
 	}
 
 	VertexArray::VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices)
@@ -31,13 +31,13 @@ namespace oeng
 		constexpr auto type = std::is_same_v<Float, float> ? GL_FLOAT : GL_DOUBLE;
 
 		gl(glEnableVertexAttribArray, 0);
-		gl(glVertexAttribPointer, 0, 3, type, false, sizeof Vertex, &v->pos);
+		gl(glVertexAttribPointer, 0, 3, type, false, sizeof(Vertex), &v->data.pos);
 
 		gl(glEnableVertexAttribArray, 1);
-		gl(glVertexAttribPointer, 1, 3, type, false, sizeof Vertex, &v->norm);
+		gl(glVertexAttribPointer, 1, 3, type, false, sizeof(Vertex), &v->data.norm);
 		
 		gl(glEnableVertexAttribArray, 2);
-		gl(glVertexAttribPointer, 2, 2, type, false, sizeof Vertex, &v->uv);
+		gl(glVertexAttribPointer, 2, 2, type, false, sizeof(Vertex), &v->data.uv);
 	}
 
 	VertexArray::~VertexArray()

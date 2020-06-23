@@ -23,7 +23,7 @@ namespace oeng
 		vertex_array_{verts, indices}
 	{
 		auto max = 0_f;
-		for (const auto& v : verts) max = Max(max, v.pos.DistSqr(Vec3::zero));
+		for (const auto& v : verts) max = Max(max, v.data.pos.DistSqr(Vec3::zero));
 		radius_ = std::sqrt(max);
 	}
 }

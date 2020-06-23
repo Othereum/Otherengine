@@ -10,7 +10,7 @@ namespace oeng
 		/**
 		 * \brief Default black texture of 1x1 size.
 		 */
-		constexpr Texture() noexcept = default;
+		Texture() noexcept = default;
 
 		/**
 		 * \brief Load texture from image file (png, jpg, ...)

@@ -8,20 +8,22 @@ namespace oeng
 {
 	struct OEAPI Vertex
 	{
+		struct Data
+		{
+			Vec3 pos;
+			Vec3 norm;
+			Vec2 uv;
+		};
+
 		union
 		{
-			struct
-			{
-				Vec3 pos;
-				Vec3 norm;
-				Vec2 uv;
-			};
-			Float data[8];
+			Data data;
+			Float arr[8];
 		};
 
 		constexpr Vertex() noexcept :data{} {}
-		constexpr Vertex(const Vec3& pos, const Vec3& norm, const Vec2& uv) noexcept  // NOLINT(cppcoreguidelines-pro-type-member-init)
-			:pos{pos}, norm{norm}, uv{uv}
+		constexpr Vertex(const Vec3& pos, const Vec3& norm, const Vec2& uv) noexcept
+			:data{pos, norm, uv}
 		{
 		}
 	};
