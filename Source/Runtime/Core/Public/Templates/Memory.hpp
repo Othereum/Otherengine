@@ -28,7 +28,7 @@ namespace oeng
 	inline void Free(void* p, size_t size) noexcept
 	{
 		if (size <= OMEM_POOL_SIZE) omem::MemoryPool::Get(size).Free(p);
-		else operator delete(p, size);
+		else operator delete(p);
 	}
 
 	/**
