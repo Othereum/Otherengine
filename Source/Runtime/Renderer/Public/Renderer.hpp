@@ -92,6 +92,19 @@ namespace oeng
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
 		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
+		template <class T>
+		using CompArr = DyArr<std::reference_wrapper<const T>>;
+
+		template <class T>
+		struct Cache
+		{
+			template <class... Args>
+			Cache(Args&&... args) :default_obj{ MakeShared<T>(std::forward<Args>(args)...) } {}
+
+			HashMap<Path, WeakPtr<T>> map;
+			const SharedRef<T> default_obj;
+		};
+
 	private:
 		void Draw3D();
 		void Draw2D();
@@ -108,16 +121,6 @@ namespace oeng
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
 
-		template <class T>
-		struct Cache
-		{
-			template <class... Args>
-			Cache(Args&&... args) :default_obj{MakeShared<T>(std::forward<Args>(args)...)} {}
-			
-			HashMap<Path, WeakPtr<T>> map;
-			const SharedRef<T> default_obj;
-		};
-		
 		Cache<Texture> textures_;
 		Cache<Shader> shaders_;
 		Cache<Material> materials_;
@@ -128,9 +131,6 @@ namespace oeng
 
 		const IDirLight* dir_light_{};
 		const ISkyLight* sky_light_{};
-
-		template <class T>
-		using CompArr = DyArr<std::reference_wrapper<const T>>;
 
 		CompArr<IPointLight> point_lights_;
 		CompArr<ISpotLight> spot_lights_;

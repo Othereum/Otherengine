@@ -30,12 +30,12 @@ namespace oeng
 
 	void Material::TryUniforms()
 	{	
-		for (auto& [name, var] : uniforms_)
+		for (auto& uniform : uniforms_)
 		{
-			auto set_uniform = [&](auto& val) { return shader_->TryUniform(name, val); };
-			if (!std::visit(set_uniform, var))
+			auto set_uniform = [&](auto& val) { return shader_->TryUniform(uniform.first, val); };
+			if (!std::visit(set_uniform, uniform.second))
 			{
-				OE_DLOG(1s, log::level::err, "{}: Failed to set uniform '{}'", GetPath().Str(), *name);
+				OE_DLOG(1s, log::level::err, "{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
 			}
 		}
 	}

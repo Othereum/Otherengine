@@ -13,7 +13,7 @@ namespace oeng
 	void MovementComponent::OnUpdate(Float delta_seconds)
 	{
 		auto* root = GetOwner().GetRootComponent();
-		if (!root) [[unlikely]]
+		if (!root)
 		{
 			OE_DLOG(1s, log::level::warn, "MoveComponent: The owner actor does not have a root component");
 			return;
