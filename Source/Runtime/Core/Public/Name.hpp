@@ -1,5 +1,4 @@
 #pragma once
-#include <compare>
 #include "Core.hpp"
 #include "JsonFwd.hpp"
 #include "Templates/String.hpp"
@@ -27,7 +26,12 @@ namespace oeng
 		const Str& operator*() const noexcept { return *sp; }
 		const Str* operator->() const noexcept { return sp; }
 
-		std::strong_ordering operator<=>(const Name&) const noexcept = default;
+		bool operator==(const Name& r) const noexcept { return sp == r.sp; }
+		bool operator!=(const Name& r) const noexcept { return sp != r.sp; }
+		bool operator<(const Name& r) const noexcept { return sp < r.sp; }
+		bool operator>(const Name& r) const noexcept { return sp > r.sp; }
+		bool operator<=(const Name& r) const noexcept { return sp <= r.sp; }
+		bool operator>=(const Name& r) const noexcept { return sp >= r.sp; }
 
 	private:
 		friend std::hash<Name>;

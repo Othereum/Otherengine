@@ -22,7 +22,12 @@ namespace oeng
 		Path(std::filesystem::path&& path);
 		Path(const std::filesystem::path& path);
 
-		std::strong_ordering operator<=>(const Path&) const noexcept = default;
+		bool operator==(const Path& r) const noexcept { return p == r.p; }
+		bool operator!=(const Path& r) const noexcept { return p != r.p; }
+		bool operator<(const Path& r) const noexcept { return p < r.p; }
+		bool operator>(const Path& r) const noexcept { return p > r.p; }
+		bool operator<=(const Path& r) const noexcept { return p <= r.p; }
+		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
 		[[nodiscard]] Name AsName() const noexcept { return p->first; }
 		[[nodiscard]] const Name::Str& Str() const noexcept { return p->first; }
