@@ -1,5 +1,5 @@
 #include "InputSystem.hpp"
-#include <SDL_events.h>
+#include <SDL2/SDL_events.h>
 #include "Math.hpp"
 
 namespace oeng

@@ -1,7 +1,7 @@
 #include "Renderer.hpp"
 
 #include <stdexcept>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "OpenGL.hpp"
 #include "Json.hpp"
