@@ -43,7 +43,7 @@ namespace oeng
 	[[nodiscard]] T* New(Args&&... args)
 	{
 		detail::CheckMemSafe();
-		const auto p = Alloc(sizeof T);
+		const auto p = Alloc(sizeof(T));
 		if (!p) throw std::bad_alloc{};
 
 		try
@@ -52,7 +52,7 @@ namespace oeng
 		}
 		catch (...)
 		{
-			Free(p, sizeof T);
+			Free(p, sizeof(T));
 			throw;
 		}
 	}
@@ -61,7 +61,7 @@ namespace oeng
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
 		detail::CheckMemSafe();
-		const auto p = Alloc(n * sizeof T);
+		const auto p = Alloc(n * sizeof(T));
 		if (!p) throw std::bad_alloc{};
 
 		try
@@ -70,7 +70,7 @@ namespace oeng
 		}
 		catch (...)
 		{
-			Free(p, n * sizeof T);
+			Free(p, n * sizeof(T));
 			throw;
 		}
 	}
@@ -80,7 +80,7 @@ namespace oeng
 	{
 		detail::CheckMemSafe();
 		p->~T();
-		Free(p, sizeof T);
+		Free(p, sizeof(T));
 	}
 
 	template <class T>
@@ -88,7 +88,7 @@ namespace oeng
 	{
 		detail::CheckMemSafe();
 		for (size_t i=0; i<n; ++i) p[i].~T();
-		Free(p, n * sizeof T);
+		Free(p, n * sizeof(T));
 	}
 
 	template <class T>
@@ -115,7 +115,7 @@ namespace oeng
 		constexpr bool operator==(const PoolAllocator<Y>&) const noexcept { return true; }
 
 		/**
-		 * \brief Allocate n * sizeof T bytes of uninitialized memory.
+		 * \brief Allocate n * sizeof(T) bytes of uninitialized memory.
 		 * \param n the number of objects to allocate memory for
 		 * \return The pointer to allocated memory
 		 * \note Allocates from pool only if IsGameThread()
@@ -124,7 +124,7 @@ namespace oeng
 		[[nodiscard]] T* allocate(size_t n) const
 		{
 			detail::CheckMemSafe();
-			return static_cast<T*>(Alloc(n * sizeof T));
+			return static_cast<T*>(Alloc(n * sizeof(T)));
 		}
 
 		/**
@@ -136,7 +136,7 @@ namespace oeng
 		void deallocate(T* p, size_t n) const noexcept
 		{
 			detail::CheckMemSafe();
-			Free(p, n * sizeof T);
+			Free(p, n * sizeof(T));
 		}
 	};
 
@@ -315,7 +315,7 @@ namespace oeng
 		using weak_type = WeakPtr<T, ThreadSafe>;
 		
 		constexpr SharedPtr() noexcept = default;
-		constexpr SharedPtr(nullptr_t) noexcept {}
+		constexpr SharedPtr(std::nullptr_t) noexcept {}
 
 		/**
 		 * \brief Construct with raw pointer
@@ -402,7 +402,7 @@ namespace oeng
 			ptr_ = nullptr;
 		}
 
-		void reset(nullptr_t) noexcept { reset(); }
+		void reset(std::nullptr_t) noexcept { reset(); }
 
 		template <class Y>
 		void reset(Y* ptr)
@@ -458,12 +458,12 @@ namespace oeng
 		template <class U>
 		constexpr bool operator>=(const SharedPtr<U, ThreadSafe>& r) const noexcept { return ptr_ >= r.ptr_; }
 
-		constexpr bool operator==(nullptr_t) const noexcept { return ptr_ == nullptr; }
-		constexpr bool operator!=(nullptr_t) const noexcept { return ptr_ != nullptr; }
-		constexpr bool operator<(nullptr_t) const noexcept { return ptr_ < nullptr; }
-		constexpr bool operator>(nullptr_t) const noexcept { return ptr_ > nullptr; }
-		constexpr bool operator<=(nullptr_t) const noexcept { return ptr_ <= nullptr; }
-		constexpr bool operator>=(nullptr_t) const noexcept { return ptr_ >= nullptr; }
+		constexpr bool operator==(std::nullptr_t) const noexcept { return ptr_ == nullptr; }
+		constexpr bool operator!=(std::nullptr_t) const noexcept { return ptr_ != nullptr; }
+		constexpr bool operator<(std::nullptr_t) const noexcept { return ptr_ < nullptr; }
+		constexpr bool operator>(std::nullptr_t) const noexcept { return ptr_ > nullptr; }
+		constexpr bool operator<=(std::nullptr_t) const noexcept { return ptr_ <= nullptr; }
+		constexpr bool operator>=(std::nullptr_t) const noexcept { return ptr_ >= nullptr; }
 
 	private:
 		template <class, bool>
@@ -530,7 +530,7 @@ namespace oeng
 			{
 				if (ptr_)
 				{
-					CHECK_SLOW(ptr_->weak_.expired());
+					assert(ptr_->weak_.expired());
 					ptr->weak_ = SharedPtr<std::remove_cv_t<Y>, ThreadSafe>{*this, const_cast<std::remove_cv_t<Y>*>(ptr)};
 				}
 			}
@@ -546,10 +546,10 @@ namespace oeng
 		using Base = SharedPtr<T, ThreadSafe>;
 		
 	public:
-		using Base::element_type;
-		using Base::weak_type;
+		using typename Base::element_type;
+		using typename Base::weak_type;
 		
-		SharedRef(nullptr_t) = delete;
+		SharedRef(std::nullptr_t) = delete;
 		
 		/**
 		 * \brief Construct SharedRef with raw pointer.
@@ -648,7 +648,7 @@ namespace oeng
 			return *this;
 		}
 
-		void reset(nullptr_t) = delete;
+		void reset(std::nullptr_t) = delete;
 
 		template <class Y>
 		void reset(Y* ptr)
@@ -906,22 +906,22 @@ namespace oeng
 	}
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator==(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p == nullptr; }
+	constexpr bool operator==(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p == nullptr; }
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator!=(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p != nullptr; }
+	constexpr bool operator!=(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p != nullptr; }
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator<(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p < nullptr; }
+	constexpr bool operator<(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p < nullptr; }
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator>(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p > nullptr; }
+	constexpr bool operator>(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p > nullptr; }
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator<=(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p <= nullptr; }
+	constexpr bool operator<=(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p <= nullptr; }
 
 	template <class T, bool ThreadSafe>
-	constexpr bool operator>=(nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p >= nullptr; }
+	constexpr bool operator>=(std::nullptr_t, const SharedPtr<T, ThreadSafe>& p) noexcept { return p >= nullptr; }
 
 	template <class T, bool ThreadSafe>
 	void swap(SharedPtr<T, ThreadSafe>& l, SharedPtr<T, ThreadSafe>& r) noexcept { l.swap(r); }
