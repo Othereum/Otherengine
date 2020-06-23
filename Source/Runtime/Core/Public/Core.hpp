@@ -38,7 +38,7 @@
 
 #define OE_INTERFACE_BODY(name) \
 	constexpr name() noexcept = default; \
-	virtual ~name() = 0 {} \
+	virtual ~name() {} \
 	OE_EXPLICIT_CPMV(name, default)
 
 namespace oeng
