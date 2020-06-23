@@ -1,5 +1,4 @@
 #include "Path.hpp"
-#include "Assert.hpp"
 #include "Templates/Sync.hpp"
 #include "Json.hpp"
 #include "Core.hpp"
@@ -9,7 +8,7 @@ namespace oeng
 	static auto& GetMap()
 	{
 		constexpr bool thread_safe = OE_PATH_THREADSAFE;
-		CHECK(thread_safe || IsGameThread());
+		assert(thread_safe || IsGameThread());
 		
 		using PathMap = std::unordered_map<Name, std::filesystem::path>;
 		static CondMonitor<PathMap, thread_safe> map{Path::Pair{}};

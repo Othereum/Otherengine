@@ -1,5 +1,4 @@
 #include "Components/SceneComponent.hpp"
-#include "Assert.hpp"
 
 namespace oeng
 {
@@ -16,11 +15,9 @@ namespace oeng
 			const auto me = std::find_if(siblings.begin(), siblings.end(), 
 				[this](const SceneComponent& other) { return &other == this; }
 			);
-			
-			IF_ENSURE_MSG(me != siblings.end(), "This component was not in the parent's child list")
-			{
-				siblings.erase(me);
-			}
+		
+			assert(me != siblings.end());
+			siblings.erase(me);
 		}
 
 		parent_ = new_parent;

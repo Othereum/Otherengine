@@ -1,5 +1,4 @@
 #include "Actors/Actor.hpp"
-#include "Assert.hpp"
 #include "Components/SceneComponent.hpp"
 #include "World.hpp"
 
@@ -63,7 +62,7 @@ namespace oeng
 
 	void AActor::SetRootComponent(SceneComponent* new_root) noexcept
 	{
-		CHECK(!new_root || &new_root->GetOwner() == this);
+		assert(!new_root || &new_root->GetOwner() == this);
 		root_ = new_root;
 	}
 

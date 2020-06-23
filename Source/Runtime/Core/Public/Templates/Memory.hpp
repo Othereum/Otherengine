@@ -1,8 +1,8 @@
 #pragma once
+#include <cassert>
 #include <atomic>
 #include <memory>
 #include <omem.hpp>
-#include "Assert.hpp"
 #include "Core.hpp"
 #include "Templates/Sync.hpp"
 
@@ -14,8 +14,8 @@ namespace oeng
 	{
 		inline void CheckMemSafe() noexcept
 		{
-			CHECK(OMEM_THREADSAFE || IsGameThread());
-			CHECK(IsEngineExists());
+			assert(OMEM_THREADSAFE || IsGameThread());
+			assert(IsEngineExists());
 		}
 	}
 	
@@ -431,8 +431,8 @@ namespace oeng
 
 		[[nodiscard]] element_type* get() const noexcept { return ptr_; }
 
-		T& operator*() const noexcept { CHECK(ptr_); return *ptr_; }
-		T* operator->() const noexcept { CHECK(ptr_); return ptr_; }
+		T& operator*() const noexcept { assert(ptr_); return *ptr_; }
+		T* operator->() const noexcept { assert(ptr_); return ptr_; }
 		
 		element_type& operator[](ptrdiff_t idx) const noexcept { return ptr_[idx]; }
 

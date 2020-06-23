@@ -1,7 +1,6 @@
 #include "Name.hpp"
 #include <unordered_set>
 #include <otm/Hash.hpp>
-#include "Assert.hpp"
 #include "Json.hpp"
 #include "Core.hpp"
 #include "Templates/Sync.hpp"
@@ -31,7 +30,7 @@ namespace oeng
 	static auto& GetSet()
 	{
 		constexpr bool thread_safe = OE_NAME_THREADSAFE;
-		CHECK(thread_safe || IsGameThread());
+		assert(thread_safe || IsGameThread());
 		
 		using NameSet = std::unordered_set<Name::Str, NameHasher, NameEqual>;
 		static CondMonitor<NameSet, thread_safe> set{Name::Str{}};
