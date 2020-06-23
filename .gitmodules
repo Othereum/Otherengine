@@ -4,3 +4,6 @@
 [submodule "Source/ThirdParty/omem"]
 	path = Source/ThirdParty/omem
 	url = https://github.com/Othereum/omem
+[submodule "Source/ThirdParty/SOIL2"]
+	path = Source/ThirdParty/SOIL2
+	url = https://github.com/SpartanJ/SOIL2.git
