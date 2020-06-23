@@ -21,22 +21,22 @@ namespace oeng
 		NullAtomic(NullAtomic&&) = delete;
 		~NullAtomic() = default;
 
-		constexpr NullAtomic& operator=(T desired) volatile noexcept { data = std::move(desired); return *this; }
+		constexpr NullAtomic& operator=(T desired) noexcept { data = std::move(desired); return *this; }
 		NullAtomic& operator=(const NullAtomic&) = delete;
 		NullAtomic& operator=(NullAtomic&&) = delete;
 
-		constexpr void store(T desired, std::memory_order = {}) volatile noexcept { data = std::move(desired); }
-		constexpr T load(std::memory_order = {}) const volatile noexcept { return data; }
-		constexpr operator T() const volatile noexcept { return data; }
+		constexpr void store(T desired, std::memory_order = {}) noexcept { data = std::move(desired); }
+		constexpr T load(std::memory_order = {}) const noexcept { return data; }
+		constexpr operator T() const noexcept { return data; }
 
-		constexpr T exchange(T desired, std::memory_order = {}) volatile noexcept
+		constexpr T exchange(T desired, std::memory_order = {}) noexcept
 		{
 			using std::swap;
 			swap(data, desired);
 			return desired;
 		}
 
-		constexpr bool compare_exchange_weak(T& expected, T desired, std::memory_order = {}, std::memory_order = {}) volatile noexcept
+		constexpr bool compare_exchange_weak(T& expected, T desired, std::memory_order = {}, std::memory_order = {}) noexcept
 		{
 			if (data == expected)
 			{
@@ -47,27 +47,27 @@ namespace oeng
 			return false;
 		}
 
-		constexpr bool compare_exchange_strong(T& expected, T desired, std::memory_order = {}, std::memory_order = {}) volatile noexcept
+		constexpr bool compare_exchange_strong(T& expected, T desired, std::memory_order = {}, std::memory_order = {}) noexcept
 		{
 			return compare_exchange_weak(expected, desired);
 		}
 
-		constexpr T fetch_add(T arg, std::memory_order = {}) volatile noexcept { auto old = data; data += std::move(arg); return old; }
-		constexpr T fetch_sub(T arg, std::memory_order = {}) volatile noexcept { auto old = data; data -= std::move(arg); return old; }
-		constexpr T fetch_and(T arg, std::memory_order = {}) volatile noexcept { auto old = data; data &= std::move(arg); return old; }
-		constexpr T fetch_or(T arg, std::memory_order = {}) volatile noexcept { auto old = data; data |= std::move(arg); return old; }
-		constexpr T fetch_xor(T arg, std::memory_order = {}) volatile noexcept { auto old = data; data ^= std::move(arg); return old; }
+		constexpr T fetch_add(T arg, std::memory_order = {}) noexcept { auto old = data; data += std::move(arg); return old; }
+		constexpr T fetch_sub(T arg, std::memory_order = {}) noexcept { auto old = data; data -= std::move(arg); return old; }
+		constexpr T fetch_and(T arg, std::memory_order = {}) noexcept { auto old = data; data &= std::move(arg); return old; }
+		constexpr T fetch_or(T arg, std::memory_order = {}) noexcept { auto old = data; data |= std::move(arg); return old; }
+		constexpr T fetch_xor(T arg, std::memory_order = {}) noexcept { auto old = data; data ^= std::move(arg); return old; }
 
-		constexpr T operator++() volatile noexcept { return ++data; }
-		constexpr T operator++(int) volatile noexcept { return data++; }
-		constexpr T operator--() volatile noexcept { return --data; }
-		constexpr T operator--(int) volatile noexcept { return data--; }
+		constexpr T operator++() noexcept { return ++data; }
+		constexpr T operator++(int) noexcept { return data++; }
+		constexpr T operator--() noexcept { return --data; }
+		constexpr T operator--(int) noexcept { return data--; }
 
-		constexpr T operator+=(T arg) volatile noexcept { return data += std::move(arg); }
-		constexpr T operator-=(T arg) volatile noexcept { return data -= std::move(arg); }
-		constexpr T operator&=(T arg) volatile noexcept { return data &= std::move(arg); }
-		constexpr T operator|=(T arg) volatile noexcept { return data |= std::move(arg); }
-		constexpr T operator^=(T arg) volatile noexcept { return data ^= std::move(arg); }
+		constexpr T operator+=(T arg) noexcept { return data += std::move(arg); }
+		constexpr T operator-=(T arg) noexcept { return data -= std::move(arg); }
+		constexpr T operator&=(T arg) noexcept { return data &= std::move(arg); }
+		constexpr T operator|=(T arg) noexcept { return data |= std::move(arg); }
+		constexpr T operator^=(T arg) noexcept { return data ^= std::move(arg); }
 
 	private:
 		T data;
