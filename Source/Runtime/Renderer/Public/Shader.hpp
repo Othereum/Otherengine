@@ -1,4 +1,5 @@
 #pragma once
+#include <compare>
 #include "Asset.hpp"
 #include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
