@@ -23,10 +23,13 @@ namespace oeng::plf
 		FreeLibrary(static_cast<HMODULE>(dll));
 	}
 	
-	Dll::Dll(const char* filepath)
+	Dll::Dll(const char* filepath) try
 		:dll_{LoadLibraryA(filepath), &FreeDll}
 	{
-		if (!dll_) ThrowLastError();
+	}
+	catch (const std::invalid_argument&)
+	{
+		ThrowLastError();
 	}
 
 	void* Dll::GetSymbol(const char* name) const
