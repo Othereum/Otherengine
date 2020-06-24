@@ -1,4 +1,5 @@
 #include "Platform.hpp"
+#include <cstring>
 
 namespace oeng::plf
 {
@@ -52,13 +53,13 @@ namespace oeng::plf
 		if (num_ex_ids > 4)
 		{
 			CpuIdEx(cpu_id, 2 | ex_fn_id, 0);
-			memcpy(brand_arr_, cpu_id, 16);
+			std::memcpy(brand_arr_, cpu_id, 16);
 			
 			CpuIdEx(cpu_id, 3 | ex_fn_id, 0);
-			memcpy(brand_arr_ + 16, cpu_id, 16);
+			std::memcpy(brand_arr_ + 16, cpu_id, 16);
 			
 			CpuIdEx(cpu_id, 4 | ex_fn_id, 0);
-			memcpy(brand_arr_ + 32, cpu_id, 16);
+			std::memcpy(brand_arr_ + 32, cpu_id, 16);
 			
 			brand_ = brand_arr_;
 		}
