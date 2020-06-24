@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+﻿cmake_minimum_required(VERSION 3.14)
 
 project("Otherengine"
 	VERSION 0.1.0
@@ -60,3 +60,19 @@ add_subdirectory(Source)
 install(DIRECTORY "Assets" DESTINATION "Engine")
 install(DIRECTORY "Shaders" DESTINATION "Engine")
 install(DIRECTORY "Config" DESTINATION "Engine")
+install(DIRECTORY "../Assets" DESTINATION ".")
+
+if(WIN32)
+	set(OE_LIB_PATTERN "*.dll")
+elseif(UNIX)
+	set(OE_LIB_PATTERN "*.so")
+else()
+	message(WARNING "Unknown platform. All files in Binaries folder will be copied.")
+	set(OE_LIB_PATTERN "*")
+endif()
+
+install(
+	DIRECTORY "../Binaries"
+	DESTINATION "."
+	FILES_MATCHING PATTERN ${OE_LIB_PATTERN}
+)
