@@ -1,13 +1,15 @@
-cmake_minimum_required(VERSION 3.16)
-project("Otherengine")
+cmake_minimum_required(VERSION 3.14)
 
-get_directory_property(HAS_PARENT PARENT_DIRECTORY)
+project("Otherengine"
+	VERSION 0.1.0
+	DESCRIPTION "3D Game Engine made by Othereum"
+	HOMEPAGE_URL "https://github.com/Othereum/Otherengine"
+	LANGUAGES C CXX
+)
 
 macro(set_global var val)
 	set(${var} ${val})
-	if(HAS_PARENT)
-		set(${var} ${val} PARENT_SCOPE)
-	endif()
+	set(${var} ${val} PARENT_SCOPE)
 endmacro()
 
 set_global(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
