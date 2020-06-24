@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 #include "Log.hpp"
 #include "Json.hpp"
+#include "Platform.hpp"
 
 namespace oeng
 {
@@ -146,6 +147,10 @@ namespace oeng
 
 	SdlRaii::SdlRaii()
 	{
+		const auto& cpu = plf::CpuInfo::Get();
+		log::Info("CPU: {}", cpu.GetBrand());
+		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
+		
 		if (engine_exist) throw std::runtime_error{"Only 1 engine instance can exists"};
 		engine_exist = true;
 
