@@ -1,6 +1,58 @@
 ﻿cmake_minimum_required(VERSION 3.16)
 project("Otherengine")
 
+get_directory_property(HAS_PARENT PARENT_DIRECTORY)
+
+macro(set_global var val)
+	set(${var} ${val})
+	if(HAS_PARENT)
+		set(${var} ${val} PARENT_SCOPE)
+	endif()
+endmacro()
+
+set_global(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+set_global(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+set_global(CMAKE_CXX_STANDARD 20)
+
+function(add_flags var flags)
+	string(STRIP "${${var}_INIT}" ${var})
+	string(STRIP "${${var}} ${flags}" ${var})
+	set(${var} "${${var}}" CACHE STRING "" FORCE)
+endfunction()
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	set(OE_BUILD_FLAGS "-ffast-math -march=haswell")
+	set(OE_BUILD_CXX_FLAGS "${OE_BUILD_FLAGS} -flto")
+	set(OE_LINKER_FLAGS "${OE_BUILD_CXX_FLAGS} -Wl,-rpath='\${ORIGIN}'")
+	add_flags(CMAKE_C_FLAGS ${OE_BUILD_FLAGS})
+	add_flags(CMAKE_CXX_FLAGS ${OE_BUILD_CXX_FLAGS})
+	add_flags(CMAKE_EXE_LINKER_FLAGS ${OE_LINKER_FLAGS})
+	add_flags(CMAKE_SHARED_LINKER_FLAGS ${OE_LINKER_FLAGS})
+	add_flags(CMAKE_MODULE_LINKER_FLAGS ${OE_LINKER_FLAGS})
+
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+	set(OE_BUILD_FLAGS "-ffast-math -march=haswell -flto -Wl,-rpath='\${ORIGIN}'")
+	add_flags(CMAKE_C_FLAGS ${OE_BUILD_FLAGS})
+	add_flags(CMAKE_CXX_FLAGS ${OE_BUILD_FLAGS})
+	add_flags(CMAKE_EXE_LINKER_FLAGS ${OE_BUILD_FLAGS})
+	add_flags(CMAKE_SHARED_LINKER_FLAGS ${OE_BUILD_FLAGS})
+	add_flags(CMAKE_MODULE_LINKER_FLAGS ${OE_BUILD_FLAGS})
+
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	add_flags(CMAKE_C_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819 /GL")
+	add_flags(CMAKE_CXX_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819 /GL")
+	add_flags(CMAKE_C_FLAGS_RELEASE "/GL")
+	add_flags(CMAKE_CXX_FLAGS_RELEASE "/GL")
+	add_flags(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG")
+	add_flags(CMAKE_STATIC_LINKER_FLAGS_RELEASE "/LTCG")
+	add_flags(CMAKE_SHARED_LINKER_FLAGS_RELEASE "/LTCG")
+	add_flags(CMAKE_MODULE_LINKER_FLAGS_RELEASE "/LTCG")
+
+else()
+	message(WARNING "Unknown compiler")
+
+endif()
+
 add_subdirectory(Source)
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
