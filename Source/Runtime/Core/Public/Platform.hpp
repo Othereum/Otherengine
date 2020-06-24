@@ -4,6 +4,30 @@
 
 namespace oeng::plf
 {
+	class OEAPI Dll
+	{
+	public:
+		explicit Dll(const char* filepath);
+
+		void* GetSymbol(const char* name) const;
+		void* FindSymbol(const char* name) const noexcept;
+
+		template <class T>
+		T& GetSymbol(const char* name)
+		{
+			return *static_cast<T*>(GetSymbol(name));
+		}
+
+		template <class Fn, class... Args>
+		decltype(auto) Call(const char* fn_name, Args&&... args)
+		{
+			return GetSymbol<Fn>(fn_name)(std::forward<Args>(args)...);
+		}
+
+	private:
+		SharedRef<void> dll_;
+	};
+
 	class OEAPI CpuInfo
 	{
 	public:
