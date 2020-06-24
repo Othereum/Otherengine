@@ -1,4 +1,4 @@
-﻿cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.16)
 project("Otherengine")
 
 get_directory_property(HAS_PARENT PARENT_DIRECTORY)
@@ -39,8 +39,8 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 	add_flags(CMAKE_MODULE_LINKER_FLAGS ${OE_BUILD_FLAGS})
 
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-	add_flags(CMAKE_C_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819 /GL")
-	add_flags(CMAKE_CXX_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819 /GL")
+	add_flags(CMAKE_C_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819")
+	add_flags(CMAKE_CXX_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819")
 	add_flags(CMAKE_C_FLAGS_RELEASE "/GL")
 	add_flags(CMAKE_CXX_FLAGS_RELEASE "/GL")
 	add_flags(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG")
