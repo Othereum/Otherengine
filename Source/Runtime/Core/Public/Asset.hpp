@@ -3,7 +3,7 @@
 
 namespace oeng
 {
-	class Asset
+	class OEAPI Asset
 	{
 	public:
 		~Asset() = default;
