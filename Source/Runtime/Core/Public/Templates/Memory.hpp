@@ -170,6 +170,9 @@ namespace oeng
 	template <class T, class... Args, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
 	void MakeUnique(Args&&...) = delete;
 
+	template <class T, bool ThreadSafe = kThreadSafe>
+	class SharedPtr;
+	
 	namespace detail
 	{
 		template <bool ThreadSafe>
@@ -296,6 +299,16 @@ namespace oeng
 			: std::is_convertible<std::remove_cv_t<T>*, typename T::EsftType*>::type
 		{
 		};
+
+		template <class T, bool ThreadSafe>
+		struct SetAndEnableShared
+		{
+			template <class Y>
+			SetAndEnableShared(SharedPtr<T, ThreadSafe>& sp, Y* rp, SharedObjBase<ThreadSafe>* obj) noexcept
+			{
+				sp.SetAndEnableShared(rp, obj);
+			}
+		};		
 	}
 
 	template <class T, bool ThreadSafe = kThreadSafe>
@@ -307,7 +320,7 @@ namespace oeng
 	template <class T, bool ThreadSafe = kThreadSafe>
 	class WeakPtr;
 
-	template <class T, bool ThreadSafe = kThreadSafe>
+	template <class T, bool ThreadSafe>
 	class SharedPtr
 	{
 	public:
@@ -431,10 +444,14 @@ namespace oeng
 
 		[[nodiscard]] element_type* get() const noexcept { return ptr_; }
 
-		T& operator*() const noexcept { assert(ptr_); return *ptr_; }
-		T* operator->() const noexcept { assert(ptr_); return ptr_; }
+		template <class T2 = T, std::enable_if_t<!std::is_void_v<T2>, int> = 0>
+		T2& operator*() const noexcept { assert(ptr_); return *ptr_; }
 		
-		element_type& operator[](ptrdiff_t idx) const noexcept { return ptr_[idx]; }
+		template <class T2 = T, std::enable_if_t<!std::is_void_v<T2>, int> = 0>
+		T2* operator->() const noexcept { assert(ptr_); return ptr_; }
+		
+		template <class T2 = T, class Elem = element_type, std::enable_if_t<!std::is_void_v<T2>, int> = 0>
+		Elem& operator[](ptrdiff_t idx) const noexcept { return ptr_[idx]; }
 
 		[[nodiscard]] unsigned long use_count() const noexcept { return obj_ ? obj_->Strong() : 0; }
 
@@ -472,8 +489,8 @@ namespace oeng
 		template <class, bool>
 		friend class WeakPtr;
 
-		template <class Y, bool TSafe, class Al, class... Args>
-		friend SharedRef<Y, TSafe> AllocateShared(const Al&, Args&&...);  // NOLINT(readability-redundant-declaration)
+		template <class, bool>
+		friend struct detail::SetAndEnableShared;
 
 		template <class Y>
 		void CopyFrom(const SharedPtr<Y, ThreadSafe>& r) noexcept
@@ -812,7 +829,7 @@ namespace oeng
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
 
-	template <class T, bool ThreadSafe = kThreadSafe, class Alloc, class... Args>
+	template <class T, bool ThreadSafe = kThreadSafe, std::enable_if_t<!std::is_array_v<T>, int> = 0, class Alloc, class... Args>
 	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
 		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
@@ -827,7 +844,7 @@ namespace oeng
 			try
 			{
 				SharedPtr<T, ThreadSafe> ret;
-				ret.SetAndEnableShared(&obj->obj, obj);
+				detail::SetAndEnableShared<T, ThreadSafe>(ret, &obj->obj, obj);
 				return SharedRef<T, ThreadSafe>{std::move(ret)};
 			}
 			catch (...)
@@ -843,10 +860,45 @@ namespace oeng
 		}
 	}
 
-	template <class T, bool ThreadSafe = kThreadSafe, class... Args>
+	template <class T, bool ThreadSafe = kThreadSafe, std::enable_if_t<std::is_array_v<T>, int> = 0, class Alloc>
+	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, size_t n)
+	{
+		using Tr = std::allocator_traits<Alloc>;
+
+		auto* const ptr = Tr::allocate(alloc, n);
+		size_t idx = 0;
+		try
+		{
+			for (; idx < n; ++idx) Tr::construct(alloc, ptr + idx);
+			
+			auto deleter = [=](std::remove_extent_t<T>* p) noexcept
+			{
+				for (size_t i=0; i<n; ++i) Tr::destroy(alloc, p+i);
+				Tr::deallocate(alloc, p, n);
+			};
+			
+			return {ptr, std::move(deleter), alloc};
+		}
+		catch (...)
+		{
+			for (; idx > 0; --idx) Tr::destroy(alloc, ptr + (idx - 1));
+			Tr::deallocate(alloc, ptr, n);
+			throw;
+		}
+	}
+
+	template <class T, bool ThreadSafe = kThreadSafe, class... Args,
+		std::enable_if_t<!std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
+	}
+
+	template <class T, bool ThreadSafe = kThreadSafe,
+		std::enable_if_t<std::is_array_v<T>, int> = 0>
+	SharedRef<T, ThreadSafe> MakeShared(size_t n)
+	{
+		return AllocateShared<T, ThreadSafe>(PoolAllocator<std::remove_extent_t<T>>{}, n);
 	}
 
 	template <class T, class U, bool ThreadSafe>
