@@ -40,8 +40,8 @@ install(DIRECTORY "Shaders" DESTINATION "Engine")
 install(DIRECTORY "Config" DESTINATION "Engine")
 install(DIRECTORY "../Assets" DESTINATION ".")
 
-install(
-	DIRECTORY "../Binaries"
-	DESTINATION "."
-	FILES_MATCHING PATTERN $<IF:$<PLATFORM_ID:Windows>,*.dll,*.so>
-)
+if(WIN32)
+	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.dll")
+else()
+	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.so")
+endif()
