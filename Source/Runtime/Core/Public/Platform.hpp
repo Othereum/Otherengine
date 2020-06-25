@@ -119,4 +119,6 @@ namespace oeng::plf
 
 	OEAPI void CpuId(int cpu_info[4], int func_id) noexcept;
 	OEAPI void CpuIdEx(int cpu_info[4], int func_id, int sub_func_id) noexcept;
+
+	[[nodiscard]] OEAPI bool IsDebuggerPresent() noexcept;
 }

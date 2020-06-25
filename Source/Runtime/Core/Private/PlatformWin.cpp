@@ -53,6 +53,11 @@ namespace oeng::plf
 	{
 		return __cpuidex(cpu_info, func_id, sub_func_id);
 	}
+
+	bool IsDebuggerPresent() noexcept
+	{
+		return ::IsDebuggerPresent();
+	}
 }
 
 #endif
