@@ -11,6 +11,7 @@ namespace oeng
 	    LB, RB,
 	    UP, DOWN, LEFT, RIGHT
 	};
+
 	
 	enum class MouseBtn { UNKNOWN, L, M, R, X1, X2 };
 	enum class MouseAxis { X, Y };
@@ -20,10 +21,36 @@ namespace oeng
 		return 1u << (static_cast<uint32_t>(btn) - 1u);
 	}
 
+	
 	constexpr int ScanToKey(int scan) noexcept
 	{
 		return (1 << 30) | scan;
 	}
+
+	enum class KeyMod
+	{
+	    NONE = 0x0000,
+		
+	    L_SHIFT = 0x0001,
+	    R_SHIFT = 0x0002,
+		SHIFT = L_SHIFT | R_SHIFT,
+		
+	    L_CTRL = 0x0040, R_CTRL = 0x0080,
+		CTRL = L_CTRL | R_CTRL,
+		
+	    L_ALT = 0x0100,
+	    R_ALT = 0x0200,
+		ALT = L_ALT | R_ALT,
+		
+	    L_GUI = 0x0400,
+	    R_GUI = 0x0800,
+		GUI = L_GUI | R_GUI,
+		
+	    NUM = 0x1000,
+	    CAPS = 0x2000,
+	    MODE = 0x4000,
+	    RESERVED = 0x8000
+	};
 
 	enum class Keycode
 	{
@@ -284,4 +311,6 @@ namespace oeng
 	    AUDIO_REWIND,
 	    AUDIO_FAST_FORWARD
 	};
+
+	using InputCode = std::variant<Keycode, MouseBtn, MouseAxis, ConBtn, ConAxis>;
 }
