@@ -7,54 +7,7 @@ project("Otherengine"
 	LANGUAGES C CXX
 )
 
-macro(set_global var val)
-	set(${var} ${val})
-	set(${var} ${val} PARENT_SCOPE)
-endmacro()
-
-set_global(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
-set_global(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
-set_global(CMAKE_CXX_STANDARD 20)
-
-function(add_flags var flags)
-	string(STRIP "${${var}_INIT}" ${var})
-	string(STRIP "${${var}} ${flags}" ${var})
-	set(${var} "${${var}}" CACHE STRING "" FORCE)
-endfunction()
-
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-	set(OE_BUILD_FLAGS "-ffast-math -march=haswell")
-	set(OE_BUILD_CXX_FLAGS "${OE_BUILD_FLAGS} -flto")
-	set(OE_LINKER_FLAGS "${OE_BUILD_CXX_FLAGS} -Wl,-rpath='\${ORIGIN}'")
-	add_flags(CMAKE_C_FLAGS ${OE_BUILD_FLAGS})
-	add_flags(CMAKE_CXX_FLAGS ${OE_BUILD_CXX_FLAGS})
-	add_flags(CMAKE_EXE_LINKER_FLAGS ${OE_LINKER_FLAGS})
-	add_flags(CMAKE_SHARED_LINKER_FLAGS ${OE_LINKER_FLAGS})
-	add_flags(CMAKE_MODULE_LINKER_FLAGS ${OE_LINKER_FLAGS})
-
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
-	set(OE_BUILD_FLAGS "-ffast-math -march=haswell -flto -Wl,-rpath='\${ORIGIN}'")
-	add_flags(CMAKE_C_FLAGS ${OE_BUILD_FLAGS})
-	add_flags(CMAKE_CXX_FLAGS ${OE_BUILD_FLAGS})
-	add_flags(CMAKE_EXE_LINKER_FLAGS ${OE_BUILD_FLAGS})
-	add_flags(CMAKE_SHARED_LINKER_FLAGS ${OE_BUILD_FLAGS})
-	add_flags(CMAKE_MODULE_LINKER_FLAGS ${OE_BUILD_FLAGS})
-
-elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-	add_flags(CMAKE_C_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819")
-	add_flags(CMAKE_CXX_FLAGS "/MP /fp:fast /arch:AVX2 /wd4566 /wd4819")
-	add_flags(CMAKE_C_FLAGS_RELEASE "/GL")
-	add_flags(CMAKE_CXX_FLAGS_RELEASE "/GL")
-	add_flags(CMAKE_EXE_LINKER_FLAGS_RELEASE "/LTCG")
-	add_flags(CMAKE_STATIC_LINKER_FLAGS_RELEASE "/LTCG")
-	add_flags(CMAKE_SHARED_LINKER_FLAGS_RELEASE "/LTCG")
-	add_flags(CMAKE_MODULE_LINKER_FLAGS_RELEASE "/LTCG")
-
-else()
-	message(WARNING "Unknown compiler")
-
-endif()
-
+include(Otherengine.cmake)
 add_subdirectory(Source)
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
@@ -62,17 +15,8 @@ install(DIRECTORY "Shaders" DESTINATION "Engine")
 install(DIRECTORY "Config" DESTINATION "Engine")
 install(DIRECTORY "../Assets" DESTINATION ".")
 
-if(WIN32)
-	set(OE_LIB_PATTERN "*.dll")
-elseif(UNIX)
-	set(OE_LIB_PATTERN "*.so")
-else()
-	message(WARNING "Unknown platform. All files in Binaries folder will be copied.")
-	set(OE_LIB_PATTERN "*")
-endif()
-
 install(
 	DIRECTORY "../Binaries"
 	DESTINATION "."
-	FILES_MATCHING PATTERN ${OE_LIB_PATTERN}
+	FILES_MATCHING PATTERN $<IF:$<PLATFORM_ID:Windows>,*.dll,*.so>
 )
