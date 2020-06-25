@@ -178,4 +178,20 @@ namespace oeng
 
 		engine_exist = false;
 	}
+
+	void Main(std::string_view game_name, const Function<void(Engine&)>& load_game)
+	{
+		if (plf::IsDebuggerPresent())
+		{
+			Engine{game_name, load_game}.RunLoop();
+		}
+		else try
+		{
+			Engine{game_name, load_game}.RunLoop();
+		}
+		catch (const std::exception& e)
+		{
+			log::Critical(e.what());
+		}
+	}
 }
