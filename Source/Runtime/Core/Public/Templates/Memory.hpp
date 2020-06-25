@@ -225,7 +225,6 @@ namespace oeng
 				return weak.load(std::memory_order_relaxed);
 			}
 
-		private:
 			virtual void Destroy() noexcept = 0;
 			virtual void DeleteThis() noexcept = 0;
 
@@ -246,9 +245,6 @@ namespace oeng
 
 			~SharedObjInline() {}
 
-			union { T obj; };
-
-		private:
 			void Destroy() noexcept override
 			{
 				std::allocator_traits<Alloc>::destroy(alloc, &obj);
@@ -258,11 +254,12 @@ namespace oeng
 			{
 				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjInline>;
 				using Tr = std::allocator_traits<Al>;
+				alloc.~Alloc();
 				Al al{std::move(alloc)};
-				Tr::destroy(al, this);
 				Tr::deallocate(al, this, 1);
 			}
 
+			union { T obj; };
 			[[no_unique_address]] Alloc alloc;
 		};
 
@@ -275,14 +272,14 @@ namespace oeng
 			{
 			}
 
-		private:
 			void Destroy() noexcept override { if (ptr) deleter(ptr); }
 			void DeleteThis() noexcept override
 			{
 				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
 				using Tr = std::allocator_traits<Al>;
+				alloc.~Alloc();
+				deleter.~Deleter();
 				Al al{std::move(alloc)};
-				Tr::destroy(al, this);
 				Tr::deallocate(al, this, 1);
 			}
 
@@ -849,7 +846,7 @@ namespace oeng
 			}
 			catch (...)
 			{
-				Tr::destroy(al, obj);
+				obj->DeleteThis();
 				throw;
 			}
 		}

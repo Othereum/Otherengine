@@ -191,7 +191,7 @@ namespace oeng
 
 	void Renderer::DrawScene()
 	{
-		gl(glClearColor, 0, 0, 0, 1);
+		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
 		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		auto try_draw = [](auto name, auto draw)
@@ -297,7 +297,7 @@ namespace oeng
 		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsfMatrix());
-		gl(glDrawElements, GL_TRIANGLES, verts.GetNumIndices() * 3, GL_UNSIGNED_SHORT, nullptr);
+		gl(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
@@ -416,7 +416,7 @@ namespace oeng
 
 	
 	template <class T, class... Args>
-	SharedRef<T> Get(Renderer::Cache<T>& cache, Path path, Args&&... args)
+	SharedRef<T> Get(AssetCache<T>& cache, Path path, Args&&... args)
 	{
 		auto& map = cache.map;
 		const auto found = map.find(path);
@@ -461,7 +461,7 @@ namespace oeng
 	{
 		int w, h;
 		SDL_GetWindowSize(window_.get(), &w, &h);
-		return Vec2u16(w, h);
+		return {static_cast<uint16_t>(w), static_cast<uint16_t>(h)};
 	}
 
 	template <class T, class Compare>

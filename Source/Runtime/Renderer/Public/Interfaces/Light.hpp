@@ -3,7 +3,7 @@
 
 namespace oeng
 {
-	class IDirLight
+	class OEAPI IDirLight
 	{
 	public:
 		OE_INTERFACE_BODY(IDirLight);
@@ -17,7 +17,7 @@ namespace oeng
 		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
 	};
 
-	class ISkyLight
+	class OEAPI ISkyLight
 	{
 	public:
 		OE_INTERFACE_BODY(ISkyLight);
@@ -25,7 +25,7 @@ namespace oeng
 		[[nodiscard]] virtual const Vec3& GetColor() const noexcept = 0;
 	};
 
-	class IPointLight
+	class OEAPI IPointLight
 	{
 	public:
 		OE_INTERFACE_BODY(IPointLight);
@@ -41,7 +41,7 @@ namespace oeng
 		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
 	};
 
-	class ISpotLight
+	class OEAPI ISpotLight
 	{
 	public:
 		OE_INTERFACE_BODY(ISpotLight);

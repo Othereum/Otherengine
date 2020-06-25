@@ -7,7 +7,7 @@ namespace oeng
 {
 	class Renderer;
 	class Material;
-	
+
 	class OEAPI Mesh : public Asset
 	{
 	public:

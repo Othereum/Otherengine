@@ -11,7 +11,7 @@ namespace oeng
 	
 	static uint16_t GetModState()
 	{
-		return GetModState(SDL_GetModState());
+		return GetModState(static_cast<uint16_t>(SDL_GetModState()));
 	}
 
 	static bool ParseEvent(InputAction& key_event, bool& pressed, const SDL_Event& e)

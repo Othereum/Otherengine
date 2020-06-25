@@ -1,5 +1,5 @@
 #include "Texture.hpp"
-#include <SOIL2.h>
+#include <SOIL2/SOIL2.h>
 #include "OpenGL.hpp"
 
 namespace oeng

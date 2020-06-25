@@ -16,7 +16,7 @@ namespace oeng
 	class Texture;
 	class Mesh;
 
-	class SdlRaii
+	class OEAPI SdlRaii
 	{
 	public:
 		SdlRaii();

@@ -39,6 +39,16 @@ namespace oeng
 		Mat4 view_proj_;
 	};
 	
+	template <class T>
+	struct AssetCache
+	{
+		template <class... Args>
+		AssetCache(Args&&... args) :default_obj{ MakeShared<T>(std::forward<Args>(args)...) } {}
+
+		HashMap<Path, WeakPtr<T>> map;
+		const SharedRef<T> default_obj;
+	};
+
 	class OEAPI Renderer
 	{
 	public:
@@ -95,16 +105,6 @@ namespace oeng
 		template <class T>
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
 
-		template <class T>
-		struct Cache
-		{
-			template <class... Args>
-			Cache(Args&&... args) :default_obj{ MakeShared<T>(std::forward<Args>(args)...) } {}
-
-			HashMap<Path, WeakPtr<T>> map;
-			const SharedRef<T> default_obj;
-		};
-
 	private:
 		void Draw3D();
 		void Draw2D();
@@ -121,10 +121,10 @@ namespace oeng
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
 
-		Cache<Texture> textures_;
-		Cache<Shader> shaders_;
-		Cache<Material> materials_;
-		Cache<Mesh> meshes_;
+		AssetCache<Texture> textures_;
+		AssetCache<Shader> shaders_;
+		AssetCache<Material> materials_;
+		AssetCache<Mesh> meshes_;
 
 		ICamera* camera_{};
 		DefaultCamera default_camera_;

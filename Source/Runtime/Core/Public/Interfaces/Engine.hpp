@@ -11,7 +11,7 @@ namespace oeng
 	class InputSystem;
 	class Renderer;
 	
-	class IEngine
+	class OEAPI IEngine
 	{
 	public:
 		OE_INTERFACE_BODY(IEngine);

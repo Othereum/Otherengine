@@ -9,7 +9,7 @@ namespace oeng
 	{
 	}
 
-	void InputComponent::OnUpdate(Float delta_seconds)
+	void InputComponent::OnUpdate(Float)
 	{
 		if (IsActive())
 		{

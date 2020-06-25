@@ -13,7 +13,7 @@ namespace oeng
 		using PathMap = std::unordered_map<Name, std::filesystem::path>;
 		static CondMonitor<PathMap, thread_safe> map{Path::Pair{}};
 		return map;
-	};
+	}
 
 	Path::Path() noexcept
 	{

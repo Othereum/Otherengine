@@ -26,18 +26,19 @@ namespace oeng
 
 		// for calculate offset
 		constexpr Vertex* v = nullptr;
+		constexpr auto size = static_cast<GLsizei>(sizeof(Vertex));
 
 		static_assert(std::is_same_v<Float, float> || std::is_same_v<Float, double>);
 		constexpr auto type = std::is_same_v<Float, float> ? GL_FLOAT : GL_DOUBLE;
 
 		gl(glEnableVertexAttribArray, 0);
-		gl(glVertexAttribPointer, 0, 3, type, false, sizeof(Vertex), &v->data.pos);
+		gl(glVertexAttribPointer, 0, 3, type, false, size, &v->data.pos);
 
 		gl(glEnableVertexAttribArray, 1);
-		gl(glVertexAttribPointer, 1, 3, type, false, sizeof(Vertex), &v->data.norm);
+		gl(glVertexAttribPointer, 1, 3, type, false, size, &v->data.norm);
 		
 		gl(glEnableVertexAttribArray, 2);
-		gl(glVertexAttribPointer, 2, 2, type, false, sizeof(Vertex), &v->data.uv);
+		gl(glVertexAttribPointer, 2, 2, type, false, size, &v->data.uv);
 	}
 
 	VertexArray::~VertexArray()

@@ -27,7 +27,7 @@ namespace otm
 	template <class T, size_t Row, size_t Col>
 	void from_json(const oeng::Json& json, Matrix<T, Row, Col>& m)
 	{
-		for (auto i=0; i<Row; ++i) from_json(json.at(i), m[i]);
+		for (size_t i=0; i<Row; ++i) from_json(json.at(i), m[i]);
 	}
 }
 

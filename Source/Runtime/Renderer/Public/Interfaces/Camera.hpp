@@ -3,7 +3,7 @@
 
 namespace oeng
 {
-	class ICamera
+	class OEAPI ICamera
 	{
 	public:
 		OE_INTERFACE_BODY(ICamera);

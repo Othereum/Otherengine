@@ -9,7 +9,7 @@ namespace oeng
 	class World;
 	class Renderer;
 	
-	class ActorComponent : public EnableSharedFromThis<ActorComponent>
+	class OEAPI ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
 		OE_DELETE_CPMV(ActorComponent);
@@ -35,7 +35,7 @@ namespace oeng
 
 	private:
 		virtual void OnBeginPlay() {}
-		virtual void OnUpdate(Float delta_seconds) {}
+		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
 		virtual void OnActivated() {}
 		virtual void OnDeactivated() {}
 		

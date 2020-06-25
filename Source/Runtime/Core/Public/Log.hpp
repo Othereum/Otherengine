@@ -1,5 +1,12 @@
 #pragma once
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4566 4819)
+#endif
 #include <spdlog/logger.h>
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include "Core.hpp"
 #include "Templates/Time.hpp"
 
@@ -80,6 +87,11 @@ namespace oeng::log
 	}
 }
 
+#ifdef __clang__
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
+#endif
+
 /**
  * \brief Log with delay (no spam)
  * \param delay time::duration
@@ -91,3 +103,7 @@ namespace oeng::log
 	static const ::oeng::log::detail::LogDelay log_delay; \
 	log_delay(delay, level, format, ##__VA_ARGS__); \
 }()
+
+#ifdef __clang__
+#pragma clang diagnostic pop
+#endif

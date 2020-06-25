@@ -75,7 +75,7 @@ namespace oeng
 	private:
 		void RegisterComponent(SharedRef<ActorComponent>&& comp);
 		void UpdateComponents(Float delta_seconds);
-		virtual void OnUpdate(Float delta_seconds) {}
+		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
 		virtual void OnBeginPlay() {}
 
 		bool pending_kill_ : 1 = false;

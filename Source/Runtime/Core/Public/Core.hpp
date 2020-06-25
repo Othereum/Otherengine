@@ -1,3 +1,5 @@
+// ReSharper disable CppClangTidyCppcoreguidelinesMacroUsage
+// ReSharper disable CppClangTidyBugproneMacroParentheses
 #pragma once
 
 #if OE_BUILD_STATIC
