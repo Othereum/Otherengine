@@ -1,48 +1,24 @@
 #pragma once
+#include <variant>
 #include "Name.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/HashMap.hpp"
+#include "InputCode.hpp"
 
 union SDL_Event;
 
 namespace oeng
-{	
-	enum class InputType : int8_t
+{
+	struct InputAxis
 	{
-		kInvalid = -1, kKeyboard, kMButton, kMAxisX, kMAxisY, kCButton, kCAxis
-	};
-
-	struct InputKey
-	{
-		int key = -1;
-		InputType type = InputType::kInvalid;
-		
-		constexpr InputKey() noexcept = default;
-		constexpr InputKey(int key, InputType type) noexcept: key{key}, type{type} {}
-		
-		bool operator==(const InputKey&) const noexcept = default;
-	};
-
-	struct InputAxis : InputKey
-	{
+		InputCode code = Keycode::UNKNOWN;
 		Float scale = 1;
-		
-		constexpr InputAxis() noexcept = default;
-		constexpr InputAxis(int key, InputType type, Float scale) noexcept: InputKey{key, type}, scale{scale} {}
 	};
 
-	struct InputAction : InputKey
+	struct InputAction
 	{
-		uint16_t mod = 0;
-
-		constexpr InputAction() noexcept = default;
-		constexpr InputAction(int key, InputType type, uint16_t mod = 0) noexcept: InputKey{key, type}, mod{mod} {}
-	};
-
-	struct InputEvent
-	{
-		Name name;
-		bool pressed;
+		InputCode code = Keycode::UNKNOWN;
+		KeyMod mod = KeyMod::NONE;
 	};
 
 	class OEAPI InputSystem
@@ -64,6 +40,12 @@ namespace oeng
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
 
 	private:
+		struct InputEvent
+		{
+			Name name;
+			bool pressed;
+		};
+
 		DyArr<InputEvent> events_;
 		HashMap<Name, DyArr<InputAxis>> axises_;
 		HashMap<Name, DyArr<InputAction>> actions_;
