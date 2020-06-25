@@ -1,6 +1,5 @@
 #pragma once
 #include <cassert>
-#include <atomic>
 #include <memory>
 #include <omem.hpp>
 #include "Core.hpp"
@@ -43,7 +42,7 @@ namespace oeng
 	[[nodiscard]] T* New(Args&&... args)
 	{
 		detail::CheckMemSafe();
-		const auto p = Alloc(sizeof(T));
+		auto* const p = Alloc(sizeof(T));
 		if (!p) throw std::bad_alloc{};
 
 		try
