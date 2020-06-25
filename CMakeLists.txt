@@ -7,7 +7,6 @@ project("Otherengine"
 	LANGUAGES C CXX
 )
 
-include(Otherengine.cmake)
 add_subdirectory(Source)
 
 install(DIRECTORY "Assets" DESTINATION "Engine")
