@@ -8,10 +8,10 @@ list(APPEND PUBLIC_LIBS
 )
 
 list(APPEND PRIVATE_LIBS
-	${SDL2_LIBRARIES}
+	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
 	GLEW::GLEW
 	SOIL2
 )
 
 add_engine_module(Renderer "${PUBLIC_LIBS}" "${PRIVATE_LIBS}")
-target_include_directories(${PROJECT_NAME}-Renderer PRIVATE ${SDL2_INCLUDE_DIRS} ${SOIL2_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME}-Renderer PRIVATE ${SDL2_INCLUDE_DIRS})
