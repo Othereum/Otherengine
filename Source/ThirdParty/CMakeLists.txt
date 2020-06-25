@@ -1,4 +1,4 @@
-# Sources/ThirdParty
+# Source/ThirdParty
 
 add_subdirectory(otm)
 add_subdirectory(omem)

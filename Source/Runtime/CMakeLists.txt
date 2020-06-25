@@ -16,30 +16,12 @@ function(add_engine_module name public_libs private_libs)
 	target_link_libraries(${target} PUBLIC ${public_libs} PRIVATE ${private_libs})
 	target_include_directories(${target} PUBLIC "Public")
 	target_compile_definitions(${target} PRIVATE OE_BUILD)
-	oe_setup_target(${target})
+	oe_target_setup(${target})
 endfunction()
 
 function(add_switch module name default description)
     set(${name} ${default} CACHE STRING ${description})
     target_compile_definitions(${PROJECT_NAME}-${module} PUBLIC ${name}=${${name}})
-endfunction()
-
-function(oe_setup_target target)
-    set_target_properties(${target} PROPERTIES
-        CXX_STANDARD 20
-        RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>
-        LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>
-    )
-
-    target_compile_options(${target} PUBLIC
-        $<IF:$<CXX_COMPILER_ID:MSVC>,
-            $<$<CONFIG:Release>:/GL> /MP /fp:fast /arch:AVX2 /W4 /WX /wd4251,
-            $<$<CONFIG:Release>:-flto> -ffast-math -march=haswell -Wall -Wextra -pedantic -Werror>)
-
-    target_link_options(${target} PUBLIC
-        $<IF:$<CXX_COMPILER_ID:MSVC>,
-            $<$<CONFIG:Release>:/LTCG>,
-            $<$<CONFIG:Release>:-flto> -Wl$<COMMA>-rpath='$\{ORIGIN}'>)
 endfunction()
 
 add_subdirectory(Core)
