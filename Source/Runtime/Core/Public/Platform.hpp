@@ -9,11 +9,11 @@ namespace oeng::plf
 	public:
 		explicit Dll(const char* filepath);
 
-		void* GetSymbol(const char* name) const;
-		void* FindSymbol(const char* name) const noexcept;
+		[[nodiscard]] void* GetSymbol(const char* name) const;
+		[[nodiscard]] void* FindSymbol(const char* name) const noexcept;
 
 		template <class T>
-		T& GetSymbol(const char* name)
+		[[nodiscard]] T& GetSymbol(const char* name)
 		{
 			return *static_cast<T*>(GetSymbol(name));
 		}
