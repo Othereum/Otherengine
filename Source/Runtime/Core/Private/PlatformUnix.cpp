@@ -3,6 +3,7 @@
 #include "Platform.hpp"
 #include <cpuid.h>
 #include <dlfcn.h>
+#include <sys/ptrace.h>
 
 namespace oeng::plf
 {
@@ -40,6 +41,20 @@ namespace oeng::plf
 		const auto leaf = static_cast<unsigned>(func_id);
 		const auto sub_leaf = static_cast<unsigned>(sub_func_id);
 		__cpuid_count(leaf, sub_leaf, info[0], info[1], info[2], info[3]);
+	}
+	
+	bool IsDebuggerPresent() noexcept
+	{
+		static const auto is_debugger_present = []
+		{
+			if (0 > ptrace(PTRACE_TRACEME, 0, 1, 0)) 
+				return true;
+			
+			ptrace(PTRACE_DETACH, 0, 1, 0);
+			return false;
+		}();
+		
+		return is_debugger_present;
 	}
 }
 
