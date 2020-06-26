@@ -13,7 +13,7 @@ namespace oeng
 	};
 
 	
-	enum class MouseBtn { UNKNOWN, L, M, R, X1, X2 };
+	enum class MouseBtn { L = 1, M, R, X1, X2 };
 	enum class MouseAxis { X, Y };
 
 	constexpr uint32_t MouseMask(MouseBtn btn) noexcept
@@ -22,11 +22,6 @@ namespace oeng
 	}
 
 	
-	constexpr int ScanToKey(int scan) noexcept
-	{
-		return (1 << 30) | scan;
-	}
-
 	enum class KeyMod
 	{
 	    NONE = 0x0000,
@@ -52,10 +47,23 @@ namespace oeng
 	    RESERVED = 0x8000
 	};
 
+	constexpr KeyMod operator|(KeyMod a, KeyMod b) noexcept
+	{
+		return static_cast<KeyMod>(static_cast<int>(a) | static_cast<int>(b));
+	}
+
+	constexpr KeyMod operator&(KeyMod a, KeyMod b) noexcept
+	{
+		return static_cast<KeyMod>(static_cast<int>(a) & static_cast<int>(b));
+	}
+
+	constexpr int ScanToKey(int scan) noexcept
+	{
+		return (1 << 30) | scan;
+	}
+
 	enum class Keycode
 	{
-	    UNKNOWN,
-		
 	    RETURN = '\r',
 	    ESCAPE = '\033',
 	    BACKSPACE = '\b',
@@ -311,6 +319,4 @@ namespace oeng
 	    AUDIO_REWIND,
 	    AUDIO_FAST_FORWARD
 	};
-
-	using InputCode = std::variant<Keycode, MouseBtn, MouseAxis, ConBtn, ConAxis>;
 }
