@@ -65,6 +65,6 @@ namespace oeng
 		DyArr<InputEvent> events_;
 		HashMap<Name, DyArr<InputAxis>> axises_;
 		HashMap<Name, DyArr<InputAction>> actions_;
-		struct { float x, y; } mouse_{};
+		struct { Float x, y; } mouse_{};
 	};
 }
