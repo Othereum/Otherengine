@@ -11,14 +11,30 @@ namespace oeng
 {
 	struct InputAxis
 	{
-		InputCode code = Keycode::UNKNOWN;
-		Float scale = 1;
+		using Code = std::variant<Keycode, MouseBtn, ConBtn, MouseAxis, ConAxis>;
+
+		template <std::convertible_to<Code> T>
+		constexpr InputAxis(T code, Float scale) noexcept
+			:code{code}, scale{scale}
+		{
+		}
+		
+		Code code;
+		Float scale;
 	};
 
 	struct InputAction
 	{
-		InputCode code = Keycode::UNKNOWN;
-		KeyMod mod = KeyMod::NONE;
+		using Code = std::variant<Keycode, MouseBtn, ConBtn>;
+
+		template <std::convertible_to<Code> T>
+		constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
+			:code{code}, mod{mod}
+		{
+		}
+		
+		Code code;
+		KeyMod mod;
 	};
 
 	class OEAPI InputSystem
