@@ -45,10 +45,7 @@
 
 namespace oeng
 {
-	/**
-	 * \brief Check if current context is in game(main) thread
-	 */
-	OEAPI bool IsGameThread() noexcept;
-
-	OEAPI bool IsEngineExists() noexcept;
+	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
+	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
+	[[nodiscard]] OEAPI bool IsDebugging() noexcept;
 }
