@@ -116,34 +116,51 @@ namespace oeng
 		return val;
 	}
 
-	Float InputSystem::GetAxisValue(const InputAxis& axis) const noexcept
+	template <class... Ts>
+	struct Overload : Ts... { using Ts::operator()...; };
+
+	template <class... Ts>
+	Overload(Ts...) -> Overload<Ts...>;
+
+	Float InputSystem::GetAxisValue(const InputAxis& axis) const
 	{
-		switch (axis.type)
-		{
-		case InputType::kKeyboard:
-			return SDL_GetKeyboardState(nullptr)[SDL_GetScancodeFromKey(axis.key)] ? axis.scale : 0;
+		return std::visit(Overload{
 			
-		case InputType::kMButton:
-			return SDL_GetMouseState(nullptr, nullptr) & SDL_BUTTON(axis.key) ? axis.scale : 0;
+			[&](Keycode code)
+			{
+				const auto scan = SDL_GetScancodeFromKey(static_cast<int>(code));
+				return SDL_GetKeyboardState(nullptr)[scan] ? axis.scale : 0;
+			},
 			
-		case InputType::kMAxisX:
-			return mouse_.x * axis.scale;
+			[&](MouseBtn code)
+			{
+				const auto cur_btn = SDL_GetMouseState(nullptr, nullptr);
+				return cur_btn & MouseMask(code) ? axis.scale : 0;
+			},
 			
-		case InputType::kMAxisY:
-			return mouse_.y * axis.scale;
+			[&](ConBtn code)
+			{
+				const auto btn = SDL_GameControllerButton(code);
+				return SDL_GameControllerGetButton(nullptr, btn) ? axis.scale : 0;
+			},
 			
-		case InputType::kCButton:
-			return SDL_GameControllerGetButton(nullptr, SDL_GameControllerButton(axis.key)) ? axis.scale : 0;
+			[&](MouseAxis code)
+			{
+				switch (code)
+				{
+				case MouseAxis::X: return mouse_.x * axis.scale;
+				case MouseAxis::Y: return mouse_.y * axis.scale;
+				default: return 0_f;
+				}
+			},
 			
-		case InputType::kCAxis:
+			[&](ConAxis code)
 			{
 				constexpr auto min = 328_f, max = 32440_f;
-				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(axis.key));
+				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(code));
 				return v >= 0 ? MapRngClamp({min, max}, {0, 1}, v) : MapRngClamp({-max, -min}, {-1, 0}, v);
 			}
 			
-		default:
-			return 0;
-		}
+		}, axis.code);
 	}
 }
