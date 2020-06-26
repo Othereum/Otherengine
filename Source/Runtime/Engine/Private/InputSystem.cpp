@@ -4,58 +4,45 @@
 
 namespace oeng
 {
-	static uint16_t GetModState(uint16_t mod)
+	struct ParsedEvent
 	{
-		return mod & (KMOD_CTRL | KMOD_SHIFT | KMOD_ALT);
-	}
+		InputAction input;
+		bool pressed;
+	};
 	
-	static uint16_t GetModState()
-	{
-		return GetModState(static_cast<uint16_t>(SDL_GetModState()));
-	}
-
-	static bool ParseEvent(InputAction& key_event, bool& pressed, const SDL_Event& e)
+	static std::optional<ParsedEvent> ParseEvent(const SDL_Event& e)
 	{
 		switch (e.type)
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
-			key_event.key = e.key.keysym.sym;
-			key_event.type = InputType::kKeyboard;
-			key_event.mod = GetModState(e.key.keysym.mod);
-			pressed = e.key.state;
-			break;
+			if (e.key.repeat) return std::nullopt;
+			return ParsedEvent{
+				InputAction{Keycode(e.key.keysym.sym), KeyMod(e.key.keysym.mod)},
+				!!e.key.state
+			};
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
-			key_event.key = e.button.button;
-			key_event.type = InputType::kMButton;
-			key_event.mod = GetModState();
-			pressed = e.button.state;
-			break;
+			return ParsedEvent{
+				InputAction{MouseBtn(e.button.button), KeyMod(SDL_GetModState())},
+				!!e.button.state
+			};
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
-			key_event.key = e.cbutton.button;
-			key_event.type = InputType::kCButton;
-			key_event.mod = GetModState();
-			pressed = e.cbutton.state;
-			break;
+			return ParsedEvent{
+				InputAction{ConBtn(e.cbutton.button), KeyMod(SDL_GetModState())},
+				!!e.cbutton.state
+			};
 
 		default:
-			return false;
+			return std::nullopt;
 		}
-
-		return true;
 	}
 
 	static bool IsMatch(const InputAction& event, const DyArr<InputAction>& keys)
 	{
 		for (const auto& key : keys)
-		{
-			if (event == key && (event.mod & key.mod) == key.mod)
-			{
-				return true;
-			}
-		}
-		
+			if (event.code == key.code && (event.mod & key.mod) == key.mod)
+				return true;		
 		return false;
 	}
 
@@ -67,15 +54,14 @@ namespace oeng
 
 	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		InputAction key_event;
-		bool pressed;
-		if (!ParseEvent(key_event, pressed, e)) return;
+		const auto event = ParseEvent(e);
+		if (!event) return;
 		
 		for (const auto& act : actions_)
 		{
-			if (IsMatch(key_event, act.second))
+			if (IsMatch(event->input, act.second))
 			{
-				events_.push_back({act.first, pressed});
+				events_.push_back({act.first, event->pressed});
 			}
 		}
 	}
