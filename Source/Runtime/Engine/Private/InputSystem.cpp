@@ -103,7 +103,7 @@ namespace oeng
 		actions_.emplace(name, std::move(keys));
 	}
 
-	Float InputSystem::GetAxisValue(Name name) const noexcept
+	Float InputSystem::GetAxisValue(Name name) const
 	{
 		auto it = axises_.find(name);
 		if (it == axises_.end()) return 0;

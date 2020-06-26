@@ -49,8 +49,8 @@ namespace oeng
 		void AddAxis(Name name, DyArr<InputAxis>&& keys);
 		void AddAction(Name name, DyArr<InputAction>&& keys);
 		
-		[[nodiscard]] Float GetAxisValue(Name name) const noexcept;
-		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const noexcept;
+		[[nodiscard]] Float GetAxisValue(Name name) const;
+		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
