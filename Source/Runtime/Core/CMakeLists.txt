@@ -1,6 +1,6 @@
 # Source/Runtime/Core
 
-find_package(nlohmann_json 3.7.3 REQUIRED)
+find_package(nlohmann_json 3.8 REQUIRED)
 find_package(fmt 6.1.2 REQUIRED)
 find_package(spdlog 1.4.2 REQUIRED)
 
