@@ -49,3 +49,7 @@ namespace oeng
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
 	[[nodiscard]] OEAPI bool IsDebugging() noexcept;
 }
+
+#define STRINGIZE_IMPL(x) #x
+#define STRINGIZE(x) STRINGIZE_IMPL(x)
+#define LINE_STRING STRINGIZE(__LINE__)
