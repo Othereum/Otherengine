@@ -1,7 +1,7 @@
 #pragma once
 #include <stdexcept>
 #include <GL/glew.h>
-#include "Log.hpp"
+#include "Debug.hpp"
 #include "Format.hpp"
 
 namespace oeng
@@ -59,3 +59,5 @@ namespace oeng
 		}
 	}
 }
+
+#define GL(fn, ...) do { unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, "{}", err); } while (false)

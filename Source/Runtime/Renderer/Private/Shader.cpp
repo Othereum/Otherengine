@@ -79,11 +79,9 @@ namespace oeng
 
 	Shader::~Shader()
 	{
-		unsigned err;
-		// glDelete functions silently ignores 0.
-		gl(err, glDeleteProgram, shader_program_);
-		gl(err, glDeleteShader, vert_shader_);
-		gl(err, glDeleteShader, frag_shader_);
+		GL(glDeleteProgram, shader_program_);
+		GL(glDeleteShader, vert_shader_);
+		GL(glDeleteShader, frag_shader_);
 	}
 
 	void Shader::Activate() const

@@ -41,9 +41,8 @@ namespace oeng
 
 	Texture::~Texture()
 	{
-		unsigned err;
 		// glDelete silently ignores 0
-		gl(err, glDeleteTextures, 1, &id_);
+		GL(glDeleteTextures, 1, &id_);
 	}
 
 	void Texture::Activate() const

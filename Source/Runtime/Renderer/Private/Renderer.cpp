@@ -191,8 +191,8 @@ namespace oeng
 
 	void Renderer::DrawScene()
 	{
-		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
-		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		GL(glClearColor, 0.f, 0.f, 0.f, 1.f);
+		GL(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		auto try_draw = [](auto name, auto draw)
 		{
@@ -211,8 +211,8 @@ namespace oeng
 
 	void Renderer::Draw3D()
 	{
-		gl(glEnable, GL_DEPTH_TEST);
-		gl(glDisable, GL_BLEND);
+		GL(glEnable, GL_DEPTH_TEST);
+		GL(glDisable, GL_BLEND);
 
 		prev_ = {};
 		
@@ -232,9 +232,9 @@ namespace oeng
 
 	void Renderer::Draw2D()
 	{
-		gl(glEnable, GL_BLEND);
-		gl(glDisable, GL_DEPTH_TEST);
-		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		GL(glEnable, GL_BLEND);
+		GL(glDisable, GL_DEPTH_TEST);
+		GL(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
 		for (auto sprite_ref : sprites_) try
@@ -243,7 +243,7 @@ namespace oeng
 			if (!sprite.ShouldDraw()) continue;
 
 			sprite_shader_.SetUniform(NAME("uWorldTransform"), sprite.GetDrawTrsf());
-			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+			GL(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 		catch (const std::exception& e)
 		{
@@ -297,7 +297,7 @@ namespace oeng
 		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsfMatrix());
-		gl(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+		GL(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
