@@ -1,7 +1,7 @@
 # Source/Runtime/Renderer
 
 find_package(SDL2 REQUIRED)
-find_package(GLEW 2.1.0 REQUIRED)
+find_package(GLEW 2.1 REQUIRED)
 
 list(APPEND PUBLIC_LIBS
 	${PROJECT_NAME}-Core
