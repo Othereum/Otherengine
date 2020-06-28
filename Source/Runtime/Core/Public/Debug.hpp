@@ -1,6 +1,8 @@
 #pragma once
 #include "Log.hpp"
+#if !defined(NDEBUG) && !defined(_WIN32)
 #include <csignal>
+#endif
 
 namespace oeng
 {
@@ -15,14 +17,6 @@ namespace oeng
 #endif
 #endif
 	}
-	
-	template <class... Args>
-	void LogErrorAndBreak(std::string_view fmt, const Args&... args) noexcept
-	{
-		try { log::Error(fmt, args...); }
-		catch (...) {}
-		DebugBreak();
-	}
 }
 
 #ifdef NDEBUG
@@ -32,9 +26,9 @@ namespace oeng
 	#define EXPECT(expr) (void)0
 	#define EXPECT_MSG(expr, fmt, ...) (void)0
 #else
-	#define ENSURE(expr) (!!(expr) || (::oeng::LogErrorAndBreak("Ensure failed: " #expr ", file " __FILE__ ", line " LINE_STRING), false))
-	#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (::oeng::LogErrorAndBreak("Ensure failed: " #expr ", " fmt ", file " __FILE__ ", line " LINE_STRING, ##__VA_ARGS__), false))
+	#define ENSURE(expr) (!!(expr) || (OE_DLOG(1s, ::oeng::log::level::err, "Ensure failed: " #expr ", file " __FILE__ ", line " LINE_STRING), ::oeng::DebugBreak(), false))
+	#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_DLOG(1s, ::oeng::log::level::err, "Ensure failed: " #expr ", " fmt ", file " __FILE__ ", line " LINE_STRING, ##__VA_ARGS__), ::oeng::DebugBreak(), false))
 
-	#define EXPECT(expr) (void)(!!(expr) || (::oeng::LogErrorAndBreak("Expect failed: " #expr ", file " __FILE__ ", line " LINE_STRING), false))
-	#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (::oeng::LogErrorAndBreak("Expect failed: " #expr ", " fmt ", file " __FILE__ ", line " LINE_STRING, ##__VA_ARGS__), false))
+	#define EXPECT(expr) (void)(!!(expr) || (OE_DLOG(1s, ::oeng::log::level::err, "Expect failed: " #expr ", file " __FILE__ ", line " LINE_STRING), ::oeng::DebugBreak(), false))
+	#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_DLOG(1s, ::oeng::log::level::err, "Expect failed: " #expr ", " fmt ", file " __FILE__ ", line " LINE_STRING, ##__VA_ARGS__), ::oeng::DebugBreak(), false))
 #endif
