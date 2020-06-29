@@ -5,6 +5,7 @@
 #include "Log.hpp"
 #include "Json.hpp"
 #include "Core.hpp"
+#include "Debug.hpp"
 
 namespace oeng
 {
@@ -145,6 +146,44 @@ namespace oeng
 
 	extern OE_IMPORT bool engine_exist;
 
+	static void LogMemoryInfo(const omem::PoolMap& pools)
+	{
+		omem::PoolInfo max;
+		std::vector<omem::PoolInfo> infos;
+		infos.reserve(pools.size());
+		
+		for (const auto& [size, pool] : pools)
+		{
+			auto compare = [](const omem::PoolInfo& a, const omem::PoolInfo& b) noexcept
+			{
+				return a.size < b.size;
+			};
+			const auto& info = pool.GetInfo();
+			const auto pos = std::upper_bound(infos.begin(), infos.end(), info, compare);
+			infos.insert(pos, info);
+
+			max.size = Max(max.size, info.size);
+			max.count = Max(max.count, info.count);
+			max.cur = Max(max.cur, info.cur);
+			max.peak = Max(max.peak, info.peak);
+			max.fault = Max(max.fault, info.fault);
+		}
+
+		omem::PoolInfo align;
+		align.size = Log(max.size, 10) + 1;
+		align.count = Log(max.count, 10) + 1;
+		align.peak = Log(max.peak, 10) + 1;
+		align.fault = Log(max.fault, 10) + 1;
+		
+		for (const auto& info : infos)
+		{
+			log::Info("[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}",
+				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur);
+		}
+
+		if (max.cur > 0) log::Warn("[Mem] Memory leak detected!");
+	}
+
 	SdlRaii::SdlRaii()
 	{
 		if (!SDL_HasAVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
@@ -155,7 +194,7 @@ namespace oeng
 		if (!IsGameThread()) throw std::runtime_error{"The engine instance must be created on the main thread"};
 		
 		log::Info("Initializing engine...");
-		omem::SetOnPoolDest([](auto&&...){ assert(!IsEngineExists()); });
+		omem::SetOnPoolDest([](auto&&...){ EXPECT(!engine_exist); });
 		
 		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
@@ -164,16 +203,10 @@ namespace oeng
 	SdlRaii::~SdlRaii()
 	{
 		SDL_Quit();
-
-		for (const auto& [size, pool] : omem::GetPools())
-		{
-			const auto& info = pool.GetInfo();
-			log::Info("[Mem] Memory pool with {} {}-byte blocks", info.count, info.size);
-			log::Info("[Mem]  Peak usage: {} blocks", info.peak);
-			if (info.fault) log::Info("[Mem]  Block fault: {} times", info.fault);
-			if (info.cur) log::Warn("[Mem]  Leaked: {} blocks", info.cur);
-		}
-
+		
+		try { LogMemoryInfo(omem::GetPools()); }
+		catch (...) { DebugBreak(); }
+		
 		engine_exist = false;
 	}
 
