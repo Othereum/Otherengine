@@ -31,8 +31,8 @@ namespace oeng
 		{
 			SharedPtr<Foo> sh2{New<Foo>(n)};
 			auto sh3 = sh2;
-			ASSERT_EQ(sh2.use_count(), 2);
-			ASSERT_EQ(sh3.use_count(), 2);
+			ASSERT_EQ(sh2.use_count(), 2u);
+			ASSERT_EQ(sh3.use_count(), 2u);
 		}
 
 		ASSERT_EQ(n, 2);
@@ -50,8 +50,8 @@ namespace oeng
 			ASSERT_EQ(n, 10);
 			sh6 = sh7;
 			ASSERT_EQ(n, 11);
-			ASSERT_EQ(sh6.use_count(), 2);
-			ASSERT_EQ(sh7.use_count(), 2);
+			ASSERT_EQ(sh6.use_count(), 2u);
+			ASSERT_EQ(sh7.use_count(), 2u);
 		}
 
 		ASSERT_EQ(n, 12);
@@ -62,8 +62,8 @@ namespace oeng
 			ASSERT_EQ(n, 14);
 			sh8 = std::move(sh9);
 			ASSERT_EQ(n, 15);
-			ASSERT_EQ(sh8.use_count(), 1);
-			ASSERT_EQ(sh9.use_count(), 0);
+			ASSERT_EQ(sh8.use_count(), 1u);
+			ASSERT_EQ(sh9.use_count(), 0u);
 			ASSERT_EQ(sh9, nullptr);
 		}
 
@@ -95,13 +95,13 @@ namespace oeng
 		{
 			auto sp = MakeShared<int>(42);
 			weak = sp;
-			ASSERT_EQ(weak.use_count(), 1);
+			ASSERT_EQ(weak.use_count(), 1u);
 			auto spt = weak.lock();
-			ASSERT_EQ(weak.use_count(), 2);
+			ASSERT_EQ(weak.use_count(), 2u);
 			ASSERT_TRUE(spt);
 			ASSERT_EQ(*spt, 42);
 		}
-		ASSERT_EQ(weak.use_count(), 0);
+		ASSERT_EQ(weak.use_count(), 0u);
 		ASSERT_TRUE(weak.expired());
 	}
 
