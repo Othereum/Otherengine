@@ -1,10 +1,9 @@
 ﻿#pragma once
-#include "Interfaces/Engine.hpp"
 #include "InputSystem.hpp"
 #include "Json.hpp"
-#include "World.hpp"
 #include "Renderer.hpp"
-#include "Templates/Function.hpp"
+#include "World.hpp"
+#include "Interfaces/Engine.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -27,6 +26,10 @@ namespace oeng
 	public:
 		OE_DELETE_CPMV(Engine);
 		
+		Engine(std::string_view game_name, void(*load_game)(Engine&));
+		~Engine();
+		
+		void RunLoop();
 		void Shutdown();
 		
 		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
@@ -50,12 +53,6 @@ namespace oeng
 		bool SaveConfig(Name name) noexcept override;
 		
 	private:
-		friend OEAPI void Main(std::string_view game_name, const Function<void(Engine&)>& load_game);
-		
-		Engine(std::string_view game_name, const Function<void(Engine&)>& load_game);
-		~Engine();
-		
-		void RunLoop();
 		void Tick();
 		void ProcessEvent();
 

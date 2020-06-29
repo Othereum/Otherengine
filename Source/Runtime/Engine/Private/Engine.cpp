@@ -2,10 +2,10 @@
 #include <filesystem>
 #include <fstream>
 #include <SDL2/SDL.h>
-#include "Log.hpp"
-#include "Json.hpp"
 #include "Core.hpp"
 #include "Debug.hpp"
+#include "Json.hpp"
+#include "Log.hpp"
 
 namespace oeng
 {
@@ -54,7 +54,7 @@ namespace oeng
 		return configs;
 	}
 	
-	Engine::Engine(std::string_view game_name, const Function<void(Engine&)>& load_game)
+	Engine::Engine(std::string_view game_name, void(*load_game)(Engine&))
 		:game_name_{game_name},
 		configs_{LoadConfigs()},
 		renderer_{*this},
@@ -62,6 +62,7 @@ namespace oeng
 	{
 		log::Info("Engine initialization successful.");
 		log::Info("Loading game module...");
+		assert(load_game);
 		load_game(*this);
 		log::Info("Game module loaded.");
 	}
@@ -205,23 +206,5 @@ namespace oeng
 		catch (...) { DebugBreak(); }
 		
 		engine_exist = false;
-	}
-
-	void Main(std::string_view game_name, const Function<void(Engine&)>& load_game)
-	{
-		if (!SDL_HasAVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
-		
-		if (IsDebugging())
-		{
-			Engine{game_name, load_game}.RunLoop();
-		}
-		else try
-		{
-			Engine{game_name, load_game}.RunLoop();
-		}
-		catch (const std::exception& e)
-		{
-			log::Critical(e.what());
-		}
 	}
 }

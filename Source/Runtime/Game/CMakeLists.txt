@@ -7,10 +7,12 @@ target_include_directories(${CMAKE_PROJECT_NAME}-Module PRIVATE "${CMAKE_SOURCE_
 target_compile_definitions(${CMAKE_PROJECT_NAME}-Module PRIVATE OE_BUILD)
 oe_setup_target(${CMAKE_PROJECT_NAME}-Module)
 
-add_executable(${CMAKE_PROJECT_NAME} "Private/Main.cpp")
+add_executable(${CMAKE_PROJECT_NAME} "Main.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${PROJECT_NAME}-Engine)
-target_include_directories(${CMAKE_PROJECT_NAME} PUBLIC "Public")
-target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE OE_BUILD OE_GAME_NAME=\"${CMAKE_PROJECT_NAME}\")
+target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
+	OE_BUILD
+	OE_DEFAULT_GAME_MODULE=\"$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}-Module>\"
+)
 
 set(OE_USE_AVX2 FALSE)
 oe_setup_target(${CMAKE_PROJECT_NAME})
