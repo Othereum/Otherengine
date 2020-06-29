@@ -20,7 +20,8 @@ namespace oeng::plf
 		template <class T>
 		[[nodiscard]] T& GetSymbol(const char* name)
 		{
-			return *static_cast<T*>(GetSymbol(name));
+			// ReSharper disable once CppCStyleCast
+			return *(T*)GetSymbol(name);
 		}
 
 		template <class Fn, class... Args>
