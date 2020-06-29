@@ -1,5 +1,6 @@
 #pragma once
 #include "Log.hpp"
+#include "Platform.hpp"
 #if !defined(NDEBUG) && !defined(_WIN32)
 #include <csignal>
 #endif
@@ -9,7 +10,7 @@ namespace oeng
 	inline void DebugBreak() noexcept
 	{
 #ifndef NDEBUG
-		if (!IsDebugging()) return;
+		if (!plf::IsDebugging()) return;
 #ifdef _WIN32
 		__debugbreak();
 #else
