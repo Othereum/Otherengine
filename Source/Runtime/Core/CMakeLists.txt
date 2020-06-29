@@ -15,6 +15,7 @@ list(APPEND PUBLIC_LIBS
 list(APPEND PRIVATE_LIBS
 )
 
+set(OE_USE_AVX2 FALSE)
 add_engine_module(Core "${PUBLIC_LIBS}" "${PRIVATE_LIBS}")
 
 add_switch(Core OE_NAME_THREADSAFE 0 "Should 'Name' class be thread-safe?")

@@ -1,3 +1,7 @@
+#ifdef OE_MODULE_USE_AVX2
+#error Core module should not use AVX2
+#endif
+
 #include "Core.hpp"
 #include <thread>
 
