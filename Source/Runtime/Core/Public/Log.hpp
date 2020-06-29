@@ -87,11 +87,6 @@ namespace oeng::log
 	}
 }
 
-#ifdef __clang__
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu-zero-variadic-macro-arguments"
-#endif
-
 /**
  * \brief Log with delay (no spam)
  * \param delay time::duration
@@ -103,7 +98,3 @@ namespace oeng::log
 	static const ::oeng::log::detail::LogDelay log_delay; \
 	log_delay(delay, level, format, ##__VA_ARGS__); \
 }()
-
-#ifdef __clang__
-#pragma clang diagnostic pop
-#endif
