@@ -17,4 +17,5 @@ endfunction()
 
 add_subdirectory(Core)
 add_subdirectory(Engine)
+add_subdirectory(Game)
 add_subdirectory(Renderer)
