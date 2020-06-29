@@ -271,7 +271,7 @@ namespace oeng
 			{
 			}
 
-			void Destroy() noexcept override { if (ptr) deleter(ptr); }
+			void Destroy() noexcept override { deleter(ptr); }
 			void DeleteThis() noexcept override
 			{
 				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
