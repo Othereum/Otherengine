@@ -28,6 +28,7 @@ function(oe_setup_target target)
 		$<IF:$<CXX_COMPILER_ID:MSVC>,
 			$<$<CONFIG:Release>:/GL> /MP /fp:fast /W4 /WX /wd4251,
 			$<$<CONFIG:Release>:-flto> -ffast-math -Wall -Wextra -pedantic -Werror>
+		$<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
 	)
 
 	target_link_options(${target} PRIVATE
