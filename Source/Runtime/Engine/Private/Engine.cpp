@@ -186,15 +186,12 @@ namespace oeng
 
 	SdlRaii::SdlRaii()
 	{
-		if (!SDL_HasAVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
+		assert(IsGameThread());
 		
-		if (engine_exist) throw std::runtime_error{"Only 1 engine instance can exists"};
+		assert(!engine_exist);
 		engine_exist = true;
 
-		if (!IsGameThread()) throw std::runtime_error{"The engine instance must be created on the main thread"};
-		
 		log::Info("Initializing engine...");
-		omem::SetOnPoolDest([](auto&&...){ EXPECT(!engine_exist); });
 		
 		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
@@ -212,6 +209,8 @@ namespace oeng
 
 	void Main(std::string_view game_name, const Function<void(Engine&)>& load_game)
 	{
+		if (!SDL_HasAVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
+		
 		if (IsDebugging())
 		{
 			Engine{game_name, load_game}.RunLoop();
