@@ -17,8 +17,6 @@ list(APPEND PRIVATE_LIBS
 
 add_engine_module(Core "${PUBLIC_LIBS}" "${PRIVATE_LIBS}")
 
-target_compile_definitions(${PROJECT_NAME}-Core PUBLIC OE_BUILD_STATIC=${OE_BUILD_STATIC})
-
 add_switch(Core OE_NAME_THREADSAFE 0 "Should 'Name' class be thread-safe?")
 add_switch(Core OE_PATH_THREADSAFE 0 "Should 'Path' class be thread-safe?")
 add_switch(Core OE_SHARED_PTR_THREADSAFE 0 "Should 'SharedPtr' class be thread-safe?")
