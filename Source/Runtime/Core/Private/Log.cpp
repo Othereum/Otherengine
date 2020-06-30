@@ -27,6 +27,9 @@ namespace oeng::log
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
 		auto logger_ptr = std::make_shared<spdlog::logger>(std::string{}, list);
 		logger_ptr->flush_on(level::critical);
+#ifndef NDEBUG
+		logger_ptr->set_level(level::debug);
+#endif
 
 		return logger_ptr;
 	}
