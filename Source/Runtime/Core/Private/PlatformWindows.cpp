@@ -43,7 +43,7 @@ namespace oeng::plf
 		auto* const dll = LoadLibraryA(filepath);
 		
 		if (!dll) throw std::runtime_error{format(
-			"Failed to load module '{}': {}", filepath, GetLastErrStr())};
+			"{}: cannot load module: {}", filepath, GetLastErrStr())};
 
 		dll_.reset(dll, &FreeDll);
 		filepath_ = filepath;
@@ -54,7 +54,7 @@ namespace oeng::plf
 		auto* const symbol = FindSymbol(name);
 		
 		if (!symbol) throw std::runtime_error{format(
-			"Failed to locate symbol '{}' from '{}': {}", name, filepath_, GetLastErrStr())};
+			"{}: {}: {}", filepath_, name, GetLastErrStr())};
 		
 		return symbol;
 	}
