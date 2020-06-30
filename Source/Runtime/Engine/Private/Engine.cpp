@@ -178,7 +178,7 @@ namespace oeng
 		
 		for (const auto& info : infos)
 		{
-			log::Info("[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}",
+			log::Debug("[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}",
 				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur);
 		}
 
