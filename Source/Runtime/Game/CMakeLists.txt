@@ -11,7 +11,7 @@ add_executable(${CMAKE_PROJECT_NAME} "Main.cpp")
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${PROJECT_NAME}-Engine)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE
 	OE_BUILD
-	OE_DEFAULT_GAME_MODULE=\"$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}-Module>\"
+	OE_GAME_MODULE=\"$<TARGET_FILE_NAME:${CMAKE_PROJECT_NAME}-Module>\"
 )
 
 set(OE_USE_AVX2 FALSE)
