@@ -20,14 +20,14 @@ namespace oeng
 	
 	[[nodiscard]] inline void* Alloc(size_t size)
 	{
-		if (size <= OMEM_POOL_SIZE) return omem::MemoryPool::Get(size).Alloc();
-		return operator new(size);
+		detail::CheckMemSafe();
+		return omem::MemoryPool::Get(size).Alloc();
 	}
 
 	inline void Free(void* p, size_t size) noexcept
 	{
-		if (size <= OMEM_POOL_SIZE) omem::MemoryPool::Get(size).Free(p);
-		else operator delete(p);
+		detail::CheckMemSafe();
+		omem::MemoryPool::Get(size).Free(p);
 	}
 
 	/**
@@ -41,7 +41,6 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		detail::CheckMemSafe();
 		auto* const p = Alloc(sizeof(T));
 		if (!p) throw std::bad_alloc{};
 
@@ -59,7 +58,6 @@ namespace oeng
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-		detail::CheckMemSafe();
 		const auto p = Alloc(n * sizeof(T));
 		if (!p) throw std::bad_alloc{};
 
@@ -77,7 +75,6 @@ namespace oeng
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-		detail::CheckMemSafe();
 		p->~T();
 		Free(p, sizeof(T));
 	}
@@ -85,7 +82,6 @@ namespace oeng
 	template <class T>
 	void DeleteArr(T* p, size_t n) noexcept
 	{
-		detail::CheckMemSafe();
 		for (size_t i=0; i<n; ++i) p[i].~T();
 		Free(p, n * sizeof(T));
 	}
@@ -122,7 +118,6 @@ namespace oeng
 		// ReSharper disable once CppMemberFunctionMayBeStatic
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-			detail::CheckMemSafe();
 			return static_cast<T*>(Alloc(n * sizeof(T)));
 		}
 
@@ -134,7 +129,6 @@ namespace oeng
 		// ReSharper disable once CppMemberFunctionMayBeStatic
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			detail::CheckMemSafe();
 			Free(p, n * sizeof(T));
 		}
 	};
