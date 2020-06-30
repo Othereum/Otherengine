@@ -21,13 +21,13 @@ namespace oeng
 	[[nodiscard]] inline void* Alloc(size_t size)
 	{
 		detail::CheckMemSafe();
-		return omem::MemoryPool::Get(size).Alloc();
+		return omem::Alloc(size);
 	}
 
 	inline void Free(void* p, size_t size) noexcept
 	{
 		detail::CheckMemSafe();
-		omem::MemoryPool::Get(size).Free(p);
+		omem::Free(p, size);
 	}
 
 	/**
