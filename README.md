@@ -4,9 +4,9 @@
 
 [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
 
-* **C++20**, OpenGL 3.3, SDL2
+* C++20, OpenGL 3.3, SDL2
 
-* Cross platform: Windows, OS X, Linux
+* Cross platform: Windows, Linux, OS X (not tested but should work)
 
 * Math library [**otm**](https://github.com/Othereum/otm)
 
