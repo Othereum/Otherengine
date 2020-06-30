@@ -2,13 +2,19 @@
 #error Game loader module should not use AVX2
 #endif
 
+#include <csignal>
 #include "Engine.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
 
 namespace oeng
 {
-	static void CheckCPU()
+	static void OnIllegal(int)
+	{
+		log::Critical("ILLEGAL INSTRUCTION: It's may be because current CPU is not supported.");
+	}
+	
+	static void CheckCpu()
 	{
 		const auto& cpu = plf::CpuInfo::Get();
 		log::Info("CPU: {}", cpu.GetBrand());
@@ -17,31 +23,37 @@ namespace oeng
 #endif
 	}
 
-	static void EngineMain(int argc, char** argv)
+	static void RunEngine()
 	{
-		CheckCPU();
-
-		plf::Dll game_module{argc > 1 ? argv[1] : "./" OE_DEFAULT_GAME_MODULE};
+		plf::Dll game_module{"./" OE_GAME_MODULE};
 		auto& load_game = game_module.GetSymbol<void(Engine&)>("LoadGame");
 		const auto game_name = game_module.GetSymbol<const char*>("kGameName");
 		
-		Engine{game_name, &load_game}.RunLoop();
+		Engine engine{game_name, &load_game};
+		engine.RunLoop();
+	}
+
+	static void EngineMain()
+	{
+		std::signal(SIGILL, &OnIllegal);
+		CheckCpu();
+		RunEngine();
 	}
 }
 
-int main(int argc, char** argv)  // NOLINT(bugprone-exception-escape)
+int main()  // NOLINT(bugprone-exception-escape)
 {
 	using namespace oeng;
 
 	if (plf::IsDebugging())
 	{
-		EngineMain(argc, argv);
+		EngineMain();
 	}
 	else
 	{
 		try
 		{
-			EngineMain(argc, argv);
+			EngineMain();
 		}
 		catch (const std::exception& e)
 		{
