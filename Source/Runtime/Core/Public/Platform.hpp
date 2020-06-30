@@ -2,7 +2,6 @@
 #include <bitset>
 #include <memory>
 #include <string>
-#include <string_view>
 #include "Core.hpp"
 
 namespace oeng::plf
