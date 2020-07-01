@@ -16,7 +16,7 @@ namespace oeng
 		if (!is_regular_file(file) || file.extension() != ".json") return;
 		
 		auto name = file.stem().string();
-		auto parsed = ReadFileAsJson(file);
+		auto parsed = ReadFileAsJson(file.string().c_str());
 		
 		auto [it, inserted] = configs.try_emplace(std::move(name), std::move(parsed));
 		if (inserted) return;

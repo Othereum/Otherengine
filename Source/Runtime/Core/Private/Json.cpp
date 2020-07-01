@@ -4,16 +4,16 @@
 
 namespace oeng
 {
-	OEAPI Json ReadFileAsJson(Path file)
+	OEAPI Json ReadFileAsJson(const char* file)
 	{
 		std::ifstream is{file};
-		if (!is.is_open()) throw std::runtime_error{format("Can't open file '{}'", file->string())};
+		if (!is.is_open()) throw std::runtime_error{format("Can't open file '{}'", file)};
 		
 		Json json;
 		try { is >> json; }
 		catch (const std::exception& e)
 		{
-			throw std::runtime_error{format("Failed to parse '{}': {}", file->string(), e.what())};
+			throw std::runtime_error{format("Failed to parse '{}': {}", file, e.what())};
 		}
 		
 		return json;
