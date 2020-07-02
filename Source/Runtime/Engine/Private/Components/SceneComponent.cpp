@@ -69,10 +69,10 @@ namespace oeng
 				// r: unknown new relative transform to parent
 				// w: desired world transform
 				// 
-				// pw * r = w
-				// pw(-1) * pw * r = pw(-1) * w
-				// r = pw(-1) * w
-				rel_trsf_ = Transform{*pwi * world_mat_};
+				// r * pw = w
+				// r * pw * pw(-1) = w * pw(-1)
+				// r = w * pw(-1)
+				rel_trsf_ = Transform{world_mat_ * *pwi};
 			}
 			else
 			{
