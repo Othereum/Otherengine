@@ -203,7 +203,7 @@ namespace oeng
 		SDL_Quit();
 		
 		try { LogMemoryInfo(omem::GetPools()); }
-		catch (...) { DebugBreak(); }
+		catch (...) { EXPECT_NO_ENTRY(); }
 		
 		engine_exist = false;
 	}

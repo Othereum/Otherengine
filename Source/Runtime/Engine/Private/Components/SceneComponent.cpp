@@ -1,4 +1,5 @@
 #include "Components/SceneComponent.hpp"
+#include "Debug.hpp"
 
 namespace oeng
 {
@@ -31,7 +32,7 @@ namespace oeng
 		{
 		case AttachRule::kKeepRelative: RecalcWorldTrsf(); break;
 		case AttachRule::kKeepWorld: RecalcRelTrsf(); break;
-		default: throw std::invalid_argument{"Unknown attach rule"};
+		default: EXPECT_NO_ENTRY();
 		}
 	}
 
