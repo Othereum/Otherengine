@@ -160,7 +160,7 @@ namespace oeng
 
 	void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr)
 	{
-		static const auto view = MakeLookAt(Vec3::zero, UVec3::forward, UVec3::up);
+		static const auto view = *MakeLookAt(Vec3::zero, UVec3::forward, UVec3::up);
 		const auto& data = GetData();
 		const auto proj = MakePerspective(Vec2{scr}, data.near, data.far, data.vfov);
 		view_proj_ = view * proj;

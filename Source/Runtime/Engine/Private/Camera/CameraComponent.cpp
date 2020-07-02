@@ -5,7 +5,7 @@ namespace oeng
 {
 	CameraComponent::CameraComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order},
-		view_{MakeLookAt(Vec3::zero, UVec3::forward, UVec3::up)}
+		view_{*MakeLookAt(Vec3::zero, UVec3::forward, UVec3::up)}
 	{
 	}
 
@@ -37,12 +37,11 @@ namespace oeng
 
 	void CameraComponent::RecalcView() noexcept
 	{
-		try
+		if (auto view = MakeLookAt(GetWorldPos(), GetForward(), UVec3::up))
 		{
-			view_ = MakeLookAt(GetWorldPos(), GetForward(), UVec3::up);
+			view_ = *view;
 			view_proj_ = view_ * proj_;
 		}
-		catch (...) {}
 	}
 
 	void CameraComponent::RecalcProj() noexcept
