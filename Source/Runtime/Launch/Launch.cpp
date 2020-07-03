@@ -1,5 +1,5 @@
 #ifdef OE_MODULE_USE_AVX2
-#error Game loader module should not use AVX2
+#error Launch module should not use AVX2
 #endif
 
 #include <csignal>
