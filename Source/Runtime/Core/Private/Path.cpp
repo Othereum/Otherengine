@@ -5,14 +5,14 @@
 
 namespace oeng
 {
-	static auto& GetMap()
+	static auto GetMap()
 	{
 		constexpr bool thread_safe = OE_PATH_THREADSAFE;
 		assert(thread_safe || IsGameThread());
 		
 		using PathMap = std::unordered_map<Name, std::filesystem::path>;
 		static CondMonitor<PathMap, thread_safe> map{Path::Pair{}};
-		return map;
+		return map.Lock();
 	}
 
 	Path::Path() noexcept
@@ -21,19 +21,12 @@ namespace oeng
 		p = default_path.p;
 	}
 
-	Path::Path(Name path)
-		:p{&*GetMap()->try_emplace(path, *path).first}
-	{
-	}
-
-	Path::Path(std::filesystem::path&& path)
-		:p{&*GetMap()->try_emplace(Name{path.string()}, std::move(path)).first}
-	{
-	}
-
 	Path::Path(const std::filesystem::path& path)
-		:p{&*GetMap()->try_emplace(Name{path.string()}, path).first}
 	{
+		auto normalized = proximate(path);
+		const Name key = normalized.string();
+		auto [it, has_inserted] = GetMap()->try_emplace(key, std::move(normalized));
+		p = &*it;
 	}
 
 	void to_json(Json& json, const Path& path)
@@ -43,6 +36,6 @@ namespace oeng
 
 	void from_json(const Json& json, Path& path)
 	{
-		path = Path{json.get<Name>()};
+		path = Path{json.get<std::string>()};
 	}
 }

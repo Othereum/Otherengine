@@ -17,9 +17,7 @@ namespace oeng
 		using Pair = std::pair<const Name, std::filesystem::path>;
 		
 		Path() noexcept;
-		Path(const char* s) :Path{Name{s}} {}
-		Path(Name path);
-		Path(std::filesystem::path&& path);
+		Path(const char* s) :Path{std::filesystem::path{s}} {}
 		Path(const std::filesystem::path& path);
 
 		bool operator==(const Path& r) const noexcept { return p == r.p; }
