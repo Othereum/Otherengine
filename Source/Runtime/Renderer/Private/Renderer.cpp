@@ -3,16 +3,15 @@
 #include <stdexcept>
 #include <SDL2/SDL.h>
 
-#include "OpenGL.hpp"
 #include "Json.hpp"
-
-#include "VertexArray.hpp"
+#include "Material.hpp"
+#include "Mesh.hpp"
+#include "OpenGL.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
-#include "Mesh.hpp"
-#include "Material.hpp"
-#include "Interfaces/Engine.hpp"
+#include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
+#include "Interfaces/Engine.hpp"
 #include "Interfaces/Light.hpp"
 
 namespace oeng
