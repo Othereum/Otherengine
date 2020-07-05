@@ -47,5 +47,3 @@ struct std::hash<oeng::Name>
 		return size_t(&*key);
 	}
 };
-
-#define NAME(s) []{static ::oeng::Name n{s};return n;}()

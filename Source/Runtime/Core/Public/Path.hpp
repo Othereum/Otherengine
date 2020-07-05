@@ -17,8 +17,8 @@ namespace oeng
 		using Pair = std::pair<const Name, std::filesystem::path>;
 		
 		Path() noexcept;
-		Path(const char* s) :Path{std::filesystem::path{s}} {}
 		Path(const std::filesystem::path& path);
+		Path(const char* s) :Path{std::filesystem::path{s}} {}
 
 		bool operator==(const Path& r) const noexcept { return p == r.p; }
 		bool operator!=(const Path& r) const noexcept { return p != r.p; }
@@ -54,5 +54,3 @@ struct std::hash<oeng::Path>
 		return size_t(&*key);
 	}
 };
-
-#define PATH(s) []{static ::oeng::Path n{::oeng::Name{s}};return n;}()

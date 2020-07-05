@@ -241,7 +241,7 @@ namespace oeng
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
-			sprite_shader_.SetUniform(NAME("uWorldTransform"), sprite.GetDrawTrsf());
+			sprite_shader_.SetUniform("uWorldTransform", sprite.GetDrawTrsf());
 			GL(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 		catch (const std::exception& e)
@@ -260,13 +260,13 @@ namespace oeng
 		if (&shader != prev_.shader)
 		{
 			shader.Activate();
-			shader.TryUniform(NAME("uViewProj"), camera_->GetViewProj());
-			shader.TryUniform(NAME("uCamPos"), camera_->GetPos());
+			shader.TryUniform("uViewProj", camera_->GetViewProj());
+			shader.TryUniform("uCamPos", camera_->GetPos());
 			
 			const auto& dir_light = dir_light_->GetData();
-			shader.TryUniform(NAME("uDirLight.dir"), dir_light.dir);
-			shader.TryUniform(NAME("uDirLight.color"), dir_light.color);
-			shader.TryUniform(NAME("uSkyLight"), sky_light_->GetColor());
+			shader.TryUniform("uDirLight.dir", dir_light.dir);
+			shader.TryUniform("uDirLight.color", dir_light.color);
+			shader.TryUniform("uSkyLight", sky_light_->GetColor());
 
 			prev_.shader = &shader;
 		}
@@ -295,7 +295,7 @@ namespace oeng
 		DrawPointLights(mesh_comp);
 		DrawSpotLights(mesh_comp);
 
-		shader.TryUniform(NAME("uWorldTransform"), mesh_comp.GetDrawTrsfMatrix());
+		shader.TryUniform("uWorldTransform", mesh_comp.GetDrawTrsfMatrix());
 		GL(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
