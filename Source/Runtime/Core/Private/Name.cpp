@@ -11,7 +11,7 @@ namespace oeng
 	{
 		[[nodiscard]] constexpr size_t operator()(std::string_view s) const noexcept
 		{
-			return otm::HashRange(s.begin(), s.end(), tolower);
+			return HashRange(s.begin(), s.end(), tolower);
 		}
 	};
 
