@@ -15,16 +15,13 @@ namespace oeng
 	 */
 	struct OEAPI Name
 	{
-		using Str = BasicString<char, std::char_traits<char>, RawAllocator<char>>;
-		
 		Name() noexcept;
-		Name(const char* s) :Name{Str{s}} {}
-		Name(Str&& s);
-		Name(const Str& s);
+		Name(const char* s) :Name{std::string{s}} {}
+		Name(std::string s);
 
-		operator const Str&() const noexcept { return *sp; }
-		const Str& operator*() const noexcept { return *sp; }
-		const Str* operator->() const noexcept { return sp; }
+		operator const std::string&() const noexcept { return *sp; }
+		const std::string& operator*() const noexcept { return *sp; }
+		const std::string* operator->() const noexcept { return sp; }
 
 		bool operator==(const Name& r) const noexcept { return sp == r.sp; }
 		bool operator!=(const Name& r) const noexcept { return sp != r.sp; }
@@ -34,9 +31,7 @@ namespace oeng
 		bool operator>=(const Name& r) const noexcept { return sp >= r.sp; }
 
 	private:
-		friend std::hash<Name>;
-		explicit Name(const Str* s) noexcept :sp{s} {}
-		const Str* sp;
+		const std::string* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);
@@ -48,7 +43,7 @@ struct std::hash<oeng::Name>
 {
 	size_t operator()(const oeng::Name& key) const noexcept
 	{
-		return size_t(key.sp);
+		return size_t(&*key);
 	}
 };
 

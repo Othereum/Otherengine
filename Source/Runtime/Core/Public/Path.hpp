@@ -29,11 +29,11 @@ namespace oeng
 
 		[[nodiscard]] Name AsName() const noexcept { return p->first; }
 		[[nodiscard]] const char* CStr() const noexcept { return p->first->c_str(); }
-		[[nodiscard]] const Name::Str& Str() const noexcept { return p->first; }
+		[[nodiscard]] const std::string& Str() const noexcept { return p->first; }
 
 		operator Name() const noexcept { return AsName(); }
 		operator const char*() const noexcept { return CStr(); }
-		operator const Name::Str&() const noexcept { return Str(); }
+		operator const std::string&() const noexcept { return Str(); }
 		operator const std::filesystem::path&() const noexcept { return p->second; }
 		const std::filesystem::path& operator*() const noexcept { return p->second; }
 		const std::filesystem::path* operator->() const noexcept { return &p->second; }

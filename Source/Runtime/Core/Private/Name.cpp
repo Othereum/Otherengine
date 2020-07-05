@@ -27,29 +27,24 @@ namespace oeng
 		}
 	};
 
-	static auto& GetSet()
+	static auto GetSet()
 	{
 		constexpr bool thread_safe = OE_NAME_THREADSAFE;
 		assert(thread_safe || IsGameThread());
 		
-		using NameSet = std::unordered_set<Name::Str, NameHasher, NameEqual>;
-		static CondMonitor<NameSet, thread_safe> set{Name::Str{}};
-		return set;
+		using NameSet = std::unordered_set<std::string, NameHasher, NameEqual>;
+		static CondMonitor<NameSet, thread_safe> set{std::string{}};
+		return set.Lock();
 	}
 	
 	Name::Name() noexcept
 	{
-		static const Name default_name{&*GetSet()->find({})};
-		sp = default_name.sp;
+		static const auto def = &*GetSet()->find({});
+		sp = def;
 	}
 
-	Name::Name(Str&& s)
+	Name::Name(std::string s)
 		:sp{&*GetSet()->insert(std::move(s)).first}
-	{
-	}
-
-	Name::Name(const Str& s)
-		:sp{&*GetSet()->insert(s).first}
 	{
 	}
 
@@ -60,6 +55,6 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = Name{json.get<Name::Str>()};
+		name = Name{json.get<std::string>()};
 	}
 }
