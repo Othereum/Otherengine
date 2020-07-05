@@ -47,9 +47,30 @@ namespace oeng
 		sp = def;
 	}
 
-	Name::Name(std::string s)
+	Name::Name(const std::string& s)
+		:sp{&*GetSet()->insert(s).first}
+	{
+	}
+
+	Name::Name(std::string&& s)
 		:sp{&*GetSet()->insert(std::move(s)).first}
 	{
+	}
+
+	Name::Name(const char* s)
+	{
+		auto set = GetSet();
+		const auto found = set->find(s);
+		if (found != set->end())
+		{
+			sp = &*found;
+		}
+		else
+		{
+			auto [it, has_inserted] = set->emplace(s);
+			assert(has_inserted);
+			sp = &*it;
+		}
 	}
 
 	void to_json(Json& json, const Name& name)

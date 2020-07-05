@@ -16,8 +16,9 @@ namespace oeng
 	struct OEAPI Name
 	{
 		Name() noexcept;
-		Name(const char* s) :Name{std::string{s}} {}
-		Name(std::string s);
+		Name(const std::string& s);
+		Name(std::string&& s);
+		Name(const char* s);
 
 		operator const std::string&() const noexcept { return *sp; }
 		const std::string& operator*() const noexcept { return *sp; }
