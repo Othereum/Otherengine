@@ -20,8 +20,8 @@ namespace oeng
 	private:
 		void OnUpdate(Float delta_seconds) override;
 
-		bool Move(SceneComponent& root, Float delta_seconds) noexcept;
-		bool Rotate(SceneComponent& root) noexcept;
+		bool Move(Transform& trsf, Float delta_seconds) noexcept;
+		bool Rotate(Transform& trsf) noexcept;
 		
 		Float max_speed_ = 300;
 		Vec3 mov_input_;

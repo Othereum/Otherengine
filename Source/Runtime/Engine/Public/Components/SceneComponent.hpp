@@ -53,13 +53,6 @@ namespace oeng
 		
 		virtual void OnTrsfChanged() {}
 
-		/*
-		 * If SceneComponent is used for static objects, it is not necessary to recalculate transforms for each frame. It can just recalculate as soon as transform changes.
-		 * However, transform changes occur frequently on dynamic objects. Recalculating each time can cause multiple unnecessary recalculations in one frame.
-		 * To prevent this, make MovementComponent to decide itself when to recalculate.
-		 */
-		friend class MovementComponent;
-		
 		SceneComponent* parent_;
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
 		Transform rel_trsf_;
@@ -67,4 +60,3 @@ namespace oeng
 		Mat4 world_mat_ = Mat4::identity;
 	};
 }
- 
