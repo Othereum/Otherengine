@@ -7,7 +7,11 @@
 
 namespace oeng::log
 {
-	static constexpr bool kThreadSafe = OE_LOG_THREADSAFE;
+#ifdef OE_LOG_THREADSAFE
+	static constexpr bool kThreadSafe = true;
+#else
+	static constexpr bool kThreadSafe = false;
+#endif
 	
 	static std::shared_ptr<spdlog::logger> InitializeLogger()
 	{

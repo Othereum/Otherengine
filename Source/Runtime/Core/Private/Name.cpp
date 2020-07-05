@@ -29,8 +29,12 @@ namespace oeng
 
 	static auto GetSet()
 	{
-		constexpr bool thread_safe = OE_NAME_THREADSAFE;
-		assert(thread_safe || IsGameThread());
+#ifdef OE_NAME_THREADSAFE
+		constexpr auto thread_safe = true;
+#else
+		constexpr auto thread_safe = false;
+		assert(IsGameThread());
+#endif
 		
 		using NameSet = std::unordered_set<std::string, NameHasher, NameEqual>;
 		static CondMonitor<NameSet, thread_safe> set{std::string{}};

@@ -18,7 +18,7 @@ list(APPEND PRIVATE_LIBS
 set(OE_USE_AVX2 FALSE)
 add_engine_module(Core "${PUBLIC_LIBS}" "${PRIVATE_LIBS}")
 
-add_switch(Core OE_NAME_THREADSAFE 0 "Should 'Name' class be thread-safe?")
-add_switch(Core OE_PATH_THREADSAFE 0 "Should 'Path' class be thread-safe?")
-add_switch(Core OE_SHARED_PTR_THREADSAFE 0 "Should 'SharedPtr' class be thread-safe?")
-add_switch(Core OE_LOG_THREADSAFE 0 "Should logging be thread-safe?")
+add_switch(Core OE_NAME_THREADSAFE FALSE "Should 'Name' class be thread-safe?")
+add_switch(Core OE_PATH_THREADSAFE FALSE "Should 'Path' class be thread-safe?")
+add_switch(Core OE_SHARED_PTR_THREADSAFE FALSE "Should 'SharedPtr' class be thread-safe?")
+add_switch(Core OE_LOG_THREADSAFE FALSE "Should logging be thread-safe?")

@@ -39,8 +39,6 @@ namespace oeng
 		const std::filesystem::path* operator->() const noexcept { return &p->second; }
 
 	private:
-		friend std::hash<Path>;
-		explicit Path(const Pair* p) noexcept :p{p} {}
 		const Pair* p;
 	};
 	
@@ -53,7 +51,7 @@ struct std::hash<oeng::Path>
 {
 	size_t operator()(const oeng::Path& key) const noexcept
 	{
-		return reinterpret_cast<size_t>(key.p);
+		return size_t(&*key);
 	}
 };
 

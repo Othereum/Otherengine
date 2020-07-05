@@ -11,8 +11,10 @@ function(add_engine_module name public_libs private_libs)
 endfunction()
 
 function(add_switch module name default description)
-    set(${name} ${default} CACHE STRING ${description})
-    target_compile_definitions(${PROJECT_NAME}-${module} PUBLIC ${name}=${${name}})
+    set(${name} ${default} CACHE BOOL ${description})
+	if(${name})
+		target_compile_definitions(${PROJECT_NAME}-${module} PUBLIC ${name})
+	endif()
 endfunction()
 
 add_subdirectory(Core)

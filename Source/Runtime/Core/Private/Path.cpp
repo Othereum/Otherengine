@@ -7,8 +7,12 @@ namespace oeng
 {
 	static auto GetMap()
 	{
-		constexpr bool thread_safe = OE_PATH_THREADSAFE;
-		assert(thread_safe || IsGameThread());
+#ifdef OE_PATH_THREADSAFE
+		constexpr auto thread_safe = true;
+#else
+		constexpr auto thread_safe = false;
+		assert(IsGameThread());
+#endif
 		
 		using PathMap = std::unordered_map<Name, std::filesystem::path>;
 		static CondMonitor<PathMap, thread_safe> map{Path::Pair{}};
@@ -17,8 +21,8 @@ namespace oeng
 
 	Path::Path() noexcept
 	{
-		static const Path default_path{&*GetMap()->find({})};
-		p = default_path.p;
+		static const auto def = &*GetMap()->find({});
+		p = def;
 	}
 
 	Path::Path(const std::filesystem::path& path)

@@ -7,7 +7,11 @@
 
 namespace oeng
 {
-	inline constexpr bool kThreadSafe = OE_SHARED_PTR_THREADSAFE;
+#ifdef OE_SHARED_PTR_THREADSAFE
+	constexpr bool kThreadSafe = true;
+#else
+	constexpr bool kThreadSafe = false;
+#endif
 	
 	namespace detail
 	{
