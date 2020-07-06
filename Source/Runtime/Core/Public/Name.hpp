@@ -17,12 +17,12 @@ namespace oeng
 	{
 		Name() noexcept;
 		Name(const char8_t* s);
-		Name(std::string&& s);
-		Name(const std::string& s);
+		Name(std::u8string&& s);
+		Name(const std::u8string& s);
 
-		operator const std::string&() const noexcept { return *sp; }
-		const std::string& operator*() const noexcept { return *sp; }
-		const std::string* operator->() const noexcept { return sp; }
+		operator const std::u8string&() const noexcept { return *sp; }
+		const std::u8string& operator*() const noexcept { return *sp; }
+		const std::u8string* operator->() const noexcept { return sp; }
 
 		bool operator==(const Name& r) const noexcept { return sp == r.sp; }
 		bool operator!=(const Name& r) const noexcept { return sp != r.sp; }
@@ -32,7 +32,7 @@ namespace oeng
 		bool operator>=(const Name& r) const noexcept { return sp >= r.sp; }
 
 	private:
-		const std::string* sp;
+		const std::u8string* sp;
 	};
 	
 	void to_json(Json& json, const Name& name);

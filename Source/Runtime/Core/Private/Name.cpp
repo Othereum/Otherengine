@@ -36,8 +36,8 @@ namespace oeng
 		assert(IsGameThread());
 #endif
 		
-		using NameSet = std::unordered_set<std::string, NameHasher, NameEqual>;
-		static CondMonitor<NameSet, thread_safe> set{std::string{}};
+		using NameSet = std::unordered_set<std::u8string, NameHasher, NameEqual>;
+		static CondMonitor<NameSet, thread_safe> set{std::u8string{}};
 		return set.Lock();
 	}
 	
@@ -47,12 +47,12 @@ namespace oeng
 		sp = def;
 	}
 
-	Name::Name(const std::string& s)
+	Name::Name(const std::u8string& s)
 		:sp{&*GetSet()->insert(s).first}
 	{
 	}
 
-	Name::Name(std::string&& s)
+	Name::Name(std::u8string&& s)
 		:sp{&*GetSet()->insert(std::move(s)).first}
 	{
 	}
@@ -80,6 +80,7 @@ namespace oeng
 
 	void from_json(const Json& json, Name& name)
 	{
-		name = Name{json.get<std::string>()};
+		auto str = json.get<std::string>();
+		name = Name{std::move(*reinterpret_cast<std::u8string*>(&str))};
 	}
 }
