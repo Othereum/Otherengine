@@ -10,7 +10,7 @@ namespace oeng
 		Asset() noexcept = default;
 		Asset(const Asset&) = default;
 		Asset(Asset&& r) noexcept :path_{r.path_}, stem_{r.stem_} { r.path_ = {}; r.stem_ = {}; }
-		explicit Asset(Path path) noexcept :path_{path}, stem_{path->stem().string()} {}
+		explicit Asset(Path path) noexcept :path_{path}, stem_{path->stem().u8string()} {}
 
 		Asset& operator=(const Asset&) = default;
 		Asset& operator=(Asset&& r) noexcept { Asset{std::move(r)}.swap(*this); return *this; }

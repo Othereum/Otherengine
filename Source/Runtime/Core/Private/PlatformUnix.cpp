@@ -24,7 +24,7 @@ namespace oeng::plf
 	
 	Dll::Dll(const char8_t* filepath)
 	{
-		const auto dll = dlopen(filepath, RTLD_LAZY);
+		const auto dll = dlopen(reinterpret_cast<const char*>(filepath), RTLD_LAZY);
 		if (!dll) throw std::runtime_error{dlerror()};
 
 		dll_.reset(dll, &dlclose);
@@ -40,7 +40,7 @@ namespace oeng::plf
 
 	void* Dll::FindSymbol(const char8_t* name) const noexcept
 	{
-		return dlsym(dll_.get(), name);
+		return dlsym(dll_.get(), reinterpret_cast<const char*>(name));
 	}
 	
 	void CpuId(int cpu_info[4], int func_id) noexcept
@@ -50,7 +50,7 @@ namespace oeng::plf
 		__cpuid(leaf, info[0], info[1], info[2], info[3]);
 	}
 	
-	void CpuIdEx(int cpu_info[4], int func_id, int sub_func_id) noexcept
+	void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept
 	{
 		auto* const info = reinterpret_cast<unsigned*>(cpu_info);
 		const auto leaf = static_cast<unsigned>(func_id);

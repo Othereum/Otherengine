@@ -19,43 +19,43 @@ namespace oeng::log
 	template <class... Args>
 	void Log(level::level_enum level, std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().log(level, fmt, args...);
+		GetLogger().log(level, reinterpret_cast<std::string_view&&>(fmt), args...);
 	}
 	
 	template <class... Args>
 	void Trace(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().trace(fmt, args...);
+		Log(level::trace, fmt, args...);
 	}
 
 	template <class... Args>
 	void Debug(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().debug(fmt, args...);
+		Log(level::debug, fmt, args...);
 	}
 
 	template <class... Args>
 	void Info(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().info(fmt, args...);
+		Log(level::info, fmt, args...);
 	}
 
 	template <class... Args>
 	void Warn(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().warn(fmt, args...);
+		Log(level::warn, fmt, args...);
 	}
 
 	template <class... Args>
 	void Error(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().error(fmt, args...);
+		Log(level::err, fmt, args...);
 	}
 
 	template <class... Args>
 	void Critical(std::u8string_view fmt, const Args&... args)
 	{
-		GetLogger().critical(fmt, args...);
+		Log(level::critical, fmt, args...);
 	}
 
 	OEAPI void LogDelay(Duration delay, level::level_enum level, std::u8string_view msg);

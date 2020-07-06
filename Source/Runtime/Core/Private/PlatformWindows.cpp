@@ -1,12 +1,13 @@
 #ifdef _WIN32
 
+#define NOMINMAX
+
 #include <intrin.h>
 #include <stdexcept>
 #include <Windows.h>
-#undef min
-#undef CpuIdEx
 #include "Format.hpp"
 #include "Platform.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng::plf
 {
@@ -15,12 +16,12 @@ namespace oeng::plf
 		return IsDebuggerPresent();
 	}
 	
-	static std::u8string_view GetLastErrStr()
+	static String GetLastErrStr()
 	{
-		constexpr auto size = 1024;
-		static char8_t buffer[size];
-		
-		FormatMessageA(
+		constexpr auto size = 512;
+		static wchar_t buffer[size];
+
+		const auto len = FormatMessageW(
 			FORMAT_MESSAGE_FROM_SYSTEM,
 			nullptr,
 			GetLastError(),
@@ -30,7 +31,7 @@ namespace oeng::plf
 			nullptr
 		);
 		
-		return buffer;
+		return ToUtf8({reinterpret_cast<char16_t*>(buffer), len});
 	}
 
 	static void FreeDll(void* dll) noexcept
@@ -40,10 +41,9 @@ namespace oeng::plf
 	
 	Dll::Dll(const char8_t* filepath)
 	{
-		auto* const dll = LoadLibraryA(filepath);
+		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).data()));
 		
-		if (!dll) throw std::runtime_error{format(
-			"{}: cannot load module: {}", filepath, GetLastErrStr())};
+		if (!dll) Throw(u8"{}: cannot load module: {}", filepath, GetLastErrStr());
 
 		dll_.reset(dll, &FreeDll);
 		filepath_ = filepath;
@@ -52,16 +52,13 @@ namespace oeng::plf
 	void* Dll::GetSymbol(const char8_t* name) const
 	{
 		auto* const symbol = FindSymbol(name);
-		
-		if (!symbol) throw std::runtime_error{format(
-			"{}: {}: {}", filepath_, name, GetLastErrStr())};
-		
+		if (!symbol) Throw(u8"{}: {}: {}", filepath_, name, GetLastErrStr());
 		return symbol;
 	}
 
 	void* Dll::FindSymbol(const char8_t* name) const noexcept
 	{
-		return reinterpret_cast<void*>(GetProcAddress(static_cast<HMODULE>(dll_.get()), name));
+		return reinterpret_cast<void*>(GetProcAddress(HMODULE(dll_.get()), LPCSTR(name)));
 	}
 
 	void CpuId(int cpu_info[4], int func_id) noexcept
@@ -69,7 +66,7 @@ namespace oeng::plf
 		return __cpuid(cpu_info, func_id);
 	}
 
-	void CpuIdEx(int cpu_info[4], int func_id, int sub_func_id) noexcept
+	void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept
 	{
 		return __cpuidex(cpu_info, func_id, sub_func_id);
 	}

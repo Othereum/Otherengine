@@ -16,7 +16,7 @@ namespace oeng::plf
 		const auto num_ids = cpu_id[0] + 1;
 		
 		char vendor[12];
-		CpuIdEx(cpu_id, 0, 0);
+		CpuIdCnt(cpu_id, 0, 0);
 		*reinterpret_cast<int*>(vendor) = cpu_id[1];
 		*reinterpret_cast<int*>(vendor + 4) = cpu_id[3];
 		*reinterpret_cast<int*>(vendor + 8) = cpu_id[2];
@@ -34,14 +34,14 @@ namespace oeng::plf
 
 		if (num_ids > 1)
 		{
-			CpuIdEx(cpu_id, 1, 0);
+			CpuIdCnt(cpu_id, 1, 0);
 			f_1_ecx_ = cpu_id[2];
 			f_1_edx_ = cpu_id[3];
 		}
 
 		if (num_ids > 7)
 		{
-			CpuIdEx(cpu_id, 7, 0);
+			CpuIdCnt(cpu_id, 7, 0);
 			f_7_ebx_ = cpu_id[1];
 			f_7_ecx_ = cpu_id[2];
 		}
@@ -52,7 +52,7 @@ namespace oeng::plf
 
 		if (num_ex_ids > 1)
 		{
-			CpuIdEx(cpu_id, 1 | ex_fn_id, 0);
+			CpuIdCnt(cpu_id, 1 | ex_fn_id, 0);
 			f_81_ecx_ = cpu_id[2];
 			f_81_edx_ = cpu_id[3];
 		}
@@ -62,9 +62,9 @@ namespace oeng::plf
 			char brand[48];
 			const auto as_int = reinterpret_cast<int*>(brand);
 			
-			CpuIdEx(as_int, 2 | ex_fn_id, 0);
-			CpuIdEx(as_int + 4, 3 | ex_fn_id, 0);
-			CpuIdEx(as_int + 8, 4 | ex_fn_id, 0);
+			CpuIdCnt(as_int, 2 | ex_fn_id, 0);
+			CpuIdCnt(as_int + 4, 3 | ex_fn_id, 0);
+			CpuIdCnt(as_int + 8, 4 | ex_fn_id, 0);
 
 			std::copy(brand, brand+48, brand_);
 		}

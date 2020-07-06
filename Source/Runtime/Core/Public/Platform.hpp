@@ -30,7 +30,7 @@ namespace oeng::plf
 
 	private:
 		std::shared_ptr<void> dll_;
-		std::string filepath_;
+		std::u8string filepath_;
 	};
 
 	class OEAPI CpuInfo
@@ -121,5 +121,5 @@ namespace oeng::plf
 	};
 
 	OEAPI void CpuId(int cpu_info[4], int func_id) noexcept;
-	OEAPI void CpuIdEx(int cpu_info[4], int func_id, int sub_func_id) noexcept;
+	OEAPI void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept;
 }
