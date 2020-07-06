@@ -2,14 +2,6 @@
 #include "Log.hpp"
 #include "Platform.hpp"
 
-#define STRINGIZE_IMPL(x) u8#x
-#define STRINGIZE(x) STRINGIZE_IMPL(x)
-#define LINE_STR STRINGIZE(__LINE__)
-
-#define TEXT_PASTE(x) u8##x
-#define TEXT(x) TEXT_PASTE(x)
-#define U8FILE TEXT(__FILE__)
-
 #ifdef NDEBUG
 
 #define DEBUG_BREAK()

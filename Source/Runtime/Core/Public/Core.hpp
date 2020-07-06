@@ -45,3 +45,11 @@ namespace oeng
 	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
 }
+
+#define STRINGIZE_IMPL(x) u8#x
+#define STRINGIZE(x) STRINGIZE_IMPL(x)
+#define LINE_STR STRINGIZE(__LINE__)
+
+#define U8TEXT_IMPL(x) u8##x
+#define U8TEXT(x) U8TEXT_IMPL(x)
+#define U8FILE U8TEXT(__FILE__)

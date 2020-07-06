@@ -3,6 +3,7 @@
 #endif
 
 #include <csignal>
+
 #include "Engine.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
@@ -11,13 +12,13 @@ namespace oeng
 {
 	static void OnIllegal(int)
 	{
-		log::Critical("ILLEGAL INSTRUCTION: It's may be because current CPU is not supported.");
+		log::Critical(u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported.");
 	}
 	
 	static void CheckCpu()
 	{
 		const auto& cpu = plf::CpuInfo::Get();
-		log::Info("CPU: {}", cpu.GetBrand());
+		log::Info(u8"CPU: {}", cpu.GetBrand());
 #ifdef OE_USE_AVX2
 		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
 #endif
@@ -25,9 +26,9 @@ namespace oeng
 
 	static void RunEngine()
 	{
-		plf::Dll game_module{"./" OE_GAME_MODULE};
-		auto& load_game = game_module.GetSymbol<void(Engine&)>("LoadGame");
-		const auto game_name = game_module.GetSymbol<std::u8string_view>("kGameName");
+		plf::Dll game_module{u8"./" U8TEXT(OE_GAME_MODULE)};
+		auto& load_game = game_module.GetSymbol<void(Engine&)>(u8"LoadGame");
+		const auto game_name = game_module.GetSymbol<std::u8string_view>(u8"kGameName");
 		
 		Engine engine{game_name, &load_game};
 		engine.RunLoop();
@@ -57,7 +58,7 @@ int main()  // NOLINT(bugprone-exception-escape)
 		}
 		catch (const std::exception& e)
 		{
-			log::Critical(e.what());
+			log::Critical(What(e));
 		}
 	}
 }
