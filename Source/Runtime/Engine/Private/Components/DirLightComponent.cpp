@@ -28,6 +28,6 @@ namespace oeng
 
 	void DirLightComponent::OnBeginPlay()
 	{
-		EXPECT(IsAutoActivate() && GetRenderer().IsDirLightRegistered());
+		EXPECT(!IsAutoActivate() || !GetRenderer().IsDirLightRegistered());
 	}
 }

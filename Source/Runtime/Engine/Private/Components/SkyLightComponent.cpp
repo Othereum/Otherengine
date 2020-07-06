@@ -23,6 +23,6 @@ namespace oeng
 
 	void SkyLightComponent::OnBeginPlay()
 	{
-		EXPECT(IsAutoActivate() && GetRenderer().IsSkyLightRegistered());
+		EXPECT(!IsAutoActivate() || !GetRenderer().IsSkyLightRegistered());
 	}
 }

@@ -16,7 +16,7 @@ namespace oeng::plf
 		return IsDebuggerPresent();
 	}
 	
-	static String GetLastErrStr()
+	static std::u8string GetLastErrStr()
 	{
 		constexpr auto size = 512;
 		static wchar_t buffer[size];
