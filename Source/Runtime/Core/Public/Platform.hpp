@@ -1,7 +1,6 @@
 #pragma once
 #include <bitset>
 #include <memory>
-#include <string>
 #include "Core.hpp"
 
 namespace oeng::plf
@@ -11,20 +10,20 @@ namespace oeng::plf
 	class OEAPI Dll
 	{
 	public:
-		explicit Dll(const char* filepath);
+		explicit Dll(const char8_t* filepath);
 
-		[[nodiscard]] void* GetSymbol(const char* name) const;
-		[[nodiscard]] void* FindSymbol(const char* name) const noexcept;
+		[[nodiscard]] void* GetSymbol(const char8_t* name) const;
+		[[nodiscard]] void* FindSymbol(const char8_t* name) const noexcept;
 
 		template <class T>
-		[[nodiscard]] T& GetSymbol(const char* name)
+		[[nodiscard]] T& GetSymbol(const char8_t* name)
 		{
 			// ReSharper disable once CppCStyleCast
 			return *(T*)GetSymbol(name);
 		}
 
 		template <class Fn, class... Args>
-		decltype(auto) Call(const char* fn_name, Args&&... args)
+		decltype(auto) Call(const char8_t* fn_name, Args&&... args)
 		{
 			return GetSymbol<Fn>(fn_name)(std::forward<Args>(args)...);
 		}
@@ -108,8 +107,8 @@ namespace oeng::plf
 	private:
 		CpuInfo();
 		
-        char vendor_[13]{};
-        char brand_[49]{};
+        char8_t vendor_[13]{};
+        char8_t brand_[49]{};
 		
         Vendor vendor_enum_ = Vendor::kOther;
 		

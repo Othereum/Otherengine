@@ -26,7 +26,7 @@ namespace oeng
 	public:
 		OE_DELETE_CPMV(Engine);
 		
-		Engine(std::string_view game_name, void(*load_game)(Engine&));
+		Engine(std::u8string_view game_name, void(*load_game)(Engine&));
 		~Engine();
 		
 		void RunLoop();
@@ -36,7 +36,7 @@ namespace oeng
 		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept override;
-		[[nodiscard]] std::string_view GetGameName() const noexcept override { return game_name_; }
+		[[nodiscard]] std::u8string_view GetGameName() const noexcept override { return game_name_; }
 
 		/**
 		 * \brief Find config or create if not found.
@@ -56,7 +56,7 @@ namespace oeng
 		void Tick();
 		void ProcessEvent();
 
-		std::string_view game_name_;
+		std::u8string_view game_name_;
 		HashMap<Name, Json> configs_;
 		
 		Renderer renderer_;

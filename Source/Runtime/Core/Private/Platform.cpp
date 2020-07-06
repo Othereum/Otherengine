@@ -1,5 +1,4 @@
 #include "Platform.hpp"
-#include <cstring>
 
 namespace oeng::plf
 {
@@ -16,13 +15,22 @@ namespace oeng::plf
 		CpuId(cpu_id, 0);
 		const auto num_ids = cpu_id[0] + 1;
 		
+		char vendor[12];
 		CpuIdEx(cpu_id, 0, 0);
-		*reinterpret_cast<int*>(vendor_) = cpu_id[1];
-		*reinterpret_cast<int*>(vendor_ + 4) = cpu_id[3];
-		*reinterpret_cast<int*>(vendor_ + 8) = cpu_id[2];
-		
-		if (std::strcmp(vendor_, "GenuineIntel") == 0) vendor_enum_ = Vendor::kIntel;
-		else if (std::strcmp(vendor_, "AuthenticAMD") == 0) vendor_enum_ = Vendor::kAmd;
+		*reinterpret_cast<int*>(vendor) = cpu_id[1];
+		*reinterpret_cast<int*>(vendor + 4) = cpu_id[3];
+		*reinterpret_cast<int*>(vendor + 8) = cpu_id[2];
+
+		if (std::equal(vendor, vendor+12, "GenuineIntel"))
+		{
+			vendor_enum_ = Vendor::kIntel;
+		}
+		else if (std::equal(vendor, vendor+12, "AuthenticAMD"))
+		{
+			vendor_enum_ = Vendor::kAmd;
+		}
+
+		std::copy(vendor, vendor+12, vendor_);
 
 		if (num_ids > 1)
 		{
@@ -51,14 +59,14 @@ namespace oeng::plf
 
 		if (num_ex_ids > 4)
 		{
-			CpuIdEx(cpu_id, 2 | ex_fn_id, 0);
-			std::memcpy(brand_, cpu_id, 16);
+			char brand[48];
+			const auto as_int = reinterpret_cast<int*>(brand);
 			
-			CpuIdEx(cpu_id, 3 | ex_fn_id, 0);
-			std::memcpy(brand_ + 16, cpu_id, 16);
-			
-			CpuIdEx(cpu_id, 4 | ex_fn_id, 0);
-			std::memcpy(brand_ + 32, cpu_id, 16);
+			CpuIdEx(as_int, 2 | ex_fn_id, 0);
+			CpuIdEx(as_int + 4, 3 | ex_fn_id, 0);
+			CpuIdEx(as_int + 8, 4 | ex_fn_id, 0);
+
+			std::copy(brand, brand+48, brand_);
 		}
 	}
 }

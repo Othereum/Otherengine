@@ -59,7 +59,7 @@ namespace oeng
 		return shader;
 	}
 
-	static auto Ext(std::filesystem::path path, const char* ext)
+	static auto Ext(std::filesystem::path path, const char8_t* ext)
 	{
 		return path += ext;
 	}

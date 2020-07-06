@@ -15,10 +15,10 @@ namespace oeng::plf
 		return IsDebuggerPresent();
 	}
 	
-	static std::string_view GetLastErrStr()
+	static std::u8string_view GetLastErrStr()
 	{
 		constexpr auto size = 1024;
-		static char buffer[size];
+		static char8_t buffer[size];
 		
 		FormatMessageA(
 			FORMAT_MESSAGE_FROM_SYSTEM,
@@ -38,7 +38,7 @@ namespace oeng::plf
 		FreeLibrary(static_cast<HMODULE>(dll));
 	}
 	
-	Dll::Dll(const char* filepath)
+	Dll::Dll(const char8_t* filepath)
 	{
 		auto* const dll = LoadLibraryA(filepath);
 		
@@ -49,7 +49,7 @@ namespace oeng::plf
 		filepath_ = filepath;
 	}
 
-	void* Dll::GetSymbol(const char* name) const
+	void* Dll::GetSymbol(const char8_t* name) const
 	{
 		auto* const symbol = FindSymbol(name);
 		
@@ -59,7 +59,7 @@ namespace oeng::plf
 		return symbol;
 	}
 
-	void* Dll::FindSymbol(const char* name) const noexcept
+	void* Dll::FindSymbol(const char8_t* name) const noexcept
 	{
 		return reinterpret_cast<void*>(GetProcAddress(static_cast<HMODULE>(dll_.get()), name));
 	}

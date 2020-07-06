@@ -9,7 +9,7 @@ namespace oeng
 {
 	struct NameHasher
 	{
-		[[nodiscard]] constexpr size_t operator()(std::string_view s) const noexcept
+		[[nodiscard]] constexpr size_t operator()(std::u8string_view s) const noexcept
 		{
 			return HashRange(s.begin(), s.end(), tolower);
 		}
@@ -17,7 +17,7 @@ namespace oeng
 
 	struct NameEqual
 	{
-		[[nodiscard]] constexpr bool operator()(std::string_view s1, std::string_view s2) const noexcept
+		[[nodiscard]] constexpr bool operator()(std::u8string_view s1, std::u8string_view s2) const noexcept
 		{
 			if (s1.size() != s2.size()) return false;
 			for (size_t i = 0; i < s1.size(); ++i)
@@ -57,7 +57,7 @@ namespace oeng
 	{
 	}
 
-	Name::Name(const char* s)
+	Name::Name(const char8_t* s)
 	{
 		auto set = GetSet();
 		const auto found = set->find(s);

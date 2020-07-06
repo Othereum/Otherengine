@@ -27,7 +27,7 @@ namespace oeng
 	{
 		plf::Dll game_module{"./" OE_GAME_MODULE};
 		auto& load_game = game_module.GetSymbol<void(Engine&)>("LoadGame");
-		const auto game_name = game_module.GetSymbol<std::string_view>("kGameName");
+		const auto game_name = game_module.GetSymbol<std::u8string_view>("kGameName");
 		
 		Engine engine{game_name, &load_game};
 		engine.RunLoop();

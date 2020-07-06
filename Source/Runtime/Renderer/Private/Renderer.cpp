@@ -110,7 +110,7 @@ namespace oeng
 		glewExperimental = true;
 		
 		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
+			throw std::runtime_error{reinterpret_cast<const char8_t*>(glewGetErrorString(err))};
 		
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
@@ -300,7 +300,7 @@ namespace oeng
 	}
 
 	template <class Light, class Fn>
-	static void DrawLights(const char* name, const Renderer::CompArr<Light>& lights,
+	static void DrawLights(const char8_t* name, const Renderer::CompArr<Light>& lights,
 		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
@@ -322,7 +322,7 @@ namespace oeng
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 
 			
-			auto try_uniform = [&]<class T>(const char* uniform, T&& value)
+			auto try_uniform = [&]<class T>(const char8_t* uniform, T&& value)
 			{
 				return shader.TryUniform(
 					format("u{}Lights[{}].{}", name, idx, uniform),

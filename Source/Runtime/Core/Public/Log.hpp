@@ -7,7 +7,7 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-#include "Core.hpp"
+#include "Templates/String.hpp"
 #include "Templates/Time.hpp"
 
 namespace oeng::log
@@ -17,48 +17,48 @@ namespace oeng::log
 	OEAPI spdlog::logger& GetLogger();
 
 	template <class... Args>
-	void Log(level::level_enum level, std::string_view fmt, const Args&... args)
+	void Log(level::level_enum level, std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().log(level, fmt, args...);
 	}
 	
 	template <class... Args>
-	void Trace(std::string_view fmt, const Args&... args)
+	void Trace(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().trace(fmt, args...);
 	}
 
 	template <class... Args>
-	void Debug(std::string_view fmt, const Args&... args)
+	void Debug(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().debug(fmt, args...);
 	}
 
 	template <class... Args>
-	void Info(std::string_view fmt, const Args&... args)
+	void Info(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().info(fmt, args...);
 	}
 
 	template <class... Args>
-	void Warn(std::string_view fmt, const Args&... args)
+	void Warn(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().warn(fmt, args...);
 	}
 
 	template <class... Args>
-	void Error(std::string_view fmt, const Args&... args)
+	void Error(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().error(fmt, args...);
 	}
 
 	template <class... Args>
-	void Critical(std::string_view fmt, const Args&... args)
+	void Critical(std::u8string_view fmt, const Args&... args)
 	{
 		GetLogger().critical(fmt, args...);
 	}
 
-	OEAPI void LogDelay(Duration delay, level::level_enum level, std::string_view msg);
+	OEAPI void LogDelay(Duration delay, level::level_enum level, std::u8string_view msg);
 
 	namespace detail
 	{
@@ -67,16 +67,16 @@ namespace oeng::log
 		public:
 			LogDelay() noexcept;
 			
-			void operator()(Duration delay, level::level_enum level, std::string_view msg) const;
+			void operator()(Duration delay, level::level_enum level, std::u8string_view msg) const;
 
 			template <class Rep, class Period, class... Args>
-			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::string_view msg) const
+			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::u8string_view msg) const
 			{
 				operator()(time::duration_cast<Duration>(delay), level, msg);
 			}
 
 			template <class Rep, class Period, class... Args>
-			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::string_view fmt, const Args&... args) const
+			void operator()(time::duration<Rep, Period> delay, level::level_enum level, std::u8string_view fmt, const Args&... args) const
 			{
 				operator()(time::duration_cast<Duration>(delay), level, fmt::format(fmt, args...));
 			}

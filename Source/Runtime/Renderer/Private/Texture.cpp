@@ -10,7 +10,7 @@ namespace oeng
 		Vector<int, 2> size;
 		auto num_channels = 0;
 		
-		const std::unique_ptr<const unsigned char[]> image{
+		const std::unique_ptr<const unsigned char8_t[]> image{
 			SOIL_load_image(path->string().c_str(), &size[0], &size[1], &num_channels, SOIL_LOAD_AUTO)
 		};
 		if (!image) throw std::runtime_error{SOIL_last_result()};

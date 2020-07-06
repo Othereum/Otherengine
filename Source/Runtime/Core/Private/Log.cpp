@@ -59,7 +59,7 @@ namespace oeng::log
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, level::level_enum level, std::string_view msg) const
+		void LogDelay::operator()(Duration delay, level::level_enum level, std::u8string_view msg) const
 		{
 			{
 				const auto logs = GetLogs().Lock();

@@ -39,5 +39,5 @@ namespace oeng
 	 * \return Parsed json object
 	 * \throw std::runtime_error If failed to open or parse
 	 */
-	OEAPI Json ReadFileAsJson(const char* file);
+	OEAPI Json ReadFileAsJson(const char8_t* file);
 }

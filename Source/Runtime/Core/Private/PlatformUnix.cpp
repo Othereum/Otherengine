@@ -22,7 +22,7 @@ namespace oeng::plf
 		return is_debugger_present;
 	}
 	
-	Dll::Dll(const char* filepath)
+	Dll::Dll(const char8_t* filepath)
 	{
 		const auto dll = dlopen(filepath, RTLD_LAZY);
 		if (!dll) throw std::runtime_error{dlerror()};
@@ -31,14 +31,14 @@ namespace oeng::plf
 		filepath_ = filepath;
 	}
 
-	void* Dll::GetSymbol(const char* name) const
+	void* Dll::GetSymbol(const char8_t* name) const
 	{
 		auto* const sym = FindSymbol(name);
 		if (!sym) throw std::runtime_error{dlerror()};
 		return sym;
 	}
 
-	void* Dll::FindSymbol(const char* name) const noexcept
+	void* Dll::FindSymbol(const char8_t* name) const noexcept
 	{
 		return dlsym(dll_.get(), name);
 	}

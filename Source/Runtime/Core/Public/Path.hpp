@@ -18,7 +18,7 @@ namespace oeng
 		
 		Path() noexcept;
 		Path(const std::filesystem::path& path);
-		Path(const char* s) :Path{std::filesystem::path{s}} {}
+		Path(const char8_t* s) :Path{std::filesystem::path{s}} {}
 
 		bool operator==(const Path& r) const noexcept { return p == r.p; }
 		bool operator!=(const Path& r) const noexcept { return p != r.p; }
@@ -28,11 +28,11 @@ namespace oeng
 		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
 		[[nodiscard]] Name AsName() const noexcept { return p->first; }
-		[[nodiscard]] const char* CStr() const noexcept { return p->first->c_str(); }
+		[[nodiscard]] const char8_t* CStr() const noexcept { return p->first->c_str(); }
 		[[nodiscard]] const std::string& Str() const noexcept { return p->first; }
 
 		operator Name() const noexcept { return AsName(); }
-		operator const char*() const noexcept { return CStr(); }
+		operator const char8_t*() const noexcept { return CStr(); }
 		operator const std::string&() const noexcept { return Str(); }
 		operator const std::filesystem::path&() const noexcept { return p->second; }
 		const std::filesystem::path& operator*() const noexcept { return p->second; }

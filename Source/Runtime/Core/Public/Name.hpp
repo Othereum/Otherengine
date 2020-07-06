@@ -16,7 +16,7 @@ namespace oeng
 	struct OEAPI Name
 	{
 		Name() noexcept;
-		Name(const char* s);
+		Name(const char8_t* s);
 		Name(std::string&& s);
 		Name(const std::string& s);
 
