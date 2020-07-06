@@ -10,7 +10,7 @@ namespace oeng
 	{
 	public:
 		explicit OpenGlError(unsigned code)
-			:std::runtime_error{format("OpenGL error occured (code: {})", code)}, code_{code}
+			:std::runtime_error{fmt::format("OpenGL error occured (code: {})", code)}, code_{code}
 		{
 		}
 
@@ -60,4 +60,4 @@ namespace oeng
 	}
 }
 
-#define GL(fn, ...) do { unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, "{}", err); } while (false)
+#define GL(fn, ...) do { unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, u8"{}", err); } while (false)

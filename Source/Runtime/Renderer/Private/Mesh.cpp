@@ -5,7 +5,7 @@
 namespace oeng
 {
 	Mesh::Mesh(Path path, Renderer& renderer)
-		:Mesh{path, renderer, ReadFileAsJson(path.CStr())}
+		:Mesh{path, renderer, ReadFileAsJson(path)}
 	{
 	}
 

@@ -31,8 +31,8 @@ namespace oeng
 		auto dp = dp_ref.get<int>();
 		if (dp >= num_dp)
 		{
-			log::Warn("Attempted to use a non-existent display (tried: {}, max: {})", dp, num_dp-1);
-			log::Warn("Using display 0...");
+			log::Warn(u8"Attempted to use a non-existent display (tried: {}, max: {})", dp, num_dp-1);
+			log::Warn(u8"Using display 0...");
 			dp_ref = 0, dp = 0;
 		}
 
@@ -50,16 +50,16 @@ namespace oeng
 		{
 			SDL_DisplayMode dm;
 			SDL_GetDisplayMode(dp, i, &dm);
-			modes.emplace_back(format("[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate));
+			modes.emplace_back(Format(u8"[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate));
 		}
 
 		auto& dm_ref = config.at("DisplayMode");
 		auto dm = dm_ref.get<int>();
 		if (dm >= num_dm)
 		{
-			const auto& display = modes.at(0);
-			log::Warn("Attempted to use a non-existent display mode (tried: {}, max: {})", dm, num_dm-1);
-			log::Warn("Using display mode {}", display.get<std::string>());
+			auto display = modes.at(0).get<std::string>();
+			log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})", dm, num_dm-1);
+			log::Warn(u8"Using display mode {}", reinterpret_cast<std::u8string&&>(display));
 			dm_ref = 0, dm = 0;
 		}
 
@@ -79,7 +79,7 @@ namespace oeng
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		const Name config_name = "Display";
+		const Name config_name = u8"Display";
 		auto& config = engine.Config(config_name);
 		const auto dp = LoadDisplayIdx(config);
 		const auto dm = LoadDisplayMode(dp, config);
@@ -93,7 +93,8 @@ namespace oeng
 		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
 
 		WindowPtr window{
-			SDL_CreateWindow(engine.GetGameName().data(),
+			// TODO: String conversions
+			SDL_CreateWindow(reinterpret_cast<const char*>(engine.GetGameName().data()),
 				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
 				display.w, display.h, flags),
 			&SDL_DestroyWindow
@@ -108,9 +109,9 @@ namespace oeng
 	static void InitGl()
 	{
 		glewExperimental = true;
-		
+
 		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{reinterpret_cast<const char8_t*>(glewGetErrorString(err))};
+			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
 		
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
@@ -175,7 +176,7 @@ namespace oeng
 		:engine_{engine}, 
 		window_{MakeWindow(engine)},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{"../Engine/Shaders/Sprite"},
+		sprite_shader_{u8"../Engine/Shaders/Sprite"},
 		sprite_verts_{CreateSpriteVerts()},
 		materials_{shaders_.default_obj, textures_.default_obj},
 		meshes_{materials_.default_obj}
@@ -183,7 +184,7 @@ namespace oeng
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetUniform("uViewProj", MakeSimpleViewProj<4>(GetWindowSize()));
+		sprite_shader_.SetUniform(u8"uViewProj", MakeSimpleViewProj<4>(GetWindowSize()));
 	}
 
 	Renderer::~Renderer() = default;
@@ -193,17 +194,17 @@ namespace oeng
 		GL(glClearColor, 0.f, 0.f, 0.f, 1.f);
 		GL(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		auto try_draw = [](auto name, auto draw)
+		auto try_draw = [](auto&& name, auto&& draw)
 		{
 			try { draw(); }
 			catch (const std::exception& e)
 			{
-				OE_DLOG(1s, log::level::err, "Error occured while drawing '{}': {}", name, e.what());
+				OE_DLOG(1s, log::level::err, u8"Error occured while drawing '{}': {}", name, What(e));
 			}
 		};
 
-		try_draw("3D scene", [&]{ Draw3D(); });
-		try_draw("2D scene", [&]{ Draw2D(); });
+		try_draw(u8"3D scene", [&]{ Draw3D(); });
+		try_draw(u8"2D scene", [&]{ Draw2D(); });
 
 		SDL_GL_SwapWindow(window_.get());
 	}
@@ -224,7 +225,7 @@ namespace oeng
 			catch (const std::exception& e)
 			{
 				const auto stem = mesh_comp.get().GetMesh().GetStem();
-				OE_DLOG(1s, log::level::err, "Failed to draw mesh '{}': {}", *stem, e.what());
+				OE_DLOG(1s, log::level::err, u8"Failed to draw mesh '{}': {}", *stem, What(e));
 			}
 		}
 	}
@@ -241,13 +242,13 @@ namespace oeng
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
-			sprite_shader_.SetUniform("uWorldTransform", sprite.GetDrawTrsf());
+			sprite_shader_.SetUniform(u8"uWorldTransform", sprite.GetDrawTrsf());
 			GL(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 		catch (const std::exception& e)
 		{
 			const auto stem = sprite_ref.get().GetTexture().GetStem();
-			OE_DLOG(1s, log::level::err, "Failed to draw sprite '{}': {}", *stem, e.what());
+			OE_DLOG(1s, log::level::err, u8"Failed to draw sprite '{}': {}", *stem, What(e));
 		}
 	}
 
@@ -260,13 +261,13 @@ namespace oeng
 		if (&shader != prev_.shader)
 		{
 			shader.Activate();
-			shader.TryUniform("uViewProj", camera_->GetViewProj());
-			shader.TryUniform("uCamPos", camera_->GetPos());
+			shader.TryUniform(u8"uViewProj", camera_->GetViewProj());
+			shader.TryUniform(u8"uCamPos", camera_->GetPos());
 			
 			const auto& dir_light = dir_light_->GetData();
-			shader.TryUniform("uDirLight.dir", dir_light.dir);
-			shader.TryUniform("uDirLight.color", dir_light.color);
-			shader.TryUniform("uSkyLight", sky_light_->GetColor());
+			shader.TryUniform(u8"uDirLight.dir", dir_light.dir);
+			shader.TryUniform(u8"uDirLight.color", dir_light.color);
+			shader.TryUniform(u8"uSkyLight", sky_light_->GetColor());
 
 			prev_.shader = &shader;
 		}
@@ -295,7 +296,7 @@ namespace oeng
 		DrawPointLights(mesh_comp);
 		DrawSpotLights(mesh_comp);
 
-		shader.TryUniform("uWorldTransform", mesh_comp.GetDrawTrsfMatrix());
+		shader.TryUniform(u8"uWorldTransform", mesh_comp.GetDrawTrsfMatrix());
 		GL(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
@@ -304,7 +305,7 @@ namespace oeng
 		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
-		const auto loc_num = shader.GetUniformLocation(format("uNum{}Lights", name));
+		const auto loc_num = shader.GetUniformLocation(Format(u8"uNum{}Lights", name));
 		if (loc_num == Shader::invalid_uniform_) return;
 		
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
@@ -325,14 +326,14 @@ namespace oeng
 			auto try_uniform = [&]<class T>(const char8_t* uniform, T&& value)
 			{
 				return shader.TryUniform(
-					format("u{}Lights[{}].{}", name, idx, uniform),
+					Format(u8"u{}Lights[{}].{}", name, idx, uniform),
 					std::forward<T>(value)
 				);
 			};
 
-			try_uniform("color", data.color);
-			try_uniform("pos", data.pos);
-			try_uniform("radius", data.radius);
+			try_uniform(u8"color", data.color);
+			try_uniform(u8"pos", data.pos);
+			try_uniform(u8"radius", data.radius);
 			try_extra_uniforms(try_uniform, data);
 			
 			++idx;
@@ -343,18 +344,18 @@ namespace oeng
 
 	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
 	{
-		DrawLights("Point", point_lights_, 4, mesh_comp, [](auto&&...){});
+		DrawLights(u8"Point", point_lights_, 4, mesh_comp, [](auto&&...){});
 	}
 
 	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp) const
 	{
 		auto try_uniforms = [](auto&& try_uniform, const ISpotLight::Data& data)
 		{
-			try_uniform("dir", data.dir);
-			try_uniform("inner", data.angle_cos.inner);
-			try_uniform("outer", data.angle_cos.outer);
+			try_uniform(u8"dir", data.dir);
+			try_uniform(u8"inner", data.angle_cos.inner);
+			try_uniform(u8"outer", data.angle_cos.outer);
 		};
-		DrawLights("Spot", spot_lights_, 4, mesh_comp, try_uniforms);
+		DrawLights(u8"Spot", spot_lights_, 4, mesh_comp, try_uniforms);
 	}
 
 	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
@@ -431,7 +432,7 @@ namespace oeng
 		}
 		catch (const std::exception& e)
 		{
-			log::Error("Failed to load '{}': {}", path->string(), e.what());
+			log::Error(u8"Failed to load '{}': {}", path.Str(), What(e));
 			return cache.default_obj;
 		}
 	}

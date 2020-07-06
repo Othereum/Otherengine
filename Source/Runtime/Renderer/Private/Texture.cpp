@@ -10,14 +10,14 @@ namespace oeng
 		Vector<int, 2> size;
 		auto num_channels = 0;
 		
-		const std::unique_ptr<const unsigned char8_t[]> image{
+		const std::unique_ptr<const unsigned char[]> image{
 			SOIL_load_image(path->string().c_str(), &size[0], &size[1], &num_channels, SOIL_LOAD_AUTO)
 		};
 		if (!image) throw std::runtime_error{SOIL_last_result()};
 
 		constexpr auto max_size = std::numeric_limits<uint16_t>::max();
 		if (size[0] > max_size || size[1] > max_size)
-			throw std::runtime_error{format("Too big ({0}x{1}). Max size is {2}x{2}", size[0], size[1], max_size)};
+			Throw(u8"Too big ({0}x{1}). Max size is {2}x{2}", size[0], size[1], max_size);
 
 		int img_format;
 		int alignment;
@@ -25,7 +25,7 @@ namespace oeng
 		{
 		case 3: img_format = GL_RGB; alignment = 1; break;
 		case 4: img_format = GL_RGBA; alignment = 4; break;
-		default: throw std::runtime_error{format("Invalid format: num_channels was {}. Must be 3 or 4", num_channels)};
+		default: Throw(u8"Invalid format: num_channels was {}. Must be 3 or 4", num_channels);
 		}
 
 		size_ = Vec2u16{size};

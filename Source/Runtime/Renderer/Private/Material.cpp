@@ -23,7 +23,7 @@ namespace oeng
 			}
 			catch (const std::exception& e)
 			{
-				log::Error("'{}': failed to load uniforms: {}", e.what());
+				log::Error(u8"'{}': failed to load uniforms: {}", What(e));
 			}
 		}
 	}
@@ -35,7 +35,7 @@ namespace oeng
 			auto set_uniform = [&](auto& val) { return shader_->TryUniform(uniform.first, val); };
 			if (!std::visit(set_uniform, uniform.second))
 			{
-				OE_DLOG(1s, log::level::err, "{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
+				OE_DLOG(1s, log::level::err, u8"{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
 			}
 		}
 	}
@@ -117,8 +117,9 @@ namespace oeng
 	
 	void Material::LoadUniforms(const Json& uniforms)
 	{
-		for (auto& [name, value] : uniforms.items())
+		for (auto& [name1, value] : uniforms.items())
 		{
+			auto& name = reinterpret_cast<const std::u8string&>(name1);
 			try
 			{
 				if (shader_->GetUniformLocation(name) == Shader::invalid_uniform_)
@@ -128,7 +129,7 @@ namespace oeng
 			}
 			catch (const std::exception& e)
 			{
-				log::Error("'{}': invalid uniform '{}': {}", GetPath().Str(), name, e.what());
+				log::Error(u8"'{}': invalid uniform '{}': {}", GetPath().Str(), name, What(e));
 			}
 		}
 	}

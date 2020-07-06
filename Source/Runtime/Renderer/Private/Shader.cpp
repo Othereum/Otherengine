@@ -8,7 +8,7 @@ namespace oeng
 	std::string ReadFile(const std::filesystem::path& path)
 	{
 		std::ifstream file{ path, std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) throw std::ios_base::failure{format("Cannot read file. File not found: {}", path.string())};
+		if (!file.is_open()) Throw<std::ios_base::failure>(u8"Cannot read file. File not found: {}", path.u8string());
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);
@@ -66,8 +66,8 @@ namespace oeng
 
 	Shader::Shader(Path path)
 		:Asset{path},
-		vert_shader_{Compile(Ext(path, ".vert"), GL_VERTEX_SHADER)},
-		frag_shader_{Compile(Ext(path, ".frag"), GL_FRAGMENT_SHADER)},
+		vert_shader_{Compile(Ext(path, u8".vert"), GL_VERTEX_SHADER)},
+		frag_shader_{Compile(Ext(path, u8".frag"), GL_FRAGMENT_SHADER)},
 		shader_program_{gl(glCreateProgram)}
 	{
 		gl(glAttachShader, shader_program_, vert_shader_);
@@ -149,7 +149,7 @@ namespace oeng
 			return found->second;
 
 		unsigned err;
-		const auto loc = gl(err, glGetUniformLocation, shader_program_, name->c_str());
+		const auto loc = gl(err, glGetUniformLocation, shader_program_, reinterpret_cast<const char*>(name->c_str()));
 		if (loc != invalid_uniform_) loc_cache_.try_emplace(name, loc);
 		return loc;
 	}
