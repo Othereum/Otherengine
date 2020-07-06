@@ -45,7 +45,3 @@ namespace oeng
 	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
 }
-
-#define STRINGIZE_IMPL(x) #x
-#define STRINGIZE(x) STRINGIZE_IMPL(x)
-#define LINE_STRING STRINGIZE(__LINE__)
