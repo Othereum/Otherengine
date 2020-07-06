@@ -1,4 +1,6 @@
 #include "Components/SkyLightComponent.hpp"
+
+#include "Debug.hpp"
 #include "Log.hpp"
 #include "Renderer.hpp"
 
@@ -21,9 +23,6 @@ namespace oeng
 
 	void SkyLightComponent::OnBeginPlay()
 	{
-		if (IsAutoActivate() && GetRenderer().IsSkyLightRegistered())
-		{
-			log::Warn("Only one sky light can be activated at the same time.");
-		}
+		EXPECT(IsAutoActivate() && GetRenderer().IsSkyLightRegistered());
 	}
 }

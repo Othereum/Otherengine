@@ -13,10 +13,10 @@ namespace oeng
 
 	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
 	{
-		if (!is_regular_file(file) || file.extension() != ".json") return;
+		if (!is_regular_file(file) || file.extension() != u8".json") return;
 		
-		auto name = file.stem().string();
-		auto parsed = ReadFileAsJson(file.string().c_str());
+		auto name = file.stem().u8string();
+		auto parsed = ReadFileAsJson(file);
 		
 		auto [it, inserted] = configs.try_emplace(std::move(name), std::move(parsed));
 		if (inserted) return;
@@ -39,7 +39,7 @@ namespace oeng
 			}
 			catch (const std::exception& e)
 			{
-				log::Error("Failed to load config '{}': {}", entry.path().string(), e.what());
+				log::Error(u8"Failed to load config '{}': {}", entry.path().u8string(), What(e));
 			}
 		}
 	}
@@ -48,8 +48,8 @@ namespace oeng
 	{
 		HashMap<Name, Json> configs;
 
-		LoadConfigs(configs, "../Engine/Config");
-		LoadConfigs(configs, "../Config");
+		LoadConfigs(configs, u8"../Engine/Config");
+		LoadConfigs(configs, u8"../Config");
 		
 		return configs;
 	}
@@ -60,18 +60,18 @@ namespace oeng
 		renderer_{*this},
 		world_{*this}
 	{
-		log::Info("Engine initialization successful.");
-		log::Info("Loading game module...");
+		log::Info(u8"Engine initialization successful.");
+		log::Info(u8"Loading game module...");
 		assert(load_game);
 		load_game(*this);
-		log::Info("Game module loaded.");
+		log::Info(u8"Game module loaded.");
 	}
 
 	Engine::~Engine() = default;
 
 	void Engine::RunLoop()
 	{
-		log::Info("Engine loop started.");
+		log::Info(u8"Engine loop started.");
 		
 		const auto start = Clock::now();
 		auto tick = 0ull;
@@ -83,13 +83,13 @@ namespace oeng
 		}
 
 		const auto sec = duration_cast<std::chrono::seconds>(Clock::now() - start).count();
-		if (sec > 0) log::Info("Average fps: {}", tick / sec);
+		if (sec > 0) log::Info(u8"Average fps: {}", tick / sec);
 	}
 
 	void Engine::Shutdown()
 	{
 		is_running_ = false;
-		log::Info("Engine shutdown requested.");
+		log::Info(u8"Engine shutdown requested.");
 	}
 
 	Vec2u16 Engine::GetWindowSize() const noexcept
@@ -101,15 +101,15 @@ namespace oeng
 	{
 		try
 		{
-			fs::create_directory("../Config");
-			std::ofstream file{fmt::format("../Config/{}.json", *name)};
+			fs::create_directory(u8"../Config");
+			std::ofstream file{fmt::format(u8"../Config/{}.json", *name)};
 			file.exceptions(std::ios_base::failbit);
 			file << configs_[name].dump(4);
 			return true;
 		}
 		catch (const std::exception& e)
 		{
-			log::Error("Failed to save config '{}': {}", *name, e.what());
+			log::Error(u8"Failed to save config '{}': {}", *name, What(e));
 			return false;
 		}
 	}
@@ -178,11 +178,11 @@ namespace oeng
 		
 		for (const auto& info : infos)
 		{
-			log::Debug("[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}",
+			log::Debug(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}",
 				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur);
 		}
 
-		if (max.cur > 0) log::Warn("[Mem] Memory leak detected!");
+		if (max.cur > 0) log::Warn(u8"[Mem] Memory leak detected!");
 	}
 
 	SdlRaii::SdlRaii()
@@ -192,7 +192,7 @@ namespace oeng
 		assert(!engine_exist);
 		engine_exist = true;
 
-		log::Info("Initializing engine...");
+		log::Info(u8"Initializing engine...");
 		
 		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};

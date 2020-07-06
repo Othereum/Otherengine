@@ -1,4 +1,6 @@
 #include "Components/DirLightComponent.hpp"
+
+#include "Debug.hpp"
 #include "Log.hpp"
 #include "Renderer.hpp"
 
@@ -26,9 +28,6 @@ namespace oeng
 
 	void DirLightComponent::OnBeginPlay()
 	{
-		if (IsAutoActivate() && GetRenderer().IsDirLightRegistered())
-		{
-			log::Warn("Only one directional light can be activated at the same time.");
-		}
+		EXPECT(IsAutoActivate() && GetRenderer().IsDirLightRegistered());
 	}
 }

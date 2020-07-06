@@ -9,7 +9,7 @@ namespace oeng
 		{
 		public:
 			Default(): Base{nullptr} {}
-			[[nodiscard]] Name GetName() const override { return "Default"; }
+			[[nodiscard]] Name GetName() const override { return u8"Default"; }
 		};
 
 		static Default default_state;
