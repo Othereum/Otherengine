@@ -17,13 +17,12 @@ namespace oeng::plf
 		const auto num_ids = cpu_id[0] + 1;
 		
 		CpuIdEx(cpu_id, 0, 0);
-		*reinterpret_cast<int*>(vendor_arr_) = cpu_id[1];
-		*reinterpret_cast<int*>(vendor_arr_ + 4) = cpu_id[3];
-		*reinterpret_cast<int*>(vendor_arr_ + 8) = cpu_id[2];
-		vendor_ = vendor_arr_;
+		*reinterpret_cast<int*>(vendor_) = cpu_id[1];
+		*reinterpret_cast<int*>(vendor_ + 4) = cpu_id[3];
+		*reinterpret_cast<int*>(vendor_ + 8) = cpu_id[2];
 		
-		if (vendor_ == "GenuineIntel") vendor_enum_ = Vendor::kIntel;
-		else if (vendor_ == "AuthenticAMD") vendor_enum_ = Vendor::kAmd;
+		if (std::strcmp(vendor_, "GenuineIntel") == 0) vendor_enum_ = Vendor::kIntel;
+		else if (std::strcmp(vendor_, "AuthenticAMD") == 0) vendor_enum_ = Vendor::kAmd;
 
 		if (num_ids > 1)
 		{
@@ -53,15 +52,13 @@ namespace oeng::plf
 		if (num_ex_ids > 4)
 		{
 			CpuIdEx(cpu_id, 2 | ex_fn_id, 0);
-			std::memcpy(brand_arr_, cpu_id, 16);
+			std::memcpy(brand_, cpu_id, 16);
 			
 			CpuIdEx(cpu_id, 3 | ex_fn_id, 0);
-			std::memcpy(brand_arr_ + 16, cpu_id, 16);
+			std::memcpy(brand_ + 16, cpu_id, 16);
 			
 			CpuIdEx(cpu_id, 4 | ex_fn_id, 0);
-			std::memcpy(brand_arr_ + 32, cpu_id, 16);
-			
-			brand_ = brand_arr_;
+			std::memcpy(brand_ + 32, cpu_id, 16);
 		}
 	}
 }

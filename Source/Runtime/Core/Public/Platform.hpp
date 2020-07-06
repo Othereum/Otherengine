@@ -41,8 +41,8 @@ namespace oeng::plf
 
 		static const CpuInfo& Get();
 
-		[[nodiscard]] std::string_view GetVendor() const noexcept { return vendor_; }
-		[[nodiscard]] std::string_view GetBrand() const noexcept { return brand_; }
+		[[nodiscard]] auto& GetVendor() const noexcept { return vendor_; }
+		[[nodiscard]] auto& GetBrand() const noexcept { return brand_; }
 		[[nodiscard]] Vendor GetVendorEnum() const noexcept { return vendor_enum_; }
 		[[nodiscard]] bool IsIntel() const noexcept { return vendor_enum_ == Vendor::kIntel; }
 		[[nodiscard]] bool IsAmd() const noexcept { return vendor_enum_ == Vendor::kAmd; }
@@ -108,10 +108,8 @@ namespace oeng::plf
 	private:
 		CpuInfo();
 		
-        char vendor_arr_[13]{};
-        char brand_arr_[49]{};
-		std::string_view vendor_;
-		std::string_view brand_;
+        char vendor_[13]{};
+        char brand_[49]{};
 		
         Vendor vendor_enum_ = Vendor::kOther;
 		
