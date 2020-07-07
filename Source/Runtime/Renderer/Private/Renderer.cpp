@@ -50,7 +50,8 @@ namespace oeng
 		{
 			SDL_DisplayMode dm;
 			SDL_GetDisplayMode(dp, i, &dm);
-			modes.emplace_back(Format(u8"[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate));
+			auto str = Format(u8"[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate);
+			modes.emplace_back(reinterpret_cast<std::string&&>(str));
 		}
 
 		auto& dm_ref = config.at("DisplayMode");
