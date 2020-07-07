@@ -32,6 +32,6 @@ namespace oeng
 		 * \param name Config name
 		 * \return true if successful
 		 */
-		virtual bool SaveConfig(Name name) noexcept = 0;
+		virtual bool SaveConfig(Name name) = 0;
 	};
 }

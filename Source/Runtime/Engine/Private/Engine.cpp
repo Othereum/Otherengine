@@ -9,7 +9,14 @@
 
 namespace oeng
 {
+	using namespace std::literals;
 	namespace fs = std::filesystem;
+
+	static const fs::path& GetUserConfigDir()
+	{
+		static const auto dir = plf::GetUserDataPath() / u8"Config";
+		return dir;
+	}
 
 	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
 	{
@@ -50,6 +57,7 @@ namespace oeng
 
 		LoadConfigs(configs, u8"../Engine/Config");
 		LoadConfigs(configs, u8"../Config");
+		LoadConfigs(configs, GetUserConfigDir());
 		
 		return configs;
 	}
@@ -96,14 +104,16 @@ namespace oeng
 		return renderer_.GetWindowSize();
 	}
 
-	bool Engine::SaveConfig(Name name) noexcept
+	bool Engine::SaveConfig(Name name)
 	{
 		try
 		{
-			fs::create_directory(u8"../Config");
-			auto path = Format(u8"../Config/{}.json", *name);
-			std::ofstream file{reinterpret_cast<std::string&&>(path)};
-			file.exceptions(std::ios_base::failbit);
+			auto& dir = GetUserConfigDir();
+			create_directories(dir);
+			
+			std::ofstream file{dir / Format(u8"{}.json", *name)};
+			file.exceptions(std::ios_base::failbit | std::ios_base::badbit);
+			
 			file << configs_[name].dump(4);
 			return true;
 		}

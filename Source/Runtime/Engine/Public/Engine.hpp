@@ -49,7 +49,7 @@ namespace oeng
 		 * \param name Config name
 		 * \return true if successful
 		 */
-		bool SaveConfig(Name name) noexcept override;
+		bool SaveConfig(Name name) override;
 		
 	private:
 		void Tick();
