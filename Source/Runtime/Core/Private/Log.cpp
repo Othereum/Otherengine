@@ -21,7 +21,6 @@ namespace oeng::log
 	{
 		assert(!logger_initialized);
 
-		namespace fs = std::filesystem;
 		const auto dir = plf::GetUserDataPath() / u8"Logs";
 		create_directories(dir);
 
