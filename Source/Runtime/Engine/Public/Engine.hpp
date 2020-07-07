@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "InputSystem.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
@@ -26,7 +26,7 @@ namespace oeng
 	public:
 		OE_DELETE_CPMV(Engine);
 
-		explicit Engine(void(*load_game)(Engine&));
+		explicit Engine(void load_game(Engine&));
 		~Engine();
 		
 		void RunLoop();
