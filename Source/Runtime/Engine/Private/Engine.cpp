@@ -101,7 +101,8 @@ namespace oeng
 		try
 		{
 			fs::create_directory(u8"../Config");
-			std::ofstream file{fmt::format(u8"../Config/{}.json", *name)};
+			auto path = Format(u8"../Config/{}.json", *name);
+			std::ofstream file{reinterpret_cast<std::string&&>(path)};
 			file.exceptions(std::ios_base::failbit);
 			file << configs_[name].dump(4);
 			return true;
