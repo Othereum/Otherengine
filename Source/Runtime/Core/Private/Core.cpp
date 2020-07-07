@@ -3,6 +3,7 @@
 #endif
 
 #include "Core.hpp"
+#include <cassert>
 #include <thread>
 
 namespace oeng
@@ -18,12 +19,20 @@ namespace oeng
 
 	std::u8string_view GetGameName() noexcept
 	{
+		assert(!game_name.empty());
 		return game_name;
 	}
 
+	namespace log
+	{
+		void InitializeLogger();
+	}
+	
 	OE_EXPORT void SetGameName(std::u8string_view name) noexcept
 	{
+		assert(game_name.empty());
 		game_name = name;
+		log::InitializeLogger();
 	}
 
 	bool IsGameThread() noexcept
