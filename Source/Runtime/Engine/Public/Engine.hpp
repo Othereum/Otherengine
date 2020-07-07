@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "InputSystem.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
@@ -36,19 +36,7 @@ namespace oeng
 		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept override;
-
-		/**
-		 * \brief Find config or create if not found.
-		 * \param name Config name
-		 * \return Reference to non-const json config object
-		 */
 		[[nodiscard]] Json& Config(Name name) override;
-		
-		/**
-		 * \brief Save config as file. Existing files will be overwritten. Log error if fails
-		 * \param name Config name
-		 * \return true if successful
-		 */
 		bool SaveConfig(Name name) override;
 		
 	private:

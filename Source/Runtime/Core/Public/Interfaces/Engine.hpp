@@ -28,7 +28,8 @@ namespace oeng
 		[[nodiscard]] virtual Json& Config(Name name) = 0;
 		
 		/**
-		 * \brief Save config as file. Existing files will be overwritten.
+		 * \brief Save config as file into the user data directory.
+		 * Existing files will be overwritten.
 		 * \param name Config name
 		 * \return true if successful
 		 */
