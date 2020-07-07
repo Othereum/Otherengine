@@ -1,26 +1,64 @@
 #ifdef __unix__
 
 #include <cpuid.h>
+#include <cstring>
 #include <dlfcn.h>
+#include <fcntl.h>
 #include <stdexcept>
-#include <sys/ptrace.h>
+#include <unistd.h>
 #include "Platform.hpp"
 
 namespace oeng::plf
 {
+	using namespace std::literals;
+
+#ifdef NDEBUG
+	const std::u8string& GetUserDataPath()
+	{
+		static const auto path = []
+		{
+			std::u8string str = reinterpret_cast<char8_t*>(std::getenv("HOME"));
+			str += u8"/.";
+			str += GetGameName();
+			return str;
+		}();
+		return path;
+	}
+#else
 	bool IsDebugging() noexcept
 	{
-		static const auto is_debugger_present = []
+		const auto status_file = open("/proc/self/status", O_RDONLY);
+		if (status_file == -1) 
 		{
-			if (0 > ptrace(PTRACE_TRACEME, 0, 1, 0)) 
-				return true;
-			
-			ptrace(PTRACE_DETACH, 0, 1, 0);
+			// Failed - unknown debugger status.
 			return false;
-		}();
-		
-		return is_debugger_present;
+		}
+
+		char buffer[256];
+		const auto length = read(status_file, buffer, sizeof buffer);
+
+		auto is_debugging = false;
+		constexpr auto tracer_string = "TracerPid:\t";
+		const ssize_t len_tracer_string = std::strlen(tracer_string);
+		auto i = 0;
+
+		while (length - i > len_tracer_string)
+		{
+			// TracerPid is found
+			if (std::strncmp(&buffer[i], tracer_string, len_tracer_string) == 0)
+			{
+				// 0 if no process is tracing.
+				is_debugging = buffer[i + len_tracer_string] != '0';
+				break;
+			}
+
+			++i;
+		}
+
+		close(status_file);
+		return is_debugging;
 	}
+#endif
 	
 	Dll::Dll(const char8_t* filepath)
 	{
