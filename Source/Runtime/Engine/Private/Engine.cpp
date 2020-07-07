@@ -20,7 +20,8 @@ namespace oeng
 
 	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
 	{
-		if (!is_regular_file(file) || file.extension() != u8".json") return;
+		static const fs::path json = u8".json";
+		if (!is_regular_file(file) || file.extension() != json) return;
 		
 		auto name = file.stem().u8string();
 		auto parsed = ReadFileAsJson(file);
