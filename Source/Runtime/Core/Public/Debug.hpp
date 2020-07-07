@@ -4,7 +4,7 @@
 
 #ifdef NDEBUG
 
-#define DEBUG_BREAK()
+#define DEBUG_BREAK() (void)0
 
 #define ENSURE(expr) !!(expr)
 #define ENSURE_MSG(expr, fmt, ...) !!(expr)
