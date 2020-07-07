@@ -1,18 +1,29 @@
 #pragma once
 #include <bitset>
+#include <filesystem>
 #include <memory>
 #include "Core.hpp"
 
 namespace oeng::plf
 {
-	[[nodiscard]] OEAPI const std::u8string& GetUserDataPath();
-
-#ifdef NDEBUG
-	[[nodiscard]] constexpr bool IsDebugging() noexcept { return false; }
-#else
-	[[nodiscard]] OEAPI bool IsDebugging() noexcept;
+	namespace detail
+	{
+#ifndef NDEBUG
+		[[nodiscard]] OEAPI bool IsDebuggingImpl() noexcept;
 #endif
+	}
 	
+	[[nodiscard]] OEAPI const std::filesystem::path& GetUserDataPath();
+	
+	[[nodiscard]] inline bool IsDebugging() noexcept
+	{
+#ifdef NDEBUG
+		return false;
+#else
+		return detail::IsDebuggingImpl();
+#endif
+	}
+
 	class OEAPI Dll
 	{
 	public:

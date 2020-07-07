@@ -13,19 +13,19 @@ namespace oeng::plf
 	using namespace std::literals;
 
 #ifdef NDEBUG
-	const std::u8string& GetUserDataPath()
+	const std::filesystem::path& GetUserDataPath()
 	{
 		static const auto path = []
 		{
-			std::u8string str = reinterpret_cast<char8_t*>(std::getenv("HOME"));
-			str += u8"/.";
-			str += GetGameName();
-			return str;
+			std::filesystem::path p = std::getenv("HOME");
+			p /= u8".";
+			p += GetGameName();
+			return p;
 		}();
 		return path;
 	}
 #else
-	bool IsDebugging() noexcept
+	bool detail::IsDebuggingImpl() noexcept
 	{
 		const auto status_file = open("/proc/self/status", O_RDONLY);
 		if (status_file == -1) return false;

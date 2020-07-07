@@ -5,9 +5,9 @@ namespace oeng::plf
 	using namespace std::literals;
 	
 #ifndef NDEBUG
-	const std::u8string& GetUserDataPath()
+	const std::filesystem::path& GetUserDataPath()
 	{
-		static const auto path = u8"../Saved"s;
+		static const std::filesystem::path path = u8"../Saved"s;
 		return path;
 	}
 #endif

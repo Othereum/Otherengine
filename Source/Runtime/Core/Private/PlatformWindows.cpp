@@ -12,22 +12,21 @@
 namespace oeng::plf
 {
 #ifdef NDEBUG
-	const std::u8string& GetUserDataPath()
+	const std::filesystem::path& GetUserDataPath()
 	{
 		static const auto path = []
 		{
 			wchar_t* wide;
 			SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
-			auto utf8 = ToUtf8(reinterpret_cast<char16_t*>(wide));
+			std::filesystem::path p = wide;
 			CoTaskMemFree(wide);
-			utf8 += u8'\\';
-			utf8 += GetGameName();
-			return utf8;
+			p /= GetGameName();
+			return p;
 		}();
 		return path;
 	}
 #else
-	bool IsDebugging() noexcept
+	bool detail::IsDebuggingImpl() noexcept
 	{
 		return IsDebuggerPresent();
 	}
