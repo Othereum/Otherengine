@@ -21,11 +21,11 @@
 #define DEBUG_BREAK() (void)(::oeng::plf::IsDebugging() && (::std::raise(SIGTRAP), true))
 #endif
 
-#define ENSURE(expr) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8#expr u8", file " U8FILE u8", line " LINE_STR), false))
-#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8#expr u8", " fmt u8", file " U8FILE u8", line " LINE_STR, ##__VA_ARGS__), false))
+#define ENSURE(expr) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), false))
+#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), false))
 
-#define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8#expr u8", file " U8FILE u8", line " LINE_STR), false))
-#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8#expr u8", " fmt u8", file " U8FILE u8", line " LINE_STR, ##__VA_ARGS__), false))
+#define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), false))
+#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), false))
 
 #endif
 

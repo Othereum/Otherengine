@@ -48,10 +48,10 @@ namespace oeng
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
 }
 
-#define STRINGIZE_IMPL(x) u8#x
-#define STRINGIZE(x) STRINGIZE_IMPL(x)
-#define LINE_STR STRINGIZE(__LINE__)
+#define U8_TEXT_IMPL(x) u8##x
+#define U8_TEXT(x) U8_TEXT_IMPL(x)
+#define U8_FILE U8_TEXT(__FILE__)
 
-#define U8TEXT_IMPL(x) u8##x
-#define U8TEXT(x) U8TEXT_IMPL(x)
-#define U8FILE U8TEXT(__FILE__)
+#define STRINGIZE_IMPL(x) #x
+#define STRINGIZE(x) STRINGIZE_IMPL(x)
+#define U8_LINE U8_TEXT(STRINGIZE(__LINE__))
