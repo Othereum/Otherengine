@@ -26,12 +26,12 @@ namespace oeng::plf
 		}();
 		return path;
 	}
-#endif
-	
+#else
 	bool IsDebugging() noexcept
 	{
 		return IsDebuggerPresent();
 	}
+#endif
 	
 	static std::u8string GetLastErrStr()
 	{

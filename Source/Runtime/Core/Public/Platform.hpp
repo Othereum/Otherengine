@@ -6,7 +6,12 @@
 namespace oeng::plf
 {
 	[[nodiscard]] OEAPI const std::u8string& GetUserDataPath();
+
+#ifdef NDEBUG
+	[[nodiscard]] constexpr bool IsDebugging() noexcept { return false; }
+#else
 	[[nodiscard]] OEAPI bool IsDebugging() noexcept;
+#endif
 	
 	class OEAPI Dll
 	{
