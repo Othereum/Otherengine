@@ -94,7 +94,7 @@ namespace oeng
 		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
 
 		WindowPtr window{
-			SDL_CreateWindow(reinterpret_cast<const char*>(engine.GetGameName().data()),
+			SDL_CreateWindow(reinterpret_cast<const char*>(GetGameName().data()),
 				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
 				display.w, display.h, flags),
 			&SDL_DestroyWindow

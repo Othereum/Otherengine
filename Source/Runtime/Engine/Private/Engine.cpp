@@ -54,9 +54,8 @@ namespace oeng
 		return configs;
 	}
 	
-	Engine::Engine(std::u8string_view game_name, void(*load_game)(Engine&))
-		:game_name_{game_name},
-		configs_{LoadConfigs()},
+	Engine::Engine(void(*load_game)(Engine&))
+		:configs_{LoadConfigs()},
 		renderer_{*this},
 		world_{*this}
 	{
