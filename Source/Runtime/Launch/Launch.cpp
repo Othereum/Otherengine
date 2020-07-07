@@ -3,7 +3,6 @@
 #endif
 
 #include <csignal>
-
 #include "Engine.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
@@ -24,21 +23,20 @@ namespace oeng
 #endif
 	}
 
-	static void RunEngine()
-	{
-		plf::Dll game_module{u8"./" U8TEXT(OE_GAME_MODULE)};
-		auto& load_game = game_module.GetSymbol<void(Engine&)>(u8"LoadGame");
-		const auto game_name = game_module.GetSymbol<std::u8string_view>(u8"kGameName");
-		
-		Engine engine{game_name, &load_game};
-		engine.RunLoop();
-	}
-
+	OE_IMPORT void SetGameName(std::u8string_view name) noexcept;
+	
 	static void EngineMain()
 	{
 		std::signal(SIGILL, &OnIllegal);
+		
+		plf::Dll game_module{u8"./" U8TEXT(OE_GAME_MODULE)};
+		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"));
+		
 		CheckCpu();
-		RunEngine();
+		
+		auto& load_game = game_module.GetSymbol<void(Engine&)>(u8"LoadGame");
+		Engine engine{&load_game};
+		engine.RunLoop();
 	}
 }
 
