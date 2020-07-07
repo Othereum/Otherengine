@@ -15,10 +15,10 @@
 #else
 
 #ifdef _WIN32
-#define DEBUG_BREAK() (void)(plf::IsDebugging() && (__debugbreak(), true))
+#define DEBUG_BREAK() (void)(::oeng::plf::IsDebugging() && (::__debugbreak(), true))
 #else
 #include <csignal>
-#define DEBUG_BREAK() (void)(plf::IsDebugging() && (std::raise(SIGTRAP), true))
+#define DEBUG_BREAK() (void)(::oeng::plf::IsDebugging() && (::std::raise(SIGTRAP), true))
 #endif
 
 #define ENSURE(expr) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8#expr u8", file " U8FILE u8", line " LINE_STR), false))
