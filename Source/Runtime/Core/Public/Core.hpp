@@ -1,6 +1,7 @@
 // ReSharper disable CppClangTidyCppcoreguidelinesMacroUsage
 // ReSharper disable CppClangTidyBugproneMacroParentheses
 #pragma once
+#include <string_view>
 
 #ifdef _WIN32
 	#define OE_EXPORT __declspec(dllexport)
@@ -42,6 +43,7 @@
 
 namespace oeng
 {
+	[[nodiscard]] OEAPI std::u8string_view GetGameName() noexcept;
 	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
 }
