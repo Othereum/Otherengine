@@ -1,9 +1,10 @@
 #include "Log.hpp"
 #include <filesystem>
-#include <spdlog/async.h>
+#include <spdlog/spdlog.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include "Templates/Sync.hpp"
+#include "Platform.hpp"
 
 namespace oeng::log
 {
@@ -12,10 +13,17 @@ namespace oeng::log
 #else
 	static constexpr bool kThreadSafe = false;
 #endif
+
+	static auto logger_initialized = false;
+	static auto logger = spdlog::default_logger();
 	
-	static std::shared_ptr<spdlog::logger> InitializeLogger()
+	void InitializeLogger()
 	{
-		std::filesystem::create_directory("../Logs");
+		assert(!logger_initialized);
+
+		namespace fs = std::filesystem;
+		const auto dir = plf::GetUserDataPath() / u8"Logs";
+		create_directories(dir);
 
 		using Daily = std::conditional_t<kThreadSafe,
 			spdlog::sinks::daily_file_sink_mt,
@@ -25,23 +33,22 @@ namespace oeng::log
 			spdlog::sinks::stdout_color_sink_mt,
 			spdlog::sinks::stdout_color_sink_st>;
 
-		auto daily_file = std::make_shared<Daily>("../Logs/Log.log", 0, 0);
+		const auto filepath = dir / Format(u8"{}.log", GetGameName());
+		auto daily_file = std::make_shared<Daily>(filepath.string(), 0, 0);
 		auto stdout_color = std::make_shared<Stdout>();
 		
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
-		auto logger_ptr = std::make_shared<spdlog::logger>(std::string{}, list);
-		logger_ptr->flush_on(level::critical);
+		logger = std::make_shared<spdlog::logger>(std::string{}, list);
+		logger->flush_on(level::critical);
 #ifndef NDEBUG
-		logger_ptr->set_level(level::debug);
+		logger->set_level(level::debug);
 #endif
-
-		return logger_ptr;
+		logger_initialized = true;
 	}
 
 	OEAPI spdlog::logger& GetLogger()
 	{
-		static const auto logger_ptr = InitializeLogger();
-		return *logger_ptr;
+		return *logger;
 	}
 
 	namespace detail
