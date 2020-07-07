@@ -9,10 +9,20 @@ project("Otherengine"
 
 add_subdirectory(Source)
 
-install(DIRECTORY "Assets" DESTINATION "Engine")
-install(DIRECTORY "Shaders" DESTINATION "Engine")
-install(DIRECTORY "Config" DESTINATION "Engine")
-install(DIRECTORY "../Assets" DESTINATION ".")
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
+	message("Assets exists")
+else()
+	message("Assets does not exist")
+endif()
+
+function(oe_install src)
+	install(DIRECTORY ${src} DESTINATION "Engine" OPTIONAL PATTERN "*.md" EXCLUDE)
+	install(DIRECTORY "../${src}" DESTINATION "." OPTIONAL)
+endfunction()
+
+oe_install("Assets")
+oe_install("Shaders")
+oe_install("Config")
 
 if(WIN32)
 	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.dll")
