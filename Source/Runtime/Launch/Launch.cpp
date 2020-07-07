@@ -35,8 +35,7 @@ namespace oeng
 		if (debug) log::Debug(u8"Debugger detected");
 		CheckCpu();
 		
-		auto& load_game = game_module.GetSymbol<void(Engine&)>(u8"LoadGame");
-		Engine engine{&load_game};
+		Engine engine{game_module.GetSymbol<void(Engine&)>(u8"GameMain")};
 		engine.RunLoop();
 	}
 }
