@@ -28,31 +28,23 @@ namespace oeng::plf
 	bool IsDebugging() noexcept
 	{
 		const auto status_file = open("/proc/self/status", O_RDONLY);
-		if (status_file == -1) 
-		{
-			// Failed - unknown debugger status.
-			return false;
-		}
+		if (status_file == -1) return false;
 
 		char buffer[256];
-		const auto length = read(status_file, buffer, sizeof buffer);
+		const auto len = read(status_file, buffer, sizeof buffer);
 
 		auto is_debugging = false;
-		constexpr auto tracer_string = "TracerPid:\t";
-		const ssize_t len_tracer_string = std::strlen(tracer_string);
-		auto i = 0;
+		constexpr auto& tracer_str = "TracerPid:\t";
+		constexpr ssize_t len_tracer_str = sizeof tracer_str - 1;
+		
 
-		while (length - i > len_tracer_string)
+		for (auto i = 0; len - i > len_tracer_str; ++i)
 		{
-			// TracerPid is found
-			if (std::strncmp(&buffer[i], tracer_string, len_tracer_string) == 0)
+			if (std::strncmp(buffer + i, tracer_str, len_tracer_str) == 0)
 			{
-				// 0 if no process is tracing.
-				is_debugging = buffer[i + len_tracer_string] != '0';
+				is_debugging = buffer[i + len_tracer_str] != '0';
 				break;
 			}
-
-			++i;
 		}
 
 		close(status_file);
