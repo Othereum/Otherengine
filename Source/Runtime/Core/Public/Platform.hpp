@@ -5,6 +5,7 @@
 
 namespace oeng::plf
 {
+	[[nodiscard]] OEAPI const std::u8string& GetUserDataPath();
 	[[nodiscard]] OEAPI bool IsDebugging() noexcept;
 	
 	class OEAPI Dll

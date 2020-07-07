@@ -2,6 +2,16 @@
 
 namespace oeng::plf
 {
+	using namespace std::literals;
+	
+#ifndef NDEBUG
+	const std::u8string& GetUserDataPath()
+	{
+		static const auto path = u8"../Saved"s;
+		return path;
+	}
+#endif
+	
 	const CpuInfo& CpuInfo::Get()
 	{
 		static const CpuInfo info;
