@@ -25,13 +25,14 @@ namespace oeng
 
 	OE_IMPORT void SetGameName(std::u8string_view name) noexcept;
 	
-	static void EngineMain()
+	static void EngineMain(bool debug)
 	{
 		std::signal(SIGILL, &OnIllegal);
 		
-		plf::Dll game_module{u8"./" U8TEXT(OE_GAME_MODULE)};
+		plf::Dll game_module{u8"./" U8_TEXT(OE_GAME_MODULE)};
 		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"));
-		
+
+		if (debug) log::Debug(u8"Debugger detected");
 		CheckCpu();
 		
 		auto& load_game = game_module.GetSymbol<void(Engine&)>(u8"LoadGame");
@@ -46,13 +47,13 @@ int main()  // NOLINT(bugprone-exception-escape)
 
 	if (plf::IsDebugging())
 	{
-		EngineMain();
+		EngineMain(true);
 	}
 	else
 	{
 		try
 		{
-			EngineMain();
+			EngineMain(false);
 		}
 		catch (const std::exception& e)
 		{
