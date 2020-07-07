@@ -7,7 +7,7 @@ namespace oeng::plf
 #ifndef NDEBUG
 	const std::filesystem::path& GetUserDataPath()
 	{
-		static const std::filesystem::path path = u8"../Saved"s;
+		static const std::filesystem::path path = u8"../Saved";
 		return path;
 	}
 #endif
