@@ -9,12 +9,6 @@ project("Otherengine"
 
 add_subdirectory(Source)
 
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Assets")
-	message("Assets exists")
-else()
-	message("Assets does not exist")
-endif()
-
 function(oe_install src)
 	install(DIRECTORY ${src} DESTINATION "Engine" OPTIONAL PATTERN "*.md" EXCLUDE)
 	install(DIRECTORY "../${src}" DESTINATION "." OPTIONAL)
