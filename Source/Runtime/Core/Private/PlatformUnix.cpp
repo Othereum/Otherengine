@@ -37,7 +37,6 @@ namespace oeng::plf
 		constexpr auto& tracer_str = "TracerPid:\t";
 		constexpr ssize_t len_tracer_str = sizeof tracer_str - 1;
 		
-
 		for (auto i = 0; len - i > len_tracer_str; ++i)
 		{
 			if (std::strncmp(buffer + i, tracer_str, len_tracer_str) == 0)
