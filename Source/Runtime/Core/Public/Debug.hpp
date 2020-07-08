@@ -29,5 +29,5 @@
 
 #endif
 
-#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::level::err, fmt, ##__VA_ARGS__), DEBUG_BREAK())
+#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())
 #define EXPECT_NO_ENTRY() EXPECT(!u8"Enclosing block should never be called")

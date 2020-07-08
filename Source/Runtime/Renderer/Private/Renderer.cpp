@@ -199,7 +199,7 @@ namespace oeng
 			try { draw(); }
 			catch (const std::exception& e)
 			{
-				OE_DLOG(1s, log::level::err, u8"Error occured while drawing '{}': {}", name, What(e));
+				OE_DLOG(1s, log::Level::kErr, u8"Error occured while drawing '{}': {}", name, What(e));
 			}
 		};
 
@@ -225,7 +225,7 @@ namespace oeng
 			catch (const std::exception& e)
 			{
 				const auto stem = mesh_comp.get().GetMesh().GetStem();
-				OE_DLOG(1s, log::level::err, u8"Failed to draw mesh '{}': {}", *stem, What(e));
+				OE_DLOG(1s, log::Level::kErr, u8"Failed to draw mesh '{}': {}", *stem, What(e));
 			}
 		}
 	}
@@ -248,7 +248,7 @@ namespace oeng
 		catch (const std::exception& e)
 		{
 			const auto stem = sprite_ref.get().GetTexture().GetStem();
-			OE_DLOG(1s, log::level::err, u8"Failed to draw sprite '{}': {}", *stem, What(e));
+			OE_DLOG(1s, log::Level::kErr, u8"Failed to draw sprite '{}': {}", *stem, What(e));
 		}
 	}
 

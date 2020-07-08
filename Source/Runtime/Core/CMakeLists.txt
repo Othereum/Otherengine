@@ -9,10 +9,10 @@ list(APPEND PUBLIC_LIBS
 	omem
 	nlohmann_json::nlohmann_json
 	fmt::fmt
-	spdlog::spdlog
 )
 
 list(APPEND PRIVATE_LIBS
+	spdlog::spdlog
 )
 
 set(OE_USE_AVX2 FALSE)

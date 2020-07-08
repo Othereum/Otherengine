@@ -1,10 +1,17 @@
 #include "Log.hpp"
 #include <filesystem>
+#ifdef _MSC_VER
+#pragma warning(push)
+#pragma warning(disable:4819)
+#endif
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include "Templates/Sync.hpp"
+#ifdef _MSC_VER
+#pragma warning(pop)
+#endif
 #include "Platform.hpp"
+#include "Templates/Sync.hpp"
 
 namespace oeng::log
 {
@@ -38,16 +45,23 @@ namespace oeng::log
 		
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
 		logger = std::make_shared<spdlog::logger>(std::string{}, list);
-		logger->flush_on(level::critical);
+		logger->flush_on(spdlog::level::critical);
 #ifndef NDEBUG
-		logger->set_level(level::debug);
+		logger->set_level(spdlog::level::debug);
 #endif
 		logger_initialized = true;
 	}
 
-	OEAPI spdlog::logger& GetLogger()
+	void Log(Level level, std::u8string_view message)
 	{
-		return *logger;
+		static_assert(Level::kTrace == Level(spdlog::level::trace));
+		static_assert(Level::kDebug == Level(spdlog::level::debug));
+		static_assert(Level::kInfo == Level(spdlog::level::info));
+		static_assert(Level::kWarn == Level(spdlog::level::warn));
+		static_assert(Level::kErr == Level(spdlog::level::err));
+		static_assert(Level::kCritical == Level(spdlog::level::critical));
+		static_assert(Level::kOff == Level(spdlog::level::off));
+		logger->log(spdlog::level::level_enum(level), reinterpret_cast<std::string_view&&>(message));
 	}
 
 	namespace detail
@@ -65,7 +79,7 @@ namespace oeng::log
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, level::level_enum level, std::u8string_view msg) const
+		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
 		{
 			{
 				const auto logs = GetLogs().Lock();
