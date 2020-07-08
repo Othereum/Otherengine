@@ -204,7 +204,7 @@ namespace oeng
 
 		log::Info(u8"Initializing engine...");
 		
-		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
+		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
 
