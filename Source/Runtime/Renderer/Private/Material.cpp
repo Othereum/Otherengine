@@ -35,7 +35,7 @@ namespace oeng
 			auto set_uniform = [&](auto& val) { return shader_->TryUniform(uniform.first, val); };
 			if (!std::visit(set_uniform, uniform.second))
 			{
-				OE_DLOG(1s, log::level::err, u8"{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
+				OE_DLOG(1s, log::Level::kErr, u8"{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
 			}
 		}
 	}

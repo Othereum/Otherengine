@@ -60,4 +60,4 @@ namespace oeng
 	}
 }
 
-#define GL(fn, ...) do { unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, u8"{}", err); } while (false)
+#define GL(fn, ...) [&]{ unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, u8"{}", err); }()
