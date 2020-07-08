@@ -10,19 +10,16 @@
 
 namespace oeng
 {
-	template <class S>
-	concept FmtStr = std::is_same_v<fmt::char_t<S>, char8_t>;
-	
-	template <FmtStr S, typename... Args>
-	[[nodiscard]] std::u8string Format(const S& fmt, Args&&... args)
+	template <class... Args>
+	[[nodiscard]] std::u8string Format(std::u8string_view fmt, const Args&... args)
 	{
-		return fmt::format(fmt, std::forward<Args>(args)...);
+		return fmt::format(fmt, args...);
 	}
 
-	template <class T = std::runtime_error, FmtStr S, typename... Args>
-	[[noreturn]] void Throw(const S& fmt, Args&&... args)
+	template <class T = std::runtime_error, class... Args>
+	[[noreturn]] void Throw(std::u8string_view fmt, const Args&... args)
 	{
-		auto str = Format(fmt, std::forward<Args>(args)...);
+		auto str = Format(fmt, args...);
 		throw T{reinterpret_cast<std::string&&>(str)};
 	}
 
