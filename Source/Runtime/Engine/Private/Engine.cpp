@@ -157,8 +157,10 @@ namespace oeng
 
 	extern OE_IMPORT bool engine_exist;
 
-	static void LogMemoryInfo(const omem::PoolMap& pools)
+	static void LogMemoryInfo()
 	{
+		auto& pools = omem::GetPools();
+		
 		omem::PoolInfo max;
 		std::vector<omem::PoolInfo> infos;
 		infos.reserve(pools.size());
@@ -212,7 +214,7 @@ namespace oeng
 	{
 		SDL_Quit();
 		
-		try { LogMemoryInfo(omem::GetPools()); }
+		try { LogMemoryInfo(); }
 		catch (...) { EXPECT_NO_ENTRY(); }
 		
 		engine_exist = false;
