@@ -4,7 +4,7 @@
 
 namespace oeng
 {
-	std::u8string GetName(Keycode btn) noexcept
+	String GetName(Keycode btn) noexcept
 	{
 		return reinterpret_cast<const char8_t*>(SDL_GetKeyName(SDL_Keycode(btn)));
 	}

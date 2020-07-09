@@ -1,6 +1,7 @@
 #pragma once
 #include "Core.hpp"
 #include "Templates/DyArr.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng
 {
@@ -325,7 +326,7 @@ namespace oeng
 	};
 
 	
-	OEAPI std::u8string GetName(Keycode btn) noexcept;
+	OEAPI String GetName(Keycode btn) noexcept;
 	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
 	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
 	OEAPI DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;
