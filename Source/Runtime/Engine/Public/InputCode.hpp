@@ -341,17 +341,17 @@ namespace oeng
 	{
 		switch (mod)
 		{
-		case KeyMod::L_SHIFT: return u8"Left Shift"sv;
-		case KeyMod::R_SHIFT: return u8"Right Shift"sv;
-		case KeyMod::L_CTRL: return u8"Left Ctrl"sv;
-		case KeyMod::R_CTRL: return u8"Right Ctrl"sv;
-		case KeyMod::L_ALT: return u8"Left Alt"sv;
-		case KeyMod::R_ALT: return u8"Right Alt"sv;
-		case KeyMod::L_GUI: return u8"Left GUI"sv;
-		case KeyMod::R_GUI: return u8"Right GUI"sv;
-		case KeyMod::NUM: return u8"Num Lock"sv;
-		case KeyMod::CAPS: return u8"Caps Lock"sv;
-		case KeyMod::MODE: return u8"AltGr"sv;
+		case KeyMod::L_SHIFT: return u8"L_SHIFT"sv;
+		case KeyMod::R_SHIFT: return u8"R_SHIFT"sv;
+		case KeyMod::L_CTRL: return u8"L_CTRL"sv;
+		case KeyMod::R_CTRL: return u8"R_CTRL"sv;
+		case KeyMod::L_ALT: return u8"L_ALT"sv;
+		case KeyMod::R_ALT: return u8"R_ALT"sv;
+		case KeyMod::L_GUI: return u8"L_GUI"sv;
+		case KeyMod::R_GUI: return u8"R_GUI"sv;
+		case KeyMod::NUM: return u8"NUM"sv;
+		case KeyMod::CAPS: return u8"CAPS"sv;
+		case KeyMod::MODE: return u8"MODE"sv;
 		default: return {};
 		}
 	}
