@@ -23,7 +23,7 @@ namespace oeng
 		return {};
 	}
 
-	DyArr<std::u8string_view> GetName(KeyMod mod) noexcept
+	DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept
 	{
 		static constexpr KeyMod mods[]
 		{
@@ -37,7 +37,7 @@ namespace oeng
 		DyArr<std::u8string_view> names;
 		
 		for (auto m : mods) if ((mod & m) != KeyMod::NONE)
-			names.push_back(GetSingleName(m));
+			names.push_back(GetName(m));
 		
 		return names;
 	}
@@ -65,11 +65,6 @@ namespace oeng
 	static constexpr std::pair<std::u8string_view, T> ToPair(T code) noexcept
 	{
 		return {GetName(code), code};
-	}
-
-	static constexpr std::pair<std::u8string_view, KeyMod> ToPair(KeyMod code) noexcept
-	{
-		return {GetSingleName(code), code};
 	}
 
 	MouseAxis ToMouseAxis(std::u8string_view name) noexcept

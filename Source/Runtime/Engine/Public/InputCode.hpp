@@ -328,7 +328,7 @@ namespace oeng
 	OEAPI std::u8string GetName(Keycode btn) noexcept;
 	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
 	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
-	OEAPI DyArr<std::u8string_view> GetName(KeyMod btn) noexcept;
+	OEAPI DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;
 	
 	OEAPI Keycode ToKeycode(std::u8string_view name) noexcept;
 	OEAPI CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept;
@@ -337,7 +337,7 @@ namespace oeng
 	OEAPI MouseBtn ToMouseBtn(std::u8string_view name) noexcept;
 	OEAPI KeyMod ToKeyMod(std::u8string_view name) noexcept;
 
-	constexpr std::u8string_view GetSingleName(KeyMod mod) noexcept
+	constexpr std::u8string_view GetName(KeyMod mod) noexcept
 	{
 		switch (mod)
 		{
