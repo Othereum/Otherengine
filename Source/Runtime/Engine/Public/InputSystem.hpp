@@ -46,12 +46,16 @@ namespace oeng
 		void ClearEvents() { events_.clear(); }
 		void PostAddAllEvents();
 
-		void AddAxis(Name name, DyArr<InputAxis>&& keys)
-		{ axises_.emplace(name, std::move(keys)); }
+		bool AddAxis(Name name, DyArr<InputAxis>&& keys)
+		{
+			return axises_.insert_or_assign(name, std::move(keys)).second;
+		}
 		
-		void AddAction(Name name, DyArr<InputAction>&& keys)
-		{ actions_.emplace(name, std::move(keys)); }
-		
+		bool AddAction(Name name, DyArr<InputAction>&& keys)
+		{
+			return actions_.insert_or_assign(name, std::move(keys)).second;
+		}
+
 		[[nodiscard]] Float GetAxisValue(Name name) const;
 		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const;
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
