@@ -25,7 +25,7 @@ namespace oeng
 		return {};
 	}
 
-	std::u8string_view GetName(MouseAxis axis) noexcept
+	constexpr std::u8string_view GetName(MouseAxis axis) noexcept
 	{
 		switch (axis)
 		{
@@ -35,7 +35,7 @@ namespace oeng
 		}
 	}
 
-	std::u8string_view GetName(MouseBtn btn) noexcept
+	constexpr std::u8string_view GetName(MouseBtn btn) noexcept
 	{
 		switch (btn)
 		{
@@ -48,7 +48,7 @@ namespace oeng
 		}
 	}
 
-	static std::u8string_view GetSingleName(KeyMod mod) noexcept
+	constexpr static std::u8string_view GetSingleName(KeyMod mod) noexcept
 	{
 		switch (mod)
 		{
