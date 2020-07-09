@@ -110,12 +110,18 @@ namespace oeng
 		return std::nullopt;
 	}
 
+	template <class T>
+	static constexpr std::pair<std::u8string_view, T> ToPair(T code) noexcept
+	{
+		return {GetName(code), code};
+	}
+
 	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
 	{
 		static const HashMap<std::u8string_view, MouseAxis> map
 		{
-			{u8"X"sv, MouseAxis::X},
-			{u8"Y"sv, MouseAxis::Y}
+			ToPair(MouseAxis::X),
+			ToPair(MouseAxis::Y)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
 		return std::nullopt;
@@ -125,11 +131,11 @@ namespace oeng
 	{
 		static const HashMap<std::u8string_view, MouseBtn> map
 		{
-			{u8"L"sv, MouseBtn::L},
-			{u8"M"sv, MouseBtn::M},
-			{u8"R"sv, MouseBtn::R},
-			{u8"X1"sv, MouseBtn::X1},
-			{u8"X2"sv, MouseBtn::X2}
+			ToPair(MouseBtn::L),
+			ToPair(MouseBtn::M),
+			ToPair(MouseBtn::R),
+			ToPair(MouseBtn::X1),
+			ToPair(MouseBtn::X2)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
 		return std::nullopt;
