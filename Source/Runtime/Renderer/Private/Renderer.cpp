@@ -111,7 +111,7 @@ namespace oeng
 		glewExperimental = true;
 
 		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{AsString(glewGetErrorString(err))};
+			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
 		
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
