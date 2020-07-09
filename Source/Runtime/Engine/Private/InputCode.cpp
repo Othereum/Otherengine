@@ -123,6 +123,16 @@ namespace oeng
 
 	std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept
 	{
+		static const HashMap<std::u8string_view, MouseBtn> map
+		{
+			{u8"L"sv, MouseBtn::L},
+			{u8"M"sv, MouseBtn::M},
+			{u8"R"sv, MouseBtn::R},
+			{u8"X1"sv, MouseBtn::X1},
+			{u8"X2"sv, MouseBtn::X2}
+		};
+		if (const auto it = map.find(name); it != map.end()) return it->second;
+		return std::nullopt;
 	}
 
 	std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept
