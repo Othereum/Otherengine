@@ -1,4 +1,7 @@
 #pragma once
+#include <optional>
+#include "Core.hpp"
+#include "Templates/DyArr.hpp"
 
 namespace oeng
 {
@@ -43,8 +46,7 @@ namespace oeng
 		
 	    NUM = 0x1000,
 	    CAPS = 0x2000,
-	    MODE = 0x4000,
-	    RESERVED = 0x8000
+	    MODE = 0x4000
 	};
 
 	constexpr KeyMod operator|(KeyMod a, KeyMod b) noexcept
@@ -319,4 +321,19 @@ namespace oeng
 	    AUDIO_REWIND,
 	    AUDIO_FAST_FORWARD
 	};
+
+	
+	OEAPI std::u8string GetName(Keycode btn) noexcept;
+	OEAPI std::u8string_view GetName(ConAxis axis) noexcept;
+	OEAPI std::u8string_view GetName(ConBtn btn) noexcept;
+	OEAPI std::u8string_view GetName(MouseAxis axis) noexcept;
+	OEAPI std::u8string_view GetName(MouseBtn btn) noexcept;
+	OEAPI DyArr<std::u8string_view> GetName(KeyMod btn) noexcept;
+	
+	OEAPI std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
+	OEAPI std::optional<ConAxis> ToConAxis(std::u8string_view name) noexcept;
+	OEAPI std::optional<ConBtn> ToConBtn(std::u8string_view name) noexcept;
+	OEAPI std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
+	OEAPI std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
+	OEAPI std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;
 }
