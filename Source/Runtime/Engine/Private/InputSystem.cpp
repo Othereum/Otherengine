@@ -130,29 +130,41 @@ namespace oeng
 		}
 	}
 
+	template <class Map>
+	static void LoadInput(const Json& config, const char* key, Map& mapped)
+	{
+		const auto map = config.find(key);
+		if (map == config.end()) return;
+		
+		for (auto& [name, inputs] : map->items()) try
+		{
+			auto& arr = mapped[AsString8(name)];
+			const auto size = inputs.size();
+			for (size_t i=0; i<size; ++i) try
+			{
+				using Input = typename Map::mapped_type::value_type;
+				arr.emplace_back(inputs[i].get<Input>());
+			}
+			catch (const std::exception& e)
+			{
+				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}",
+					AsString8(key), AsString8(name), i, What(e));
+			}
+		}
+		catch (const std::exception& e)
+		{
+			// TODO
+		}
+	}
+
 	InputSystem::InputSystem(Engine& engine)
 		:engine_{engine}
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 
-		auto& config = engine.Config(u8"Input");
-		auto load = [&]<class Key, class Map>(Key&& key, Map& mapped)
-		{
-			const auto map = config.find(std::forward<Key>(key));
-			if (map == config.end()) return;
-			
-			for (auto& [name, inputs] : map->items())
-			{
-				auto& arr = mapped[AsString8(name)];
-				for (auto& input : inputs)
-				{
-					using Input = typename Map::mapped_type::value_type;
-					arr.emplace_back(input.template get<Input>());
-				}
-			}
-		};
-		load("ActionMap", actions_);
-		load("AxisMap", axises_);
+		const auto& config = engine.Config(u8"Input");
+		LoadInput(config, "ActionMap", actions_);
+		LoadInput(config, "AxisMap", axises_);
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
