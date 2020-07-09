@@ -135,8 +135,8 @@ namespace oeng
 	{
 		const auto map = config.find(key);
 		if (map == config.end()) return;
-		
-		for (auto& [name, inputs] : map->items()) try
+
+		for (auto& [name, inputs] : map->items())
 		{
 			auto& arr = mapped[AsString8(name)];
 			const auto size = inputs.size();
@@ -150,10 +150,6 @@ namespace oeng
 				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}",
 					AsString8(key), AsString8(name), i, What(e));
 			}
-		}
-		catch (const std::exception& e)
-		{
-			// TODO
 		}
 	}
 
@@ -248,9 +244,9 @@ namespace oeng
 	{
 		const Name conf_name = u8"Input";
 		auto& config = engine_.Config(conf_name);
-		auto save = [&]<class T>(T&& key, const auto& mapped)
+		auto save = [&](const char* key, const auto& mapped)
 		{
-			auto& map = config[std::forward<T>(key)];
+			auto& map = config[key];
 			for (auto& [name, inputs] : mapped)
 			{
 				auto& out_inputs = map[AsString(*name)];
