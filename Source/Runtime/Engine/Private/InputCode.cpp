@@ -104,6 +104,10 @@ namespace oeng
 
 	std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept
 	{
+		const auto str = reinterpret_cast<const char*>(name.data());
+		const auto axis = SDL_GameControllerGetButtonFromString(str);
+		if (axis != SDL_CONTROLLER_BUTTON_INVALID) return CtrlBtn(axis);
+		return std::nullopt;
 	}
 
 	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
