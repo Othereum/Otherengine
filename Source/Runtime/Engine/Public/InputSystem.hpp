@@ -11,38 +11,31 @@ namespace oeng
 {
 	class Engine;
 
+	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
+
 	struct InputAxis
 	{
-		using Code = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
-
-		template <std::convertible_to<Code> T>
+		template <std::convertible_to<InputCode> T>
 		constexpr InputAxis(T code, Float scale) noexcept
 			:code{code}, scale{scale}
 		{
 		}
 		
-		Code code;
+		InputCode code;
 		Float scale;
 	};
 
 	struct InputAction
 	{
-		using Code = std::variant<Keycode, MouseBtn, CtrlBtn>;
-
-		template <std::convertible_to<Code> T>
+		template <std::convertible_to<InputCode> T>
 		constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
 			:code{code}, mod{mod}
 		{
 		}
 		
-		Code code;
+		InputCode code;
 		KeyMod mod;
 	};
-
-	OEAPI void from_json(const Json& json, InputAxis& axis);
-	OEAPI void from_json(const Json& json, InputAction& action);
-	OEAPI void to_json(Json& json, const InputAxis& axis);
-	OEAPI void to_json(Json& json, const InputAction& action);
 
 	class OEAPI InputSystem
 	{

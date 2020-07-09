@@ -48,13 +48,38 @@ namespace oeng
 		return false;
 	}
 
+	void from_json(const Json& json, InputCode& axis)
+	{
+		static const std::unordered_map<std::string_view, std::function<InputCode(const Json&)>> parsers
+		{
+			{"Keycode"sv, ToKeycode},
+			{"MouseBtn"sv, ToMouseBtn},
+			{"CtrlBtn"sv, ToCtrlBtn},
+			{"MouseAxis"sv, ToMouseAxis},
+			{"CtrlAxis"sv, ToCtrlAxis},
+		};
+
+		axis = parsers.at(json.at("Type"))(json.at("Code"));
+	}
+
 	void from_json(const Json& json, InputAxis& axis)
 	{
-		
+		axis.code = json;
+		axis.scale = json.at("Scale");
 	}
 
 	void from_json(const Json& json, InputAction& action)
 	{
+		action.code = json;
+		for (auto& mod : json.at("Mods"))
+		{
+			action.mod |= ToKeyMod(mod);
+		}
+	}
+
+	void to_json(Json& json, const InputCode& axis)
+	{
+		
 	}
 
 	void to_json(Json& json, const InputAxis& axis)
