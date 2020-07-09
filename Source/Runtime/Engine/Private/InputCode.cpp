@@ -4,8 +4,6 @@
 
 namespace oeng
 {
-	using namespace std::literals;
-
 	std::u8string GetName(Keycode btn) noexcept
 	{
 		return reinterpret_cast<const char8_t*>(SDL_GetKeyName(SDL_Keycode(btn)));
@@ -23,48 +21,6 @@ namespace oeng
 		const auto s = SDL_GameControllerGetStringForButton(SDL_GameControllerButton(btn));
 		if (s) return reinterpret_cast<const char8_t*>(s);
 		return {};
-	}
-
-	constexpr std::u8string_view GetName(MouseAxis axis) noexcept
-	{
-		switch (axis)
-		{
-		case MouseAxis::X: return u8"X"sv;
-		case MouseAxis::Y: return u8"Y"sv;
-		default: return {};
-		}
-	}
-
-	constexpr std::u8string_view GetName(MouseBtn btn) noexcept
-	{
-		switch (btn)
-		{
-		case MouseBtn::L: return u8"L"sv;
-		case MouseBtn::M: return u8"M"sv;
-		case MouseBtn::R: return u8"R"sv;
-		case MouseBtn::X1: return u8"X1"sv;
-		case MouseBtn::X2: return u8"X2"sv;
-		default: return {};
-		}
-	}
-
-	constexpr static std::u8string_view GetSingleName(KeyMod mod) noexcept
-	{
-		switch (mod)
-		{
-		case KeyMod::L_SHIFT: return u8"Left Shift"sv;
-		case KeyMod::R_SHIFT: return u8"Right Shift"sv;
-		case KeyMod::L_CTRL: return u8"Left Ctrl"sv;
-		case KeyMod::R_CTRL: return u8"Right Ctrl"sv;
-		case KeyMod::L_ALT: return u8"Left Alt"sv;
-		case KeyMod::R_ALT: return u8"Right Alt"sv;
-		case KeyMod::L_GUI: return u8"Left GUI"sv;
-		case KeyMod::R_GUI: return u8"Right GUI"sv;
-		case KeyMod::NUM: return u8"Num Lock"sv;
-		case KeyMod::CAPS: return u8"Caps Lock"sv;
-		case KeyMod::MODE: return u8"AltGr"sv;
-		default: assert(false); return {};
-		}
 	}
 
 	DyArr<std::u8string_view> GetName(KeyMod mod) noexcept
@@ -87,27 +43,22 @@ namespace oeng
 	}
 
 
-	std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept
-	{
-		const auto key = SDL_GetKeyFromName(reinterpret_cast<const char*>(name.data()));
-		if (key != SDLK_UNKNOWN) return Keycode(key);
-		return std::nullopt;
-	}
-
-	std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept
+	Keycode ToKeycode(std::u8string_view name) noexcept
 	{
 		const auto str = reinterpret_cast<const char*>(name.data());
-		const auto axis = SDL_GameControllerGetAxisFromString(str);
-		if (axis != SDL_CONTROLLER_AXIS_INVALID) return CtrlAxis(axis);
-		return std::nullopt;
+		return Keycode(SDL_GetKeyFromName(str));
 	}
 
-	std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept
+	CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept
 	{
 		const auto str = reinterpret_cast<const char*>(name.data());
-		const auto axis = SDL_GameControllerGetButtonFromString(str);
-		if (axis != SDL_CONTROLLER_BUTTON_INVALID) return CtrlBtn(axis);
-		return std::nullopt;
+		return CtrlAxis(SDL_GameControllerGetAxisFromString(str));
+	}
+
+	CtrlBtn ToCtrlBtn(std::u8string_view name) noexcept
+	{
+		const auto str = reinterpret_cast<const char*>(name.data());
+		return CtrlBtn(SDL_GameControllerGetButtonFromString(str));
 	}
 
 	template <class T>
@@ -121,7 +72,7 @@ namespace oeng
 		return {GetSingleName(code), code};
 	}
 
-	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
+	MouseAxis ToMouseAxis(std::u8string_view name) noexcept
 	{
 		static const HashMap<std::u8string_view, MouseAxis> map
 		{
@@ -129,10 +80,10 @@ namespace oeng
 			ToPair(MouseAxis::Y)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return std::nullopt;
+		return MouseAxis::INVALID;
 	}
 
-	std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept
+	MouseBtn ToMouseBtn(std::u8string_view name) noexcept
 	{
 		static const HashMap<std::u8string_view, MouseBtn> map
 		{
@@ -143,10 +94,10 @@ namespace oeng
 			ToPair(MouseBtn::X2)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return std::nullopt;
+		return MouseBtn::INVALID;
 	}
 
-	std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept
+	KeyMod ToKeyMod(std::u8string_view name) noexcept
 	{
 		static const HashMap<std::u8string_view, KeyMod> map
 		{
@@ -163,6 +114,6 @@ namespace oeng
 			ToPair(KeyMod::MODE)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return std::nullopt;
+		return KeyMod::NONE;
 	}
 }

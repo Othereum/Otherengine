@@ -328,14 +328,54 @@ namespace oeng
 	OEAPI std::u8string GetName(Keycode btn) noexcept;
 	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
 	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
-	OEAPI std::u8string_view GetName(MouseAxis axis) noexcept;
-	OEAPI std::u8string_view GetName(MouseBtn btn) noexcept;
 	OEAPI DyArr<std::u8string_view> GetName(KeyMod btn) noexcept;
 	
-	OEAPI std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
-	OEAPI std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept;
-	OEAPI std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept;
-	OEAPI std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
-	OEAPI std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
-	OEAPI std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;
+	OEAPI Keycode ToKeycode(std::u8string_view name) noexcept;
+	OEAPI CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept;
+	OEAPI CtrlBtn ToCtrlBtn(std::u8string_view name) noexcept;
+	OEAPI MouseAxis ToMouseAxis(std::u8string_view name) noexcept;
+	OEAPI MouseBtn ToMouseBtn(std::u8string_view name) noexcept;
+	OEAPI KeyMod ToKeyMod(std::u8string_view name) noexcept;
+
+	constexpr std::u8string_view GetSingleName(KeyMod mod) noexcept
+	{
+		switch (mod)
+		{
+		case KeyMod::L_SHIFT: return u8"Left Shift"sv;
+		case KeyMod::R_SHIFT: return u8"Right Shift"sv;
+		case KeyMod::L_CTRL: return u8"Left Ctrl"sv;
+		case KeyMod::R_CTRL: return u8"Right Ctrl"sv;
+		case KeyMod::L_ALT: return u8"Left Alt"sv;
+		case KeyMod::R_ALT: return u8"Right Alt"sv;
+		case KeyMod::L_GUI: return u8"Left GUI"sv;
+		case KeyMod::R_GUI: return u8"Right GUI"sv;
+		case KeyMod::NUM: return u8"Num Lock"sv;
+		case KeyMod::CAPS: return u8"Caps Lock"sv;
+		case KeyMod::MODE: return u8"AltGr"sv;
+		default: return {};
+		}
+	}
+
+	constexpr std::u8string_view GetName(MouseAxis axis) noexcept
+	{
+		switch (axis)
+		{
+		case MouseAxis::X: return u8"X"sv;
+		case MouseAxis::Y: return u8"Y"sv;
+		default: return {};
+		}
+	}
+
+	constexpr std::u8string_view GetName(MouseBtn btn) noexcept
+	{
+		switch (btn)
+		{
+		case MouseBtn::L: return u8"L"sv;
+		case MouseBtn::M: return u8"M"sv;
+		case MouseBtn::R: return u8"R"sv;
+		case MouseBtn::X1: return u8"X1"sv;
+		case MouseBtn::X2: return u8"X2"sv;
+		default: return {};
+		}
+	}
 }
