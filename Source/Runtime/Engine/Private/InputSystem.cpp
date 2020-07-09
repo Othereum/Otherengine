@@ -1,5 +1,7 @@
 #include "InputSystem.hpp"
 #include <SDL2/SDL_events.h>
+#include "Debug.hpp"
+#include "Engine.hpp"
 #include "Math.hpp"
 
 namespace oeng
@@ -42,14 +44,40 @@ namespace oeng
 	{
 		for (const auto& key : keys)
 			if (event.code == key.code && (event.mod & key.mod) == key.mod)
-				return true;		
+				return true;
 		return false;
 	}
 
-	InputSystem::InputSystem()
+	void from_json(const Json& json, InputAxis& axis)
 	{
-		if (0 != SDL_SetRelativeMouseMode(SDL_TRUE))
-			throw std::runtime_error{SDL_GetError()};
+		
+	}
+
+	void from_json(const Json& json, InputAction& action)
+	{
+	}
+
+	void to_json(Json& json, const InputAxis& axis)
+	{
+	}
+
+	void to_json(Json& json, const InputAction& action)
+	{
+	}
+
+	InputSystem::InputSystem(Engine& engine)
+	{
+		SHOULD(0 != SDL_SetRelativeMouseMode(SDL_TRUE), reinterpret_cast<const char8_t*>(SDL_GetError()));
+
+		auto& config = engine.Config(u8"Input");
+		const auto mapping = config.find("Mapping");
+		if (mapping != config.end())
+		{
+			for (auto& [key, val] : mapping->items())
+			{
+				
+			}
+		}
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
@@ -94,7 +122,7 @@ namespace oeng
 		auto it = axises_.find(name);
 		if (it == axises_.end()) return 0;
 
-		auto val = 0.f;
+		auto val = 0_f;
 		for (const auto& axis : it->second)
 		{
 			val += GetAxisValue(axis);
@@ -114,7 +142,7 @@ namespace oeng
 			
 			[&](Keycode code)
 			{
-				const auto scan = SDL_GetScancodeFromKey(static_cast<int>(code));
+				const auto scan = SDL_GetScancodeFromKey(SDL_Keycode(code));
 				return SDL_GetKeyboardState(nullptr)[scan] ? axis.scale : 0;
 			},
 			

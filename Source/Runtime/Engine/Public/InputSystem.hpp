@@ -9,6 +9,8 @@ union SDL_Event;
 
 namespace oeng
 {
+	class Engine;
+
 	struct InputAxis
 	{
 		using Code = std::variant<Keycode, MouseBtn, ConBtn, MouseAxis, ConAxis>;
@@ -37,10 +39,15 @@ namespace oeng
 		KeyMod mod;
 	};
 
+	OEAPI void from_json(const Json& json, InputAxis& axis);
+	OEAPI void from_json(const Json& json, InputAction& action);
+	OEAPI void to_json(Json& json, const InputAxis& axis);
+	OEAPI void to_json(Json& json, const InputAction& action);
+
 	class OEAPI InputSystem
 	{
 	public:
-		InputSystem();
+		explicit InputSystem(Engine& engine);
 		
 		void AddEvent(const SDL_Event& e);
 		void ClearEvents();
