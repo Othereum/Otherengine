@@ -89,10 +89,14 @@ namespace oeng
 
 	std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept
 	{
+		const auto key = SDL_GetKeyFromName(reinterpret_cast<const char*>(name.data()));
+		if (key != SDLK_UNKNOWN) return Keycode(key);
+		return std::nullopt;
 	}
 
 	std::optional<ConAxis> ToConAxis(std::u8string_view name) noexcept
 	{
+		
 	}
 
 	std::optional<ConBtn> ToConBtn(std::u8string_view name) noexcept
