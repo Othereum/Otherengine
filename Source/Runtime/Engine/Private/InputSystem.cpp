@@ -110,7 +110,7 @@ namespace oeng
 
 	InputSystem::InputSystem(Engine& engine)
 	{
-		SHOULD(0 != SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
+		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 		
 		auto& config = engine.Config(u8"Input");
 		auto load = [&]<class T>(T&& key, auto& mapped)
