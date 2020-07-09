@@ -116,6 +116,11 @@ namespace oeng
 		return {GetName(code), code};
 	}
 
+	static constexpr std::pair<std::u8string_view, KeyMod> ToPair(KeyMod code) noexcept
+	{
+		return {GetSingleName(code), code};
+	}
+
 	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
 	{
 		static const HashMap<std::u8string_view, MouseAxis> map
@@ -143,5 +148,21 @@ namespace oeng
 
 	std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept
 	{
+		static const HashMap<std::u8string_view, KeyMod> map
+		{
+			ToPair(KeyMod::L_SHIFT),
+			ToPair(KeyMod::R_SHIFT),
+			ToPair(KeyMod::L_CTRL),
+			ToPair(KeyMod::R_CTRL),
+			ToPair(KeyMod::L_ALT),
+			ToPair(KeyMod::R_ALT),
+			ToPair(KeyMod::L_GUI),
+			ToPair(KeyMod::R_GUI),
+			ToPair(KeyMod::NUM),
+			ToPair(KeyMod::CAPS),
+			ToPair(KeyMod::MODE)
+		};
+		if (const auto it = map.find(name); it != map.end()) return it->second;
+		return std::nullopt;
 	}
 }
