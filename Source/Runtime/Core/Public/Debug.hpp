@@ -62,3 +62,8 @@
  */
 #define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())
 
+/**
+ * \brief SHOULD() can be used to test for *non-fatal* errors at runtime.
+ * Rather than crashing, an error will be logged.
+ */
+#define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))
