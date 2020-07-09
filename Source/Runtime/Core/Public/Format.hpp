@@ -7,6 +7,7 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
+#include "Templates/String.hpp"
 
 namespace oeng
 {
