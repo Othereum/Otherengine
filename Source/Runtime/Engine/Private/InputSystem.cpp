@@ -78,10 +78,10 @@ namespace oeng
 	void from_json(const Json& json, InputAction& action)
 	{
 		action.code = json;
-		for (auto& mod : json.at("Mods"))
-		{
-			action.mod |= ToKeyMod(AsString8(mod));
-		}
+		
+		if (const auto mods = json.find("Mods"); mods != json.end())
+			for (auto& mod : mods.value())
+				action.mod |= ToKeyMod(AsString8(mod));
 	}
 
 	void to_json(Json& json, const InputCode& code)
@@ -105,7 +105,16 @@ namespace oeng
 	void to_json(Json& json, const InputAction& action)
 	{
 		json = action.code;
-		json["Mods"] = GetNames(action.mod);
+		
+		if (auto mods = GetNames(action.mod); mods.empty())
+		{
+			json.erase("Mods");
+		}
+		else
+		{
+			auto& out = json["Mods"];
+			for (const auto mod : mods) out.emplace_back(AsString(mod));
+		}
 	}
 
 	InputSystem::InputSystem(Engine& engine)
