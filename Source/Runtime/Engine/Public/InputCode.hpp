@@ -59,7 +59,11 @@ namespace oeng
 	{
 		return KeyMod(static_cast<int>(a) & static_cast<int>(b));
 	}
+	
+	constexpr KeyMod& operator|=(KeyMod& a, KeyMod b) noexcept { return a = a | b; }
+	constexpr KeyMod& operator&=(KeyMod& a, KeyMod b) noexcept { return a = a & b; }
 
+	
 	constexpr int ScanToKey(int scan) noexcept
 	{
 		return (1 << 30) | scan;
