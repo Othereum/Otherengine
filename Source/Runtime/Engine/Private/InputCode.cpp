@@ -1,6 +1,6 @@
 #include "InputCode.hpp"
+#include <unordered_map>
 #include <SDL2/SDL.h>
-#include "Templates/HashMap.hpp"
 
 namespace oeng
 {
@@ -69,7 +69,7 @@ namespace oeng
 
 	MouseAxis ToMouseAxis(std::u8string_view name) noexcept
 	{
-		static const HashMap<std::u8string_view, MouseAxis> map
+		static const std::unordered_map<std::u8string_view, MouseAxis> map
 		{
 			ToPair(MouseAxis::X),
 			ToPair(MouseAxis::Y)
@@ -80,7 +80,7 @@ namespace oeng
 
 	MouseBtn ToMouseBtn(std::u8string_view name) noexcept
 	{
-		static const HashMap<std::u8string_view, MouseBtn> map
+		static const std::unordered_map<std::u8string_view, MouseBtn> map
 		{
 			ToPair(MouseBtn::L),
 			ToPair(MouseBtn::M),
@@ -94,7 +94,7 @@ namespace oeng
 
 	KeyMod ToKeyMod(std::u8string_view name) noexcept
 	{
-		static const HashMap<std::u8string_view, KeyMod> map
+		static const std::unordered_map<std::u8string_view, KeyMod> map
 		{
 			ToPair(KeyMod::L_SHIFT),
 			ToPair(KeyMod::R_SHIFT),
