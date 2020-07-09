@@ -31,7 +31,7 @@ namespace oeng
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
 			return ParsedEvent{
-				InputAction{ConBtn(e.cbutton.button), KeyMod(SDL_GetModState())},
+				InputAction{CtrlBtn(e.cbutton.button), KeyMod(SDL_GetModState())},
 				!!e.cbutton.state
 			};
 
@@ -152,7 +152,7 @@ namespace oeng
 				return cur_btn & MouseMask(code) ? axis.scale : 0;
 			},
 			
-			[&](ConBtn code)
+			[&](CtrlBtn code)
 			{
 				const auto btn = SDL_GameControllerButton(code);
 				return SDL_GameControllerGetButton(nullptr, btn) ? axis.scale : 0;
@@ -168,7 +168,7 @@ namespace oeng
 				}
 			},
 			
-			[&](ConAxis code)
+			[&](CtrlAxis code)
 			{
 				constexpr auto min = 328_f, max = 32440_f;
 				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(code));

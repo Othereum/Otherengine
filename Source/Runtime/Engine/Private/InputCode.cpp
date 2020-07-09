@@ -11,14 +11,14 @@ namespace oeng
 		return reinterpret_cast<const char8_t*>(SDL_GetKeyName(SDL_Keycode(btn)));
 	}
 
-	std::u8string_view GetName(ConAxis axis) noexcept
+	std::u8string_view GetName(CtrlAxis axis) noexcept
 	{
 		const auto s = SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis(axis));
 		if (s) return reinterpret_cast<const char8_t*>(s);
 		return {};
 	}
 
-	std::u8string_view GetName(ConBtn btn) noexcept
+	std::u8string_view GetName(CtrlBtn btn) noexcept
 	{
 		const auto s = SDL_GameControllerGetStringForButton(SDL_GameControllerButton(btn));
 		if (s) return reinterpret_cast<const char8_t*>(s);
@@ -94,15 +94,15 @@ namespace oeng
 		return std::nullopt;
 	}
 
-	std::optional<ConAxis> ToConAxis(std::u8string_view name) noexcept
+	std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept
 	{
 		const auto str = reinterpret_cast<const char*>(name.data());
 		const auto axis = SDL_GameControllerGetAxisFromString(str);
-		if (axis != SDL_CONTROLLER_AXIS_INVALID) return ConAxis(axis);
+		if (axis != SDL_CONTROLLER_AXIS_INVALID) return CtrlAxis(axis);
 		return std::nullopt;
 	}
 
-	std::optional<ConBtn> ToConBtn(std::u8string_view name) noexcept
+	std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept
 	{
 	}
 

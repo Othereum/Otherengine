@@ -5,8 +5,8 @@
 
 namespace oeng
 {
-	enum class ConAxis { LX, LY, RX, RY, LT, RT };
-	enum class ConBtn
+	enum class CtrlAxis { LX, LY, RX, RY, LT, RT };
+	enum class CtrlBtn
 	{
 	    A, B, X, Y,
 	    BACK, GUIDE, START,
@@ -324,15 +324,15 @@ namespace oeng
 
 	
 	OEAPI std::u8string GetName(Keycode btn) noexcept;
-	OEAPI std::u8string_view GetName(ConAxis axis) noexcept;
-	OEAPI std::u8string_view GetName(ConBtn btn) noexcept;
+	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
+	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
 	OEAPI std::u8string_view GetName(MouseAxis axis) noexcept;
 	OEAPI std::u8string_view GetName(MouseBtn btn) noexcept;
 	OEAPI DyArr<std::u8string_view> GetName(KeyMod btn) noexcept;
 	
 	OEAPI std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
-	OEAPI std::optional<ConAxis> ToConAxis(std::u8string_view name) noexcept;
-	OEAPI std::optional<ConBtn> ToConBtn(std::u8string_view name) noexcept;
+	OEAPI std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept;
+	OEAPI std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept;
 	OEAPI std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
 	OEAPI std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
 	OEAPI std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;

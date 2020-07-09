@@ -13,7 +13,7 @@ namespace oeng
 
 	struct InputAxis
 	{
-		using Code = std::variant<Keycode, MouseBtn, ConBtn, MouseAxis, ConAxis>;
+		using Code = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
 
 		template <std::convertible_to<Code> T>
 		constexpr InputAxis(T code, Float scale) noexcept
@@ -27,7 +27,7 @@ namespace oeng
 
 	struct InputAction
 	{
-		using Code = std::variant<Keycode, MouseBtn, ConBtn>;
+		using Code = std::variant<Keycode, MouseBtn, CtrlBtn>;
 
 		template <std::convertible_to<Code> T>
 		constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
