@@ -58,9 +58,12 @@ namespace oeng
 
 		[[nodiscard]] Float GetAxisValue(Name name) const;
 		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const;
+		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
 		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
+
+		void SaveConfig();
 
 	private:
 		struct InputEvent
@@ -69,6 +72,7 @@ namespace oeng
 			bool pressed;
 		};
 
+		Engine& engine_;
 		DyArr<InputEvent> events_;
 		HashMap<Name, DyArr<InputAxis>> axises_;
 		HashMap<Name, DyArr<InputAction>> actions_;

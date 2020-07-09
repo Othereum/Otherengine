@@ -118,6 +118,7 @@ namespace oeng
 	}
 
 	InputSystem::InputSystem(Engine& engine)
+		:engine_{engine}
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 		
@@ -216,5 +217,24 @@ namespace oeng
 			}
 			
 		}, axis.code);
+	}
+
+	void InputSystem::SaveConfig()
+	{
+		const Name conf_name = u8"Input";
+		auto& config = engine_.Config(conf_name);
+		auto save = [&]<class T>(T&& key, const auto& mapped)
+		{
+			auto& map = config[std::forward<T>(key)];
+			for (auto& [name, inputs] : mapped)
+			{
+				auto& out_inputs = map[AsString(*name)];
+				out_inputs = {};
+				for (auto& input : inputs) out_inputs.emplace_back(input);
+			}
+		};
+		save("ActionMap", actions_);
+		save("AxisMap", axises_);
+		engine_.SaveConfig(conf_name);
 	}
 }
