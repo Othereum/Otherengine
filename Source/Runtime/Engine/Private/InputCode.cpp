@@ -112,6 +112,13 @@ namespace oeng
 
 	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
 	{
+		static const HashMap<std::u8string_view, MouseAxis> map
+		{
+			{u8"X"sv, MouseAxis::X},
+			{u8"Y"sv, MouseAxis::Y}
+		};
+		if (const auto it = map.find(name); it != map.end()) return it->second;
+		return std::nullopt;
 	}
 
 	std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept
