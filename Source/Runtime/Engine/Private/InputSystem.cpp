@@ -112,17 +112,20 @@ namespace oeng
 	{
 		SHOULD(0 != SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 		
-		/*
 		auto& config = engine.Config(u8"Input");
-		const auto mapping = config.find("Mapping");
-		if (mapping != config.end())
+		auto load = [&]<class T>(T&& key, auto& mapped)
 		{
-			for (auto& [key, val] : mapping->items())
+			const auto map = config.find(std::forward<T>(key));
+			if (map == config.end()) return;
+			
+			for (auto& [name, inputs] : map->items())
 			{
-				
+				auto& arr = mapped[AsString8(name)];
+				for (auto& input : inputs) arr.emplace_back(input);
 			}
-		}
-		*/
+		};
+		load("ActionMap", actions_);
+		load("AxisMap", axises_);
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
