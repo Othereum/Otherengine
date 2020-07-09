@@ -96,7 +96,10 @@ namespace oeng
 
 	std::optional<ConAxis> ToConAxis(std::u8string_view name) noexcept
 	{
-		
+		const auto str = reinterpret_cast<const char*>(name.data());
+		const auto axis = SDL_GameControllerGetAxisFromString(str);
+		if (axis != SDL_CONTROLLER_AXIS_INVALID) return ConAxis(axis);
+		return std::nullopt;
 	}
 
 	std::optional<ConBtn> ToConBtn(std::u8string_view name) noexcept
