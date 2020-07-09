@@ -6,6 +6,12 @@
 
 namespace oeng
 {
+	template <class... Ts>
+	struct Overload : Ts... { using Ts::operator()...; };
+
+	template <class... Ts>
+	Overload(Ts...) -> Overload<Ts...>;
+
 	struct ParsedEvent
 	{
 		InputAction input;
@@ -48,9 +54,9 @@ namespace oeng
 		return false;
 	}
 
-	void from_json(const Json& json, InputCode& axis)
+	void from_json(const Json& json, InputCode& code)
 	{
-		static const std::unordered_map<std::string_view, std::function<InputCode(const Json&)>> parsers
+		static const std::unordered_map<std::string_view, std::function<InputCode(std::u8string_view)>> parsers
 		{
 			{"Keycode"sv, ToKeycode},
 			{"MouseBtn"sv, ToMouseBtn},
@@ -59,7 +65,8 @@ namespace oeng
 			{"CtrlAxis"sv, ToCtrlAxis},
 		};
 
-		axis = parsers.at(json.at("Type"))(json.at("Code"));
+		auto name = json.at("Code").get<std::string>();
+		code = parsers.at(json.at("Type"))(AsString8(std::move(name)));
 	}
 
 	void from_json(const Json& json, InputAxis& axis)
@@ -77,23 +84,35 @@ namespace oeng
 		}
 	}
 
-	void to_json(Json& json, const InputCode& axis)
+	void to_json(Json& json, const InputCode& code)
 	{
-		
+		json["Code"] = AsString(std::visit<String8>([](auto code) { return GetName(code); }, code));
+		json["Type"] = std::visit(Overload{
+			[](Keycode) { return "Keycode"s; },
+			[](MouseBtn) { return "MouseBtn"s; },
+			[](CtrlBtn) { return "CtrlBtn"s; },
+			[](MouseAxis) { return "MouseAxis"s; },
+			[](CtrlAxis) { return "CtrlAxis"s; },
+		}, code);
 	}
 
 	void to_json(Json& json, const InputAxis& axis)
 	{
+		json = axis.code;
+		json["Scale"] = axis.scale;
 	}
 
 	void to_json(Json& json, const InputAction& action)
 	{
+		json = action.code;
+		json["Mods"] = GetNames(action.mod);
 	}
 
 	InputSystem::InputSystem(Engine& engine)
 	{
-		SHOULD(0 != SDL_SetRelativeMouseMode(SDL_TRUE), reinterpret_cast<const char8_t*>(SDL_GetError()));
-
+		SHOULD(0 != SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
+		
+		/*
 		auto& config = engine.Config(u8"Input");
 		const auto mapping = config.find("Mapping");
 		if (mapping != config.end())
@@ -103,6 +122,7 @@ namespace oeng
 				
 			}
 		}
+		*/
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
@@ -154,12 +174,6 @@ namespace oeng
 		}
 		return val;
 	}
-
-	template <class... Ts>
-	struct Overload : Ts... { using Ts::operator()...; };
-
-	template <class... Ts>
-	Overload(Ts...) -> Overload<Ts...>;
 
 	Float InputSystem::GetAxisValue(const InputAxis& axis) const
 	{
