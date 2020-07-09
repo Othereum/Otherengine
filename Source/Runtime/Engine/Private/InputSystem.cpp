@@ -80,13 +80,13 @@ namespace oeng
 		action.code = json;
 		for (auto& mod : json.at("Mods"))
 		{
-			action.mod |= ToKeyMod(mod);
+			action.mod |= ToKeyMod(AsString8(mod));
 		}
 	}
 
 	void to_json(Json& json, const InputCode& code)
 	{
-		json["Code"] = AsString(std::visit<String8>([](auto code) { return GetName(code); }, code));
+		json["Code"] = AsString(std::visit([](auto code) { return String8{GetName(code)}; }, code));
 		json["Type"] = std::visit(Overload{
 			[](Keycode) { return "Keycode"s; },
 			[](MouseBtn) { return "MouseBtn"s; },
