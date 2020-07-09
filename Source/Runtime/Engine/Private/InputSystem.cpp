@@ -139,27 +139,12 @@ namespace oeng
 		}
 	}
 
-	void InputSystem::ClearEvents()
-	{
-		events_.clear();
-	}
-
 	void InputSystem::PostAddAllEvents()
 	{
 		int x, y;
 		SDL_GetRelativeMouseState(&x, &y);
 		mouse_.x = static_cast<float>(x);
 		mouse_.y = static_cast<float>(y);
-	}
-
-	void InputSystem::AddAxis(Name name, DyArr<InputAxis>&& keys)
-	{
-		axises_.emplace(name, std::move(keys));
-	}
-
-	void InputSystem::AddAction(Name name, DyArr<InputAction>&& keys)
-	{
-		actions_.emplace(name, std::move(keys));
 	}
 
 	Float InputSystem::GetAxisValue(Name name) const

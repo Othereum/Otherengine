@@ -43,11 +43,14 @@ namespace oeng
 		explicit InputSystem(Engine& engine);
 		
 		void AddEvent(const SDL_Event& e);
-		void ClearEvents();
+		void ClearEvents() { events_.clear(); }
 		void PostAddAllEvents();
 
-		void AddAxis(Name name, DyArr<InputAxis>&& keys);
-		void AddAction(Name name, DyArr<InputAction>&& keys);
+		void AddAxis(Name name, DyArr<InputAxis>&& keys)
+		{ axises_.emplace(name, std::move(keys)); }
+		
+		void AddAction(Name name, DyArr<InputAction>&& keys)
+		{ actions_.emplace(name, std::move(keys)); }
 		
 		[[nodiscard]] Float GetAxisValue(Name name) const;
 		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const;
