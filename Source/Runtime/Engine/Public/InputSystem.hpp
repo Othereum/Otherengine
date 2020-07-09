@@ -45,26 +45,16 @@ namespace oeng
 		void AddEvent(const SDL_Event& e);
 		void ClearEvents() { events_.clear(); }
 		void PostAddAllEvents();
-
-		bool AddAxis(Name name, DyArr<InputAxis>&& keys)
-		{
-			return axises_.insert_or_assign(name, std::move(keys)).second;
-		}
-		
-		bool AddAction(Name name, DyArr<InputAction>&& keys)
-		{
-			return actions_.insert_or_assign(name, std::move(keys)).second;
-		}
-
-		[[nodiscard]] Float GetAxisValue(Name name) const;
-		[[nodiscard]] Float GetAxisValue(const InputAxis& axis) const;
-		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
-		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
-		[[nodiscard]] auto& GetAxises() const noexcept { return axises_; }
-		[[nodiscard]] auto& GetActions() const noexcept { return actions_; }
-
 		void SaveConfig();
 
+		[[nodiscard]] Float GetAxisValue(Name name) const;
+		[[nodiscard]] Float GetAxisValue(InputAxis axis) const;
+		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
+		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
+
+		HashMap<Name, DyArr<InputAxis>> axises_;
+		HashMap<Name, DyArr<InputAction>> actions_;
+		
 	private:
 		struct InputEvent
 		{
@@ -74,8 +64,6 @@ namespace oeng
 
 		Engine& engine_;
 		DyArr<InputEvent> events_;
-		HashMap<Name, DyArr<InputAxis>> axises_;
-		HashMap<Name, DyArr<InputAction>> actions_;
 		struct { Float x, y; } mouse_{};
 	};
 }
