@@ -66,7 +66,8 @@ namespace oeng
 	Engine::Engine(void load_game(Engine&))
 		:configs_{LoadConfigs()},
 		renderer_{*this},
-		world_{*this}
+		world_{*this},
+		input_system_{*this}
 	{
 		log::Info(u8"Engine initialization successful.");
 		log::Info(u8"Loading game module...");
