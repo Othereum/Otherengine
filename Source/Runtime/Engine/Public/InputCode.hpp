@@ -1,13 +1,13 @@
 #pragma once
-#include <optional>
 #include "Core.hpp"
 #include "Templates/DyArr.hpp"
 
 namespace oeng
 {
-	enum class CtrlAxis { LX, LY, RX, RY, LT, RT };
+	enum class CtrlAxis { INVALID = -1, LX, LY, RX, RY, LT, RT };
 	enum class CtrlBtn
 	{
+		INVALID = -1,
 	    A, B, X, Y,
 	    BACK, GUIDE, START,
 	    LS, RS,
@@ -16,12 +16,12 @@ namespace oeng
 	};
 
 	
-	enum class MouseBtn { L = 1, M, R, X1, X2 };
-	enum class MouseAxis { X, Y };
+	enum class MouseBtn { INVALID, L, M, R, X1, X2 };
+	enum class MouseAxis { INVALID = -1, X, Y };
 
 	constexpr uint32_t MouseMask(MouseBtn btn) noexcept
 	{
-		return 1u << (static_cast<uint32_t>(btn) - 1u);
+		return 1u << (uint32_t(btn) - 1u);
 	}
 
 	
@@ -51,12 +51,12 @@ namespace oeng
 
 	constexpr KeyMod operator|(KeyMod a, KeyMod b) noexcept
 	{
-		return static_cast<KeyMod>(static_cast<int>(a) | static_cast<int>(b));
+		return KeyMod(static_cast<int>(a) | static_cast<int>(b));
 	}
 
 	constexpr KeyMod operator&(KeyMod a, KeyMod b) noexcept
 	{
-		return static_cast<KeyMod>(static_cast<int>(a) & static_cast<int>(b));
+		return KeyMod(static_cast<int>(a) & static_cast<int>(b));
 	}
 
 	constexpr int ScanToKey(int scan) noexcept
@@ -66,6 +66,8 @@ namespace oeng
 
 	enum class Keycode
 	{
+		UNKNOWN,
+		
 	    RETURN = '\r',
 	    ESCAPE = '\033',
 	    BACKSPACE = '\b',
