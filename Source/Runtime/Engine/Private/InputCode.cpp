@@ -1,6 +1,7 @@
 #include "InputCode.hpp"
 #include <unordered_map>
-#include <SDL2/SDL.h>
+#include <SDL_keyboard.h>
+#include <SDL_gamecontroller.h>
 
 namespace oeng
 {
@@ -43,22 +44,28 @@ namespace oeng
 	}
 
 
-	Keycode ToKeycode(std::u8string_view name) noexcept
+	std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept
 	{
 		const auto str = AsString(name.data());
-		return Keycode(SDL_GetKeyFromName(str));
+		const auto key = SDL_GetKeyFromName(str);
+		if (key != SDLK_UNKNOWN) return Keycode(key);
+		return std::nullopt;
 	}
 
-	CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept
+	std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept
 	{
 		const auto str = AsString(name.data());
-		return CtrlAxis(SDL_GameControllerGetAxisFromString(str));
+		const auto axis = SDL_GameControllerGetAxisFromString(str);
+		if (axis != SDL_CONTROLLER_AXIS_INVALID) return CtrlAxis(axis);
+		return std::nullopt;
 	}
 
-	CtrlBtn ToCtrlBtn(std::u8string_view name) noexcept
+	std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept
 	{
 		const auto str = AsString(name.data());
-		return CtrlBtn(SDL_GameControllerGetButtonFromString(str));
+		const auto btn = SDL_GameControllerGetButtonFromString(str);
+		if (btn != SDL_CONTROLLER_BUTTON_INVALID) return CtrlBtn(btn);
+		return std::nullopt;
 	}
 
 	template <class T>
@@ -67,7 +74,7 @@ namespace oeng
 		return {GetName(code), code};
 	}
 
-	MouseAxis ToMouseAxis(std::u8string_view name) noexcept
+	std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept
 	{
 		static const std::unordered_map<std::u8string_view, MouseAxis> map
 		{
@@ -75,10 +82,10 @@ namespace oeng
 			ToPair(MouseAxis::Y)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return MouseAxis::INVALID;
+		return std::nullopt;
 	}
 
-	MouseBtn ToMouseBtn(std::u8string_view name) noexcept
+	std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept
 	{
 		static const std::unordered_map<std::u8string_view, MouseBtn> map
 		{
@@ -89,10 +96,10 @@ namespace oeng
 			ToPair(MouseBtn::X2)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return MouseBtn::INVALID;
+		return std::nullopt;
 	}
 
-	KeyMod ToKeyMod(std::u8string_view name) noexcept
+	std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept
 	{
 		static const std::unordered_map<std::u8string_view, KeyMod> map
 		{
@@ -109,6 +116,6 @@ namespace oeng
 			ToPair(KeyMod::MODE)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
-		return KeyMod::NONE;
+		return std::nullopt;
 	}
 }

@@ -1,14 +1,14 @@
 #pragma once
+#include <optional>
 #include "Core.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/String.hpp"
 
 namespace oeng
 {
-	enum class CtrlAxis { INVALID = -1, LX, LY, RX, RY, LT, RT };
+	enum class CtrlAxis { LX, LY, RX, RY, LT, RT };
 	enum class CtrlBtn
 	{
-		INVALID = -1,
 	    A, B, X, Y,
 	    BACK, GUIDE, START,
 	    LS, RS,
@@ -17,8 +17,8 @@ namespace oeng
 	};
 
 	
-	enum class MouseBtn { INVALID, L, M, R, X1, X2 };
-	enum class MouseAxis { INVALID = -1, X, Y };
+	enum class MouseBtn { L = 1, M, R, X1, X2 };
+	enum class MouseAxis { X, Y };
 
 	constexpr uint32_t MouseMask(MouseBtn btn) noexcept
 	{
@@ -335,12 +335,12 @@ namespace oeng
 	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
 	OEAPI DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;
 	
-	OEAPI Keycode ToKeycode(std::u8string_view name) noexcept;
-	OEAPI CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept;
-	OEAPI CtrlBtn ToCtrlBtn(std::u8string_view name) noexcept;
-	OEAPI MouseAxis ToMouseAxis(std::u8string_view name) noexcept;
-	OEAPI MouseBtn ToMouseBtn(std::u8string_view name) noexcept;
-	OEAPI KeyMod ToKeyMod(std::u8string_view name) noexcept;
+	OEAPI std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
+	OEAPI std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept;
+	OEAPI std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept;
+	OEAPI std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
+	OEAPI std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
+	OEAPI std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;
 
 	constexpr std::u8string_view GetName(KeyMod mod) noexcept
 	{

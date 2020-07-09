@@ -1,5 +1,5 @@
 #include "InputSystem.hpp"
-#include <SDL2/SDL_events.h>
+#include <SDL_events.h>
 #include "Debug.hpp"
 #include "Engine.hpp"
 #include "Math.hpp"
@@ -56,7 +56,7 @@ namespace oeng
 
 	void from_json(const Json& json, InputCode& code)
 	{
-		static const std::unordered_map<std::string_view, std::function<InputCode(std::u8string_view)>> parsers
+		static const std::unordered_map<std::string_view, std::function<std::optional<InputCode>(std::u8string_view)>> parsers
 		{
 			{"Keycode"sv, ToKeycode},
 			{"MouseBtn"sv, ToMouseBtn},
@@ -65,8 +65,20 @@ namespace oeng
 			{"CtrlAxis"sv, ToCtrlAxis},
 		};
 
-		auto name = json.at("Code").get<std::string>();
-		code = parsers.at(json.at("Type"))(AsString8(std::move(name)));
+		const auto name = AsString8(json.at("Code").get<std::string>());
+		const auto type = json.at("Type").get<std::string>();
+		try
+		{
+			code = parsers.at(type)(name).value();
+		}
+		catch (const std::out_of_range&)
+		{
+			Throw(u8"Invalid type '{}' (available: Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis)", AsString8(type));
+		}
+		catch (const std::bad_optional_access&)
+		{
+			Throw(u8"Invalid code '{}'", name);
+		}
 	}
 
 	void from_json(const Json& json, InputAxis& axis)
