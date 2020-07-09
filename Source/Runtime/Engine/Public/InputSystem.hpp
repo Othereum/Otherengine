@@ -16,7 +16,7 @@ namespace oeng
 	struct InputAxis
 	{
 		template <std::convertible_to<InputCode> T>
-		constexpr InputAxis(T code, Float scale) noexcept
+		constexpr InputAxis(T code = Keycode::UNKNOWN, Float scale = 1.f) noexcept
 			:code{code}, scale{scale}
 		{
 		}
@@ -28,7 +28,7 @@ namespace oeng
 	struct InputAction
 	{
 		template <std::convertible_to<InputCode> T>
-		constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
+		constexpr InputAction(T code = Keycode::UNKNOWN, KeyMod mod = KeyMod::NONE) noexcept
 			:code{code}, mod{mod}
 		{
 		}
