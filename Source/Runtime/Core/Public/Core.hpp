@@ -43,6 +43,7 @@
 
 namespace oeng
 {
+	using namespace std::literals;
 	[[nodiscard]] OEAPI std::u8string_view GetGameName() noexcept;
 	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
