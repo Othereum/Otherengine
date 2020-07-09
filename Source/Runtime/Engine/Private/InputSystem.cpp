@@ -24,6 +24,7 @@ namespace oeng
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
 			if (e.key.repeat) return std::nullopt;
+			if (e.key.keysym.sym == SDLK_f) DEBUG_BREAK();
 			return ParsedEvent{
 				InputAction{Keycode(e.key.keysym.sym), KeyMod(e.key.keysym.mod)},
 				!!e.key.state
@@ -93,7 +94,7 @@ namespace oeng
 		
 		if (const auto mods = json.find("Mods"); mods != json.end())
 			for (auto& mod : mods.value())
-				action.mod |= ToKeyMod(AsString8(mod));
+				action.mod |= ToKeyMod(AsString8(mod)).value();
 	}
 
 	void to_json(Json& json, const InputCode& code)
@@ -133,7 +134,7 @@ namespace oeng
 		:engine_{engine}
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
-		
+
 		auto& config = engine.Config(u8"Input");
 		auto load = [&]<class Key, class Map>(Key&& key, Map& mapped)
 		{
