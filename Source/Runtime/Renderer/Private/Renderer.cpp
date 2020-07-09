@@ -51,7 +51,7 @@ namespace oeng
 			SDL_DisplayMode dm;
 			SDL_GetDisplayMode(dp, i, &dm);
 			auto str = Format(u8"[{}] {}x{} {}Hz", i, dm.w, dm.h, dm.refresh_rate);
-			modes.emplace_back(reinterpret_cast<std::string&&>(str));
+			modes.emplace_back(AsString(std::move(str)));
 		}
 
 		auto& dm_ref = config.at("DisplayMode");
@@ -60,7 +60,7 @@ namespace oeng
 		{
 			auto display = modes.at(0).get<std::string>();
 			log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})", dm, num_dm-1);
-			log::Warn(u8"Using display mode {}", reinterpret_cast<std::u8string&&>(display));
+			log::Warn(u8"Using display mode {}", AsString8(std::move(display)));
 			dm_ref = 0, dm = 0;
 		}
 
@@ -94,7 +94,7 @@ namespace oeng
 		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
 
 		WindowPtr window{
-			SDL_CreateWindow(reinterpret_cast<const char*>(GetGameName().data()),
+			SDL_CreateWindow(AsString(GetGameName().data()),
 				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
 				display.w, display.h, flags),
 			&SDL_DestroyWindow
@@ -111,7 +111,7 @@ namespace oeng
 		glewExperimental = true;
 
 		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
+			throw std::runtime_error{AsString(glewGetErrorString(err))};
 		
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();

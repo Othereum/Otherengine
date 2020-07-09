@@ -330,7 +330,7 @@ namespace oeng
 	};
 
 	
-	OEAPI String GetName(Keycode btn) noexcept;
+	OEAPI String8 GetName(Keycode btn) noexcept;
 	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
 	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
 	OEAPI DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;

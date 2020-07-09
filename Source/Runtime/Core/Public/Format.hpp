@@ -19,12 +19,11 @@ namespace oeng
 	template <class T = std::runtime_error, class... Args>
 	[[noreturn]] void Throw(std::u8string_view fmt, const Args&... args)
 	{
-		auto str = Format(fmt, args...);
-		throw T{reinterpret_cast<std::string&&>(str)};
+		throw T{AsString(Format(fmt, args...))};
 	}
 
 	[[nodiscard]] inline const char8_t* What(const std::exception& e) noexcept
 	{
-		return reinterpret_cast<const char8_t*>(e.what());
+		return AsString8(e.what());
 	}
 }

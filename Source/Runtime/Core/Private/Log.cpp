@@ -61,7 +61,7 @@ namespace oeng::log
 		static_assert(Level::kErr == Level(spdlog::level::err));
 		static_assert(Level::kCritical == Level(spdlog::level::critical));
 		static_assert(Level::kOff == Level(spdlog::level::off));
-		logger->log(spdlog::level::level_enum(level), reinterpret_cast<std::string_view&&>(message));
+		logger->log(spdlog::level::level_enum(level), ToString(message));
 	}
 
 	namespace detail

@@ -4,22 +4,22 @@
 
 namespace oeng
 {
-	String GetName(Keycode btn) noexcept
+	String8 GetName(Keycode btn) noexcept
 	{
-		return reinterpret_cast<const char8_t*>(SDL_GetKeyName(SDL_Keycode(btn)));
+		return AsString8(SDL_GetKeyName(SDL_Keycode(btn)));
 	}
 
 	std::u8string_view GetName(CtrlAxis axis) noexcept
 	{
 		const auto s = SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis(axis));
-		if (s) return reinterpret_cast<const char8_t*>(s);
+		if (s) return AsString8(s);
 		return {};
 	}
 
 	std::u8string_view GetName(CtrlBtn btn) noexcept
 	{
 		const auto s = SDL_GameControllerGetStringForButton(SDL_GameControllerButton(btn));
-		if (s) return reinterpret_cast<const char8_t*>(s);
+		if (s) return AsString8(s);
 		return {};
 	}
 
@@ -45,19 +45,19 @@ namespace oeng
 
 	Keycode ToKeycode(std::u8string_view name) noexcept
 	{
-		const auto str = reinterpret_cast<const char*>(name.data());
+		const auto str = AsString(name.data());
 		return Keycode(SDL_GetKeyFromName(str));
 	}
 
 	CtrlAxis ToCtrlAxis(std::u8string_view name) noexcept
 	{
-		const auto str = reinterpret_cast<const char*>(name.data());
+		const auto str = AsString(name.data());
 		return CtrlAxis(SDL_GameControllerGetAxisFromString(str));
 	}
 
 	CtrlBtn ToCtrlBtn(std::u8string_view name) noexcept
 	{
-		const auto str = reinterpret_cast<const char*>(name.data());
+		const auto str = AsString(name.data());
 		return CtrlBtn(SDL_GameControllerGetButtonFromString(str));
 	}
 

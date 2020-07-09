@@ -119,7 +119,7 @@ namespace oeng
 	{
 		for (auto& [name1, value] : uniforms.items())
 		{
-			auto& name = reinterpret_cast<const std::u8string&>(name1);
+			auto& name = AsString8(name1);
 			try
 			{
 				if (shader_->GetUniformLocation(name) == Shader::invalid_uniform_)

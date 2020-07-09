@@ -81,6 +81,6 @@ namespace oeng
 	void from_json(const Json& json, Name& name)
 	{
 		auto str = json.get<std::string>();
-		name = Name{std::move(*reinterpret_cast<std::u8string*>(&str))};
+		name = Name{AsString8(std::move(str))};
 	}
 }

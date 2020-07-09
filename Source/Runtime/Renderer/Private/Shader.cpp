@@ -149,7 +149,7 @@ namespace oeng
 			return found->second;
 
 		unsigned err;
-		const auto loc = gl(err, glGetUniformLocation, shader_program_, reinterpret_cast<const char*>(name->c_str()));
+		const auto loc = gl(err, glGetUniformLocation, shader_program_, AsString(name->c_str()));
 		if (loc != invalid_uniform_) loc_cache_.try_emplace(name, loc);
 		return loc;
 	}
