@@ -18,9 +18,9 @@ namespace oeng
 		}
 	}
 
-	void InputComponent::BindAction(Name action, bool pressed, std::function<void()>&& callback)
+	void InputComponent::BindAction(Name action, InputEvent pressed, std::function<void()>&& callback)
 	{
-		actions_[pressed].emplace(action, std::move(callback));
+		actions_[static_cast<int>(pressed)].emplace(action, std::move(callback));
 	}
 
 	void InputComponent::BindAxis(Name axis, std::function<void(Float)>&& callback)
@@ -39,10 +39,7 @@ namespace oeng
 		for (const auto& event : input_system.GetEvents())
 		{
 			auto [it, end] = actions_[event.pressed].equal_range(event.name);
-			for (; it != end; ++it)
-			{
-				it->second();
-			}
+			for (; it != end; ++it) it->second();
 		}
 	}
 

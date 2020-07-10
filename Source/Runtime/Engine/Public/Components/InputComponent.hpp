@@ -7,12 +7,14 @@ struct SDL_KeyboardEvent;
 
 namespace oeng
 {
+	enum class InputEvent { kRelease, kPress };
+	
 	class OEAPI InputComponent : public ActorComponent
 	{
 	public:
 		explicit InputComponent(class AActor& owner, int update_order = 1);
 		
-		void BindAction(Name action, bool pressed, std::function<void()>&& callback);
+		void BindAction(Name action, InputEvent pressed, std::function<void()>&& callback);
 		void BindAxis(Name axis, std::function<void(Float)>&& callback);
 
 		[[nodiscard]] const class InputSystem& GetInputSystem() const noexcept;
