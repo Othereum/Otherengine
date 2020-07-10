@@ -55,8 +55,6 @@ namespace oeng
 
 	enum class Keycode
 	{
-		UNKNOWN,
-		
 	    RETURN = '\r',
 	    ESCAPE = '\033',
 	    BACKSPACE = '\b',

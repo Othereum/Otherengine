@@ -24,7 +24,6 @@ namespace oeng
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
 			if (e.key.repeat) return std::nullopt;
-			if (e.key.keysym.sym == SDLK_f) DEBUG_BREAK();
 			return ParsedEvent{
 				InputAction{Keycode(e.key.keysym.sym), KeyMod(e.key.keysym.mod)},
 				!!e.key.state
@@ -55,7 +54,7 @@ namespace oeng
 		return false;
 	}
 
-	void from_json(const Json& json, InputCode& code)
+	InputCode ToInputCode(const Json& json)
 	{
 		static const std::unordered_map<std::string_view, std::function<std::optional<InputCode>(std::u8string_view)>> parsers
 		{
@@ -70,7 +69,7 @@ namespace oeng
 		const auto type = json.at("Type").get<std::string>();
 		try
 		{
-			code = parsers.at(type)(name).value();
+			return parsers.at(type)(name).value();
 		}
 		catch (const std::out_of_range&)
 		{
@@ -80,21 +79,6 @@ namespace oeng
 		{
 			Throw(u8"Invalid code '{}'", name);
 		}
-	}
-
-	void from_json(const Json& json, InputAxis& axis)
-	{
-		axis.code = json;
-		axis.scale = json.at("Scale");
-	}
-
-	void from_json(const Json& json, InputAction& action)
-	{
-		action.code = json;
-		
-		if (const auto mods = json.find("Mods"); mods != json.end())
-			for (auto& mod : mods.value())
-				action.mod |= ToKeyMod(AsString8(mod)).value();
 	}
 
 	void to_json(Json& json, const InputCode& code)
@@ -142,13 +126,33 @@ namespace oeng
 			const auto size = inputs.size();
 			for (size_t i=0; i<size; ++i) try
 			{
-				using Input = typename Map::mapped_type::value_type;
-				arr.emplace_back(inputs[i].get<Input>());
+				arr.emplace_back(inputs[i]);
 			}
 			catch (const std::exception& e)
 			{
 				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}",
 					AsString8(key), AsString8(name), i, What(e));
+			}
+		}
+	}
+
+	InputAxis::InputAxis(const Json& json)
+		:code{ToInputCode(json)}, scale{json.at("Scale")}
+	{
+	}
+
+	InputAction::InputAction(const Json& json)
+		:code{ToInputCode(json)}, mod{KeyMod::NONE}
+	{
+		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
+		{
+			for (auto& mod_in : mods_in.value()) try
+			{
+				mod |= ToKeyMod(AsString8(mod_in)).value();
+			}
+			catch (const std::bad_optional_access&)
+			{
+				Throw(u8"Invalid mod '{}'", AsString8(mod_in));
 			}
 		}
 	}
@@ -198,7 +202,7 @@ namespace oeng
 		return val;
 	}
 
-	Float InputSystem::GetAxisValue(const InputAxis& axis) const
+	Float InputSystem::GetAxisValue(InputAxis axis) const
 	{
 		return std::visit(Overload{
 			
