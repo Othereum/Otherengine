@@ -17,7 +17,17 @@ namespace oeng
 		InputAction input;
 		bool pressed;
 	};
-	
+
+	static KeyMod GetModState() noexcept
+	{
+		const auto mod = static_cast<int>(SDL_GetModState());
+		auto ret = KeyMod::NONE;
+		if (mod & KMOD_SHIFT) ret |= KeyMod::SHIFT;
+		if (mod & KMOD_CTRL) ret |= KeyMod::CTRL;
+		if (mod & KMOD_ALT) ret |= KeyMod::ALT;
+		return ret;
+	}
+
 	static std::optional<ParsedEvent> ParseEvent(const SDL_Event& e)
 	{
 		switch (e.type)
@@ -25,19 +35,19 @@ namespace oeng
 		case SDL_KEYDOWN: case SDL_KEYUP:
 			if (e.key.repeat) return std::nullopt;
 			return ParsedEvent{
-				InputAction{Keycode(e.key.keysym.sym), KeyMod(e.key.keysym.mod)},
+				InputAction{Keycode(e.key.keysym.sym), GetModState()},
 				!!e.key.state
 			};
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
 			return ParsedEvent{
-				InputAction{MouseBtn(e.button.button), KeyMod(SDL_GetModState())},
+				InputAction{MouseBtn(e.button.button), GetModState()},
 				!!e.button.state
 			};
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
 			return ParsedEvent{
-				InputAction{CtrlBtn(e.cbutton.button), KeyMod(SDL_GetModState())},
+				InputAction{CtrlBtn(e.cbutton.button), GetModState()},
 				!!e.cbutton.state
 			};
 
