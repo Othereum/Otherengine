@@ -28,11 +28,7 @@ namespace oeng
 	{
 		static constexpr KeyMod mods[]
 		{
-			KeyMod::L_SHIFT, KeyMod::R_SHIFT,
-			KeyMod::L_CTRL, KeyMod::R_CTRL,
-			KeyMod::L_ALT, KeyMod::R_ALT,
-			KeyMod::L_GUI, KeyMod::R_GUI,
-			KeyMod::NUM, KeyMod::CAPS, KeyMod::MODE
+			KeyMod::SHIFT, KeyMod::CTRL, KeyMod::ALT
 		};
 		
 		DyArr<std::u8string_view> names;
@@ -103,17 +99,9 @@ namespace oeng
 	{
 		static const std::unordered_map<std::u8string_view, KeyMod> map
 		{
-			ToPair(KeyMod::L_SHIFT),
-			ToPair(KeyMod::R_SHIFT),
-			ToPair(KeyMod::L_CTRL),
-			ToPair(KeyMod::R_CTRL),
-			ToPair(KeyMod::L_ALT),
-			ToPair(KeyMod::R_ALT),
-			ToPair(KeyMod::L_GUI),
-			ToPair(KeyMod::R_GUI),
-			ToPair(KeyMod::NUM),
-			ToPair(KeyMod::CAPS),
-			ToPair(KeyMod::MODE)
+			ToPair(KeyMod::SHIFT),
+			ToPair(KeyMod::CTRL),
+			ToPair(KeyMod::ALT)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
 		return std::nullopt;

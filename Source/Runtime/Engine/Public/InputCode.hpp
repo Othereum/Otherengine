@@ -28,26 +28,10 @@ namespace oeng
 	
 	enum class KeyMod
 	{
-	    NONE = 0x0000,
-		
-	    L_SHIFT = 0x0001,
-	    R_SHIFT = 0x0002,
-		SHIFT = L_SHIFT | R_SHIFT,
-		
-	    L_CTRL = 0x0040, R_CTRL = 0x0080,
-		CTRL = L_CTRL | R_CTRL,
-		
-	    L_ALT = 0x0100,
-	    R_ALT = 0x0200,
-		ALT = L_ALT | R_ALT,
-		
-	    L_GUI = 0x0400,
-	    R_GUI = 0x0800,
-		GUI = L_GUI | R_GUI,
-		
-	    NUM = 0x1000,
-	    CAPS = 0x2000,
-	    MODE = 0x4000
+	    NONE = 0b000,
+		SHIFT = 0b001,
+		CTRL = 0b010,
+		ALT = 0b100,
 	};
 
 	constexpr KeyMod operator|(KeyMod a, KeyMod b) noexcept
@@ -346,17 +330,9 @@ namespace oeng
 	{
 		switch (mod)
 		{
-		case KeyMod::L_SHIFT: return u8"L_SHIFT"sv;
-		case KeyMod::R_SHIFT: return u8"R_SHIFT"sv;
-		case KeyMod::L_CTRL: return u8"L_CTRL"sv;
-		case KeyMod::R_CTRL: return u8"R_CTRL"sv;
-		case KeyMod::L_ALT: return u8"L_ALT"sv;
-		case KeyMod::R_ALT: return u8"R_ALT"sv;
-		case KeyMod::L_GUI: return u8"L_GUI"sv;
-		case KeyMod::R_GUI: return u8"R_GUI"sv;
-		case KeyMod::NUM: return u8"NUM"sv;
-		case KeyMod::CAPS: return u8"CAPS"sv;
-		case KeyMod::MODE: return u8"MODE"sv;
+		case KeyMod::SHIFT: return u8"Shift"sv;
+		case KeyMod::CTRL: return u8"Ctrl"sv;
+		case KeyMod::ALT: return u8"Alt"sv;
 		default: return {};
 		}
 	}
