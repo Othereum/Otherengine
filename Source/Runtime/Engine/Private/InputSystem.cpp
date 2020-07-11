@@ -12,44 +12,40 @@ namespace oeng
 	template <class... Ts>
 	Overload(Ts...) -> Overload<Ts...>;
 
+	static KeyMod GetModState() noexcept
+	{
+		auto mod = static_cast<int>(SDL_GetModState());
+		if (mod & KMOD_SHIFT) mod |= KMOD_SHIFT;
+		if (mod & KMOD_CTRL) mod |= KMOD_CTRL;
+		if (mod & KMOD_ALT) mod |= KMOD_ALT;
+		if (mod & KMOD_GUI) mod |= KMOD_GUI;
+		return KeyMod(mod);
+	}
+
 	struct ParsedEvent
 	{
+		ParsedEvent(InputCode code, bool pressed)
+			:input{code, GetModState()}, pressed{pressed}
+		{
+		}
+		
 		InputAction input;
 		bool pressed;
 	};
-
-	static KeyMod GetModState() noexcept
-	{
-		const auto mod = static_cast<int>(SDL_GetModState());
-		auto ret = KeyMod::NONE;
-		if (mod & KMOD_SHIFT) ret |= KeyMod::SHIFT;
-		if (mod & KMOD_CTRL) ret |= KeyMod::CTRL;
-		if (mod & KMOD_ALT) ret |= KeyMod::ALT;
-		return ret;
-	}
 
 	static std::optional<ParsedEvent> ParseEvent(const SDL_Event& e)
 	{
 		switch (e.type)
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
-			if (e.key.repeat) return std::nullopt;
-			return ParsedEvent{
-				InputAction{Keycode(e.key.keysym.sym), GetModState()},
-				!!e.key.state
-			};
+			if (!e.key.repeat) return std::nullopt;
+			return ParsedEvent(Keycode(e.key.keysym.sym), !!e.key.state);
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
-			return ParsedEvent{
-				InputAction{MouseBtn(e.button.button), GetModState()},
-				!!e.button.state
-			};
+			return ParsedEvent(MouseBtn(e.button.button), !!e.button.state);
 
 		case SDL_CONTROLLERBUTTONDOWN: case SDL_CONTROLLERBUTTONUP:
-			return ParsedEvent{
-				InputAction{CtrlBtn(e.cbutton.button), GetModState()},
-				!!e.cbutton.state
-			};
+			return ParsedEvent(CtrlBtn(e.cbutton.button), !!e.cbutton.state);
 
 		default:
 			return std::nullopt;
@@ -179,16 +175,10 @@ namespace oeng
 
 	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		const auto event = ParseEvent(e);
-		if (!event) return;
-		
-		for (const auto& act : actions_)
-		{
-			if (IsMatch(event->input, act.second))
-			{
-				events_.push_back({act.first, event->pressed});
-			}
-		}
+		for (auto event : ParseEvent(e))
+			for (const auto& act : actions_)
+				if (IsMatch(event.input, act.second))
+					events_.push_back({act.first, event.pressed});
 	}
 
 	void InputSystem::PostAddAllEvents()
