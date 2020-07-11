@@ -41,6 +41,13 @@ namespace oeng
 		KeyMod mod;
 	};
 
+	struct OEAPI ParsedEvent
+	{
+		ParsedEvent(InputCode code, bool pressed);
+		InputAction input;
+		bool pressed;
+	};
+
 	OEAPI InputCode ToInputCode(const Json& json);
 	OEAPI void to_json(Json& json, const InputCode& code);
 	OEAPI void to_json(Json& json, const InputAxis& axis);
@@ -52,6 +59,7 @@ namespace oeng
 		explicit InputSystem(Engine& engine);
 		
 		void AddEvent(const SDL_Event& e);
+		void AddEvent(ParsedEvent e);
 		void ClearEvents() { events_.clear(); }
 		void PostAddAllEvents();
 		void SaveConfig();
@@ -70,9 +78,10 @@ namespace oeng
 			Name name;
 			bool pressed;
 		};
-
+		
 		Engine& engine_;
 		DyArr<InputEvent> events_;
 		struct { Float x, y; } mouse_{};
+		struct { bool l, r; } ctrl_{};
 	};
 }

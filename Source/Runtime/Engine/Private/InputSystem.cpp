@@ -22,23 +22,12 @@ namespace oeng
 		return KeyMod(mod);
 	}
 
-	struct ParsedEvent
-	{
-		ParsedEvent(InputCode code, bool pressed)
-			:input{code, GetModState()}, pressed{pressed}
-		{
-		}
-		
-		InputAction input;
-		bool pressed;
-	};
-
 	static std::optional<ParsedEvent> ParseEvent(const SDL_Event& e)
 	{
 		switch (e.type)
 		{
 		case SDL_KEYDOWN: case SDL_KEYUP:
-			if (!e.key.repeat) return std::nullopt;
+			if (e.key.repeat) return std::nullopt;
 			return ParsedEvent(Keycode(e.key.keysym.sym), !!e.key.state);
 
 		case SDL_MOUSEBUTTONDOWN: case SDL_MOUSEBUTTONUP:
@@ -175,10 +164,7 @@ namespace oeng
 
 	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		for (auto event : ParseEvent(e))
-			for (const auto& act : actions_)
-				if (IsMatch(event.input, act.second))
-					events_.push_back({act.first, event.pressed});
+		if (auto event = ParseEvent(e)) AddEvent(*event);
 	}
 
 	void InputSystem::PostAddAllEvents()
@@ -187,6 +173,15 @@ namespace oeng
 		SDL_GetRelativeMouseState(&x, &y);
 		mouse_.x = static_cast<float>(x);
 		mouse_.y = static_cast<float>(y);
+
+		auto trigger = [&](bool& old, CtrlAxis axis)
+		{
+			const auto pressed = GetAxisValue(axis) > 0.1_f;
+			if (old != pressed) AddEvent({axis, pressed});
+			old = pressed;
+		};
+		trigger(ctrl_.l, CtrlAxis::LT);
+		trigger(ctrl_.r, CtrlAxis::RT);
 	}
 
 	Float InputSystem::GetAxisValue(Name name) const
@@ -242,6 +237,18 @@ namespace oeng
 			}
 			
 		}, axis.code);
+	}
+
+	ParsedEvent::ParsedEvent(InputCode code, bool pressed)
+		:input{code, GetModState()}, pressed{pressed}
+	{
+	}
+
+	void InputSystem::AddEvent(ParsedEvent e)
+	{
+		for (const auto& act : actions_)
+			if (IsMatch(e.input, act.second))
+				events_.push_back({act.first, e.pressed});
 	}
 
 	void InputSystem::SaveConfig()
