@@ -101,7 +101,11 @@ namespace oeng
 		{
 			ToPair(KeyMod::SHIFT),
 			ToPair(KeyMod::CTRL),
-			ToPair(KeyMod::ALT)
+			ToPair(KeyMod::ALT),
+			ToPair(KeyMod::GUI),
+			ToPair(KeyMod::NUM),
+			ToPair(KeyMod::CAPS),
+			ToPair(KeyMod::MODE)
 		};
 		if (const auto it = map.find(name); it != map.end()) return it->second;
 		return std::nullopt;

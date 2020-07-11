@@ -28,10 +28,14 @@ namespace oeng
 	
 	enum class KeyMod
 	{
-	    NONE = 0b000,
-		SHIFT = 0b001,
-		CTRL = 0b010,
-		ALT = 0b100,
+	    NONE = 0x0000,
+	    SHIFT = 0x0003,
+	    CTRL = 0x00C0,
+	    ALT = 0x0300,
+	    GUI = 0x0C00,
+	    NUM = 0x1000,
+	    CAPS = 0x2000,
+	    MODE = 0x4000
 	};
 
 	constexpr KeyMod operator|(KeyMod a, KeyMod b) noexcept
@@ -331,6 +335,10 @@ namespace oeng
 		case KeyMod::SHIFT: return u8"Shift"sv;
 		case KeyMod::CTRL: return u8"Ctrl"sv;
 		case KeyMod::ALT: return u8"Alt"sv;
+		case KeyMod::GUI: return u8"GUI"sv;
+		case KeyMod::NUM: return u8"Numlock"sv;
+		case KeyMod::CAPS: return u8"CapsLock"sv;
+		case KeyMod::MODE: return u8"ModeSwitch"sv;
 		default: return {};
 		}
 	}
