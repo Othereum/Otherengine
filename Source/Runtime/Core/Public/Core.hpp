@@ -35,6 +35,7 @@
 	name& operator=(name&&) = spec
 
 #define OE_DELETE_CPMV(name) OE_EXPLICIT_CPMV(name, delete)
+#define OE_DEFAULT_CPMV(name) OE_EXPLICIT_CPMV(name, default)
 
 #define OE_INTERFACE_BODY(name) \
 	constexpr name() noexcept = default; \
