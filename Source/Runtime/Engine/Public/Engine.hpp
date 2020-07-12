@@ -35,7 +35,6 @@ namespace oeng
 		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
 		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
 		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
-		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept override;
 		[[nodiscard]] Json& Config(Name name) override;
 		bool SaveConfig(Name name) override;
 		

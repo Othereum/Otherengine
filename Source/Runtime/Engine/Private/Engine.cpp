@@ -100,11 +100,6 @@ namespace oeng
 		log::Info(u8"Engine shutdown requested.");
 	}
 
-	Vec2u16 Engine::GetWindowSize() const noexcept
-	{
-		return renderer_.GetWindowSize();
-	}
-
 	bool Engine::SaveConfig(Name name)
 	{
 		try

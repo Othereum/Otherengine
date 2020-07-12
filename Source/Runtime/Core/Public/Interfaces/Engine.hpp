@@ -1,5 +1,4 @@
 #pragma once
-#include "MathFwd.hpp"
 #include "JsonFwd.hpp"
 
 namespace oeng
@@ -18,7 +17,6 @@ namespace oeng
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
 		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;
 		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;
-		[[nodiscard]] virtual Vec2u16 GetWindowSize() const noexcept = 0;
 
 		/**
 		 * \brief Find config or create if not found.
