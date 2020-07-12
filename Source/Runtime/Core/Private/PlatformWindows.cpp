@@ -9,7 +9,7 @@
 #include "Platform.hpp"
 #include "Templates/String.hpp"
 
-namespace oeng::plf
+namespace oeng
 {
 #ifdef NDEBUG
 	const std::filesystem::path& GetUserDataPath()

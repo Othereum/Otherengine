@@ -28,7 +28,7 @@ namespace oeng::log
 	{
 		assert(!logger_initialized);
 
-		const auto dir = plf::GetUserDataPath() / u8"Logs";
+		const auto dir = GetUserDataPath() / u8"Logs";
 		create_directories(dir);
 
 		using Daily = std::conditional_t<kThreadSafe,

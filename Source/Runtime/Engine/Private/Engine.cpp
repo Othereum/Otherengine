@@ -14,7 +14,7 @@ namespace oeng
 
 	static const fs::path& GetUserConfigDir()
 	{
-		static const auto dir = plf::GetUserDataPath() / u8"Config";
+		static const auto dir = GetUserDataPath() / u8"Config";
 		return dir;
 	}
 

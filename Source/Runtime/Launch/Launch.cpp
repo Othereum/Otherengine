@@ -16,7 +16,7 @@ namespace oeng
 	
 	static void CheckCpu()
 	{
-		const auto& cpu = plf::CpuInfo::Get();
+		const auto& cpu = CpuInfo::Get();
 		log::Info(u8"CPU: {}", cpu.GetBrand());
 #ifdef OE_USE_AVX2
 		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
@@ -29,7 +29,7 @@ namespace oeng
 	{
 		std::signal(SIGILL, &OnIllegal);
 		
-		plf::Dll game_module{u8"./" U8_TEXT(OE_GAME_MODULE)};
+		Dll game_module{u8"./" U8_TEXT(OE_GAME_MODULE)};
 		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"));
 
 		if (debug) log::Debug(u8"Debugger detected");
@@ -44,7 +44,7 @@ int main()  // NOLINT(bugprone-exception-escape)
 {
 	using namespace oeng;
 
-	if (plf::IsDebugging())
+	if (IsDebugging())
 	{
 		EngineMain(true);
 	}

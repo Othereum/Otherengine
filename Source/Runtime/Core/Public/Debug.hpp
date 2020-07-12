@@ -15,10 +15,10 @@
 #else
 
 #ifdef _WIN32
-#define DEBUG_BREAK() (void)(::oeng::plf::IsDebugging() && (::__debugbreak(), true))
+#define DEBUG_BREAK() (void)(::oeng::IsDebugging() && (::__debugbreak(), true))
 #else
 #include <csignal>
-#define DEBUG_BREAK() (void)(::oeng::plf::IsDebugging() && (::std::raise(SIGTRAP), true))
+#define DEBUG_BREAK() (void)(::oeng::IsDebugging() && (::std::raise(SIGTRAP), true))
 #endif
 
 /**
