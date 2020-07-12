@@ -1,4 +1,4 @@
-﻿#include "Engine.hpp"
+#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL2/SDL.h>
@@ -202,7 +202,7 @@ namespace oeng
 
 		log::Info(u8"Initializing engine...");
 		
-		const auto sdl_result = SDL_Init(SDL_INIT_VIDEO);
+		const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
 		if (sdl_result != 0) throw std::runtime_error{SDL_GetError()};
 	}
 
