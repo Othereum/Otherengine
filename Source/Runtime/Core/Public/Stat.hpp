@@ -4,7 +4,7 @@
 
 namespace oeng::detail
 {
-	class StopWatch
+	class OEAPI StopWatch
 	{
 	public:
 		explicit StopWatch(std::u8string_view name);
