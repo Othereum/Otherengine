@@ -8,6 +8,7 @@
 #include "Mesh.hpp"
 #include "OpenGL.hpp"
 #include "Shader.hpp"
+#include "Stat.hpp"
 #include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
@@ -202,9 +203,12 @@ namespace oeng
 				OE_DLOG(1s, log::Level::kErr, u8"Error occured while drawing '{}': {}", name, What(e));
 			}
 		};
-
-		try_draw(u8"3D scene", [&]{ Draw3D(); });
-		try_draw(u8"2D scene", [&]{ Draw2D(); });
+		
+		{
+			OE_STAT_SCOPE_TIMER(Draw);
+			try_draw(u8"3D scene", [&]{ Draw3D(); });
+			try_draw(u8"2D scene", [&]{ Draw2D(); });
+		}
 
 		SDL_GL_SwapWindow(window_.get());
 	}
