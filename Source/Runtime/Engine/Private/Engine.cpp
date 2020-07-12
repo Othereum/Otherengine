@@ -1,10 +1,11 @@
-#include "Engine.hpp"
+﻿#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL2/SDL.h>
 #include "Core.hpp"
 #include "Debug.hpp"
 #include "Log.hpp"
+#include "Stat.hpp"
 
 namespace oeng
 {
@@ -89,7 +90,7 @@ namespace oeng
 			++tick;
 		}
 
-		const auto sec = duration_cast<std::chrono::seconds>(Clock::now() - start).count();
+		const auto sec = duration_cast<time::seconds>(Clock::now() - start).count();
 		if (sec > 0) log::Info(u8"Average fps: {}", tick / sec);
 	}
 
@@ -192,6 +193,21 @@ namespace oeng
 		if (max.cur > 0) log::Warn(u8"[Mem] Memory leak detected!");
 	}
 
+	namespace detail
+	{
+		extern OE_IMPORT std::vector<std::reference_wrapper<StopWatch>> timers;
+	}
+
+	static void LogStats()
+	{
+		for (auto timer_ref : detail::timers)
+		{
+			auto& timer = timer_ref.get();
+			const auto time = duration_cast<time::duration<Float, std::milli>>(timer.Average());
+			log::Debug(u8"[Stat] {}: {:.1} ms", timer.Name(), time.count());
+		}
+	}
+
 	SdlRaii::SdlRaii()
 	{
 		assert(IsGameThread());
@@ -212,6 +228,9 @@ namespace oeng
 		try { LogMemoryInfo(); }
 		catch (...) { EXPECT_NO_ENTRY(); }
 		
+		try { LogStats(); }
+		catch (...) { EXPECT_NO_ENTRY(); }
+
 		engine_exist = false;
 	}
 }
