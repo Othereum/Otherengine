@@ -205,7 +205,7 @@ namespace oeng
 		};
 		
 		{
-			OE_STAT_SCOPE_TIMER(Draw);
+			ScopeCycleCounter counter{u8"Draw"};
 			try_draw(u8"3D scene", [&]{ Draw3D(); });
 			try_draw(u8"2D scene", [&]{ Draw2D(); });
 		}
