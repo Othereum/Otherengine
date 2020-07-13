@@ -1,4 +1,4 @@
-#include "Engine.hpp"
+﻿#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL2/SDL.h>
@@ -83,7 +83,7 @@ namespace oeng
 		{
 			const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
 			const auto count = ToFloat(stat.count) / ToFloat(ticks);
-			log::Debug(u8"[Stat]{:^{}} {} took {:.1f} ms, {:.1f} times", u8"", depth, *name, time, count);
+			log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times", u8"", depth, *name, time, count);
 			LogStats(stat.children, ticks, depth + 1);
 		}
 	}
