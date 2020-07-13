@@ -9,6 +9,7 @@ namespace oeng
 	World::World(Engine& engine)
 		:engine_{engine}, timer_{*this}, delta_seconds_{0}
 	{
+		UpdateTime();
 	}
 
 	World::~World() = default;
@@ -69,7 +70,8 @@ namespace oeng
 	void World::UpdateTime()
 {
 		const auto now = Clock::now();
-		delta_seconds_ = std::chrono::duration<Float>{now - time_}.count();
+		delta_seconds_ = time::duration<Float>{now - time_}.count();
+		delta_seconds_ = Min(1_f, delta_seconds_);
 		time_ = now;
 	}
 
