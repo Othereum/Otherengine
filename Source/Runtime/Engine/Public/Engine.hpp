@@ -1,9 +1,9 @@
-﻿#pragma once
+#pragma once
 #include "InputSystem.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
 #include "World.hpp"
-#include "Interfaces/Engine.hpp"
+#include "Interfaces/IEngine.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;

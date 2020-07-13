@@ -12,7 +12,7 @@
 #include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
-#include "Interfaces/Engine.hpp"
+#include "Interfaces/IEngine.hpp"
 #include "Interfaces/Light.hpp"
 
 namespace oeng
