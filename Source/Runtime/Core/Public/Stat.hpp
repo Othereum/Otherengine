@@ -1,62 +1,43 @@
 #pragma once
-#include "Core.hpp"
+#include "Name.hpp"
 #include "Templates/Time.hpp"
 
-namespace oeng::detail
+namespace oeng
 {
-	class OEAPI StopWatch
+	struct ScopeCycleStat;
+	using ScopeCycleStats = std::unordered_map<Name, ScopeCycleStat>;
+	
+	struct ScopeCycleStat
 	{
-	public:
-		explicit StopWatch(std::u8string_view name);
-		
-		void Start() noexcept
-		{
-			start_ = Clock::now();
-		}
-		
-		void Stop() noexcept
-		{
-			duration_ += Clock::now() - start_;
-			++count_;
-		}
-
-		[[nodiscard]] std::u8string_view Name() const noexcept
-		{
-			return name_;
-		}
-		
-		[[nodiscard]] Duration Average() const noexcept
-		{
-			if (count_ == 0) return {};
-			return duration_ / count_;
-		}
-
-	private:
-		std::u8string_view name_;
-		TimePoint start_{};
-		Duration duration_{};
-		uint64_t count_{};
+		Duration duration{};
+		uint64_t count{};
+		ScopeCycleStats children;
 	};
 
-	class ScopeTimer
+	class OEAPI ScopeCycleManager
 	{
 	public:
-		OE_DELETE_CPMV(ScopeTimer);
-		
-		explicit ScopeTimer(StopWatch& watch) noexcept
-			:watch_{watch}
-		{
-			watch.Start();
-		}
-
-		~ScopeTimer()
-		{
-			watch_.Stop();
-		}
+		void Push(Name name);
+		void Pop();
+		[[nodiscard]] auto& Stats() const noexcept { return stats_; }
 
 	private:
-		StopWatch& watch_;
+		struct Frame
+		{
+			Name name;
+			TimePoint start;
+		};
+
+		std::vector<Frame> frames_;
+		ScopeCycleStats stats_;
+	};
+
+	class OEAPI ScopeCycleCounter
+	{
+	public:
+		OE_DELETE_CPMV(ScopeCycleCounter);
+		
+		explicit ScopeCycleCounter(Name name);
+		~ScopeCycleCounter();
 	};
 }
-
-#define OE_STAT_SCOPE_TIMER(name) static ::oeng::detail::StopWatch _##name##StopWatch{u8## #name}; ::oeng::detail::ScopeTimer _##name##Timer{_##name##StopWatch}
