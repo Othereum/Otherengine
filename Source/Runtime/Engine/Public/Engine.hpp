@@ -48,6 +48,7 @@ namespace oeng
 		World world_;
 		InputSystem input_system_;
 
+		uint64_t ticks_ = 0;
 		bool is_running_ = true;
 	};
 }

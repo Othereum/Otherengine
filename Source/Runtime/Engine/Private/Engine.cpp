@@ -75,23 +75,47 @@ namespace oeng
 		log::Info(u8"Game module loaded.");
 	}
 
-	Engine::~Engine() = default;
+	extern OE_IMPORT ScopeCycleManager scope_cycle_manager;
+
+	static void LogStats(const ScopeCycleStats& stats, const uint64_t ticks, const int depth = 0)
+	{
+		for (auto& [name, stat] : stats)
+		{
+			const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
+			const auto count = ToFloat(stat.count) / ToFloat(ticks);
+			log::Debug(u8"[Stat]{:^{}} {} took {:.1f} ms, {:.1f} times", u8"", depth, *name, time, count);
+			LogStats(stat.children, ticks, depth + 1);
+		}
+	}
+	
+	static void LogStats(const uint64_t ticks)
+	{
+		if (ticks != 0)
+		{
+			LogStats(scope_cycle_manager.Stats(), ticks);
+		}
+	}
+
+	Engine::~Engine()
+	{
+		try { LogStats(ticks_); }
+		catch (...) { EXPECT_NO_ENTRY(); }
+	}
 
 	void Engine::RunLoop()
 	{
 		log::Info(u8"Engine loop started.");
 		
 		const auto start = Clock::now();
-		auto tick = 0ull;
 
 		while (is_running_)
 		{
 			Tick();
-			++tick;
+			++ticks_;
 		}
 
 		const auto sec = duration_cast<time::seconds>(Clock::now() - start).count();
-		if (sec > 0) log::Info(u8"Average fps: {}", tick / sec);
+		if (sec > 0) log::Info(u8"Average fps: {}", ticks_ / sec);
 	}
 
 	void Engine::Shutdown()
@@ -193,21 +217,6 @@ namespace oeng
 		if (max.cur > 0) log::Warn(u8"[Mem] Memory leak detected!");
 	}
 
-	namespace detail
-	{
-		extern OE_IMPORT std::vector<std::reference_wrapper<StopWatch>> timers;
-	}
-
-	static void LogStats()
-	{
-		for (auto timer_ref : detail::timers)
-		{
-			auto& timer = timer_ref.get();
-			const auto time = duration_cast<time::duration<Float, std::milli>>(timer.Average());
-			log::Debug(u8"[Stat] {}: {:.1} ms", timer.Name(), time.count());
-		}
-	}
-
 	SdlRaii::SdlRaii()
 	{
 		assert(IsGameThread());
@@ -228,9 +237,6 @@ namespace oeng
 		try { LogMemoryInfo(); }
 		catch (...) { EXPECT_NO_ENTRY(); }
 		
-		try { LogStats(); }
-		catch (...) { EXPECT_NO_ENTRY(); }
-
 		engine_exist = false;
 	}
 }
