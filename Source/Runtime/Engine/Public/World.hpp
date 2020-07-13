@@ -18,6 +18,7 @@ namespace oeng
 		explicit World(Engine& engine);
 		~World();
 
+		void BeginTick();
 		void Tick();
 		
 		template <class T>

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "InputSystem.hpp"
 #include "Json.hpp"
 #include "Renderer.hpp"
@@ -45,8 +45,8 @@ namespace oeng
 		HashMap<Name, Json> configs_;
 		
 		Renderer renderer_;
-		World world_;
 		InputSystem input_system_;
+		World world_;
 
 		uint64_t ticks_ = 0;
 		bool is_running_ = true;

@@ -66,8 +66,8 @@ namespace oeng
 	Engine::Engine(void load_game(Engine&))
 		:configs_{LoadConfigs()},
 		renderer_{*this},
-		world_{*this},
-		input_system_{*this}
+		input_system_{*this},
+		world_{*this}
 	{
 		log::Info(u8"Engine initialization successful.");
 		log::Info(u8"Loading game module...");
@@ -108,6 +108,8 @@ namespace oeng
 
 	void Engine::RunLoop()
 	{
+		world_.BeginTick();
+
 		log::Info(u8"Engine loop started.");
 		const auto start = Clock::now();
 

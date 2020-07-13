@@ -9,10 +9,14 @@ namespace oeng
 	World::World(Engine& engine)
 		:engine_{engine}, timer_{*this}, delta_seconds_{0}
 	{
-		UpdateTime();
 	}
 
 	World::~World() = default;
+
+	void World::BeginTick()
+	{
+		time_ = Clock::now();
+	}
 
 	void World::Tick()
 	{
