@@ -143,11 +143,11 @@ namespace oeng
 		{
 			for (auto& mod_in : mods_in.value()) try
 			{
-				mod |= ToKeyMod(AsString8(mod_in)).value();
+				mod |= ToKeyMod(AsString8(mod_in.get<std::string>())).value();
 			}
 			catch (const std::bad_optional_access&)
 			{
-				Throw(u8"Invalid mod '{}'", AsString8(mod_in));
+				Throw(u8"Invalid mod '{}'", AsString8(mod_in.get<std::string>()));
 			}
 		}
 	}
