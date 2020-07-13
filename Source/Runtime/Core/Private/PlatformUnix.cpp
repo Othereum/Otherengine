@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <unistd.h>
 #include "Platform.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng
 {
