@@ -1,7 +1,8 @@
 #include "World.hpp"
+#include "Stat.hpp"
+#include "TimerManager.hpp"
 #include "Actors/Actor.hpp"
 #include "Components/CircleComponent.hpp"
-#include "TimerManager.hpp"
 
 namespace oeng
 {
@@ -14,6 +15,7 @@ namespace oeng
 
 	void World::Tick()
 	{
+		ScopeCycleCounter counter{u8"WorldTick"};
 		UpdateTime();
 		UpdateGame();
 	}
