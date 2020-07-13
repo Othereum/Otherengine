@@ -99,13 +99,16 @@ namespace oeng
 	Engine::~Engine()
 	{
 		try { LogStats(ticks_); }
-		catch (...) { EXPECT_NO_ENTRY(); }
+		catch (const std::exception& e)
+		{
+			log::Error(u8"Failed to log stats: {}", What(e));
+			DEBUG_BREAK();
+		}
 	}
 
 	void Engine::RunLoop()
 	{
 		log::Info(u8"Engine loop started.");
-		
 		const auto start = Clock::now();
 
 		while (is_running_)
@@ -240,7 +243,11 @@ namespace oeng
 		SDL_Quit();
 		
 		try { LogMemoryInfo(); }
-		catch (...) { EXPECT_NO_ENTRY(); }
+		catch (const std::exception& e)
+		{
+			log::Error(u8"Failed to log memory info: {}", What(e));
+			DEBUG_BREAK();
+		}
 		
 		engine_exist = false;
 	}
