@@ -5,7 +5,7 @@
 namespace oeng
 {
 	struct ScopeCycleStat;
-	using ScopeCycleStats = std::unordered_map<Name, ScopeCycleStat>;
+	using ScopeCycleStats = std::map<Name, ScopeCycleStat>;
 	
 	struct ScopeCycleStat
 	{
