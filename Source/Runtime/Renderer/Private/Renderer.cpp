@@ -107,17 +107,6 @@ namespace oeng
 		return window;
 	}
 
-	static void InitGl()
-	{
-		glewExperimental = true;
-
-		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
-		
-		// On some platforms, GLEW will emit a benign error code, so clear it
-		glGetError();
-	}
-	
 	static GlContextPtr CreateGlContext(SDL_Window& window)
 	{
 		GlContextPtr context{
@@ -126,7 +115,17 @@ namespace oeng
 		};
 		if (!context) throw std::runtime_error{SDL_GetError()};
 		
-		InitGl();
+		glewExperimental = true;
+
+		if (const auto err = glewInit(); err != GLEW_OK)
+			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
+		
+		// On some platforms, GLEW will emit a benign error code, so clear it
+		glGetError();
+
+		// TODO: vSync config
+		SDL_GL_SetSwapInterval(0);
+		
 		return context;
 	}
 
@@ -204,11 +203,8 @@ namespace oeng
 			}
 		};
 		
-		{
-			ScopeCycleCounter counter{u8"Draw"};
-			try_draw(u8"3D scene", [&]{ Draw3D(); });
-			try_draw(u8"2D scene", [&]{ Draw2D(); });
-		}
+		try_draw(u8"3D scene", [&]{ Draw3D(); });
+		try_draw(u8"2D scene", [&]{ Draw2D(); });
 
 		SDL_GL_SwapWindow(window_.get());
 	}
@@ -246,6 +242,7 @@ namespace oeng
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
+			ScopeCycleCounter counter{u8"DrawSprite"};
 			sprite_shader_.SetUniform(u8"uWorldTransform", sprite.GetDrawTrsf());
 			GL(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
@@ -259,11 +256,13 @@ namespace oeng
 	void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
 	{
 		if (!ShouldDraw(mesh_comp)) return;
+		ScopeCycleCounter counter{u8"DrawMesh"};
 		
 		auto& material = mesh_comp.GetMaterial();
 		auto& shader = material.GetShader();
 		if (&shader != prev_.shader)
 		{
+			ScopeCycleCounter counter1{u8"ChangeShader"};
 			shader.Activate();
 			shader.TryUniform(u8"uViewProj", camera_->GetViewProj());
 			shader.TryUniform(u8"uCamPos", camera_->GetPos());
@@ -309,7 +308,7 @@ namespace oeng
 		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
-		const auto loc_num = shader.GetUniformLocation(Format(u8"uNum{}Lights", name));
+		const auto loc_num = shader.GetUniformLocation(Format(u8"uNum{}Lights"sv, name));
 		if (loc_num == Shader::invalid_uniform_) return;
 		
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
@@ -326,11 +325,12 @@ namespace oeng
 			const auto& data = l.GetData();
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 
-			
+			ScopeCycleCounter counter{Format(u8"Draw{}Lights"sv, name)};
+
 			auto try_uniform = [&]<class T>(const char8_t* uniform, T&& value)
 			{
 				return shader.TryUniform(
-					Format(u8"u{}Lights[{}].{}", name, idx, uniform),
+					Format(u8"u{}Lights[{}].{}"sv, name, idx, uniform),
 					std::forward<T>(value)
 				);
 			};
