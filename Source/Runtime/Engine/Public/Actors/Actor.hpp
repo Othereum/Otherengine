@@ -15,6 +15,8 @@ namespace oeng
 	class OEAPI AActor : public EnableSharedFromThis<AActor>
 	{
 	public:
+		OE_DELETE_CPMV(AActor);
+		
 		explicit AActor(World& world);
 		virtual ~AActor();
 
