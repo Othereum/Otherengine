@@ -17,31 +17,30 @@ namespace oeng
 		
 		explicit World(Engine& engine);
 		~World();
+
+		void Tick();
 		
 		template <class T>
 		T& SpawnActor()
 		{
 			static_assert(std::is_base_of_v<AActor, T>);
-			auto actor = MakeShared<T>(*this);
-			auto& ref = *actor;
-			RegisterActor(std::move(actor));
+			auto ptr = MakeShared<T>(*this);
+			auto& ref = *ptr;
+			pending_actors_.emplace_back(std::move(ptr));
 			return ref;
 		}
-
-		void Tick();
 
 		void RegisterCollision(CircleComponent& comp);
 		void UnregisterCollision(CircleComponent& comp);
 		
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
-		[[nodiscard]] Clock::time_point GetTime() const noexcept { return time_; }
+		[[nodiscard]] TimePoint GetTime() const noexcept { return time_; }
 		[[nodiscard]] Float GetDeltaSeconds() const noexcept { return delta_seconds_; }
 
 	private:
 		void UpdateGame();
 		void UpdateTime();
-		void RegisterActor(SharedRef<AActor>&& actor);
 
 		Engine& engine_;
 		TimerManager timer_;
@@ -51,7 +50,7 @@ namespace oeng
 		DyArr<SharedRef<AActor>> actors_;
 		DyArr<SharedRef<AActor>> pending_actors_;
 		
-		Clock::time_point time_;
+		TimePoint time_;
 		Float delta_seconds_;
 	};
 }

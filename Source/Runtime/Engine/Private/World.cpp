@@ -43,11 +43,12 @@ namespace oeng
 				collisions_[i].get().TestOverlap(collisions_[j]);
 
 		timer_.Update();
-		
-		for (auto&& pending : pending_actors_)
+
+		// Use index-based loop because BeginPlay() can spawn new actors
+		for (size_t i=0; i<pending_actors_.size(); ++i)  // NOLINT(modernize-loop-convert)
 		{
-			auto& actor = *pending;
-			actors_.push_back(std::move(pending));
+			auto& actor = *pending_actors_[i];
+			actors_.push_back(std::move(pending_actors_[i]));
 			actor.BeginPlay();
 		}
 		pending_actors_.clear();
@@ -58,7 +59,7 @@ namespace oeng
 			if (actor.IsPendingKill())
 			{
 				const auto next = actors_.erase(it.base() - 1);
-				it = std::make_reverse_iterator(next);
+				it = make_reverse_iterator(next);
 			}
 			else
 			{
@@ -73,10 +74,5 @@ namespace oeng
 		delta_seconds_ = time::duration<Float>{now - time_}.count();
 		delta_seconds_ = Min(1_f, delta_seconds_);
 		time_ = now;
-	}
-
-	void World::RegisterActor(SharedRef<AActor>&& actor)
-	{
-		pending_actors_.push_back(std::move(actor));
 	}
 }
