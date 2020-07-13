@@ -44,14 +44,14 @@ namespace oeng
 		return reinterpret_cast<const std::basic_string<char8_t, Tr<char8_t>, Al<char8_t>>&>(s);
 	}
 
-	inline auto AsString(std::basic_string_view<char8_t> s) noexcept
+	inline auto AsString(const std::basic_string_view<char8_t>& s) noexcept
 	{
-		return reinterpret_cast<std::basic_string_view<char>&&>(s);
+		return reinterpret_cast<const std::basic_string_view<char>&>(s);
 	}
 
-	inline auto AsString8(std::basic_string_view<char> s) noexcept
+	inline auto AsString8(const std::basic_string_view<char>& s) noexcept
 	{
-		return reinterpret_cast<std::basic_string_view<char8_t>&&>(s);
+		return reinterpret_cast<const std::basic_string_view<char8_t>&>(s);
 	}
 
 	inline auto AsString(const char8_t* s) noexcept
