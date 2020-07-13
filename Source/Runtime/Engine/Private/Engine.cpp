@@ -1,4 +1,4 @@
-﻿#include "Engine.hpp"
+#include "Engine.hpp"
 #include <filesystem>
 #include <fstream>
 #include <SDL2/SDL.h>
@@ -114,8 +114,13 @@ namespace oeng
 			++ticks_;
 		}
 
-		const auto sec = duration_cast<time::seconds>(Clock::now() - start).count();
-		if (sec > 0) log::Info(u8"Average fps: {}", ticks_ / sec);
+		const auto elapsed = Clock::now() - start;
+		const auto sec = duration_cast<time::seconds>(elapsed).count();
+		if (sec != 0 && ticks_ != 0)
+		{
+			const auto ms = duration_cast<time::duration<Float, std::milli>>(elapsed).count();
+			log::Info(u8"Average fps: {}, frame time: {:.2f} ms", ticks_ / sec, ms / ticks_);
+		}
 	}
 
 	void Engine::Shutdown()
