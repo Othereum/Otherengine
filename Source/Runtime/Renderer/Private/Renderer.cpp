@@ -17,6 +17,9 @@
 
 namespace oeng
 {
+	static constexpr auto kMaxPointLights = 4;
+	static constexpr auto kMaxSpotLights = 4;
+	
 	static void SetGlAttribute(SDL_GLattr attr, int value)
 	{
 		if (0 != SDL_GL_SetAttribute(attr, value))
@@ -325,7 +328,7 @@ namespace oeng
 			const auto& data = l.GetData();
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 
-			ScopeCycleCounter counter{Format(u8"Draw{}Lights"sv, name)};
+			ScopeCycleCounter counter{u8"DrawLight"};
 
 			auto try_uniform = [&]<class T>(const char8_t* uniform, T&& value)
 			{
@@ -359,7 +362,7 @@ namespace oeng
 			try_uniform(u8"inner", data.angle_cos.inner);
 			try_uniform(u8"outer", data.angle_cos.outer);
 		};
-		DrawLights(u8"Spot", spot_lights_, 4, mesh_comp, try_uniforms);
+		DrawLights(u8"Spot", spot_lights_, kMaxSpotLights, mesh_comp, try_uniforms);
 	}
 
 	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
