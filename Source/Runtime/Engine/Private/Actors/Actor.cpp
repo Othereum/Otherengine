@@ -1,6 +1,7 @@
 #include "Actors/Actor.hpp"
-#include "Components/SceneComponent.hpp"
+#include "Stat.hpp"
 #include "World.hpp"
+#include "Components/SceneComponent.hpp"
 
 namespace oeng
 {
@@ -27,6 +28,7 @@ namespace oeng
 
 	void AActor::Update(const Float delta_seconds)
 	{
+		ScopeCycleCounter counter{u8"ActorUpdate"};
 		UpdateComponents(delta_seconds);
 		OnUpdate(delta_seconds);
 	}
