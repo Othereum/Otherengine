@@ -128,6 +128,8 @@ namespace oeng
 
 		// TODO: vSync config
 		SDL_GL_SetSwapInterval(0);
+
+		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
 		
 		return context;
 	}
@@ -194,50 +196,39 @@ namespace oeng
 
 	void Renderer::DrawScene()
 	{
-		GL(glClearColor, 0.f, 0.f, 0.f, 1.f);
-		GL(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		ScopeCycleCounter counter{u8"DrawScene"};
 
-		auto try_draw = [](auto&& name, auto&& draw)
-		{
-			try { draw(); }
-			catch (const std::exception& e)
-			{
-				OE_DLOG(1s, log::Level::kErr, u8"Error occured while drawing '{}': {}", name, What(e));
-			}
-		};
-		
-		try_draw(u8"3D scene", [&]{ Draw3D(); });
-		try_draw(u8"2D scene", [&]{ Draw2D(); });
+		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		Draw3D();
+		Draw2D();
 
 		SDL_GL_SwapWindow(window_.get());
 	}
 
 	void Renderer::Draw3D()
 	{
-		GL(glEnable, GL_DEPTH_TEST);
-		GL(glDisable, GL_BLEND);
+		gl(glEnable, GL_DEPTH_TEST);
+		gl(glDisable, GL_BLEND);
 
 		prev_ = {};
 		
-		for (auto mesh_comp : mesh_comps_)
+		for (auto mesh_comp : mesh_comps_) try
 		{
-			try
-			{
-				DrawMesh(mesh_comp);
-			}
-			catch (const std::exception& e)
-			{
-				const auto stem = mesh_comp.get().GetMesh().GetStem();
-				OE_DLOG(1s, log::Level::kErr, u8"Failed to draw mesh '{}': {}", *stem, What(e));
-			}
+			DrawMesh(mesh_comp);
+		}
+		catch (const std::exception& e)
+		{
+			const auto stem = mesh_comp.get().GetMesh().GetStem();
+			OE_ELOG(u8"Failed to draw mesh '{}': {}", *stem, What(e));
 		}
 	}
 
 	void Renderer::Draw2D()
 	{
-		GL(glEnable, GL_BLEND);
-		GL(glDisable, GL_DEPTH_TEST);
-		GL(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		gl(glEnable, GL_BLEND);
+		gl(glDisable, GL_DEPTH_TEST);
+		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
 		for (auto sprite_ref : sprites_) try
@@ -247,12 +238,12 @@ namespace oeng
 
 			ScopeCycleCounter counter{u8"DrawSprite"};
 			sprite_shader_.SetUniform(u8"uWorldTransform", sprite.GetDrawTrsf());
-			GL(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 		catch (const std::exception& e)
 		{
 			const auto stem = sprite_ref.get().GetTexture().GetStem();
-			OE_DLOG(1s, log::Level::kErr, u8"Failed to draw sprite '{}': {}", *stem, What(e));
+			OE_ELOG(u8"Failed to draw sprite '{}': {}", *stem, What(e));
 		}
 	}
 
@@ -265,7 +256,6 @@ namespace oeng
 		auto& shader = material.GetShader();
 		if (&shader != prev_.shader)
 		{
-			ScopeCycleCounter counter1{u8"ChangeShader"};
 			shader.Activate();
 			shader.TryUniform(u8"uViewProj", camera_->GetViewProj());
 			shader.TryUniform(u8"uCamPos", camera_->GetPos());
@@ -303,7 +293,7 @@ namespace oeng
 		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(u8"uWorldTransform", mesh_comp.GetDrawTrsfMatrix());
-		GL(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+		gl(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
@@ -351,7 +341,7 @@ namespace oeng
 
 	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
 	{
-		DrawLights(u8"Point", point_lights_, 4, mesh_comp, [](auto&&...){});
+		DrawLights(u8"Point", point_lights_, kMaxPointLights, mesh_comp, [](auto&&...){});
 	}
 
 	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp) const
