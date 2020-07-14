@@ -39,7 +39,7 @@ namespace oeng
 		}
 		catch (const std::exception& e)
 		{
-			OE_ELOG(u8"ScopeCycleCounter: {}", What(e));
+			OE_ELOG(u8"ScopeCycleCounter: {}"sv, What(e));
 		}
 	}
 
@@ -56,7 +56,7 @@ namespace oeng
 		}
 		catch (const std::exception& e)
 		{
-			OE_ELOG(u8"ScopeCounter: {}", What(e));
+			OE_ELOG(u8"ScopeCounter: {}"sv, What(e));
 		}
 	}
 }
