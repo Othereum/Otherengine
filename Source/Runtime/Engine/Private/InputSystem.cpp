@@ -187,6 +187,10 @@ namespace oeng
 		const auto& config = engine.Config(u8"Input");
 		LoadInput(config, "ActionMap", actions_);
 		LoadInput(config, "AxisMap", axises_);
+
+		if (const auto axis_cfg = config.find("AxisConfig"); axis_cfg != config.end())
+			for (auto& [code, cfg] : axis_cfg->items())
+				axis_configs_.try_emplace(ToInputCode(code), cfg);
 	}
 
 	void InputSystem::AddEvent(const SDL_Event& e)
@@ -280,7 +284,7 @@ namespace oeng
 			val = std::pow(val, cfg.exponent);
 			if (cfg.invert) val = -val;
 		}
-
+		
 		return val * axis.scale;
 	}
 
@@ -300,17 +304,23 @@ namespace oeng
 	{
 		const Name conf_name = u8"Input";
 		auto& config = engine_.Config(conf_name);
+		
 		auto save = [&](const char* key, const auto& mapped)
 		{
 			auto& map = config[key];
 			for (auto& [name, inputs] : mapped)
 			{
-				auto& out_inputs = map[AsString(*name)] = {};
+				auto& out_inputs = map[AsString(*name)] = Json::array();
 				for (auto& input : inputs) out_inputs.emplace_back(input);
 			}
 		};
 		save("ActionMap", actions_);
 		save("AxisMap", axises_);
+
+		auto& out_axis_cfg = config["AxisConfig"] = Json::object();
+		for (auto& [code, cfg] : axis_configs_)
+			out_axis_cfg[ToString(code)] = cfg;
+		
 		engine_.SaveConfig(conf_name);
 	}
 }
