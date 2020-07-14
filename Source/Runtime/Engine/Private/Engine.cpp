@@ -76,23 +76,33 @@ namespace oeng
 	}
 
 	extern OE_IMPORT ScopeCycleManager scope_cycle_manager;
+	extern OE_IMPORT std::unordered_map<Name, ScopeStat> scope_stats;
 
-	static void LogStats(const ScopeCycleStats& stats, const uint64_t ticks, const int depth = 0)
+	static void LogStat(Name name, const ScopeStat& stat, const uint64_t ticks, int depth = 0)
+	{
+		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
+		const auto count = ToFloat(stat.count) / ToFloat(ticks);
+		log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
+	}
+
+	static void LogStats(const std::map<Name, ScopeCycleStat>& stats, const uint64_t ticks, const int depth = 0)
 	{
 		for (auto& [name, stat] : stats)
 		{
-			const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
-			const auto count = ToFloat(stat.count) / ToFloat(ticks);
-			log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times", u8"", depth, *name, time, count);
+			LogStat(name, stat, ticks, depth);
 			LogStats(stat.children, ticks, depth + 1);
 		}
 	}
 	
 	static void LogStats(const uint64_t ticks)
 	{
-		if (ticks != 0)
+		if (ticks == 0) return;
+		
+		LogStats(scope_cycle_manager.Stats(), ticks);
+
+		for (auto& [name, stat] : scope_stats)
 		{
-			LogStats(scope_cycle_manager.Stats(), ticks);
+			LogStat(name, stat, ticks);
 		}
 	}
 

@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Math.hpp"
 #include "OpenGL.hpp"
+#include "Stat.hpp"
 
 namespace oeng
 {
@@ -126,6 +127,7 @@ namespace oeng
 	bool Shader::TryUniform(int location, const Uniform& value)
 	{
 		if (location == invalid_uniform_) return false;
+		ScopeCounter counter{u8"SetUniform"};
 
 		const auto cache = uniform_cache_.find(location);
 		if (cache != uniform_cache_.end())

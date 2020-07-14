@@ -1,6 +1,4 @@
 #include "Stat.hpp"
-#include <unordered_map>
-#include <vector>
 #include "Debug.hpp"
 #include "Templates/Time.hpp"
 
@@ -19,7 +17,7 @@ namespace oeng
 		const auto top = frames_.back();
 		frames_.pop_back();
 		
-		std::reference_wrapper<ScopeCycleStats> stats = stats_;
+		std::reference_wrapper<std::map<Name, ScopeCycleStat>> stats = stats_;
 		for (auto& frame : frames_)
 			stats = stats.get()[frame.name].children;
 		
@@ -41,7 +39,24 @@ namespace oeng
 		}
 		catch (const std::exception& e)
 		{
-			OE_ELOG(What(e));
+			OE_ELOG(u8"ScopeCycleCounter: {}", What(e));
+		}
+	}
+
+	OE_EXPORT std::unordered_map<Name, ScopeStat> scope_stats;
+
+	ScopeCounter::~ScopeCounter()
+	{
+		try
+		{
+			const auto end = Clock::now();
+			auto& counter = scope_stats[name_];
+			counter.duration += end - start_;
+			++counter.count;
+		}
+		catch (const std::exception& e)
+		{
+			OE_ELOG(u8"ScopeCounter: {}", What(e));
 		}
 	}
 }

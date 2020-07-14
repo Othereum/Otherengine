@@ -4,14 +4,15 @@
 
 namespace oeng
 {
-	struct ScopeCycleStat;
-	using ScopeCycleStats = std::map<Name, ScopeCycleStat>;
-	
-	struct ScopeCycleStat
+	struct ScopeStat
 	{
 		Duration duration{};
 		uint64_t count{};
-		ScopeCycleStats children;
+	};
+	
+	struct ScopeCycleStat : ScopeStat
+	{
+		std::map<Name, ScopeCycleStat> children;
 	};
 
 	class OEAPI ScopeCycleManager
@@ -29,7 +30,7 @@ namespace oeng
 		};
 
 		std::vector<Frame> frames_;
-		ScopeCycleStats stats_;
+		std::map<Name, ScopeCycleStat> stats_;
 	};
 
 	class OEAPI ScopeCycleCounter
@@ -39,5 +40,22 @@ namespace oeng
 		
 		explicit ScopeCycleCounter(Name name);
 		~ScopeCycleCounter();
+	};
+	
+	class OEAPI ScopeCounter
+	{
+	public:
+		OE_DELETE_CPMV(ScopeCounter);
+		
+		explicit ScopeCounter(Name name) noexcept
+			:start_{Clock::now()}, name_{name}
+		{
+		}
+		
+		~ScopeCounter();
+
+	private:
+		TimePoint start_;
+		Name name_;
 	};
 }
