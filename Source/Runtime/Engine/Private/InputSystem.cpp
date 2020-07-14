@@ -204,7 +204,7 @@ namespace oeng
 
 		auto trigger = [&](bool& old, CtrlAxis axis)
 		{
-			const auto pressed = GetAxisValue(axis) > 0.1_f;
+			const auto pressed = GetAxisValue(axis) > 0.125_f;
 			if (old != pressed) AddEvent({axis, pressed});
 			old = pressed;
 		};
