@@ -155,12 +155,12 @@ namespace oeng
 	}
 
 	InputAxis::InputAxis(const Json& json)
-		:code{ToInputCode(json.at("Code"))}, scale{json.at("Scale")}
+		:code{ToInputCode(json.at("Code").get<std::string>())}, scale{json.at("Scale")}
 	{
 	}
 
 	InputAction::InputAction(const Json& json)
-		:code{ToInputCode(json.at("Code"))}, mod{KeyMod::NONE}
+		:code{ToInputCode(json.at("Code").get<std::string>())}, mod{KeyMod::NONE}
 	{
 		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
 		{
