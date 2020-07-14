@@ -164,7 +164,8 @@ namespace oeng
 
 	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		if (auto event = ParseEvent(e)) AddEvent(*event);
+		if (auto event = ParseEvent(e))
+			AddEvent(*event);
 	}
 
 	void InputSystem::PostAddAllEvents()
@@ -199,44 +200,61 @@ namespace oeng
 
 	Float InputSystem::GetAxisValue(InputAxis axis) const
 	{
-		return std::visit(Overload{
+		auto val = std::visit(Overload{
 			
 			[&](Keycode code)
 			{
 				const auto scan = SDL_GetScancodeFromKey(SDL_Keycode(code));
-				return SDL_GetKeyboardState(nullptr)[scan] ? axis.scale : 0;
+				return SDL_GetKeyboardState(nullptr)[scan] ? 1_f : 0_f;
 			},
 			
 			[&](MouseBtn code)
 			{
-				const auto cur_btn = SDL_GetMouseState(nullptr, nullptr);
-				return cur_btn & MouseMask(code) ? axis.scale : 0;
+				const auto btn = SDL_GetMouseState(nullptr, nullptr);
+				return btn & MouseMask(code) ? 1_f : 0_f;
 			},
 			
 			[&](CtrlBtn code)
 			{
 				const auto btn = SDL_GameControllerButton(code);
-				return SDL_GameControllerGetButton(nullptr, btn) ? axis.scale : 0;
+				return SDL_GameControllerGetButton(nullptr, btn) ? 1_f : 0_f;
 			},
 			
 			[&](MouseAxis code)
 			{
 				switch (code)
 				{
-				case MouseAxis::X: return mouse_.x * axis.scale;
-				case MouseAxis::Y: return mouse_.y * axis.scale;
+				case MouseAxis::X: return mouse_.x;
+				case MouseAxis::Y: return mouse_.y;
 				default: return 0_f;
 				}
 			},
 			
 			[&](CtrlAxis code)
 			{
-				constexpr auto min = 328_f, max = 32440_f;
-				const auto v = SDL_GameControllerGetAxis(nullptr, SDL_GameControllerAxis(code));
-				return v >= 0 ? MapRngClamp({min, max}, {0, 1}, v) : MapRngClamp({-max, -min}, {-1, 0}, v);
+				const auto ax = SDL_GameControllerAxis(code);
+				const auto v = SDL_GameControllerGetAxis(nullptr, ax);
+				return ToFloat(v) / (v >= 0 ? 32767_f : 32768_f);
 			}
 			
 		}, axis.code);
+
+		const auto config = axis_configs_.find(axis.code);
+		if (config != axis_configs_.end())
+		{
+			auto& cfg = config->second;
+			
+			const auto dead = cfg.dead_zone / 2;
+			val = val >= 0
+				? Max(0, MapRng({dead, 1-dead}, {0, 1}, val))
+				: Min(0, MapRng({dead-1, -dead}, {-1, 0}, val));
+
+			val *= cfg.sensitivity;
+			val = std::pow(val, cfg.exponent);
+			if (cfg.invert) val = -val;
+		}
+
+		return val * axis.scale;
 	}
 
 	ParsedEvent::ParsedEvent(InputCode code, bool pressed)
@@ -260,8 +278,7 @@ namespace oeng
 			auto& map = config[key];
 			for (auto& [name, inputs] : mapped)
 			{
-				auto& out_inputs = map[AsString(*name)];
-				out_inputs = {};
+				auto& out_inputs = map[AsString(*name)] = {};
 				for (auto& input : inputs) out_inputs.emplace_back(input);
 			}
 		};
