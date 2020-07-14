@@ -41,6 +41,11 @@ namespace oeng
 		KeyMod mod;
 	};
 
+	OEAPI InputCode ToInputCode(const Json& json);
+	OEAPI void to_json(Json& json, const InputCode& code);
+	OEAPI void to_json(Json& json, const InputAxis& axis);
+	OEAPI void to_json(Json& json, const InputAction& action);
+
 	struct OEAPI ParsedEvent
 	{
 		ParsedEvent(InputCode code, bool pressed);
@@ -48,10 +53,13 @@ namespace oeng
 		bool pressed;
 	};
 
-	OEAPI InputCode ToInputCode(const Json& json);
-	OEAPI void to_json(Json& json, const InputCode& code);
-	OEAPI void to_json(Json& json, const InputAxis& axis);
-	OEAPI void to_json(Json& json, const InputAction& action);
+	struct AxisConfig
+	{
+		Float dead_zone = 0_f;
+		Float sensitivity = 1_f;
+		Float exponent = 1_f;
+		bool invert = false;
+	};
 
 	class OEAPI InputSystem
 	{
@@ -71,6 +79,7 @@ namespace oeng
 
 		HashMap<Name, DyArr<InputAxis>> axises_;
 		HashMap<Name, DyArr<InputAction>> actions_;
+		HashMap<InputCode, AxisConfig> axis_configs_;
 		
 	private:
 		struct InputEvent
