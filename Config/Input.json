@@ -2,39 +2,27 @@
     "AxisConfig": {
         "CtrlAxis.leftx": {
             "DeadZone": 0.25,
-            "Exponent": 1.0,
-            "Invert": false,
             "Sensitivity": 1.0
         },
         "CtrlAxis.lefty": {
             "DeadZone": 0.25,
-            "Exponent": 1.0,
-            "Invert": false,
             "Sensitivity": 1.0
         },
         "CtrlAxis.rightx": {
             "DeadZone": 0.25,
-            "Exponent": 1.0,
-            "Invert": false,
             "Sensitivity": 1.0
         },
         "CtrlAxis.righty": {
             "DeadZone": 0.25,
-            "Exponent": 1.0,
-            "Invert": false,
             "Sensitivity": 1.0
         },
         "MouseAxis.X": {
             "DeadZone": 0.0,
-            "Exponent": 1.0,
-            "Invert": false,
-            "Sensitivity": 0.07
+            "Sensitivity": 0.1
         },
         "MouseAxis.Y": {
             "DeadZone": 0.0,
-            "Exponent": 1.0,
-            "Invert": false,
-            "Sensitivity": 0.07
+            "Sensitivity": 0.1
         }
     }
 }

@@ -124,16 +124,12 @@ namespace oeng
 	{
 		json["DeadZone"] = action.dead_zone;
 		json["Sensitivity"] = action.sensitivity;
-		json["Exponent"] = action.exponent;
-		json["Invert"] = action.invert;
 	}
 
 	void from_json(const Json& json, AxisConfig& action)
 	{
 		action.dead_zone = json.at("DeadZone");
 		action.sensitivity = json.at("Sensitivity");
-		action.exponent = json.at("Exponent");
-		action.invert = json.at("Invert");
 	}
 
 	template <class Map>
@@ -195,25 +191,40 @@ namespace oeng
 
 	void InputSystem::AddEvent(const SDL_Event& e)
 	{
-		if (auto event = ParseEvent(e))
-			AddEvent(*event);
+		switch (e.type)
+		{
+		case SDL_CONTROLLERDEVICEADDED:
+			controllers_.emplace_back(SDL_GameControllerOpen(e.cdevice.which), &SDL_GameControllerClose);
+			break;
+			
+		case SDL_CONTROLLERDEVICEREMOVED:
+			controllers_.erase(std::find_if(controllers_.begin(), controllers_.end(), [&](const CtrlPtr& p)
+			{
+				return e.cdevice.which == SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(p.get()));
+			}));
+			break;
+			
+		default:
+			if (auto parsed = ParseEvent(e))
+				AddEvent(*parsed);
+		}
 	}
 
 	void InputSystem::PostAddAllEvents()
 	{
 		int x, y;
 		SDL_GetRelativeMouseState(&x, &y);
-		mouse_.x = static_cast<float>(x);
-		mouse_.y = static_cast<float>(y);
+		mouse_[0] = static_cast<float>(x);
+		mouse_[1] = static_cast<float>(y);
 
 		auto trigger = [&](bool& old, CtrlAxis axis)
 		{
-			const auto pressed = GetAxisValue(axis) > 0.125_f;
+			const auto pressed = GetAxisValue(axis) > 0.25_f;
 			if (old != pressed) AddEvent({axis, pressed});
 			old = pressed;
 		};
-		trigger(ctrl_.l, CtrlAxis::LT);
-		trigger(ctrl_.r, CtrlAxis::RT);
+		trigger(trig_.l, CtrlAxis::LT);
+		trigger(trig_.r, CtrlAxis::RT);
 	}
 
 	Float InputSystem::GetAxisValue(Name name) const
@@ -231,61 +242,107 @@ namespace oeng
 
 	Float InputSystem::GetAxisValue(InputAxis axis) const
 	{
-		auto val = std::visit(Overload{
-			
-			[&](Keycode code)
-			{
-				const auto scan = SDL_GetScancodeFromKey(SDL_Keycode(code));
-				return SDL_GetKeyboardState(nullptr)[scan] ? 1_f : 0_f;
-			},
-			
-			[&](MouseBtn code)
-			{
-				const auto btn = SDL_GetMouseState(nullptr, nullptr);
-				return btn & MouseMask(code) ? 1_f : 0_f;
-			},
-			
-			[&](CtrlBtn code)
-			{
-				const auto btn = SDL_GameControllerButton(code);
-				return SDL_GameControllerGetButton(nullptr, btn) ? 1_f : 0_f;
-			},
-			
-			[&](MouseAxis code)
-			{
-				switch (code)
-				{
-				case MouseAxis::X: return mouse_.x;
-				case MouseAxis::Y: return mouse_.y;
-				default: return 0_f;
-				}
-			},
-			
-			[&](CtrlAxis code)
-			{
-				const auto ax = SDL_GameControllerAxis(code);
-				const auto v = SDL_GameControllerGetAxis(nullptr, ax);
-				return ToFloat(v) / (v >= 0 ? 32767_f : 32768_f);
-			}
-			
-		}, axis.code);
+		auto get = [&](auto c){ return GetAxisValue(c); };
+		const auto val = std::visit(get, axis.code);
+		return val * axis.scale;
+	}
 
-		const auto config = axis_configs_.find(axis.code);
+	Float InputSystem::GetAxisValue(CtrlBtn code) const noexcept
+	{
+		const auto btn = SDL_GameControllerButton(code);
+		const auto val = SDL_GameControllerGetButton(Ctrl(), btn) ? 1_f : 0_f;
+		return FilterAxis(code, val);
+	}
+
+	Float InputSystem::GetAxisValue(CtrlAxis code) const noexcept
+	{
+		auto raw = [&](CtrlAxis c)
+		{
+			const auto ax = SDL_GameControllerAxis(c);
+			const auto r = SDL_GameControllerGetAxis(Ctrl(), ax);
+			return ToFloat(r) / (r >= 0 ? 32767_f : 32768_f);
+		};
+
+		auto stick = [&](CtrlAxis c)
+		{
+			const auto i = static_cast<int>(c) % 2;
+			const auto v = static_cast<int>(c) / 2 * 2;
+			return FilterAxis(c, {raw(CtrlAxis(v)), raw(CtrlAxis(v+1))})[i];
+		};
+		
+		switch (code)
+		{
+		case CtrlAxis::LX: case CtrlAxis::LY: case CtrlAxis::RX: case CtrlAxis::RY:
+			return stick(code);
+		
+		default:
+			return FilterAxis(code, raw(code));
+		}
+	}
+
+	Float InputSystem::GetAxisValue(MouseAxis code) const noexcept
+	{
+		Float val;
+		
+		switch (code)
+		{
+		case MouseAxis::X: val = mouse_[0]; break;
+		case MouseAxis::Y: val = mouse_[1]; break;
+		default: val = 0_f;
+		}
+		
+		return FilterAxis(code, val);
+	}
+
+	Float InputSystem::GetAxisValue(MouseBtn code) const noexcept
+	{
+		const auto btn = SDL_GetMouseState(nullptr, nullptr);
+		const auto val = btn & MouseMask(code) ? 1_f : 0_f;
+		return FilterAxis(code, val);
+	}
+
+	Float InputSystem::GetAxisValue(Keycode code) const noexcept
+	{
+		const auto scan = SDL_GetScancodeFromKey(SDL_Keycode(code));
+		const auto val = SDL_GetKeyboardState(nullptr)[scan] ? 1_f : 0_f;
+		return FilterAxis(code, val);
+	}
+
+	Float InputSystem::FilterAxis(InputCode code, Float val) const noexcept
+	{
+		const auto config = axis_configs_.find(code);
 		if (config != axis_configs_.end())
 		{
 			auto& cfg = config->second;
-			
-			const auto dead = cfg.dead_zone / 2;
+
 			val = val >= 0
-				? Max(0, MapRng({dead, 1-dead}, {0, 1}, val))
-				: Min(0, MapRng({dead-1, -dead}, {-1, 0}, val));
+				? Max(0, MapRng({cfg.dead_zone, 1}, {0, 1}, val))
+				: Min(0, MapRng({-1, -cfg.dead_zone}, {-1, 0}, val));
 
 			val *= cfg.sensitivity;
-			val = std::pow(val, cfg.exponent);
-			if (cfg.invert) val = -val;
 		}
-		
-		return val * axis.scale;
+		return val;
+	}
+
+	Vec2 InputSystem::FilterAxis(InputCode code, Vec2 val) const noexcept
+	{
+		const auto config = axis_configs_.find(code);
+		if (config != axis_configs_.end())
+		{
+			auto& cfg = config->second;
+			const auto len = val.Len();
+
+			if (len <= Max(cfg.dead_zone, kSmallNum))
+			{
+				val = {};
+			}
+			else
+			{
+				const auto new_len = MapRng({cfg.dead_zone, 1}, {0, 1}, len);
+				val *= Max(0, new_len) * cfg.sensitivity / len;
+			}
+		}
+		return val;
 	}
 
 	ParsedEvent::ParsedEvent(InputCode code, bool pressed)
@@ -322,5 +379,10 @@ namespace oeng
 			out_axis_cfg[ToString(code)] = cfg;
 		
 		engine_.SaveConfig(conf_name);
+	}
+
+	_SDL_GameController* InputSystem::Ctrl() const noexcept
+	{
+		return controllers_.empty() ? nullptr : controllers_.front().get();
 	}
 }

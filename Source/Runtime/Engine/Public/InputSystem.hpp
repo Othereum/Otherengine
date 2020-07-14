@@ -1,17 +1,20 @@
 #pragma once
 #include <variant>
+#include "InputCode.hpp"
+#include "Math.hpp"
 #include "Name.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/HashMap.hpp"
-#include "InputCode.hpp"
 
 union SDL_Event;
+struct _SDL_GameController;
 
 namespace oeng
 {
 	class Engine;
 
 	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
+	using CtrlPtr = UniquePtr<_SDL_GameController, void(*)(_SDL_GameController*)>;
 
 	struct OEAPI InputAxis
 	{
@@ -45,8 +48,6 @@ namespace oeng
 	{
 		Float dead_zone = 0_f;
 		Float sensitivity = 1_f;
-		Float exponent = 1_f;
-		bool invert = false;
 	};
 
 	struct OEAPI ParsedEvent
@@ -66,6 +67,7 @@ namespace oeng
 	class OEAPI InputSystem
 	{
 	public:
+		OE_DELETE_CPMV(InputSystem);
 		explicit InputSystem(Engine& engine);
 		
 		void AddEvent(const SDL_Event& e);
@@ -76,6 +78,12 @@ namespace oeng
 
 		[[nodiscard]] Float GetAxisValue(Name name) const;
 		[[nodiscard]] Float GetAxisValue(InputAxis axis) const;
+		[[nodiscard]] Float GetAxisValue(CtrlBtn code) const noexcept;
+		[[nodiscard]] Float GetAxisValue(CtrlAxis code) const noexcept;
+		[[nodiscard]] Float GetAxisValue(MouseAxis code) const noexcept;
+		[[nodiscard]] Float GetAxisValue(MouseBtn code) const noexcept;
+		[[nodiscard]] Float GetAxisValue(Keycode code) const noexcept;
+		
 		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 
@@ -89,10 +97,17 @@ namespace oeng
 			Name name;
 			bool pressed;
 		};
+
+		[[nodiscard]] Float FilterAxis(InputCode code, Float val) const noexcept;
+		[[nodiscard]] Vec2 FilterAxis(InputCode code, Vec2 val) const noexcept;
+		[[nodiscard]] _SDL_GameController* Ctrl() const noexcept;
 		
 		Engine& engine_;
 		DyArr<InputEvent> events_;
-		struct { Float x, y; } mouse_{};
-		struct { bool l, r; } ctrl_{};
+		
+		Vec2 mouse_{};
+		struct { bool l, r; } trig_{};
+		
+		DyArr<CtrlPtr> controllers_;
 	};
 }
