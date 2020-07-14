@@ -49,7 +49,7 @@ namespace oeng
 		return false;
 	}
 
-	InputCode ToInputCode(const Json& json)
+	InputCode ToInputCode(std::string_view str)
 	{
 		static const std::unordered_map<std::string_view, std::function<std::optional<InputCode>(std::u8string_view)>> parsers
 		{
@@ -60,53 +60,80 @@ namespace oeng
 			{"CtrlAxis"sv, ToCtrlAxis},
 		};
 
-		const auto name = AsString8(json.at("Code").get<std::string>());
-		const auto type = json.at("Type").get<std::string>();
+		const auto del = str.find('.');
+		if (del == std::u8string_view::npos)
+			throw std::invalid_argument{"Format should be like '<type>.<code>'"};
+		
+		const auto type = str.substr(0, del);
+		const auto code = str.substr(del+1);
+		
 		try
 		{
-			return parsers.at(type)(name).value();
+			return parsers.at(type)(AsString8(code)).value();
 		}
 		catch (const std::out_of_range&)
 		{
-			Throw(u8"Invalid type '{}' (available: Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis)", AsString8(type));
+			throw std::invalid_argument{fmt::format(
+				"Invalid type '{}' (Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis)", type
+			)};
 		}
 		catch (const std::bad_optional_access&)
 		{
-			Throw(u8"Invalid code '{}'", name);
+			throw std::invalid_argument{fmt::format("Invalid code '{}'", code)};
 		}
 	}
 
-	void to_json(Json& json, const InputCode& code)
+	std::string ToString(InputCode code)
 	{
-		json["Code"] = AsString(std::visit([](auto code) { return String8{GetName(code)}; }, code));
-		json["Type"] = std::visit(Overload{
-			[](Keycode) { return "Keycode"s; },
-			[](MouseBtn) { return "MouseBtn"s; },
-			[](CtrlBtn) { return "CtrlBtn"s; },
-			[](MouseAxis) { return "MouseAxis"s; },
-			[](CtrlAxis) { return "CtrlAxis"s; },
+		const auto type = std::visit(Overload{
+			[](Keycode) { return u8"Keycode"sv; },
+			[](MouseBtn) { return u8"MouseBtn"sv; },
+			[](CtrlBtn) { return u8"CtrlBtn"sv; },
+			[](MouseAxis) { return u8"MouseAxis"sv; },
+			[](CtrlAxis) { return u8"CtrlAxis"sv; },
 		}, code);
+		
+		String8 buffer;
+		const auto name = std::visit(Overload{
+			[&](Keycode c)->std::u8string_view { return buffer = GetName(c); },
+			[](auto c) { return GetName(c); }
+		}, code);
+		
+		return AsString(Format(u8"{}.{}", type, name));
 	}
 
 	void to_json(Json& json, const InputAxis& axis)
 	{
-		json = axis.code;
+		json["Code"] = ToString(axis.code);
 		json["Scale"] = axis.scale;
 	}
 
 	void to_json(Json& json, const InputAction& action)
 	{
-		json = action.code;
+		json["Code"] = ToString(action.code);
 		
-		if (auto mods = GetNames(action.mod); mods.empty())
+		if (auto mods = GetNames(action.mod); !mods.empty())
 		{
-			json.erase("Mods");
+			auto& out = json["Mods"] = Json::array();
+			for (const auto mod : mods)
+				out.emplace_back(AsString(mod));
 		}
-		else
-		{
-			auto& out = json["Mods"];
-			for (const auto mod : mods) out.emplace_back(AsString(mod));
-		}
+	}
+
+	void to_json(Json& json, const AxisConfig& action)
+	{
+		json["DeadZone"] = action.dead_zone;
+		json["Sensitivity"] = action.sensitivity;
+		json["Exponent"] = action.exponent;
+		json["Invert"] = action.invert;
+	}
+
+	void from_json(const Json& json, AxisConfig& action)
+	{
+		action.dead_zone = json.at("DeadZone");
+		action.sensitivity = json.at("Sensitivity");
+		action.exponent = json.at("Exponent");
+		action.invert = json.at("Invert");
 	}
 
 	template <class Map>
@@ -132,12 +159,12 @@ namespace oeng
 	}
 
 	InputAxis::InputAxis(const Json& json)
-		:code{ToInputCode(json)}, scale{json.at("Scale")}
+		:code{ToInputCode(json.at("Code"))}, scale{json.at("Scale")}
 	{
 	}
 
 	InputAction::InputAction(const Json& json)
-		:code{ToInputCode(json)}, mod{KeyMod::NONE}
+		:code{ToInputCode(json.at("Code"))}, mod{KeyMod::NONE}
 	{
 		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
 		{

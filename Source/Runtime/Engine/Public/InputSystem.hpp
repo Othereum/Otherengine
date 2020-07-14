@@ -41,10 +41,13 @@ namespace oeng
 		KeyMod mod;
 	};
 
-	OEAPI InputCode ToInputCode(const Json& json);
-	OEAPI void to_json(Json& json, const InputCode& code);
-	OEAPI void to_json(Json& json, const InputAxis& axis);
-	OEAPI void to_json(Json& json, const InputAction& action);
+	struct AxisConfig
+	{
+		Float dead_zone = 0_f;
+		Float sensitivity = 1_f;
+		Float exponent = 1_f;
+		bool invert = false;
+	};
 
 	struct OEAPI ParsedEvent
 	{
@@ -53,13 +56,12 @@ namespace oeng
 		bool pressed;
 	};
 
-	struct AxisConfig
-	{
-		Float dead_zone = 0_f;
-		Float sensitivity = 1_f;
-		Float exponent = 1_f;
-		bool invert = false;
-	};
+	OEAPI std::string ToString(InputCode code);
+	OEAPI InputCode ToInputCode(std::string_view str);
+	OEAPI void to_json(Json& json, const InputAxis& axis);
+	OEAPI void to_json(Json& json, const InputAction& action);
+	OEAPI void to_json(Json& json, const AxisConfig& action);
+	OEAPI void from_json(const Json& json, AxisConfig& action);
 
 	class OEAPI InputSystem
 	{
