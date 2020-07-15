@@ -24,11 +24,8 @@
 
 ## Dependencies
 
-* [otm](https://github.com/Othereum/otm)
-* [omem](https://github.com/Othereum/omem)
-* [nlohmann-json](https://github.com/nlohmann/json)
-* [fmt](https://github.com/fmtlib/fmt)
-* [spdlog](https://github.com/gabime/spdlog)
+* [nlohmann-json](https://github.com/nlohmann/json): ≥3.7 and <3.8
+* [fmt](https://github.com/fmtlib/fmt): ≥6.1
+* [spdlog](https://github.com/gabime/spdlog): ≥1.4
 * [SDL2](https://www.libsdl.org/download-2.0.php)
-* [GLEW](https://github.com/nigels-com/glew)
-* [SOIL2](https://github.com/SpartanJ/SOIL2)
+* [GLEW](https://github.com/nigels-com/glew): ≥2.1
