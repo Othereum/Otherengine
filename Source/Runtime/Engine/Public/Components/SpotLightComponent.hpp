@@ -7,7 +7,7 @@ namespace oeng
 	class OEAPI SpotLightComponent : public SceneComponent, public ISpotLight
 	{
 	public:
-		OE_DELETE_CPMV(SpotLightComponent);
+		DELETE_CPMV(SpotLightComponent);
 		
 		explicit SpotLightComponent(AActor& owner, int update_order = 100);
 		~SpotLightComponent();

@@ -7,7 +7,7 @@ namespace oeng
 	class OEAPI SkyLightComponent : public SceneComponent, public ISkyLight
 	{
 	public:
-		OE_DELETE_CPMV(SkyLightComponent);
+		DELETE_CPMV(SkyLightComponent);
 		
 		explicit SkyLightComponent(AActor& owner, int update_order = 100)
 			:SceneComponent{owner, update_order}, color_{0.1, 0.1, 0.1}

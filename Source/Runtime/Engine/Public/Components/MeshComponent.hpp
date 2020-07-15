@@ -12,7 +12,7 @@ namespace oeng
 	class OEAPI MeshComponent : public SceneComponent, public IMeshComponent
 	{
 	public:
-		OE_DELETE_CPMV(MeshComponent);
+		DELETE_CPMV(MeshComponent);
 		
 		explicit MeshComponent(AActor& owner, int update_order = 100);
 		~MeshComponent();

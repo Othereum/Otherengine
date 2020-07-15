@@ -36,7 +36,7 @@ namespace oeng
 	class OEAPI ScopeCycleCounter
 	{
 	public:
-		OE_DELETE_CPMV(ScopeCycleCounter);
+		DELETE_CPMV(ScopeCycleCounter);
 		
 		explicit ScopeCycleCounter(Name name);
 		~ScopeCycleCounter();
@@ -45,7 +45,7 @@ namespace oeng
 	class OEAPI ScopeCounter
 	{
 	public:
-		OE_DELETE_CPMV(ScopeCounter);
+		DELETE_CPMV(ScopeCounter);
 		
 		explicit ScopeCounter(Name name) noexcept
 			:start_{Clock::now()}, name_{name}

@@ -67,7 +67,7 @@ namespace oeng
 	class OEAPI InputSystem
 	{
 	public:
-		OE_DELETE_CPMV(InputSystem);
+		DELETE_CPMV(InputSystem);
 		explicit InputSystem(Engine& engine);
 		
 		void AddEvent(const SDL_Event& e);

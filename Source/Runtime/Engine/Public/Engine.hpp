@@ -24,7 +24,7 @@ namespace oeng
 	class OEAPI Engine : public IEngine, SdlRaii
 	{
 	public:
-		OE_DELETE_CPMV(Engine);
+		DELETE_CPMV(Engine);
 
 		explicit Engine(void load_game(Engine&));
 		~Engine();

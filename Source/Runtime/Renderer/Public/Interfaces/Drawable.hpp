@@ -11,7 +11,7 @@ namespace oeng
 	class OEAPI ISpriteComponent
 	{
 	public:
-		OE_INTERFACE_BODY(ISpriteComponent);
+		INTERFACE_BODY(ISpriteComponent);
 		
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
 		[[nodiscard]] virtual const Mat4& GetDrawTrsf() const noexcept = 0;
@@ -22,7 +22,7 @@ namespace oeng
 	class OEAPI IMeshComponent
 	{
 	public:
-		OE_INTERFACE_BODY(IMeshComponent);
+		INTERFACE_BODY(IMeshComponent);
 
 		[[nodiscard]] virtual Float GetMaxDrawDist() const noexcept = 0;
 		[[nodiscard]] virtual Float GetRadius() const noexcept = 0;

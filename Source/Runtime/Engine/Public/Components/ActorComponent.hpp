@@ -12,7 +12,7 @@ namespace oeng
 	class OEAPI ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
-		OE_DELETE_CPMV(ActorComponent);
+		DELETE_CPMV(ActorComponent);
 
 		explicit ActorComponent(AActor& owner, int update_order = 100);
 		virtual ~ActorComponent() = default;

@@ -38,7 +38,7 @@ namespace oeng
 	class OEAPI TimerManager
 	{
 	public:
-		OE_DELETE_CPMV(TimerManager);
+		DELETE_CPMV(TimerManager);
 		
 		explicit TimerManager(class World& world) noexcept;
 		~TimerManager();

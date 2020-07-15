@@ -78,14 +78,14 @@ namespace oeng
 	extern OE_IMPORT ScopeCycleManager scope_cycle_manager;
 	extern OE_IMPORT std::unordered_map<Name, ScopeStat> scope_stats;
 
-	static void LogStat(Name name, const ScopeStat& stat, const uint64_t ticks, int depth = 0)
+	static void LogStat(Name name, const ScopeStat& stat, uint64_t ticks, int depth = 0)
 	{
 		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
 		const auto count = ToFloat(stat.count) / ToFloat(ticks);
 		log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
 	}
 
-	static void LogStats(const std::map<Name, ScopeCycleStat>& stats, const uint64_t ticks, const int depth = 0)
+	static void LogStats(const std::map<Name, ScopeCycleStat>& stats, uint64_t ticks, int depth = 0)
 	{
 		for (auto& [name, stat] : stats)
 		{
@@ -94,7 +94,7 @@ namespace oeng
 		}
 	}
 	
-	static void LogStats(const uint64_t ticks)
+	static void LogStats(uint64_t ticks)
 	{
 		if (ticks == 0) return;
 		

@@ -6,7 +6,7 @@ namespace oeng
 	class OEAPI ICamera
 	{
 	public:
-		OE_INTERFACE_BODY(ICamera);
+		INTERFACE_BODY(ICamera);
 
 		struct Data
 		{

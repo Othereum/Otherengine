@@ -7,7 +7,7 @@ namespace oeng
 	class OEAPI CameraComponent : public SceneComponent, public ICamera
 	{
 	public:
-		OE_DELETE_CPMV(CameraComponent);
+		DELETE_CPMV(CameraComponent);
 		
 		explicit CameraComponent(AActor& owner, int update_order = 100);
 		~CameraComponent();

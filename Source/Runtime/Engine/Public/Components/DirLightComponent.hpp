@@ -7,7 +7,7 @@ namespace oeng
 	class OEAPI DirLightComponent : public SceneComponent, public IDirLight
 	{
 	public:
-		OE_DELETE_CPMV(DirLightComponent);
+		DELETE_CPMV(DirLightComponent);
 		
 		explicit DirLightComponent(AActor& owner, int update_order = 100);
 		~DirLightComponent();

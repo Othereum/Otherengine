@@ -25,22 +25,22 @@
 	#define OE_EXPORT OEAPI
 #endif
 
-#define OE_GAME_API extern "C" OE_EXPORT
-#define OE_DEFINE_GAME_MODULE(game_name) OE_GAME_API const std::u8string_view kGameName = game_name
+#define GAME_API extern "C" OE_EXPORT
+#define DEFINE_GAME_MODULE(game_name) GAME_API const std::u8string_view kGameName = game_name
 
-#define OE_EXPLICIT_CPMV(name, spec) \
+#define EXPLICIT_CPMV(name, spec) \
 	name(const name&) = spec; \
 	name(name&&) = spec; \
 	name& operator=(const name&) = spec; \
 	name& operator=(name&&) = spec
 
-#define OE_DELETE_CPMV(name) OE_EXPLICIT_CPMV(name, delete)
-#define OE_DEFAULT_CPMV(name) OE_EXPLICIT_CPMV(name, default)
+#define DELETE_CPMV(name) EXPLICIT_CPMV(name, delete)
+#define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)
 
-#define OE_INTERFACE_BODY(name) \
+#define INTERFACE_BODY(name) \
 	constexpr name() noexcept = default; \
 	virtual ~name() {} \
-	OE_EXPLICIT_CPMV(name, default)
+	EXPLICIT_CPMV(name, default)
 
 namespace oeng
 {

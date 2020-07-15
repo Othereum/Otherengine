@@ -6,7 +6,7 @@ namespace oeng
 	class OEAPI IDirLight
 	{
 	public:
-		OE_INTERFACE_BODY(IDirLight);
+		INTERFACE_BODY(IDirLight);
 		
 		struct Data
 		{
@@ -20,7 +20,7 @@ namespace oeng
 	class OEAPI ISkyLight
 	{
 	public:
-		OE_INTERFACE_BODY(ISkyLight);
+		INTERFACE_BODY(ISkyLight);
 		
 		[[nodiscard]] virtual const Vec3& GetColor() const noexcept = 0;
 	};
@@ -28,7 +28,7 @@ namespace oeng
 	class OEAPI IPointLight
 	{
 	public:
-		OE_INTERFACE_BODY(IPointLight);
+		INTERFACE_BODY(IPointLight);
 		
 		struct Data
 		{
@@ -44,7 +44,7 @@ namespace oeng
 	class OEAPI ISpotLight
 	{
 	public:
-		OE_INTERFACE_BODY(ISpotLight);
+		INTERFACE_BODY(ISpotLight);
 		
 		struct Data
 		{

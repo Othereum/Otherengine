@@ -52,7 +52,7 @@ namespace oeng
 	class OEAPI Renderer
 	{
 	public:
-		OE_DELETE_CPMV(Renderer);
+		DELETE_CPMV(Renderer);
 		
 		explicit Renderer(IEngine& engine);
 		~Renderer();

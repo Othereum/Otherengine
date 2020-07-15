@@ -12,7 +12,7 @@ namespace oeng
 	class OEAPI IEngine
 	{
 	public:
-		OE_INTERFACE_BODY(IEngine);
+		INTERFACE_BODY(IEngine);
 		
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
 		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;

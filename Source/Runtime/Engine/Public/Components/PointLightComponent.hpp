@@ -7,7 +7,7 @@ namespace oeng
 	class OEAPI PointLightComponent : public SceneComponent, public IPointLight
 	{
 	public:
-		OE_DELETE_CPMV(PointLightComponent);
+		DELETE_CPMV(PointLightComponent);
 		
 		explicit PointLightComponent(AActor& owner, int update_order = 100);
 		~PointLightComponent();

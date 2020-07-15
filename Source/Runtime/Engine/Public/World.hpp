@@ -13,7 +13,7 @@ namespace oeng
 	class OEAPI World
 	{
 	public:
-		OE_DELETE_CPMV(World);
+		DELETE_CPMV(World);
 		
 		explicit World(Engine& engine);
 		~World();
