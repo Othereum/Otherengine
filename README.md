@@ -1,30 +1,37 @@
-# Otherengine
+# Otherengine - 3D Game Engine
 
-3D Game Engine made with C++ and OpenGL
+* [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
+* [Demonstration](https://www.youtube.com/playlist?list=PLRimg1E-To2HJn1jtpYQXFujjI4dbRUsY)
 
-[Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
+## Features
 
-* C++20, OpenGL 3.3, SDL2
-
-* Cross platform: Windows, Linux, OS X (not tested but should work)
-
-* Math library [**otm**](https://github.com/Othereum/otm)
-
-* Memory pool library [**omem**](https://github.com/Othereum/omem)
+* Cross platform: Windows, Linux, OS X
 
 * 3D Rendering
-  * Support custom GLSL shader
-  * 3D Mesh (custom format .omesh)
-  * Texture (jpg, png, ...)
+  * [GLSL](https://github.com/Othereum/Otherengine/wiki/Shader-programming)
+  * Full dynamic lighting: directional, point and spot light
+  * [Material](https://github.com/Othereum/Otherengine/wiki/Graphic-Assets#material): sharable common uniform parameters
 
 * Game Framework
   * UE4 style
   * Actor - Component
   * Hierarchical SceneComponent
-  * World timer manager
-  * Multiplayer support (planned)
 
-* Modules and dependencies (*italics* means private)
-  * [**Core**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Core) - otm omem [nlohmann-json](https://github.com/nlohmann/json) [fmt](https://github.com/fmtlib/fmt) [spdlog](https://github.com/gabime/spdlog)
-  * [**Engine**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Engine) - Core Renderer [*SDL2*](https://www.libsdl.org/download-2.0.php)
-  * [**Renderer**](https://github.com/Othereum/Otherengine/tree/buildable/Source/Runtime/Renderer) - Core *SDL2* [*GLEW*](https://github.com/nigels-com/glew) [*SOIL2*](https://github.com/SpartanJ/SOIL2)
+* Config system
+  * Runtime load from .json
+  * Save to .json
+
+* Input system
+  * [Load input mapping from config](https://github.com/Othereum/Otherengine/wiki/Input-mapping-config)
+  * Game controller support
+
+## Dependencies
+
+* [otm](https://github.com/Othereum/otm)
+* [omem](https://github.com/Othereum/omem)
+* [nlohmann-json](https://github.com/nlohmann/json)
+* [fmt](https://github.com/fmtlib/fmt)
+* [spdlog](https://github.com/gabime/spdlog)
+* [SDL2](https://www.libsdl.org/download-2.0.php)
+* [GLEW](https://github.com/nigels-com/glew)
+* [SOIL2](https://github.com/SpartanJ/SOIL2)
