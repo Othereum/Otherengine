@@ -8,7 +8,7 @@
 
 ## Get Started
 
-1. First, create a game project folder.
+1. **First, create a game project folder.**
 
     The folder name doesn't matter, but you'd better use the game name. In this tutorial, we'll go with TestGame.
 
@@ -16,7 +16,7 @@
     ◢ TestGame
     ```
 
-1. Add the Otherengine to the Engine folder.
+1. **Add the Otherengine to the Engine folder.**
 
     In this tutorial, we will use the git submodule. This will facilitate engine updates.
 
@@ -38,7 +38,7 @@
         .gitmodules
     ```
 
-1. Add CMakeLists.txt.
+1. **Add CMakeLists.txt.**
 
     ```text
     ◢ TestGame
@@ -55,7 +55,7 @@
 
     You just need to write these three lines. The CMakeLists.txt inside the engine will take care of the entire build configuration.
 
-1. Create a Public and Private folder in TestGame/Source/TestGame.
+1. **Create a Public and Private folder in TestGame/Source/TestGame.**
 
     ```text
     ◢ TestGame
@@ -72,7 +72,7 @@
 
     Each module's Private folder contains sources that will only be used inside the module, and the Public folder contains that will be visible from outside the module. So usually .cpp files are put into Private and .hpp files into Public. All .cpp files in the Private are automatically added to the build target, and the Public folder is added to the include directory for modules that use it.
 
-1. Create a cpp file to create a game module.
+1. **Create a cpp file to create a game module.**
 
     ```text
     ◢ TestGame
@@ -98,7 +98,7 @@
     }
     ```
 
-1. Generate with CMake and build them all.
+1. **Generate with CMake and build them all.**
 
     In Windows, this is what the build result will look like:
 
