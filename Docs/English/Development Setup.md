@@ -1,5 +1,7 @@
 # Development Setup
 
+[한국어](../한국어/개발%20셋업.md)
+
 ## Prerequisites
 
 * cmake
