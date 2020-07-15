@@ -17,12 +17,8 @@
   * Actor - Component
   * Hierarchical SceneComponent
 
-* Config system
-  * Runtime load from .json
-  * Save to .json
-
 * Input system
-  * [Load input mapping from config](https://github.com/Othereum/Otherengine/wiki/Input-mapping-config)
+  * [Input mapping](https://github.com/Othereum/Otherengine/wiki/Input-mapping-config)
   * Game controller support
 
 ## Dependencies
