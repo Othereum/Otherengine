@@ -12,7 +12,7 @@
 * 3D Rendering
   * [GLSL](Guide/English/Shader%20Programming.md)
   * Full dynamic lighting: directional, point and spot light
-  * [Material](https://github.com/Othereum/Otherengine/wiki/Graphic-Assets#material): sharable common uniform parameters
+  * [Material](Guide/English/Graphic%20Assets.md#material): sharable common uniform parameters
 
 * Game Framework
   * UE4 style
