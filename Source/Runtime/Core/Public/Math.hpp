@@ -1,7 +1,7 @@
 #pragma once
 #include <otm/otm.hpp>
 
-namespace oeng::core
+namespace oeng
 {
 	using namespace otm;
 }

@@ -1,14 +1,25 @@
 #pragma once
 #include "JsonFwd.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	class Texture;
-	class Mesh;
 	class World;
 	class InputSystem;
+}
+
+namespace oeng::renderer
+{
 	class Renderer;
-	
+}
+
+namespace oeng
+{
+	using namespace engine;
+	using namespace renderer;
+}
+
+namespace oeng::core
+{
 	class OEAPI IEngine
 	{
 	public:

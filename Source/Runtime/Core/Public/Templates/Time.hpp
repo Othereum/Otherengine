@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-namespace oeng
+namespace oeng::core
 {
 	namespace time = std::chrono;
 	using namespace std::chrono_literals;

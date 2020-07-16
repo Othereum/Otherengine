@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include "Memory.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	template <class Key, class T, class Hash = std::hash<Key>, class KeyEqual = std::equal_to<>, class Alloc = PoolAllocator<std::pair<const Key, T>>>
 	using HashMap = std::unordered_map<Key, T, Hash, KeyEqual, Alloc>;
