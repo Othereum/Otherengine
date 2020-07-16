@@ -1,5 +1,0 @@
-<map id="oeng::renderer::ISkyLight" name="oeng::renderer::ISkyLight">
-<area shape="rect" id="node1" title=" " alt="" coords="143,5,310,32"/>
-<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_sky_light_component.html" title=" " alt="" coords="5,87,227,114"/>
-<area shape="rect" id="node3" href="$classoeng_1_1renderer_1_1_default_sky_light.html" title=" " alt="" coords="251,80,427,121"/>
-</map>
