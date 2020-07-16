@@ -1,14 +1,11 @@
 #pragma once
+#include "EngineFwd.hpp"
 #include "MathFwd.hpp"
+#include "RendererFwd.hpp"
 #include "Templates/Memory.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	class AActor;
-	class Engine;
-	class World;
-	class Renderer;
-	
 	class OEAPI ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
@@ -45,4 +42,9 @@ namespace oeng
 		bool is_active_ : 1 = false;
 		bool begun_play_ : 1 = false;
 	};
+}
+
+namespace oeng
+{
+	using namespace engine;
 }

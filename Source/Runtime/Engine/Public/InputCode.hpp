@@ -4,7 +4,7 @@
 #include "Templates/DyArr.hpp"
 #include "Templates/String.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	enum class CtrlAxis { LX, LY, RX, RY, LT, RT };
 	enum class CtrlBtn

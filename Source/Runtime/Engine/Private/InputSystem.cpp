@@ -4,7 +4,7 @@
 #include "Engine.hpp"
 #include "Math.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	template <class... Ts>
 	struct Overload : Ts... { using Ts::operator()...; };

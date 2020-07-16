@@ -2,7 +2,7 @@
 #include "SceneComponent.hpp"
 #include "Interfaces/Light.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class OEAPI PointLightComponent : public SceneComponent, public IPointLight
 	{

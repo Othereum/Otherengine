@@ -2,7 +2,7 @@
 #include "Components/SceneComponent.hpp"
 #include "Interfaces/Light.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class OEAPI DirLightComponent : public SceneComponent, public IDirLight
 	{

@@ -1,12 +1,12 @@
 #pragma once
+#include <functional>
 #include "ActorComponent.hpp"
 #include "Name.hpp"
-#include "Templates/Function.hpp"
 #include "Templates/HashMap.hpp"
 
 struct SDL_KeyboardEvent;
 
-namespace oeng
+namespace oeng::engine
 {
 	class InputSystem;
 	
@@ -15,8 +15,8 @@ namespace oeng
 	public:
 		explicit InputComponent(class AActor& owner, int update_order = 0);
 		
-		void BindAction(Name action, bool pressed, Function<void()>&& callback);
-		void BindAxis(Name axis, Function<void(Float)>&& callback);
+		void BindAction(Name action, bool pressed, std::function<void()>&& callback);
+		void BindAxis(Name axis, std::function<void(Float)>&& callback);
 
 		[[nodiscard]] const InputSystem& GetInputSystem() const noexcept;
 		
@@ -26,7 +26,7 @@ namespace oeng
 		void ProcessActions() const;
 		void ProcessAxises() const;
 		
-		HashMultiMap<Name, Function<void()>> actions_[2];
-		HashMultiMap<Name, Function<void(Float)>> axises_;
+		HashMultiMap<Name, std::function<void()>> actions_[2];
+		HashMultiMap<Name, std::function<void(Float)>> axises_;
 	};
 }

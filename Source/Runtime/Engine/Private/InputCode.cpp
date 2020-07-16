@@ -3,7 +3,7 @@
 #include <SDL_keyboard.h>
 #include <SDL_gamecontroller.h>
 
-namespace oeng
+namespace oeng::engine
 {
 	String8 GetName(Keycode btn) noexcept
 	{

@@ -4,7 +4,7 @@
 #include "Actors/Actor.hpp"
 #include "Components/CircleComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	World::World(Engine& engine)
 		:engine_{engine}, timer_{*this}, delta_seconds_{0}

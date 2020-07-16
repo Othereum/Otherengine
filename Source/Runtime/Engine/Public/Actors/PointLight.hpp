@@ -1,7 +1,7 @@
 #pragma once
 #include "Actor.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class PointLightComponent;
 	

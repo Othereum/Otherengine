@@ -4,7 +4,7 @@
 #include "Templates/DyArr.hpp"
 #include "Templates/Memory.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class Engine;
 	class World;

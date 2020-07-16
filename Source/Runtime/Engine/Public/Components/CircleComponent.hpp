@@ -2,7 +2,7 @@
 #include <functional>
 #include "ActorComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class CircleComponent : public ActorComponent
 	{

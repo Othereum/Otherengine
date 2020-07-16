@@ -1,7 +1,7 @@
 #include "Actors/DirLight.hpp"
 #include "Components/DirLightComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	ADirLight::ADirLight(World& world)
 		:AActor{world}, light_{AddComponent<DirLightComponent>()}

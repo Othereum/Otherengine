@@ -1,7 +1,7 @@
 #include "AI/AIComponent.hpp"
 #include "AI/AIState.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	namespace ai_state
 	{
@@ -35,7 +35,7 @@ namespace oeng
 		next.OnEnter(prev);
 	}
 
-	void AIComponent::AddState(std::unique_ptr<ai_state::Base>&& state)
+	void AIComponent::AddState(UniquePtr<ai_state::Base>&& state)
 	{
 		states_.emplace(state->GetName(), std::move(state));
 	}

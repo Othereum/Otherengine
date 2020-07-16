@@ -1,7 +1,7 @@
 #include "Actors/PointLight.hpp"
 #include "Components/PointLightComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	APointLight::APointLight(World& world)
 		:AActor{world}, light_{AddComponent<PointLightComponent>()}

@@ -2,7 +2,7 @@
 #include "Renderer.hpp"
 #include "Mesh.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	MeshComponent::MeshComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order},

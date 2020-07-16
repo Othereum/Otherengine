@@ -1,7 +1,7 @@
 #include "Actors/SkyLight.hpp"
 #include "Components/SkyLightComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	ASkyLight::ASkyLight(World& world)
 		:AActor{world}, light_{AddComponent<SkyLightComponent>()}

@@ -5,11 +5,14 @@
 
 struct SDL_Renderer;
 
-namespace oeng
+namespace oeng::renderer
 {
 	class Renderer;
 	class Texture;
-	
+}
+
+namespace oeng::engine
+{
 	class OEAPI SpriteComponent : public SceneComponent, public ISpriteComponent
 	{
 	public:

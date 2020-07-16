@@ -1,7 +1,7 @@
 #include "Camera/CameraComponent.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	CameraComponent::CameraComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order},

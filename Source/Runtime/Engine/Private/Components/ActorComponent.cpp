@@ -2,7 +2,7 @@
 #include "Actors/Actor.hpp"
 #include "Engine.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	ActorComponent::ActorComponent(AActor& owner, const int update_order)
 		:owner_{owner}, update_order_{update_order}

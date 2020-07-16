@@ -5,15 +5,8 @@
 #include "World.hpp"
 #include "Interfaces/IEngine.hpp"
 
-struct SDL_Window;
-struct SDL_Renderer;
-struct SDL_Rect;
-
-namespace oeng
+namespace oeng::engine
 {
-	class Texture;
-	class Mesh;
-
 	class OEAPI SdlRaii
 	{
 	public:

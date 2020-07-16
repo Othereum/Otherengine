@@ -3,7 +3,7 @@
 #include "Engine.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	SpriteComponent::SpriteComponent(AActor& owner, const int draw_order, const int update_order)
 		:SceneComponent{owner, update_order},

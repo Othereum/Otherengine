@@ -2,7 +2,7 @@
 #include "Components/ActorComponent.hpp"
 #include "Math.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class SceneComponent;
 	

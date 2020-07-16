@@ -1,7 +1,7 @@
 #include "Actors/MeshActor.hpp"
 #include "Components/MeshComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	AMeshActor::AMeshActor(World& world)
 		:AActor{world}, mesh_{AddComponent<MeshComponent>()}

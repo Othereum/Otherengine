@@ -1,12 +1,16 @@
 #pragma once
+#include <functional>
 #include "MathFwd.hpp"
 #include "Templates/Time.hpp"
-#include "Templates/Function.hpp"
 #include "Templates/HashMap.hpp"
 
 namespace oeng
 {
-	struct TimerHandle;
+	namespace engine
+	{
+		struct TimerHandle;
+	}
+	using namespace engine;
 }
 
 template <>
@@ -15,7 +19,7 @@ struct OEAPI std::hash<oeng::TimerHandle>
 	size_t operator()(oeng::TimerHandle key) const noexcept;
 };
 
-namespace oeng
+namespace oeng::engine
 {
 	enum class Loop
 	{
@@ -45,14 +49,14 @@ namespace oeng
 		
 		void Update();
 
-		TimerHandle SetLoopTimer(Float delay_in_seconds, Function<Loop()>&& fn = []{return Loop::kContinue;});
-		TimerHandle SetTimer(Float delay_in_seconds, Function<void()>&& fn = []{});
+		TimerHandle SetLoopTimer(Float delay_in_seconds, std::function<Loop()>&& fn = []{return Loop::kContinue;});
+		TimerHandle SetTimer(Float delay_in_seconds, std::function<void()>&& fn = []{});
 		
 		/**
 		 * \brief Set timer for next tick. Technically, fn is called at the end of the tick.
 		 * \param fn Callback function
 		 */
-		void SetTimerForNextTick(Function<void()>&& fn);
+		void SetTimerForNextTick(std::function<void()>&& fn);
 		
 		/**
 		 * \brief Update timer

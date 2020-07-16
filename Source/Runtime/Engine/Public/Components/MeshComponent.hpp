@@ -3,12 +3,8 @@
 #include "SceneComponent.hpp"
 #include "Path.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	class Mesh;
-	class Material;
-	class Renderer;
-	
 	class OEAPI MeshComponent : public SceneComponent, public IMeshComponent
 	{
 	public:

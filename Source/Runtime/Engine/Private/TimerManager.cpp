@@ -1,21 +1,19 @@
 #include "TimerManager.hpp"
 #include "World.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	using namespace std::chrono;
-
 	constexpr Clock::duration ToDuration(Float sec) noexcept
 	{
-		return duration_cast<Clock::duration>(duration<Float>{sec});
+		return duration_cast<Clock::duration>(time::duration<Float>{sec});
 	}
 
 	constexpr Float ToFloat(Clock::duration dur) noexcept
 	{
-		return duration_cast<duration<Float>>(dur).count();
+		return duration_cast<time::duration<Float>>(dur).count();
 	}
 
-	TimerHandle TimerManager::SetLoopTimer(Float delay_in_seconds, Function<Loop()>&& fn)
+	TimerHandle TimerManager::SetLoopTimer(Float delay_in_seconds, std::function<Loop()>&& fn)
 	{
 		const auto handle = TimerHandle::Create();
 		const auto delay = ToDuration(delay_in_seconds);
@@ -23,12 +21,12 @@ namespace oeng
 		return handle;
 	}
 
-	TimerHandle TimerManager::SetTimer(Float delay_in_seconds, Function<void()>&& fn)
+	TimerHandle TimerManager::SetTimer(Float delay_in_seconds, std::function<void()>&& fn)
 	{
 		return SetLoopTimer(delay_in_seconds, [fn = std::move(fn)] { fn(); return Loop::kStop; });
 	}
 
-	void TimerManager::SetTimerForNextTick(Function<void()>&& fn)
+	void TimerManager::SetTimerForNextTick(std::function<void()>&& fn)
 	{
 		SetTimer(0, std::move(fn));
 	}

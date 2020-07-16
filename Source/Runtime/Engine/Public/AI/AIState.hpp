@@ -1,7 +1,7 @@
 #pragma once
 #include "Name.hpp"
 
-namespace oeng::ai_state
+namespace oeng::engine::ai_state
 {
 	class Base
 	{
@@ -18,4 +18,9 @@ namespace oeng::ai_state
 	private:
 		AIComponent& owner_;
 	};
+}
+
+namespace oeng
+{
+	using namespace engine;
 }

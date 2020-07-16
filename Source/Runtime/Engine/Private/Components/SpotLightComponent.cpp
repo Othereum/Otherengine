@@ -2,7 +2,7 @@
 #include "Engine.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	SpotLightComponent::SpotLightComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order},

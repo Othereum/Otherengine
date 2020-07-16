@@ -1,13 +1,11 @@
 #pragma once
 #include "Actor.hpp"
 #include "Path.hpp"
+#include "EngineFwd.hpp"
+#include "RendererFwd.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	class Material;
-	class Mesh;
-	class MeshComponent;
-	
 	class OEAPI AMeshActor : public AActor
 	{
 	public:

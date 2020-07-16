@@ -3,7 +3,7 @@
 #include "World.hpp"
 #include "Components/SceneComponent.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	AActor::AActor(World& world)
 		:world_{world}

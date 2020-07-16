@@ -3,7 +3,7 @@
 #include "Math.hpp"
 #include "Templates/DyArr.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	enum class AttachRule
 	{

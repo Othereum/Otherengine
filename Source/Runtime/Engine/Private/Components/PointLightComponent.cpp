@@ -2,7 +2,7 @@
 #include "Engine.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	PointLightComponent::PointLightComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order}, data_{GetWorldPos(), Vec3::one, 1000}

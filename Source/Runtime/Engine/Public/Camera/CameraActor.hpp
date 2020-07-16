@@ -1,7 +1,7 @@
 #pragma once
 #include "Actors/Actor.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class CameraComponent;
 	

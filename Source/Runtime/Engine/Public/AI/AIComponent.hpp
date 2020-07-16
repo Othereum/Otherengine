@@ -1,10 +1,9 @@
 #pragma once
-#include <memory>
-#include <unordered_map>
-#include "Components/ActorComponent.hpp"
 #include "Name.hpp"
+#include "Components/ActorComponent.hpp"
+#include "Templates/HashMap.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	namespace ai_state
 	{
@@ -22,18 +21,18 @@ namespace oeng
 		 */
 		void ChangeState(Name name);
 		
-		void AddState(std::unique_ptr<ai_state::Base>&& state);
+		void AddState(UniquePtr<ai_state::Base>&& state);
 
 		template <class T, class... Args>
 		void AddState(Args&&... args)
 		{
-			AddState(std::make_unique<T>(std::forward<Args>(args)...));
+			AddState(MakeUnique<T>(std::forward<Args>(args)...));
 		}
 
 	private:
 		void OnUpdate(Float delta_seconds) override;
 		
-		std::unordered_map<Name, std::unique_ptr<ai_state::Base>> states_;
+		HashMap<Name, UniquePtr<ai_state::Base>> states_;
 		std::reference_wrapper<ai_state::Base> cur_;
 	};
 }

@@ -1,21 +1,17 @@
 #pragma once
 #include <variant>
+#include "EngineFwd.hpp"
 #include "InputCode.hpp"
 #include "Math.hpp"
 #include "Name.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/HashMap.hpp"
 
-union SDL_Event;
-struct _SDL_GameController;
-
-namespace oeng
+namespace oeng::engine
 {
-	class Engine;
-
 	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
 	using CtrlPtr = UniquePtr<_SDL_GameController, void(*)(_SDL_GameController*)>;
-
+	
 	struct OEAPI InputAxis
 	{
 		template <std::convertible_to<InputCode> T>

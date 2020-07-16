@@ -2,7 +2,7 @@
 #include "Actors/Actor.hpp"
 #include "World.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	CircleComponent::CircleComponent(AActor& owner, int update_order)
 		:ActorComponent{owner, update_order}

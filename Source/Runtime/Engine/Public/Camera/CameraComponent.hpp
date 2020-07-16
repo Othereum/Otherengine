@@ -2,7 +2,7 @@
 #include "Components/SceneComponent.hpp"
 #include "Interfaces/Camera.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
 	class OEAPI CameraComponent : public SceneComponent, public ICamera
 	{
