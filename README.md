@@ -10,7 +10,7 @@
 * Cross platform: Windows, Linux, OS X
 
 * 3D Rendering
-  * [GLSL](https://github.com/Othereum/Otherengine/wiki/Shader-programming)
+  * [GLSL](Guide/English/Shader%20Programming.md)
   * Full dynamic lighting: directional, point and spot light
   * [Material](https://github.com/Othereum/Otherengine/wiki/Graphic-Assets#material): sharable common uniform parameters
 
