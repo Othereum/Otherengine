@@ -2,7 +2,7 @@
 #include <string>
 #include "Memory.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	using String = std::basic_string<char, std::char_traits<char>, PoolAllocator<char>>;
 	using String8 = std::basic_string<char8_t, std::char_traits<char8_t>, PoolAllocator<char8_t>>;

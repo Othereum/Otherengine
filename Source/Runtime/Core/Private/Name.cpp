@@ -5,7 +5,7 @@
 #include "Core.hpp"
 #include "Templates/Sync.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	struct NameHasher
 	{

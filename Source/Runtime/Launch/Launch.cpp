@@ -23,7 +23,10 @@ namespace oeng
 #endif
 	}
 
-	OE_IMPORT void SetGameName(std::u8string_view name) noexcept;
+	namespace core
+	{
+		OE_IMPORT void SetGameName(std::u8string_view name) noexcept;
+	}
 	
 	static void EngineMain(bool debug)
 	{

@@ -3,7 +3,7 @@
 #include "Format.hpp"
 #include "Templates/Time.hpp"
 
-namespace oeng::log
+namespace oeng::core::log
 {
 	enum class Level
 	{

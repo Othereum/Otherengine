@@ -31,7 +31,7 @@ namespace otm
 	}
 }
 
-namespace oeng
+namespace oeng::core
 {
 	/**
 	 * \brief Parse json file

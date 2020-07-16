@@ -1,7 +1,7 @@
 #pragma once
 #include "Path.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	class OEAPI Asset
 	{

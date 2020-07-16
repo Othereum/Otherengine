@@ -13,7 +13,7 @@
 #include "Platform.hpp"
 #include "Templates/Sync.hpp"
 
-namespace oeng::log
+namespace oeng::core::log
 {
 #ifdef OE_LOG_THREADSAFE
 	static constexpr bool kThreadSafe = true;

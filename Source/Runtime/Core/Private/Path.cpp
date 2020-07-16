@@ -3,7 +3,7 @@
 #include "Json.hpp"
 #include "Core.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	static auto GetMap()
 	{

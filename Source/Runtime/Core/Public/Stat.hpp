@@ -2,7 +2,7 @@
 #include "Name.hpp"
 #include "Templates/Time.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	struct ScopeStat
 	{

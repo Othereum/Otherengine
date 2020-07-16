@@ -2,7 +2,7 @@
 #include <fstream>
 #include "Format.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	OEAPI Json ReadFileAsJson(Path file)
 	{

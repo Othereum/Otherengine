@@ -5,19 +5,21 @@
 #include "Core.hpp"
 #include "Templates/Sync.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 #ifdef OE_SHARED_PTR_THREADSAFE
-	constexpr bool kThreadSafe = true;
+	constexpr bool kSharedPtrThreadSafe = true;
 #else
-	constexpr bool kThreadSafe = false;
+	constexpr bool kSharedPtrThreadSafe = false;
 #endif
 	
 	namespace detail
 	{
 		inline void CheckMemSafe() noexcept
 		{
-			assert(OMEM_THREADSAFE || IsGameThread());
+#ifndef OMEM_THREADSAFE
+			assert(IsGameThread());
+#endif
 			assert(IsEngineExists());
 		}
 	}
@@ -167,7 +169,7 @@ namespace oeng
 	template <class T, class... Args, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
 	void MakeUnique(Args&&...) = delete;
 
-	template <class T, bool ThreadSafe = kThreadSafe>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
 	class SharedPtr;
 	
 	namespace detail
@@ -305,13 +307,13 @@ namespace oeng
 		};		
 	}
 
-	template <class T, bool ThreadSafe = kThreadSafe>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
 	class SharedRef;
 	
-	template <class T, bool ThreadSafe = kThreadSafe>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
 	class EnableSharedFromThis;
 
-	template <class T, bool ThreadSafe = kThreadSafe>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
 	class WeakPtr;
 
 	template <class T, bool ThreadSafe>
@@ -823,7 +825,7 @@ namespace oeng
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
 
-	template <class T, bool ThreadSafe = kThreadSafe, std::enable_if_t<!std::is_array_v<T>, int> = 0, class Alloc, class... Args>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, std::enable_if_t<!std::is_array_v<T>, int> = 0, class Alloc, class... Args>
 	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
 		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
@@ -854,7 +856,7 @@ namespace oeng
 		}
 	}
 
-	template <class T, bool ThreadSafe = kThreadSafe, std::enable_if_t<std::is_array_v<T>, int> = 0, class Alloc>
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, std::enable_if_t<std::is_array_v<T>, int> = 0, class Alloc>
 	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, size_t n)
 	{
 		using Tr = std::allocator_traits<Alloc>;
@@ -881,14 +883,14 @@ namespace oeng
 		}
 	}
 
-	template <class T, bool ThreadSafe = kThreadSafe, class... Args,
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, class... Args,
 		std::enable_if_t<!std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
 	}
 
-	template <class T, bool ThreadSafe = kThreadSafe,
+	template <class T, bool ThreadSafe = kSharedPtrThreadSafe,
 		std::enable_if_t<std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(size_t n)
 	{

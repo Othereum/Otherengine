@@ -3,7 +3,7 @@
 #include "JsonFwd.hpp"
 #include "Templates/String.hpp"
 
-namespace oeng
+namespace oeng::core
 {	
 	/**
 	 * \brief Lightweight string.
@@ -35,8 +35,8 @@ namespace oeng
 		const std::u8string* sp;
 	};
 	
-	void to_json(Json& json, const Name& name);
-	void from_json(const Json& json, Name& name);
+	OEAPI void to_json(Json& json, const Name& name);
+	OEAPI void from_json(const Json& json, Name& name);
 }
 
 template <>

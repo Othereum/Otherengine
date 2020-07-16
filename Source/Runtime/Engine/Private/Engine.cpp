@@ -12,6 +12,13 @@ namespace oeng
 	using namespace std::literals;
 	namespace fs = std::filesystem;
 
+	namespace core
+	{
+		extern OE_IMPORT bool engine_exist;
+		extern OE_IMPORT ScopeCycleManager scope_cycle_manager;
+		extern OE_IMPORT std::unordered_map<Name, ScopeStat> scope_stats;
+	}
+
 	static const fs::path& GetUserConfigDir()
 	{
 		static const auto dir = GetUserDataPath() / u8"Config";
@@ -74,9 +81,6 @@ namespace oeng
 		load_game(*this);
 		log::Info(u8"Game module loaded.");
 	}
-
-	extern OE_IMPORT ScopeCycleManager scope_cycle_manager;
-	extern OE_IMPORT std::unordered_map<Name, ScopeStat> scope_stats;
 
 	static void LogStat(Name name, const ScopeStat& stat, uint64_t ticks, int depth = 0)
 	{
@@ -194,8 +198,6 @@ namespace oeng
 
 		input_system_.PostAddAllEvents();
 	}
-
-	extern OE_IMPORT bool engine_exist;
 
 	static void LogMemoryInfo()
 	{

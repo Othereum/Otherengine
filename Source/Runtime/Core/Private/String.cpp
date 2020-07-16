@@ -1,7 +1,7 @@
 #include "Templates/String.hpp"
 #include <locale>
 
-namespace oeng
+namespace oeng::core
 {
 	std::u8string ToUtf8(std::u16string_view utf16)
 	{

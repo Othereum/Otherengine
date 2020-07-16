@@ -2,7 +2,7 @@
 #include <filesystem>
 #include "Name.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	/**
 	 * \brief Lightweight representation of filepath.

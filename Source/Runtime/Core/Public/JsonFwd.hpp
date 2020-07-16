@@ -29,7 +29,7 @@ namespace nlohmann
 	}
 }
 
-namespace oeng
+namespace oeng::core
 {
 	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer>;
 	using JsonType = nlohmann::detail::value_t;

@@ -2,7 +2,7 @@
 #include "Debug.hpp"
 #include "Templates/Time.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	OE_EXPORT ScopeCycleManager scope_cycle_manager;
 

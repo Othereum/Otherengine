@@ -6,7 +6,7 @@
 #include <cassert>
 #include <thread>
 
-namespace oeng
+namespace oeng::core
 {
 	static std::u8string_view game_name;
 	OE_EXPORT bool engine_exist = false;

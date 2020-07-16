@@ -4,7 +4,7 @@
 #include <memory>
 #include "Core.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	namespace detail
 	{

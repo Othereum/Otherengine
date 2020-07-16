@@ -9,7 +9,7 @@
 #endif
 #include "Templates/String.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	template <class... Args>
 	[[nodiscard]] std::u8string Format(std::u8string_view fmt, const Args&... args)

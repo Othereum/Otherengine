@@ -2,7 +2,7 @@
 #include <atomic>
 #include <mutex>
 
-namespace oeng
+namespace oeng::core
 {
 	class NullMutex
 	{

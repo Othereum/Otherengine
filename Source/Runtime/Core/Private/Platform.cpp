@@ -1,6 +1,6 @@
 #include "Platform.hpp"
 
-namespace oeng
+namespace oeng::core
 {
 	using namespace std::literals;
 	

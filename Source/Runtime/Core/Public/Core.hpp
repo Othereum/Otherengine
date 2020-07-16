@@ -42,12 +42,17 @@
 	virtual ~name() {} \
 	EXPLICIT_CPMV(name, default)
 
-namespace oeng
+namespace oeng::core
 {
 	using namespace std::literals;
 	[[nodiscard]] OEAPI std::u8string_view GetGameName() noexcept;
 	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
 	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
+}
+
+namespace oeng
+{
+	using namespace core;
 }
 
 #define U8_TEXT_IMPL(x) u8##x
