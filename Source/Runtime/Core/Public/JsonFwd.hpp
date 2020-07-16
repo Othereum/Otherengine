@@ -19,9 +19,6 @@ namespace nlohmann
 		template<typename T, typename SFINAE> class JSONSerializer>
 	class basic_json;
 
-	template<typename BasicJsonType>
-	class json_pointer;
-
 	namespace detail
 	{
 		enum class value_t : std::uint8_t;
