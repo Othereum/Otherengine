@@ -7,7 +7,9 @@
 
 ## Features
 
-* Cross platform: Windows, Linux, OS X
+* Cross platform - Windows, Linux, OS X
+
+* [otm](https://github.com/Othereum/otm) - Math library. Linear algebra and geometry
 
 * 3D Rendering
   * [GLSL](Guide/English/Shader%20Programming.md)
