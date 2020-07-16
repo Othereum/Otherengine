@@ -2,7 +2,8 @@
 
 * [Demonstration](https://www.youtube.com/playlist?list=PLRimg1E-To2HJn1jtpYQXFujjI4dbRUsY)
 * [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
-* [Getting Started - Development Setup](Docs/English/Development%20Setup.md)
+* [Getting Started - Development Setup](Guide/English/Development%20Setup.md)
+* [API Reference](https://othereum.github.io/Otherengine)
 
 ## Features
 
