@@ -158,17 +158,17 @@ $(document).ready(function(){initNavTree('_renderer_8hpp_source.html',''); initR
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> IsSkyLightRegistered() <span class="keyword">const</span> noexcept;</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> IsSkyLightRegistered(<span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_sky_light.html">ISkyLight</a>&amp; light) <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> sky_light_ == &amp;light; }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> GetTexture(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_renderer.html#a8d4b416b3c0e184d4e794c33e52ccc22">   77</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> <a class="code" href="classoeng_1_1renderer_1_1_renderer.html#a8d4b416b3c0e184d4e794c33e52ccc22">GetTexture</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Mesh&gt;</a> GetMesh(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Shader&gt;</a> GetShader(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Material&gt;</a> GetMaterial(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> GetDefaultTexture() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> textures_.default_obj; }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Mesh&gt;</a> GetDefaultMesh() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> meshes_.default_obj; }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Shader&gt;</a> GetDefaultShader() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> shaders_.default_obj; }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Material&gt;</a> GetDefaultMaterial() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> materials_.default_obj; }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> GetDefaultTexture() const noexcept { <span class="keywordflow">return</span> textures_.default_obj; }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Mesh&gt;</a> GetDefaultMesh() const noexcept { <span class="keywordflow">return</span> meshes_.default_obj; }</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Shader&gt;</a> GetDefaultShader() const noexcept { <span class="keywordflow">return</span> shaders_.default_obj; }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        [[nodiscard]] SharedRef&lt;Material&gt; GetDefaultMaterial() const noexcept { <span class="keywordflow">return</span> materials_.default_obj; }</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_vector.html">Vec2u16</a> GetWindowSize() <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_i_engine.html">IEngine</a>&amp; GetEngine() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> engine_; }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        [[nodiscard]] Vec2u16 GetWindowSize() const noexcept;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        [[nodiscard]] IEngine&amp; GetEngine() const noexcept { <span class="keywordflow">return</span> engine_; }</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keyword">using</span> CompArr = DyArr&lt;std::reference_wrapper&lt;const T&gt;&gt;;</div>
@@ -176,29 +176,29 @@ $(document).ready(function(){initNavTree('_renderer_8hpp_source.html',''); initR
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">private</span>:</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">void</span> Draw3D();</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordtype">void</span> Draw2D();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordtype">void</span> DrawMesh(<span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>&amp; mesh_comp);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span> DrawPointLights(<span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>&amp; mesh_comp) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">void</span> DrawSpotLights(<span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>&amp; mesh_comp) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> ShouldDraw(<span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>&amp; mesh_comp) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordtype">void</span> DrawMesh(<span class="keyword">const</span> IMeshComponent&amp; mesh_comp);</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordtype">void</span> DrawPointLights(<span class="keyword">const</span> IMeshComponent&amp; mesh_comp) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordtype">void</span> DrawSpotLights(<span class="keyword">const</span> IMeshComponent&amp; mesh_comp) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> ShouldDraw(<span class="keyword">const</span> IMeshComponent&amp; mesh_comp) <span class="keyword">const</span> noexcept;</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        </div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classoeng_1_1core_1_1_i_engine.html">IEngine</a>&amp; engine_;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        IEngine&amp; engine_;</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        </div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        WindowPtr window_;</div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        GlContextPtr gl_context_;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_shader.html">Shader</a> sprite_shader_;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_vertex_array.html">VertexArray</a> sprite_verts_;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        Shader sprite_shader_;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        VertexArray sprite_verts_;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_asset_cache.html">AssetCache&lt;Texture&gt;</a> textures_;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_asset_cache.html">AssetCache&lt;Shader&gt;</a> shaders_;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_asset_cache.html">AssetCache&lt;Material&gt;</a> materials_;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_asset_cache.html">AssetCache&lt;Mesh&gt;</a> meshes_;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        AssetCache&lt;Texture&gt; textures_;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        AssetCache&lt;Shader&gt; shaders_;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        AssetCache&lt;Material&gt; materials_;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        AssetCache&lt;Mesh&gt; meshes_;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_i_camera.html">ICamera</a>* camera_{};</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_default_camera.html">DefaultCamera</a> default_camera_;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        ICamera* camera_{};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        DefaultCamera default_camera_;</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_dir_light.html">IDirLight</a>* dir_light_{};</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_i_sky_light.html">ISkyLight</a>* sky_light_{};</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">const</span> IDirLight* dir_light_{};</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keyword">const</span> ISkyLight* sky_light_{};</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        CompArr&lt;IPointLight&gt; point_lights_;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        CompArr&lt;ISpotLight&gt; spot_lights_;</div>
@@ -208,10 +208,10 @@ $(document).ready(function(){initNavTree('_renderer_8hpp_source.html',''); initR
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="keyword">struct</span></div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_shader.html">Shader</a>* shader;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>* material;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_texture.html">Texture</a>* texture;</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>* mesh;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            Shader* shader;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;            Material* material;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            Texture* texture;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            Mesh* mesh;</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        } prev_{};</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    };</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
@@ -220,21 +220,17 @@ $(document).ready(function(){initNavTree('_renderer_8hpp_source.html',''); initR
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_default_camera_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_default_camera.html">oeng::renderer::DefaultCamera</a></div><div class="ttdef"><b>Definition:</b> Renderer.hpp:15</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_mesh_component_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_mesh_component.html">oeng::renderer::IMeshComponent</a></div><div class="ttdef"><b>Definition:</b> Drawable.hpp:20</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_sky_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_sky_light.html">oeng::renderer::ISkyLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:20</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_texture_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_texture.html">oeng::renderer::Texture</a></div><div class="ttdef"><b>Definition:</b> Texture.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_vertex_array_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_vertex_array.html">oeng::renderer::VertexArray</a></div><div class="ttdef"><b>Definition:</b> VertexArray.hpp:34</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_i_engine_html"><div class="ttname"><a href="classoeng_1_1core_1_1_i_engine.html">oeng::core::IEngine</a></div><div class="ttdef"><b>Definition:</b> IEngine.hpp:24</div></div>
+<div class="ttc" id="aclassoeng_1_1renderer_1_1_renderer_html_a8d4b416b3c0e184d4e794c33e52ccc22"><div class="ttname"><a href="classoeng_1_1renderer_1_1_renderer.html#a8d4b416b3c0e184d4e794c33e52ccc22">oeng::renderer::Renderer::GetTexture</a></div><div class="ttdeci">SharedRef&lt; Texture &gt; GetTexture(Path path)</div><div class="ttdoc">Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cac...</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_renderer_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_renderer.html">oeng::renderer::Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.hpp:37</div></div>
 <div class="ttc" id="astructotm_1_1_matrix_html"><div class="ttname"><a href="structotm_1_1_matrix.html">otm::Matrix&lt; Float, 4 &gt;</a></div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_sprite_component_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_sprite_component.html">oeng::renderer::ISpriteComponent</a></div><div class="ttdef"><b>Definition:</b> Drawable.hpp:9</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html">oeng::renderer::Material</a></div><div class="ttdef"><b>Definition:</b> Material.hpp:11</div></div>
 <div class="ttc" id="astructoeng_1_1renderer_1_1_i_camera_1_1_data_html"><div class="ttname"><a href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">oeng::renderer::ICamera::Data</a></div><div class="ttdef"><b>Definition:</b> Camera.hpp:11</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_shared_ref_html"><div class="ttname"><a href="classoeng_1_1core_1_1_shared_ref.html">oeng::core::SharedRef&lt; T &gt;</a></div></div>
 <div class="ttc" id="astructoeng_1_1core_1_1_path_html"><div class="ttname"><a href="structoeng_1_1core_1_1_path.html">oeng::core::Path</a></div><div class="ttdoc">Lightweight representation of filepath. Very fast O(1) copy and comparison. No heap allocation on cop...</div><div class="ttdef"><b>Definition:</b> Path.hpp:16</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_camera_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_camera.html">oeng::renderer::ICamera</a></div><div class="ttdef"><b>Definition:</b> Camera.hpp:6</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_shader_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_shader.html">oeng::renderer::Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.hpp:10</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
 <div class="ttc" id="astructoeng_1_1renderer_1_1_asset_cache_html"><div class="ttname"><a href="structoeng_1_1renderer_1_1_asset_cache.html">oeng::renderer::AssetCache</a></div><div class="ttdef"><b>Definition:</b> Renderer.hpp:28</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_mesh_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_mesh.html">oeng::renderer::Mesh</a></div><div class="ttdef"><b>Definition:</b> Mesh.hpp:10</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_point_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_point_light.html">oeng::renderer::IPointLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:28</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_spot_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_spot_light.html">oeng::renderer::ISpotLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:44</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_dir_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_dir_light.html">oeng::renderer::IDirLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:6</div></div>

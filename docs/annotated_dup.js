@@ -26,8 +26,6 @@ var annotated_dup =
         [ "IEngine", "classoeng_1_1core_1_1_i_engine.html", "classoeng_1_1core_1_1_i_engine" ],
         [ "Monitor", "classoeng_1_1core_1_1_monitor.html", "classoeng_1_1core_1_1_monitor" ],
         [ "Name", "structoeng_1_1core_1_1_name.html", "structoeng_1_1core_1_1_name" ],
-        [ "NameEqual", "structoeng_1_1core_1_1_name_equal.html", "structoeng_1_1core_1_1_name_equal" ],
-        [ "NameHasher", "structoeng_1_1core_1_1_name_hasher.html", "structoeng_1_1core_1_1_name_hasher" ],
         [ "NullAtomic", "structoeng_1_1core_1_1_null_atomic.html", "structoeng_1_1core_1_1_null_atomic" ],
         [ "NullMutex", "classoeng_1_1core_1_1_null_mutex.html", "classoeng_1_1core_1_1_null_mutex" ],
         [ "Path", "structoeng_1_1core_1_1_path.html", "structoeng_1_1core_1_1_path" ],
@@ -44,8 +42,7 @@ var annotated_dup =
       ] ],
       [ "engine", null, [
         [ "ai_state", null, [
-          [ "Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", "classoeng_1_1engine_1_1ai__state_1_1_base" ],
-          [ "Default", "classoeng_1_1engine_1_1ai__state_1_1_default.html", "classoeng_1_1engine_1_1ai__state_1_1_default" ]
+          [ "Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", "classoeng_1_1engine_1_1ai__state_1_1_base" ]
         ] ],
         [ "AActor", "classoeng_1_1engine_1_1_a_actor.html", "classoeng_1_1engine_1_1_a_actor" ],
         [ "ACameraActor", "classoeng_1_1engine_1_1_a_camera_actor.html", "classoeng_1_1engine_1_1_a_camera_actor" ],
@@ -66,7 +63,6 @@ var annotated_dup =
         [ "InputSystem", "classoeng_1_1engine_1_1_input_system.html", "classoeng_1_1engine_1_1_input_system" ],
         [ "MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html", "classoeng_1_1engine_1_1_mesh_component" ],
         [ "MovementComponent", "classoeng_1_1engine_1_1_movement_component.html", "classoeng_1_1engine_1_1_movement_component" ],
-        [ "Overload", "structoeng_1_1engine_1_1_overload.html", null ],
         [ "ParsedEvent", "structoeng_1_1engine_1_1_parsed_event.html", "structoeng_1_1engine_1_1_parsed_event" ],
         [ "PointLightComponent", "classoeng_1_1engine_1_1_point_light_component.html", "classoeng_1_1engine_1_1_point_light_component" ],
         [ "SceneComponent", "classoeng_1_1engine_1_1_scene_component.html", "classoeng_1_1engine_1_1_scene_component" ],
@@ -81,8 +77,6 @@ var annotated_dup =
       [ "renderer", null, [
         [ "AssetCache", "structoeng_1_1renderer_1_1_asset_cache.html", "structoeng_1_1renderer_1_1_asset_cache" ],
         [ "DefaultCamera", "classoeng_1_1renderer_1_1_default_camera.html", "classoeng_1_1renderer_1_1_default_camera" ],
-        [ "DefaultDirLight", "classoeng_1_1renderer_1_1_default_dir_light.html", "classoeng_1_1renderer_1_1_default_dir_light" ],
-        [ "DefaultSkyLight", "classoeng_1_1renderer_1_1_default_sky_light.html", "classoeng_1_1renderer_1_1_default_sky_light" ],
         [ "ICamera", "classoeng_1_1renderer_1_1_i_camera.html", "classoeng_1_1renderer_1_1_i_camera" ],
         [ "IDirLight", "classoeng_1_1renderer_1_1_i_dir_light.html", "classoeng_1_1renderer_1_1_i_dir_light" ],
         [ "IMeshComponent", "classoeng_1_1renderer_1_1_i_mesh_component.html", "classoeng_1_1renderer_1_1_i_mesh_component" ],

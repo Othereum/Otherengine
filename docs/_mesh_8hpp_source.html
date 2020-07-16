@@ -103,19 +103,19 @@ $(document).ready(function(){initNavTree('_mesh_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        }</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer);</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_mesh.html#ac6382604587ef4d985629ecccc40f741">   23</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_mesh.html#ac6382604587ef4d985629ecccc40f741">Mesh</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer);</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">void</span> Load(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer)</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        {</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>{path, renderer}.swap(*<span class="keyword">this</span>);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        }</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; GetMaterial() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> *material_; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Material&gt;</a> GetMaterialShared() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> material_; }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classoeng_1_1renderer_1_1_vertex_array.html">VertexArray</a>&amp; GetVertexArray() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> vertex_array_; }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1renderer_1_1_vertex_array.html">VertexArray</a>&amp; GetVertexArray() noexcept { <span class="keywordflow">return</span> vertex_array_; }</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        [[nodiscard]] Float GetRadius() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> radius_; }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; GetMaterial() const noexcept { <span class="keywordflow">return</span> *material_; }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        [[nodiscard]] SharedRef&lt;Material&gt; GetMaterialShared() const noexcept { <span class="keywordflow">return</span> material_; }</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        [[nodiscard]] <span class="keyword">const</span> VertexArray&amp; GetVertexArray() const noexcept { <span class="keywordflow">return</span> vertex_array_; }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        [[nodiscard]] VertexArray&amp; GetVertexArray() noexcept { <span class="keywordflow">return</span> vertex_array_; }</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        [[nodiscard]] Float GetRadius() const noexcept { <span class="keywordflow">return</span> radius_; }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">void</span> swap(<a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>&amp; r) noexcept</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordtype">void</span> swap(Mesh&amp; r) noexcept</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        {</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            Asset::swap(r);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">using</span> std::swap;</div>
@@ -125,25 +125,24 @@ $(document).ready(function(){initNavTree('_mesh_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer, <span class="keyword">const</span> <a class="code" href="classnlohmann_1_1basic__json.html">Json</a>&amp; json);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer, <span class="keyword">const</span> <a class="code" href="classnlohmann_1_1basic__json.html">Json</a>&amp; json, std::span&lt;const Vertex&gt; verts, std::span&lt;const Vec3u16&gt; indices);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        Mesh(Path path, Renderer&amp; renderer, <span class="keyword">const</span> Json&amp; json);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Mesh(Path path, Renderer&amp; renderer, <span class="keyword">const</span> Json&amp; json, std::span&lt;const Vertex&gt; verts, std::span&lt;const Vec3u16&gt; indices);</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Material&gt;</a> material_;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_vertex_array.html">VertexArray</a> vertex_array_;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        SharedRef&lt;Material&gt; material_;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        VertexArray vertex_array_;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        Float radius_;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> swap(<a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>&amp; a, <a class="code" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>&amp; b) noexcept { a.swap(b); }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> swap(Mesh&amp; a, Mesh&amp; b) noexcept { a.swap(b); }</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_vertex_array_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_vertex_array.html">oeng::renderer::VertexArray</a></div><div class="ttdef"><b>Definition:</b> VertexArray.hpp:34</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_renderer_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_renderer.html">oeng::renderer::Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.hpp:37</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html">oeng::renderer::Material</a></div><div class="ttdef"><b>Definition:</b> Material.hpp:11</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_shared_ref_html"><div class="ttname"><a href="classoeng_1_1core_1_1_shared_ref.html">oeng::core::SharedRef</a></div><div class="ttdef"><b>Definition:</b> Memory.hpp:311</div></div>
 <div class="ttc" id="astructoeng_1_1core_1_1_path_html"><div class="ttname"><a href="structoeng_1_1core_1_1_path.html">oeng::core::Path</a></div><div class="ttdoc">Lightweight representation of filepath. Very fast O(1) copy and comparison. No heap allocation on cop...</div><div class="ttdef"><b>Definition:</b> Path.hpp:16</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_asset_html"><div class="ttname"><a href="classoeng_1_1core_1_1_asset.html">oeng::core::Asset</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:7</div></div>
-<div class="ttc" id="aclassnlohmann_1_1basic__json_html"><div class="ttname"><a href="classnlohmann_1_1basic__json.html">nlohmann::basic_json</a></div><div class="ttdef"><b>Definition:</b> JsonFwd.hpp:20</div></div>
+<div class="ttc" id="aclassoeng_1_1renderer_1_1_mesh_html_ac6382604587ef4d985629ecccc40f741"><div class="ttname"><a href="classoeng_1_1renderer_1_1_mesh.html#ac6382604587ef4d985629ecccc40f741">oeng::renderer::Mesh::Mesh</a></div><div class="ttdeci">Mesh(Path path, Renderer &amp;renderer)</div><div class="ttdoc">Load mesh from file.</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_mesh_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_mesh.html">oeng::renderer::Mesh</a></div><div class="ttdef"><b>Definition:</b> Mesh.hpp:10</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

@@ -16,9 +16,7 @@ var hierarchy =
     [ "oeng::renderer::AssetCache< oeng::renderer::Shader >", "structoeng_1_1renderer_1_1_asset_cache.html", null ],
     [ "oeng::renderer::AssetCache< oeng::renderer::Texture >", "structoeng_1_1renderer_1_1_asset_cache.html", null ],
     [ "oeng::engine::AxisConfig", "structoeng_1_1engine_1_1_axis_config.html", null ],
-    [ "oeng::engine::ai_state::Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", [
-      [ "oeng::engine::ai_state::Default", "classoeng_1_1engine_1_1ai__state_1_1_default.html", null ]
-    ] ],
+    [ "oeng::engine::ai_state::Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", null ],
     [ "nlohmann::basic_json< ObjectType, ArrayType, StringType, BooleanType, NumberIntegerType, NumberUnsignedType, NumberFloatType, AllocatorType, JSONSerializer >", "classnlohmann_1_1basic__json.html", null ],
     [ "oeng::renderer::ISpotLight::Data::Cone", "structoeng_1_1renderer_1_1_i_spot_light_1_1_data_1_1_cone.html", null ],
     [ "otm::Vector< T, L >::const_iterator", "structotm_1_1_vector_1_1const__iterator.html", [
@@ -73,8 +71,7 @@ var hierarchy =
       [ "oeng::renderer::DefaultCamera", "classoeng_1_1renderer_1_1_default_camera.html", null ]
     ] ],
     [ "oeng::renderer::IDirLight", "classoeng_1_1renderer_1_1_i_dir_light.html", [
-      [ "oeng::engine::DirLightComponent", "classoeng_1_1engine_1_1_dir_light_component.html", null ],
-      [ "oeng::renderer::DefaultDirLight", "classoeng_1_1renderer_1_1_default_dir_light.html", null ]
+      [ "oeng::engine::DirLightComponent", "classoeng_1_1engine_1_1_dir_light_component.html", null ]
     ] ],
     [ "oeng::core::IEngine", "classoeng_1_1core_1_1_i_engine.html", [
       [ "oeng::engine::Engine", "classoeng_1_1engine_1_1_engine.html", null ]
@@ -89,8 +86,7 @@ var hierarchy =
       [ "oeng::engine::PointLightComponent", "classoeng_1_1engine_1_1_point_light_component.html", null ]
     ] ],
     [ "oeng::renderer::ISkyLight", "classoeng_1_1renderer_1_1_i_sky_light.html", [
-      [ "oeng::engine::SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", null ],
-      [ "oeng::renderer::DefaultSkyLight", "classoeng_1_1renderer_1_1_default_sky_light.html", null ]
+      [ "oeng::engine::SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", null ]
     ] ],
     [ "oeng::renderer::ISpotLight", "classoeng_1_1renderer_1_1_i_spot_light.html", [
       [ "oeng::engine::SpotLightComponent", "classoeng_1_1engine_1_1_spot_light_component.html", null ]
@@ -113,8 +109,6 @@ var hierarchy =
     [ "omem::MemoryPool", "classomem_1_1_memory_pool.html", null ],
     [ "oeng::core::Monitor< T, Mutex >", "classoeng_1_1core_1_1_monitor.html", null ],
     [ "oeng::core::Name", "structoeng_1_1core_1_1_name.html", null ],
-    [ "oeng::core::NameEqual", "structoeng_1_1core_1_1_name_equal.html", null ],
-    [ "oeng::core::NameHasher", "structoeng_1_1core_1_1_name_hasher.html", null ],
     [ "oeng::core::NullAtomic< T >", "structoeng_1_1core_1_1_null_atomic.html", null ],
     [ "oeng::core::NullMutex", "classoeng_1_1core_1_1_null_mutex.html", null ],
     [ "oeng::engine::ParsedEvent", "structoeng_1_1engine_1_1_parsed_event.html", null ],
@@ -183,8 +177,5 @@ var hierarchy =
     [ "oeng::core::WeakPtr< T, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
     [ "oeng::core::WeakPtr< AActor, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
     [ "oeng::core::WeakPtr< ActorComponent, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
-    [ "oeng::engine::World", "classoeng_1_1engine_1_1_world.html", null ],
-    [ "Ts", null, [
-      [ "oeng::engine::Overload< Ts >", "structoeng_1_1engine_1_1_overload.html", null ]
-    ] ]
+    [ "oeng::engine::World", "classoeng_1_1engine_1_1_world.html", null ]
 ];
