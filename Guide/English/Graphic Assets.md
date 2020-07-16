@@ -19,7 +19,7 @@ Each element has the following format:
 
 ```jsonc
 {
-    "material": "path_to_material",
+    "material": "../Assets/Plane.omat",
     "vertices": [
         // [vx, vy, vz, nx, ny, nz, u, v],
         [-0.5, -0.5, -0.5, 0, 0, -1, 0, 0],
@@ -46,17 +46,16 @@ Each element has the following format:
 
 ```jsonc
 {
-    "shader": "path_to_shader_without_extension",
-    "texture": "path_to_texture",
+    "shader": "../Engine/Shaders/Phong",
+    "texture": "../Assets/Plane.png",
     "uniforms": {
         "variable_name": /*value*/,
         "bool": false,
         "int": 0,
         "float": 0.0,
         "vec2": [0.0, 0.0],
-        "vec4": [0.0, 0.0, 0.0, 0.0],
-        "ivec2": [0, 0],
-        "bvec2": [false, false],
+        "ivec3": [0, 0, 0],
+        "bvec4": [false, false, false, false],
         "mat3": [
             [0, 0, 0],
             [0, 0, 0],
