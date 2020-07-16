@@ -4,7 +4,7 @@
 #include "Debug.hpp"
 #include "Format.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	class OpenGlError : public std::runtime_error
 	{
@@ -60,4 +60,4 @@ namespace oeng
 	}
 }
 
-#define GL(fn, ...) [&]{ unsigned err; ::oeng::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, u8"{}", err); }()
+#define GL(fn, ...) [&]{ unsigned err; ::oeng::renderer::gl(err, fn, ##__VA_ARGS__); EXPECT_MSG(err == GL_NO_ERROR, u8"{}", err); }()

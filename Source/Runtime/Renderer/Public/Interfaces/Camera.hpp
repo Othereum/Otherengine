@@ -1,7 +1,6 @@
 #pragma once
-#include "Math.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	class OEAPI ICamera
 	{

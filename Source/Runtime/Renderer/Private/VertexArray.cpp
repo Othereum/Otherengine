@@ -1,8 +1,8 @@
 #include "VertexArray.hpp"
-#include "OpenGL.hpp"
 #include "Json.hpp"
+#include "OpenGL.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	void from_json(const Json& json, Vertex& vertex)
 	{

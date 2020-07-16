@@ -4,7 +4,7 @@
 #include "OpenGL.hpp"
 #include "Stat.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	std::string ReadFile(const std::filesystem::path& path)
 	{

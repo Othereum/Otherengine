@@ -2,7 +2,7 @@
 #include <variant>
 #include "Math.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	using Uniform = std::variant<
 		float, int,

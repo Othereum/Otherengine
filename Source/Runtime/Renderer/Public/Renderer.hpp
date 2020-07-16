@@ -1,32 +1,16 @@
 #pragma once
 #include "Path.hpp"
+#include "RendererFwd.hpp"
 #include "Shader.hpp"
 #include "VertexArray.hpp"
-#include "Templates/DyArr.hpp"
 #include "Interfaces/Camera.hpp"
+#include "Templates/DyArr.hpp"
 
-struct SDL_Window;
-
-namespace oeng
+namespace oeng::renderer
 {
-	class IEngine;
-	
-	class IMeshComponent;
-	class ISpriteComponent;
-	class ICamera;
-	
-	class IDirLight;
-	class ISkyLight;
-	class IPointLight;
-	class ISpotLight;
-	
-	class Texture;
-	class Mesh;
-	class Material;
-
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
 	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
-
+	
 	class DefaultCamera final : public ICamera
 	{
 	public:

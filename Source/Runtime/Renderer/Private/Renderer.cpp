@@ -15,7 +15,7 @@
 #include "Interfaces/IEngine.hpp"
 #include "Interfaces/Light.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	static constexpr auto kMaxPointLights = 4;
 	static constexpr auto kMaxSpotLights = 4;

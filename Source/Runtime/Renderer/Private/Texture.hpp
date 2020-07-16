@@ -2,7 +2,7 @@
 #include "Math.hpp"
 #include "Asset.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	class OEAPI Texture : public Asset
 	{

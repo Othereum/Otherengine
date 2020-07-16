@@ -1,15 +1,12 @@
 #pragma once
 #include "Asset.hpp"
 #include "Name.hpp"
+#include "RendererFwd.hpp"
 #include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
-	class Renderer;
-	class Shader;
-	class Texture;
-	
 	class OEAPI Material : public Asset
 	{
 	public:

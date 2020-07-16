@@ -1,10 +1,10 @@
 #pragma once
 #include <span>
 #include "Core.hpp"
-#include "Math.hpp"
 #include "JsonFwd.hpp"
+#include "Math.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	struct OEAPI Vertex
 	{

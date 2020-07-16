@@ -3,7 +3,7 @@
 #include "Json.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	Material::Material(Path path, Renderer& renderer)
 		:Material{path, renderer, ReadFileAsJson(path)}

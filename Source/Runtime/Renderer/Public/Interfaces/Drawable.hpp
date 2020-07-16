@@ -1,13 +1,10 @@
 #pragma once
 #include "Core.hpp"
 #include "MathFwd.hpp"
+#include "RendererFwd.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
-	class Mesh;
-	class Material;
-	class Texture;
-
 	class OEAPI ISpriteComponent
 	{
 	public:

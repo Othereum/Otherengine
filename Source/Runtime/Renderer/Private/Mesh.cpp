@@ -2,7 +2,7 @@
 #include "Json.hpp"
 #include "Renderer.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	Mesh::Mesh(Path path, Renderer& renderer)
 		:Mesh{path, renderer, ReadFileAsJson(path)}

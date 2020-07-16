@@ -4,7 +4,7 @@
 #include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	class OEAPI Shader : public Asset
 	{
@@ -121,9 +121,9 @@ namespace oeng
 }
 
 template <>
-struct std::hash<oeng::Shader>
+struct std::hash<oeng::renderer::Shader>
 {
-	size_t operator()(const oeng::Shader& key) const noexcept
+	size_t operator()(const oeng::renderer::Shader& key) const noexcept
 	{
 		return size_t(key.shader_program_);
 	}

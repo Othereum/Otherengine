@@ -1,13 +1,11 @@
 #pragma once
 #include "Asset.hpp"
-#include "Templates/DyArr.hpp"
+#include "RendererFwd.hpp"
 #include "VertexArray.hpp"
+#include "Templates/DyArr.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
-	class Renderer;
-	class Material;
-
 	class OEAPI Mesh : public Asset
 	{
 	public:

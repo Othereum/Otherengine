@@ -2,7 +2,7 @@
 #include <SOIL2/SOIL2.h>
 #include "OpenGL.hpp"
 
-namespace oeng
+namespace oeng::renderer
 {
 	Texture::Texture(Path path)
 		:Asset{path}
