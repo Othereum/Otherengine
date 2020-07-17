@@ -22,7 +22,7 @@
   * Hierarchical SceneComponent
 
 * Input system
-  * [Input mapping](https://github.com/Othereum/Otherengine/wiki/Input-mapping-config)
+  * [Input mapping](Guide/English/Input.md)
   * Game controller support
 
 ## Dependencies
