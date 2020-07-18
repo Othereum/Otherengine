@@ -54,8 +54,6 @@ namespace oeng::core::log
 		Log(Level::kCritical, fmt, args...);
 	}
 
-	OEAPI void LogDelay(Duration delay, Level level, std::u8string_view msg);
-
 	namespace detail
 	{
 		class OEAPI LogDelay
