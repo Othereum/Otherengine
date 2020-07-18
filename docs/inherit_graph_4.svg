@@ -19,7 +19,7 @@
 </g>
 <!-- Node0 -->
 <g id="node2" class="node"><title>Node0</title>
-<g id="a_node2"><a xlink:href="structoeng_1_1core_1_1detail_1_1_can_enable_shared.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="df/ddf/structoeng_1_1core_1_1detail_1_1_can_enable_shared.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="97,-0.5 97,-41.5 215,-41.5 215,-0.5 97,-0.5"/>
 <text text-anchor="start" x="105" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::core::detail</text>
 <text text-anchor="start" x="105" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::CanEnableShared&lt; T,</text>

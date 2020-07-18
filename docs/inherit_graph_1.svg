@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-79 192,-79 192,4 -4,4"/>
 <!-- Node0 -->
 <g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:href="classnlohmann_1_1basic__json.html" target="_top" xlink:title=" ">
+<g id="a_node1"><a xlink:href="d9/dcc/classnlohmann_1_1basic__json.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-74.5 188,-74.5 188,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">nlohmann::basic_json</text>
 <text text-anchor="start" x="8" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; ObjectType, ArrayType,</text>
