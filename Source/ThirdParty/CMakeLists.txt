@@ -1,9 +1,7 @@
 # Source/ThirdParty
 
 add_subdirectory(otm)
-
 add_subdirectory(omem)
-oe_setup_target(omem)
 
 file(GLOB_RECURSE SOIL2_SRC "SOIL2/src/SOIL2/*.c")
 add_library(SOIL2 STATIC ${SOIL2_SRC})
