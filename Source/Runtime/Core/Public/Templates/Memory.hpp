@@ -7,19 +7,11 @@
 
 namespace oeng::core
 {
-#ifdef OE_SHARED_PTR_THREADSAFE
-	constexpr bool kSharedPtrThreadSafe = true;
-#else
-	constexpr bool kSharedPtrThreadSafe = false;
-#endif
-	
 	namespace detail
 	{
 		inline void CheckMemSafe() noexcept
 		{
-#ifndef OMEM_THREADSAFE
 			assert(IsGameThread());
-#endif
 			assert(IsEngineExists());
 		}
 	}
@@ -36,118 +28,77 @@ namespace oeng::core
 		omem::Free(p, size);
 	}
 
-	/**
-	 * \brief Allocate memory and construct new object T.
-	 * \tparam T object type to be created
-	 * \param args arguments to be passed to the constructor of object T.
-	 * \return The pointer to created object
-	 * \throw std::bad_alloc If failed to allocate memory
-	 * \throw std::exception Any exceptions thrown by constructor of T
-	 */
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		auto* const p = Alloc(sizeof(T));
-		if (!p) throw std::bad_alloc{};
-
-		try
-		{
-			return new (p) T{std::forward<Args>(args)...};
-		}
-		catch (...)
-		{
-			Free(p, sizeof(T));
-			throw;
-		}
+		detail::CheckMemSafe();
+		return omem::New<T>(std::forward<Args>(args)...);
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-		const auto p = Alloc(n * sizeof(T));
-		if (!p) throw std::bad_alloc{};
-
-		try
-		{
-			return new (p) T[n]{std::forward<Args>(args)...};
-		}
-		catch (...)
-		{
-			Free(p, n * sizeof(T));
-			throw;
-		}
+		detail::CheckMemSafe();
+		return omem::NewArr<T>(n, std::forward<Args>(args)...);
 	}
 
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-		p->~T();
-		Free(p, sizeof(T));
+		detail::CheckMemSafe();
+		omem::Delete(p);
 	}
 
 	template <class T>
 	void DeleteArr(T* p, size_t n) noexcept
 	{
-		for (size_t i=0; i<n; ++i) p[i].~T();
-		Free(p, n * sizeof(T));
+		detail::CheckMemSafe();
+		omem::DeleteArr(p, n);
 	}
-
+	
 	template <class T>
-	using RawAllocator = std::allocator<T>;
-
-	/**
-	 * \brief Allocator for memory pool
-	 * \note Allocates from pool only for a single object and game thread.
-	 *		Otherwise, allocates by operator new()
-	 * \tparam T Type to be allocated
-	 */
-	template <class T>
-	class PoolAllocator
+	class PoolAllocator : public omem::PoolAllocator<T>
 	{
+		using Base = omem::PoolAllocator<T>;
+		
 	public:
-		using value_type = T;
+		using Base::value_type;
 		
 		constexpr PoolAllocator() noexcept = default;
 
 		template <class Y>
-		constexpr PoolAllocator(const PoolAllocator<Y>&) noexcept {}
-
-		template <class Y>
-		constexpr bool operator==(const PoolAllocator<Y>&) const noexcept { return true; }
-
-		/**
-		 * \brief Allocate n * sizeof(T) bytes of uninitialized memory.
-		 * \param n the number of objects to allocate memory for
-		 * \return The pointer to allocated memory
-		 * \note Allocates from pool only if IsGameThread()
-		 */
-		// ReSharper disable once CppMemberFunctionMayBeStatic
-		[[nodiscard]] T* allocate(size_t n) const
+		constexpr PoolAllocator(const PoolAllocator<Y>& r) noexcept
+			:Base{r}
 		{
-			return static_cast<T*>(Alloc(n * sizeof(T)));
 		}
 
-		/**
-		 * \brief Deallocate the memory referenced by p
-		 * \param p pointer to the previously allocated memory
-		 * \param n the number of objects the storage was allocated for (MUST BE SAME)
-		 */
-		// ReSharper disable once CppMemberFunctionMayBeStatic
+		template <class Y>
+		constexpr bool operator==(const PoolAllocator<Y>& r) const noexcept
+		{
+			return Base::operator==(r);
+		}
+
+		[[nodiscard]] T* allocate(size_t n) const
+		{
+			detail::CheckMemSafe();
+			return Base::allocate(n);
+		}
+
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			Free(p, n * sizeof(T));
+			detail::CheckMemSafe();
+			Base::deallocate(p, n);
 		}
 	};
 
 	template <class T>
-	using RawDeleter = std::default_delete<T>;
-
-	template <class T>
-	class PoolDeleter
+	class PoolDeleter : omem::PoolDeleter<T>
 	{
 	public:
-		static_assert(!std::is_array_v<T>, "Can't delete array because size is unknown. Use RawDeleter instead.");
-		void operator()(T* p) noexcept { Delete(p); }
+		void operator()(T* p) noexcept
+		{
+			omem::PoolDeleter<T>::operator()(p);
+		}
 	};
 
 	template <class T, class Deleter = PoolDeleter<T>>
@@ -169,7 +120,7 @@ namespace oeng::core
 	template <class T, class... Args, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
 	void MakeUnique(Args&&...) = delete;
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
+	template <class T, bool ThreadSafe = false>
 	class SharedPtr;
 	
 	namespace detail
@@ -307,13 +258,13 @@ namespace oeng::core
 		};		
 	}
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
+	template <class T, bool ThreadSafe = false>
 	class SharedRef;
 	
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
+	template <class T, bool ThreadSafe = false>
 	class EnableSharedFromThis;
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe>
+	template <class T, bool ThreadSafe = false>
 	class WeakPtr;
 
 	template <class T, bool ThreadSafe>
@@ -825,7 +776,7 @@ namespace oeng::core
 		mutable WeakPtr<T, ThreadSafe> weak_;
 	};
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, std::enable_if_t<!std::is_array_v<T>, int> = 0, class Alloc, class... Args>
+	template <class T, bool ThreadSafe = false, std::enable_if_t<!std::is_array_v<T>, int> = 0, class Alloc, class... Args>
 	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, Args&&... args)
 	{
 		using Obj = detail::SharedObjInline<T, Alloc, ThreadSafe>;
@@ -856,7 +807,7 @@ namespace oeng::core
 		}
 	}
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, std::enable_if_t<std::is_array_v<T>, int> = 0, class Alloc>
+	template <class T, bool ThreadSafe = false, std::enable_if_t<std::is_array_v<T>, int> = 0, class Alloc>
 	SharedRef<T, ThreadSafe> AllocateShared(const Alloc& alloc, size_t n)
 	{
 		using Tr = std::allocator_traits<Alloc>;
@@ -883,14 +834,14 @@ namespace oeng::core
 		}
 	}
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe, class... Args,
+	template <class T, bool ThreadSafe = false, class... Args,
 		std::enable_if_t<!std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(Args&&... args)
 	{
 		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
 	}
 
-	template <class T, bool ThreadSafe = kSharedPtrThreadSafe,
+	template <class T, bool ThreadSafe = false,
 		std::enable_if_t<std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(size_t n)
 	{
