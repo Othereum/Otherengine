@@ -25,6 +25,11 @@
   * [Input mapping](Guide/English/Input.md)
   * Game controller support
 
+## Branches
+
+* **master** - Reflects live development build. It may not even be compiled.
+* **buildable** - Compilable build that works well. But it doesn't mean it's stable.
+
 ## Dependencies
 
 * [nlohmann-json](https://github.com/nlohmann/json): ≥3.7 and <3.8
