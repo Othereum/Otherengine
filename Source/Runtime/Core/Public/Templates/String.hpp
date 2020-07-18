@@ -4,6 +4,8 @@
 
 namespace oeng::core
 {
+	using namespace std::literals;
+	
 	using String = std::basic_string<char, std::char_traits<char>, PoolAllocator<char>>;
 	using String8 = std::basic_string<char8_t, std::char_traits<char8_t>, PoolAllocator<char8_t>>;
 	using String16 = std::basic_string<char16_t, std::char_traits<char16_t>, PoolAllocator<char16_t>>;

@@ -1,7 +1,4 @@
-// ReSharper disable CppClangTidyCppcoreguidelinesMacroUsage
-// ReSharper disable CppClangTidyBugproneMacroParentheses
 #pragma once
-#include <string_view>
 
 #ifdef _WIN32
 	#define OE_EXPORT __declspec(dllexport)
@@ -26,7 +23,7 @@
 #endif
 
 #define GAME_API extern "C" OE_EXPORT
-#define DEFINE_GAME_MODULE(game_name) GAME_API const std::u8string_view kGameName = game_name
+#define DEFINE_GAME_MODULE(game_name) GAME_API const char8_t* const kGameName = game_name
 
 #define EXPLICIT_CPMV(name, spec) \
 	name(const name&) = spec; \
@@ -42,16 +39,9 @@
 	virtual ~name() {} \
 	EXPLICIT_CPMV(name, default)
 
-namespace oeng::core
-{
-	using namespace std::literals;
-	[[nodiscard]] OEAPI std::u8string_view GetGameName() noexcept;
-	[[nodiscard]] OEAPI bool IsGameThread() noexcept;
-	[[nodiscard]] OEAPI bool IsEngineExists() noexcept;
-}
-
 namespace oeng
 {
+	namespace core {}
 	using namespace core;
 }
 

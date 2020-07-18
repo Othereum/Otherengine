@@ -3,6 +3,7 @@
 
 namespace oeng::engine
 {
+	class Engine;
 	class World;
 	class InputSystem;
 }

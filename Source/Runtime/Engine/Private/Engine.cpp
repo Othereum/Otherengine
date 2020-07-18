@@ -262,7 +262,7 @@ namespace oeng
 			log::Error(u8"Failed to log memory info: {}", What(e));
 			DEBUG_BREAK();
 		}
-		
+
 		engine_exist = false;
 	}
 }
