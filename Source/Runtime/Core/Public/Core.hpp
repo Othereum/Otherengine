@@ -3,23 +3,16 @@
 #ifdef _WIN32
 	#define OE_EXPORT __declspec(dllexport)
 	#define OE_IMPORT __declspec(dllimport)
-
-	#ifdef OE_BUILD
-		#define OEAPI OE_EXPORT
-	#else
-		#define OEAPI OE_IMPORT
-	#endif
 #else
 	#if defined(__GNUC__) && __GNUC__>=4
-		#define OEAPI __attribute__ ((visibility("default")))
+		#define OE_IMPORT __attribute__ ((visibility("default")))
 	#elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
-		#define OEAPI __global
+		#define OE_IMPORT __global
 	#else
-		#define OEAPI
+		#define OE_IMPORT
 	#endif
 
-	#define OE_IMPORT OEAPI
-	#define OE_EXPORT OEAPI
+	#define OE_EXPORT OE_IMPORT
 #endif
 
 #define GAME_API extern "C" OE_EXPORT

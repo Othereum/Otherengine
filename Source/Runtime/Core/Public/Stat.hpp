@@ -15,7 +15,7 @@ namespace oeng::core
 		std::map<Name, ScopeCycleStat> children;
 	};
 
-	class OEAPI ScopeCycleManager
+	class CORE_API ScopeCycleManager
 	{
 	public:
 		void Push(Name name);
@@ -33,7 +33,7 @@ namespace oeng::core
 		std::map<Name, ScopeCycleStat> stats_;
 	};
 
-	class OEAPI ScopeCycleCounter
+	class CORE_API ScopeCycleCounter
 	{
 	public:
 		DELETE_CPMV(ScopeCycleCounter);
@@ -42,7 +42,7 @@ namespace oeng::core
 		~ScopeCycleCounter();
 	};
 	
-	class OEAPI ScopeCounter
+	class CORE_API ScopeCounter
 	{
 	public:
 		DELETE_CPMV(ScopeCounter);

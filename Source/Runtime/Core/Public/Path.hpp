@@ -12,7 +12,7 @@ namespace oeng::core
 	 * \note Case-insensitive on any platform
 	 * \note Comparisons are not lexical.
 	 */
-	struct OEAPI Path
+	struct CORE_API Path
 	{
 		using Pair = std::pair<const Name, std::filesystem::path>;
 		
@@ -42,8 +42,8 @@ namespace oeng::core
 		const Pair* p;
 	};
 	
-	OEAPI void to_json(Json& json, const Path& path);
-	OEAPI void from_json(const Json& json, Path& path);
+	CORE_API void to_json(Json& json, const Path& path);
+	CORE_API void from_json(const Json& json, Path& path);
 }
 
 template <>

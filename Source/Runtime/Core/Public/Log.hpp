@@ -10,7 +10,7 @@ namespace oeng::core::log
 	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
 	};
 	
-	OEAPI void Log(Level level, std::u8string_view message);
+	CORE_API void Log(Level level, std::u8string_view message);
 
 	template <class... Args>
 	void Log(Level level, std::u8string_view fmt, const Args&... args)
@@ -56,7 +56,7 @@ namespace oeng::core::log
 
 	namespace detail
 	{
-		class OEAPI LogDelay
+		class CORE_API LogDelay
 		{
 		public:
 			LogDelay() noexcept;

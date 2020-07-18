@@ -9,11 +9,11 @@ namespace oeng::core
 	namespace detail
 	{
 #ifndef NDEBUG
-		[[nodiscard]] OEAPI bool IsDebuggingImpl() noexcept;
+		[[nodiscard]] CORE_API bool IsDebuggingImpl() noexcept;
 #endif
 	}
 	
-	[[nodiscard]] OEAPI const std::filesystem::path& GetUserDataPath();
+	[[nodiscard]] CORE_API const std::filesystem::path& GetUserDataPath();
 	
 	[[nodiscard]] inline bool IsDebugging() noexcept
 	{
@@ -24,7 +24,7 @@ namespace oeng::core
 #endif
 	}
 
-	class OEAPI Dll
+	class CORE_API Dll
 	{
 	public:
 		explicit Dll(const char8_t* filepath);
@@ -50,7 +50,7 @@ namespace oeng::core
 		std::u8string filepath_;
 	};
 
-	class OEAPI CpuInfo
+	class CORE_API CpuInfo
 	{
 	public:
 		enum class Vendor { kOther, kIntel, kAmd };
@@ -137,6 +137,6 @@ namespace oeng::core
         std::bitset<32> f_81_edx_;
 	};
 
-	OEAPI void CpuId(int cpu_info[4], int func_id) noexcept;
-	OEAPI void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept;
+	CORE_API void CpuId(int cpu_info[4], int func_id) noexcept;
+	CORE_API void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept;
 }

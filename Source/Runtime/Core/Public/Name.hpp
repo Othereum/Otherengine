@@ -13,7 +13,7 @@ namespace oeng::core
 	 * \note Case-insensitive.
 	 * \note Comparisons are not lexical.
 	 */
-	struct OEAPI Name
+	struct CORE_API Name
 	{
 		Name() noexcept;
 		Name(const char8_t* s);
@@ -35,8 +35,8 @@ namespace oeng::core
 		const std::u8string* sp;
 	};
 	
-	OEAPI void to_json(Json& json, const Name& name);
-	OEAPI void from_json(const Json& json, Name& name);
+	CORE_API void to_json(Json& json, const Name& name);
+	CORE_API void from_json(const Json& json, Name& name);
 }
 
 template <>

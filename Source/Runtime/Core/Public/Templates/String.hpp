@@ -100,6 +100,6 @@ namespace oeng::core
 		return reinterpret_cast<const char8_t(&)[N]>(s);
 	}
 
-	OEAPI std::u8string ToUtf8(std::u16string_view utf16);
-	OEAPI std::u16string ToUtf16(std::u8string_view utf8);
+	CORE_API std::u8string ToUtf8(std::u16string_view utf16);
+	CORE_API std::u16string ToUtf16(std::u8string_view utf8);
 }

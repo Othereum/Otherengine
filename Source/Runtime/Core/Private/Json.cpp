@@ -4,7 +4,7 @@
 
 namespace oeng::core
 {
-	OEAPI Json ReadFileAsJson(Path file)
+	CORE_API Json ReadFileAsJson(Path file)
 	{
 		std::ifstream is{*file};
 		if (!is.is_open()) Throw(u8"Can't open file '{}'", file);

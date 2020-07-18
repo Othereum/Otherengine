@@ -21,7 +21,9 @@ namespace oeng
 
 namespace oeng::core
 {
-	class OEAPI IEngine
+	struct Name;
+
+	class CORE_API IEngine
 	{
 	public:
 		INTERFACE_BODY(IEngine);
@@ -45,4 +47,6 @@ namespace oeng::core
 		 */
 		virtual bool SaveConfig(Name name) = 0;
 	};
+
+	extern CORE_API IEngine* const kIEngine;
 }

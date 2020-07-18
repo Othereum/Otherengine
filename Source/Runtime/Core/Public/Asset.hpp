@@ -3,7 +3,7 @@
 
 namespace oeng::core
 {
-	class OEAPI Asset
+	class CORE_API Asset
 	{
 	public:
 		~Asset() = default;
