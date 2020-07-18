@@ -92,168 +92,225 @@ $(document).ready(function(){initNavTree('classoeng_1_1core_1_1_shared_ptr.html'
 <div class="title">oeng::core::SharedPtr&lt; T, ThreadSafe &gt; Class Template Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_memory_8hpp_source.html">Memory.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5897e88344febde9cd0c6649fc0c9fe3"><td class="memItemLeft" align="right" valign="top"><a id="a5897e88344febde9cd0c6649fc0c9fe3"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>element_type</b> = std::remove_extent_t&lt; T &gt;</td></tr>
+<tr class="memitem:a5897e88344febde9cd0c6649fc0c9fe3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> = std::remove_extent_t&lt; T &gt;</td></tr>
 <tr class="separator:a5897e88344febde9cd0c6649fc0c9fe3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4ebca707def2db1fd07877c5d7ace539"><td class="memItemLeft" align="right" valign="top"><a id="a4ebca707def2db1fd07877c5d7ace539"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>weak_type</b> = <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt; T, ThreadSafe &gt;</td></tr>
+<tr class="memitem:a4ebca707def2db1fd07877c5d7ace539"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a4ebca707def2db1fd07877c5d7ace539">weak_type</a> = <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt; T, ThreadSafe &gt;</td></tr>
 <tr class="separator:a4ebca707def2db1fd07877c5d7ace539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acc6fd65927727304ebaec74b469e7ffb"><td class="memItemLeft" align="right" valign="top"><a id="acc6fd65927727304ebaec74b469e7ffb"></a>
-constexpr&#160;</td><td class="memItemRight" valign="bottom"><b>SharedPtr</b> (std::nullptr_t) noexcept</td></tr>
+<tr class="memitem:a6a9b9c2825161ab0faa65f3b17ae809c"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a6a9b9c2825161ab0faa65f3b17ae809c">SharedPtr</a> () noexcept=default</td></tr>
+<tr class="separator:a6a9b9c2825161ab0faa65f3b17ae809c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc6fd65927727304ebaec74b469e7ffb"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#acc6fd65927727304ebaec74b469e7ffb">SharedPtr</a> (std::nullptr_t) noexcept</td></tr>
 <tr class="separator:acc6fd65927727304ebaec74b469e7ffb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3edddc667f3f30f3eadc088125f944ab"><td class="memTemplParams" colspan="2">template&lt;class Y , class Deleter  = std::enable_if_t&lt;!std::is_array_v&lt;T&gt;, PoolDeleter&lt;Y&gt;&gt;&gt; </td></tr>
 <tr class="memitem:a3edddc667f3f30f3eadc088125f944ab"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a3edddc667f3f30f3eadc088125f944ab">SharedPtr</a> (Y *ptr)</td></tr>
 <tr class="memdesc:a3edddc667f3f30f3eadc088125f944ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct with raw pointer.  <a href="classoeng_1_1core_1_1_shared_ptr.html#a3edddc667f3f30f3eadc088125f944ab">More...</a><br /></td></tr>
 <tr class="separator:a3edddc667f3f30f3eadc088125f944ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4c709a7ba2a92ef9f7dd484e425e3104"><td class="memTemplParams" colspan="2">template&lt;class Y , class Deleter , class Alloc  = PoolAllocator&lt;Y&gt;&gt; </td></tr>
-<tr class="memitem:a4c709a7ba2a92ef9f7dd484e425e3104"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a4c709a7ba2a92ef9f7dd484e425e3104">SharedPtr</a> (Y *ptr, Deleter deleter, Alloc alloc={})</td></tr>
+<tr class="memitem:a4c709a7ba2a92ef9f7dd484e425e3104"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a4c709a7ba2a92ef9f7dd484e425e3104">SharedPtr</a> (Y *ptr, Deleter deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> alloc={})</td></tr>
 <tr class="memdesc:a4c709a7ba2a92ef9f7dd484e425e3104"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct with raw pointer and custom deleter/allocator.  <a href="classoeng_1_1core_1_1_shared_ptr.html#a4c709a7ba2a92ef9f7dd484e425e3104">More...</a><br /></td></tr>
 <tr class="separator:a4c709a7ba2a92ef9f7dd484e425e3104"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a593070d5a9b35ccffb425301ec57d4af"><td class="memTemplParams" colspan="2"><a id="a593070d5a9b35ccffb425301ec57d4af"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:a593070d5a9b35ccffb425301ec57d4af"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SharedPtr</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r, element_type *ptr) noexcept</td></tr>
+<tr class="memitem:a593070d5a9b35ccffb425301ec57d4af"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:a593070d5a9b35ccffb425301ec57d4af"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a593070d5a9b35ccffb425301ec57d4af">SharedPtr</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r, <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> *ptr) noexcept</td></tr>
 <tr class="separator:a593070d5a9b35ccffb425301ec57d4af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0eed6d86df3392a4ee172fe18eb8a2b5"><td class="memTemplParams" colspan="2"><a id="a0eed6d86df3392a4ee172fe18eb8a2b5"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:a0eed6d86df3392a4ee172fe18eb8a2b5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SharedPtr</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r, element_type *ptr) noexcept</td></tr>
+<tr class="memitem:a0eed6d86df3392a4ee172fe18eb8a2b5"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:a0eed6d86df3392a4ee172fe18eb8a2b5"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a0eed6d86df3392a4ee172fe18eb8a2b5">SharedPtr</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r, <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> *ptr) noexcept</td></tr>
 <tr class="separator:a0eed6d86df3392a4ee172fe18eb8a2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9949d2b5a8e4ffb77f5f4d6e4f60b54e"><td class="memItemLeft" align="right" valign="top"><a id="a9949d2b5a8e4ffb77f5f4d6e4f60b54e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SharedPtr</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
+<tr class="memitem:a9949d2b5a8e4ffb77f5f4d6e4f60b54e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a9949d2b5a8e4ffb77f5f4d6e4f60b54e">SharedPtr</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
 <tr class="separator:a9949d2b5a8e4ffb77f5f4d6e4f60b54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d3099dee5e1ac8dcb2c578d28593e6b"><td class="memTemplParams" colspan="2"><a id="a9d3099dee5e1ac8dcb2c578d28593e6b"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:a9d3099dee5e1ac8dcb2c578d28593e6b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SharedPtr</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r) noexcept</td></tr>
+<tr class="memitem:a9d3099dee5e1ac8dcb2c578d28593e6b"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:a9d3099dee5e1ac8dcb2c578d28593e6b"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a9d3099dee5e1ac8dcb2c578d28593e6b">SharedPtr</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r) noexcept</td></tr>
 <tr class="separator:a9d3099dee5e1ac8dcb2c578d28593e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12163321ef16a7c6057a6a4d59bba820"><td class="memItemLeft" align="right" valign="top"><a id="a12163321ef16a7c6057a6a4d59bba820"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>SharedPtr</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&amp;r) noexcept</td></tr>
+<tr class="memitem:a12163321ef16a7c6057a6a4d59bba820"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a12163321ef16a7c6057a6a4d59bba820">SharedPtr</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&amp;r) noexcept</td></tr>
 <tr class="separator:a12163321ef16a7c6057a6a4d59bba820"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc3a6def7f74e4eb20f48d9dbd0142fa"><td class="memTemplParams" colspan="2"><a id="adc3a6def7f74e4eb20f48d9dbd0142fa"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:adc3a6def7f74e4eb20f48d9dbd0142fa"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SharedPtr</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r) noexcept</td></tr>
+<tr class="memitem:adc3a6def7f74e4eb20f48d9dbd0142fa"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:adc3a6def7f74e4eb20f48d9dbd0142fa"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#adc3a6def7f74e4eb20f48d9dbd0142fa">SharedPtr</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r) noexcept</td></tr>
 <tr class="separator:adc3a6def7f74e4eb20f48d9dbd0142fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afff1db47985b1455b1a0020dcdda1c32"><td class="memTemplParams" colspan="2"><a id="afff1db47985b1455b1a0020dcdda1c32"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:afff1db47985b1455b1a0020dcdda1c32"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><b>SharedPtr</b> (const <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt; Y, ThreadSafe &gt; &amp;r)</td></tr>
+<tr class="memitem:afff1db47985b1455b1a0020dcdda1c32"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:afff1db47985b1455b1a0020dcdda1c32"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#afff1db47985b1455b1a0020dcdda1c32">SharedPtr</a> (const <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt; Y, ThreadSafe &gt; &amp;r)</td></tr>
 <tr class="separator:afff1db47985b1455b1a0020dcdda1c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a582faad48188d1b20173b8974b605625"><td class="memItemLeft" align="right" valign="top"><a id="a582faad48188d1b20173b8974b605625"></a>
-<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
+<tr class="memitem:aa8978c3973fbf3d7ca501fcbc7a7d2d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#aa8978c3973fbf3d7ca501fcbc7a7d2d4">~SharedPtr</a> ()</td></tr>
+<tr class="separator:aa8978c3973fbf3d7ca501fcbc7a7d2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a582faad48188d1b20173b8974b605625"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a582faad48188d1b20173b8974b605625">operator=</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
 <tr class="separator:a582faad48188d1b20173b8974b605625"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9a8ef7c14a610a1bf8d4a35c5f516e6"><td class="memTemplParams" colspan="2"><a id="ae9a8ef7c14a610a1bf8d4a35c5f516e6"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:ae9a8ef7c14a610a1bf8d4a35c5f516e6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r) noexcept</td></tr>
+<tr class="memitem:ae9a8ef7c14a610a1bf8d4a35c5f516e6"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:ae9a8ef7c14a610a1bf8d4a35c5f516e6"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ae9a8ef7c14a610a1bf8d4a35c5f516e6">operator=</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;r) noexcept</td></tr>
 <tr class="separator:ae9a8ef7c14a610a1bf8d4a35c5f516e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abed32c682f787b7b4cbd2db58c00f3ac"><td class="memItemLeft" align="right" valign="top"><a id="abed32c682f787b7b4cbd2db58c00f3ac"></a>
-<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&amp;r) noexcept</td></tr>
+<tr class="memitem:abed32c682f787b7b4cbd2db58c00f3ac"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#abed32c682f787b7b4cbd2db58c00f3ac">operator=</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&amp;r) noexcept</td></tr>
 <tr class="separator:abed32c682f787b7b4cbd2db58c00f3ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ba31bf214ae21822644df47505efb0e"><td class="memTemplParams" colspan="2"><a id="a6ba31bf214ae21822644df47505efb0e"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:a6ba31bf214ae21822644df47505efb0e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r) noexcept</td></tr>
+<tr class="memitem:a6ba31bf214ae21822644df47505efb0e"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:a6ba31bf214ae21822644df47505efb0e"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a6ba31bf214ae21822644df47505efb0e">operator=</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;r) noexcept</td></tr>
 <tr class="separator:a6ba31bf214ae21822644df47505efb0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7fa9b104f2e1c5d886b0f7cc62592f7"><td class="memItemLeft" align="right" valign="top"><a id="aa7fa9b104f2e1c5d886b0f7cc62592f7"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> () noexcept</td></tr>
+<tr class="memitem:aa7fa9b104f2e1c5d886b0f7cc62592f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#aa7fa9b104f2e1c5d886b0f7cc62592f7">reset</a> () noexcept</td></tr>
 <tr class="separator:aa7fa9b104f2e1c5d886b0f7cc62592f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99c5e206c7a4373f3e516b18a2c8c0d2"><td class="memItemLeft" align="right" valign="top"><a id="a99c5e206c7a4373f3e516b18a2c8c0d2"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>reset</b> (std::nullptr_t) noexcept</td></tr>
+<tr class="memitem:a99c5e206c7a4373f3e516b18a2c8c0d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a99c5e206c7a4373f3e516b18a2c8c0d2">reset</a> (std::nullptr_t) noexcept</td></tr>
 <tr class="separator:a99c5e206c7a4373f3e516b18a2c8c0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab041b08b57d82a9614e8df545bdfcf07"><td class="memTemplParams" colspan="2"><a id="ab041b08b57d82a9614e8df545bdfcf07"></a>
-template&lt;class Y &gt; </td></tr>
-<tr class="memitem:ab041b08b57d82a9614e8df545bdfcf07"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>reset</b> (Y *ptr)</td></tr>
+<tr class="memitem:ab041b08b57d82a9614e8df545bdfcf07"><td class="memTemplParams" colspan="2">template&lt;class Y &gt; </td></tr>
+<tr class="memitem:ab041b08b57d82a9614e8df545bdfcf07"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ab041b08b57d82a9614e8df545bdfcf07">reset</a> (Y *ptr)</td></tr>
 <tr class="separator:ab041b08b57d82a9614e8df545bdfcf07"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7426171c7c67361c1f3b00c1ec9db6ce"><td class="memTemplParams" colspan="2"><a id="a7426171c7c67361c1f3b00c1ec9db6ce"></a>
-template&lt;class Y , class Deleter &gt; </td></tr>
-<tr class="memitem:a7426171c7c67361c1f3b00c1ec9db6ce"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>reset</b> (Y *ptr, Deleter deleter)</td></tr>
+<tr class="memitem:a7426171c7c67361c1f3b00c1ec9db6ce"><td class="memTemplParams" colspan="2">template&lt;class Y , class Deleter &gt; </td></tr>
+<tr class="memitem:a7426171c7c67361c1f3b00c1ec9db6ce"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a7426171c7c67361c1f3b00c1ec9db6ce">reset</a> (Y *ptr, Deleter deleter)</td></tr>
 <tr class="separator:a7426171c7c67361c1f3b00c1ec9db6ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06700e1850bf90558a8e286a07e5415a"><td class="memTemplParams" colspan="2"><a id="a06700e1850bf90558a8e286a07e5415a"></a>
-template&lt;class Y , class Deleter , class Alloc &gt; </td></tr>
-<tr class="memitem:a06700e1850bf90558a8e286a07e5415a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>reset</b> (Y *ptr, Deleter deleter, Alloc alloc)</td></tr>
+<tr class="memitem:a06700e1850bf90558a8e286a07e5415a"><td class="memTemplParams" colspan="2">template&lt;class Y , class Deleter , class Alloc &gt; </td></tr>
+<tr class="memitem:a06700e1850bf90558a8e286a07e5415a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a06700e1850bf90558a8e286a07e5415a">reset</a> (Y *ptr, Deleter deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> alloc)</td></tr>
 <tr class="separator:a06700e1850bf90558a8e286a07e5415a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa29ca65a3acd8babb4ef1311089b8c36"><td class="memItemLeft" align="right" valign="top"><a id="aa29ca65a3acd8babb4ef1311089b8c36"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>swap</b> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
+<tr class="memitem:aa29ca65a3acd8babb4ef1311089b8c36"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#aa29ca65a3acd8babb4ef1311089b8c36">swap</a> (<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> &amp;r) noexcept</td></tr>
 <tr class="separator:aa29ca65a3acd8babb4ef1311089b8c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2d0f68fa16798b7a32c39a1471c4854"><td class="memItemLeft" align="right" valign="top"><a id="ac2d0f68fa16798b7a32c39a1471c4854"></a>
-element_type *&#160;</td><td class="memItemRight" valign="bottom"><b>get</b> () const noexcept</td></tr>
+<tr class="memitem:ac2d0f68fa16798b7a32c39a1471c4854"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ac2d0f68fa16798b7a32c39a1471c4854">get</a> () const noexcept</td></tr>
 <tr class="separator:ac2d0f68fa16798b7a32c39a1471c4854"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e291dbf1b722cfb170dd63137d11558"><td class="memTemplParams" colspan="2"><a id="a0e291dbf1b722cfb170dd63137d11558"></a>
-template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a0e291dbf1b722cfb170dd63137d11558"><td class="memTemplItemLeft" align="right" valign="top">T2 &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator*</b> () const noexcept</td></tr>
+<tr class="memitem:a0e291dbf1b722cfb170dd63137d11558"><td class="memTemplParams" colspan="2">template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:a0e291dbf1b722cfb170dd63137d11558"><td class="memTemplItemLeft" align="right" valign="top">T2 &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a0e291dbf1b722cfb170dd63137d11558">operator*</a> () const noexcept</td></tr>
 <tr class="separator:a0e291dbf1b722cfb170dd63137d11558"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a06e6809bee1e6b313e817763adf724af"><td class="memTemplParams" colspan="2"><a id="a06e6809bee1e6b313e817763adf724af"></a>
-template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a06e6809bee1e6b313e817763adf724af"><td class="memTemplItemLeft" align="right" valign="top">T2 *&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator-&gt;</b> () const noexcept</td></tr>
+<tr class="memitem:a06e6809bee1e6b313e817763adf724af"><td class="memTemplParams" colspan="2">template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:a06e6809bee1e6b313e817763adf724af"><td class="memTemplItemLeft" align="right" valign="top">T2 *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a06e6809bee1e6b313e817763adf724af">operator-&gt;</a> () const noexcept</td></tr>
 <tr class="separator:a06e6809bee1e6b313e817763adf724af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a21384466c52fd8d95b09a4a571d571"><td class="memTemplParams" colspan="2"><a id="a2a21384466c52fd8d95b09a4a571d571"></a>
-template&lt;class T2  = T, class Elem  = element_type, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
-<tr class="memitem:a2a21384466c52fd8d95b09a4a571d571"><td class="memTemplItemLeft" align="right" valign="top">Elem &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator[]</b> (ptrdiff_t idx) const noexcept</td></tr>
+<tr class="memitem:a2a21384466c52fd8d95b09a4a571d571"><td class="memTemplParams" colspan="2">template&lt;class T2  = T, class Elem  = element_type, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </td></tr>
+<tr class="memitem:a2a21384466c52fd8d95b09a4a571d571"><td class="memTemplItemLeft" align="right" valign="top">Elem &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a2a21384466c52fd8d95b09a4a571d571">operator[]</a> (ptrdiff_t idx) const noexcept</td></tr>
 <tr class="separator:a2a21384466c52fd8d95b09a4a571d571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac7f5a9ab970403f17086b1cb35f15a58"><td class="memItemLeft" align="right" valign="top"><a id="ac7f5a9ab970403f17086b1cb35f15a58"></a>
-unsigned long&#160;</td><td class="memItemRight" valign="bottom"><b>use_count</b> () const noexcept</td></tr>
+<tr class="memitem:ac7f5a9ab970403f17086b1cb35f15a58"><td class="memItemLeft" align="right" valign="top">unsigned long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ac7f5a9ab970403f17086b1cb35f15a58">use_count</a> () const noexcept</td></tr>
 <tr class="separator:ac7f5a9ab970403f17086b1cb35f15a58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c373f4513575c219d0056c41b992c6e"><td class="memItemLeft" align="right" valign="top"><a id="a6c373f4513575c219d0056c41b992c6e"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>operator bool</b> () const noexcept</td></tr>
+<tr class="memitem:a6c373f4513575c219d0056c41b992c6e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a6c373f4513575c219d0056c41b992c6e">operator bool</a> () const noexcept</td></tr>
 <tr class="separator:a6c373f4513575c219d0056c41b992c6e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9ee867deb72f55077045bf97ee52e3b"><td class="memTemplParams" colspan="2"><a id="ac9ee867deb72f55077045bf97ee52e3b"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:ac9ee867deb72f55077045bf97ee52e3b"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator==</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:ac9ee867deb72f55077045bf97ee52e3b"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:ac9ee867deb72f55077045bf97ee52e3b"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ac9ee867deb72f55077045bf97ee52e3b">operator==</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:ac9ee867deb72f55077045bf97ee52e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1483622f771c2fc78497d0f5d54330a5"><td class="memTemplParams" colspan="2"><a id="a1483622f771c2fc78497d0f5d54330a5"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:a1483622f771c2fc78497d0f5d54330a5"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator!=</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:a1483622f771c2fc78497d0f5d54330a5"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:a1483622f771c2fc78497d0f5d54330a5"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a1483622f771c2fc78497d0f5d54330a5">operator!=</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:a1483622f771c2fc78497d0f5d54330a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb50318ce8996427a665ec4815c7f6c6"><td class="memTemplParams" colspan="2"><a id="afb50318ce8996427a665ec4815c7f6c6"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:afb50318ce8996427a665ec4815c7f6c6"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&lt;</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:afb50318ce8996427a665ec4815c7f6c6"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:afb50318ce8996427a665ec4815c7f6c6"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#afb50318ce8996427a665ec4815c7f6c6">operator&lt;</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:afb50318ce8996427a665ec4815c7f6c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a57b27f46843f8e4e099d1fa2d3a349a6"><td class="memTemplParams" colspan="2"><a id="a57b27f46843f8e4e099d1fa2d3a349a6"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:a57b27f46843f8e4e099d1fa2d3a349a6"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&gt;</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:a57b27f46843f8e4e099d1fa2d3a349a6"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:a57b27f46843f8e4e099d1fa2d3a349a6"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a57b27f46843f8e4e099d1fa2d3a349a6">operator&gt;</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:a57b27f46843f8e4e099d1fa2d3a349a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acba7bbc685c3ed595296f2dca2368309"><td class="memTemplParams" colspan="2"><a id="acba7bbc685c3ed595296f2dca2368309"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:acba7bbc685c3ed595296f2dca2368309"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&lt;=</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:acba7bbc685c3ed595296f2dca2368309"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:acba7bbc685c3ed595296f2dca2368309"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#acba7bbc685c3ed595296f2dca2368309">operator&lt;=</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:acba7bbc685c3ed595296f2dca2368309"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a586c397d814a9bb6dd5ebf59ed0dcf9f"><td class="memTemplParams" colspan="2"><a id="a586c397d814a9bb6dd5ebf59ed0dcf9f"></a>
-template&lt;class U &gt; </td></tr>
-<tr class="memitem:a586c397d814a9bb6dd5ebf59ed0dcf9f"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator&gt;=</b> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
+<tr class="memitem:a586c397d814a9bb6dd5ebf59ed0dcf9f"><td class="memTemplParams" colspan="2">template&lt;class U &gt; </td></tr>
+<tr class="memitem:a586c397d814a9bb6dd5ebf59ed0dcf9f"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a586c397d814a9bb6dd5ebf59ed0dcf9f">operator&gt;=</a> (const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;r) const noexcept</td></tr>
 <tr class="separator:a586c397d814a9bb6dd5ebf59ed0dcf9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af717159629f60c4c82fe35627672ca9e"><td class="memItemLeft" align="right" valign="top"><a id="af717159629f60c4c82fe35627672ca9e"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator==</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:af717159629f60c4c82fe35627672ca9e"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#af717159629f60c4c82fe35627672ca9e">operator==</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:af717159629f60c4c82fe35627672ca9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3266b7772f835913f19cd14d8078f460"><td class="memItemLeft" align="right" valign="top"><a id="a3266b7772f835913f19cd14d8078f460"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator!=</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:a3266b7772f835913f19cd14d8078f460"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a3266b7772f835913f19cd14d8078f460">operator!=</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:a3266b7772f835913f19cd14d8078f460"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e1e834d83a399c1b716f050493c9038"><td class="memItemLeft" align="right" valign="top"><a id="a7e1e834d83a399c1b716f050493c9038"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:a7e1e834d83a399c1b716f050493c9038"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a7e1e834d83a399c1b716f050493c9038">operator&lt;</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:a7e1e834d83a399c1b716f050493c9038"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a985eea46cca79ff12ba06ab2ba2c7005"><td class="memItemLeft" align="right" valign="top"><a id="a985eea46cca79ff12ba06ab2ba2c7005"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&gt;</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:a985eea46cca79ff12ba06ab2ba2c7005"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a985eea46cca79ff12ba06ab2ba2c7005">operator&gt;</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:a985eea46cca79ff12ba06ab2ba2c7005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af4eb19af4529a03c9b7d709a767428ac"><td class="memItemLeft" align="right" valign="top"><a id="af4eb19af4529a03c9b7d709a767428ac"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;=</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:af4eb19af4529a03c9b7d709a767428ac"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#af4eb19af4529a03c9b7d709a767428ac">operator&lt;=</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:af4eb19af4529a03c9b7d709a767428ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a244d0e853573fbca2d04e639a9d49da3"><td class="memItemLeft" align="right" valign="top"><a id="a244d0e853573fbca2d04e639a9d49da3"></a>
-constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><b>operator&gt;=</b> (std::nullptr_t) const noexcept</td></tr>
+<tr class="memitem:a244d0e853573fbca2d04e639a9d49da3"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a244d0e853573fbca2d04e639a9d49da3">operator&gt;=</a> (std::nullptr_t) const noexcept</td></tr>
 <tr class="separator:a244d0e853573fbca2d04e639a9d49da3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:ae24da290f6fc350d543a86b2ac69ac8a"><td class="memTemplParams" colspan="2"><a id="ae24da290f6fc350d543a86b2ac69ac8a"></a>
-template&lt;class , bool &gt; </td></tr>
-<tr class="memitem:ae24da290f6fc350d543a86b2ac69ac8a"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><b>WeakPtr</b></td></tr>
+<tr class="memitem:aaecfa7fa45b80deff2bff2b414ce39ad"><td class="memTemplParams" colspan="2">template&lt;class , bool &gt; </td></tr>
+<tr class="memitem:aaecfa7fa45b80deff2bff2b414ce39ad"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#aaecfa7fa45b80deff2bff2b414ce39ad">SharedPtr</a></td></tr>
+<tr class="separator:aaecfa7fa45b80deff2bff2b414ce39ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae24da290f6fc350d543a86b2ac69ac8a"><td class="memTemplParams" colspan="2">template&lt;class , bool &gt; </td></tr>
+<tr class="memitem:ae24da290f6fc350d543a86b2ac69ac8a"><td class="memTemplItemLeft" align="right" valign="top">class&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ae24da290f6fc350d543a86b2ac69ac8a">WeakPtr</a></td></tr>
 <tr class="separator:ae24da290f6fc350d543a86b2ac69ac8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5593473aa503e190d6f89db7ea8172b"><td class="memTemplParams" colspan="2"><a id="ac5593473aa503e190d6f89db7ea8172b"></a>
-template&lt;class , bool &gt; </td></tr>
-<tr class="memitem:ac5593473aa503e190d6f89db7ea8172b"><td class="memTemplItemLeft" align="right" valign="top">struct&#160;</td><td class="memTemplItemRight" valign="bottom"><b>detail::SetAndEnableShared</b></td></tr>
+<tr class="memitem:ac5593473aa503e190d6f89db7ea8172b"><td class="memTemplParams" colspan="2">template&lt;class , bool &gt; </td></tr>
+<tr class="memitem:ac5593473aa503e190d6f89db7ea8172b"><td class="memTemplItemLeft" align="right" valign="top">struct&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#ac5593473aa503e190d6f89db7ea8172b">detail::SetAndEnableShared</a></td></tr>
 <tr class="separator:ac5593473aa503e190d6f89db7ea8172b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a5897e88344febde9cd0c6649fc0c9fe3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5897e88344febde9cd0c6649fc0c9fe3">&#9670;&nbsp;</a></span>element_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> =  std::remove_extent_t&lt;T&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4ebca707def2db1fd07877c5d7ace539"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4ebca707def2db1fd07877c5d7ace539">&#9670;&nbsp;</a></span>weak_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a4ebca707def2db1fd07877c5d7ace539">weak_type</a> =  <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt;T, ThreadSafe&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6a9b9c2825161ab0faa65f3b17ae809c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a9b9c2825161ab0faa65f3b17ae809c">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[1/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">default</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acc6fd65927727304ebaec74b469e7ffb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc6fd65927727304ebaec74b469e7ffb">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[2/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a3edddc667f3f30f3eadc088125f944ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3edddc667f3f30f3eadc088125f944ab">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3edddc667f3f30f3eadc088125f944ab">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[3/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +340,7 @@ template&lt;class Y , class Deleter  = std::enable_if_t&lt;!std::is_array_v&lt;T
 <p>Construct with raw pointer. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">ptr</td><td>Must be allocated by New&lt;T&gt;() because it uses PoolDeleter&lt;Y&gt; to delete ptr </td></tr>
+    <tr><td class="paramname">ptr</td><td>Must be allocated by <a class="el" href="namespaceoeng_1_1core.html#af0ece6991d53ce1ba96077fe0289cb2c" title="Allocate memory and construct new object T.">New&lt;T&gt;()</a> because it uses PoolDeleter&lt;Y&gt; to delete ptr </td></tr>
   </table>
   </dd>
 </dl>
@@ -292,7 +349,7 @@ template&lt;class Y , class Deleter  = std::enable_if_t&lt;!std::is_array_v&lt;T
 </div>
 </div>
 <a id="a4c709a7ba2a92ef9f7dd484e425e3104"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4c709a7ba2a92ef9f7dd484e425e3104">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c709a7ba2a92ef9f7dd484e425e3104">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[4/11]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +376,7 @@ template&lt;class Y , class Deleter , class Alloc  = PoolAllocator&lt;Y&gt;&gt; 
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Alloc&#160;</td>
+          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>&#160;</td>
           <td class="paramname"><em>alloc</em> = <code>{}</code>&#160;</td>
         </tr>
         <tr>
@@ -347,6 +404,1171 @@ template&lt;class Y , class Deleter , class Alloc  = PoolAllocator&lt;Y&gt;&gt; 
 
 </div>
 </div>
+<a id="a593070d5a9b35ccffb425301ec57d4af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a593070d5a9b35ccffb425301ec57d4af">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[5/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0eed6d86df3392a4ee172fe18eb8a2b5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0eed6d86df3392a4ee172fe18eb8a2b5">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[6/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a> *&#160;</td>
+          <td class="paramname"><em>ptr</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9949d2b5a8e4ffb77f5f4d6e4f60b54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9949d2b5a8e4ffb77f5f4d6e4f60b54e">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[7/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; T, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9d3099dee5e1ac8dcb2c578d28593e6b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d3099dee5e1ac8dcb2c578d28593e6b">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[8/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a12163321ef16a7c6057a6a4d59bba820"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12163321ef16a7c6057a6a4d59bba820">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[9/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; T, ThreadSafe &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="adc3a6def7f74e4eb20f48d9dbd0142fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc3a6def7f74e4eb20f48d9dbd0142fa">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[10/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afff1db47985b1455b1a0020dcdda1c32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afff1db47985b1455b1a0020dcdda1c32">&#9670;&nbsp;</a></span>SharedPtr() <span class="overload">[11/11]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a>&lt; Y, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8978c3973fbf3d7ca501fcbc7a7d2d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8978c3973fbf3d7ca501fcbc7a7d2d4">&#9670;&nbsp;</a></span>~SharedPtr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::~<a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac2d0f68fa16798b7a32c39a1471c4854"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2d0f68fa16798b7a32c39a1471c4854">&#9670;&nbsp;</a></span>get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a5897e88344febde9cd0c6649fc0c9fe3">element_type</a>* <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::get </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6c373f4513575c219d0056c41b992c6e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c373f4513575c219d0056c41b992c6e">&#9670;&nbsp;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator bool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1483622f771c2fc78497d0f5d54330a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1483622f771c2fc78497d0f5d54330a5">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3266b7772f835913f19cd14d8078f460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3266b7772f835913f19cd14d8078f460">&#9670;&nbsp;</a></span>operator!=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator!= </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0e291dbf1b722cfb170dd63137d11558"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e291dbf1b722cfb170dd63137d11558">&#9670;&nbsp;</a></span>operator*()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T2&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator* </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a06e6809bee1e6b313e817763adf724af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06e6809bee1e6b313e817763adf724af">&#9670;&nbsp;</a></span>operator-&gt;()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class T2  = T, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">T2* <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator-&gt; </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afb50318ce8996427a665ec4815c7f6c6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb50318ce8996427a665ec4815c7f6c6">&#9670;&nbsp;</a></span>operator&lt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e1e834d83a399c1b716f050493c9038"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e1e834d83a399c1b716f050493c9038">&#9670;&nbsp;</a></span>operator&lt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&lt; </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acba7bbc685c3ed595296f2dca2368309"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acba7bbc685c3ed595296f2dca2368309">&#9670;&nbsp;</a></span>operator&lt;=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4eb19af4529a03c9b7d709a767428ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4eb19af4529a03c9b7d709a767428ac">&#9670;&nbsp;</a></span>operator&lt;=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&lt;= </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a582faad48188d1b20173b8974b605625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a582faad48188d1b20173b8974b605625">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; T, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae9a8ef7c14a610a1bf8d4a35c5f516e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a8ef7c14a610a1bf8d4a35c5f516e6">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="abed32c682f787b7b4cbd2db58c00f3ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed32c682f787b7b4cbd2db58c00f3ac">&#9670;&nbsp;</a></span>operator=() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; T, ThreadSafe &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6ba31bf214ae21822644df47505efb0e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ba31bf214ae21822644df47505efb0e">&#9670;&nbsp;</a></span>operator=() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; Y, ThreadSafe &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac9ee867deb72f55077045bf97ee52e3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac9ee867deb72f55077045bf97ee52e3b">&#9670;&nbsp;</a></span>operator==() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af717159629f60c4c82fe35627672ca9e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af717159629f60c4c82fe35627672ca9e">&#9670;&nbsp;</a></span>operator==() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator== </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a57b27f46843f8e4e099d1fa2d3a349a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57b27f46843f8e4e099d1fa2d3a349a6">&#9670;&nbsp;</a></span>operator&gt;() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a985eea46cca79ff12ba06ab2ba2c7005"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a985eea46cca79ff12ba06ab2ba2c7005">&#9670;&nbsp;</a></span>operator&gt;() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&gt; </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a586c397d814a9bb6dd5ebf59ed0dcf9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a586c397d814a9bb6dd5ebf59ed0dcf9f">&#9670;&nbsp;</a></span>operator&gt;=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class U &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; U, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a244d0e853573fbca2d04e639a9d49da3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a244d0e853573fbca2d04e639a9d49da3">&#9670;&nbsp;</a></span>operator&gt;=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr bool <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator&gt;= </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2a21384466c52fd8d95b09a4a571d571"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a21384466c52fd8d95b09a4a571d571">&#9670;&nbsp;</a></span>operator[]()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class T2  = T, class Elem  = element_type, std::enable_if_t&lt;!std::is_void_v&lt; T2 &gt;, int &gt;  = 0&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Elem&amp; <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">ptrdiff_t&#160;</td>
+          <td class="paramname"><em>idx</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa7fa9b104f2e1c5d886b0f7cc62592f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7fa9b104f2e1c5d886b0f7cc62592f7">&#9670;&nbsp;</a></span>reset() <span class="overload">[1/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::reset </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a99c5e206c7a4373f3e516b18a2c8c0d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c5e206c7a4373f3e516b18a2c8c0d2">&#9670;&nbsp;</a></span>reset() <span class="overload">[2/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype">std::nullptr_t&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab041b08b57d82a9614e8df545bdfcf07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab041b08b57d82a9614e8df545bdfcf07">&#9670;&nbsp;</a></span>reset() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype">Y *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7426171c7c67361c1f3b00c1ec9db6ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7426171c7c67361c1f3b00c1ec9db6ce">&#9670;&nbsp;</a></span>reset() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y , class Deleter &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype">Y *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Deleter&#160;</td>
+          <td class="paramname"><em>deleter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a06700e1850bf90558a8e286a07e5415a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06700e1850bf90558a8e286a07e5415a">&#9670;&nbsp;</a></span>reset() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class Y , class Deleter , class Alloc &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::reset </td>
+          <td>(</td>
+          <td class="paramtype">Y *&#160;</td>
+          <td class="paramname"><em>ptr</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Deleter&#160;</td>
+          <td class="paramname"><em>deleter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>&#160;</td>
+          <td class="paramname"><em>alloc</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa29ca65a3acd8babb4ef1311089b8c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa29ca65a3acd8babb4ef1311089b8c36">&#9670;&nbsp;</a></span>swap()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::swap </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a>&lt; T, ThreadSafe &gt; &amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac7f5a9ab970403f17086b1cb35f15a58"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7f5a9ab970403f17086b1cb35f15a58">&#9670;&nbsp;</a></span>use_count()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned long <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">oeng::core::SharedPtr</a>&lt; T, ThreadSafe &gt;::use_count </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Friends And Related Function Documentation</h2>
+<a id="ac5593473aa503e190d6f89db7ea8172b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5593473aa503e190d6f89db7ea8172b">&#9670;&nbsp;</a></span>detail::SetAndEnableShared</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class , bool &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend struct <a class="el" href="structoeng_1_1core_1_1detail_1_1_set_and_enable_shared.html">detail::SetAndEnableShared</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaecfa7fa45b80deff2bff2b414ce39ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaecfa7fa45b80deff2bff2b414ce39ad">&#9670;&nbsp;</a></span>SharedPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class , bool &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae24da290f6fc350d543a86b2ac69ac8a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae24da290f6fc350d543a86b2ac69ac8a">&#9670;&nbsp;</a></span>WeakPtr</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , bool ThreadSafe&gt; </div>
+<div class="memtemplate">
+template&lt;class , bool &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">friend class <a class="el" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Core/Public/Templates/<a class="el" href="_memory_8hpp_source.html">Memory.hpp</a></li>
 </ul>
@@ -355,7 +1577,7 @@ template&lt;class Y , class Deleter , class Alloc  = PoolAllocator&lt;Y&gt;&gt; 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>core</b></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a></li>
+    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1core.html">core</a></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_shared_ptr.html">SharedPtr</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

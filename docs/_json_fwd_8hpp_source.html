@@ -87,12 +87,12 @@ $(document).ready(function(){initNavTree('_json_fwd_8hpp_source.html',''); initR
 <div class="title">JsonFwd.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Templates/TreeMap.hpp&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Templates/DyArr.hpp&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;MathFwd.hpp&quot;</span></div>
+<a href="_json_fwd_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tree_map_8hpp.html">Templates/TreeMap.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_dy_arr_8hpp.html">Templates/DyArr.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_math_fwd_8hpp.html">MathFwd.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>nlohmann</div>
+<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespacenlohmann.html">    6</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacenlohmann.html">nlohmann</a></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T, <span class="keyword">typename</span> SFINAE&gt;</div>
 <div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="structnlohmann_1_1adl__serializer.html">    9</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structnlohmann_1_1adl__serializer.html">adl_serializer</a>;</div>
@@ -108,25 +108,31 @@ $(document).ready(function(){initNavTree('_json_fwd_8hpp_source.html',''); initR
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        template&lt;typename T, typename SFINAE&gt; class JSONSerializer&gt;</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classnlohmann_1_1basic__json.html">   20</a></span>&#160;    class <a class="code" href="classnlohmann_1_1basic__json.html">basic_json</a>;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">namespace </span>detail</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="namespacenlohmann_1_1detail.html">   22</a></span>&#160;    <span class="keyword">namespace </span>detail</div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    {</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">enum class</span> value_t : std::uint8_t;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;namespace oeng::core</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;namespace <a class="code" href="namespaceoeng_1_1core.html">oeng::core</a></div>
 <div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">using</span> Json = <a class="code" href="classnlohmann_1_1basic__json.html">nlohmann::basic_json&lt;TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer&gt;</a>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">using</span> JsonType = nlohmann::detail::value_t;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a22f6887c1686312f2b4ab218777a77f7">   30</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classnlohmann_1_1basic__json.html">Json</a> = <a class="code" href="classnlohmann_1_1basic__json.html">nlohmann::basic_json&lt;TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer&gt;</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a29e6fb075d1a2ab58fc2949260f263c0">   31</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#a29e6fb075d1a2ab58fc2949260f263c0">JsonType</a> = nlohmann::detail::value_t;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="anamespaceoeng_1_1core_html"><div class="ttname"><a href="namespaceoeng_1_1core.html">oeng::core</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
+<div class="ttc" id="anamespaceoeng_1_1core_html_a29e6fb075d1a2ab58fc2949260f263c0"><div class="ttname"><a href="namespaceoeng_1_1core.html#a29e6fb075d1a2ab58fc2949260f263c0">oeng::core::JsonType</a></div><div class="ttdeci">nlohmann::detail::value_t JsonType</div><div class="ttdef"><b>Definition:</b> JsonFwd.hpp:31</div></div>
+<div class="ttc" id="anamespacenlohmann_html"><div class="ttname"><a href="namespacenlohmann.html">nlohmann</a></div><div class="ttdef"><b>Definition:</b> JsonFwd.hpp:7</div></div>
+<div class="ttc" id="a_tree_map_8hpp_html"><div class="ttname"><a href="_tree_map_8hpp.html">TreeMap.hpp</a></div></div>
+<div class="ttc" id="a_dy_arr_8hpp_html"><div class="ttname"><a href="_dy_arr_8hpp.html">DyArr.hpp</a></div></div>
 <div class="ttc" id="astructnlohmann_1_1adl__serializer_html"><div class="ttname"><a href="structnlohmann_1_1adl__serializer.html">nlohmann::adl_serializer</a></div><div class="ttdef"><b>Definition:</b> JsonFwd.hpp:9</div></div>
 <div class="ttc" id="aclassnlohmann_1_1basic__json_html"><div class="ttname"><a href="classnlohmann_1_1basic__json.html">nlohmann::basic_json</a></div><div class="ttdef"><b>Definition:</b> JsonFwd.hpp:20</div></div>
+<div class="ttc" id="a_math_fwd_8hpp_html"><div class="ttname"><a href="_math_fwd_8hpp.html">MathFwd.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><b>JsonFwd.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="_json_fwd_8hpp.html">JsonFwd.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

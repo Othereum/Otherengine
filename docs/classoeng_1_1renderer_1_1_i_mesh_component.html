@@ -90,6 +90,8 @@ $(document).ready(function(){initNavTree('classoeng_1_1renderer_1_1_i_mesh_compo
 <div class="title">oeng::renderer::IMeshComponent Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_drawable_8hpp_source.html">Drawable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for oeng::renderer::IMeshComponent:</div>
 <div class="dyncontent">
@@ -99,31 +101,231 @@ Inheritance diagram for oeng::renderer::IMeshComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a141758ea3022377ab67119d96494c4f4"><td class="memItemLeft" align="right" valign="top"><a id="a141758ea3022377ab67119d96494c4f4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INTERFACE_BODY</b> (<a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>)</td></tr>
+<tr class="memitem:a141758ea3022377ab67119d96494c4f4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a141758ea3022377ab67119d96494c4f4">INTERFACE_BODY</a> (<a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>)</td></tr>
 <tr class="separator:a141758ea3022377ab67119d96494c4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa22601f789eee1f8c888a47edf8d2192"><td class="memItemLeft" align="right" valign="top"><a id="aa22601f789eee1f8c888a47edf8d2192"></a>
-virtual Float&#160;</td><td class="memItemRight" valign="bottom"><b>GetMaxDrawDist</b> () const noexcept=0</td></tr>
+<tr class="memitem:aa22601f789eee1f8c888a47edf8d2192"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#aa22601f789eee1f8c888a47edf8d2192">GetMaxDrawDist</a> () const noexcept=0</td></tr>
 <tr class="separator:aa22601f789eee1f8c888a47edf8d2192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b933470d88f4ec4fcd2820f1f9d770"><td class="memItemLeft" align="right" valign="top"><a id="ab4b933470d88f4ec4fcd2820f1f9d770"></a>
-virtual Float&#160;</td><td class="memItemRight" valign="bottom"><b>GetRadius</b> () const noexcept=0</td></tr>
+<tr class="memitem:ab4b933470d88f4ec4fcd2820f1f9d770"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ab4b933470d88f4ec4fcd2820f1f9d770">GetRadius</a> () const noexcept=0</td></tr>
 <tr class="separator:ab4b933470d88f4ec4fcd2820f1f9d770"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a188fa2f3c331bf2dda51e48b5255542b"><td class="memItemLeft" align="right" valign="top"><a id="a188fa2f3c331bf2dda51e48b5255542b"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>ShouldDraw</b> () const noexcept=0</td></tr>
+<tr class="memitem:a188fa2f3c331bf2dda51e48b5255542b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a188fa2f3c331bf2dda51e48b5255542b">ShouldDraw</a> () const noexcept=0</td></tr>
 <tr class="separator:a188fa2f3c331bf2dda51e48b5255542b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82c4e090ec6873211f58ca2488612e3a"><td class="memItemLeft" align="right" valign="top"><a id="a82c4e090ec6873211f58ca2488612e3a"></a>
-virtual const <a class="el" href="structotm_1_1_transform.html">Transform</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDrawTrsf</b> () const noexcept=0</td></tr>
+<tr class="memitem:a82c4e090ec6873211f58ca2488612e3a"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structotm_1_1_transform.html">Transform</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a82c4e090ec6873211f58ca2488612e3a">GetDrawTrsf</a> () const noexcept=0</td></tr>
 <tr class="separator:a82c4e090ec6873211f58ca2488612e3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae8da58ff2698c6e32ba668d5b0ff7683"><td class="memItemLeft" align="right" valign="top"><a id="ae8da58ff2698c6e32ba668d5b0ff7683"></a>
-virtual const <a class="el" href="structotm_1_1_matrix.html">Mat4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDrawTrsfMatrix</b> () const noexcept=0</td></tr>
+<tr class="memitem:ae8da58ff2698c6e32ba668d5b0ff7683"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ae8da58ff2698c6e32ba668d5b0ff7683">GetDrawTrsfMatrix</a> () const noexcept=0</td></tr>
 <tr class="separator:ae8da58ff2698c6e32ba668d5b0ff7683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a66ac66e53f0f39e883107976439d65"><td class="memItemLeft" align="right" valign="top"><a id="a2a66ac66e53f0f39e883107976439d65"></a>
-virtual <a class="el" href="classoeng_1_1renderer_1_1_material.html">Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMaterial</b> () const noexcept=0</td></tr>
+<tr class="memitem:a2a66ac66e53f0f39e883107976439d65"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classoeng_1_1renderer_1_1_material.html">Material</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a2a66ac66e53f0f39e883107976439d65">GetMaterial</a> () const noexcept=0</td></tr>
 <tr class="separator:a2a66ac66e53f0f39e883107976439d65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c9f4d1ef4d518b067dec0c5809cd6e3"><td class="memItemLeft" align="right" valign="top"><a id="a8c9f4d1ef4d518b067dec0c5809cd6e3"></a>
-virtual <a class="el" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetMesh</b> () const noexcept=0</td></tr>
+<tr class="memitem:a8c9f4d1ef4d518b067dec0c5809cd6e3"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a8c9f4d1ef4d518b067dec0c5809cd6e3">GetMesh</a> () const noexcept=0</td></tr>
 <tr class="separator:a8c9f4d1ef4d518b067dec0c5809cd6e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a82c4e090ec6873211f58ca2488612e3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82c4e090ec6873211f58ca2488612e3a">&#9670;&nbsp;</a></span>GetDrawTrsf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="structotm_1_1_transform.html">Transform</a>&amp; oeng::renderer::IMeshComponent::GetDrawTrsf </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a37dd4b5793f9ee66fb953da48b3c8265">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="ae8da58ff2698c6e32ba668d5b0ff7683"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8da58ff2698c6e32ba668d5b0ff7683">&#9670;&nbsp;</a></span>GetDrawTrsfMatrix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a>&amp; oeng::renderer::IMeshComponent::GetDrawTrsfMatrix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#aab4b8f4631f11c08046bab8a52536c53">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="a2a66ac66e53f0f39e883107976439d65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a66ac66e53f0f39e883107976439d65">&#9670;&nbsp;</a></span>GetMaterial()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; oeng::renderer::IMeshComponent::GetMaterial </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a968ddfd886c90543b7d2e4f59b7fc38c">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="aa22601f789eee1f8c888a47edf8d2192"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa22601f789eee1f8c888a47edf8d2192">&#9670;&nbsp;</a></span>GetMaxDrawDist()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::renderer::IMeshComponent::GetMaxDrawDist </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#ae76a50be70966134a7e8b2b051564779">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="a8c9f4d1ef4d518b067dec0c5809cd6e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c9f4d1ef4d518b067dec0c5809cd6e3">&#9670;&nbsp;</a></span>GetMesh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a>&amp; oeng::renderer::IMeshComponent::GetMesh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#aacdd2a4121bdb7997f2c66ce72a2665c">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="ab4b933470d88f4ec4fcd2820f1f9d770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4b933470d88f4ec4fcd2820f1f9d770">&#9670;&nbsp;</a></span>GetRadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::renderer::IMeshComponent::GetRadius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a99a44e789eb0908694af60631d549e95">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="a141758ea3022377ab67119d96494c4f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a141758ea3022377ab67119d96494c4f4">&#9670;&nbsp;</a></span>INTERFACE_BODY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">oeng::renderer::IMeshComponent::INTERFACE_BODY </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a188fa2f3c331bf2dda51e48b5255542b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a188fa2f3c331bf2dda51e48b5255542b">&#9670;&nbsp;</a></span>ShouldDraw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool oeng::renderer::IMeshComponent::ShouldDraw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a0c5d94e23c936bd7f6a9761e87176b0c">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Renderer/Public/Interfaces/<a class="el" href="_drawable_8hpp_source.html">Drawable.hpp</a></li>
 </ul>
@@ -132,7 +334,7 @@ virtual <a class="el" href="classoeng_1_1renderer_1_1_mesh.html">Mesh</a> &amp;&
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>renderer</b></li><li class="navelem"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a></li>
+    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1renderer.html">renderer</a></li><li class="navelem"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

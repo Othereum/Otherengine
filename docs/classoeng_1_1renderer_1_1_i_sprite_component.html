@@ -90,6 +90,8 @@ $(document).ready(function(){initNavTree('classoeng_1_1renderer_1_1_i_sprite_com
 <div class="title">oeng::renderer::ISpriteComponent Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="_drawable_8hpp_source.html">Drawable.hpp</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for oeng::renderer::ISpriteComponent:</div>
 <div class="dyncontent">
@@ -99,22 +101,144 @@ Inheritance diagram for oeng::renderer::ISpriteComponent:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab6889f675742007e8dc462b98cb302ae"><td class="memItemLeft" align="right" valign="top"><a id="ab6889f675742007e8dc462b98cb302ae"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>INTERFACE_BODY</b> (<a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html">ISpriteComponent</a>)</td></tr>
+<tr class="memitem:ab6889f675742007e8dc462b98cb302ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html#ab6889f675742007e8dc462b98cb302ae">INTERFACE_BODY</a> (<a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html">ISpriteComponent</a>)</td></tr>
 <tr class="separator:ab6889f675742007e8dc462b98cb302ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45d125cbbc105cf0de0898ec9191af2c"><td class="memItemLeft" align="right" valign="top"><a id="a45d125cbbc105cf0de0898ec9191af2c"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>ShouldDraw</b> () const noexcept=0</td></tr>
+<tr class="memitem:a45d125cbbc105cf0de0898ec9191af2c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html#a45d125cbbc105cf0de0898ec9191af2c">ShouldDraw</a> () const noexcept=0</td></tr>
 <tr class="separator:a45d125cbbc105cf0de0898ec9191af2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b6c94ff0a99b8956a1175800347f084"><td class="memItemLeft" align="right" valign="top"><a id="a9b6c94ff0a99b8956a1175800347f084"></a>
-virtual const <a class="el" href="structotm_1_1_matrix.html">Mat4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetDrawTrsf</b> () const noexcept=0</td></tr>
+<tr class="memitem:a9b6c94ff0a99b8956a1175800347f084"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html#a9b6c94ff0a99b8956a1175800347f084">GetDrawTrsf</a> () const noexcept=0</td></tr>
 <tr class="separator:a9b6c94ff0a99b8956a1175800347f084"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac47919bc2b882214af4ff50289e4da18"><td class="memItemLeft" align="right" valign="top"><a id="ac47919bc2b882214af4ff50289e4da18"></a>
-virtual int&#160;</td><td class="memItemRight" valign="bottom"><b>GetDrawOrder</b> () const noexcept=0</td></tr>
+<tr class="memitem:ac47919bc2b882214af4ff50289e4da18"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html#ac47919bc2b882214af4ff50289e4da18">GetDrawOrder</a> () const noexcept=0</td></tr>
 <tr class="separator:ac47919bc2b882214af4ff50289e4da18"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acca899253628bce56cdfabf36ea297fa"><td class="memItemLeft" align="right" valign="top"><a id="acca899253628bce56cdfabf36ea297fa"></a>
-virtual <a class="el" href="classoeng_1_1renderer_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetTexture</b> () const noexcept=0</td></tr>
+<tr class="memitem:acca899253628bce56cdfabf36ea297fa"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classoeng_1_1renderer_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html#acca899253628bce56cdfabf36ea297fa">GetTexture</a> () const noexcept=0</td></tr>
 <tr class="separator:acca899253628bce56cdfabf36ea297fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="ac47919bc2b882214af4ff50289e4da18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac47919bc2b882214af4ff50289e4da18">&#9670;&nbsp;</a></span>GetDrawOrder()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual int oeng::renderer::ISpriteComponent::GetDrawOrder </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#afcb896d68597911a9a238f4f4ef488cc">oeng::engine::SpriteComponent</a>.</p>
+
+</div>
+</div>
+<a id="a9b6c94ff0a99b8956a1175800347f084"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b6c94ff0a99b8956a1175800347f084">&#9670;&nbsp;</a></span>GetDrawTrsf()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual const <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a>&amp; oeng::renderer::ISpriteComponent::GetDrawTrsf </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#aac10db18a820dfd0cf7f63a3f5f99aa0">oeng::engine::SpriteComponent</a>.</p>
+
+</div>
+</div>
+<a id="acca899253628bce56cdfabf36ea297fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acca899253628bce56cdfabf36ea297fa">&#9670;&nbsp;</a></span>GetTexture()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="classoeng_1_1renderer_1_1_texture.html">Texture</a>&amp; oeng::renderer::ISpriteComponent::GetTexture </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#ad602dc7cb8f72a04d9d06f888b968e69">oeng::engine::SpriteComponent</a>.</p>
+
+</div>
+</div>
+<a id="ab6889f675742007e8dc462b98cb302ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab6889f675742007e8dc462b98cb302ae">&#9670;&nbsp;</a></span>INTERFACE_BODY()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">oeng::renderer::ISpriteComponent::INTERFACE_BODY </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html">ISpriteComponent</a>&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a45d125cbbc105cf0de0898ec9191af2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45d125cbbc105cf0de0898ec9191af2c">&#9670;&nbsp;</a></span>ShouldDraw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool oeng::renderer::ISpriteComponent::ShouldDraw </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#a5c88b84286623008fe493b8d32b873d3">oeng::engine::SpriteComponent</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Renderer/Public/Interfaces/<a class="el" href="_drawable_8hpp_source.html">Drawable.hpp</a></li>
 </ul>
@@ -123,7 +247,7 @@ virtual <a class="el" href="classoeng_1_1renderer_1_1_texture.html">Texture</a> 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>renderer</b></li><li class="navelem"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html">ISpriteComponent</a></li>
+    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1renderer.html">renderer</a></li><li class="navelem"><a class="el" href="classoeng_1_1renderer_1_1_i_sprite_component.html">ISpriteComponent</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

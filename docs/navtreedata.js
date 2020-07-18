@@ -25,28 +25,50 @@
 var NAVTREE =
 [
   [ "Otherengine", "index.html", [
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
-        [ "Functions", "functions_func.html", null ]
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
+        [ "Enumerations", "functions_enum.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Functions", "globals_func.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-".html",
-"classoeng_1_1core_1_1_shared_ptr.html#ac2d0f68fa16798b7a32c39a1471c4854",
-"classoeng_1_1engine_1_1_scene_component.html#a4afda7cb6b0e725ef3976c899584e9c0",
-"dir_25adc572c9dd00dc10864ac016f72ce3.html",
-"structotm_1_1_matrix.html#a96a189c99155aaaacb8edf81c8ea5c47"
+"_a_i_component_8hpp.html",
+"_input_code_8hpp.html#aaebb0fd5bea8bcad3248ad83a2f8d06da44c20c304cb312d1cc0a1408884ba477",
+"_matrix_8hpp.html#a0b557274f9916932174fedf2ce6e7b7d",
+"classoeng_1_1core_1_1_dll.html#aefc55c1a1804d003a1c653f6561a071c",
+"classoeng_1_1engine_1_1_circle_component.html#aa1af4a87f0d491bcf287c5437f342a98",
+"classoeng_1_1renderer_1_1_renderer.html#a763f97bb153820fca5b218599da3a34a",
+"otmfwd_8hpp.html#ab13a3734f5d18db1defa83272db63e03",
+"structotm_1_1_matrix.html#ad50c8f41bcf391a167a0b22a4b8fcd12"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

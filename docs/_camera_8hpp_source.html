@@ -87,38 +87,45 @@ $(document).ready(function(){initNavTree('_camera_8hpp_source.html',''); initRes
 <div class="title">Camera.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<a href="_camera_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span>oeng::renderer</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html">    5</a></span>&#160;    <span class="keyword">class </span>OEAPI <a class="code" href="classoeng_1_1renderer_1_1_i_camera.html">ICamera</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html">    5</a></span>&#160;    <span class="keyword">class </span><a class="code" href="_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> <a class="code" href="classoeng_1_1renderer_1_1_i_camera.html">ICamera</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    {</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        INTERFACE_BODY(<a class="code" href="classoeng_1_1renderer_1_1_i_camera.html">ICamera</a>);</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html#a0a9942f1ee416498ccc34a5589536f8f">    8</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_i_camera.html#a0a9942f1ee416498ccc34a5589536f8f">INTERFACE_BODY</a>(<a class="code" href="classoeng_1_1renderer_1_1_i_camera.html">ICamera</a>);</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">   10</a></span>&#160;        <span class="keyword">struct </span><a class="code" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">Data</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            Float near, far;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            <a class="code" href="structotm_1_1_angle.html">Rad</a> vfov;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#aaee8e43c7211d3a6a297bbccb1c6cf47">   12</a></span>&#160;            <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> <a class="code" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#aaee8e43c7211d3a6a297bbccb1c6cf47">near</a>, far;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#a8e194004378dd339135ad17c1121df54">   13</a></span>&#160;            <a class="code" href="structotm_1_1_angle.html">Rad</a> <a class="code" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#a8e194004378dd339135ad17c1121df54">vfov</a>;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        };</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        [[nodiscard]] <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">Data</a>&amp; GetData() const noexcept = 0;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        [[nodiscard]] virtual const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetPos() const noexcept = 0;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        [[nodiscard]] virtual const <a class="code" href="structotm_1_1_matrix.html">Mat4</a>&amp; GetViewProj() const noexcept = 0;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        virtual <span class="keywordtype">void</span> OnScreenSizeChanged(<a class="code" href="structotm_1_1_vector.html">Vec2u16</a> scr) = 0;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html#a405dcf31701068ce4d3012d8ffee5f18">   16</a></span>&#160;        [[nodiscard]] <span class="keyword">virtual</span> <span class="keyword">const</span> <a class="code" href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">Data</a>&amp; <a class="code" href="classoeng_1_1renderer_1_1_i_camera.html#a405dcf31701068ce4d3012d8ffee5f18">GetData</a>() const noexcept = 0;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html#aff44686d4c5dc2c5f4a77caf3105c6f3">   17</a></span>&#160;        [[nodiscard]] virtual const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetPos() const noexcept = 0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html#a30ba0521b80254f26fc6ed3ae73921cd">   18</a></span>&#160;        [[nodiscard]] virtual const <a class="code" href="structotm_1_1_matrix.html">Mat4</a>&amp; GetViewProj() const noexcept = 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_i_camera.html#a4e8e9a7513fc00d2276790b98634f483">   19</a></span>&#160;        virtual <span class="keywordtype">void</span> OnScreenSizeChanged(<a class="code" href="structotm_1_1_vector.html">Vec2u16</a> scr) = 0;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    };</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="a_core_8hpp_html_a3c1790cd7724c00a9c44c1ac4c057710"><div class="ttname"><a href="_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></div><div class="ttdeci">#define OEAPI</div><div class="ttdef"><b>Definition:</b> Core.hpp:21</div></div>
+<div class="ttc" id="aclassoeng_1_1renderer_1_1_i_camera_html_a0a9942f1ee416498ccc34a5589536f8f"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_camera.html#a0a9942f1ee416498ccc34a5589536f8f">oeng::renderer::ICamera::INTERFACE_BODY</a></div><div class="ttdeci">INTERFACE_BODY(ICamera)</div></div>
+<div class="ttc" id="aclassoeng_1_1renderer_1_1_i_camera_html_a405dcf31701068ce4d3012d8ffee5f18"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_camera.html#a405dcf31701068ce4d3012d8ffee5f18">oeng::renderer::ICamera::GetData</a></div><div class="ttdeci">virtual const Data &amp; GetData() const noexcept=0</div></div>
 <div class="ttc" id="astructotm_1_1_matrix_html"><div class="ttname"><a href="structotm_1_1_matrix.html">otm::Matrix&lt; Float, 4 &gt;</a></div></div>
+<div class="ttc" id="astructoeng_1_1renderer_1_1_i_camera_1_1_data_html_a8e194004378dd339135ad17c1121df54"><div class="ttname"><a href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#a8e194004378dd339135ad17c1121df54">oeng::renderer::ICamera::Data::vfov</a></div><div class="ttdeci">Rad vfov</div><div class="ttdef"><b>Definition:</b> Camera.hpp:13</div></div>
 <div class="ttc" id="astructoeng_1_1renderer_1_1_i_camera_1_1_data_html"><div class="ttname"><a href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html">oeng::renderer::ICamera::Data</a></div><div class="ttdef"><b>Definition:</b> Camera.hpp:11</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_camera_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_camera.html">oeng::renderer::ICamera</a></div><div class="ttdef"><b>Definition:</b> Camera.hpp:6</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
+<div class="ttc" id="astructoeng_1_1renderer_1_1_i_camera_1_1_data_html_aaee8e43c7211d3a6a297bbccb1c6cf47"><div class="ttname"><a href="structoeng_1_1renderer_1_1_i_camera_1_1_data.html#aaee8e43c7211d3a6a297bbccb1c6cf47">oeng::renderer::ICamera::Data::near</a></div><div class="ttdeci">Float near</div><div class="ttdef"><b>Definition:</b> Camera.hpp:12</div></div>
 <div class="ttc" id="astructotm_1_1_angle_html"><div class="ttname"><a href="structotm_1_1_angle.html">otm::Angle&lt; RadR &gt;</a></div></div>
+<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> IEngine.hpp:11</div></div>
+<div class="ttc" id="anamespaceotm_html_a4f541d78fc864cf735b8bb3d350ac52b"><div class="ttname"><a href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">otm::Float</a></div><div class="ttdeci">OTM_DEFAULT_FLOAT Float</div><div class="ttdef"><b>Definition:</b> otmfwd.hpp:8</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_e95efa631723cde707baa0220c731e18.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_66d0fce27eec5ed1ad883580e48797e0.html">Public</a></li><li class="navelem"><a class="el" href="dir_25adc572c9dd00dc10864ac016f72ce3.html">Interfaces</a></li><li class="navelem"><b>Camera.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_e95efa631723cde707baa0220c731e18.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_66d0fce27eec5ed1ad883580e48797e0.html">Public</a></li><li class="navelem"><a class="el" href="dir_25adc572c9dd00dc10864ac016f72ce3.html">Interfaces</a></li><li class="navelem"><a class="el" href="_camera_8hpp.html">Camera.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

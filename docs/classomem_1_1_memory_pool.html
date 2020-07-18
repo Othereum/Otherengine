@@ -92,40 +92,288 @@ $(document).ready(function(){initNavTree('classomem_1_1_memory_pool.html',''); i
 <div class="title">omem::MemoryPool Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="omem_8hpp_source.html">omem.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab018433adf46ed4263d3bd2eb90a21a4"><td class="memItemLeft" align="right" valign="top"><a id="ab018433adf46ed4263d3bd2eb90a21a4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryPool</b> (size_t size, size_t count)</td></tr>
+<tr class="memitem:ab018433adf46ed4263d3bd2eb90a21a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#ab018433adf46ed4263d3bd2eb90a21a4">MemoryPool</a> (size_t size, size_t count)</td></tr>
 <tr class="separator:ab018433adf46ed4263d3bd2eb90a21a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ec3d1a666c95ca929e769fbee063d3a"><td class="memItemLeft" align="right" valign="top"><a id="a0ec3d1a666c95ca929e769fbee063d3a"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryPool</b> (<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;r) noexcept</td></tr>
+<tr class="memitem:a0ec3d1a666c95ca929e769fbee063d3a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#a0ec3d1a666c95ca929e769fbee063d3a">MemoryPool</a> (<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;r) noexcept</td></tr>
 <tr class="separator:a0ec3d1a666c95ca929e769fbee063d3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aee96ce9bcf468c5dbf1cbec265f42fb0"><td class="memItemLeft" align="right" valign="top"><a id="aee96ce9bcf468c5dbf1cbec265f42fb0"></a>
-void *&#160;</td><td class="memItemRight" valign="bottom"><b>Alloc</b> ()</td></tr>
+<tr class="memitem:a2fc34adf8b71cf61ee4d3c84e97db0a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#a2fc34adf8b71cf61ee4d3c84e97db0a3">~MemoryPool</a> ()</td></tr>
+<tr class="separator:a2fc34adf8b71cf61ee4d3c84e97db0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee96ce9bcf468c5dbf1cbec265f42fb0"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#aee96ce9bcf468c5dbf1cbec265f42fb0">Alloc</a> ()</td></tr>
 <tr class="separator:aee96ce9bcf468c5dbf1cbec265f42fb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4acbbc369590ba336978af31b36defc4"><td class="memItemLeft" align="right" valign="top"><a id="a4acbbc369590ba336978af31b36defc4"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>Free</b> (void *ptr) noexcept</td></tr>
+<tr class="memitem:a4acbbc369590ba336978af31b36defc4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#a4acbbc369590ba336978af31b36defc4">Free</a> (void *ptr) noexcept</td></tr>
 <tr class="separator:a4acbbc369590ba336978af31b36defc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a33ebe7281d29a1ea1c893c4156b8a5a9"><td class="memItemLeft" align="right" valign="top"><a id="a33ebe7281d29a1ea1c893c4156b8a5a9"></a>
-const <a class="el" href="structomem_1_1_pool_info.html">PoolInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetInfo</b> () const noexcept</td></tr>
+<tr class="memitem:a33ebe7281d29a1ea1c893c4156b8a5a9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structomem_1_1_pool_info.html">PoolInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#a33ebe7281d29a1ea1c893c4156b8a5a9">GetInfo</a> () const noexcept</td></tr>
 <tr class="separator:a33ebe7281d29a1ea1c893c4156b8a5a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac13b4d26dbb381a9f3c1f03a627622b6"><td class="memItemLeft" align="right" valign="top"><a id="ac13b4d26dbb381a9f3c1f03a627622b6"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>MemoryPool</b> (const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;)=delete</td></tr>
+<tr class="memitem:ac13b4d26dbb381a9f3c1f03a627622b6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#ac13b4d26dbb381a9f3c1f03a627622b6">MemoryPool</a> (const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;)=delete</td></tr>
 <tr class="separator:ac13b4d26dbb381a9f3c1f03a627622b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae13507f9e9e97ed9cd49aa210d2796e1"><td class="memItemLeft" align="right" valign="top"><a id="ae13507f9e9e97ed9cd49aa210d2796e1"></a>
-<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;)=delete</td></tr>
+<tr class="memitem:ae13507f9e9e97ed9cd49aa210d2796e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#ae13507f9e9e97ed9cd49aa210d2796e1">operator=</a> (const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;)=delete</td></tr>
 <tr class="separator:ae13507f9e9e97ed9cd49aa210d2796e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa245c9c3e289dbf2d3b6649fb702f663"><td class="memItemLeft" align="right" valign="top"><a id="aa245c9c3e289dbf2d3b6649fb702f663"></a>
-<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;)=delete</td></tr>
+<tr class="memitem:aa245c9c3e289dbf2d3b6649fb702f663"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#aa245c9c3e289dbf2d3b6649fb702f663">operator=</a> (<a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;)=delete</td></tr>
 <tr class="separator:aa245c9c3e289dbf2d3b6649fb702f663"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a120c8323864eed96dd26963bdbf3a86d"><td class="memItemLeft" align="right" valign="top"><a id="a120c8323864eed96dd26963bdbf3a86d"></a>
-static OMAPI <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> (size_t size)</td></tr>
+<tr class="memitem:a120c8323864eed96dd26963bdbf3a86d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="omem_8hpp.html#aeebe22f5eb88712ce338c7ee90b5fee7">OMAPI</a> <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classomem_1_1_memory_pool.html#a120c8323864eed96dd26963bdbf3a86d">Get</a> (size_t size)</td></tr>
 <tr class="separator:a120c8323864eed96dd26963bdbf3a86d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab018433adf46ed4263d3bd2eb90a21a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab018433adf46ed4263d3bd2eb90a21a4">&#9670;&nbsp;</a></span>MemoryPool() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">omem::MemoryPool::MemoryPool </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>count</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ec3d1a666c95ca929e769fbee063d3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ec3d1a666c95ca929e769fbee063d3a">&#9670;&nbsp;</a></span>MemoryPool() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">omem::MemoryPool::MemoryPool </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>r</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2fc34adf8b71cf61ee4d3c84e97db0a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fc34adf8b71cf61ee4d3c84e97db0a3">&#9670;&nbsp;</a></span>~MemoryPool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">omem::MemoryPool::~MemoryPool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac13b4d26dbb381a9f3c1f03a627622b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac13b4d26dbb381a9f3c1f03a627622b6">&#9670;&nbsp;</a></span>MemoryPool() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">omem::MemoryPool::MemoryPool </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aee96ce9bcf468c5dbf1cbec265f42fb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee96ce9bcf468c5dbf1cbec265f42fb0">&#9670;&nbsp;</a></span>Alloc()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* omem::MemoryPool::Alloc </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a4acbbc369590ba336978af31b36defc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4acbbc369590ba336978af31b36defc4">&#9670;&nbsp;</a></span>Free()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void omem::MemoryPool::Free </td>
+          <td>(</td>
+          <td class="paramtype">void *&#160;</td>
+          <td class="paramname"><em>ptr</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a120c8323864eed96dd26963bdbf3a86d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a120c8323864eed96dd26963bdbf3a86d">&#9670;&nbsp;</a></span>Get()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="omem_8hpp.html#aeebe22f5eb88712ce338c7ee90b5fee7">OMAPI</a> <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a>&amp; omem::MemoryPool::Get </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>size</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a33ebe7281d29a1ea1c893c4156b8a5a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33ebe7281d29a1ea1c893c4156b8a5a9">&#9670;&nbsp;</a></span>GetInfo()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structomem_1_1_pool_info.html">PoolInfo</a>&amp; omem::MemoryPool::GetInfo </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae13507f9e9e97ed9cd49aa210d2796e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae13507f9e9e97ed9cd49aa210d2796e1">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a>&amp; omem::MemoryPool::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa245c9c3e289dbf2d3b6649fb702f663"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa245c9c3e289dbf2d3b6649fb702f663">&#9670;&nbsp;</a></span>operator=() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a>&amp; omem::MemoryPool::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> &amp;&amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/ThirdParty/omem/include/<a class="el" href="omem_8hpp_source.html">omem.hpp</a></li>
 </ul>
@@ -134,7 +382,7 @@ static OMAPI <a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a> 
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>omem</b></li><li class="navelem"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a></li>
+    <li class="navelem"><a class="el" href="namespaceomem.html">omem</a></li><li class="navelem"><a class="el" href="classomem_1_1_memory_pool.html">MemoryPool</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

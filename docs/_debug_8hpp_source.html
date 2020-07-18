@@ -87,9 +87,9 @@ $(document).ready(function(){initNavTree('_debug_8hpp_source.html',''); initResi
 <div class="title">Debug.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Log.hpp&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Platform.hpp&quot;</span></div>
+<a href="_debug_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_log_8hpp.html">Log.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_platform_8hpp.html">Platform.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifdef NDEBUG</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
@@ -108,27 +108,29 @@ $(document).ready(function(){initNavTree('_debug_8hpp_source.html',''); initResi
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#include &lt;csignal&gt;</span></div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define DEBUG_BREAK() (void)(::oeng::IsDebugging() &amp;&amp; (::std::raise(SIGTRAP), true))</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a0f722bf86505c5431e71505f46b5fd21">   22</a></span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#define ENSURE(expr) (!!(expr) || (OE_ELOG(u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), false))</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71">   45</a></span>&#160;<span class="preprocessor">#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a8599dea72277981a537bec15acd9c2d9">   46</a></span>&#160; </div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), false))</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a76d13b1910e4df78459e830f9583db8f">   53</a></span>&#160;<span class="preprocessor">#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a29d39a37edbe13694ae902b1e53ef4e6">   54</a></span>&#160; </div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define EXPECT_NO_ENTRY() EXPECT(!u8&quot;Enclosing block should never be called&quot;)</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c">   58</a></span>&#160; </div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">   64</a></span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="a_platform_8hpp_html"><div class="ttname"><a href="_platform_8hpp.html">Platform.hpp</a></div></div>
+<div class="ttc" id="a_log_8hpp_html"><div class="ttname"><a href="_log_8hpp.html">Log.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><b>Debug.hpp</b></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="_debug_8hpp.html">Debug.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
