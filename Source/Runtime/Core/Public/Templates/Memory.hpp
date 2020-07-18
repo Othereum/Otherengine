@@ -2,102 +2,93 @@
 #include <cassert>
 #include <memory>
 #include <omem.hpp>
-#include "Core.hpp"
+#include "Interfaces/IEngine.hpp"
 #include "Templates/Sync.hpp"
 
 namespace oeng::core
 {
-	namespace detail
+	[[nodiscard]] inline omem::MemoryPoolManager& GetMemPool() noexcept
 	{
-		inline void CheckMemSafe() noexcept
-		{
-			assert(IsGameThread());
-			assert(IsEngineExists());
-		}
+		assert(kIEngine);
+		return kIEngine->GetMemPool();
 	}
 	
 	[[nodiscard]] inline void* Alloc(size_t size)
 	{
-		detail::CheckMemSafe();
-		return omem::Alloc(size);
+		return GetMemPool().Alloc(size);
 	}
 
 	inline void Free(void* p, size_t size) noexcept
 	{
-		detail::CheckMemSafe();
-		omem::Free(p, size);
+		GetMemPool().Free(p, size);
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		detail::CheckMemSafe();
-		return omem::New<T>(std::forward<Args>(args)...);
+		return GetMemPool().New<T>(std::forward<Args>(args));
 	}
 
 	template <class T, class... Args>
 	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
 	{
-		detail::CheckMemSafe();
-		return omem::NewArr<T>(n, std::forward<Args>(args)...);
+		return GetMemPool().NewArr<T>(n, std::forward<Args>(args)...);
 	}
 
 	template <class T>
 	void Delete(T* p) noexcept
 	{
-		detail::CheckMemSafe();
-		omem::Delete(p);
+		GetMemPool().Delete(p);
 	}
 
 	template <class T>
 	void DeleteArr(T* p, size_t n) noexcept
 	{
-		detail::CheckMemSafe();
-		omem::DeleteArr(p, n);
+		GetMemPool().DeleteArr(p, n);
 	}
 	
 	template <class T>
-	class PoolAllocator : public omem::PoolAllocator<T>
+	class PoolAllocator
 	{
-		using Base = omem::PoolAllocator<T>;
-		
 	public:
-		using Base::value_type;
+		using value_type = T;
 		
 		constexpr PoolAllocator() noexcept = default;
 
 		template <class Y>
-		constexpr PoolAllocator(const PoolAllocator<Y>& r) noexcept
-			:Base{r}
-		{
-		}
+		constexpr PoolAllocator(const PoolAllocator<Y>& r) noexcept {}
 
 		template <class Y>
-		constexpr bool operator==(const PoolAllocator<Y>& r) const noexcept
-		{
-			return Base::operator==(r);
-		}
+		constexpr bool operator==(const PoolAllocator<Y>& r) const noexcept { return true; }
 
 		[[nodiscard]] T* allocate(size_t n) const
 		{
-			detail::CheckMemSafe();
-			return Base::allocate(n);
+			return static_cast<T*>(GetMemPool().Alloc(sizeof(T) * n));
 		}
 
 		void deallocate(T* p, size_t n) const noexcept
 		{
-			detail::CheckMemSafe();
-			Base::deallocate(p, n);
+			GetMemPool().Free(p, sizeof(T) * n);
 		}
 	};
 
 	template <class T>
-	class PoolDeleter : omem::PoolDeleter<T>
+	class PoolDeleter
 	{
 	public:
+		static_assert(!std::is_array_v<T> || std::extent_v<T> != 0,
+			"Can't delete array with unknown size");
+		
 		void operator()(T* p) noexcept
 		{
-			omem::PoolDeleter<T>::operator()(p);
+			if constexpr (std::is_array_v<T>)
+			{
+				DeleteArr(p, std::extent_v<T>);
+			}
+			else
+			{
+				Delete(p);
+			}
 		}
 	};
 
