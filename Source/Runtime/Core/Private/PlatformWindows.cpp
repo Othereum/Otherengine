@@ -12,18 +12,14 @@
 namespace oeng::core
 {
 #ifdef NDEBUG
-	const std::filesystem::path& GetUserDataPath()
+	std::filesystem::path GetUserDataPath()
 	{
-		static const auto path = []
-		{
-			wchar_t* wide;
-			SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
-			std::filesystem::path p = wide;
-			CoTaskMemFree(wide);
-			p /= GetGameName();
-			return p;
-		}();
-		return path;
+		wchar_t* wide;
+		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
+		std::filesystem::path p = wide;
+		CoTaskMemFree(wide);
+		p /= GetGameName();
+		return p;
 	}
 #else
 	bool detail::IsDebuggingImpl() noexcept

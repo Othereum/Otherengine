@@ -13,7 +13,7 @@ namespace oeng::core
 #endif
 	}
 	
-	[[nodiscard]] CORE_API const std::filesystem::path& GetUserDataPath();
+	[[nodiscard]] CORE_API std::filesystem::path GetUserDataPath();
 	
 	[[nodiscard]] inline bool IsDebugging() noexcept
 	{

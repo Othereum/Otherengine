@@ -5,10 +5,9 @@ namespace oeng::core
 	using namespace std::literals;
 	
 #ifndef NDEBUG
-	const std::filesystem::path& GetUserDataPath()
+	std::filesystem::path GetUserDataPath()
 	{
-		static const std::filesystem::path path = u8"../Saved";
-		return path;
+		return u8"../Saved";
 	}
 #endif
 	
