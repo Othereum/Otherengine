@@ -41,9 +41,9 @@ namespace oeng::core
 		}
 		
 		/**
-		 * \brief Get memory pool manager.
-		 * \return Reference to memory pool manager.
-		 * \note It should only be called from a game thread.
+		 * Get memory pool manager.
+		 * @return Reference to memory pool manager.
+		 * @note It should only be called from a game thread.
 		 */
 		[[nodiscard]] omem::MemoryPoolManager& GetMemPool() noexcept
 		{
@@ -52,8 +52,8 @@ namespace oeng::core
 		}
 		
 		/**
-		 * \brief Check if the current thread is a game thread.
-		 * \return True if called from the game thread.
+		 * Check if the current thread is a game thread.
+		 * @return True if called from the game thread.
 		 */
 		[[nodiscard]] bool IsGameThread() const noexcept
 		{

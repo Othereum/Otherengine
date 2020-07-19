@@ -35,8 +35,8 @@ namespace oeng::engine
 		}
 
 		/**
-		 * \brief Set root component of this actor. Root component represents this actor's transform.
-		 * \param new_root New root component. It can be nullptr or MUST be owned by this actor. 
+		 * Set root component of this actor. Root component represents this actor's transform.
+		 * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
 		 */
 		void SetRootComponent(SceneComponent* new_root) noexcept;
 		[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
@@ -44,8 +44,8 @@ namespace oeng::engine
 		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
 
 		/**
-		 * \brief Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
-		 * \param in_seconds New lifespan in seconds. <=0 means infinite.
+		 * Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
+		 * @param in_seconds New lifespan in seconds. <=0 means infinite.
 		 */
 		void SetLifespan(Float in_seconds);
 		[[nodiscard]] Float GetLifespan() const noexcept;

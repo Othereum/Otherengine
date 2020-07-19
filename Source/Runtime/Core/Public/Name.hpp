@@ -8,12 +8,12 @@
 namespace oeng::core
 {	
 	/**
-	 * \brief Lightweight string.
+	 * Lightweight string.
 	 * Very fast O(1) copy and comparison.
 	 * No heap allocation on copy.
 	 * Good to use as key for Map/Set.
-	 * \note Case-insensitive.
-	 * \note Comparisons are not lexical.
+	 * @note Case-insensitive.
+	 * @note Comparisons are not lexical.
 	 */
 	struct CORE_API Name
 	{

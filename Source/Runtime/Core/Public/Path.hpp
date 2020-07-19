@@ -7,12 +7,12 @@ namespace oeng::core
 	namespace fs = std::filesystem;
 	
 	/**
-	 * \brief Lightweight representation of filepath.
+	 * Lightweight representation of path.
 	 * Very fast O(1) copy and comparison.
 	 * No heap allocation on copy.
 	 * Good to use as key for Map/Set.
-	 * \note Case-insensitive on any platform
-	 * \note Comparisons are not lexical.
+	 * @note Case-insensitive on any platform
+	 * @note Comparisons are not lexical.
 	 */
 	struct CORE_API Path
 	{

@@ -48,10 +48,10 @@ namespace oeng::renderer
 		void Activate() const;
 		
 		/**
-		 * \brief Set uniform variable of this shader with given name.
-		 * \param name The name of the uniform variable. Must be valid.
-		 * \param value The new value to be set.
-		 * \throw std::out_of_range If name is invalid
+		 * Set uniform variable of this shader with given name.
+		 * @param name The name of the uniform variable. Must be valid.
+		 * @param value The new value to be set.
+		 * @throw std::out_of_range If name is invalid
 		 */
 		void SetUniform(Name name, const Uniform& value)
 		{
@@ -59,10 +59,10 @@ namespace oeng::renderer
 		}
 
 		/**
-		 * \brief Set uniform variable of this shader with given name.
-		 * \param location The location of the uniform variable. Must be valid.
-		 * \param value The new value to be set.
-		 * \throw std::out_of_range If location is invalid
+		 * Set uniform variable of this shader with given name.
+		 * @param location The location of the uniform variable. Must be valid.
+		 * @param value The new value to be set.
+		 * @throw std::out_of_range If location is invalid
 		 */
 		void SetUniform(int location, const Uniform& value)
 		{
@@ -71,10 +71,10 @@ namespace oeng::renderer
 		}
 		
 		/**
-		 * \brief Try to set uniform variable of this shader with given name.
-		 * \param name The name of the uniform variable. Must be valid.
-		 * \param value The new value to be set.
-		 * \return true if successful
+		 * Try to set uniform variable of this shader with given name.
+		 * @param name The name of the uniform variable. Must be valid.
+		 * @param value The new value to be set.
+		 * @return true if successful
 		 */
 		bool TryUniform(Name name, const Uniform& value)
 		{
@@ -82,17 +82,17 @@ namespace oeng::renderer
 		}
 
 		/**
-		 * \brief Set uniform variable with given location.
-		 * \param location The location of the uniform variable. Must be valid.
-		 * \param value New value of uniform
-		 * \return true if successful
+		 * Set uniform variable with given location.
+		 * @param location The location of the uniform variable. Must be valid.
+		 * @param value New value of uniform
+		 * @return true if successful
 		 */
 		bool TryUniform(int location, const Uniform& value);
 		
 		/**
-		 * \brief Get location of the uniform variable
-		 * \param name The name of the uniform
-		 * \return Location of the uniform or invalid_uniform_ if name is invalid
+		 * Get location of the uniform variable
+		 * @param name The name of the uniform
+		 * @return Location of the uniform or invalid_uniform_ if name is invalid
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
 

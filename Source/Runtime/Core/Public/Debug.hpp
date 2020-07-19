@@ -83,6 +83,6 @@
 #define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())
 
 /**
- * Same as ENSURE(), but it always test expression even if NDEBUG is defined.
+ * Same as ENSURE(), but it always resolves to test expression even if NDEBUG is defined.
  */
 #define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))

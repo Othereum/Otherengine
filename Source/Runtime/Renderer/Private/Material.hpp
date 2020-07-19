@@ -16,10 +16,10 @@ namespace oeng::renderer
 		}
 		
 		/**
-		 * \brief Load material from file
-		 * \param path File path
-		 * \param renderer Renderer
-		 * \throw std::runtime_error If failed to open or parse
+		 * Load material from file
+		 * @param path File path
+		 * @param renderer Renderer
+		 * @throw std::runtime_error If failed to open or parse
 		 */
 		Material(Path path, Renderer& renderer);
 		void Load(Path path, Renderer& renderer)

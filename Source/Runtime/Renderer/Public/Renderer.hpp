@@ -70,9 +70,9 @@ namespace oeng::renderer
 		[[nodiscard]] bool IsSkyLightRegistered(const ISkyLight& light) const noexcept { return sky_light_ == &light; }
 
 		/**
-		 * \brief Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
-		 * \param path Texture file path
-		 * \return Loaded texture or default texture if failed to load.
+		 * Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
+		 * @param path Texture file path
+		 * @return Loaded texture or default texture if failed to load.
 		 */
 		[[nodiscard]] SharedRef<Texture> GetTexture(Path path);
 		[[nodiscard]] SharedRef<Mesh> GetMesh(Path path);

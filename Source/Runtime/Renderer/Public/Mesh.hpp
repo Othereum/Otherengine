@@ -15,10 +15,10 @@ namespace oeng::renderer
 		}
 		
 		/**
-		 * \brief Load mesh from file
-		 * \param path File path
-		 * \param renderer Renderer
-		 * \throw std::runtime_error If failed to open or parse
+		 * Load mesh from file
+		 * @param path File path
+		 * @param renderer Renderer
+		 * @throw std::runtime_error If failed to open or parse
 		 */
 		Mesh(Path path, Renderer& renderer);
 		void Load(Path path, Renderer& renderer)

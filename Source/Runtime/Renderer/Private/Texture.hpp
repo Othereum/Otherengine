@@ -8,21 +8,21 @@ namespace oeng::renderer
 	{
 	public:
 		/**
-		 * \brief Default black texture of 1x1 size.
+		 * Default black texture of 1x1 size.
 		 */
 		Texture() noexcept = default;
 
 		/**
-		 * \brief Load texture from image file (png, jpg, ...)
-		 * \param path Image file path
-		 * \throw std::runtime_error If failed to load texture
+		 * Load texture from image file (png, jpg, ...)
+		 * @param path Image file path
+		 * @throw std::runtime_error If failed to load texture
 		 */
 		explicit Texture(Path path);
 		
 		/**
-		 * \brief Load texture from image file (png, jpg, ...)
-		 * \param path Image file path
-		 * \throw std::runtime_error If failed to load texture
+		 * Load texture from image file (png, jpg, ...)
+		 * @param path Image file path
+		 * @throw std::runtime_error If failed to load texture
 		 */
 		void Load(Path path)
 		{

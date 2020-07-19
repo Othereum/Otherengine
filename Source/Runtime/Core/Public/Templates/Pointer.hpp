@@ -31,7 +31,6 @@ namespace oeng::core
 	namespace detail
 	{
 		template <bool ThreadSafe>
-		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
 		struct SharedObjBase
 		{
 			bool IncStrongNz() noexcept
@@ -89,8 +88,7 @@ namespace oeng::core
 		};
 
 		template <class T, class Alloc, bool ThreadSafe>
-		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
-		struct SharedObjInline : SharedObjBase<ThreadSafe>  // NOLINT(cppcoreguidelines-special-member-functions)
+		struct SharedObjInline : SharedObjBase<ThreadSafe>
 		{
 			template <class... Args>
 			SharedObjInline(Alloc alloc, Args&&... args)
@@ -119,7 +117,6 @@ namespace oeng::core
 		};
 
 		template <class T, class Deleter, class Alloc, bool ThreadSafe>
-		// ReSharper disable once CppPolymorphicClassWithNonVirtualPublicDestructor
 		struct SharedObjPtr : SharedObjBase<ThreadSafe>
 		{
 			SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
@@ -183,9 +180,9 @@ namespace oeng::core
 		constexpr SharedPtr(std::nullptr_t) noexcept {}
 
 		/**
-		 * \brief Construct with raw pointer
-		 * \param ptr Must be allocated by New<T>() because it uses PoolDeleter<Y> to delete ptr
-		 * \note Only participates in overload if T is not array
+		 * Construct with raw pointer
+		 * @param ptr Must be allocated by New<T>() because it uses PoolDeleter<Y> to delete ptr
+		 * @note Only participates in overload if T is not array
 		 */
 		template <class Y, class Deleter = std::enable_if_t<!std::is_array_v<T>, PoolDeleter<Y>>>
 		explicit SharedPtr(Y* ptr)
@@ -194,10 +191,10 @@ namespace oeng::core
 		}
 
 		/**
-		 * \brief Construct with raw pointer and custom deleter/allocator
-		 * \param ptr Raw pointer
-		 * \param deleter To be used to delete ptr
-		 * \param alloc To be used to allocate/deallocate control block
+		 * Construct with raw pointer and custom deleter/allocator
+		 * @param ptr Raw pointer
+		 * @param deleter To be used to delete ptr
+		 * @param alloc To be used to allocate/deallocate control block
 		 */
 		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
 		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc = {})
@@ -421,9 +418,9 @@ namespace oeng::core
 		SharedRef(std::nullptr_t) = delete;
 		
 		/**
-		 * \brief Construct SharedRef with raw pointer.
-		 * \param ptr Must not be nullptr
-		 * \throw std::invalid_argument If ptr is nullptr
+		 * Construct SharedRef with raw pointer.
+		 * @param ptr Must not be nullptr
+		 * @throw std::invalid_argument If ptr is nullptr
 		 */
 		template <class Y>
 		explicit SharedRef(Y* ptr)
@@ -432,11 +429,11 @@ namespace oeng::core
 		}
 
 		/**
-		 * \brief Construct SharedRef with raw pointer and custom deleter/allocator
-		 * \param ptr Must not be nullptr
-		 * \param deleter To be used to delete ptr
-		 * \param alloc To be used to allocate/deallocate control block
-		 * \throw std::invalid_argument If ptr is nullptr
+		 * Construct SharedRef with raw pointer and custom deleter/allocator
+		 * @param ptr Must not be nullptr
+		 * @param deleter To be used to delete ptr
+		 * @param alloc To be used to allocate/deallocate control block
+		 * @throw std::invalid_argument If ptr is nullptr
 		 */
 		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
 		SharedRef(Y* ptr, Deleter deleter, Alloc alloc = {})
@@ -469,10 +466,10 @@ namespace oeng::core
 		}
 
 		/**
-		 * \brief Construct from WeakPtr
-		 * \param weak Must not be (expired or nullptr)
-		 * \throw std::bad_weak_ptr if weak is expired
-		 * \throw std::invalid_argument if weak is nullptr
+		 * Construct from WeakPtr
+		 * @param weak Must not be (expired or nullptr)
+		 * @throw std::bad_weak_ptr if weak is expired
+		 * @throw std::invalid_argument if weak is nullptr
 		 */
 		template <class Y>
 		explicit SharedRef(const WeakPtr<Y, ThreadSafe>& weak)
@@ -482,9 +479,9 @@ namespace oeng::core
 		}
 
 		/**
-		 * \brief Construct from SharedPtr
-		 * \param p Must not be nullptr
-		 * \throw std::invalid_argument if p is nullptr
+		 * Construct from SharedPtr
+		 * @param p Must not be nullptr
+		 * @throw std::invalid_argument if p is nullptr
 		 */
 		template <class Y>
 		explicit SharedRef(const SharedPtr<Y, ThreadSafe>& p)
@@ -493,9 +490,9 @@ namespace oeng::core
 		}
 
 		/**
-		 * \brief Construct from SharedPtr
-		 * \param p Must not be nullptr
-		 * \throw std::invalid_argument if p is nullptr
+		 * Construct from SharedPtr
+		 * @param p Must not be nullptr
+		 * @throw std::invalid_argument if p is nullptr
 		 */
 		template <class Y>
 		explicit SharedRef(SharedPtr<Y, ThreadSafe>&& p)

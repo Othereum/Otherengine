@@ -82,10 +82,10 @@ namespace oeng::core::log
 }
 
 /**
- * \brief Log with delay (no spam)
- * \param delay time::duration
- * \param level log::level
- * \param format message format
+ * Log with delay (anti-spam)
+ * @param delay time::duration
+ * @param level log::level
+ * @param format message format
  */
 #define OE_DLOG(delay, level, format, ...) [&] \
 { \

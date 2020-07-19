@@ -11,8 +11,8 @@ namespace oeng::core
 	using String16 = std::basic_string<char16_t, std::char_traits<char16_t>, PoolAllocator<char16_t>>;
 
 	/**
-	 * \brief Compares two strings case-insensitively
-	 * \return True if two strings are equivalent
+	 * Compares two strings case-insensitively
+	 * @return True if two strings are equivalent
 	 */
 	template <class T>
 	[[nodiscard]] constexpr bool StrEqCi(std::basic_string_view<T> a, std::basic_string_view<T> b) noexcept
