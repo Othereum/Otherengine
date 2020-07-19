@@ -15,7 +15,12 @@ namespace oeng::core
 		Asset& operator=(const Asset&) = default;
 		Asset& operator=(Asset&& r) noexcept { Asset{std::move(r)}.swap(*this); return *this; }
 
-		void swap(Asset& r) noexcept { using std::swap; swap(path_, r.path_); }
+		void swap(Asset& r) noexcept
+		{
+			using std::swap;
+			swap(path_, r.path_);
+			swap(stem_, r.stem_);
+		}
 
 		[[nodiscard]] Path GetPath() const noexcept { return path_; }
 		[[nodiscard]] Name GetStem() const noexcept { return stem_; }
