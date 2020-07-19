@@ -10,6 +10,32 @@ namespace oeng::core
 	using String8 = std::basic_string<char8_t, std::char_traits<char8_t>, PoolAllocator<char8_t>>;
 	using String16 = std::basic_string<char16_t, std::char_traits<char16_t>, PoolAllocator<char16_t>>;
 
+	/**
+	 * \brief Compares two strings case-insensitively
+	 * \return True if two strings are equivalent
+	 */
+	template <class T>
+	[[nodiscard]] constexpr bool StrEqCi(std::basic_string_view<T> a, std::basic_string_view<T> b) noexcept
+	{
+		if (a.size() != b.size()) return false;
+		for (size_t i = 0; i < a.size(); ++i)
+			if (std::tolower(a[i]) != std::tolower(b[i]))
+				return false;
+		return true;
+	}
+
+	template <class T, class Tr, class Al1, class Al2>
+	[[nodiscard]] constexpr bool StrEqCi(const std::basic_string<T, Tr, Al1>& a, const std::basic_string<T, Tr, Al2>& b) noexcept
+	{
+		return StrEqCi(std::basic_string_view<T>{a}, std::basic_string_view<T>{b});
+	}
+
+	template <class T>
+	[[nodiscard]] constexpr bool StrEqCi(const T* a, const T* b) noexcept
+	{
+		return StrEqCi(std::basic_string_view<T>{a}, std::basic_string_view<T>{b});
+	}
+
 	template <template <class> class Tr, template <class> class Al>
 	decltype(auto) AsString(std::basic_string<char8_t, Tr<char8_t>, Al<char8_t>>& s) noexcept
 	{
