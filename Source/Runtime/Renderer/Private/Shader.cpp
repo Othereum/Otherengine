@@ -9,7 +9,7 @@ namespace oeng::renderer
 	std::string ReadFile(const std::filesystem::path& path)
 	{
 		std::ifstream file{ path, std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) Throw<std::ios_base::failure>(u8"Cannot read file. File not found: {}", path.u8string());
+		if (!file.is_open()) Throw<std::ios_base::failure>(u8"Cannot read file. File not found: {}", path.string<char8_t>(PoolAllocator<char8_t>{}));
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);

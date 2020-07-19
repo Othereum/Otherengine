@@ -28,7 +28,7 @@ namespace oeng::core
 	Path::Path(const std::filesystem::path& path)
 	{
 		auto normalized = proximate(path);
-		const Name key = normalized.u8string();
+		const Name key = normalized.string<char8_t>(PoolAllocator<char8_t>{});
 		auto [it, has_inserted] = GetMap()->try_emplace(key, std::move(normalized));
 		p = &*it;
 	}
