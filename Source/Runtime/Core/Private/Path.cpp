@@ -1,45 +1,28 @@
 #include "Path.hpp"
-#include "Templates/Sync.hpp"
+#include "EngineBase.hpp"
 #include "Json.hpp"
-#include "Core.hpp"
+
+#define PATH_SET (assert(kEngineBase), kEngineBase->paths_)
 
 namespace oeng::core
 {
-	static auto GetMap()
-	{
-#ifdef OE_PATH_THREADSAFE
-		constexpr auto thread_safe = true;
-#else
-		constexpr auto thread_safe = false;
-		assert(IsGameThread());
-#endif
-		
-		using PathMap = std::unordered_map<Name, std::filesystem::path>;
-		static CondMonitor<PathMap, thread_safe> map{Path::Pair{}};
-		return map.Lock();
-	}
-
 	Path::Path() noexcept
+		:p{&*PATH_SET->find({})}
 	{
-		static const auto def = &*GetMap()->find({});
-		p = def;
 	}
 
-	Path::Path(const std::filesystem::path& path)
+	Path::Path(const fs::path& path)
+		:p{&*PATH_SET->insert(proximate(path)).first}
 	{
-		auto normalized = proximate(path);
-		const Name key = normalized.string<char8_t>(PoolAllocator<char8_t>{});
-		auto [it, has_inserted] = GetMap()->try_emplace(key, std::move(normalized));
-		p = &*it;
 	}
 
 	void to_json(Json& json, const Path& path)
 	{
-		to_json(json, path.AsName());
+		json = AsString(path.Str());
 	}
 
 	void from_json(const Json& json, Path& path)
 	{
-		path = Path{json.get<std::string>()};
+		path = AsString8(json.get<std::string>());
 	}
 }

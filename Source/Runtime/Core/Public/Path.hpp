@@ -4,6 +4,8 @@
 
 namespace oeng::core
 {
+	namespace fs = std::filesystem;
+	
 	/**
 	 * \brief Lightweight representation of filepath.
 	 * Very fast O(1) copy and comparison.
@@ -14,11 +16,16 @@ namespace oeng::core
 	 */
 	struct CORE_API Path
 	{
-		using Pair = std::pair<const Name, std::filesystem::path>;
-		
 		Path() noexcept;
-		Path(const std::filesystem::path& path);
-		Path(const char8_t* s) :Path{std::filesystem::path{s}} {}
+		Path(const fs::path& path);
+		Path(std::u8string_view s) :Path{fs::path{s}} {}
+		Path(fs::path::string_type&& s) :Path{fs::path{std::move(s)}} {}
+
+		template <class Al>
+		Path(const std::basic_string<char8_t, std::char_traits<char8_t>, Al>& s)
+			:Path{fs::path{s}}
+		{
+		}
 
 		bool operator==(const Path& r) const noexcept { return p == r.p; }
 		bool operator!=(const Path& r) const noexcept { return p != r.p; }
@@ -27,20 +34,41 @@ namespace oeng::core
 		bool operator<=(const Path& r) const noexcept { return p <= r.p; }
 		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
-		[[nodiscard]] Name AsName() const noexcept { return p->first; }
-		[[nodiscard]] const char8_t* CStr() const noexcept { return p->first->c_str(); }
-		[[nodiscard]] const std::u8string& Str() const noexcept { return p->first; }
+		[[nodiscard]] String8 Str() const { return p->string<char8_t>(PoolAllocator<char8_t>{}); }
+		operator String8() const { return Str(); }
 
-		operator Name() const noexcept { return AsName(); }
-		operator const char8_t*() const noexcept { return CStr(); }
-		operator const std::u8string&() const noexcept { return Str(); }
-		operator const std::filesystem::path&() const noexcept { return p->second; }
-		const std::filesystem::path& operator*() const noexcept { return p->second; }
-		const std::filesystem::path* operator->() const noexcept { return &p->second; }
+		operator const fs::path&() const noexcept { return *p; }
+		const fs::path& operator*() const noexcept { return *p; }
+		const fs::path* operator->() const noexcept { return p; }
 
 	private:
-		const Pair* p;
+		const fs::path* p;
 	};
+	
+	struct PathHasher
+	{
+		[[nodiscard]] constexpr size_t operator()(const fs::path& p) const noexcept
+		{
+			auto& s = p.native();
+			return HashRange(s.begin(), s.end(), tolower);
+		}
+	};
+
+	struct PathEqual
+	{
+		[[nodiscard]] constexpr bool operator()(const fs::path& a, const fs::path& b) const noexcept
+		{
+			return StrEqCi(a.native(), b.native());
+		}
+	};
+	
+#ifdef OE_PATH_THREADSAFE
+	constexpr auto kPathThreadSafe = true;
+#else
+	constexpr auto kPathThreadSafe = false;
+#endif
+	
+	using PathSet = CondMonitor<HashSet<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
 	
 	CORE_API void to_json(Json& json, const Path& path);
 	CORE_API void from_json(const Json& json, Path& path);

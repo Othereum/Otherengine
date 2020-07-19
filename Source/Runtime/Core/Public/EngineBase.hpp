@@ -1,6 +1,6 @@
 #pragma once
 #include <thread>
-#include "Name.hpp"
+#include "Path.hpp"
 #include "Config.hpp"
 
 namespace oeng
@@ -62,11 +62,13 @@ namespace oeng::core
 
 	private:
 		friend Name;
+		friend Path;
 		
 		std::thread::id thread_id_;
 		std::u8string_view game_name_;
 		omem::MemoryPoolManager mem_pool_;
 		NameSet names_;
+		PathSet paths_;
 		ConfigManager config_;
 	};
 
