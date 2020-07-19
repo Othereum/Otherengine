@@ -1,6 +1,7 @@
 #pragma once
-#include "Core.hpp"
-#include "JsonFwd.hpp"
+#include <thread>
+#include "Name.hpp"
+#include "Config.hpp"
 
 namespace oeng
 {
@@ -22,17 +23,22 @@ namespace oeng
 
 namespace oeng::core
 {
-	struct Name;
-
-	class CORE_API IEngine
+	class CORE_API EngineBase
 	{
 	public:
-		INTERFACE_BODY(IEngine);
+		DELETE_CPMV(EngineBase);
+		
+		explicit EngineBase(std::u8string_view game_name);
+		virtual ~EngineBase() = default;
 		
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
 		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;
 		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;
-		[[nodiscard]] virtual const char8_t* GetGameName() noexcept = 0;
+		
+		[[nodiscard]] std::u8string_view GetGameName() const noexcept
+		{
+			return game_name_;
+		}
 		
 		/**
 		 * \brief Get memory pool manager.
@@ -42,33 +48,27 @@ namespace oeng::core
 		[[nodiscard]] omem::MemoryPoolManager& GetMemPool() noexcept
 		{
 			assert(IsGameThread());
-			return GetMemPoolImpl();
+			return mem_pool_;
 		}
 		
 		/**
 		 * \brief Check if the current thread is a game thread.
 		 * \return True if called from the game thread.
 		 */
-		[[nodiscard]] virtual bool IsGameThread() noexcept = 0;
+		[[nodiscard]] bool IsGameThread() const noexcept
+		{
+			return thread_id_ == std::this_thread::get_id();
+		}
 
-		/**
-		 * \brief Find config or create if not found.
-		 * \param name Config name
-		 * \return Reference to non-const json config object
-		 */
-		[[nodiscard]] virtual Json& Config(Name name) = 0;
+	private:
+		friend Name;
 		
-		/**
-		 * \brief Save config as file into the user data directory.
-		 * Existing files will be overwritten.
-		 * \param name Config name
-		 * \return true if successful
-		 */
-		virtual bool SaveConfig(Name name) = 0;
-
-	protected:
-		[[nodiscard]] virtual omem::MemoryPoolManager& GetMemPoolImpl() noexcept = 0; 
+		std::thread::id thread_id_;
+		std::u8string_view game_name_;
+		omem::MemoryPoolManager mem_pool_;
+		NameSet names_;
+		ConfigManager config_;
 	};
 
-	extern CORE_API IEngine* const kIEngine;
+	extern CORE_API EngineBase* const kEngineBase;
 }
