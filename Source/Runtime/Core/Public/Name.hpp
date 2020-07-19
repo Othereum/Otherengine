@@ -1,7 +1,9 @@
 #pragma once
-#include "Core.hpp"
 #include "JsonFwd.hpp"
+#include "otm/Hash.hpp"
+#include "Templates/HashSet.hpp"
 #include "Templates/String.hpp"
+#include "Templates/Sync.hpp"
 
 namespace oeng::core
 {	
@@ -17,12 +19,12 @@ namespace oeng::core
 	{
 		Name() noexcept;
 		Name(const char8_t* s);
-		Name(std::u8string&& s);
-		Name(const std::u8string& s);
+		Name(String8&& s);
+		Name(const String8& s);
 
-		operator const std::u8string&() const noexcept { return *sp; }
-		const std::u8string& operator*() const noexcept { return *sp; }
-		const std::u8string* operator->() const noexcept { return sp; }
+		operator const String8&() const noexcept { return *sp; }
+		const String8& operator*() const noexcept { return *sp; }
+		const String8* operator->() const noexcept { return sp; }
 
 		bool operator==(const Name& r) const noexcept { return sp == r.sp; }
 		bool operator!=(const Name& r) const noexcept { return sp != r.sp; }
@@ -32,8 +34,36 @@ namespace oeng::core
 		bool operator>=(const Name& r) const noexcept { return sp >= r.sp; }
 
 	private:
-		const std::u8string* sp;
+		const String8* sp;
 	};
+	
+	struct NameHasher
+	{
+		[[nodiscard]] constexpr size_t operator()(std::u8string_view s) const noexcept
+		{
+			return HashRange(s.begin(), s.end(), tolower);
+		}
+	};
+
+	struct NameEqual
+	{
+		[[nodiscard]] constexpr bool operator()(std::u8string_view s1, std::u8string_view s2) const noexcept
+		{
+			if (s1.size() != s2.size()) return false;
+			for (size_t i = 0; i < s1.size(); ++i)
+				if (tolower(s1[i]) != tolower(s2[i]))
+					return false;
+			return true;
+		}
+	};
+
+#ifdef OE_NAME_THREADSAFE
+	constexpr auto kNameThreadSafe = true;
+#else
+	constexpr auto kNameThreadSafe = false;
+#endif
+	
+	using NameSet = CondMonitor<HashSet<String8, NameHasher, NameEqual>, kNameThreadSafe>;
 	
 	CORE_API void to_json(Json& json, const Name& name);
 	CORE_API void from_json(const Json& json, Name& name);
