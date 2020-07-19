@@ -99,7 +99,7 @@ namespace oeng::engine
 			[](auto c) { return GetName(c); }
 		}, code);
 		
-		return AsString(Format(u8"{}.{}", type, name));
+		return AsString(Format(u8"{}.{}"sv, type, name));
 	}
 
 	void to_json(Json& json, const InputAxis& axis)
@@ -170,7 +170,7 @@ namespace oeng::engine
 			}
 			catch (const std::bad_optional_access&)
 			{
-				Throw(u8"Invalid mod '{}'", AsString8(mod_in.get<std::string>()));
+				Throw(u8"Invalid mod '{}'"sv, AsString8(mod_in.get<std::string>()));
 			}
 		}
 	}

@@ -55,7 +55,7 @@ namespace oeng::core
 	{
 		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).data()));
 		
-		if (!dll) Throw(u8"{}: cannot load module: {}", filepath, GetLastErrStr());
+		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
 
 		dll_.reset(dll, &FreeDll);
 		filepath_ = filepath;
@@ -64,7 +64,7 @@ namespace oeng::core
 	void* Dll::GetSymbol(const char8_t* name) const
 	{
 		auto* const symbol = FindSymbol(name);
-		if (!symbol) Throw(u8"{}: {}: {}", filepath_, name, GetLastErrStr());
+		if (!symbol) Throw(u8"{}: {}: {}"sv, filepath_, name, GetLastErrStr());
 		return symbol;
 	}
 

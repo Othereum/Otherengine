@@ -39,7 +39,7 @@ namespace oeng::core::log
 			spdlog::sinks::stdout_color_sink_mt,
 			spdlog::sinks::stdout_color_sink_st>;
 
-		const auto filepath = dir / Format(u8"{}.log", GetGameName());
+		const auto filepath = dir / Format(u8"{}.log"sv, GetGameName());
 		auto daily_file = std::make_shared<Daily>(filepath.string(), 0, 0);
 		auto stdout_color = std::make_shared<Stdout>();
 		
