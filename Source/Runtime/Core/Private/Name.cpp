@@ -7,7 +7,7 @@
 namespace oeng::core
 {
 	Name::Name() noexcept
-		:sp{&*NAME_SET->find({})}
+		:sp{&*NAME_SET->find(std::u8string_view{})}
 	{
 	}
 
@@ -21,7 +21,7 @@ namespace oeng::core
 	{
 	}
 
-	Name::Name(const char8_t* s)
+	Name::Name(std::u8string_view s)
 	{
 		auto set = NAME_SET.Lock();
 		const auto found = set->find(s);
@@ -39,7 +39,7 @@ namespace oeng::core
 
 	void to_json(Json& json, const Name& name)
 	{
-		json = *name;
+		json = AsString(*name);
 	}
 
 	void from_json(const Json& json, Name& name)

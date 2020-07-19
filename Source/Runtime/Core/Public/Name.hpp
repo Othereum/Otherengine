@@ -18,7 +18,7 @@ namespace oeng::core
 	struct CORE_API Name
 	{
 		Name() noexcept;
-		Name(const char8_t* s);
+		Name(std::u8string_view s);
 		Name(String8&& s);
 		Name(const String8& s);
 
@@ -39,6 +39,8 @@ namespace oeng::core
 	
 	struct NameHasher
 	{
+		using is_transparent = void;
+		
 		[[nodiscard]] constexpr size_t operator()(std::u8string_view s) const noexcept
 		{
 			return HashRange(s.begin(), s.end(), tolower);
@@ -47,13 +49,11 @@ namespace oeng::core
 
 	struct NameEqual
 	{
+		using is_transparent = void;
+		
 		[[nodiscard]] constexpr bool operator()(std::u8string_view s1, std::u8string_view s2) const noexcept
 		{
-			if (s1.size() != s2.size()) return false;
-			for (size_t i = 0; i < s1.size(); ++i)
-				if (tolower(s1[i]) != tolower(s2[i]))
-					return false;
-			return true;
+			return StrEqCi(s1, s2);
 		}
 	};
 
