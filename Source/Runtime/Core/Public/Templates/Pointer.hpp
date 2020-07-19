@@ -1,97 +1,11 @@
 #pragma once
 #include <cassert>
 #include <memory>
-#include <omem.hpp>
-#include "Interfaces/IEngine.hpp"
-#include "Templates/Sync.hpp"
+#include "Memory.hpp"
+#include "Sync.hpp"
 
 namespace oeng::core
 {
-	[[nodiscard]] inline omem::MemoryPoolManager& GetMemPool() noexcept
-	{
-		assert(kIEngine);
-		return kIEngine->GetMemPool();
-	}
-	
-	[[nodiscard]] inline void* Alloc(size_t size)
-	{
-		return GetMemPool().Alloc(size);
-	}
-
-	inline void Free(void* p, size_t size) noexcept
-	{
-		GetMemPool().Free(p, size);
-	}
-
-	template <class T, class... Args>
-	[[nodiscard]] T* New(Args&&... args)
-	{
-		return GetMemPool().New<T>(std::forward<Args>(args));
-	}
-
-	template <class T, class... Args>
-	[[nodiscard]] T* NewArr(size_t n, Args&&... args)
-	{
-		return GetMemPool().NewArr<T>(n, std::forward<Args>(args)...);
-	}
-
-	template <class T>
-	void Delete(T* p) noexcept
-	{
-		GetMemPool().Delete(p);
-	}
-
-	template <class T>
-	void DeleteArr(T* p, size_t n) noexcept
-	{
-		GetMemPool().DeleteArr(p, n);
-	}
-	
-	template <class T>
-	class PoolAllocator
-	{
-	public:
-		using value_type = T;
-		
-		constexpr PoolAllocator() noexcept = default;
-
-		template <class Y>
-		constexpr PoolAllocator(const PoolAllocator<Y>& r) noexcept {}
-
-		template <class Y>
-		constexpr bool operator==(const PoolAllocator<Y>& r) const noexcept { return true; }
-
-		[[nodiscard]] T* allocate(size_t n) const
-		{
-			return static_cast<T*>(GetMemPool().Alloc(sizeof(T) * n));
-		}
-
-		void deallocate(T* p, size_t n) const noexcept
-		{
-			GetMemPool().Free(p, sizeof(T) * n);
-		}
-	};
-
-	template <class T>
-	class PoolDeleter
-	{
-	public:
-		static_assert(!std::is_array_v<T> || std::extent_v<T> != 0,
-			"Can't delete array with unknown size");
-		
-		void operator()(T* p) noexcept
-		{
-			if constexpr (std::is_array_v<T>)
-			{
-				DeleteArr(p, std::extent_v<T>);
-			}
-			else
-			{
-				Delete(p);
-			}
-		}
-	};
-
 	template <class T, class Deleter = PoolDeleter<T>>
 	using UniquePtr = std::unique_ptr<T, Deleter>;
 
@@ -927,9 +841,9 @@ namespace oeng::core
 }
 
 template <class T, bool ThreadSafe>
-struct std::hash<oeng::SharedPtr<T, ThreadSafe>>
+struct std::hash<oeng::core::SharedPtr<T, ThreadSafe>>
 {
-	size_t operator()(const oeng::SharedPtr<T, ThreadSafe>& p) const noexcept
+	size_t operator()(const oeng::core::SharedPtr<T, ThreadSafe>& p) const noexcept
 	{
 		return std::hash<T*>{}(p.Get());
 	}
