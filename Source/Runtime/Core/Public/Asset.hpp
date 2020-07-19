@@ -9,11 +9,26 @@ namespace oeng::core
 		~Asset() = default;
 		Asset() noexcept = default;
 		Asset(const Asset&) = default;
-		Asset(Asset&& r) noexcept :path_{r.path_}, stem_{r.stem_} { r.path_ = {}; r.stem_ = {}; }
-		explicit Asset(Path path) noexcept :path_{path}, stem_{path->stem().string<char8_t>(PoolAllocator<char8_t>{})} {}
+		
+		Asset(Asset&& r) noexcept
+			:path_{r.path_}, stem_{r.stem_}
+		{
+			r.path_ = {};
+			r.stem_ = {};
+		}
+		
+		explicit Asset(Path path) noexcept
+			:path_{path},
+			stem_{path->stem().string<char8_t>(PoolAllocator<char8_t>{})}
+		{
+		}
 
 		Asset& operator=(const Asset&) = default;
-		Asset& operator=(Asset&& r) noexcept { Asset{std::move(r)}.swap(*this); return *this; }
+		Asset& operator=(Asset&& r) noexcept
+		{
+			Asset{std::move(r)}.swap(*this);
+			return *this;
+		}
 
 		void swap(Asset& r) noexcept
 		{
