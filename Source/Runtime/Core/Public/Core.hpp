@@ -16,7 +16,7 @@
 #endif
 
 #define GAME_API extern "C" OE_EXPORT
-#define DEFINE_GAME_MODULE(game_name) GAME_API const char8_t* const kGameName = game_name
+#define DEFINE_GAME_MODULE(game_name) GAME_API const char8_t* const kGameName = u8 ## #game_name
 
 #define EXPLICIT_CPMV(name, spec) \
 	name(const name&) = spec; \
