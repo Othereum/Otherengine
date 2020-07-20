@@ -1,29 +1,24 @@
 #ifdef __unix__
 
 #include <cpuid.h>
-#include <cstring>
 #include <dlfcn.h>
 #include <fcntl.h>
 #include <stdexcept>
 #include <unistd.h>
+#include "EngineBase.hpp"
 #include "Platform.hpp"
 #include "Templates/String.hpp"
 
 namespace oeng::core
 {
-	using namespace std::literals;
-
 #ifdef NDEBUG
-	const std::filesystem::path& GetUserDataPath()
+	fs::path GetUserDataPath()
 	{
-		static const auto path = []
-		{
-			std::filesystem::path p = std::getenv("HOME");
-			p /= u8".";
-			p += GetGameName();
-			return p;
-		}();
-		return path;
+		assert(kEngineBase);
+		fs::path p = std::getenv("HOME");
+		p /= u8".";
+		p += kEngineBase->GetGameName();
+		return p;
 	}
 #else
 	bool detail::IsDebuggingImpl() noexcept
@@ -52,25 +47,25 @@ namespace oeng::core
 	}
 #endif
 	
-	Dll::Dll(const char8_t* filepath)
+	Dll::Dll(String8 filepath)
 	{
-		const auto dll = dlopen(AsString(filepath), RTLD_LAZY);
+		const auto dll = dlopen(AsString(filepath).c_str(), RTLD_LAZY);
 		if (!dll) throw std::runtime_error{dlerror()};
 
 		dll_.reset(dll, &dlclose);
-		filepath_ = filepath;
+		filepath_ = std::move(filepath);
 	}
 
-	void* Dll::GetSymbol(const char8_t* name) const
+	void* Dll::GetSymbol(std::u8string_view name) const
 	{
 		auto* const sym = FindSymbol(name);
 		if (!sym) throw std::runtime_error{dlerror()};
 		return sym;
 	}
 
-	void* Dll::FindSymbol(const char8_t* name) const noexcept
+	void* Dll::FindSymbol(std::u8string_view name) const noexcept
 	{
-		return dlsym(dll_.get(), AsString(name));
+		return dlsym(dll_.get(), AsString(name).data());
 	}
 	
 	void CpuId(int cpu_info[4], int func_id) noexcept

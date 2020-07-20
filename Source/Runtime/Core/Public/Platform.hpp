@@ -1,11 +1,13 @@
 #pragma once
 #include <bitset>
 #include <filesystem>
-#include <memory>
-#include "Core.hpp"
+#include "Templates/Pointer.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng::core
 {
+	namespace fs = std::filesystem;
+	
 	namespace detail
 	{
 #ifndef NDEBUG
@@ -13,8 +15,19 @@ namespace oeng::core
 #endif
 	}
 	
-	[[nodiscard]] CORE_API std::filesystem::path GetUserDataPath();
-	
+	/**
+	 * Get user data path.
+	 * - On debug/development build: "../Saved"
+	 * - On Windows shipping build: "C:/Users/{user}/Documents/{game}" by default
+	 * - On Unix shipping build: "/home/{user}/.{game}"
+	 */
+	[[nodiscard]] CORE_API fs::path GetUserDataPath();
+
+	/**
+	 * Check if the debugger is attached.
+	 * If NDEBUG is defined, always returns false.
+	 * @return True if debugger is attached.
+	 */
 	[[nodiscard]] inline bool IsDebugging() noexcept
 	{
 #ifdef NDEBUG
@@ -27,27 +40,26 @@ namespace oeng::core
 	class CORE_API Dll
 	{
 	public:
-		explicit Dll(const char8_t* filepath);
+		explicit Dll(String8 filepath);
 
-		[[nodiscard]] void* GetSymbol(const char8_t* name) const;
-		[[nodiscard]] void* FindSymbol(const char8_t* name) const noexcept;
+		[[nodiscard]] void* GetSymbol(std::u8string_view name) const;
+		[[nodiscard]] void* FindSymbol(std::u8string_view name) const noexcept;
 
 		template <class T>
-		[[nodiscard]] T& GetSymbol(const char8_t* name)
+		[[nodiscard]] T& GetSymbol(std::u8string_view name)
 		{
-			// ReSharper disable once CppCStyleCast
 			return *(T*)GetSymbol(name);
 		}
 
 		template <class Fn, class... Args>
-		decltype(auto) Call(const char8_t* fn_name, Args&&... args)
+		decltype(auto) Call(std::u8string_view fn_name, Args&&... args)
 		{
 			return GetSymbol<Fn>(fn_name)(std::forward<Args>(args)...);
 		}
 
 	private:
-		std::shared_ptr<void> dll_;
-		std::u8string filepath_;
+		SharedPtr<void> dll_;
+		String8 filepath_;
 	};
 
 	class CORE_API CpuInfo

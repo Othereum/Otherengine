@@ -5,6 +5,7 @@
 #include <intrin.h>
 #include <ShlObj.h>
 #include <Windows.h>
+#include "EngineBase.hpp"
 #include "Format.hpp"
 #include "Platform.hpp"
 #include "Templates/String.hpp"
@@ -12,14 +13,15 @@
 namespace oeng::core
 {
 #ifdef NDEBUG
-	std::filesystem::path GetUserDataPath()
+	fs::path GetUserDataPath()
 	{
+		assert(kEngineBase);
+
 		wchar_t* wide;
 		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
-		std::filesystem::path p = wide;
-		CoTaskMemFree(wide);
-		p /= GetGameName();
-		return p;
+		std::unique_ptr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
+		
+		return fs::path{wide} /= kEngineBase->GetGameName();
 	}
 #else
 	bool detail::IsDebuggingImpl() noexcept
@@ -28,7 +30,7 @@ namespace oeng::core
 	}
 #endif
 	
-	static std::u8string GetLastErrStr()
+	static String8 GetLastErrStr()
 	{
 		constexpr auto size = 512;
 		static wchar_t buffer[size];
@@ -51,26 +53,25 @@ namespace oeng::core
 		FreeLibrary(static_cast<HMODULE>(dll));
 	}
 	
-	Dll::Dll(const char8_t* filepath)
+	Dll::Dll(String8 filepath)
 	{
-		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).data()));
-		
+		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).c_str()));
 		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
 
 		dll_.reset(dll, &FreeDll);
-		filepath_ = filepath;
+		filepath_ = std::move(filepath);
 	}
 
-	void* Dll::GetSymbol(const char8_t* name) const
+	void* Dll::GetSymbol(std::u8string_view name) const
 	{
 		auto* const symbol = FindSymbol(name);
 		if (!symbol) Throw(u8"{}: {}: {}"sv, filepath_, name, GetLastErrStr());
 		return symbol;
 	}
 
-	void* Dll::FindSymbol(const char8_t* name) const noexcept
+	void* Dll::FindSymbol(std::u8string_view name) const noexcept
 	{
-		return reinterpret_cast<void*>(GetProcAddress(HMODULE(dll_.get()), LPCSTR(name)));
+		return reinterpret_cast<void*>(GetProcAddress(HMODULE(dll_.get()), LPCSTR(name.data())));
 	}
 
 	void CpuId(int cpu_info[4], int func_id) noexcept
