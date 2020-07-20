@@ -22,10 +22,12 @@ install:
 
   - cd ${TRAVIS_BUILD_DIR}
 
-script:
+before_script:
   - mkdir out
   - cd out
   - cmake ..
   - cd ..
+
+script:
   - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/
   - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
