@@ -3,6 +3,7 @@
 #include "Templates/DyArr.hpp"
 #include "MathFwd.hpp"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace nlohmann
 {
 	template<typename T, typename SFINAE>
@@ -24,6 +25,7 @@ namespace nlohmann
 		enum class value_t : std::uint8_t;
 	}
 }
+#endif
 
 namespace oeng::core
 {

@@ -74,6 +74,7 @@ namespace oeng::core
 	CORE_API void from_json(const Json& json, Path& path);
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <>
 struct std::hash<oeng::Path>
 {
@@ -82,3 +83,4 @@ struct std::hash<oeng::Path>
 		return size_t(&*key);
 	}
 };
+#endif

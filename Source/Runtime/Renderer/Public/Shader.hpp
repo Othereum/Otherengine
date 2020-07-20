@@ -120,6 +120,7 @@ namespace oeng::renderer
 	inline void swap(Shader& a, Shader& b) noexcept { a.swap(b); }
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <>
 struct std::hash<oeng::renderer::Shader>
 {
@@ -128,3 +129,4 @@ struct std::hash<oeng::renderer::Shader>
 		return size_t(key.shader_program_);
 	}
 };
+#endif

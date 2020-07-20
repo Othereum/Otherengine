@@ -837,6 +837,7 @@ namespace oeng::core
 	WeakPtr(SharedPtr<T, ThreadSafe>) -> WeakPtr<T, ThreadSafe>;
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <class T, bool ThreadSafe>
 struct std::hash<oeng::core::SharedPtr<T, ThreadSafe>>
 {
@@ -845,3 +846,4 @@ struct std::hash<oeng::core::SharedPtr<T, ThreadSafe>>
 		return std::hash<T*>{}(p.Get());
 	}
 };
+#endif
