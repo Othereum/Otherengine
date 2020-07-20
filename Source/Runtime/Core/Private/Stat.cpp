@@ -40,7 +40,7 @@ namespace oeng::core
 		}
 		catch (const std::exception& e)
 		{
-			OE_ELOG(u8"ScopeCycleCounter: {}"sv, What(e));
+			OE_ELOG(u8"ScopeStackCounter::~ScopeStackCounter(): {}"sv, What(e));
 		}
 	}
 
