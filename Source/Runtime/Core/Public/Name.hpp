@@ -41,7 +41,7 @@ namespace oeng::core
 	{
 		using is_transparent = void;
 		
-		[[nodiscard]] constexpr size_t operator()(std::u8string_view s) const noexcept
+		[[nodiscard]] size_t operator()(std::u8string_view s) const noexcept
 		{
 			return HashRange(s.begin(), s.end(), tolower);
 		}
@@ -51,7 +51,7 @@ namespace oeng::core
 	{
 		using is_transparent = void;
 		
-		[[nodiscard]] constexpr bool operator()(std::u8string_view s1, std::u8string_view s2) const noexcept
+		[[nodiscard]] bool operator()(std::u8string_view s1, std::u8string_view s2) const noexcept
 		{
 			return StrEqCi(s1, s2);
 		}
