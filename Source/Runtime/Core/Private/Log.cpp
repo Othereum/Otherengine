@@ -24,7 +24,7 @@ namespace oeng::core::log
 	static_assert(Level::kCritical == Level(spdlog::level::critical));
 	static_assert(Level::kOff == Level(spdlog::level::off));
 	
-	std::shared_ptr<spdlog::logger> CreateLogger()
+	LogManager::LogManager()
 	{
 		assert(kEngineBase);
 		
@@ -44,14 +44,12 @@ namespace oeng::core::log
 		auto stdout_color = std::make_shared<Stdout>();
 		
 		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
-		auto logger = std::make_shared<spdlog::logger>(std::string{}, list);
-		logger->flush_on(spdlog::level::critical);
+		logger_ = std::make_shared<spdlog::logger>(std::string{}, list);
+		logger_->flush_on(spdlog::level::critical);
 		
 #ifndef NDEBUG
-		logger->set_level(spdlog::level::debug);
+		logger_->set_level(spdlog::level::debug);
 #endif
-		
-		return logger;
 	}
 
 	void LogManager::Log(Level level, std::u8string_view message) const
