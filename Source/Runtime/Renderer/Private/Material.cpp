@@ -117,11 +117,13 @@ namespace oeng::renderer
 	
 	void Material::LoadUniforms(const Json& uniforms)
 	{
-		for (auto& [name1, value] : uniforms.items())
+		for (auto& [name_narrow, value] : uniforms.items())
 		{
-			auto& name = AsString8(name1);
+			auto& name_str = AsString8(name_narrow);
 			try
 			{
+				const Name name{name_str};
+				
 				if (shader_->GetUniformLocation(name) == Shader::invalid_uniform_)
 					throw std::out_of_range{"could not be found"};
 				
