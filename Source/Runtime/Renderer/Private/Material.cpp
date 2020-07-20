@@ -23,7 +23,7 @@ namespace oeng::renderer
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"'{}': failed to load uniforms: {}", What(e));
+				log::Error(u8"'{}': failed to load uniforms: {}"sv, What(e));
 			}
 		}
 	}
@@ -129,7 +129,7 @@ namespace oeng::renderer
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"'{}': invalid uniform '{}': {}", GetPath().Str(), name, What(e));
+				log::Error(u8"'{}': invalid uniform '{}': {}"sv, GetPath().Str(), name_str, What(e));
 			}
 		}
 	}

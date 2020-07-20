@@ -35,8 +35,8 @@ namespace oeng::renderer
 		auto dp = dp_ref.get<int>();
 		if (dp >= num_dp)
 		{
-			log::Warn(u8"Attempted to use a non-existent display (tried: {}, max: {})", dp, num_dp-1);
-			log::Warn(u8"Using display 0...");
+			log::Warn(u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp, num_dp-1);
+			log::Warn(u8"Using display 0..."sv);
 			dp_ref = 0, dp = 0;
 		}
 
@@ -189,14 +189,14 @@ namespace oeng::renderer
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetUniform(u8"uViewProj", MakeSimpleViewProj<4>(GetWindowSize()));
+		sprite_shader_.SetUniform(u8"uViewProj"sv, MakeSimpleViewProj<4>(GetWindowSize()));
 	}
 
 	Renderer::~Renderer() = default;
 
 	void Renderer::DrawScene()
 	{
-		ScopeCycleCounter counter{u8"DrawScene"};
+		ScopeStackCounter counter{u8"DrawScene"sv};
 
 		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -220,7 +220,7 @@ namespace oeng::renderer
 		catch (const std::exception& e)
 		{
 			const auto stem = mesh_comp.get().GetMesh().GetStem();
-			OE_ELOG(u8"Failed to draw mesh '{}': {}", *stem, What(e));
+			OE_ELOG(u8"Failed to draw mesh '{}': {}"sv, *stem, What(e));
 		}
 	}
 
@@ -236,34 +236,34 @@ namespace oeng::renderer
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
-			ScopeCycleCounter counter{u8"DrawSprite"};
-			sprite_shader_.SetUniform(u8"uWorldTransform", sprite.GetDrawTrsf());
+			ScopeStackCounter counter{u8"DrawSprite"sv};
+			sprite_shader_.SetUniform(u8"uWorldTransform"sv, sprite.GetDrawTrsf());
 			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 		catch (const std::exception& e)
 		{
 			const auto stem = sprite_ref.get().GetTexture().GetStem();
-			OE_ELOG(u8"Failed to draw sprite '{}': {}", *stem, What(e));
+			OE_ELOG(u8"Failed to draw sprite '{}': {}"sv, *stem, What(e));
 		}
 	}
 
 	void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
 	{
 		if (!ShouldDraw(mesh_comp)) return;
-		ScopeCycleCounter counter{u8"DrawMesh"};
+		ScopeStackCounter counter{u8"DrawMesh"sv};
 		
 		auto& material = mesh_comp.GetMaterial();
 		auto& shader = material.GetShader();
 		if (&shader != prev_.shader)
 		{
 			shader.Activate();
-			shader.TryUniform(u8"uViewProj", camera_->GetViewProj());
-			shader.TryUniform(u8"uCamPos", camera_->GetPos());
+			shader.TryUniform(u8"uViewProj"sv, camera_->GetViewProj());
+			shader.TryUniform(u8"uCamPos"sv, camera_->GetPos());
 			
 			const auto& dir_light = dir_light_->GetData();
-			shader.TryUniform(u8"uDirLight.dir", dir_light.dir);
-			shader.TryUniform(u8"uDirLight.color", dir_light.color);
-			shader.TryUniform(u8"uSkyLight", sky_light_->GetColor());
+			shader.TryUniform(u8"uDirLight.dir"sv, dir_light.dir);
+			shader.TryUniform(u8"uDirLight.color"sv, dir_light.color);
+			shader.TryUniform(u8"uSkyLight"sv, sky_light_->GetColor());
 
 			prev_.shader = &shader;
 		}
@@ -292,12 +292,12 @@ namespace oeng::renderer
 		DrawPointLights(mesh_comp);
 		DrawSpotLights(mesh_comp);
 
-		shader.TryUniform(u8"uWorldTransform", mesh_comp.GetDrawTrsfMatrix());
+		shader.TryUniform(u8"uWorldTransform"sv, mesh_comp.GetDrawTrsfMatrix());
 		gl(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
-	static void DrawLights(const char8_t* name, const Renderer::CompArr<Light>& lights,
+	static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& lights,
 		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
@@ -318,9 +318,9 @@ namespace oeng::renderer
 			const auto& data = l.GetData();
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 
-			ScopeCycleCounter counter{u8"DrawLight"};
+			ScopeStackCounter counter{u8"DrawLight"sv};
 
-			auto try_uniform = [&]<class T>(const char8_t* uniform, T&& value)
+			auto try_uniform = [&]<class T>(std::u8string_view uniform, T&& value)
 			{
 				return shader.TryUniform(
 					Format(u8"u{}Lights[{}].{}"sv, name, idx, uniform),
@@ -328,9 +328,9 @@ namespace oeng::renderer
 				);
 			};
 
-			try_uniform(u8"color", data.color);
-			try_uniform(u8"pos", data.pos);
-			try_uniform(u8"radius", data.radius);
+			try_uniform(u8"color"sv, data.color);
+			try_uniform(u8"pos"sv, data.pos);
+			try_uniform(u8"radius"sv, data.radius);
 			try_extra_uniforms(try_uniform, data);
 			
 			++idx;
@@ -341,18 +341,18 @@ namespace oeng::renderer
 
 	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
 	{
-		DrawLights(u8"Point", point_lights_, kMaxPointLights, mesh_comp, [](auto&&...){});
+		DrawLights(u8"Point"sv, point_lights_, kMaxPointLights, mesh_comp, [](auto&&...){});
 	}
 
 	void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp) const
 	{
 		auto try_uniforms = [](auto&& try_uniform, const ISpotLight::Data& data)
 		{
-			try_uniform(u8"dir", data.dir);
-			try_uniform(u8"inner", data.angle_cos.inner);
-			try_uniform(u8"outer", data.angle_cos.outer);
+			try_uniform(u8"dir"sv, data.dir);
+			try_uniform(u8"inner"sv, data.angle_cos.inner);
+			try_uniform(u8"outer"sv, data.angle_cos.outer);
 		};
-		DrawLights(u8"Spot", spot_lights_, kMaxSpotLights, mesh_comp, try_uniforms);
+		DrawLights(u8"Spot"sv, spot_lights_, kMaxSpotLights, mesh_comp, try_uniforms);
 	}
 
 	bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
@@ -429,7 +429,7 @@ namespace oeng::renderer
 		}
 		catch (const std::exception& e)
 		{
-			log::Error(u8"Failed to load '{}': {}", path.Str(), What(e));
+			log::Error(u8"Failed to load '{}': {}"sv, path.Str(), What(e));
 			return cache.default_obj;
 		}
 	}

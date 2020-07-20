@@ -42,7 +42,7 @@ namespace oeng::core
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"Failed to load config '{}': {}", entry.path().string<char8_t>(PoolAllocator<char8_t>{}), What(e));
+				log::Error(u8"Failed to load config '{}': {}"sv, entry.path().string<char8_t>(PoolAllocator<char8_t>{}), What(e));
 			}
 		}
 	}

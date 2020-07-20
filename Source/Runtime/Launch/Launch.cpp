@@ -11,13 +11,13 @@ namespace oeng
 {
 	static void OnIllegal(int)
 	{
-		log::Critical(u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported.");
+		log::Critical(u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
 	}
 	
 	static void CheckCpu()
 	{
 		const auto& cpu = CpuInfo::Get();
-		log::Info(u8"CPU: {}", cpu.GetBrand());
+		log::Info(u8"CPU: {}"sv, cpu.GetBrand());
 #ifdef OE_USE_AVX2
 		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
 #endif
@@ -33,12 +33,12 @@ namespace oeng
 		std::signal(SIGILL, &OnIllegal);
 		
 		Dll game_module{u8"./" U8_TEXT(OE_GAME_MODULE)};
-		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"));
+		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"sv));
 
-		if (debug) log::Debug(u8"Debugger detected");
+		if (debug) log::Debug(u8"Debugger detected"sv);
 		CheckCpu();
 		
-		Engine engine{game_module.GetSymbol<void(Engine&)>(u8"GameMain")};
+		Engine engine{game_module.GetSymbol<void(Engine&)>(u8"GameMain"sv)};
 		engine.RunLoop();
 	}
 }

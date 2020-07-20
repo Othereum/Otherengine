@@ -9,7 +9,7 @@ namespace oeng::renderer
 	std::string ReadFile(const std::filesystem::path& path)
 	{
 		std::ifstream file{ path, std::ios_base::in | std::ios_base::ate};
-		if (!file.is_open()) Throw<std::ios_base::failure>(u8"Cannot read file. File not found: {}", path.string<char8_t>(PoolAllocator<char8_t>{}));
+		if (!file.is_open()) Throw<std::ios_base::failure>(u8"Cannot read file. File not found: {}"sv, path.string<char8_t>(PoolAllocator<char8_t>{}));
 
 		std::string code(file.tellg(), '\0');
 		file.seekg(0);
@@ -127,7 +127,7 @@ namespace oeng::renderer
 	bool Shader::TryUniform(int location, const Uniform& value)
 	{
 		if (location == invalid_uniform_) return false;
-		ScopeCounter counter{u8"SetUniform"};
+		ScopeCounter counter{u8"SetUniform"sv};
 
 		const auto cache = uniform_cache_.find(location);
 		if (cache != uniform_cache_.end())
