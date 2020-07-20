@@ -28,7 +28,7 @@ namespace oeng::engine
 
 	void AActor::Update(const Float delta_seconds)
 	{
-		ScopeCycleCounter counter{u8"ActorUpdate"};
+		ScopeStackCounter counter{u8"ActorUpdate"sv};
 		UpdateComponents(delta_seconds);
 		OnUpdate(delta_seconds);
 	}
