@@ -47,7 +47,7 @@ namespace oeng::core
 	
 	struct PathHasher
 	{
-		[[nodiscard]] constexpr size_t operator()(const fs::path& p) const noexcept
+		[[nodiscard]] size_t operator()(const fs::path& p) const noexcept
 		{
 			auto& s = p.native();
 			return HashRange(s.begin(), s.end(), tolower);
@@ -56,7 +56,7 @@ namespace oeng::core
 
 	struct PathEqual
 	{
-		[[nodiscard]] constexpr bool operator()(const fs::path& a, const fs::path& b) const noexcept
+		[[nodiscard]] bool operator()(const fs::path& a, const fs::path& b) const noexcept
 		{
 			return StrEqCi(a.native(), b.native());
 		}
