@@ -49,10 +49,10 @@ namespace oeng::core
 		constexpr PoolAllocator() noexcept = default;
 
 		template <class Y>
-		constexpr PoolAllocator(const PoolAllocator<Y>& r) noexcept {}
+		constexpr PoolAllocator(const PoolAllocator<Y>&) noexcept {}
 
 		template <class Y>
-		constexpr bool operator==(const PoolAllocator<Y>& r) const noexcept { return true; }
+		constexpr bool operator==(const PoolAllocator<Y>&) const noexcept { return true; }
 
 		[[nodiscard]] T* allocate(size_t n) const
 		{

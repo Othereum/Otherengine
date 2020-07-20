@@ -1,11 +1,11 @@
 #include "Memory.hpp"
-#include "Interfaces/IEngine.hpp"
+#include "EngineBase.hpp"
 
 namespace oeng::core
 {
 	omem::MemoryPoolManager& GetMemPool() noexcept
 	{
-		assert(kIEngine);
-		return kIEngine->GetMemPool();
+		assert(kEngineBase);
+		return kEngineBase->GetMemPool();
 	}
 }
