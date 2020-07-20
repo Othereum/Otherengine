@@ -89,7 +89,7 @@ namespace oeng::core::log
 			
 			void operator()(Duration delay, Level level, std::u8string_view msg) const;
 
-			template <class Rep, class Period, class... Args>
+			template <class Rep, class Period>
 			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view msg) const
 			{
 				operator()(time::duration_cast<Duration>(delay), level, msg);
