@@ -2,12 +2,10 @@
 
 namespace oeng::core
 {
-	using namespace std::literals;
-	
 #ifndef NDEBUG
-	std::filesystem::path GetUserDataPath()
+	fs::path GetUserDataPath()
 	{
-		return u8"../Saved";
+		return u8"../Saved"sv;
 	}
 #endif
 	
