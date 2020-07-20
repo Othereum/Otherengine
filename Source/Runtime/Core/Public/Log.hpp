@@ -12,6 +12,11 @@ namespace spdlog
 }
 #endif
 
+namespace oeng::core
+{
+	class EngineBase;
+}
+
 namespace oeng::core::log
 {
 #ifdef OE_LOG_THREADSAFE
@@ -32,7 +37,7 @@ namespace oeng::core::log
 		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
 		
 	private:
-		friend class EngineBase;
+		friend EngineBase;
 		Logger();
 		
 		std::shared_ptr<spdlog::logger> logger_;
