@@ -3,16 +3,14 @@
 #include <stdexcept>
 #include <SDL2/SDL.h>
 
-#include "Json.hpp"
+#include "EngineBase.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
 #include "OpenGL.hpp"
 #include "Shader.hpp"
-#include "Stat.hpp"
 #include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
-#include "Interfaces/IEngine.hpp"
 #include "Interfaces/Light.hpp"
 
 namespace oeng::renderer
@@ -71,7 +69,7 @@ namespace oeng::renderer
 		return dm;
 	}
 
-	static WindowPtr MakeWindow(IEngine& engine)
+	static WindowPtr MakeWindow()
 	{
 		SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 		SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
@@ -84,12 +82,13 @@ namespace oeng::renderer
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		const Name config_name = u8"Display";
-		auto& config = engine.Config(config_name);
-		const auto dp = LoadDisplayIdx(config);
-		const auto dm = LoadDisplayMode(dp, config);
-		const auto fs = config.at("Fullscreen").get<bool>();
-		engine.SaveConfig(config_name);
+		auto& config = Config::Get();
+		const Name config_name = u8"Display"sv;
+		auto& cfg = config(config_name);
+		const auto dp = LoadDisplayIdx(cfg);
+		const auto dm = LoadDisplayMode(dp, cfg);
+		const auto fs = cfg.at("Fullscreen").get<bool>();
+		config.Save(config_name);
 
 		SDL_DisplayMode display;
 		SDL_GetDisplayMode(dp, dm, &display);
@@ -98,7 +97,7 @@ namespace oeng::renderer
 		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
 
 		WindowPtr window{
-			SDL_CreateWindow(AsString(GetGameName().data()),
+			SDL_CreateWindow(AsString(kEngineBase->GetGameName().data()),
 				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
 				display.w, display.h, flags),
 			&SDL_DestroyWindow
@@ -177,11 +176,10 @@ namespace oeng::renderer
 		return data;
 	}
 
-	Renderer::Renderer(IEngine& engine)
-		:engine_{engine}, 
-		window_{MakeWindow(engine)},
+	Renderer::Renderer()
+		:window_{MakeWindow()},
 		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{u8"../Engine/Shaders/Sprite"},
+		sprite_shader_{u8"../Engine/Shaders/Sprite"sv},
 		sprite_verts_{CreateSpriteVerts()},
 		materials_{shaders_.default_obj, textures_.default_obj},
 		meshes_{materials_.default_obj}

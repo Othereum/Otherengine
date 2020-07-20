@@ -39,7 +39,7 @@ namespace oeng::renderer
 	public:
 		DELETE_CPMV(Renderer);
 		
-		explicit Renderer(IEngine& engine);
+		Renderer();
 		~Renderer();
 		
 		void DrawScene();
@@ -85,7 +85,6 @@ namespace oeng::renderer
 		[[nodiscard]] SharedRef<Material> GetDefaultMaterial() const noexcept { return materials_.default_obj; }
 		
 		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
-		[[nodiscard]] IEngine& GetEngine() const noexcept { return engine_; }
 
 		template <class T>
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
@@ -97,8 +96,6 @@ namespace oeng::renderer
 		void DrawPointLights(const IMeshComponent& mesh_comp) const;
 		void DrawSpotLights(const IMeshComponent& mesh_comp) const;
 		[[nodiscard]] bool ShouldDraw(const IMeshComponent& mesh_comp) const noexcept;
-		
-		IEngine& engine_;
 		
 		WindowPtr window_;
 		GlContextPtr gl_context_;

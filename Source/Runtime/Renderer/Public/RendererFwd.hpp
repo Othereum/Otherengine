@@ -2,11 +2,6 @@
 
 struct SDL_Window;
 
-namespace oeng::core
-{
-	class IEngine;
-}
-
 namespace oeng::renderer
 {
 	class Renderer;
