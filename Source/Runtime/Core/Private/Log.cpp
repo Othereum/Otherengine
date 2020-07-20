@@ -24,7 +24,7 @@ namespace oeng::core::log
 	static_assert(Level::kCritical == Level(spdlog::level::critical));
 	static_assert(Level::kOff == Level(spdlog::level::off));
 	
-	LogManager::LogManager()
+	Logger::Logger()
 	{
 		assert(kEngineBase);
 		
@@ -52,12 +52,12 @@ namespace oeng::core::log
 #endif
 	}
 
-	void LogManager::Log(Level level, std::u8string_view message) const
+	void Logger::Log(Level level, std::u8string_view message) const
 	{
 		logger_->log(spdlog::level::level_enum(level), AsString(message));
 	}
 
-	void LogManager::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg)
+	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg)
 	{
 		{
 			const auto logs = delayed_.Lock();

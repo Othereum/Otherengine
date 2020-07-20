@@ -25,10 +25,10 @@ namespace oeng::core::log
 	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
 	};
 
-	class LogManager
+	class Logger
 	{
 	public:
-		LogManager();
+		Logger();
 		
 		void Log(Level level, std::u8string_view message) const;
 		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);

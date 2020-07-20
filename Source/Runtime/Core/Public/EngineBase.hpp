@@ -57,8 +57,8 @@ namespace oeng::core
 			return thread_id_ == std::this_thread::get_id();
 		}
 
+		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
-		[[nodiscard]] log::LogManager& GetLogger() noexcept { return logger_; }
 
 	private:
 		friend Name;
@@ -71,7 +71,8 @@ namespace oeng::core
 		omem::MemoryPoolManager mem_pool_;
 		NameSet names_;
 		PathSet paths_;
-		log::LogManager logger_;
+		
+		log::Logger logger_;
 		ConfigManager config_;
 		CounterManager counters_;
 	};
