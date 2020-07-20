@@ -30,13 +30,7 @@ namespace oeng::core
 	{
 	public:
 		DELETE_CPMV(EngineBase);
-		
 		explicit EngineBase(std::u8string_view game_module_path);
-		virtual ~EngineBase() = default;
-		
-		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
-		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;
-		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;
 		
 		/**
 		 * Get memory pool manager.
