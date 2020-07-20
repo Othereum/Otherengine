@@ -34,9 +34,10 @@ namespace oeng::core
 		bool operator<=(const Path& r) const noexcept { return p <= r.p; }
 		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
-		[[nodiscard]] String8 Str() const { return p->string<char8_t>(PoolAllocator<char8_t>{}); }
+		template <class T = char8_t, class Al = PoolAllocator<char8_t>>
+		[[nodiscard]] auto Str() const { return p->string<T>(Al{}); }
+		
 		operator String8() const { return Str(); }
-
 		operator const fs::path&() const noexcept { return *p; }
 		const fs::path& operator*() const noexcept { return *p; }
 		const fs::path* operator->() const noexcept { return p; }
