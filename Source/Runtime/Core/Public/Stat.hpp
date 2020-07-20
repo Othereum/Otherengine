@@ -44,10 +44,9 @@ namespace oeng::core
 	
 	class CounterManager
 	{
-		CounterManager() = default;
-		
 		friend ScopeCounter;
 		friend ScopeStackCounter;
+		friend class EngineBase;
 		
 		struct Frame
 		{
@@ -55,6 +54,8 @@ namespace oeng::core
 			TimePoint start;
 		};
 
+		CounterManager() = default;
+		
 		void PushScope(Name name);
 		void PopScope();
 		
