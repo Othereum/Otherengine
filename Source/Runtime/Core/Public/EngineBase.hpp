@@ -52,6 +52,7 @@ namespace oeng::core
 			return thread_id_ == std::this_thread::get_id();
 		}
 
+		[[nodiscard]] Config& GetConfig() noexcept { return config_; }
 		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
 		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
@@ -72,7 +73,7 @@ namespace oeng::core
 		std::u8string_view game_name_;
 		
 		log::Logger logger_;
-		ConfigManager config_;
+		Config config_;
 		CounterManager counters_;
 	};
 

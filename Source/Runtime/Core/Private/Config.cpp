@@ -1,6 +1,7 @@
 #include "Config.hpp"
 #include <filesystem>
 #include <fstream>
+#include "EngineBase.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
 
@@ -46,20 +47,24 @@ namespace oeng::core
 		}
 	}
 	
-	ConfigManager::ConfigManager()
+	Config::Config()
 	{
 		LoadConfigs(configs_, u8"../Engine/Config"sv);
 		LoadConfigs(configs_, u8"../Config"sv);
 		LoadConfigs(configs_, GetUserConfigDir());
 	}
 
-	Json& ConfigManager::Config(Name name)
+	Config& Config::Get() noexcept
 	{
-		return configs_[name];
+		assert(kEngineBase);
+		return kEngineBase->GetConfig();
 	}
 
-	bool ConfigManager::SaveConfig(Name name)
+	bool Config::Save(Name name) const
 	{
+		const auto cfg = configs_.find(name);
+		if (cfg == configs_.end()) return false;
+		
 		try
 		{
 			auto dir = GetUserConfigDir();
@@ -67,7 +72,7 @@ namespace oeng::core
 
 			std::ofstream file{dir /= Format(u8"{}.json"sv, *name)};
 			file.exceptions(std::ios_base::failbit | std::ios_base::badbit);
-			file << configs_[name].dump(4);
+			file << cfg->second.dump(4);
 			
 			return true;
 		}
