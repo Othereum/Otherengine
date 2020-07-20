@@ -3,6 +3,7 @@
 #include "Config.hpp"
 #include "Log.hpp"
 #include "Path.hpp"
+#include "Platform.hpp"
 #include "Stat.hpp"
 
 namespace oeng
@@ -30,7 +31,7 @@ namespace oeng::core
 	public:
 		DELETE_CPMV(EngineBase);
 		
-		explicit EngineBase(std::u8string_view game_name);
+		explicit EngineBase(std::u8string_view game_module_path);
 		virtual ~EngineBase() = default;
 		
 		[[nodiscard]] virtual World& GetWorld() noexcept = 0;
@@ -58,6 +59,7 @@ namespace oeng::core
 		}
 
 		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
+		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
 
 	private:
@@ -67,10 +69,13 @@ namespace oeng::core
 		friend ScopeStackCounter;
 
 		std::thread::id thread_id_;
-		std::u8string_view game_name_;
 		omem::MemoryPoolManager mem_pool_;
+		
 		NameSet names_;
 		PathSet paths_;
+		
+		Dll game_dll_;
+		std::u8string_view game_name_;
 		
 		log::Logger logger_;
 		ConfigManager config_;
