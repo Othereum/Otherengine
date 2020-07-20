@@ -1,5 +1,6 @@
 #pragma once
 #include "Name.hpp"
+#include "Templates/HashMap.hpp"
 #include "Templates/Time.hpp"
 
 namespace oeng::core
@@ -10,36 +11,18 @@ namespace oeng::core
 		uint64_t count{};
 	};
 	
-	struct ScopeCycleStat : ScopeStat
+	struct ScopeStackStat : ScopeStat
 	{
-		std::map<Name, ScopeCycleStat> children;
+		TreeMap<Name, ScopeStackStat> children;
 	};
 
-	class CORE_API ScopeCycleManager
+	class CORE_API ScopeStackCounter
 	{
 	public:
-		void Push(Name name);
-		void Pop();
-		[[nodiscard]] auto& Stats() const noexcept { return stats_; }
-
-	private:
-		struct Frame
-		{
-			Name name;
-			TimePoint start;
-		};
-
-		std::vector<Frame> frames_;
-		std::map<Name, ScopeCycleStat> stats_;
-	};
-
-	class CORE_API ScopeCycleCounter
-	{
-	public:
-		DELETE_CPMV(ScopeCycleCounter);
+		DELETE_CPMV(ScopeStackCounter);
 		
-		explicit ScopeCycleCounter(Name name);
-		~ScopeCycleCounter();
+		explicit ScopeStackCounter(Name name);
+		~ScopeStackCounter();
 	};
 	
 	class CORE_API ScopeCounter
@@ -57,5 +40,24 @@ namespace oeng::core
 	private:
 		TimePoint start_;
 		Name name_;
+	};
+	
+	class CounterManager
+	{
+		friend ScopeCounter;
+		friend ScopeStackCounter;
+		
+		struct Frame
+		{
+			Name name;
+			TimePoint start;
+		};
+
+		void PushScope(Name name);
+		void PopScope();
+		
+		HashMap<Name, ScopeStat> scope_stats_;
+		TreeMap<Name, ScopeStackStat> scope_stack_stats_;
+		DyArr<Frame> frames_;
 	};
 }

@@ -3,6 +3,7 @@
 #include "Config.hpp"
 #include "Log.hpp"
 #include "Path.hpp"
+#include "Stat.hpp"
 
 namespace oeng
 {
@@ -36,11 +37,6 @@ namespace oeng::core
 		[[nodiscard]] virtual InputSystem& GetInputSystem() noexcept = 0;
 		[[nodiscard]] virtual Renderer& GetRenderer() noexcept = 0;
 		
-		[[nodiscard]] std::u8string_view GetGameName() const noexcept
-		{
-			return game_name_;
-		}
-		
 		/**
 		 * Get memory pool manager.
 		 * @return Reference to memory pool manager.
@@ -61,14 +57,14 @@ namespace oeng::core
 			return thread_id_ == std::this_thread::get_id();
 		}
 
-		[[nodiscard]] log::LogManager& GetLogger() noexcept
-		{
-			return logger_;
-		}
+		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
+		[[nodiscard]] log::LogManager& GetLogger() noexcept { return logger_; }
 
 	private:
 		friend Name;
 		friend Path;
+		friend ScopeCounter;
+		friend ScopeStackCounter;
 
 		std::thread::id thread_id_;
 		std::u8string_view game_name_;
@@ -77,6 +73,7 @@ namespace oeng::core
 		PathSet paths_;
 		log::LogManager logger_;
 		ConfigManager config_;
+		CounterManager counters_;
 	};
 
 	extern CORE_API EngineBase* const kEngineBase;

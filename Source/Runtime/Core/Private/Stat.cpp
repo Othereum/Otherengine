@@ -1,23 +1,24 @@
 #include "Stat.hpp"
 #include "Debug.hpp"
+#include "EngineBase.hpp"
 #include "Templates/Time.hpp"
+
+#define COUNTERS (assert(kEngineBase), kEngineBase->counters_)
 
 namespace oeng::core
 {
-	OE_EXPORT ScopeCycleManager scope_cycle_manager;
-
-	void ScopeCycleManager::Push(Name name)
+	void CounterManager::PushScope(Name name)
 	{
 		frames_.push_back({name, Clock::now()});
 	}
 
-	void ScopeCycleManager::Pop()
+	void CounterManager::PopScope()
 	{
 		const auto end = Clock::now();
 		const auto top = frames_.back();
 		frames_.pop_back();
 		
-		std::reference_wrapper<std::map<Name, ScopeCycleStat>> stats = stats_;
+		std::reference_wrapper<TreeMap<Name, ScopeStackStat>> stats = scope_stack_stats_;
 		for (auto& frame : frames_)
 			stats = stats.get()[frame.name].children;
 		
@@ -26,16 +27,16 @@ namespace oeng::core
 		++stat.count;
 	}
 
-	ScopeCycleCounter::ScopeCycleCounter(Name name)
+	ScopeStackCounter::ScopeStackCounter(Name name)
 	{
-		scope_cycle_manager.Push(name);
+		COUNTERS.PushScope(name);
 	}
 
-	ScopeCycleCounter::~ScopeCycleCounter()
+	ScopeStackCounter::~ScopeStackCounter()
 	{
 		try
 		{
-			scope_cycle_manager.Pop();
+			COUNTERS.PopScope();
 		}
 		catch (const std::exception& e)
 		{
@@ -43,14 +44,12 @@ namespace oeng::core
 		}
 	}
 
-	OE_EXPORT std::unordered_map<Name, ScopeStat> scope_stats;
-
 	ScopeCounter::~ScopeCounter()
 	{
 		try
 		{
 			const auto end = Clock::now();
-			auto& counter = scope_stats[name_];
+			auto& counter = COUNTERS.scope_stats_[name_];
 			counter.duration += end - start_;
 			++counter.count;
 		}
