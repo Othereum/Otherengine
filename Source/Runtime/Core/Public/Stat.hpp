@@ -44,6 +44,8 @@ namespace oeng::core
 	
 	class CounterManager
 	{
+		CounterManager() = default;
+		
 		friend ScopeCounter;
 		friend ScopeStackCounter;
 		

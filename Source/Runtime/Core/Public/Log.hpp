@@ -25,15 +25,16 @@ namespace oeng::core::log
 	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
 	};
 
-	class Logger
+	class CORE_API Logger
 	{
 	public:
-		Logger();
-		
 		void Log(Level level, std::u8string_view message) const;
 		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
 		
 	private:
+		friend class EngineBase;
+		Logger();
+		
 		std::shared_ptr<spdlog::logger> logger_;
 		CondMonitor<HashMap<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};

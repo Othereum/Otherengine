@@ -8,8 +8,6 @@ namespace oeng::core
 	class CORE_API ConfigManager
 	{
 	public:
-		ConfigManager();
-		
 		/**
 		 * Find config or create if not found.
 		 * @param name Config name
@@ -26,6 +24,8 @@ namespace oeng::core
 		bool SaveConfig(Name name);
 		
 	private:
+		friend class EngineBase;
+		ConfigManager();
 		HashMap<Name, Json> configs_;
 	};
 }
