@@ -14,7 +14,7 @@ addons:
       - libglew-dev
       - libspdlog-dev
       - libfmt-dev
-      - cmake
+      - cmake=3.16.3-1ubuntu1
 
 before_script:
   - mkdir out
