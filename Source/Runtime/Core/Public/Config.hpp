@@ -1,7 +1,7 @@
 #pragma once
-#include "JsonFwd.hpp"
+#include "Json.hpp"
 #include "Name.hpp"
-#include "Templates/TreeMap.hpp"
+#include "Templates/HashMap.hpp"
 
 namespace oeng::core
 {
@@ -26,6 +26,6 @@ namespace oeng::core
 		bool SaveConfig(Name name);
 		
 	private:
-		TreeMap<Name, Json> configs_;
+		HashMap<Name, Json> configs_;
 	};
 }

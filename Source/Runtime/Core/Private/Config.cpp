@@ -1,7 +1,6 @@
 #include "Config.hpp"
 #include <filesystem>
 #include <fstream>
-#include "Json.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
 
@@ -14,7 +13,7 @@ namespace oeng::core
 		return GetUserDataPath() /= u8"Config";
 	}
 
-	static void LoadConfig(TreeMap<Name, Json>& configs, const fs::path& file)
+	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
 	{
 		if (!is_regular_file(file) || file.extension() != u8".json") return;
 		
@@ -30,7 +29,7 @@ namespace oeng::core
 		}
 	}
 	
-	static void LoadConfigs(TreeMap<Name, Json>& configs, const fs::path& directory)
+	static void LoadConfigs(HashMap<Name, Json>& configs, const fs::path& directory)
 	{
 		if (!exists(directory)) return;
 		
