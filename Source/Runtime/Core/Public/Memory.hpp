@@ -19,7 +19,7 @@ namespace oeng::core
 	template <class T, class... Args>
 	[[nodiscard]] T* New(Args&&... args)
 	{
-		return GetMemPool().New<T>(std::forward<Args>(args));
+		return GetMemPool().New<T>(std::forward<Args>(args)...);
 	}
 
 	template <class T, class... Args>
