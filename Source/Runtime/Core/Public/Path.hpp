@@ -6,6 +6,31 @@ namespace oeng::core
 {
 	namespace fs = std::filesystem;
 	
+#ifdef OE_PATH_THREADSAFE
+	constexpr auto kPathThreadSafe = true;
+#else
+	constexpr auto kPathThreadSafe = false;
+#endif
+	
+	struct PathHasher
+	{
+		[[nodiscard]] size_t operator()(const fs::path& p) const noexcept
+		{
+			auto& s = p.native();
+			return HashRange(s.begin(), s.end(), tolower);
+		}
+	};
+
+	struct PathEqual
+	{
+		[[nodiscard]] bool operator()(const fs::path& a, const fs::path& b) const noexcept
+		{
+			return StrEqCi(a.native(), b.native());
+		}
+	};
+	
+	using PathSet = CondMonitor<HashSet<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
+	
 	/**
 	 * Lightweight representation of path.
 	 * Very fast O(1) copy and comparison.
@@ -16,10 +41,10 @@ namespace oeng::core
 	 */
 	struct CORE_API Path
 	{
-		Path() noexcept;
-		Path(const fs::path& path);
+		Path() noexcept :p{&*Set()->find({})} {}
 		Path(std::u8string_view s) :Path{fs::path{s}} {}
 		Path(fs::path::string_type&& s) :Path{fs::path{std::move(s)}} {}
+		Path(const fs::path& path) :p{&*Set()->insert(proximate(path)).first} {}
 
 		template <class Al>
 		Path(const std::basic_string<char8_t, std::char_traits<char8_t>, Al>& s)
@@ -43,33 +68,9 @@ namespace oeng::core
 		const fs::path* operator->() const noexcept { return p; }
 
 	private:
+		[[nodiscard]] static PathSet& Set() noexcept;
 		const fs::path* p;
 	};
-	
-	struct PathHasher
-	{
-		[[nodiscard]] size_t operator()(const fs::path& p) const noexcept
-		{
-			auto& s = p.native();
-			return HashRange(s.begin(), s.end(), tolower);
-		}
-	};
-
-	struct PathEqual
-	{
-		[[nodiscard]] bool operator()(const fs::path& a, const fs::path& b) const noexcept
-		{
-			return StrEqCi(a.native(), b.native());
-		}
-	};
-	
-#ifdef OE_PATH_THREADSAFE
-	constexpr auto kPathThreadSafe = true;
-#else
-	constexpr auto kPathThreadSafe = false;
-#endif
-	
-	using PathSet = CondMonitor<HashSet<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
 	
 	CORE_API void to_json(Json& json, const Path& path);
 	CORE_API void from_json(const Json& json, Path& path);
