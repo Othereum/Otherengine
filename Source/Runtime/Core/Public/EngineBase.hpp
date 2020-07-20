@@ -1,7 +1,8 @@
 #pragma once
 #include <thread>
-#include "Path.hpp"
 #include "Config.hpp"
+#include "Log.hpp"
+#include "Path.hpp"
 
 namespace oeng
 {
@@ -60,15 +61,21 @@ namespace oeng::core
 			return thread_id_ == std::this_thread::get_id();
 		}
 
+		[[nodiscard]] log::LogManager& GetLogger() noexcept
+		{
+			return logger_;
+		}
+
 	private:
 		friend Name;
 		friend Path;
-		
+
 		std::thread::id thread_id_;
 		std::u8string_view game_name_;
 		omem::MemoryPoolManager mem_pool_;
 		NameSet names_;
 		PathSet paths_;
+		log::LogManager logger_;
 		ConfigManager config_;
 	};
 

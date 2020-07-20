@@ -1,13 +1,39 @@
 #pragma once
 #include "Core.hpp"
 #include "Format.hpp"
+#include "Templates/HashMap.hpp"
+#include "Templates/Sync.hpp"
 #include "Templates/Time.hpp"
+
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
+namespace spdlog
+{
+	class logger;
+}
+#endif
 
 namespace oeng::core::log
 {
+#ifdef OE_LOG_THREADSAFE
+	constexpr auto kLogThreadSafe = true;
+#else
+	constexpr auto kLogThreadSafe = false;
+#endif
+
 	enum class Level
 	{
 	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
+	};
+
+	class LogManager
+	{
+	public:
+		void Log(Level level, std::u8string_view message) const;
+		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
+		
+	private:
+		std::shared_ptr<spdlog::logger> logger_;
+		CondMonitor<HashMap<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
 	CORE_API void Log(Level level, std::u8string_view message);
