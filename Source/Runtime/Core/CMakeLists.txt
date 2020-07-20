@@ -5,7 +5,7 @@ if(nlohmann_json_VERSION VERSION_GREATER_EQUAL 3.8)
 	message(SEND_ERROR "The version of nlohmann-json must be less than 3.8")
 endif()
 
-find_package(fmt 6.1 REQUIRED)
+find_package(fmt 6.2 REQUIRED)
 find_package(spdlog 1.4 REQUIRED)
 
 list(APPEND PUBLIC_LIBS
