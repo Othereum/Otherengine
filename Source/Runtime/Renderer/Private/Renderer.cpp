@@ -62,9 +62,9 @@ namespace oeng::renderer
 		auto dm = dm_ref.get<int>();
 		if (dm >= num_dm)
 		{
-			auto display = modes.at(0).get<std::string>();
-			log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})", dm, num_dm-1);
-			log::Warn(u8"Using display mode {}", AsString8(std::move(display)));
+			auto display = modes.at(0).get<String>();
+			log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm, num_dm-1);
+			log::Warn(u8"Using display mode {}"sv, AsString8(std::move(display)));
 			dm_ref = 0, dm = 0;
 		}
 

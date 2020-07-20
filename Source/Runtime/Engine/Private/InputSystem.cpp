@@ -148,29 +148,29 @@ namespace oeng::engine
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}",
+				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}"sv,
 					AsString8(key), AsString8(name), i, What(e));
 			}
 		}
 	}
 
 	InputAxis::InputAxis(const Json& json)
-		:code{ToInputCode(json.at("Code").get<std::string>())}, scale{json.at("Scale")}
+		:code{ToInputCode(json.at("Code").get<String>())}, scale{json.at("Scale")}
 	{
 	}
 
 	InputAction::InputAction(const Json& json)
-		:code{ToInputCode(json.at("Code").get<std::string>())}, mod{KeyMod::NONE}
+		:code{ToInputCode(json.at("Code").get<String>())}, mod{KeyMod::NONE}
 	{
 		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
 		{
 			for (auto& mod_in : mods_in.value()) try
 			{
-				mod |= ToKeyMod(AsString8(mod_in.get<std::string>())).value();
+				mod |= ToKeyMod(AsString8(mod_in.get<String>())).value();
 			}
 			catch (const std::bad_optional_access&)
 			{
-				Throw(u8"Invalid mod '{}'"sv, AsString8(mod_in.get<std::string>()));
+				Throw(u8"Invalid mod '{}'"sv, AsString8(mod_in.get<String>()));
 			}
 		}
 	}
@@ -180,7 +180,7 @@ namespace oeng::engine
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 
-		const auto& config = engine.Config(u8"Input");
+		const auto& config = engine.Config(u8"Input"sv);
 		LoadInput(config, "ActionMap", actions_);
 		LoadInput(config, "AxisMap", axises_);
 
