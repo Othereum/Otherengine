@@ -73,7 +73,7 @@ namespace oeng::core::log
 
 	void Log(Level level, std::u8string_view message)
 	{
-		if (kEngineBase) [[likely]]
+		if (kEngineBase) LIKELY
 		{
 			kEngineBase->GetLogger().Log(level, message);
 		}
@@ -93,7 +93,7 @@ namespace oeng::core::log
 
 		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
 		{
-			if (kEngineBase) [[likely]]
+			if (kEngineBase) LIKELY
 			{
 				kEngineBase->GetLogger().LogDelay(id_, delay, level, msg);
 			}

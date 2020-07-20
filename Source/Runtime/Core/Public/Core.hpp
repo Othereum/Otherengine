@@ -45,3 +45,11 @@ namespace oeng
 #define STRINGIZE_IMPL(x) #x
 #define STRINGIZE(x) STRINGIZE_IMPL(x)
 #define U8_LINE U8_TEXT(STRINGIZE(__LINE__))
+
+#if __has_cpp_attribute(likely)
+	#define LIKELY [[likely]]
+	#define UNLIKELY [[unlikely]]
+#else
+	#define LIKELY
+	#define UNLIKELY
+#endif
