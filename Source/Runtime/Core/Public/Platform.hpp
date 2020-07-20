@@ -46,13 +46,13 @@ namespace oeng::core
 		[[nodiscard]] void* FindSymbol(std::u8string_view name) const noexcept;
 
 		template <class T>
-		[[nodiscard]] T& GetSymbol(std::u8string_view name)
+		[[nodiscard]] T& GetSymbol(std::u8string_view name) const
 		{
 			return *(T*)GetSymbol(name);
 		}
 
 		template <class Fn, class... Args>
-		decltype(auto) Call(std::u8string_view fn_name, Args&&... args)
+		decltype(auto) Call(std::u8string_view fn_name, Args&&... args) const
 		{
 			return GetSymbol<Fn>(fn_name)(std::forward<Args>(args)...);
 		}
