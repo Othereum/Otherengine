@@ -2,7 +2,7 @@
 
 namespace oeng::renderer
 {
-	class OEAPI ICamera
+	class RENDERER_API ICamera
 	{
 	public:
 		INTERFACE_BODY(ICamera);

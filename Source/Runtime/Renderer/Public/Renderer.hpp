@@ -5,6 +5,7 @@
 #include "VertexArray.hpp"
 #include "Interfaces/Camera.hpp"
 #include "Templates/DyArr.hpp"
+#include "Templates/Pointer.hpp"
 
 namespace oeng::renderer
 {
@@ -33,7 +34,7 @@ namespace oeng::renderer
 		const SharedRef<T> default_obj;
 	};
 
-	class OEAPI Renderer
+	class RENDERER_API Renderer
 	{
 	public:
 		DELETE_CPMV(Renderer);

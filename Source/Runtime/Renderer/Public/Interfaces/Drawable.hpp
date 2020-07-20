@@ -5,7 +5,7 @@
 
 namespace oeng::renderer
 {
-	class OEAPI ISpriteComponent
+	class RENDERER_API ISpriteComponent
 	{
 	public:
 		INTERFACE_BODY(ISpriteComponent);
@@ -16,7 +16,7 @@ namespace oeng::renderer
 		[[nodiscard]] virtual Texture& GetTexture() const noexcept = 0;
 	};
 
-	class OEAPI IMeshComponent
+	class RENDERER_API IMeshComponent
 	{
 	public:
 		INTERFACE_BODY(IMeshComponent);

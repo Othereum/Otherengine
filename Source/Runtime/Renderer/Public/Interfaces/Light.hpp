@@ -2,7 +2,7 @@
 
 namespace oeng::renderer
 {
-	class OEAPI IDirLight
+	class RENDERER_API IDirLight
 	{
 	public:
 		INTERFACE_BODY(IDirLight);
@@ -16,7 +16,7 @@ namespace oeng::renderer
 		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
 	};
 
-	class OEAPI ISkyLight
+	class RENDERER_API ISkyLight
 	{
 	public:
 		INTERFACE_BODY(ISkyLight);
@@ -24,7 +24,7 @@ namespace oeng::renderer
 		[[nodiscard]] virtual const Vec3& GetColor() const noexcept = 0;
 	};
 
-	class OEAPI IPointLight
+	class RENDERER_API IPointLight
 	{
 	public:
 		INTERFACE_BODY(IPointLight);
@@ -40,7 +40,7 @@ namespace oeng::renderer
 		[[nodiscard]] virtual const Data& GetData() const noexcept = 0;
 	};
 
-	class OEAPI ISpotLight
+	class RENDERER_API ISpotLight
 	{
 	public:
 		INTERFACE_BODY(ISpotLight);

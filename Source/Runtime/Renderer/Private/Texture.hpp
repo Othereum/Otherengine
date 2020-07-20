@@ -4,7 +4,7 @@
 
 namespace oeng::renderer
 {
-	class OEAPI Texture : public Asset
+	class RENDERER_API Texture : public Asset
 	{
 	public:
 		/**

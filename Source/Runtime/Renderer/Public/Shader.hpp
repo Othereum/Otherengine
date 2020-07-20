@@ -6,7 +6,7 @@
 
 namespace oeng::renderer
 {
-	class OEAPI Shader : public Asset
+	class RENDERER_API Shader : public Asset
 	{
 	public:
 		static constexpr int invalid_uniform_ = -1;

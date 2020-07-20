@@ -3,10 +3,11 @@
 #include "RendererFwd.hpp"
 #include "VertexArray.hpp"
 #include "Templates/DyArr.hpp"
+#include "Templates/Pointer.hpp"
 
 namespace oeng::renderer
 {
-	class OEAPI Mesh : public Asset
+	class RENDERER_API Mesh : public Asset
 	{
 	public:
 		explicit Mesh(SharedRef<Material> material) noexcept

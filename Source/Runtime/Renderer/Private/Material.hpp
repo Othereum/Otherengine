@@ -4,10 +4,11 @@
 #include "RendererFwd.hpp"
 #include "Uniform.hpp"
 #include "Templates/HashMap.hpp"
+#include "Templates/Pointer.hpp"
 
 namespace oeng::renderer
 {
-	class OEAPI Material : public Asset
+	class RENDERER_API Material : public Asset
 	{
 	public:
 		Material(SharedRef<Shader> shader, SharedRef<Texture> texture) noexcept

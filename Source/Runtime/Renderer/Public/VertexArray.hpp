@@ -6,7 +6,7 @@
 
 namespace oeng::renderer
 {
-	struct OEAPI Vertex
+	struct RENDERER_API Vertex
 	{
 		struct Data
 		{
@@ -28,9 +28,9 @@ namespace oeng::renderer
 		}
 	};
 
-	OEAPI void from_json(const Json& json, Vertex& vertex);
+	RENDERER_API void from_json(const Json& json, Vertex& vertex);
 
-	class OEAPI VertexArray
+	class RENDERER_API VertexArray
 	{
 	public:
 		VertexArray(std::span<const Vertex> verts, std::span<const Vec3u16> indices);
