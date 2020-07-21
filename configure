@@ -1,0 +1,62 @@
+#!/bin/bash
+set -e
+work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+deps_dir=$work_dir/deps
+mkdir $deps_dir
+
+# cmake 3.18.0
+if [ ! -f cmake-3.18.0-Linux-x86_64.tar.gz ]; then
+    cd $deps_dir
+    wget -O cmake-3.18.0-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.18.0/cmake-3.18.0-Linux-x86_64.tar.gz
+
+    tar -xvf cmake-3.18.0-Linux-x86_64.tar.gz > /dev/null
+    mv cmake-3.18.0-Linux-x86_64 cmake-install
+else
+    echo cmake has already installed
+fi
+
+PATH=$deps_dir/cmake-install/bin:$PATH
+
+# apt
+sudo apt update
+sudo apt install libsdl2-dev libglew-dev libspdlog-dev
+
+# fmt 7.0.1
+if [ ! -f fmt-7.0.1.tar.gz ]; then
+    cd $deps_dir
+    wget -O fmt-7.0.1.tar.gz https://github.com/fmtlib/fmt/archive/7.0.1.tar.gz
+
+    tar -xvf fmt-7.0.1.tar.gz > /dev/null
+    mv fmt-7.0.1 fmt-install
+
+    cd fmt-install
+    mkdir out && cd out
+
+    cmake .. -DBUILD_SHARED_LIBS=TRUE -DFMT_TEST=FALSE
+    cmake --build .
+else
+    echo fmt has already installed
+fi
+
+fmt_DIR=$deps_dir/fmt-install/out
+
+# nlohmann-json 3.8.0
+if [ ! -f json-3.8.0.tar.gz ]; then
+    cd $deps_dir
+    wget -O json-3.8.0.tar.gz https://github.com/nlohmann/json/archive/v3.8.0.tar.gz
+
+    tar -xvf json-3.8.0.tar.gz > /dev/null
+    mv json-3.8.0 json-install
+
+    cd json-install
+    mkdir out && cd out
+    cmake ..
+else
+    echo nlohmann-json has already installed
+fi
+
+nlohmann_json_DIR=$deps_dir/json-install/out
+
+cd $work_dir
+mkdir out && cd out
+cmake .. -Dfmt_DIR=$fmt_DIR -Dnlohmann_json_DIR=$nlohmann_json_DIR
