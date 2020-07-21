@@ -26,7 +26,7 @@ namespace oeng::core
 	CounterManager::~CounterManager()
 	{
 		auto& engine = EngineBase::Get();
-		if (!engine.GetTickCount() == 0) return;
+		if (engine.GetTickCount() == 0) return;
 		
 		LogStats(engine.counters_.scope_stack_stats_);
 
