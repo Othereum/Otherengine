@@ -1,6 +1,7 @@
 #pragma once
-#include "EngineCore.hpp"
+#include "EngineFwd.hpp"
 #include "MathFwd.hpp"
+#include "RendererFwd.hpp"
 #include "Templates/Pointer.hpp"
 
 namespace oeng::engine
@@ -26,6 +27,7 @@ namespace oeng::engine
 		[[nodiscard]] int GetUpdateOrder() const noexcept { return update_order_; }
 		[[nodiscard]] AActor& GetOwner() const noexcept { return owner_; }
 		[[nodiscard]] World& GetWorld() const noexcept;
+		[[nodiscard]] static Renderer& GetRenderer() noexcept;
 
 	private:
 		virtual void OnBeginPlay() {}

@@ -1,6 +1,4 @@
 #pragma once
-#include "Core.hpp"
-#include "RendererFwd.hpp"
 
 struct SDL_Window;
 struct SDL_Renderer;
@@ -22,8 +20,6 @@ namespace oeng::engine
 	enum class MouseAxis;
 	enum class CtrlBtn;
 	enum class CtrlAxis;
-
-	[[nodiscard]] ENGINE_API Renderer& GetRenderer() noexcept;
 }
 
 namespace oeng

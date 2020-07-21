@@ -25,4 +25,9 @@ namespace oeng::engine
 	{
 		return owner_.GetWorld();
 	}
+
+	Renderer& ActorComponent::GetRenderer() noexcept
+	{
+		return Engine::Get().GetRenderer();
+	}
 }

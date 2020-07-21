@@ -1,6 +1,5 @@
 #pragma once
 #include <variant>
-#include "EngineCore.hpp"
 #include "InputCode.hpp"
 #include "Math.hpp"
 #include "Name.hpp"

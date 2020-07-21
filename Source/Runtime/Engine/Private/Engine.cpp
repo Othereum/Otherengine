@@ -3,19 +3,13 @@
 
 namespace oeng::engine
 {
-	Engine* const kEngine = nullptr;
+	static Engine* engine = nullptr;
 
-	Renderer& GetRenderer() noexcept
+	InitEngine::InitEngine(Engine* e)
 	{
-		assert(kEngine);
-		return kEngine->GetRenderer();
-	}
-
-	InitEngine::InitEngine(Engine* engine)
-	{
-		assert(engine);
-		assert(kEngine);
-		const_cast<Engine*&>(kEngine) = engine;
+		assert(e);
+		assert(!engine);
+		engine = e;
 
 		log::Info(u8"Initializing engine..."sv);
 		
@@ -26,7 +20,13 @@ namespace oeng::engine
 	InitEngine::~InitEngine()
 	{
 		SDL_Quit();
-		const_cast<Engine*&>(kEngine) = nullptr;
+		engine = nullptr;
+	}
+
+	Engine& Engine::Get() noexcept
+	{
+		assert(engine);
+		return *engine;
 	}
 
 	Engine::Engine(std::u8string game_module_path)

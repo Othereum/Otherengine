@@ -176,8 +176,7 @@ namespace oeng::engine
 
 	InputSystem& InputSystem::Get() noexcept
 	{
-		assert(kEngine);
-		return kEngine->GetInputSystem();
+		return Engine::Get().GetInputSystem();
 	}
 
 	InputSystem::InputSystem()
