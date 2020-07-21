@@ -15,9 +15,25 @@ function(add_engine_module name public_libs private_libs)
 endfunction()
 
 function(add_switch module name default description)
-    set(${name} ${default} CACHE BOOL ${description})
+    option(${name} ${description} ${default})
 	if(${name})
 		target_compile_definitions(${PROJECT_NAME}-${module} PUBLIC ${name})
+	endif()
+endfunction()
+
+function(oe_find_package name version)
+	find_package(${name} ${version} EXACT QUIET)
+	if(${name}_FOUND)
+		message(STATUS "Found ${name} ${version} from system")
+	else()
+		message(STATUS "${name} ${version} not found. Downloading...")
+		configure_file("${PROJECT_SOURCE_DIR}/cmake/${name}.cmake" "${name}-download/CMakeLists.txt")
+
+		add_subdirectory(
+			${CMAKE_CURRENT_BINARY_DIR}/${name}-src
+			${CMAKE_CURRENT_BINARY_DIR}/${name}-build
+			EXCLUDE_FROM_ALL
+		)
 	endif()
 endfunction()
 
