@@ -42,8 +42,10 @@ namespace oeng::core
 		Name name_;
 	};
 	
-	class CounterManager
+	class CORE_API CounterManager
 	{
+		DELETE_CPMV(CounterManager);
+		
 		friend ScopeCounter;
 		friend ScopeStackCounter;
 		friend class EngineBase;
@@ -55,6 +57,7 @@ namespace oeng::core
 		};
 
 		CounterManager() = default;
+		~CounterManager();
 		
 		void PushScope(Name name);
 		void PopScope();

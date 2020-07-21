@@ -1,12 +1,42 @@
 #include "Stat.hpp"
 #include "Debug.hpp"
 #include "EngineBase.hpp"
+#include "otm/Basic.hpp"
 #include "Templates/Time.hpp"
 
 #define COUNTERS (assert(kEngineBase), kEngineBase->counters_)
 
 namespace oeng::core
 {
+	static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
+	{
+		const auto ticks = kEngineBase->GetTickCount();
+		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
+		const auto count = ToFloat(stat.count) / ToFloat(ticks);
+		log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
+	}
+
+	static void LogStats(const TreeMap<Name, ScopeStackStat>& stats, int depth = 0)
+	{
+		for (auto& [name, stat] : stats)
+		{
+			LogStat(name, stat, depth);
+			LogStats(stat.children, depth + 1);
+		}
+	}
+	
+	CounterManager::~CounterManager()
+	{
+		if (!kEngineBase || kEngineBase->GetTickCount() == 0) return;
+		
+		LogStats(kEngineBase->counters_.scope_stack_stats_);
+
+		for (auto& [name, stat] : kEngineBase->counters_.scope_stats_)
+		{
+			LogStat(name, stat);
+		}
+	}
+
 	void CounterManager::PushScope(Name name)
 	{
 		frames_.push_back({name, Clock::now()});
