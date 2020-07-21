@@ -2,7 +2,7 @@
 set -e
 work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 deps_dir=$work_dir/deps
-mkdir $deps_dir
+mkdir -p $deps_dir
 
 # cmake 3.18.0
 if [ ! -f cmake-3.18.0-Linux-x86_64.tar.gz ]; then
@@ -30,7 +30,7 @@ if [ ! -f fmt-7.0.1.tar.gz ]; then
     mv fmt-7.0.1 fmt-install
 
     cd fmt-install
-    mkdir out && cd out
+    mkdir -p out && cd out
 
     cmake .. -DBUILD_SHARED_LIBS=TRUE -DFMT_TEST=FALSE
     cmake --build .
@@ -49,7 +49,7 @@ if [ ! -f json-3.8.0.tar.gz ]; then
     mv json-3.8.0 json-install
 
     cd json-install
-    mkdir out && cd out
+    mkdir -p out && cd out
     cmake ..
 else
     echo nlohmann-json has already installed
@@ -58,5 +58,5 @@ fi
 nlohmann_json_DIR=$deps_dir/json-install/out
 
 cd $work_dir
-mkdir out && cd out
+mkdir -p out && cd out
 cmake .. -Dfmt_DIR=$fmt_DIR -Dnlohmann_json_DIR=$nlohmann_json_DIR
