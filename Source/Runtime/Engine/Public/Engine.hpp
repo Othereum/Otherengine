@@ -1,47 +1,42 @@
 ﻿#pragma once
+#include "EngineBase.hpp"
 #include "InputSystem.hpp"
-#include "Json.hpp"
 #include "Renderer.hpp"
 #include "World.hpp"
-#include "Interfaces/IEngine.hpp"
 
 namespace oeng::engine
 {
-	class OEAPI SdlRaii
+	class ENGINE_API InitEngine
 	{
-	public:
-		SdlRaii();
-		~SdlRaii();
+		friend Engine;
+		DELETE_CPMV(InitEngine);
+		explicit InitEngine(Engine* engine);
+		~InitEngine();
 	};
 	
-	class OEAPI Engine : public IEngine, SdlRaii
+	class ENGINE_API Engine : public EngineBase, InitEngine
 	{
 	public:
 		DELETE_CPMV(Engine);
-
-		explicit Engine(void load_game(Engine&));
-		~Engine();
+		explicit Engine(std::u8string game_module_path);
+		~Engine() = default;
 		
 		void RunLoop();
 		void Shutdown();
 		
-		[[nodiscard]] World& GetWorld() noexcept override { return world_; }
-		[[nodiscard]] InputSystem& GetInputSystem() noexcept override { return input_system_; }
-		[[nodiscard]] Renderer& GetRenderer() noexcept override { return renderer_; }
-		[[nodiscard]] Json& Config(Name name) override;
-		bool SaveConfig(Name name) override;
+		[[nodiscard]] World& GetWorld() noexcept { return world_; }
+		[[nodiscard]] Renderer& GetRenderer() noexcept { return renderer_; }
+		[[nodiscard]] InputSystem& GetInputSystem() noexcept { return input_system_; }
 		
 	private:
 		void Tick();
 		void ProcessEvent();
 
-		HashMap<Name, Json> configs_;
-		
 		Renderer renderer_;
 		InputSystem input_system_;
 		World world_;
-
-		uint64_t ticks_ = 0;
 		bool is_running_ = true;
 	};
+
+	extern ENGINE_API Engine* const kEngine;
 }
