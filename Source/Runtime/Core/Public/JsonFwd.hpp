@@ -17,7 +17,8 @@ namespace nlohmann
 		class NumberUnsignedType,
 		class NumberFloatType,
 		template<typename U> class AllocatorType,
-		template<typename T, typename SFINAE> class JSONSerializer>
+		template<typename T, typename SFINAE> class JSONSerializer,
+		class BinaryType>
 	class basic_json;
 
 	namespace detail
@@ -29,6 +30,6 @@ namespace nlohmann
 
 namespace oeng::core
 {
-	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer>;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<std::uint8_t>>;
 	using JsonType = nlohmann::detail::value_t;
 }

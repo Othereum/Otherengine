@@ -1,10 +1,6 @@
 # Source/Runtime/Core
 
-find_package(nlohmann_json 3.7 REQUIRED)
-if(nlohmann_json_VERSION VERSION_GREATER_EQUAL 3.8)
-	message(SEND_ERROR "The version of nlohmann-json must be less than 3.8")
-endif()
-
+find_package(nlohmann_json 3.8 REQUIRED)
 find_package(fmt 6.2 REQUIRED)
 find_package(spdlog 1.4 REQUIRED)
 
