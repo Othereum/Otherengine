@@ -2,60 +2,29 @@
 #error Launch module should not use AVX2
 #endif
 
-#include <csignal>
 #include "Engine.hpp"
 #include "Log.hpp"
 #include "Platform.hpp"
 
-namespace oeng
+static void EngineMain()
 {
-	static void OnIllegal(int)
-	{
-		log::Critical(u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
-	}
-	
-	static void CheckCpu()
-	{
-		const auto& cpu = CpuInfo::Get();
-		log::Info(u8"CPU: {}"sv, cpu.GetBrand());
-#ifdef OE_USE_AVX2
-		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
-#endif
-	}
-
-	namespace core
-	{
-		OE_IMPORT void SetGameName(std::u8string_view name) noexcept;
-	}
-	
-	static void EngineMain(bool debug)
-	{
-		std::signal(SIGILL, &OnIllegal);
-		
-		Dll game_module{u8"./" U8_TEXT(OE_GAME_MODULE)};
-		SetGameName(game_module.GetSymbol<std::u8string_view>(u8"kGameName"sv));
-
-		if (debug) log::Debug(u8"Debugger detected"sv);
-		CheckCpu();
-		
-		Engine engine{game_module.GetSymbol<void(Engine&)>(u8"GameMain"sv)};
-		engine.RunLoop();
-	}
+	oeng::Engine engine{u8"./" U8_TEXT(OE_GAME_MODULE)};
+	engine.RunLoop();
 }
 
-int main()  // NOLINT(bugprone-exception-escape)
+int main()
 {
 	using namespace oeng;
 
 	if (IsDebugging())
 	{
-		EngineMain(true);
+		EngineMain();
 	}
 	else
 	{
 		try
 		{
-			EngineMain(false);
+			EngineMain();
 		}
 		catch (const std::exception& e)
 		{
