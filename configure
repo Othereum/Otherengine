@@ -5,7 +5,7 @@ deps_dir=$work_dir/deps
 mkdir -p $deps_dir
 
 # cmake 3.18.0
-if [ ! -f cmake-3.18.0-Linux-x86_64.tar.gz ]; then
+if [ ! -f "$deps_dir/cmake-3.18.0-Linux-x86_64.tar.gz" ]; then
     cd $deps_dir
     wget -O cmake-3.18.0-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.18.0/cmake-3.18.0-Linux-x86_64.tar.gz
 
@@ -22,7 +22,7 @@ sudo apt update
 sudo apt install libsdl2-dev libglew-dev libspdlog-dev
 
 # fmt 7.0.1
-if [ ! -f fmt-7.0.1.tar.gz ]; then
+if [ ! -f "$deps_dir/fmt-7.0.1.tar.gz" ]; then
     cd $deps_dir
     wget -O fmt-7.0.1.tar.gz https://github.com/fmtlib/fmt/archive/7.0.1.tar.gz
 
@@ -41,7 +41,7 @@ fi
 fmt_DIR=$deps_dir/fmt-install/out
 
 # nlohmann-json 3.8.0
-if [ ! -f json-3.8.0.tar.gz ]; then
+if [ ! -f "$deps_dir/json-3.8.0.tar.gz" ]; then
     cd $deps_dir
     wget -O json-3.8.0.tar.gz https://github.com/nlohmann/json/archive/v3.8.0.tar.gz
 
