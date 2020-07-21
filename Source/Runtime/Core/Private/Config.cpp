@@ -56,8 +56,7 @@ namespace oeng::core
 
 	Config& Config::Get() noexcept
 	{
-		assert(kEngineBase);
-		return kEngineBase->GetConfig();
+		return EngineBase::Get().GetConfig();
 	}
 
 	bool Config::Save(Name name) const

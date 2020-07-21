@@ -97,7 +97,7 @@ namespace oeng::renderer
 		if (fs) flags |= SDL_WINDOW_FULLSCREEN;
 
 		WindowPtr window{
-			SDL_CreateWindow(AsString(kEngineBase->GetGameName().data()),
+			SDL_CreateWindow(AsString(EngineBase::Get().GetGameName().data()),
 				SDL_WINDOWPOS_CENTERED_DISPLAY(dp), SDL_WINDOWPOS_CENTERED_DISPLAY(dp),
 				display.w, display.h, flags),
 			&SDL_DestroyWindow

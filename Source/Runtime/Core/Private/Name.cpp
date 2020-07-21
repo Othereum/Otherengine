@@ -5,8 +5,7 @@ namespace oeng::core
 {
 	NameSet& Name::Set() noexcept
 	{
-		assert(kEngineBase);
-		return kEngineBase->names_;
+		return EngineBase::Get().names_;
 	}
 
 	void to_json(Json& json, const Name& name)

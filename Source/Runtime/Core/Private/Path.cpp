@@ -5,8 +5,7 @@ namespace oeng::core
 {
 	PathSet& Path::Set() noexcept
 	{
-		assert(kEngineBase);
-		return kEngineBase->paths_;
+		return EngineBase::Get().paths_;
 	}
 
 	void to_json(Json& json, const Path& path)

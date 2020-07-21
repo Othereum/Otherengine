@@ -73,6 +73,9 @@ namespace oeng::core
 	{
 	public:
 		DELETE_CPMV(EngineBase);
+
+		[[nodiscard]] static EngineBase& Get() noexcept;
+		[[nodiscard]] static bool Exists() noexcept;
 		
 		[[nodiscard]] Config& GetConfig() noexcept { return config_; }
 		[[nodiscard]] uint64_t GetTickCount() const noexcept { return ticks_; }
@@ -96,6 +99,4 @@ namespace oeng::core
 		Config config_;
 		CounterManager counters_;
 	};
-
-	extern CORE_API EngineBase* const kEngineBase;
 }

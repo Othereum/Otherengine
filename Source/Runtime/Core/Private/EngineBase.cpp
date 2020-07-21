@@ -1,9 +1,10 @@
 #include "EngineBase.hpp"
+#include <csignal>
 #include "otm/Basic.hpp"
 
 namespace oeng::core
 {
-	EngineBase* const kEngineBase = nullptr;
+	static EngineBase* engine_base = nullptr;
 
 	static void LogMemoryInfo(const omem::MemoryPoolManager& pool_manager)
 	{
@@ -45,16 +46,35 @@ namespace oeng::core
 		if (max.cur > 0) log::Warn(u8"[Mem] Memory leak detected!"sv);
 	}
 
+	static void OnIllegal(int)
+	{
+		log::Critical(u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
+	}
+	
+	static void CheckCpu()
+	{
+		const auto& cpu = CpuInfo::Get();
+		log::Info(cpu.GetBrand());
+#ifdef OE_USE_AVX2
+		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
+#endif
+	}
+	
 	RegisterEngineBase::RegisterEngineBase(EngineBase* engine)
 	{
+		std::signal(SIGILL, &OnIllegal);
+		
+		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
+		CheckCpu();
+		
 		assert(engine);
-		assert(kEngineBase);
-		const_cast<EngineBase*&>(kEngineBase) = engine;
+		assert(!engine_base);
+		engine_base = engine;
 	}
 
 	RegisterEngineBase::~RegisterEngineBase()
 	{
-		const_cast<EngineBase*&>(kEngineBase) = nullptr;
+		engine_base = nullptr;
 	}
 
 	CoreSystem::CoreSystem(std::u8string game_module_path)
@@ -74,6 +94,17 @@ namespace oeng::core
 		{
 			log::Error(u8"MemoryPoolWrapper::~MemoryPoolWrapper(): {}", What(e));
 		}
+	}
+
+	EngineBase& EngineBase::Get() noexcept
+	{
+		assert(engine_base);
+		return *engine_base;
+	}
+
+	bool EngineBase::Exists() noexcept
+	{
+		return engine_base;
 	}
 
 	EngineBase::EngineBase(std::u8string game_module_path)

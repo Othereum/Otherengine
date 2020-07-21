@@ -26,8 +26,6 @@ namespace oeng::core::log
 	
 	Logger::Logger()
 	{
-		assert(kEngineBase);
-		
 		using Daily = std::conditional_t<kLogThreadSafe,
 			spdlog::sinks::daily_file_sink_mt,
 			spdlog::sinks::daily_file_sink_st>;
@@ -36,10 +34,10 @@ namespace oeng::core::log
 			spdlog::sinks::stdout_color_sink_mt,
 			spdlog::sinks::stdout_color_sink_st>;
 
-		auto dir = GetUserDataPath() /= u8"Logs";
+		auto dir = GetUserDataPath() /= u8"Logs"sv;
 		create_directories(dir);
 
-		dir /= Format(u8"{}.log"sv, kEngineBase->GetGameName());
+		dir /= Format(u8"{}.log"sv, EngineBase::Get().GetGameName());
 		auto daily_file = std::make_shared<Daily>(dir.string(), 0, 0);
 		auto stdout_color = std::make_shared<Stdout>();
 		
@@ -71,9 +69,9 @@ namespace oeng::core::log
 
 	void Log(Level level, std::u8string_view message)
 	{
-		if (kEngineBase) LIKELY
+		if (EngineBase::Exists()) LIKELY
 		{
-			kEngineBase->GetLogger().Log(level, message);
+			EngineBase::Get().GetLogger().Log(level, message);
 		}
 		else
 		{
@@ -91,9 +89,9 @@ namespace oeng::core::log
 
 		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
 		{
-			if (kEngineBase) LIKELY
+			if (EngineBase::Exists()) LIKELY
 			{
-				kEngineBase->GetLogger().LogDelay(id_, delay, level, msg);
+				EngineBase::Get().GetLogger().LogDelay(id_, delay, level, msg);
 			}
 			else
 			{

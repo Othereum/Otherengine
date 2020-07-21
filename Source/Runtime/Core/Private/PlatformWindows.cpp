@@ -15,13 +15,13 @@ namespace oeng::core
 #ifdef NDEBUG
 	fs::path GetUserDataPath()
 	{
-		assert(kEngineBase);
+		assert(engine_base);
 
 		wchar_t* wide;
 		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
 		std::unique_ptr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
 		
-		return fs::path{wide} /= kEngineBase->GetGameName();
+		return fs::path{wide} /= engine_base->GetGameName();
 	}
 #else
 	bool detail::IsDebuggingImpl() noexcept
@@ -55,7 +55,10 @@ namespace oeng::core
 	
 	Dll::Dll(std::u8string filepath)
 	{
-		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).c_str()));
+		// Should not use pool allocator
+		const auto path = ToUtf16<std::allocator<char16_t>>(filepath);
+		
+		auto* const dll = LoadLibraryW(LPCWSTR(path.c_str()));
 		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
 
 		dll_.reset(dll, &FreeDll);

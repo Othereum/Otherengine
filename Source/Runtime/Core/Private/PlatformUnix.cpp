@@ -14,10 +14,10 @@ namespace oeng::core
 #ifdef NDEBUG
 	fs::path GetUserDataPath()
 	{
-		assert(kEngineBase);
+		assert(engine_base);
 		fs::path p = std::getenv("HOME");
 		p /= u8".";
-		p += kEngineBase->GetGameName();
+		p += engine_base->GetGameName();
 		return p;
 	}
 #else

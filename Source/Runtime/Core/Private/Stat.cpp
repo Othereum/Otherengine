@@ -4,13 +4,11 @@
 #include "otm/Basic.hpp"
 #include "Templates/Time.hpp"
 
-#define COUNTERS (assert(kEngineBase), kEngineBase->counters_)
-
 namespace oeng::core
 {
 	static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
 	{
-		const auto ticks = kEngineBase->GetTickCount();
+		const auto ticks = EngineBase::Get().GetTickCount();
 		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
 		const auto count = ToFloat(stat.count) / ToFloat(ticks);
 		log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
@@ -27,11 +25,12 @@ namespace oeng::core
 	
 	CounterManager::~CounterManager()
 	{
-		if (!kEngineBase || kEngineBase->GetTickCount() == 0) return;
+		auto& engine = EngineBase::Get();
+		if (!engine.GetTickCount() == 0) return;
 		
-		LogStats(kEngineBase->counters_.scope_stack_stats_);
+		LogStats(engine.counters_.scope_stack_stats_);
 
-		for (auto& [name, stat] : kEngineBase->counters_.scope_stats_)
+		for (auto& [name, stat] : engine.counters_.scope_stats_)
 		{
 			LogStat(name, stat);
 		}
@@ -59,14 +58,14 @@ namespace oeng::core
 
 	ScopeStackCounter::ScopeStackCounter(Name name)
 	{
-		COUNTERS.PushScope(name);
+		EngineBase::Get().counters_.PushScope(name);
 	}
 
 	ScopeStackCounter::~ScopeStackCounter()
 	{
 		try
 		{
-			COUNTERS.PopScope();
+			EngineBase::Get().counters_.PopScope();
 		}
 		catch (const std::exception& e)
 		{
@@ -79,7 +78,7 @@ namespace oeng::core
 		try
 		{
 			const auto end = Clock::now();
-			auto& counter = COUNTERS.scope_stats_[name_];
+			auto& counter = EngineBase::Get().counters_.scope_stats_[name_];
 			counter.duration += end - start_;
 			++counter.count;
 		}
