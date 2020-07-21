@@ -21,7 +21,9 @@ namespace oeng::core
 	class CORE_API RegisterEngineBase
 	{
 		friend class EngineBase;
+		DELETE_CPMV(RegisterEngineBase);
 		explicit RegisterEngineBase(EngineBase* engine);
+		~RegisterEngineBase();
 	};
 	
 	class CORE_API CoreSystem

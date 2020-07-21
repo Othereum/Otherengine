@@ -52,6 +52,11 @@ namespace oeng::core
 		const_cast<EngineBase*&>(kEngineBase) = engine;
 	}
 
+	RegisterEngineBase::~RegisterEngineBase()
+	{
+		const_cast<EngineBase*&>(kEngineBase) = nullptr;
+	}
+
 	CoreSystem::CoreSystem(std::u8string game_module_path)
 		:thread_id_{std::this_thread::get_id()},
 		game_dll_{std::move(game_module_path)},
