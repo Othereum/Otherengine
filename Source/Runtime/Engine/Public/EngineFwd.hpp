@@ -12,6 +12,7 @@ namespace oeng::engine
 	class World;
 	class AActor;
 	class MeshComponent;
+	class CircleComponent;
 	
 	enum class Keycode;
 	enum class KeyMod;

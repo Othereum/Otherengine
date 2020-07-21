@@ -12,7 +12,7 @@ namespace oeng::engine
 	class SceneComponent;
 	class TimerManager;
 	
-	class OEAPI AActor : public EnableSharedFromThis<AActor>
+	class ENGINE_API AActor : public EnableSharedFromThis<AActor>
 	{
 	public:
 		DELETE_CPMV(AActor);

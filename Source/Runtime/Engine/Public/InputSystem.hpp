@@ -6,13 +6,14 @@
 #include "Name.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/HashMap.hpp"
+#include "Templates/Pointer.hpp"
 
 namespace oeng::engine
 {
 	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
 	using CtrlPtr = UniquePtr<_SDL_GameController, void(*)(_SDL_GameController*)>;
 	
-	struct OEAPI InputAxis
+	struct ENGINE_API InputAxis
 	{
 		template <std::convertible_to<InputCode> T>
 		constexpr InputAxis(T code, Float scale = 1_f) noexcept
@@ -26,7 +27,7 @@ namespace oeng::engine
 		Float scale;
 	};
 
-	struct OEAPI InputAction
+	struct ENGINE_API InputAction
 	{
 		template <std::convertible_to<InputCode> T>
 		constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
@@ -46,25 +47,29 @@ namespace oeng::engine
 		Float sensitivity = 1_f;
 	};
 
-	struct OEAPI ParsedEvent
+	struct ENGINE_API ParsedEvent
 	{
 		ParsedEvent(InputCode code, bool pressed);
 		InputAction input;
 		bool pressed;
 	};
 
-	OEAPI std::string ToString(InputCode code);
-	OEAPI InputCode ToInputCode(std::string_view str);
-	OEAPI void to_json(Json& json, const InputAxis& axis);
-	OEAPI void to_json(Json& json, const InputAction& action);
-	OEAPI void to_json(Json& json, const AxisConfig& action);
-	OEAPI void from_json(const Json& json, AxisConfig& action);
+	ENGINE_API String ToString(InputCode code);
+	ENGINE_API InputCode ToInputCode(std::string_view str);
+	ENGINE_API void to_json(Json& json, const InputAxis& axis);
+	ENGINE_API void to_json(Json& json, const InputAction& action);
+	ENGINE_API void to_json(Json& json, const AxisConfig& action);
+	ENGINE_API void from_json(const Json& json, AxisConfig& action);
 
-	class OEAPI InputSystem
+	class ENGINE_API InputSystem
 	{
 	public:
 		DELETE_CPMV(InputSystem);
-		explicit InputSystem(Engine& engine);
+
+		[[nodiscard]] static InputSystem& Get() noexcept;
+		
+		InputSystem();
+		~InputSystem() = default;
 		
 		void AddEvent(const SDL_Event& e);
 		void AddEvent(ParsedEvent e);
@@ -80,7 +85,6 @@ namespace oeng::engine
 		[[nodiscard]] Float GetAxisValue(MouseBtn code) const noexcept;
 		[[nodiscard]] Float GetAxisValue(Keycode code) const noexcept;
 		
-		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 
 		HashMap<Name, DyArr<InputAxis>> axises_;
@@ -98,7 +102,6 @@ namespace oeng::engine
 		[[nodiscard]] Vec2 FilterAxis(InputCode code, Vec2 val) const noexcept;
 		[[nodiscard]] _SDL_GameController* Ctrl() const noexcept;
 		
-		Engine& engine_;
 		DyArr<InputEvent> events_;
 		
 		Vec2 mouse_{};

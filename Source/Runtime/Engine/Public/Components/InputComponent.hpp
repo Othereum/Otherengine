@@ -10,7 +10,7 @@ namespace oeng::engine
 {
 	class InputSystem;
 	
-	class OEAPI InputComponent : public ActorComponent
+	class ENGINE_API InputComponent : public ActorComponent
 	{
 	public:
 		explicit InputComponent(class AActor& owner, int update_order = 0);

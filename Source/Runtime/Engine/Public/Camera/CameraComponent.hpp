@@ -4,7 +4,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI CameraComponent : public SceneComponent, public ICamera
+	class ENGINE_API CameraComponent : public SceneComponent, public ICamera
 	{
 	public:
 		DELETE_CPMV(CameraComponent);

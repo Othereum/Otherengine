@@ -10,7 +10,7 @@ namespace oeng::engine
 		kKeepRelative, kKeepWorld
 	};
 	
-	class OEAPI SceneComponent : public ActorComponent
+	class ENGINE_API SceneComponent : public ActorComponent
 	{
 	public:
 		explicit SceneComponent(AActor& owner, int update_order = 100);

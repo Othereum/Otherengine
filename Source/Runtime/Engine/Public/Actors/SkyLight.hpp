@@ -5,7 +5,7 @@ namespace oeng::engine
 {
 	class SkyLightComponent;
 	
-	class OEAPI ASkyLight : public AActor
+	class ENGINE_API ASkyLight : public AActor
 	{
 	public:
 		explicit ASkyLight(World& world);

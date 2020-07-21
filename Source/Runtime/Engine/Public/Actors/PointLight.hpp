@@ -5,7 +5,7 @@ namespace oeng::engine
 {
 	class PointLightComponent;
 	
-	class OEAPI APointLight : public AActor
+	class ENGINE_API APointLight : public AActor
 	{
 	public:
 		explicit APointLight(World& world);

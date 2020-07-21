@@ -5,7 +5,7 @@ namespace oeng::engine
 {
 	class CameraComponent;
 	
-	class OEAPI ACameraActor : public AActor
+	class ENGINE_API ACameraActor : public AActor
 	{
 	public:
 		explicit ACameraActor(World& world);

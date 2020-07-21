@@ -5,7 +5,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI MeshComponent : public SceneComponent, public IMeshComponent
+	class ENGINE_API MeshComponent : public SceneComponent, public IMeshComponent
 	{
 	public:
 		DELETE_CPMV(MeshComponent);

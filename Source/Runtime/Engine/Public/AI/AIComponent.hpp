@@ -10,7 +10,7 @@ namespace oeng::engine
 		class Base;
 	}
 	
-	class OEAPI AIComponent : public ActorComponent
+	class ENGINE_API AIComponent : public ActorComponent
 	{
 	public:
 		AIComponent(AActor& owner, int update_order = 100);

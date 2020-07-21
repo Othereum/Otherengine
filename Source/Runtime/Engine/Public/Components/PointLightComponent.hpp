@@ -4,7 +4,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI PointLightComponent : public SceneComponent, public IPointLight
+	class ENGINE_API PointLightComponent : public SceneComponent, public IPointLight
 	{
 	public:
 		DELETE_CPMV(PointLightComponent);

@@ -13,7 +13,7 @@ namespace oeng::renderer
 
 namespace oeng::engine
 {
-	class OEAPI SpriteComponent : public SceneComponent, public ISpriteComponent
+	class ENGINE_API SpriteComponent : public SceneComponent, public ISpriteComponent
 	{
 	public:
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);

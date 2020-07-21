@@ -4,7 +4,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI SkyLightComponent : public SceneComponent, public ISkyLight
+	class ENGINE_API SkyLightComponent : public SceneComponent, public ISkyLight
 	{
 	public:
 		DELETE_CPMV(SkyLightComponent);

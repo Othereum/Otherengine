@@ -14,7 +14,7 @@ namespace oeng
 }
 
 template <>
-struct OEAPI std::hash<oeng::TimerHandle>
+struct ENGINE_API std::hash<oeng::TimerHandle>
 {
 	size_t operator()(oeng::TimerHandle key) const noexcept;
 };
@@ -26,7 +26,7 @@ namespace oeng::engine
 		kStop, kContinue
 	};
 	
-	struct OEAPI TimerHandle
+	struct ENGINE_API TimerHandle
 	{
 		constexpr bool operator==(const TimerHandle&) const noexcept = default;
 		
@@ -39,7 +39,7 @@ namespace oeng::engine
 		size_t key = 0;
 	};
 
-	class OEAPI TimerManager
+	class ENGINE_API TimerManager
 	{
 	public:
 		DELETE_CPMV(TimerManager);

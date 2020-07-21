@@ -6,8 +6,8 @@
 
 namespace oeng::engine
 {
-	World::World(Engine& engine)
-		:engine_{engine}, timer_{*this}, delta_seconds_{0}
+	World::World()
+		:timer_{*this}, delta_seconds_{0}
 	{
 	}
 
@@ -49,7 +49,7 @@ namespace oeng::engine
 		timer_.Update();
 
 		// Use index-based loop because BeginPlay() can spawn new actors
-		for (size_t i=0; i<pending_actors_.size(); ++i)  // NOLINT(modernize-loop-convert)
+		for (size_t i=0; i<pending_actors_.size(); ++i)
 		{
 			auto& actor = *pending_actors_[i];
 			actors_.push_back(std::move(pending_actors_[i]));

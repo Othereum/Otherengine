@@ -6,7 +6,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI ActorComponent : public EnableSharedFromThis<ActorComponent>
+	class ENGINE_API ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
 		DELETE_CPMV(ActorComponent);

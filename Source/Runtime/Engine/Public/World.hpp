@@ -1,21 +1,18 @@
 #pragma once
+#include "EngineFwd.hpp"
 #include "TimerManager.hpp"
-#include "Templates/Time.hpp"
 #include "Templates/DyArr.hpp"
+#include "Templates/Pointer.hpp"
+#include "Templates/Time.hpp"
 
 namespace oeng::engine
 {
-	class Engine;
-	class AActor;
-	class InputComponent;
-	class CircleComponent;
-
-	class OEAPI World
+	class ENGINE_API World
 	{
 	public:
 		DELETE_CPMV(World);
 		
-		explicit World(Engine& engine);
+		World();
 		~World();
 
 		void BeginTick();
@@ -34,7 +31,6 @@ namespace oeng::engine
 		void RegisterCollision(CircleComponent& comp);
 		void UnregisterCollision(CircleComponent& comp);
 		
-		[[nodiscard]] Engine& GetEngine() const noexcept { return engine_; }
 		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
 		[[nodiscard]] TimePoint GetTime() const noexcept { return time_; }
 		[[nodiscard]] Float GetDeltaSeconds() const noexcept { return delta_seconds_; }
@@ -43,7 +39,6 @@ namespace oeng::engine
 		void UpdateGame();
 		void UpdateTime();
 
-		Engine& engine_;
 		TimerManager timer_;
 
 		DyArr<std::reference_wrapper<CircleComponent>> collisions_;

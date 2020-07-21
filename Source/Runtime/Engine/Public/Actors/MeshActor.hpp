@@ -6,7 +6,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI AMeshActor : public AActor
+	class ENGINE_API AMeshActor : public AActor
 	{
 	public:
 		explicit AMeshActor(World& world);

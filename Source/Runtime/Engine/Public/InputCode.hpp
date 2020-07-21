@@ -316,17 +316,17 @@ namespace oeng::engine
 	};
 
 	
-	OEAPI String8 GetName(Keycode btn) noexcept;
-	OEAPI std::u8string_view GetName(CtrlAxis axis) noexcept;
-	OEAPI std::u8string_view GetName(CtrlBtn btn) noexcept;
-	OEAPI DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;
+	ENGINE_API String8 GetName(Keycode btn) noexcept;
+	ENGINE_API std::u8string_view GetName(CtrlAxis axis) noexcept;
+	ENGINE_API std::u8string_view GetName(CtrlBtn btn) noexcept;
+	ENGINE_API DyArr<std::u8string_view> GetNames(KeyMod mod) noexcept;
 	
-	OEAPI std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
-	OEAPI std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept;
-	OEAPI std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept;
-	OEAPI std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
-	OEAPI std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
-	OEAPI std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<MouseAxis> ToMouseAxis(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<MouseBtn> ToMouseBtn(std::u8string_view name) noexcept;
+	ENGINE_API std::optional<KeyMod> ToKeyMod(std::u8string_view name) noexcept;
 
 	constexpr std::u8string_view GetName(KeyMod mod) noexcept
 	{

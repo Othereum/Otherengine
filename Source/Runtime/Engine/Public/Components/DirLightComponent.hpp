@@ -4,7 +4,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI DirLightComponent : public SceneComponent, public IDirLight
+	class ENGINE_API DirLightComponent : public SceneComponent, public IDirLight
 	{
 	public:
 		DELETE_CPMV(DirLightComponent);

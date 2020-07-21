@@ -5,7 +5,7 @@ namespace oeng::engine
 {
 	class DirLightComponent;
 	
-	class OEAPI ADirLight : public AActor
+	class ENGINE_API ADirLight : public AActor
 	{
 	public:
 		explicit ADirLight(World& world);

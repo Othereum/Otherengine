@@ -4,7 +4,7 @@
 
 namespace oeng::engine
 {
-	class OEAPI SpotLightComponent : public SceneComponent, public ISpotLight
+	class ENGINE_API SpotLightComponent : public SceneComponent, public ISpotLight
 	{
 	public:
 		DELETE_CPMV(SpotLightComponent);

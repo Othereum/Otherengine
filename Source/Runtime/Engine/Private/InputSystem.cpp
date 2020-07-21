@@ -83,7 +83,7 @@ namespace oeng::engine
 		}
 	}
 
-	std::string ToString(InputCode code)
+	String ToString(InputCode code)
 	{
 		const auto type = std::visit(Overload{
 			[](Keycode) { return u8"Keycode"sv; },
@@ -175,12 +175,16 @@ namespace oeng::engine
 		}
 	}
 
-	InputSystem::InputSystem(Engine& engine)
-		:engine_{engine}
+	InputSystem& InputSystem::Get() noexcept
+	{
+		assert()
+	}
+
+	InputSystem::InputSystem()
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 
-		const auto& config = engine.Config(u8"Input"sv);
+		const auto& config = Config::Get()(u8"Input"sv);
 		LoadInput(config, "ActionMap", actions_);
 		LoadInput(config, "AxisMap", axises_);
 
@@ -359,8 +363,9 @@ namespace oeng::engine
 
 	void InputSystem::SaveConfig()
 	{
-		const Name conf_name = u8"Input";
-		auto& config = engine_.Config(conf_name);
+		auto& configs = Config::Get();
+		const Name conf_name = u8"Input"sv;
+		auto& config = configs(conf_name);
 		
 		auto save = [&](const char* key, const auto& mapped)
 		{
@@ -376,9 +381,9 @@ namespace oeng::engine
 
 		auto& out_axis_cfg = config["AxisConfig"] = Json::object();
 		for (auto& [code, cfg] : axis_configs_)
-			out_axis_cfg[ToString(code)] = cfg;
+			out_axis_cfg[ToString(code).c_str()] = cfg;
 		
-		engine_.SaveConfig(conf_name);
+		(void)configs.Save(conf_name);
 	}
 
 	_SDL_GameController* InputSystem::Ctrl() const noexcept

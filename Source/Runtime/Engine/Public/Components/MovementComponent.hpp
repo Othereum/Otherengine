@@ -6,7 +6,7 @@ namespace oeng::engine
 {
 	class SceneComponent;
 	
-	class OEAPI MovementComponent : public ActorComponent
+	class ENGINE_API MovementComponent : public ActorComponent
 	{
 	public:
 		explicit MovementComponent(AActor& owner, int update_order = 1000);
