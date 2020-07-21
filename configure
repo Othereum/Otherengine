@@ -18,7 +18,6 @@ fi
 PATH=$deps_dir/cmake-install/bin:$PATH
 
 # apt
-sudo apt update
 sudo apt install libsdl2-dev libglew-dev libspdlog-dev
 
 # fmt 7.0.1

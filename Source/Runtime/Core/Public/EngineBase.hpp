@@ -18,9 +18,11 @@ namespace oeng
 
 namespace oeng::core
 {
+	class EngineBase;
+	
 	class CORE_API RegisterEngineBase
 	{
-		friend class EngineBase;
+		friend EngineBase;
 		DELETE_CPMV(RegisterEngineBase);
 		explicit RegisterEngineBase(EngineBase* engine);
 		~RegisterEngineBase();
