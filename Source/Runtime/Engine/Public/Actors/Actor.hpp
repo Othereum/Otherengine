@@ -2,7 +2,7 @@
 #include "TimerManager.hpp"
 #include "Math.hpp"
 #include "Templates/DyArr.hpp"
-#include "Templates/Memory.hpp"
+#include "Templates/Pointer.hpp"
 
 namespace oeng::engine
 {
@@ -70,7 +70,6 @@ namespace oeng::engine
 		[[nodiscard]] UVec3 GetUp() const noexcept;
 		[[nodiscard]] UVec3 GetDown() const noexcept;
 
-		[[nodiscard]] Engine& GetEngine() const noexcept;
 		[[nodiscard]] World& GetWorld() const noexcept { return world_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 

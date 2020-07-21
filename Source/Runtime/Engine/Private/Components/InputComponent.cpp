@@ -1,5 +1,4 @@
 #include "Components/InputComponent.hpp"
-#include "Engine.hpp"
 #include "InputSystem.hpp"
 
 namespace oeng
@@ -28,14 +27,9 @@ namespace oeng
 		axises_.emplace(axis, std::move(callback));
 	}
 
-	const InputSystem& InputComponent::GetInputSystem() const noexcept
-	{
-		return GetEngine().GetInputSystem();
-	}
-
 	void InputComponent::ProcessActions() const
 	{
-		const auto& input_system = GetInputSystem();
+		const auto& input_system = InputSystem::Get();
 		for (const auto& event : input_system.GetEvents())
 		{
 			auto [it, end] = actions_[event.pressed].equal_range(event.name);
@@ -45,7 +39,7 @@ namespace oeng
 
 	void InputComponent::ProcessAxises() const
 	{
-		const auto& input_system = GetInputSystem();
+		const auto& input_system = InputSystem::Get();
 		for (const auto& axis_map : axises_)
 		{
 			axis_map.second(input_system.GetAxisValue(axis_map.first));

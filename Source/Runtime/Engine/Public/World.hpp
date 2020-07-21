@@ -1,5 +1,5 @@
 #pragma once
-#include "EngineFwd.hpp"
+#include "EngineCore.hpp"
 #include "TimerManager.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/Pointer.hpp"

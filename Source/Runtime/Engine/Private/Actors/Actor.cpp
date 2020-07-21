@@ -38,11 +38,6 @@ namespace oeng::engine
 		for (const auto& comp : comps_) comp->Update(delta_seconds);
 	}
 
-	Engine& AActor::GetEngine() const noexcept
-	{
-		return world_.GetEngine();
-	}
-
 	TimerManager& AActor::GetTimerManager() const noexcept
 	{
 		return world_.GetTimerManager();

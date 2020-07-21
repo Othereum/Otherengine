@@ -88,7 +88,7 @@ namespace oeng::renderer
 		const auto dp = LoadDisplayIdx(cfg);
 		const auto dm = LoadDisplayMode(dp, cfg);
 		const auto fs = cfg.at("Fullscreen").get<bool>();
-		config.Save(config_name);
+		(void)config.Save(config_name);
 
 		SDL_DisplayMode display;
 		SDL_GetDisplayMode(dp, dm, &display);

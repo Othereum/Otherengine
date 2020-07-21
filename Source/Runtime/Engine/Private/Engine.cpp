@@ -5,6 +5,12 @@ namespace oeng::engine
 {
 	Engine* const kEngine = nullptr;
 
+	Renderer& GetRenderer() noexcept
+	{
+		assert(kEngine);
+		return kEngine->GetRenderer();
+	}
+
 	InitEngine::InitEngine(Engine* engine)
 	{
 		assert(engine);

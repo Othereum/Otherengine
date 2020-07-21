@@ -1,4 +1,3 @@
-#include "InputSystem.hpp"
 #include <SDL_events.h>
 #include "Debug.hpp"
 #include "Engine.hpp"
@@ -140,7 +139,7 @@ namespace oeng::engine
 
 		for (auto& [name, inputs] : map->items())
 		{
-			auto& arr = mapped[AsString8(name)];
+			auto& arr = mapped[String8{AsString8(name)}];
 			const auto size = inputs.size();
 			for (size_t i=0; i<size; ++i) try
 			{
@@ -177,7 +176,8 @@ namespace oeng::engine
 
 	InputSystem& InputSystem::Get() noexcept
 	{
-		assert()
+		assert(kEngine);
+		return kEngine->GetInputSystem();
 	}
 
 	InputSystem::InputSystem()
@@ -372,7 +372,7 @@ namespace oeng::engine
 			auto& map = config[key];
 			for (auto& [name, inputs] : mapped)
 			{
-				auto& out_inputs = map[AsString(*name)] = Json::array();
+				auto& out_inputs = map[AsString(*name).c_str()] = Json::array();
 				for (auto& input : inputs) out_inputs.emplace_back(input);
 			}
 		};

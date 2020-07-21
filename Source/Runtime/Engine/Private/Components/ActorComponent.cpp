@@ -1,6 +1,6 @@
 #include "Components/ActorComponent.hpp"
-#include "Actors/Actor.hpp"
 #include "Engine.hpp"
+#include "Actors/Actor.hpp"
 
 namespace oeng::engine
 {
@@ -21,18 +21,8 @@ namespace oeng::engine
 		OnUpdate(delta_seconds);
 	}
 
-	Engine& ActorComponent::GetEngine() const noexcept
-	{
-		return owner_.GetEngine();
-	}
-
 	World& ActorComponent::GetWorld() const noexcept
 	{
 		return owner_.GetWorld();
-	}
-
-	Renderer& ActorComponent::GetRenderer() const noexcept
-	{
-		return GetEngine().GetRenderer();
 	}
 }

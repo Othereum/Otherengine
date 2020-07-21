@@ -7,6 +7,11 @@
 #include "Templates/DyArr.hpp"
 #include "Templates/Pointer.hpp"
 
+namespace oeng::engine
+{
+	class Engine;
+}
+
 namespace oeng::renderer
 {
 	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
@@ -38,11 +43,6 @@ namespace oeng::renderer
 	{
 	public:
 		DELETE_CPMV(Renderer);
-		
-		Renderer();
-		~Renderer();
-		
-		void DrawScene();
 
 		void RegisterSprite(const ISpriteComponent& sprite);
 		void RegisterMesh(const IMeshComponent& mesh);
@@ -90,6 +90,11 @@ namespace oeng::renderer
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
 
 	private:
+		friend engine::Engine;
+		Renderer();
+		~Renderer();
+		void DrawScene();
+
 		void Draw3D();
 		void Draw2D();
 		void DrawMesh(const IMeshComponent& mesh_comp);

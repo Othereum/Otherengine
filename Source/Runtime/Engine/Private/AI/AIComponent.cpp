@@ -9,7 +9,7 @@ namespace oeng::engine
 		{
 		public:
 			Default(): Base{nullptr} {}
-			[[nodiscard]] Name GetName() const override { return u8"Default"; }
+			[[nodiscard]] Name GetName() const override { return u8"Default"sv; }
 		};
 
 		static Default default_state;

@@ -17,8 +17,6 @@ namespace oeng::engine
 		
 		void BindAction(Name action, bool pressed, std::function<void()>&& callback);
 		void BindAxis(Name axis, std::function<void(Float)>&& callback);
-
-		[[nodiscard]] const InputSystem& GetInputSystem() const noexcept;
 		
 	private:
 		void OnUpdate(Float delta_seconds) override;

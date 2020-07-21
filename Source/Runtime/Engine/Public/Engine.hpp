@@ -8,10 +8,10 @@ namespace oeng::engine
 {
 	class ENGINE_API InitEngine
 	{
-		friend Engine;
 		DELETE_CPMV(InitEngine);
 		explicit InitEngine(Engine* engine);
 		~InitEngine();
+		friend Engine;
 	};
 	
 	class ENGINE_API Engine : public EngineBase, InitEngine
