@@ -1,4 +1,5 @@
 #pragma once
+#include <locale>
 #include <string>
 #include "Memory.hpp"
 
@@ -126,6 +127,41 @@ namespace oeng::core
 		return reinterpret_cast<const char8_t(&)[N]>(s);
 	}
 
-	CORE_API String8 ToUtf8(std::u16string_view utf16);
-	CORE_API String16 ToUtf16(std::u8string_view utf8);
+	template <class Al = PoolAllocator<char8_t>>
+	auto ToUtf8(std::u16string_view utf16)
+	{
+		using Str = std::basic_string<char8_t, std::char_traits<char8_t>, Al>;
+		auto& f = std::use_facet<std::codecvt<char16_t, char8_t, mbstate_t>>({});
+		
+		std::mbstate_t mb{};
+		Str utf8(utf16.size() * f.max_length(), u8'\0');
+		
+		const char16_t* from_next;
+		char8_t* to_next;
+		
+		f.out(mb, utf16.data(), utf16.data() + utf16.size(), from_next,
+			utf8.data(), utf8.data() + utf8.size(), to_next);
+		
+		utf8.resize(to_next - utf8.data());
+		return utf8;
+	}
+
+	template <class Al = PoolAllocator<char16_t>>
+	auto ToUtf16(std::u8string_view utf8)
+	{
+		using Str = std::basic_string<char16_t, std::char_traits<char16_t>, Al>;
+		auto& f = std::use_facet<std::codecvt<char16_t, char8_t, mbstate_t>>({});
+		
+		std::mbstate_t mb{};
+		Str utf16(utf8.size(), u'\0');
+		
+		const char8_t* from_next;
+		char16_t* to_next;
+		
+		f.in(mb, utf8.data(), utf8.data() + utf8.size(), from_next,
+			utf16.data(), utf16.data() + utf16.size(), to_next);
+		
+		utf16.resize(to_next - utf16.data());
+		return utf16;
+	}
 }
