@@ -47,7 +47,7 @@ namespace oeng::core
 	}
 #endif
 	
-	Dll::Dll(String8 filepath)
+	Dll::Dll(std::u8string filepath)
 	{
 		const auto dll = dlopen(AsString(filepath).c_str(), RTLD_LAZY);
 		if (!dll) throw std::runtime_error{dlerror()};

@@ -30,7 +30,7 @@ namespace oeng::core
 	}
 #endif
 	
-	static String8 GetLastErrStr()
+	static std::u8string GetLastErrStr()
 	{
 		constexpr auto size = 512;
 		static wchar_t buffer[size];
@@ -45,7 +45,7 @@ namespace oeng::core
 			nullptr
 		);
 		
-		return ToUtf8({reinterpret_cast<char16_t*>(buffer), len});
+		return ToUtf8<std::allocator<char8_t>>({reinterpret_cast<char16_t*>(buffer), len});
 	}
 
 	static void FreeDll(void* dll) noexcept
@@ -53,7 +53,7 @@ namespace oeng::core
 		FreeLibrary(static_cast<HMODULE>(dll));
 	}
 	
-	Dll::Dll(String8 filepath)
+	Dll::Dll(std::u8string filepath)
 	{
 		auto* const dll = LoadLibraryW(LPCWSTR(ToUtf16(filepath).c_str()));
 		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
