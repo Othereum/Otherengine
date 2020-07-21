@@ -14,7 +14,7 @@ namespace spdlog
 
 namespace oeng::core
 {
-	class EngineBase;
+	class CoreSystem;
 }
 
 namespace oeng::core::log
@@ -37,11 +37,13 @@ namespace oeng::core::log
 		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
 		
 	private:
-		friend EngineBase;
+		friend CoreSystem;
 		Logger();
 		
 		std::shared_ptr<spdlog::logger> logger_;
-		CondMonitor<HashMap<unsigned, TimePoint>, kLogThreadSafe> delayed_;
+		
+		// Should not use memory pool because this is created before it's initialized.
+		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
 	CORE_API void Log(Level level, std::u8string_view message);
