@@ -1,4 +1,4 @@
-# Source
+# Source/Runtime
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
@@ -38,6 +38,7 @@ function(oe_setup_target target)
 	)
 endfunction()
 
-add_subdirectory(ThirdParty)
-add_subdirectory(Runtime)
-add_subdirectory(Tests)
+add_subdirectory(Core)
+add_subdirectory(Engine)
+add_subdirectory(Launch)
+add_subdirectory(Renderer)
