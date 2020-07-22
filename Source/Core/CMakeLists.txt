@@ -1,9 +1,5 @@
 # Source/Runtime/Core
 
-oe_find_package(nlohmann_json 3.8.0)
-find_package(fmt 6.2 REQUIRED)
-find_package(spdlog 1.4 REQUIRED)
-
 list(APPEND PUBLIC_LIBS
 	otm
 	omem

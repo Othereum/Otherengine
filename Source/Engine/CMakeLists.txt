@@ -1,7 +1,5 @@
 # Source/Runtime/Engine
 
-find_package(SDL2 REQUIRED)
-
 list(APPEND PUBLIC_LIBS
 	${PROJECT_NAME}-Core
 	${PROJECT_NAME}-Renderer

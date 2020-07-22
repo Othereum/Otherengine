@@ -3,6 +3,7 @@
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 
 string(REPLACE "/DNDEBUG" "" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
 string(REPLACE "/DNDEBUG" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
@@ -13,29 +14,23 @@ if(OE_USE_AVX2)
 	add_compile_definitions(OE_USE_AVX2)
 endif()
 
-function(oe_setup_target target)
-	get_target_property(target_type ${target} TYPE)
 
-	if(OE_USE_AVX2)
-		target_compile_options(${target} PRIVATE
-			$<IF:$<CXX_COMPILER_ID:MSVC>,/arch:AVX2,-march=haswell>
-		)
-		target_compile_definitions(${target} PRIVATE OE_MODULE_USE_AVX2)
-	endif()
+find_package(SDL2 REQUIRED)
+find_package(GLEW REQUIRED)
 
-	target_compile_options(${target} PRIVATE
-		$<IF:$<CXX_COMPILER_ID:MSVC>,
-			$<$<CONFIG:Release>:/GL> /MP /fp:fast /W4 /WX /wd4251 /wd4275,
-			$<$<CONFIG:Release>:-flto> -ffast-math -Wall -Wextra -pedantic -Werror>
-		$<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
-	)
+oe_find_package(soil2)
+oe_find_package(fmt 7)
 
-	target_link_options(${target} PRIVATE
-		$<IF:$<CXX_COMPILER_ID:MSVC>,
-			$<$<CONFIG:Release>:/LTCG>,
-			$<$<CONFIG:Release>:-flto> -Wl$<COMMA>-rpath='$\{ORIGIN}'>
-	)
-endfunction()
+set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
+set(SPDLOG_BUILD_SHARED ON CACHE BOOL "" FORCE)
+oe_find_package(spdlog 1.7)
+
+set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
+oe_find_package(nlohmann_json 3.8.0)
+
+oe_download_package(omem)
+oe_download_package(otm)
+
 
 add_subdirectory(Core)
 add_subdirectory(Engine)
