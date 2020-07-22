@@ -6,8 +6,8 @@ project("Otherengine"
 	HOMEPAGE_URL "https://github.com/Othereum/Otherengine"
 )
 
-include(cmake/functions.cmake)
-include(cmake/options.cmake)
+include(CMake/Functions.cmake)
+include(CMake/Options.cmake)
 
 add_subdirectory(Source)
 
