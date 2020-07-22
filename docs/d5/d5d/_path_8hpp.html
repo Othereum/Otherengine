@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Core/Public/Path.hpp File Reference</title>
+<title>Otherengine: Source/Core/Public/Path.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -86,7 +86,9 @@ $(document).ready(function(){initNavTree('d5/d5d/_path_8hpp.html','../../'); ini
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Path.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -98,10 +100,12 @@ $(document).ready(function(){initNavTree('d5/d5d/_path_8hpp.html','../../'); ini
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html">oeng::core::Path</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight representation of filepath. Very fast O(1) copy and comparison. No heap allocation on copy. Good to use as key for Map/Set.  <a href="../../da/db4/structoeng_1_1core_1_1_path.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d74/structoeng_1_1core_1_1_path_hasher.html">oeng::core::PathHasher</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/dd4/structstd_1_1hash_3_01oeng_1_1_path_01_4.html">std::hash&lt; oeng::Path &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d86/structoeng_1_1core_1_1_path_equal.html">oeng::core::PathEqual</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html">oeng::core::Path</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight representation of path.  <a href="../../da/db4/structoeng_1_1core_1_1_path.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -111,19 +115,29 @@ Namespaces</h2></td></tr>
 <tr class="memitem:d0/d2f/namespaceoeng_1_1core"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html">oeng::core</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a1f50c49b182ed6c4d4e202e990ac8cf0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a1f50c49b182ed6c4d4e202e990ac8cf0">oeng::core::PathSet</a> = CondMonitor&lt; HashSet&lt; fs::path, PathHasher, PathEqual &gt;, kPathThreadSafe &gt;</td></tr>
+<tr class="separator:a1f50c49b182ed6c4d4e202e990ac8cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac0a63cd86e00e65598b0f555bafec31f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#ac0a63cd86e00e65598b0f555bafec31f">oeng::core::to_json</a> (Json &amp;json, const Path &amp;path)</td></tr>
-<tr class="separator:ac0a63cd86e00e65598b0f555bafec31f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b4e56495b55b07da25508634d0d6c62"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a1b4e56495b55b07da25508634d0d6c62">oeng::core::from_json</a> (const Json &amp;json, Path &amp;path)</td></tr>
-<tr class="separator:a1b4e56495b55b07da25508634d0d6c62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4ef3751768ff8ebb3046a9b910d23049"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a4ef3751768ff8ebb3046a9b910d23049">oeng::core::to_json</a> (Json &amp;json, const Path &amp;path)</td></tr>
+<tr class="separator:a4ef3751768ff8ebb3046a9b910d23049"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a091f9f3206eaa8f575566bb7f6d0d6"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a3a091f9f3206eaa8f575566bb7f6d0d6">oeng::core::from_json</a> (const Json &amp;json, Path &amp;path)</td></tr>
+<tr class="separator:a3a091f9f3206eaa8f575566bb7f6d0d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a4c01951354545ebe1ae739ae0b98edb4"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a4c01951354545ebe1ae739ae0b98edb4">oeng::core::kPathThreadSafe</a> = false</td></tr>
+<tr class="separator:a4c01951354545ebe1ae739ae0b98edb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="../../d5/d5d/_path_8hpp.html">Path.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_fe3de68a6015b90330781393fcaf21e7.html">Public</a></li><li class="navelem"><a class="el" href="../../d5/d5d/_path_8hpp.html">Path.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

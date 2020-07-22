@@ -8,7 +8,6 @@ var classoeng_1_1engine_1_1_a_actor =
     [ "Destroy", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#ab50db8d6ba9fabceedf30da137bdd976", null ],
     [ "GetBackward", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a707cfed18d6e228c7ac769418d601e50", null ],
     [ "GetDown", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a7e971729bde9b865d647edcc37d80117", null ],
-    [ "GetEngine", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a38f0764a92708158e2bbca5d31b93be4", null ],
     [ "GetForward", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a3d7aaec596ee64d94d315816a10b4524", null ],
     [ "GetInitialLifespan", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a4a8b22ce2706cc7f0029db3ae17db49d", null ],
     [ "GetLeft", "dd/d7a/classoeng_1_1engine_1_1_a_actor.html#a9a88c97b7982c0f97073c13ae856ba28", null ],

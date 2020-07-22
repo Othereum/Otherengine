@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Renderer/Private/OpenGL.hpp Source File</title>
+<title>Otherengine: Source/Renderer/Private/OpenGL.hpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -99,7 +99,7 @@ $(document).ready(function(){initNavTree('dd/d12/_open_g_l_8hpp_source.html','..
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    {</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="../../d3/da6/classoeng_1_1renderer_1_1_open_gl_error.html#a34544f728bd53758113a21067758e5c9">   12</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="../../d3/da6/classoeng_1_1renderer_1_1_open_gl_error.html#a34544f728bd53758113a21067758e5c9">OpenGlError</a>(<span class="keywordtype">unsigned</span> code)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            :<a class="code" href="../../dc/d21/structstd.html">std</a>::runtime_error{fmt::format(<span class="stringliteral">&quot;OpenGL error occured (code: {})&quot;</span>, code)}, code_{code}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            :std::runtime_error{fmt::format(<span class="stringliteral">&quot;OpenGL error occured (code: {})&quot;</span>, code)}, code_{code}</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        {</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        }</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
@@ -156,16 +156,15 @@ $(document).ready(function(){initNavTree('dd/d12/_open_g_l_8hpp_source.html','..
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_open_gl_error_html_a34544f728bd53758113a21067758e5c9"><div class="ttname"><a href="../../d3/da6/classoeng_1_1renderer_1_1_open_gl_error.html#a34544f728bd53758113a21067758e5c9">oeng::renderer::OpenGlError::OpenGlError</a></div><div class="ttdeci">OpenGlError(unsigned code)</div><div class="ttdef"><b>Definition:</b> OpenGL.hpp:12</div></div>
 <div class="ttc" id="anamespaceoeng_1_1renderer_html_a086348dcc09ba919ee54787ccebab467"><div class="ttname"><a href="../../da/dcd/namespaceoeng_1_1renderer.html#a086348dcc09ba919ee54787ccebab467">oeng::renderer::gl</a></div><div class="ttdeci">decltype(auto) gl(Fn fn, Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> OpenGL.hpp:29</div></div>
 <div class="ttc" id="a_debug_8hpp_html"><div class="ttname"><a href="../../de/d5a/_debug_8hpp.html">Debug.hpp</a></div></div>
-<div class="ttc" id="astructstd_html"><div class="ttname"><a href="../../dc/d21/structstd.html">std</a></div><div class="ttdef"><b>Definition:</b> TimerManager.hpp:18</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_open_gl_error_html_a57d963a20f3156280e9b63f06698c8f2"><div class="ttname"><a href="../../d3/da6/classoeng_1_1renderer_1_1_open_gl_error.html#a57d963a20f3156280e9b63f06698c8f2">oeng::renderer::OpenGlError::GetCode</a></div><div class="ttdeci">unsigned GetCode() const noexcept</div><div class="ttdef"><b>Definition:</b> OpenGL.hpp:17</div></div>
 <div class="ttc" id="anamespaceoeng_1_1renderer_html_a3f354fcc3cd4e019a0f09daec476d2a2"><div class="ttname"><a href="../../da/dcd/namespaceoeng_1_1renderer.html#a3f354fcc3cd4e019a0f09daec476d2a2">oeng::renderer::GlCheckError</a></div><div class="ttdeci">void GlCheckError()</div><div class="ttdef"><b>Definition:</b> OpenGL.hpp:23</div></div>
-<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="../../da/dcd/namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> IEngine.hpp:11</div></div>
+<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="../../da/dcd/namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:9</div></div>
 <div class="ttc" id="anamespaceoeng_1_1engine_html_a75947ea8c9ca64e930a8a3f743f5c53aae1e1d3d40573127e9ee0480caf1283d6"><div class="ttname"><a href="../../d9/dc1/namespaceoeng_1_1engine.html#a75947ea8c9ca64e930a8a3f743f5c53aae1e1d3d40573127e9ee0480caf1283d6">oeng::engine::MouseBtn::R</a></div><div class="ttdeci">@ R</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_open_gl_error_html"><div class="ttname"><a href="../../d3/da6/classoeng_1_1renderer_1_1_open_gl_error.html">oeng::renderer::OpenGlError</a></div><div class="ttdef"><b>Definition:</b> OpenGL.hpp:10</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_e95efa631723cde707baa0220c731e18.html">Renderer</a></li><li class="navelem"><a class="el" href="../../dir_03f5d4632ca54d404b62bcda1872fb09.html">Private</a></li><li class="navelem"><a class="el" href="../../dd/d12/_open_g_l_8hpp.html">OpenGL.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_4efb1cddb47a1770ad011373796c1afc.html">Renderer</a></li><li class="navelem"><a class="el" href="../../dir_fff2b31faf5dc49587ac2a7b95139967.html">Private</a></li><li class="navelem"><a class="el" href="../../dd/d12/_open_g_l_8hpp.html">OpenGL.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

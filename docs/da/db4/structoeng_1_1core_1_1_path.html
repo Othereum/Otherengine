@@ -84,7 +84,6 @@ $(document).ready(function(){initNavTree('da/db4/structoeng_1_1core_1_1_path.htm
 
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../dd/d16/structoeng_1_1core_1_1_path-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -92,24 +91,24 @@ $(document).ready(function(){initNavTree('da/db4/structoeng_1_1core_1_1_path.htm
 </div><!--header-->
 <div class="contents">
 
-<p>Lightweight representation of filepath. Very fast O(1) copy and comparison. No heap allocation on copy. Good to use as key for Map/Set.  
+<p>Lightweight representation of path.  
  <a href="../../da/db4/structoeng_1_1core_1_1_path.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d5/d5d/_path_8hpp_source.html">Path.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a63d56608effca0ed54c8ee4c12b02e86"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a63d56608effca0ed54c8ee4c12b02e86">Pair</a> = std::pair&lt; const <a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">Name</a>, std::filesystem::path &gt;</td></tr>
-<tr class="separator:a63d56608effca0ed54c8ee4c12b02e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a34ca22e4535b620212eb02f2d7344b9e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a34ca22e4535b620212eb02f2d7344b9e">Path</a> () noexcept</td></tr>
 <tr class="separator:a34ca22e4535b620212eb02f2d7344b9e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc75b4db9f890286513c5127d75759b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#adc75b4db9f890286513c5127d75759b2">Path</a> (const std::filesystem::path &amp;path)</td></tr>
-<tr class="separator:adc75b4db9f890286513c5127d75759b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0850a74fdf745cc216d91d640e68aa3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#ae0850a74fdf745cc216d91d640e68aa3">Path</a> (const char8_t *s)</td></tr>
-<tr class="separator:ae0850a74fdf745cc216d91d640e68aa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a336e88203e591b684f5a4d432105a26f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a336e88203e591b684f5a4d432105a26f">Path</a> (std::u8string_view s)</td></tr>
+<tr class="separator:a336e88203e591b684f5a4d432105a26f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7532ecadef09a81dd997b96448d02758"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a7532ecadef09a81dd997b96448d02758">Path</a> (fs::path::string_type &amp;&amp;s)</td></tr>
+<tr class="separator:a7532ecadef09a81dd997b96448d02758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d3d413202cdc25e919b11f38dec8e7f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a8d3d413202cdc25e919b11f38dec8e7f">Path</a> (const fs::path &amp;path)</td></tr>
+<tr class="separator:a8d3d413202cdc25e919b11f38dec8e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a730b90febeb4b1de0cbdbda230185434"><td class="memTemplParams" colspan="2">template&lt;class Al &gt; </td></tr>
+<tr class="memitem:a730b90febeb4b1de0cbdbda230185434"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a730b90febeb4b1de0cbdbda230185434">Path</a> (const std::basic_string&lt; char8_t, std::char_traits&lt; char8_t &gt;, Al &gt; &amp;s)</td></tr>
+<tr class="separator:a730b90febeb4b1de0cbdbda230185434"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27b90fec54637677575efc711dbd5aee"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a27b90fec54637677575efc711dbd5aee">operator==</a> (const <a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html">Path</a> &amp;r) const noexcept</td></tr>
 <tr class="separator:a27b90fec54637677575efc711dbd5aee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5304eea26ecc1349feba8a6467ec6ea2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a5304eea26ecc1349feba8a6467ec6ea2">operator!=</a> (const <a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html">Path</a> &amp;r) const noexcept</td></tr>
@@ -122,48 +121,26 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a67f398567d14f1cffeeb8d370caeff3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af175af905ec93bef9c93b295c6e9f193"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#af175af905ec93bef9c93b295c6e9f193">operator&gt;=</a> (const <a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html">Path</a> &amp;r) const noexcept</td></tr>
 <tr class="separator:af175af905ec93bef9c93b295c6e9f193"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ba0926e340939ec2c7eb681f21d3d34"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">Name</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a2ba0926e340939ec2c7eb681f21d3d34">AsName</a> () const noexcept</td></tr>
-<tr class="separator:a2ba0926e340939ec2c7eb681f21d3d34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93e01394abdab4a9519a56156a4dff0c"><td class="memItemLeft" align="right" valign="top">const char8_t *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a93e01394abdab4a9519a56156a4dff0c">CStr</a> () const noexcept</td></tr>
-<tr class="separator:a93e01394abdab4a9519a56156a4dff0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26557a5bb9aeebb1af76a8d28a182811"><td class="memItemLeft" align="right" valign="top">const std::u8string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a26557a5bb9aeebb1af76a8d28a182811">Str</a> () const noexcept</td></tr>
-<tr class="separator:a26557a5bb9aeebb1af76a8d28a182811"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad05b5eab1fba8c8c0964c7f4b8b1f6a0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#ad05b5eab1fba8c8c0964c7f4b8b1f6a0">operator Name</a> () const noexcept</td></tr>
-<tr class="separator:ad05b5eab1fba8c8c0964c7f4b8b1f6a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3f50a10115c10bf0ff9a181980cd173"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#aa3f50a10115c10bf0ff9a181980cd173">operator const char8_t *</a> () const noexcept</td></tr>
-<tr class="separator:aa3f50a10115c10bf0ff9a181980cd173"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00f5222ccf98acccb0b717620f832ffe"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a00f5222ccf98acccb0b717620f832ffe">operator const std::u8string &amp;</a> () const noexcept</td></tr>
-<tr class="separator:a00f5222ccf98acccb0b717620f832ffe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a874c391fbeea7fc8ab3974a5cb983aa0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a874c391fbeea7fc8ab3974a5cb983aa0">operator const std::filesystem::path &amp;</a> () const noexcept</td></tr>
-<tr class="separator:a874c391fbeea7fc8ab3974a5cb983aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab5353f22f6ef6508efb0cf21846a20d"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#aab5353f22f6ef6508efb0cf21846a20d">operator*</a> () const noexcept</td></tr>
-<tr class="separator:aab5353f22f6ef6508efb0cf21846a20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e73dc2171d52d2600bcb4a3265f7e75"><td class="memItemLeft" align="right" valign="top">const std::filesystem::path *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a0e73dc2171d52d2600bcb4a3265f7e75">operator-&gt;</a> () const noexcept</td></tr>
-<tr class="separator:a0e73dc2171d52d2600bcb4a3265f7e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ceb90e32dbb7ba99afb818d74f52fc0"><td class="memTemplParams" colspan="2">template&lt;class T  = char8_t, class Al  = PoolAllocator&lt;char8_t&gt;&gt; </td></tr>
+<tr class="memitem:a5ceb90e32dbb7ba99afb818d74f52fc0"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a5ceb90e32dbb7ba99afb818d74f52fc0">Str</a> () const</td></tr>
+<tr class="separator:a5ceb90e32dbb7ba99afb818d74f52fc0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc2bca1fcac68c37ac131db8b25f82a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a6fc2bca1fcac68c37ac131db8b25f82a">operator String8</a> () const</td></tr>
+<tr class="separator:a6fc2bca1fcac68c37ac131db8b25f82a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12726000ae519e4171ec08583c813763"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a12726000ae519e4171ec08583c813763">operator const fs::path &amp;</a> () const noexcept</td></tr>
+<tr class="separator:a12726000ae519e4171ec08583c813763"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aecea39ae59ffc99dd21c73e16adec48f"><td class="memItemLeft" align="right" valign="top">const fs::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#aecea39ae59ffc99dd21c73e16adec48f">operator*</a> () const noexcept</td></tr>
+<tr class="separator:aecea39ae59ffc99dd21c73e16adec48f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01abaaf03525bbf0da0d211e46a16c75"><td class="memItemLeft" align="right" valign="top">const fs::path *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a01abaaf03525bbf0da0d211e46a16c75">operator-&gt;</a> () const noexcept</td></tr>
+<tr class="separator:a01abaaf03525bbf0da0d211e46a16c75"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Lightweight representation of filepath. Very fast O(1) copy and comparison. No heap allocation on copy. Good to use as key for Map/Set. </p>
-<dl class="section note"><dt>Note</dt><dd>Case-insensitive on any platform </dd>
+<div class="textblock"><p>Lightweight representation of path. </p>
+<p>Very fast O(1) copy and comparison. No heap allocation on copy. Good to use as key for Map/Set. </p><dl class="section note"><dt>Note</dt><dd>Case-insensitive on any platform </dd>
 <dd>
 Comparisons are not lexical. </dd></dl>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a63d56608effca0ed54c8ee4c12b02e86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63d56608effca0ed54c8ee4c12b02e86">&#9670;&nbsp;</a></span>Pair</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="../../da/db4/structoeng_1_1core_1_1_path.html#a63d56608effca0ed54c8ee4c12b02e86">oeng::core::Path::Pair</a> =  std::pair&lt;const <a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">Name</a>, std::filesystem::path&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a34ca22e4535b620212eb02f2d7344b9e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34ca22e4535b620212eb02f2d7344b9e">&#9670;&nbsp;</a></span>Path() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a34ca22e4535b620212eb02f2d7344b9e">&#9670;&nbsp;</a></span>Path() <span class="overload">[1/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,33 +157,15 @@ Comparisons are not lexical. </dd></dl>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="adc75b4db9f890286513c5127d75759b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc75b4db9f890286513c5127d75759b2">&#9670;&nbsp;</a></span>Path() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::Path::Path </td>
-          <td>(</td>
-          <td class="paramtype">const std::filesystem::path &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae0850a74fdf745cc216d91d640e68aa3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0850a74fdf745cc216d91d640e68aa3">&#9670;&nbsp;</a></span>Path() <span class="overload">[3/3]</span></h2>
+<a id="a336e88203e591b684f5a4d432105a26f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a336e88203e591b684f5a4d432105a26f">&#9670;&nbsp;</a></span>Path() <span class="overload">[2/5]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -217,7 +176,87 @@ Comparisons are not lexical. </dd></dl>
         <tr>
           <td class="memname">oeng::core::Path::Path </td>
           <td>(</td>
-          <td class="paramtype">const char8_t *&#160;</td>
+          <td class="paramtype">std::u8string_view&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7532ecadef09a81dd997b96448d02758"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7532ecadef09a81dd997b96448d02758">&#9670;&nbsp;</a></span>Path() <span class="overload">[3/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">oeng::core::Path::Path </td>
+          <td>(</td>
+          <td class="paramtype">fs::path::string_type &amp;&amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d3d413202cdc25e919b11f38dec8e7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d3d413202cdc25e919b11f38dec8e7f">&#9670;&nbsp;</a></span>Path() <span class="overload">[4/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">oeng::core::Path::Path </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a730b90febeb4b1de0cbdbda230185434"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a730b90febeb4b1de0cbdbda230185434">&#9670;&nbsp;</a></span>Path() <span class="overload">[5/5]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Al &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">oeng::core::Path::Path </td>
+          <td>(</td>
+          <td class="paramtype">const std::basic_string&lt; char8_t, std::char_traits&lt; char8_t &gt;, Al &gt; &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
           <td></td>
         </tr>
@@ -232,8 +271,8 @@ Comparisons are not lexical. </dd></dl>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2ba0926e340939ec2c7eb681f21d3d34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ba0926e340939ec2c7eb681f21d3d34">&#9670;&nbsp;</a></span>AsName()</h2>
+<a id="a12726000ae519e4171ec08583c813763"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12726000ae519e4171ec08583c813763">&#9670;&nbsp;</a></span>operator const fs::path &amp;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -242,7 +281,7 @@ Comparisons are not lexical. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">Name</a> oeng::core::Path::AsName </td>
+          <td class="memname">oeng::core::Path::operator const fs::path &amp; </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -257,8 +296,8 @@ Comparisons are not lexical. </dd></dl>
 
 </div>
 </div>
-<a id="a93e01394abdab4a9519a56156a4dff0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93e01394abdab4a9519a56156a4dff0c">&#9670;&nbsp;</a></span>CStr()</h2>
+<a id="a6fc2bca1fcac68c37ac131db8b25f82a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fc2bca1fcac68c37ac131db8b25f82a">&#9670;&nbsp;</a></span>operator String8()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -267,7 +306,7 @@ Comparisons are not lexical. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char8_t* oeng::core::Path::CStr </td>
+          <td class="memname">oeng::core::Path::operator <a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a0b0c53b6477a143aecc01fc1f06a1977">String8</a> </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -275,107 +314,7 @@ Comparisons are not lexical. </dd></dl>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa3f50a10115c10bf0ff9a181980cd173"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3f50a10115c10bf0ff9a181980cd173">&#9670;&nbsp;</a></span>operator const char8_t *()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::Path::operator const char8_t * </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a874c391fbeea7fc8ab3974a5cb983aa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a874c391fbeea7fc8ab3974a5cb983aa0">&#9670;&nbsp;</a></span>operator const std::filesystem::path &amp;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::Path::operator const std::filesystem::path &amp; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a00f5222ccf98acccb0b717620f832ffe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00f5222ccf98acccb0b717620f832ffe">&#9670;&nbsp;</a></span>operator const std::u8string &amp;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::Path::operator const std::u8string &amp; </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad05b5eab1fba8c8c0964c7f4b8b1f6a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad05b5eab1fba8c8c0964c7f4b8b1f6a0">&#9670;&nbsp;</a></span>operator Name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::Path::operator <a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">Name</a> </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -408,8 +347,8 @@ Comparisons are not lexical. </dd></dl>
 
 </div>
 </div>
-<a id="aab5353f22f6ef6508efb0cf21846a20d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab5353f22f6ef6508efb0cf21846a20d">&#9670;&nbsp;</a></span>operator*()</h2>
+<a id="aecea39ae59ffc99dd21c73e16adec48f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aecea39ae59ffc99dd21c73e16adec48f">&#9670;&nbsp;</a></span>operator*()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -418,7 +357,7 @@ Comparisons are not lexical. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::filesystem::path&amp; oeng::core::Path::operator* </td>
+          <td class="memname">const fs::path&amp; oeng::core::Path::operator* </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -433,8 +372,8 @@ Comparisons are not lexical. </dd></dl>
 
 </div>
 </div>
-<a id="a0e73dc2171d52d2600bcb4a3265f7e75"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e73dc2171d52d2600bcb4a3265f7e75">&#9670;&nbsp;</a></span>operator-&gt;()</h2>
+<a id="a01abaaf03525bbf0da0d211e46a16c75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a01abaaf03525bbf0da0d211e46a16c75">&#9670;&nbsp;</a></span>operator-&gt;()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -443,7 +382,7 @@ Comparisons are not lexical. </dd></dl>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::filesystem::path* oeng::core::Path::operator-&gt; </td>
+          <td class="memname">const fs::path* oeng::core::Path::operator-&gt; </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -588,17 +527,19 @@ Comparisons are not lexical. </dd></dl>
 
 </div>
 </div>
-<a id="a26557a5bb9aeebb1af76a8d28a182811"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a26557a5bb9aeebb1af76a8d28a182811">&#9670;&nbsp;</a></span>Str()</h2>
+<a id="a5ceb90e32dbb7ba99afb818d74f52fc0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ceb90e32dbb7ba99afb818d74f52fc0">&#9670;&nbsp;</a></span>Str()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<div class="memtemplate">
+template&lt;class T  = char8_t, class Al  = PoolAllocator&lt;char8_t&gt;&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const std::u8string&amp; oeng::core::Path::Str </td>
+          <td class="memname">auto oeng::core::Path::Str </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -606,7 +547,7 @@ Comparisons are not lexical. </dd></dl>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -614,7 +555,7 @@ Comparisons are not lexical. </dd></dl>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Source/Runtime/Core/Public/<a class="el" href="../../d5/d5d/_path_8hpp_source.html">Path.hpp</a></li>
+<li>Source/Core/Public/<a class="el" href="../../d5/d5d/_path_8hpp_source.html">Path.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

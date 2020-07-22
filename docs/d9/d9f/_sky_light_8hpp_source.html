@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Engine/Public/Actors/SkyLight.hpp Source File</title>
+<title>Otherengine: Source/Engine/Public/Actors/SkyLight.hpp Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,15 +94,15 @@ $(document).ready(function(){initNavTree('d9/d9f/_sky_light_8hpp_source.html','.
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">class </span>SkyLightComponent;</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html">    8</a></span>&#160;    <span class="keyword">class </span><a class="code" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> <a class="code" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html">ASkyLight</a> : <span class="keyword">public</span> <a class="code" href="../../dd/d7a/classoeng_1_1engine_1_1_a_actor.html">AActor</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html">    8</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html">ASkyLight</a> : <span class="keyword">public</span> <a class="code" href="../../dd/d7a/classoeng_1_1engine_1_1_a_actor.html">AActor</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">public</span>:</div>
 <div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#aa679e28c858a57a108adc04ca25ed9dc">   11</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#aa679e28c858a57a108adc04ca25ed9dc">ASkyLight</a>(<a class="code" href="../../de/da6/classoeng_1_1engine_1_1_world.html">World</a>&amp; world);</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
 <div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#a0af49fd43f4b7e0570f9e210733d1fd6">   13</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#a0af49fd43f4b7e0570f9e210733d1fd6">Activate</a>() const noexcept;</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#ab1670d7bb8bc80ba8098b052ab4da69d">   15</a></span>&#160;        <span class="keywordtype">void</span> SetColor(const <a class="code" href="../../da/d92/structotm_1_1_vector.html">Vec3</a>&amp; color) const noexcept;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#a6d1559b09fe2f8851d98174f1319e7b0">   16</a></span>&#160;        [[nodiscard]] const <a class="code" href="../../da/d92/structotm_1_1_vector.html">Vec3</a>&amp; GetColor() const noexcept;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#ab1670d7bb8bc80ba8098b052ab4da69d">   15</a></span>&#160;        <span class="keywordtype">void</span> SetColor(const Vec3&amp; color) const noexcept;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#a6d1559b09fe2f8851d98174f1319e7b0">   16</a></span>&#160;        [[nodiscard]] const Vec3&amp; GetColor() const noexcept;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    private:</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="../../d7/d7c/classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a>&amp; light_;</div>
@@ -111,19 +111,17 @@ $(document).ready(function(){initNavTree('d9/d9f/_sky_light_8hpp_source.html','.
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassoeng_1_1engine_1_1_a_sky_light_html"><div class="ttname"><a href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html">oeng::engine::ASkyLight</a></div><div class="ttdef"><b>Definition:</b> SkyLight.hpp:9</div></div>
-<div class="ttc" id="a_core_8hpp_html_a3c1790cd7724c00a9c44c1ac4c057710"><div class="ttname"><a href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></div><div class="ttdeci">#define OEAPI</div><div class="ttdef"><b>Definition:</b> Core.hpp:21</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_a_sky_light_html_aa679e28c858a57a108adc04ca25ed9dc"><div class="ttname"><a href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#aa679e28c858a57a108adc04ca25ed9dc">oeng::engine::ASkyLight::ASkyLight</a></div><div class="ttdeci">ASkyLight(World &amp;world)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_world_html"><div class="ttname"><a href="../../de/da6/classoeng_1_1engine_1_1_world.html">oeng::engine::World</a></div><div class="ttdef"><b>Definition:</b> World.hpp:14</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_world_html"><div class="ttname"><a href="../../de/da6/classoeng_1_1engine_1_1_world.html">oeng::engine::World</a></div><div class="ttdef"><b>Definition:</b> World.hpp:11</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_a_sky_light_html_a0af49fd43f4b7e0570f9e210733d1fd6"><div class="ttname"><a href="../../df/da8/classoeng_1_1engine_1_1_a_sky_light.html#a0af49fd43f4b7e0570f9e210733d1fd6">oeng::engine::ASkyLight::Activate</a></div><div class="ttdeci">void Activate() const noexcept</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="../../d9/dc1/namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> IEngine.hpp:5</div></div>
-<div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="../../da/d92/structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
+<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="../../d9/dc1/namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:12</div></div>
 <div class="ttc" id="a_actor_8hpp_html"><div class="ttname"><a href="../../d2/d39/_actor_8hpp.html">Actor.hpp</a></div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html"><div class="ttname"><a href="../../d7/d7c/classoeng_1_1engine_1_1_sky_light_component.html">oeng::engine::SkyLightComponent</a></div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:8</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="../../dd/d7a/classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="../../dir_66475898a0df7aa270259e5286653f27.html">Actors</a></li><li class="navelem"><a class="el" href="../../d9/d9f/_sky_light_8hpp.html">SkyLight.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_5405398c23c020946029b9f4e6e04094.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_3de029f943ea1b298b2a6155cdd0fce4.html">Public</a></li><li class="navelem"><a class="el" href="../../dir_524e6168c4ba0175890f5f6171fa902f.html">Actors</a></li><li class="navelem"><a class="el" href="../../d9/d9f/_sky_light_8hpp.html">SkyLight.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

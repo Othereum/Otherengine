@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Core/Public/Core.hpp File Reference</title>
+<title>Otherengine: Source/Core/Public/Core.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -85,14 +85,12 @@ $(document).ready(function(){initNavTree('d5/d8e/_core_8hpp.html','../../'); ini
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#define-members">Macros</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">Core.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string_view&gt;</code><br />
-</div>
+
 <p><a href="../../d5/d8e/_core_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -104,15 +102,13 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a3c1790cd7724c00a9c44c1ac4c057710"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></td></tr>
-<tr class="separator:a3c1790cd7724c00a9c44c1ac4c057710"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3651b814c586976452a23129c1159a32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3651b814c586976452a23129c1159a32">OE_IMPORT</a>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></td></tr>
+<tr class="memitem:a3651b814c586976452a23129c1159a32"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3651b814c586976452a23129c1159a32">OE_IMPORT</a></td></tr>
 <tr class="separator:a3651b814c586976452a23129c1159a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d459cc49515f87a99715ab7e29677da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a9d459cc49515f87a99715ab7e29677da">OE_EXPORT</a>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></td></tr>
+<tr class="memitem:a9d459cc49515f87a99715ab7e29677da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a9d459cc49515f87a99715ab7e29677da">OE_EXPORT</a>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3651b814c586976452a23129c1159a32">OE_IMPORT</a></td></tr>
 <tr class="separator:a9d459cc49515f87a99715ab7e29677da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1565a5197989b9640b5ecd1d012a8093"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">GAME_API</a>&#160;&#160;&#160;extern &quot;C&quot; OE_EXPORT</td></tr>
 <tr class="separator:a1565a5197989b9640b5ecd1d012a8093"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa846beb8c3cb2779b4dc9be2b8ed5fca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#aa846beb8c3cb2779b4dc9be2b8ed5fca">DEFINE_GAME_MODULE</a>(game_name)&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">GAME_API</a> const std::u8string_view kGameName = game_name</td></tr>
+<tr class="memitem:aa846beb8c3cb2779b4dc9be2b8ed5fca"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#aa846beb8c3cb2779b4dc9be2b8ed5fca">DEFINE_GAME_MODULE</a>(game_name)&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">GAME_API</a> const char8_t* const kGameName = u8 ## #game_name</td></tr>
 <tr class="separator:aa846beb8c3cb2779b4dc9be2b8ed5fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a02dbd57672197e86dd1bf669ee27c93b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a02dbd57672197e86dd1bf669ee27c93b">EXPLICIT_CPMV</a>(name,  spec)</td></tr>
 <tr class="separator:a02dbd57672197e86dd1bf669ee27c93b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,15 +130,6 @@ Macros</h2></td></tr>
 <tr class="separator:a3428692efe6051ef30016ffde1a9f7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dbbf8097302f5d47f8968ade0c2d636"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d5/d8e/_core_8hpp.html#a6dbbf8097302f5d47f8968ade0c2d636">U8_LINE</a>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a1b04e1058634c4fc5f9cb851363aad51">U8_TEXT</a>(<a class="el" href="../../d5/d8e/_core_8hpp.html#a3428692efe6051ef30016ffde1a9f7bb">STRINGIZE</a>(__LINE__))</td></tr>
 <tr class="separator:a6dbbf8097302f5d47f8968ade0c2d636"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a06866ed713bf92e008aa2b80334bb081"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a06866ed713bf92e008aa2b80334bb081">oeng::core::GetGameName</a> () noexcept</td></tr>
-<tr class="separator:a06866ed713bf92e008aa2b80334bb081"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ab16cb587b75c309bb8f4d9bc64267f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a9ab16cb587b75c309bb8f4d9bc64267f">oeng::core::IsGameThread</a> () noexcept</td></tr>
-<tr class="separator:a9ab16cb587b75c309bb8f4d9bc64267f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a630698d364477c61959b2ea9f0f7ea4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a630698d364477c61959b2ea9f0f7ea4e">oeng::core::IsEngineExists</a> () noexcept</td></tr>
-<tr class="separator:a630698d364477c61959b2ea9f0f7ea4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ae5a4b5ee3d31ed2bee67ad20ad6d9db7"></a>
@@ -174,7 +161,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">game_name</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">GAME_API</a> const std::u8string_view kGameName = game_name</td>
+          <td>&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">GAME_API</a> const char8_t* const kGameName = u8 ## #game_name</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -273,7 +260,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OE_EXPORT&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></td>
+          <td class="memname">#define OE_EXPORT&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3651b814c586976452a23129c1159a32">OE_IMPORT</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -287,21 +274,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define OE_IMPORT&#160;&#160;&#160;<a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3c1790cd7724c00a9c44c1ac4c057710"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c1790cd7724c00a9c44c1ac4c057710">&#9670;&nbsp;</a></span>OEAPI</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define OEAPI</td>
+          <td class="memname">#define OE_IMPORT</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -413,7 +386,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="../../d5/d8e/_core_8hpp.html">Core.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_fe3de68a6015b90330781393fcaf21e7.html">Public</a></li><li class="navelem"><a class="el" href="../../d5/d8e/_core_8hpp.html">Core.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Engine/Public/InputSystem.hpp File Reference</title>
+<title>Otherengine: Source/Engine/Public/InputSystem.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -93,12 +93,12 @@ $(document).ready(function(){initNavTree('d0/d7d/_input_system_8hpp.html','../..
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;variant&gt;</code><br />
-<code>#include &quot;<a class="el" href="../../d0/d87/_engine_fwd_8hpp_source.html">EngineFwd.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d0/d1e/_input_code_8hpp_source.html">InputCode.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../dc/dba/_math_8hpp_source.html">Math.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d3e/_name_8hpp_source.html">Name.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/df8/_dy_arr_8hpp_source.html">Templates/DyArr.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d13/_hash_map_8hpp_source.html">Templates/HashMap.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../de/db7/_pointer_8hpp_source.html">Templates/Pointer.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../d0/d7d/_input_system_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -131,25 +131,25 @@ Typedefs</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a2a9eb168c1a5a6562a3edb965f2cc985"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a2a9eb168c1a5a6562a3edb965f2cc985">oeng::engine::ToString</a> (InputCode code)</td></tr>
-<tr class="separator:a2a9eb168c1a5a6562a3edb965f2cc985"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9e5bad4da63381203ef9ed6f23ef92e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> InputCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#aa9e5bad4da63381203ef9ed6f23ef92e">oeng::engine::ToInputCode</a> (std::string_view str)</td></tr>
-<tr class="separator:aa9e5bad4da63381203ef9ed6f23ef92e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a463bd8ea0620ba3ba471660f2be1c13c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a463bd8ea0620ba3ba471660f2be1c13c">oeng::engine::to_json</a> (Json &amp;json, const InputAxis &amp;axis)</td></tr>
-<tr class="separator:a463bd8ea0620ba3ba471660f2be1c13c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d0a58edeafd0ef7330108f956778d2d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a3d0a58edeafd0ef7330108f956778d2d">oeng::engine::to_json</a> (Json &amp;json, const InputAction &amp;action)</td></tr>
-<tr class="separator:a3d0a58edeafd0ef7330108f956778d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a842e05fb4f8339c875393cec54470bfd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a842e05fb4f8339c875393cec54470bfd">oeng::engine::to_json</a> (Json &amp;json, const AxisConfig &amp;action)</td></tr>
-<tr class="separator:a842e05fb4f8339c875393cec54470bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad55752505af2e5e983b0ee9e5f57776e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#ad55752505af2e5e983b0ee9e5f57776e">oeng::engine::from_json</a> (const Json &amp;json, AxisConfig &amp;action)</td></tr>
-<tr class="separator:ad55752505af2e5e983b0ee9e5f57776e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c108f7fbdeb204e7aebac02e6185f3b"><td class="memItemLeft" align="right" valign="top">ENGINE_API String&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a7c108f7fbdeb204e7aebac02e6185f3b">oeng::engine::ToString</a> (InputCode code)</td></tr>
+<tr class="separator:a7c108f7fbdeb204e7aebac02e6185f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac84f3a955813b897dd19123497a7b4f3"><td class="memItemLeft" align="right" valign="top">ENGINE_API InputCode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#ac84f3a955813b897dd19123497a7b4f3">oeng::engine::ToInputCode</a> (std::string_view str)</td></tr>
+<tr class="separator:ac84f3a955813b897dd19123497a7b4f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a683b605ba72cb0495d957f56012f4a86"><td class="memItemLeft" align="right" valign="top">ENGINE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a683b605ba72cb0495d957f56012f4a86">oeng::engine::to_json</a> (Json &amp;json, const InputAxis &amp;axis)</td></tr>
+<tr class="separator:a683b605ba72cb0495d957f56012f4a86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d258e1b7f38381eae75cfa3d072257a"><td class="memItemLeft" align="right" valign="top">ENGINE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a2d258e1b7f38381eae75cfa3d072257a">oeng::engine::to_json</a> (Json &amp;json, const InputAction &amp;action)</td></tr>
+<tr class="separator:a2d258e1b7f38381eae75cfa3d072257a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1967203ac1906b9c4c2f06876341a7b"><td class="memItemLeft" align="right" valign="top">ENGINE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#ac1967203ac1906b9c4c2f06876341a7b">oeng::engine::to_json</a> (Json &amp;json, const AxisConfig &amp;action)</td></tr>
+<tr class="separator:ac1967203ac1906b9c4c2f06876341a7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65216cc156e347e4e2aca522e5367c35"><td class="memItemLeft" align="right" valign="top">ENGINE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a65216cc156e347e4e2aca522e5367c35">oeng::engine::from_json</a> (const Json &amp;json, AxisConfig &amp;action)</td></tr>
+<tr class="separator:a65216cc156e347e4e2aca522e5367c35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="../../d0/d7d/_input_system_8hpp.html">InputSystem.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_5405398c23c020946029b9f4e6e04094.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_3de029f943ea1b298b2a6155cdd0fce4.html">Public</a></li><li class="navelem"><a class="el" href="../../d0/d7d/_input_system_8hpp.html">InputSystem.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

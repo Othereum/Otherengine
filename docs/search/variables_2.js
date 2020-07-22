@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['children_1845',['children',['../dd/d21/structoeng_1_1core_1_1_scope_cycle_stat.html#a3387f098c6fa67cc5ec3b009ea6d12e2',1,'oeng::core::ScopeCycleStat']]],
-  ['code_1846',['code',['../d1/d27/structoeng_1_1engine_1_1_input_axis.html#a3c0a4f36c6c01ae28587da9eda8d9d30',1,'oeng::engine::InputAxis::code()'],['../df/d16/structoeng_1_1engine_1_1_input_action.html#a55782278fcf64ce3fce169969127562a',1,'oeng::engine::InputAction::code()']]],
-  ['color_1847',['color',['../d4/d10/structoeng_1_1renderer_1_1_i_dir_light_1_1_data.html#af42e7c6c968f5e628173484abb3372c4',1,'oeng::renderer::IDirLight::Data::color()'],['../d1/d18/structoeng_1_1renderer_1_1_i_point_light_1_1_data.html#ace4a0bebecf1149f31338ad897834811',1,'oeng::renderer::IPointLight::Data::color()'],['../d0/df0/structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html#a8ab880a378564dc7499106d17c03d66d',1,'oeng::renderer::ISpotLight::Data::color()']]],
-  ['count_1848',['count',['../d2/dbe/structoeng_1_1core_1_1_scope_stat.html#ac966e5a026089eecdc5c6e5f3f3bed0f',1,'oeng::core::ScopeStat::count()'],['../df/d6a/structomem_1_1_pool_info.html#ab1257f857db5555f399a171057e37ee6',1,'omem::PoolInfo::count()']]],
-  ['cur_1849',['cur',['../df/d6a/structomem_1_1_pool_info.html#a173ec0101f4f3500dda05aba9da86a69',1,'omem::PoolInfo']]]
+  ['data_1500',['data',['../d7/dd3/structoeng_1_1renderer_1_1_vertex.html#ae1f53ece14b632c954be9e961d729df1',1,'oeng::renderer::Vertex']]],
+  ['dead_5fzone_1501',['dead_zone',['../de/d4a/structoeng_1_1engine_1_1_axis_config.html#ad8d2708eb0cdb8e86d8d9bb686f3c116',1,'oeng::engine::AxisConfig']]],
+  ['default_5fobj_1502',['default_obj',['../d8/ddd/structoeng_1_1renderer_1_1_asset_cache.html#af8554e2242f3ab2263ed6082fecd8229',1,'oeng::renderer::AssetCache']]],
+  ['deleter_1503',['deleter',['../dc/d58/structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a1dce0211d694b4020975b54cc1bf45d0',1,'oeng::core::detail::SharedObjPtr']]],
+  ['dir_1504',['dir',['../d4/d10/structoeng_1_1renderer_1_1_i_dir_light_1_1_data.html#aedbabbae5c612c04ecb8b1e9c4bca469',1,'oeng::renderer::IDirLight::Data::dir()'],['../d0/df0/structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html#aa275e6124e8b353a33349209394849c2',1,'oeng::renderer::ISpotLight::Data::dir()']]],
+  ['duration_1505',['duration',['../d2/dbe/structoeng_1_1core_1_1_scope_stat.html#a33b0118e870fb65caf6cbf6768322c93',1,'oeng::core::ScopeStat']]]
 ];

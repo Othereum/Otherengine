@@ -1,4 +1,7 @@
 var searchData=
 [
-  ['backward_1844',['backward',['../d2/dba/structotm_1_1detail_1_1_vec_base_3_01_t_00_013_01_4.html#a57bf0ffa137a1bf2976771846990f0eb',1,'otm::detail::VecBase&lt; T, 3 &gt;::backward()'],['../d1/d8d/structotm_1_1detail_1_1_unit_vec_base_3_01_t_00_013_01_4.html#a3627fe89966d09ac79e11f3d89fb1d21',1,'otm::detail::UnitVecBase&lt; T, 3 &gt;::backward()']]]
+  ['children_1496',['children',['../d4/d00/structoeng_1_1core_1_1_scope_stack_stat.html#a79f34041eb65868ca62e236d07103665',1,'oeng::core::ScopeStackStat']]],
+  ['code_1497',['code',['../d1/d27/structoeng_1_1engine_1_1_input_axis.html#a3c0a4f36c6c01ae28587da9eda8d9d30',1,'oeng::engine::InputAxis::code()'],['../df/d16/structoeng_1_1engine_1_1_input_action.html#a55782278fcf64ce3fce169969127562a',1,'oeng::engine::InputAction::code()']]],
+  ['color_1498',['color',['../d4/d10/structoeng_1_1renderer_1_1_i_dir_light_1_1_data.html#af42e7c6c968f5e628173484abb3372c4',1,'oeng::renderer::IDirLight::Data::color()'],['../d1/d18/structoeng_1_1renderer_1_1_i_point_light_1_1_data.html#ace4a0bebecf1149f31338ad897834811',1,'oeng::renderer::IPointLight::Data::color()'],['../d0/df0/structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html#a8ab880a378564dc7499106d17c03d66d',1,'oeng::renderer::ISpotLight::Data::color()']]],
+  ['count_1499',['count',['../d2/dbe/structoeng_1_1core_1_1_scope_stat.html#ac966e5a026089eecdc5c6e5f3f3bed0f',1,'oeng::core::ScopeStat']]]
 ];

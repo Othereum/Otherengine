@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Core/Public/Log.hpp File Reference</title>
+<title>Otherengine: Source/Core/Public/Log.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -88,19 +88,24 @@ $(document).ready(function(){initNavTree('d8/dce/_log_8hpp.html','../../'); init
 <a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a> &#124;
 <a href="#enum-members">Enumerations</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Log.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d8e/_core_8hpp_source.html">Core.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/dec/_format_8hpp_source.html">Format.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d5/d13/_hash_map_8hpp_source.html">Templates/HashMap.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/dfb/_sync_8hpp_source.html">Templates/Sync.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d8/d3a/_time_8hpp_source.html">Templates/Time.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../d8/dce/_log_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/df8/classoeng_1_1core_1_1log_1_1_logger.html">oeng::core::log::Logger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d8a/classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html">oeng::core::log::detail::LogDelay</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -118,7 +123,7 @@ Namespaces</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/dce/_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">OE_DLOG</a>(delay,  level,  format, ...)</td></tr>
-<tr class="memdesc:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log with delay (no spam)  <a href="../../d8/dce/_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">More...</a><br /></td></tr>
+<tr class="memdesc:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log with delay (anti-spam)  <a href="../../d8/dce/_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">More...</a><br /></td></tr>
 <tr class="separator:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
@@ -138,8 +143,8 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a6498b047265a45bf78ad7a3bf2ecbd70"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d20/namespaceoeng_1_1core_1_1log.html#a6498b047265a45bf78ad7a3bf2ecbd70">oeng::core::log::Log</a> (Level level, std::u8string_view message)</td></tr>
-<tr class="separator:a6498b047265a45bf78ad7a3bf2ecbd70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50f616ad2b605c22a3344f8ade50c2a"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d20/namespaceoeng_1_1core_1_1log.html#ad50f616ad2b605c22a3344f8ade50c2a">oeng::core::log::Log</a> (Level level, std::u8string_view message)</td></tr>
+<tr class="separator:ad50f616ad2b605c22a3344f8ade50c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
 <tr class="memitem:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/d20/namespaceoeng_1_1core_1_1log.html#a2623cd43cd9ab3b992bf31d14934a4c0">oeng::core::log::Log</a> (Level level, std::u8string_view fmt, const Args &amp;... args)</td></tr>
 <tr class="separator:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -161,6 +166,11 @@ Functions</h2></td></tr>
 <tr class="memitem:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
 <tr class="memitem:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d8/d20/namespaceoeng_1_1core_1_1log.html#ac57a4977474000eaa4cbb69dfa46e49e">oeng::core::log::Critical</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
 <tr class="separator:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:ad89fadcf488a842ad9b64b96d462b076"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d8/d20/namespaceoeng_1_1core_1_1log.html#ad89fadcf488a842ad9b64b96d462b076">oeng::core::log::kLogThreadSafe</a> = false</td></tr>
+<tr class="separator:ad89fadcf488a842ad9b64b96d462b076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a7ec8e1fba81aab41a4de31c9c223b07b"></a>
@@ -206,7 +216,7 @@ Functions</h2></td></tr>
 <div class="line">    log_delay(delay, level, format, ##__VA_ARGS__); \</div>
 <div class="line">}()</div>
 </div><!-- fragment -->
-<p>Log with delay (no spam) </p>
+<p>Log with delay (anti-spam) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">delay</td><td>time::duration </td></tr>
@@ -223,7 +233,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="../../d8/dce/_log_8hpp.html">Log.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_fe3de68a6015b90330781393fcaf21e7.html">Public</a></li><li class="navelem"><a class="el" href="../../d8/dce/_log_8hpp.html">Log.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

@@ -1,15 +1,11 @@
 var classoeng_1_1renderer_1_1_renderer =
 [
     [ "CompArr", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#acb918eed92b4f94423a0b600800c052b", null ],
-    [ "Renderer", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a763f97bb153820fca5b218599da3a34a", null ],
-    [ "~Renderer", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a334ff2dd20256823b58f59a07866d436", null ],
     [ "DELETE_CPMV", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a90fb0b11617585879e1921fbb789df15", null ],
-    [ "DrawScene", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a917d2c99851438a4723568f06f059fd4", null ],
     [ "GetDefaultMaterial", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#accd0ed935348cf7c1e5e659e1ddb7e22", null ],
     [ "GetDefaultMesh", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#af638bcb176543ecc3eb0e9622c40ce5a", null ],
     [ "GetDefaultShader", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a2c1ebccb71a30516c12876b6ea656f68", null ],
     [ "GetDefaultTexture", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a6c5ea665e905f111a3d4d22e5b01e9e5", null ],
-    [ "GetEngine", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a0e2b910a324179d7c35689d0cc759d1c", null ],
     [ "GetMaterial", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a0968b8699b4041a67c76a714d4a0d539", null ],
     [ "GetMesh", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a22b648ff2845839b7d40e530ea7701fc", null ],
     [ "GetShader", "d2/d7e/classoeng_1_1renderer_1_1_renderer.html#a72b83956438b7434e76f9ceb0d6f695f", null ],

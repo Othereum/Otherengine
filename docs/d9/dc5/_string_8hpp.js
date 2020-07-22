@@ -19,6 +19,9 @@ var _string_8hpp =
     [ "AsString8", "d9/dc5/_string_8hpp.html#a9a6fcd793fef197335c408eeebc5e487", null ],
     [ "AsString8", "d9/dc5/_string_8hpp.html#a8e37fc439ead589897b3d4c0aec283c8", null ],
     [ "AsString8", "d9/dc5/_string_8hpp.html#af4f8f586dd71223fb5538acfd3c815a5", null ],
-    [ "ToUtf16", "d9/dc5/_string_8hpp.html#aa975fe63ec5096818749f0927778b0f3", null ],
-    [ "ToUtf8", "d9/dc5/_string_8hpp.html#a69aa365139c5cf32aafb98da990043b6", null ]
+    [ "StrEqCi", "d9/dc5/_string_8hpp.html#a48f4ca336efff43c72638858ac17b694", null ],
+    [ "StrEqCi", "d9/dc5/_string_8hpp.html#ac280a14c1d3913912c207ec26a83ff7f", null ],
+    [ "StrEqCi", "d9/dc5/_string_8hpp.html#af2a4cfff518dbb4ab0d4f692795a1128", null ],
+    [ "ToUtf16", "d9/dc5/_string_8hpp.html#a1ce5b2fd3668fc7ef39a503a004ca52b", null ],
+    [ "ToUtf8", "d9/dc5/_string_8hpp.html#af79982780c71c8004d539e7ff4248426", null ]
 ];

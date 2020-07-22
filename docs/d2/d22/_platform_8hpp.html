@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Core/Public/Platform.hpp File Reference</title>
+<title>Otherengine: Source/Core/Public/Platform.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -94,6 +94,7 @@ $(document).ready(function(){initNavTree('d2/d22/_platform_8hpp.html','../../');
 <div class="textblock"><code>#include &lt;bitset&gt;</code><br />
 <code>#include &lt;filesystem&gt;</code><br />
 <code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d8e/_core_8hpp_source.html">Core.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../d2/d22/_platform_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -116,23 +117,25 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acb4fcb9d54ba9b6bf318d8fa35b3827f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d83/namespaceoeng_1_1core_1_1detail.html#acb4fcb9d54ba9b6bf318d8fa35b3827f">oeng::core::detail::IsDebuggingImpl</a> () noexcept</td></tr>
-<tr class="separator:acb4fcb9d54ba9b6bf318d8fa35b3827f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aac363d79f000611de7c7442453edbfd0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> const std::filesystem::path &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#aac363d79f000611de7c7442453edbfd0">oeng::core::GetUserDataPath</a> ()</td></tr>
-<tr class="separator:aac363d79f000611de7c7442453edbfd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1065ed8abae6a8d92eea4ff571994b1e"><td class="memItemLeft" align="right" valign="top">CORE_API bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d83/namespaceoeng_1_1core_1_1detail.html#a1065ed8abae6a8d92eea4ff571994b1e">oeng::core::detail::IsDebuggingImpl</a> () noexcept</td></tr>
+<tr class="separator:a1065ed8abae6a8d92eea4ff571994b1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9f44b9174ee039afe2c282013035502"><td class="memItemLeft" align="right" valign="top">CORE_API fs::path&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#af9f44b9174ee039afe2c282013035502">oeng::core::GetUserDataPath</a> ()</td></tr>
+<tr class="memdesc:af9f44b9174ee039afe2c282013035502"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get user data path.  <a href="../../d0/d2f/namespaceoeng_1_1core.html#af9f44b9174ee039afe2c282013035502">More...</a><br /></td></tr>
+<tr class="separator:af9f44b9174ee039afe2c282013035502"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5063f576c46354de2fcadeece960f111"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a5063f576c46354de2fcadeece960f111">oeng::core::IsDebugging</a> () noexcept</td></tr>
+<tr class="memdesc:a5063f576c46354de2fcadeece960f111"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the debugger is attached.  <a href="../../d0/d2f/namespaceoeng_1_1core.html#a5063f576c46354de2fcadeece960f111">More...</a><br /></td></tr>
 <tr class="separator:a5063f576c46354de2fcadeece960f111"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a943c7149c0a7a8ffe7f4fa070b48fac1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a943c7149c0a7a8ffe7f4fa070b48fac1">oeng::core::CpuId</a> (int cpu_info[4], int func_id) noexcept</td></tr>
-<tr class="separator:a943c7149c0a7a8ffe7f4fa070b48fac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b439761d29747191bd8cddabea1cb32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a3b439761d29747191bd8cddabea1cb32">oeng::core::CpuIdCnt</a> (int cpu_info[4], int func_id, int sub_func_id) noexcept</td></tr>
-<tr class="separator:a3b439761d29747191bd8cddabea1cb32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d2289f8d51d51838b49fb967527c1c0"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a3d2289f8d51d51838b49fb967527c1c0">oeng::core::CpuId</a> (int cpu_info[4], int func_id) noexcept</td></tr>
+<tr class="separator:a3d2289f8d51d51838b49fb967527c1c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890274f981521d9a824b56d1d42e8cf0"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a890274f981521d9a824b56d1d42e8cf0">oeng::core::CpuIdCnt</a> (int cpu_info[4], int func_id, int sub_func_id) noexcept</td></tr>
+<tr class="separator:a890274f981521d9a824b56d1d42e8cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="../../d2/d22/_platform_8hpp.html">Platform.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_fe3de68a6015b90330781393fcaf21e7.html">Public</a></li><li class="navelem"><a class="el" href="../../d2/d22/_platform_8hpp.html">Platform.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

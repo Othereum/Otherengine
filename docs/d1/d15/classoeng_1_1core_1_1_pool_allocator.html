@@ -92,9 +92,6 @@ $(document).ready(function(){initNavTree('d1/d15/classoeng_1_1core_1_1_pool_allo
 </div><!--header-->
 <div class="contents">
 
-<p>Allocator for memory pool.  
- <a href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="../../d9/d4f/_memory_8hpp_source.html">Memory.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
@@ -113,25 +110,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4a93d2f71839867f4944bd9bad44ac4a"><td class="memTemplItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#a4a93d2f71839867f4944bd9bad44ac4a">operator==</a> (const <a class="el" href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html">PoolAllocator</a>&lt; Y &gt; &amp;) const noexcept</td></tr>
 <tr class="separator:a4a93d2f71839867f4944bd9bad44ac4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad72ed9672fcd75db59da65e42df9c73a"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#ad72ed9672fcd75db59da65e42df9c73a">allocate</a> (size_t n) const</td></tr>
-<tr class="memdesc:ad72ed9672fcd75db59da65e42df9c73a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Allocate n * sizeof(T) bytes of uninitialized memory.  <a href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#ad72ed9672fcd75db59da65e42df9c73a">More...</a><br /></td></tr>
 <tr class="separator:ad72ed9672fcd75db59da65e42df9c73a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a352965f2f775cb78922648a63d963bdd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#a352965f2f775cb78922648a63d963bdd">deallocate</a> (T *p, size_t n) const noexcept</td></tr>
-<tr class="memdesc:a352965f2f775cb78922648a63d963bdd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deallocate the memory referenced by p.  <a href="../../d1/d15/classoeng_1_1core_1_1_pool_allocator.html#a352965f2f775cb78922648a63d963bdd">More...</a><br /></td></tr>
 <tr class="separator:a352965f2f775cb78922648a63d963bdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><h3>template&lt;class T&gt;<br />
-class oeng::core::PoolAllocator&lt; T &gt;</h3>
-
-<p>Allocator for memory pool. </p>
-<dl class="section note"><dt>Note</dt><dd>Allocates from pool only for a single object and game thread. Otherwise, allocates by operator new() </dd></dl>
-<dl class="tparams"><dt>Template Parameters</dt><dd>
-  <table class="tparams">
-    <tr><td class="paramname">T</td><td>Type to be allocated </td></tr>
-  </table>
-  </dd>
-</dl>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="acb3e3861ca32f9c857180934a897bd0f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb3e3861ca32f9c857180934a897bd0f">&#9670;&nbsp;</a></span>value_type</h2>
 
@@ -233,16 +216,6 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Allocate n * sizeof(T) bytes of uninitialized memory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">n</td><td>the number of objects to allocate memory for </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The pointer to allocated memory </dd></dl>
-<dl class="section note"><dt>Note</dt><dd>Allocates from pool only if <a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a9ab16cb587b75c309bb8f4d9bc64267f">IsGameThread()</a> </dd></dl>
-
 </div>
 </div>
 <a id="a352965f2f775cb78922648a63d963bdd"></a>
@@ -281,15 +254,6 @@ template&lt;class T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p>Deallocate the memory referenced by p. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">p</td><td>pointer to the previously allocated memory </td></tr>
-    <tr><td class="paramname">n</td><td>the number of objects the storage was allocated for (MUST BE SAME) </td></tr>
-  </table>
-  </dd>
-</dl>
-
 </div>
 </div>
 <a id="a4a93d2f71839867f4944bd9bad44ac4a"></a>
@@ -323,7 +287,7 @@ template&lt;class Y &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>Source/Runtime/Core/Public/Templates/<a class="el" href="../../d9/d4f/_memory_8hpp_source.html">Memory.hpp</a></li>
+<li>Source/Core/Public/<a class="el" href="../../d9/d4f/_memory_8hpp_source.html">Memory.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

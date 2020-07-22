@@ -1,5 +1,6 @@
 var _log_8hpp =
 [
+    [ "Logger", "d2/df8/classoeng_1_1core_1_1log_1_1_logger.html", "d2/df8/classoeng_1_1core_1_1log_1_1_logger" ],
     [ "LogDelay", "d9/d8a/classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html", "d9/d8a/classoeng_1_1core_1_1log_1_1detail_1_1_log_delay" ],
     [ "OE_DLOG", "d8/dce/_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b", null ],
     [ "Level", "d8/dce/_log_8hpp.html#a27b4ec59420cc414f1549d95a73dbbbd", [
@@ -16,7 +17,8 @@ var _log_8hpp =
     [ "Error", "d8/dce/_log_8hpp.html#a7b6d1fac0a56d8a9ade9929965c064e5", null ],
     [ "Info", "d8/dce/_log_8hpp.html#ab6f7eb91be866796e3828557d3ae0013", null ],
     [ "Log", "d8/dce/_log_8hpp.html#a2623cd43cd9ab3b992bf31d14934a4c0", null ],
-    [ "Log", "d8/dce/_log_8hpp.html#a6498b047265a45bf78ad7a3bf2ecbd70", null ],
+    [ "Log", "d8/dce/_log_8hpp.html#ad50f616ad2b605c22a3344f8ade50c2a", null ],
     [ "Trace", "d8/dce/_log_8hpp.html#ab621f44a23b30fe9182ee9b008ad0f7f", null ],
-    [ "Warn", "d8/dce/_log_8hpp.html#aeb3c11af802569bc300f4721103bbc3a", null ]
+    [ "Warn", "d8/dce/_log_8hpp.html#aeb3c11af802569bc300f4721103bbc3a", null ],
+    [ "kLogThreadSafe", "d8/dce/_log_8hpp.html#ad89fadcf488a842ad9b64b96d462b076", null ]
 ];

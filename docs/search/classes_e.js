@@ -1,27 +1,5 @@
 var searchData=
 [
-  ['scenecomponent_1171',['SceneComponent',['../db/d79/classoeng_1_1engine_1_1_scene_component.html',1,'oeng::engine']]],
-  ['scopecounter_1172',['ScopeCounter',['../d0/d87/classoeng_1_1core_1_1_scope_counter.html',1,'oeng::core']]],
-  ['scopecyclecounter_1173',['ScopeCycleCounter',['../d8/dd4/classoeng_1_1core_1_1_scope_cycle_counter.html',1,'oeng::core']]],
-  ['scopecyclemanager_1174',['ScopeCycleManager',['../d7/d9a/classoeng_1_1core_1_1_scope_cycle_manager.html',1,'oeng::core']]],
-  ['scopecyclestat_1175',['ScopeCycleStat',['../dd/d21/structoeng_1_1core_1_1_scope_cycle_stat.html',1,'oeng::core']]],
-  ['scopestat_1176',['ScopeStat',['../d2/dbe/structoeng_1_1core_1_1_scope_stat.html',1,'oeng::core']]],
-  ['sdlraii_1177',['SdlRaii',['../d3/de9/classoeng_1_1engine_1_1_sdl_raii.html',1,'oeng::engine']]],
-  ['setandenableshared_1178',['SetAndEnableShared',['../d7/d0e/structoeng_1_1core_1_1detail_1_1_set_and_enable_shared.html',1,'oeng::core::detail']]],
-  ['shader_1179',['Shader',['../da/d51/classoeng_1_1renderer_1_1_shader.html',1,'oeng::renderer']]],
-  ['sharedobjbase_1180',['SharedObjBase',['../d8/d74/structoeng_1_1core_1_1detail_1_1_shared_obj_base.html',1,'oeng::core::detail']]],
-  ['sharedobjinline_1181',['SharedObjInline',['../d9/dc2/structoeng_1_1core_1_1detail_1_1_shared_obj_inline.html',1,'oeng::core::detail']]],
-  ['sharedobjptr_1182',['SharedObjPtr',['../dc/d58/structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html',1,'oeng::core::detail']]],
-  ['sharedptr_1183',['SharedPtr',['../da/dc9/classoeng_1_1core_1_1_shared_ptr.html',1,'oeng::core']]],
-  ['sharedref_1184',['SharedRef',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['sharedref_3c_20oeng_3a_3arenderer_3a_3amaterial_20_3e_1185',['SharedRef&lt; oeng::renderer::Material &gt;',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['sharedref_3c_20oeng_3a_3arenderer_3a_3amesh_20_3e_1186',['SharedRef&lt; oeng::renderer::Mesh &gt;',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['sharedref_3c_20oeng_3a_3arenderer_3a_3ashader_20_3e_1187',['SharedRef&lt; oeng::renderer::Shader &gt;',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['sharedref_3c_20oeng_3a_3arenderer_3a_3atexture_20_3e_1188',['SharedRef&lt; oeng::renderer::Texture &gt;',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['sharedref_3c_20t_20_3e_1189',['SharedRef&lt; T &gt;',['../d0/dce/classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['skylightcomponent_1190',['SkyLightComponent',['../d7/d7c/classoeng_1_1engine_1_1_sky_light_component.html',1,'oeng::engine']]],
-  ['sphere_1191',['Sphere',['../d8/d65/structotm_1_1_sphere.html',1,'otm']]],
-  ['spotlightcomponent_1192',['SpotLightComponent',['../dd/d8c/classoeng_1_1engine_1_1_spot_light_component.html',1,'oeng::engine']]],
-  ['spritecomponent_1193',['SpriteComponent',['../d9/dee/classoeng_1_1engine_1_1_sprite_component.html',1,'oeng::engine']]],
-  ['std_1194',['std',['../dc/d21/structstd.html',1,'']]]
+  ['vertex_1002',['Vertex',['../d7/dd3/structoeng_1_1renderer_1_1_vertex.html',1,'oeng::renderer']]],
+  ['vertexarray_1003',['VertexArray',['../da/d20/classoeng_1_1renderer_1_1_vertex_array.html',1,'oeng::renderer']]]
 ];

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Engine/Public/InputCode.hpp File Reference</title>
+<title>Otherengine: Source/Engine/Public/InputCode.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -93,6 +93,7 @@ $(document).ready(function(){initNavTree('d0/d1e/_input_code_8hpp.html','../../'
 <div class="contents">
 <div class="textblock"><code>#include &lt;optional&gt;</code><br />
 <code>#include &quot;<a class="el" href="../../d5/d8e/_core_8hpp_source.html">Core.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d0/d87/_engine_fwd_8hpp_source.html">EngineFwd.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d7/df8/_dy_arr_8hpp_source.html">Templates/DyArr.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/dc5/_string_8hpp_source.html">Templates/String.hpp</a>&quot;</code><br />
 </div>
@@ -484,26 +485,26 @@ Functions</h2></td></tr>
 <tr class="separator:a3386b4d3c3dfd2177e2c95b93e309708"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a75145d55c3bbfa0726f31af9bd8b26e3"><td class="memItemLeft" align="right" valign="top">constexpr int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a75145d55c3bbfa0726f31af9bd8b26e3">oeng::engine::ScanToKey</a> (int scan) noexcept</td></tr>
 <tr class="separator:a75145d55c3bbfa0726f31af9bd8b26e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e1ef394c6560771c39ac81c76868cc7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> String8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a8e1ef394c6560771c39ac81c76868cc7">oeng::engine::GetName</a> (Keycode btn) noexcept</td></tr>
-<tr class="separator:a8e1ef394c6560771c39ac81c76868cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a2e18228c86b078f897176fd36a0470"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a0a2e18228c86b078f897176fd36a0470">oeng::engine::GetName</a> (CtrlAxis axis) noexcept</td></tr>
-<tr class="separator:a0a2e18228c86b078f897176fd36a0470"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af10229ab25f1a9f9b826131b1e60aba1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#af10229ab25f1a9f9b826131b1e60aba1">oeng::engine::GetName</a> (CtrlBtn btn) noexcept</td></tr>
-<tr class="separator:af10229ab25f1a9f9b826131b1e60aba1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c82773a2465497e595795f7c0f88987"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> DyArr&lt; std::u8string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a9c82773a2465497e595795f7c0f88987">oeng::engine::GetNames</a> (KeyMod mod) noexcept</td></tr>
-<tr class="separator:a9c82773a2465497e595795f7c0f88987"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65e9896cf55f50ef2933c10f37f21f08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; Keycode &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a65e9896cf55f50ef2933c10f37f21f08">oeng::engine::ToKeycode</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:a65e9896cf55f50ef2933c10f37f21f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf4a72af2579f157dc639308775291b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; CtrlAxis &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#abf4a72af2579f157dc639308775291b9">oeng::engine::ToCtrlAxis</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:abf4a72af2579f157dc639308775291b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebb7d2888e31db4f6ff491d41e73b1a0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; CtrlBtn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#aebb7d2888e31db4f6ff491d41e73b1a0">oeng::engine::ToCtrlBtn</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:aebb7d2888e31db4f6ff491d41e73b1a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cabca73a7496282e751f60e7f0f5f6d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; MouseAxis &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a0cabca73a7496282e751f60e7f0f5f6d">oeng::engine::ToMouseAxis</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:a0cabca73a7496282e751f60e7f0f5f6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5bf07c8ff1eff1b11e9ec492438f2260"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; MouseBtn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a5bf07c8ff1eff1b11e9ec492438f2260">oeng::engine::ToMouseBtn</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:a5bf07c8ff1eff1b11e9ec492438f2260"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d030cc57a0d388b5d3e56f1ce9268c9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> std::optional&lt; KeyMod &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a9d030cc57a0d388b5d3e56f1ce9268c9">oeng::engine::ToKeyMod</a> (std::u8string_view name) noexcept</td></tr>
-<tr class="separator:a9d030cc57a0d388b5d3e56f1ce9268c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4402f6cd3e30df24843c745c6c0c2984"><td class="memItemLeft" align="right" valign="top">ENGINE_API String8&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a4402f6cd3e30df24843c745c6c0c2984">oeng::engine::GetName</a> (Keycode btn) noexcept</td></tr>
+<tr class="separator:a4402f6cd3e30df24843c745c6c0c2984"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4b0900fe692de3aa4d47dafc1b1bfce"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#aa4b0900fe692de3aa4d47dafc1b1bfce">oeng::engine::GetName</a> (CtrlAxis axis) noexcept</td></tr>
+<tr class="separator:aa4b0900fe692de3aa4d47dafc1b1bfce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1246732908b6ca27e637141bb0f8a136"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a1246732908b6ca27e637141bb0f8a136">oeng::engine::GetName</a> (CtrlBtn btn) noexcept</td></tr>
+<tr class="separator:a1246732908b6ca27e637141bb0f8a136"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74b8bdc87e5d1089c0fc8e674fa1bf74"><td class="memItemLeft" align="right" valign="top">ENGINE_API DyArr&lt; std::u8string_view &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a74b8bdc87e5d1089c0fc8e674fa1bf74">oeng::engine::GetNames</a> (KeyMod mod) noexcept</td></tr>
+<tr class="separator:a74b8bdc87e5d1089c0fc8e674fa1bf74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a768e836043f9e536ffed5de7d1fb046f"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; Keycode &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a768e836043f9e536ffed5de7d1fb046f">oeng::engine::ToKeycode</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:a768e836043f9e536ffed5de7d1fb046f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abfe914051858ae5e50a043f74f57d4ff"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; CtrlAxis &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#abfe914051858ae5e50a043f74f57d4ff">oeng::engine::ToCtrlAxis</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:abfe914051858ae5e50a043f74f57d4ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeed2a01f8b93b6136369f5d9bb195d75"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; CtrlBtn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#aeed2a01f8b93b6136369f5d9bb195d75">oeng::engine::ToCtrlBtn</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:aeed2a01f8b93b6136369f5d9bb195d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afabd53f82e8002ae6574fde3feb5ea94"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; MouseAxis &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#afabd53f82e8002ae6574fde3feb5ea94">oeng::engine::ToMouseAxis</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:afabd53f82e8002ae6574fde3feb5ea94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a007f22e07cf967470761b8a65ef126f7"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; MouseBtn &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a007f22e07cf967470761b8a65ef126f7">oeng::engine::ToMouseBtn</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:a007f22e07cf967470761b8a65ef126f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add544932a425ad0bdf0bb535d91ebfb7"><td class="memItemLeft" align="right" valign="top">ENGINE_API std::optional&lt; KeyMod &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#add544932a425ad0bdf0bb535d91ebfb7">oeng::engine::ToKeyMod</a> (std::u8string_view name) noexcept</td></tr>
+<tr class="separator:add544932a425ad0bdf0bb535d91ebfb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f1b53730570fab2a841a5e4199b5427"><td class="memItemLeft" align="right" valign="top">constexpr std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a7f1b53730570fab2a841a5e4199b5427">oeng::engine::GetName</a> (KeyMod mod) noexcept</td></tr>
 <tr class="separator:a7f1b53730570fab2a841a5e4199b5427"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bafec50122a444a0a4b2b816b4c186f"><td class="memItemLeft" align="right" valign="top">constexpr std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dc1/namespaceoeng_1_1engine.html#a8bafec50122a444a0a4b2b816b4c186f">oeng::engine::GetName</a> (MouseAxis axis) noexcept</td></tr>
@@ -516,7 +517,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="../../d0/d1e/_input_code_8hpp.html">InputCode.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_5405398c23c020946029b9f4e6e04094.html">Engine</a></li><li class="navelem"><a class="el" href="../../dir_3de029f943ea1b298b2a6155cdd0fce4.html">Public</a></li><li class="navelem"><a class="el" href="../../d0/d1e/_input_code_8hpp.html">InputCode.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>

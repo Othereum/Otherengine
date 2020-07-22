@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.18"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Core/Public/Name.hpp File Reference</title>
+<title>Otherengine: Source/Core/Public/Name.hpp File Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -86,23 +86,31 @@ $(document).ready(function(){initNavTree('d8/d3e/_name_8hpp.html','../../'); ini
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Name.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="../../d5/d8e/_core_8hpp_source.html">Core.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="../../d3/d9d/_json_fwd_8hpp_source.html">JsonFwd.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="../../d3/d9d/_json_fwd_8hpp_source.html">JsonFwd.hpp</a>&quot;</code><br />
+<code>#include &quot;otm/Hash.hpp&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../dd/d7c/_hash_set_8hpp_source.html">Templates/HashSet.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="../../d9/dc5/_string_8hpp_source.html">Templates/String.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="../../d4/dfb/_sync_8hpp_source.html">Templates/Sync.hpp</a>&quot;</code><br />
 </div>
 <p><a href="../../d8/d3e/_name_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">oeng::core::Name</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight string. Very fast O(1) copy and comparison. No heap allocation on copy. Good to use as key for Map/Set.  <a href="../../d9/d10/structoeng_1_1core_1_1_name.html#details">More...</a><br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/d13/structoeng_1_1core_1_1_name_hasher.html">oeng::core::NameHasher</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d7/de0/structstd_1_1hash_3_01oeng_1_1_name_01_4.html">std::hash&lt; oeng::Name &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/da6/structoeng_1_1core_1_1_name_equal.html">oeng::core::NameEqual</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/dbb/structoeng_1_1core_1_1_is_transparent.html">oeng::core::IsTransparent&lt; Container, KeyEquivalent &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d9/d10/structoeng_1_1core_1_1_name.html">oeng::core::Name</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lightweight string.  <a href="../../d9/d10/structoeng_1_1core_1_1_name.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -112,19 +120,32 @@ Namespaces</h2></td></tr>
 <tr class="memitem:d0/d2f/namespaceoeng_1_1core"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html">oeng::core</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:acba135ef73a5fc60a643ad81070320cd"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#acba135ef73a5fc60a643ad81070320cd">oeng::core::NameSet</a> = CondMonitor&lt; HashSet&lt; String8, NameHasher, NameEqual &gt;, kNameThreadSafe &gt;</td></tr>
+<tr class="separator:acba135ef73a5fc60a643ad81070320cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a3ff2eec807203a5282e94a907a0e51c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a3ff2eec807203a5282e94a907a0e51c6">oeng::core::to_json</a> (Json &amp;json, const Name &amp;name)</td></tr>
-<tr class="separator:a3ff2eec807203a5282e94a907a0e51c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbaa0b48db9fb01fddb7784c9e8024e9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d5/d8e/_core_8hpp.html#a3c1790cd7724c00a9c44c1ac4c057710">OEAPI</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#abbaa0b48db9fb01fddb7784c9e8024e9">oeng::core::from_json</a> (const Json &amp;json, Name &amp;name)</td></tr>
-<tr class="separator:abbaa0b48db9fb01fddb7784c9e8024e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7458f030456537729ce51e9680d9227"><td class="memTemplParams" colspan="2">template&lt;class Set &gt; </td></tr>
+<tr class="memitem:ae7458f030456537729ce51e9680d9227"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#ae7458f030456537729ce51e9680d9227">oeng::core::Find</a> (const Set &amp;set, std::u8string_view s)</td></tr>
+<tr class="separator:ae7458f030456537729ce51e9680d9227"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac2cf12f442f97fb8f73e584b347b0d6d"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#ac2cf12f442f97fb8f73e584b347b0d6d">oeng::core::to_json</a> (Json &amp;json, const Name &amp;name)</td></tr>
+<tr class="separator:ac2cf12f442f97fb8f73e584b347b0d6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa51859f1bd0b71965b57057ec8350286"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#aa51859f1bd0b71965b57057ec8350286">oeng::core::from_json</a> (const Json &amp;json, Name &amp;name)</td></tr>
+<tr class="separator:aa51859f1bd0b71965b57057ec8350286"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a93a5939247d7831c1fb869856a71df54"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d2f/namespaceoeng_1_1core.html#a93a5939247d7831c1fb869856a71df54">oeng::core::kNameThreadSafe</a> = false</td></tr>
+<tr class="separator:a93a5939247d7831c1fb869856a71df54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="../../dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="../../d8/d3e/_name_8hpp.html">Name.hpp</a></li>
+    <li class="navelem"><a class="el" href="../../dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="../../dir_1ad6433457b0067ef8f54a4fa85f5c9a.html">Core</a></li><li class="navelem"><a class="el" href="../../dir_fe3de68a6015b90330781393fcaf21e7.html">Public</a></li><li class="navelem"><a class="el" href="../../d8/d3e/_name_8hpp.html">Name.hpp</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="../../doxygen.png" alt="doxygen"/></a> 1.8.18 </li>
