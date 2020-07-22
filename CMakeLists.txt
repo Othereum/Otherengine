@@ -21,7 +21,6 @@ else()
 	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.so")
 endif()
 
-option(OE_BUILD_DOCS "Whether to build documents with doxygen")
 if(OE_BUILD_DOCS)
 	add_custom_target(docs
 		COMMAND Scripts/BuildDocs.$<IF:$<PLATFORM_ID:Windows>,bat,sh>
