@@ -69,7 +69,7 @@ namespace oeng::core::log
 
 	void Log(Level level, std::u8string_view message)
 	{
-		if (EngineBase::Exists()) LIKELY
+		if (EngineBase::Exists())
 		{
 			EngineBase::Get().GetLogger().Log(level, message);
 		}
@@ -89,7 +89,7 @@ namespace oeng::core::log
 
 		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
 		{
-			if (EngineBase::Exists()) LIKELY
+			if (EngineBase::Exists())
 			{
 				EngineBase::Get().GetLogger().LogDelay(id_, delay, level, msg);
 			}
