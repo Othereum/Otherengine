@@ -6,6 +6,7 @@ cache:
   directories:
   - Source/ThirdParty
   - Tools
+  - out
 
 jobs:
   include:
