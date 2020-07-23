@@ -27,7 +27,6 @@ jobs:
             - clang++-10
             - llvm-10-dev
             - libstdc++-10-dev
-      cache: directories: out
       install: Scripts/InstallDeps.sh
       before_script: Scripts/GenerateClang.sh
       script: cmake --build out/ -- -j
@@ -42,7 +41,6 @@ jobs:
             - gcc-10
             - g++-10
             - libstdc++-10-dev
-      cache: directories: out
       install: Scripts/InstallDeps.sh
       before_script: Scripts/GenerateGCC.sh
       script: cmake --build out/ -- -j
