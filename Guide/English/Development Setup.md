@@ -135,7 +135,7 @@ Item | Min Version | Auto Install
   >
   > You can also change the default triplet. You can set the value of the system environment variable `VCPKG_DEFAULT_TRIPLET` to `x64-window`.
 
-> **Tip**: If possible, install it manually. CMakeLists.txt auto-installation slows build speed.
+> **Tip**: If possible, install libraries manually. CMakeLists.txt auto-installation slows build speed.
 
 ## Generate and Build
 
