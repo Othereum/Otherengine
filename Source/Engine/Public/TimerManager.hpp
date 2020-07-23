@@ -13,11 +13,13 @@ namespace oeng
 	using namespace engine;
 }
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <>
 struct ENGINE_API std::hash<oeng::TimerHandle>
 {
 	size_t operator()(oeng::TimerHandle key) const noexcept;
 };
+#endif
 
 namespace oeng::engine
 {
