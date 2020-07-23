@@ -26,7 +26,7 @@ if [ "$cmake_install" = true ]; then
         tar -xvf cmake-3.18.0-Linux-x86_64.tar.gz > /dev/null
         mv cmake-3.18.0-Linux-x86_64 cmake-install
     fi
-    PATH=$tools_dir/cmake-install/bin:$PATH
+    export PATH=$tools_dir/cmake-install/bin:$PATH
 fi
 
 # sdl2 glew
