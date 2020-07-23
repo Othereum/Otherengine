@@ -2,7 +2,7 @@
 set -e
 work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-if ! command -v gcc-10 &> /dev/null; then
+if command -v gcc-10 &> /dev/null; then
     echo "gcc-10 found"
     CC=gcc-10
     CXX=g++-10
