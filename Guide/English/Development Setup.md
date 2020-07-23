@@ -130,8 +130,8 @@ Item | Min Version | Auto Install
 
   Scripts are not available in Windows. Use [vcpkg](https://github.com/microsoft/vcpkg) to install the library.
 
-  > **NOTE**: The default triplet for vcpkg is x86-window. To install the x64 package, you must specify it.
-  > 예) `vcpkg install sdl2:x64-windows glew:x64-windows`
+  > **NOTE**: The default triplet for vcpkg is x86-window. To install the x64 package, you must specify it.  
+  > ex) `vcpkg install sdl2:x64-windows glew:x64-windows`
   >
   > You can also change the default triplet. You can set the value of the system environment variable `VCPKG_DEFAULT_TRIPLET` to `x64-window`.
 
