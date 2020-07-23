@@ -6,37 +6,8 @@ addons:
     organization: "othereum"
     token:
       secure: "ohnP2uN/X+CI+8RMo0HlZhXTvQIbAJBmS4VTiMeSt/uSalfwqxAR1X3oXxN9VHCR4lH0TUJoG6MraNM3Y/0CJtTf6IFrBbsxP6W5ymwNq8Ez1MBr5u238EEQlOKTWEKhVhE0+HJx5zXoE13hEInlTc9aLcsJBZstcjPOyvb5yVX75taRRHPDvLuVBYXjA/GUNHX7y34wVuCXhFd/gAv0bwInBoiKRG38yOW184w30aF7CqGaIpAFjw/wAjk/mB3Ag8m0DnfmBWRce+Ju3gREGtiNR7Ok2vi34Z55ZVC8bRo7S+Z1Rt5XNsUULwL0nyPGlu8u3ybm+TbKRlqbS/J93+fXxbNAsxyymS3Oo1L056w7MXWt+k+aAehAvRZDKJyCtFp3Tnh0TskSYrdcbDgKkg3wo1QIOYqTbPRJ3bgxCDpIJUhtH3gN5qcXfUBbG7gNCfSM4fmW+yIk1zcxwSaihItwcpqA2qinu2thHOpIZ2WLZmEBs/YYeJLs5pqW3HjQjL1hdQzmCVICXZWLhwC2nzUp66e5MneMAFDQNRKtpzurvkJBiNyiJeilPUZirVkuW7xlyzZff42KJ82fEYzkD/KmBNd3dsUODRz6Id2SeTXPw9iHCJhfbqDRzUqrUdAAon/8aDLnSlcgMFOESPfLUKQv9B9hY05G2cW+JKqj5gk="
-  apt:
-    update: true
-    packages:
-      - nlohmann-json3-dev
-      - libsdl2-dev
-      - libglew-dev
-      - libspdlog-dev
-      - libfmt-dev
-
-install:    
-  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
-  - mkdir ${DEPS_DIR} && cd ${DEPS_DIR}
-
-  - travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.18.0/cmake-3.18.0-Linux-x86_64.tar.gz
-
-  - echo "b777a4cb358153dc9b172ebf49426da0 *cmake-3.18.0-Linux-x86_64.tar.gz" > cmake_md5.txt
-  - md5sum -c cmake_md5.txt
-
-  - tar -xvf cmake-3.18.0-Linux-x86_64.tar.gz > /dev/null
-  - mv cmake-3.18.0-Linux-x86_64 cmake-install
-
-  - PATH=${DEPS_DIR}/cmake-install/bin:$PATH
-
-  - cd ${TRAVIS_BUILD_DIR}
-
-before_script:
-  - mkdir out
-  - cd out
-  - cmake ..
-  - cd ..
 
 script:
-  - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/
+  - ./configure
+  - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/ -- -j
   - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
