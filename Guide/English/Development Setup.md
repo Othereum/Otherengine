@@ -99,7 +99,7 @@ GAME_API void GameMain(Engine& e)
 ## Installing Dependencies
 
 Item | Min Version | Auto Install
---- | --- | --- | ---
+--- | --- | ---
 MSVC\* | 14.26 | X
 Clang\* | 10 | `Generate.sh` - `apt`
 GCC\* | 10 | `Generate.sh` - `apt`
