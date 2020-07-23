@@ -29,8 +29,17 @@
 
 ## Branches
 
-* **master** - Reflects live development build. It may not even be compiled.
-* **buildable** - Compilable build that works well. But it doesn't mean it's stable.
+### **master**
+
+[![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=master)](https://travis-ci.com/Othereum/Otherengine)
+
+Reflects live development build. It may not even be compiled.
+
+### **buildable**
+
+[![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=buildable)](https://travis-ci.com/Othereum/Otherengine)
+
+Compilable build that works well. But it doesn't mean it's stable.
 
 ## Dependencies
 
