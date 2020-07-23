@@ -6,7 +6,7 @@
 
 [![Demonstration](https://img.youtube.com/vi/0Gn34AfPm_M/maxresdefault.jpg)](https://www.youtube.com/playlist?list=PLRimg1E-To2HJn1jtpYQXFujjI4dbRUsY)
 
-## Links
+## Quick Start
 
 * [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
 * [Getting Started - Development Setup](Guide/English/Development%20Setup.md)
