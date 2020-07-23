@@ -1,10 +1,9 @@
 #!/bin/bash
 set -e
-work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 # install cmake and dependencies
 ./InstallDeps.sh
 
 # generate cmake with clang as default
-cd $work_dir
 ./GenerateClang.sh
