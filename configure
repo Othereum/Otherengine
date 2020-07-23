@@ -2,8 +2,8 @@
 set -e
 work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# sdl2 glew
-sudo apt install -y libsdl2-dev libglew-dev
+# install cmake and dependencies
+./InstallDeps.sh
 
 # generate cmake with clang as default
 cd $work_dir
