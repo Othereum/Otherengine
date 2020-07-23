@@ -5,5 +5,5 @@ scripts_dir="$( dirname "${BASH_SOURCE[0]}" )/Scripts"
 # install cmake and dependencies
 "$scripts_dir/InstallDeps.sh"
 
-# generate cmake with clang as default
-"$scripts_dir/GenerateClang.sh"
+# generate cmake
+"$scripts_dir/Generate.sh" $1
