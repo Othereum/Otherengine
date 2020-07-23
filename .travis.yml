@@ -16,7 +16,7 @@ addons:
       - clang-10
       - clang++-10
       - llvm-10-dev
-      - binutils-gold
+      - libstdc++-10-dev
 
 script:
   - ./configure

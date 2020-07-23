@@ -22,7 +22,7 @@ else
     fi
 fi
 if [ "$clang_install" = true ]; then
-    sudo apt install -y clang-10 clang++-10 llvm-10-dev binutils-gold
+    sudo apt install -y clang-10 clang++-10 llvm-10-dev libstdc++-10-dev
     CC=clang-10
     CXX=clang++-10
 fi

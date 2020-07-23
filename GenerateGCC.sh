@@ -22,7 +22,7 @@ else
     fi
 fi
 if [ "$gcc_install" = true ]; then
-    sudo apt install -y gcc-10 g++-10
+    sudo apt install -y gcc-10 g++-10 libstdc++-10-dev
     CC=gcc-10
     CXX=g++-10
 fi
