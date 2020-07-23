@@ -30,7 +30,7 @@ jobs:
             - libstdc++-10-dev
       install: Scripts/InstallDeps.sh
       before_script: Scripts/GenerateClang.sh
-      script: cmake --build out/ -- -j
+      script: cmake --build out/clang -- -j
         # - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/ -- -j
         # - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
 
@@ -44,4 +44,4 @@ jobs:
             - libstdc++-10-dev
       install: Scripts/InstallDeps.sh
       before_script: Scripts/GenerateGCC.sh
-      script: cmake --build out/ -- -j
+      script: cmake --build out/gcc -- -j
