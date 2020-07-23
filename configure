@@ -1,9 +1,9 @@
 #!/bin/bash
 set -e
-cd "$( dirname "${BASH_SOURCE[0]}" )"
+scripts_dir="$( dirname "${BASH_SOURCE[0]}" )/Scripts"
 
 # install cmake and dependencies
-Scripts/InstallDeps.sh
+"$scripts_dir/InstallDeps.sh"
 
 # generate cmake with clang as default
-Scripts/GenerateClang.sh
+"$scripts_dir/GenerateClang.sh"

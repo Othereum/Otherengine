@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-proj_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
 if command -v clang++-10 &> /dev/null; then
     echo "clang++-10 found"
@@ -27,6 +26,8 @@ if [ "$clang_install" = true ]; then
     CXX=clang++-10
 fi
 
-mkdir -p out && cd out
-PATH=$proj_dir/Tools/cmake-install/bin:$PATH
-cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -D_CMAKE_TOOLCHAIN_PREFIX=llvm-
+# Use installed cmake if exists
+PATH="$PWD/Tools/cmake-install/bin:$PATH"
+
+mkdir -p out/clang && cd out/clang
+cmake ../.. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX -D_CMAKE_TOOLCHAIN_PREFIX=llvm-

@@ -1,7 +1,5 @@
 #!/bin/bash
 set -e
-proj_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
-tools_dir=$proj_dir/Tools
 
 # cmake
 if ! command -v cmake &> /dev/null; then
@@ -18,10 +16,10 @@ else
     fi
 fi
 if [ "$cmake_install" = true ]; then
-    if [ -f "$tools_dir/cmake-install/bin/cmake" ]; then
+    if [ -f Tools/cmake-install/bin/cmake ]; then
         echo "Downloaded cmake found"
     else
-        mkdir -p $tools_dir && cd $tools_dir
+        mkdir -p Tools && cd Tools
         wget -nc https://github.com/Kitware/CMake/releases/download/v3.18.0/cmake-3.18.0-Linux-x86_64.tar.gz
         tar -xvf cmake-3.18.0-Linux-x86_64.tar.gz > /dev/null
         mv cmake-3.18.0-Linux-x86_64 cmake-install
