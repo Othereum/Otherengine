@@ -29,4 +29,4 @@ fi
 
 cd $work_dir
 mkdir -p out && cd out
-cmake ..
+cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX
