@@ -3,7 +3,7 @@ set -e
 cd "$( dirname "${BASH_SOURCE[0]}" )"
 
 # install cmake and dependencies
-./InstallDeps.sh
+Scripts/InstallDeps.sh
 
 # generate cmake with clang as default
-./GenerateClang.sh
+Scripts/GenerateClang.sh

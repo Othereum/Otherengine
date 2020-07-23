@@ -1,6 +1,6 @@
 #!/bin/bash
 set -e
-work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+proj_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
 if command -v g++-10 &> /dev/null; then
     echo "g++-10 found"
@@ -27,8 +27,6 @@ if [ "$gcc_install" = true ]; then
     CXX=g++-10
 fi
 
-cd $work_dir
 mkdir -p out && cd out
-
-PATH=$work_dir/Tools/cmake-install/bin:$PATH
+PATH=$proj_dir/Tools/cmake-install/bin:$PATH
 cmake .. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX

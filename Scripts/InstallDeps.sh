@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
-work_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-tools_dir=$work_dir/Tools
+proj_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
+tools_dir=$proj_dir/Tools
 
 # cmake
 if ! command -v cmake &> /dev/null; then
