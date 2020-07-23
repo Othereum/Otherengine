@@ -1,9 +1,0 @@
-#!/bin/bash
-set -e
-scripts_dir="$( dirname "${BASH_SOURCE[0]}" )/Scripts"
-
-# install cmake and dependencies
-"$scripts_dir/InstallDeps.sh"
-
-# generate cmake
-"$scripts_dir/Generate.sh" $1
