@@ -9,7 +9,7 @@
 ## Quick Start
 
 * [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
-* [Getting Started - Development Setup](Guide/English/Development%20Setup.md)
+* [Development Setup](Guide/English/Development%20Setup.md)
 * [API Reference](https://othereum.github.io/Otherengine)
 
 ## Features
@@ -46,17 +46,4 @@ Reflects live development build. It may not even be compiled.
 
 Compilable build that works well. But it doesn't mean it's stable.
 
-## Dependencies
-
-Must be the same or newer than the specified version. *Italics* means it can be installed automatically if not found from system.
-
-* MSVC v14.26 or *Clang* 10 or *GCC* 10
-* *CMake* 3.14
-* [*{fmt}*](https://github.com/fmtlib/fmt) 7.0.0
-* [*spdlog*](https://github.com/gabime/spdlog) 1.7.0
-* [*nlohmann-json*](https://github.com/nlohmann/json) 3.8.0
-* [SDL2](https://www.libsdl.org/download-2.0.php)
-* [GLEW](https://github.com/nigels-com/glew)
-* [*SOIL2*](https://github.com/SpartanJ/SOIL2)
-* [*omem*](https://github.com/Othereum/omem)
-* [*otm*](https://github.com/Othereum/otm)
+## [Dependencies](Guide/English/Development%20Setup.md#installing-dependencies)
