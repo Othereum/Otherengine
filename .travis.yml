@@ -1,24 +1,50 @@
 language: cpp
+os: linux
 dist: focal
 
-addons:
-  sonarcloud:
-    organization: "othereum"
-    token:
-      secure: "IwDPJPl+5828rtEhRPFdSgzwBWYQeXVs52ARRL5ZUUJLdZFOkLLQ9hiasxm8uLaWOtuyPILwYQJPbkAsOEXLiLszxv1CwwOgcOMOseAT5Nr4scSDqjHxVM/wy6zEVhhbaQ9N639OUAnVp4yRTiHXhMoyrRhwhJ2SmN6qIovHZsAcjgpkcikxB9FhKtpiPz3b38Teg/t99AVJACFFJICSJU9ZaLbdowOoxjL38RANo0Oo2v16TJh3t1aPM+pnpwc/D1FTyKBUpV/JO/H2awsD2uQIONAbI8ixoLIkAhhhpn55Pp5TMwwBel4lh9kv4GhTEMhBzUzDTKkyc5sBQ69ynpmbL6OkX9bSYeoR7O73QE6EaM/a5pP8HK23CIsUfKe9I+NYmednYYTRdgeOWfOXOSZ3ElzrgMZAaRoSrwOPwXvhQtlfZWSGfdruTbS5YPrL3YdRTdIY/cvg8xAC0JDA/Km7XVX8IyexjKm7SumKN8DiCHZhRuWCvAD2XgzDDGJo48yK/bDxLKzA/WzyThB2OAdx2yyiM9B0a3YEIRpiIYmW0pEaz4IRonBdq4Uuhs3GkJ9UJfiB2uBh4qUXjbbPsGH6OnJlR66HUkaVUDojANE6qV41BiY+4pCf8pLbyUY/PNjtnqREUwtt/wSQCwSHK/W1gZ8xCxb99h0BclnrikU="
-  apt:
-    update: true
-    sources:
-      - ubuntu-toolchain-r-test
-      - sourceline: 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal-10 main'
-        key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
-    packages:
-      - clang-10
-      - clang++-10
-      - llvm-10-dev
-      - libstdc++-10-dev
+cache:
+  directories:
+  - Source/ThirdParty
+  - Tools
 
-script:
-  - ./configure
-  - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/ -- -j
-  - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
+matrix:
+  include:
+    - name: clang
+      dist: focal
+      addons:
+        # SonarQube does not yet support C++20
+        # sonarcloud:
+        #   organization: "othereum"
+        #   token:
+        #     secure: "IwDPJPl+5828rtEhRPFdSgzwBWYQeXVs52ARRL5ZUUJLdZFOkLLQ9hiasxm8uLaWOtuyPILwYQJPbkAsOEXLiLszxv1CwwOgcOMOseAT5Nr4scSDqjHxVM/wy6zEVhhbaQ9N639OUAnVp4yRTiHXhMoyrRhwhJ2SmN6qIovHZsAcjgpkcikxB9FhKtpiPz3b38Teg/t99AVJACFFJICSJU9ZaLbdowOoxjL38RANo0Oo2v16TJh3t1aPM+pnpwc/D1FTyKBUpV/JO/H2awsD2uQIONAbI8ixoLIkAhhhpn55Pp5TMwwBel4lh9kv4GhTEMhBzUzDTKkyc5sBQ69ynpmbL6OkX9bSYeoR7O73QE6EaM/a5pP8HK23CIsUfKe9I+NYmednYYTRdgeOWfOXOSZ3ElzrgMZAaRoSrwOPwXvhQtlfZWSGfdruTbS5YPrL3YdRTdIY/cvg8xAC0JDA/Km7XVX8IyexjKm7SumKN8DiCHZhRuWCvAD2XgzDDGJo48yK/bDxLKzA/WzyThB2OAdx2yyiM9B0a3YEIRpiIYmW0pEaz4IRonBdq4Uuhs3GkJ9UJfiB2uBh4qUXjbbPsGH6OnJlR66HUkaVUDojANE6qV41BiY+4pCf8pLbyUY/PNjtnqREUwtt/wSQCwSHK/W1gZ8xCxb99h0BclnrikU="
+        apt:
+          update: true
+          sources:
+            - ubuntu-toolchain-r-test
+            - sourceline: 'deb http://apt.llvm.org/focal/ llvm-toolchain-focal-10 main'
+              key_url: 'https://apt.llvm.org/llvm-snapshot.gpg.key'
+          packages:
+            - clang-10
+            - clang++-10
+            - llvm-10-dev
+            - libstdc++-10-dev
+      script:
+        - ./InstallDeps.sh
+        - ./GenerateClang.sh
+        - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/ -- -j
+        - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
+
+    - name: gcc
+      dist: focal
+      addons:
+        apt:
+          update: true
+          packages:
+            - gcc-10
+            - g++-10
+            - libstdc++-10-dev
+      script:
+        - ./InstallDeps.sh
+        - ./GenerateGCC.sh
+        - build-wrapper-linux-x86-64 --out-dir bw-output cmake --build out/ -- -j
+        - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output
