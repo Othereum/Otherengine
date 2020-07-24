@@ -70,5 +70,5 @@ The return type of `MakeShared` is not [`SharedPtr`] but [`SharedRef`]. [`Shared
 
 > **WARNING**: By default, when objects are deleted, they go through memory pools. Therefore, if you create a reference target directly from the raw pointer or change the reference target through `reset(p)`, you must use only the objects allocated from the memory pool or specify the appropriate deleter directly.
 
-[`SharedPtr`]: https://othereum.github.io/Otherengine/da/dc9/classoeng_1_1core_1_1_shared_ptr.html
-[`SharedRef`]: https://othereum.github.io/Otherengine/d0/dce/classoeng_1_1core_1_1_shared_ref.html
+[`SharedPtr`]: https://othereum.github.io/Otherengine/classoeng_1_1core_1_1_shared_ptr.html
+[`SharedRef`]: https://othereum.github.io/Otherengine/classoeng_1_1core_1_1_shared_ref.html

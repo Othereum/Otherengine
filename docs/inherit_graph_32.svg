@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 116,-35 116,4 -4,4"/>
 <!-- Node0 -->
 <g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:href="da/dc9/classoeng_1_1core_1_1_shared_ptr.html" target="_top" xlink:title=" ">
+<g id="a_node1"><a xlink:href="classoeng_1_1core_1_1_shared_ptr.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 112,-30.5 112,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::core::SharedPtr</text>
 <text text-anchor="middle" x="56" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T, ThreadSafe &gt;</text>
