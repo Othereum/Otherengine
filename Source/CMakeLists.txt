@@ -3,6 +3,7 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
 
+
 find_package(SDL2 REQUIRED)
 find_package(GLEW REQUIRED)
 
@@ -20,7 +21,6 @@ endif()
 set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
 oe_find_package(nlohmann_json 3.8.0)
 
-oe_download_package(omem)
-oe_download_package(otm)
 
+add_subdirectory(ThirdParty)
 add_subdirectory(Runtime)

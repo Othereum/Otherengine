@@ -1,6 +1,6 @@
 /.vs/
 /out/
 /Tools/
-/Source/ThirdParty/*
+/Source/ThirdParty/*/
 !/Source/ThirdParty/otm/
 !/Source/ThirdParty/omem/
