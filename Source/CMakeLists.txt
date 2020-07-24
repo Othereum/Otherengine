@@ -23,7 +23,7 @@ oe_find_package(fmt 7)
 
 set(SPDLOG_FMT_EXTERNAL ON CACHE BOOL "" FORCE)
 oe_find_package(spdlog 1.7)
-set_target_properties(spdlog PROPERTIES POSITION_INDEPENDENT_CODE ON)
+set_target_properties(spdlog::spdlog PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
 oe_find_package(nlohmann_json 3.8.0)
