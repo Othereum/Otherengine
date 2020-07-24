@@ -1,0 +1,6 @@
+[submodule "Source/ThirdParty/omem"]
+	path = Source/ThirdParty/omem
+	url = https://github.com/Othereum/omem
+[submodule "Source/ThirdParty/otm"]
+	path = Source/ThirdParty/otm
+	url = https://github.com/Othereum/otm
