@@ -4,7 +4,7 @@
 
 ## Memory Pool
 
-Otherengineuses memory pool. There are several advantages to using it.
+Otherengine uses memory pool. There are several advantages to using it.
 
 1. Prevent memory fragmentation. This is especially helpful for mobile devices or consoles with less memory.
 2. High performance in repetitive memory allocation/release.
