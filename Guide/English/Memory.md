@@ -66,7 +66,7 @@ MyAlloc<T> alloc;
 auto alobj = AllocateShared<T>(alloc, ...);
 ```
 
-The return type of `MakeShared` is not [`SharedPtr`] but [`SharedRef`]. [`SharedRef`] is a [`SharedPtr`] that cannot be null. Instead of [`SharedPtr`] throughout the code, [`SharedRef`] can be used to eliminate null checks and create safer, easier-to-read codes.
+The return type of `MakeShared` is not [`SharedPtr`] but [`SharedRef`]. [`SharedRef`] is a non-nullable [`SharedPtr`]. Instead of [`SharedPtr`] throughout the code, [`SharedRef`] can be used to eliminate null checks and write safer, easier-to-read codes.
 
 > **WARNING**: By default, when objects are deleted, they go through memory pools. Therefore, if you create a reference target directly from the raw pointer or change the reference target through `reset(p)`, you must use only the objects allocated from the memory pool or specify the appropriate deleter directly.
 
