@@ -127,7 +127,7 @@ namespace oeng::renderer
 	bool Shader::TryUniform(int location, const Uniform& value)
 	{
 		if (location == invalid_uniform_) return false;
-		ScopeCounter counter{u8"SetUniform"sv};
+		SCOPE_COUNTER(SetUniform);
 
 		const auto cache = uniform_cache_.find(location);
 		if (cache != uniform_cache_.end())
@@ -139,7 +139,8 @@ namespace oeng::renderer
 			};
 			if (std::visit(equals, cache->second, value)) return true;
 		}
-
+		
+		SCOPE_COUNTER(RealSetUniform);
 		const auto success = std::visit([&](const auto& v) { return GlUniform(location, v); }, value);
 		if (success) uniform_cache_.insert_or_assign(cache, location, value);
 		return success;

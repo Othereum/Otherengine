@@ -243,7 +243,7 @@ namespace oeng::renderer
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
-			ScopeStackCounter counter{u8"DrawSprite"sv};
+			SCOPE_STACK_COUNTER(DrawSprite);
 			sprite_shader_.SetUniform(u8"uWorldTransform"sv, sprite.GetDrawTrsf());
 			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
@@ -257,7 +257,7 @@ namespace oeng::renderer
 	void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
 	{
 		if (!ShouldDraw(mesh_comp)) return;
-		ScopeStackCounter counter{u8"DrawMesh"sv};
+		SCOPE_STACK_COUNTER(DrawMesh);
 		
 		auto& material = mesh_comp.GetMaterial();
 		auto& shader = material.GetShader();
@@ -300,7 +300,7 @@ namespace oeng::renderer
 		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(u8"uWorldTransform"sv, mesh_comp.GetDrawTrsfMatrix());
-		gl(glDrawElements, GL_TRIANGLES, static_cast<GLsizei>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+		gl(glDrawElements, GL_TRIANGLES, GLsizei(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
@@ -325,7 +325,7 @@ namespace oeng::renderer
 			const auto& data = l.GetData();
 			if (!IsOverlapped({data.pos, data.radius}, {mesh_trsf.pos, mesh_radius})) continue;
 
-			ScopeStackCounter counter{u8"DrawLight"sv};
+			SCOPE_STACK_COUNTER(DrawLight);
 
 			auto try_uniform = [&]<class T>(std::u8string_view uniform, T&& value)
 			{
