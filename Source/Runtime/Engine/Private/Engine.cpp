@@ -1,5 +1,6 @@
 ﻿#include "Engine.hpp"
 #include <SDL2/SDL.h>
+#include "Debug.hpp"
 
 namespace oeng::engine
 {
@@ -65,9 +66,9 @@ namespace oeng::engine
 
 	void Engine::Tick()
 	{
-		ProcessEvent();
-		world_.Tick();
-		renderer_.DrawScene();
+		TRY(ProcessEvent());
+		TRY(world_.Tick());
+		TRY(renderer_.DrawScene());
 	}
 
 	void Engine::ProcessEvent()

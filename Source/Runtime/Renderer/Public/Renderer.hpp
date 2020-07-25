@@ -91,9 +91,13 @@ namespace oeng::renderer
 
 	private:
 		friend engine::Engine;
+		
 		Renderer();
 		~Renderer();
+
+		void PreDrawScene() const;
 		void DrawScene();
+		void PostDrawScene() const;
 
 		void Draw3D();
 		void Draw2D();

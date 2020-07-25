@@ -192,15 +192,24 @@ namespace oeng::renderer
 
 	Renderer::~Renderer() = default;
 
+	void Renderer::PreDrawScene() const
+	{
+		SCOPE_STACK_COUNTER(PreDrawScene);
+		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	}
+
 	void Renderer::DrawScene()
 	{
-		ScopeStackCounter counter{u8"DrawScene"sv};
+		SCOPE_STACK_COUNTER(DrawScene);
+		PreDrawScene();
+		TRY(Draw3D());
+		TRY(Draw2D());
+		PostDrawScene();
+	}
 
-		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		Draw3D();
-		Draw2D();
-
+	void Renderer::PostDrawScene() const
+	{
+		SCOPE_STACK_COUNTER(PostDrawScene);
 		SDL_GL_SwapWindow(window_.get());
 	}
 
