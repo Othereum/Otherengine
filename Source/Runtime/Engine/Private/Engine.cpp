@@ -1,5 +1,6 @@
 ﻿#include "Engine.hpp"
 #include <SDL2/SDL.h>
+#include "Debug.hpp"
 
 namespace oeng::engine
 {
@@ -52,12 +53,9 @@ namespace oeng::engine
 		}
 
 		const auto elapsed = Clock::now() - start;
-		const auto sec = duration_cast<time::seconds>(elapsed).count();
-		if (sec != 0 && ticks_ != 0)
-		{
-			const auto ms = duration_cast<time::duration<Float, std::milli>>(elapsed).count();
-			log::Info(u8"Average fps: {}, frame time: {:.2f} ms"sv, ticks_ / sec, ms / ticks_);
-		}
+		const auto sec = duration_cast<time::duration<Float>>(elapsed).count();
+		const auto ms = duration_cast<time::duration<Float, std::milli>>(elapsed).count();
+		log::Info(u8"Average fps: {:.0f}, frame time: {:.2f} ms"sv, ticks_ / sec, ms / ticks_);
 	}
 
 	void Engine::Shutdown()
@@ -68,9 +66,9 @@ namespace oeng::engine
 
 	void Engine::Tick()
 	{
-		ProcessEvent();
-		world_.Tick();
-		renderer_.DrawScene();
+		TRY(ProcessEvent());
+		TRY(world_.Tick());
+		TRY(renderer_.DrawScene());
 	}
 
 	void Engine::ProcessEvent()

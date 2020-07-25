@@ -67,3 +67,11 @@ namespace oeng::core
 		DyArr<Frame> frames_;
 	};
 }
+
+#ifdef NDEBUG
+	#define SCOPE_COUNTER(name)
+	#define SCOPE_STACK_COUNTER(name)
+#else
+	#define SCOPE_COUNTER(name) ScopeCounter _##name##_scope_counter{u8 ## #name ## sv}
+	#define SCOPE_STACK_COUNTER(name) ScopeStackCounter _##name##_scope_stack_counter{u8 ## #name ## sv}
+#endif

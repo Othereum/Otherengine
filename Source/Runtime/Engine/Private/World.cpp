@@ -20,7 +20,7 @@ namespace oeng::engine
 
 	void World::Tick()
 	{
-		ScopeStackCounter counter{u8"WorldTick"sv};
+		SCOPE_STACK_COUNTER(WorldTick);
 		UpdateTime();
 		UpdateGame();
 	}

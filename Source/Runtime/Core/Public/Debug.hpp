@@ -86,3 +86,8 @@
  * Same as ENSURE(), but it always resolves to test expression even if NDEBUG is defined.
  */
 #define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))
+
+/**
+ * Try to execute the expression, and if an exception thrown, log the error and swallow the exception.
+ */
+#define TRY(expr) do { try { expr; } catch (const std::exception& e) { OE_ELOG(u8"{}: {}"sv, u8 ## #expr ## sv, What(e)); } } while (false)
