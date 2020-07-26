@@ -7,5 +7,6 @@ var _debug_8hpp =
     [ "EXPECT_MSG", "_debug_8hpp.html#a29d39a37edbe13694ae902b1e53ef4e6", null ],
     [ "EXPECT_NO_ENTRY", "_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c", null ],
     [ "OE_ELOG", "_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8", null ],
-    [ "SHOULD", "_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c", null ]
+    [ "SHOULD", "_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c", null ],
+    [ "TRY", "_debug_8hpp.html#ac7041a9a9bc7a8547bb9995fd82a1ad7", null ]
 ];

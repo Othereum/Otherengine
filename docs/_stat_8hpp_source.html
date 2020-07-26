@@ -156,6 +156,14 @@ $(document).ready(function(){initNavTree('_stat_8hpp_source.html',''); initResiz
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr&lt;Frame&gt;</a> frames_;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    };</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;}</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#ifdef NDEBUG</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    #define SCOPE_COUNTER(name)</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">    #define SCOPE_STACK_COUNTER(name)</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">    #define SCOPE_COUNTER(name) ScopeCounter _##name##_scope_counter{u8 ## #name ## sv}</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="_stat_8hpp.html#a58e03986c066e7a04a4034e06da08a74">   76</a></span>&#160;<span class="preprocessor">    #define SCOPE_STACK_COUNTER(name) ScopeStackCounter _##name##_scope_stack_counter{u8 ## #name ## sv}</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="_stat_8hpp.html#ac3bf53026585d358005b06633a1de3ba">   77</a></span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassoeng_1_1core_1_1_scope_counter_html_ae2a0ace8f15a0b3aa1c64d53f8942b44"><div class="ttname"><a href="classoeng_1_1core_1_1_scope_counter.html#ae2a0ace8f15a0b3aa1c64d53f8942b44">oeng::core::ScopeCounter::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(ScopeCounter)</div></div>
@@ -171,7 +179,7 @@ $(document).ready(function(){initNavTree('_stat_8hpp_source.html',''); initResiz
 <div class="ttc" id="aclassoeng_1_1core_1_1_scope_counter_html_aa7828b822221f8c13b42feca5d97d013"><div class="ttname"><a href="classoeng_1_1core_1_1_scope_counter.html#aa7828b822221f8c13b42feca5d97d013">oeng::core::ScopeCounter::ScopeCounter</a></div><div class="ttdeci">ScopeCounter(Name name) noexcept</div><div class="ttdef"><b>Definition:</b> Stat.hpp:33</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_scope_counter_html_a77874435979047a7d2b585977e9f0c95"><div class="ttname"><a href="classoeng_1_1core_1_1_scope_counter.html#a77874435979047a7d2b585977e9f0c95">oeng::core::ScopeCounter::~ScopeCounter</a></div><div class="ttdeci">~ScopeCounter()</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_counter_manager_html"><div class="ttname"><a href="classoeng_1_1core_1_1_counter_manager.html">oeng::core::CounterManager</a></div><div class="ttdef"><b>Definition:</b> Stat.hpp:46</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_engine_base_html"><div class="ttname"><a href="classoeng_1_1core_1_1_engine_base.html">oeng::core::EngineBase</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:75</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_engine_base_html"><div class="ttname"><a href="classoeng_1_1core_1_1_engine_base.html">oeng::core::EngineBase</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:73</div></div>
 <div class="ttc" id="astructoeng_1_1core_1_1_scope_stack_stat_html_a79f34041eb65868ca62e236d07103665"><div class="ttname"><a href="structoeng_1_1core_1_1_scope_stack_stat.html#a79f34041eb65868ca62e236d07103665">oeng::core::ScopeStackStat::children</a></div><div class="ttdeci">TreeMap&lt; Name, ScopeStackStat &gt; children</div><div class="ttdef"><b>Definition:</b> Stat.hpp:16</div></div>
 <div class="ttc" id="astructoeng_1_1core_1_1_scope_stat_html_a33b0118e870fb65caf6cbf6768322c93"><div class="ttname"><a href="structoeng_1_1core_1_1_scope_stat.html#a33b0118e870fb65caf6cbf6768322c93">oeng::core::ScopeStat::duration</a></div><div class="ttdeci">Duration duration</div><div class="ttdef"><b>Definition:</b> Stat.hpp:10</div></div>
 <div class="ttc" id="aclassoeng_1_1core_1_1_scope_stack_counter_html_ac33a7c81378ff99aed3eb46d489cd9e8"><div class="ttname"><a href="classoeng_1_1core_1_1_scope_stack_counter.html#ac33a7c81378ff99aed3eb46d489cd9e8">oeng::core::ScopeStackCounter::ScopeStackCounter</a></div><div class="ttdeci">ScopeStackCounter(Name name)</div></div>

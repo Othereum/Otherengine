@@ -119,6 +119,9 @@ Macros</h2></td></tr>
 <tr class="memitem:a605db9d579c44e2dec320fcbbcb5749c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c">SHOULD</a>(expr,  fmt, ...)&#160;&#160;&#160;(!!(expr) || (<a class="el" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">OE_ELOG</a>(fmt, ##__VA_ARGS__), false))</td></tr>
 <tr class="memdesc:a605db9d579c44e2dec320fcbbcb5749c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as <a class="el" href="_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71" title="Can be used to test for non-fatal errors at runtime.">ENSURE()</a>, but it always resolves to test expression even if NDEBUG is defined.  <a href="_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c">More...</a><br /></td></tr>
 <tr class="separator:a605db9d579c44e2dec320fcbbcb5749c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7041a9a9bc7a8547bb9995fd82a1ad7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_debug_8hpp.html#ac7041a9a9bc7a8547bb9995fd82a1ad7">TRY</a>(expr)&#160;&#160;&#160;do { try { expr; } catch (const std::exception&amp; e) { <a class="el" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">OE_ELOG</a>(u8&quot;{}: {}&quot;sv, u8 ## #expr ## sv, What(e)); } } while (false)</td></tr>
+<tr class="memdesc:ac7041a9a9bc7a8547bb9995fd82a1ad7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to execute the expression, and if an exception thrown, log the error and swallow the exception.  <a href="_debug_8hpp.html#ac7041a9a9bc7a8547bb9995fd82a1ad7">More...</a><br /></td></tr>
+<tr class="separator:ac7041a9a9bc7a8547bb9995fd82a1ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a0f722bf86505c5431e71505f46b5fd21"></a>
@@ -351,6 +354,26 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Same as <a class="el" href="_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71" title="Can be used to test for non-fatal errors at runtime.">ENSURE()</a>, but it always resolves to test expression even if NDEBUG is defined. </p>
+
+</div>
+</div>
+<a id="ac7041a9a9bc7a8547bb9995fd82a1ad7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac7041a9a9bc7a8547bb9995fd82a1ad7">&#9670;&nbsp;</a></span>TRY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define TRY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expr</td><td>)</td>
+          <td>&#160;&#160;&#160;do { try { expr; } catch (const std::exception&amp; e) { <a class="el" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">OE_ELOG</a>(u8&quot;{}: {}&quot;sv, u8 ## #expr ## sv, What(e)); } } while (false)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to execute the expression, and if an exception thrown, log the error and swallow the exception. </p>
 
 </div>
 </div>

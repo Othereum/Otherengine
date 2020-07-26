@@ -126,6 +126,8 @@ $(document).ready(function(){initNavTree('_debug_8hpp_source.html',''); initResi
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())</span></div>
 <div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">   84</a></span>&#160; </div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c">   89</a></span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define TRY(expr) do { try { expr; } catch (const std::exception&amp; e) { OE_ELOG(u8&quot;{}: {}&quot;sv, u8 ## #expr ## sv, What(e)); } } while (false)</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="a_platform_8hpp_html"><div class="ttname"><a href="_platform_8hpp.html">Platform.hpp</a></div></div>

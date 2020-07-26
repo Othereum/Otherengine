@@ -43,9 +43,8 @@ namespace oeng::core
 		}
 
 		/**
-		 * Get memory pool manager.
+		 * Get memory pool manager for current thread.
 		 * @return Reference to memory pool manager.
-		 * @note It should only be called from a game thread.
 		 */
 		[[nodiscard]] omem::MemoryPoolManager& GetMemPool()
 		{

@@ -22,11 +22,5 @@ var dir_ba49309ee78fabe0452662bc1a7ef37d =
     [ "Name.hpp", "_name_8hpp.html", "_name_8hpp" ],
     [ "Path.hpp", "_path_8hpp.html", "_path_8hpp" ],
     [ "Platform.hpp", "_platform_8hpp.html", "_platform_8hpp" ],
-    [ "Stat.hpp", "_stat_8hpp.html", [
-      [ "ScopeStat", "structoeng_1_1core_1_1_scope_stat.html", "structoeng_1_1core_1_1_scope_stat" ],
-      [ "ScopeStackStat", "structoeng_1_1core_1_1_scope_stack_stat.html", "structoeng_1_1core_1_1_scope_stack_stat" ],
-      [ "ScopeStackCounter", "classoeng_1_1core_1_1_scope_stack_counter.html", "classoeng_1_1core_1_1_scope_stack_counter" ],
-      [ "ScopeCounter", "classoeng_1_1core_1_1_scope_counter.html", "classoeng_1_1core_1_1_scope_counter" ],
-      [ "CounterManager", "classoeng_1_1core_1_1_counter_manager.html", "classoeng_1_1core_1_1_counter_manager" ]
-    ] ]
+    [ "Stat.hpp", "_stat_8hpp.html", "_stat_8hpp" ]
 ];
