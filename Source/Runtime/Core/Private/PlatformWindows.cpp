@@ -8,6 +8,7 @@
 #include "EngineBase.hpp"
 #include "Format.hpp"
 #include "Platform.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng::core
 {
@@ -29,7 +30,7 @@ namespace oeng::core
 	}
 #endif
 	
-	static String8 GetLastErrStr()
+	static std::u8string GetLastErrStr()
 	{
 		constexpr auto size = 512;
 		static wchar_t buffer[size];
@@ -44,7 +45,7 @@ namespace oeng::core
 			nullptr
 		);
 		
-		return ToUtf8({reinterpret_cast<char16_t*>(buffer), len});
+		return ToUtf8<std::allocator<char8_t>>({reinterpret_cast<char16_t*>(buffer), len});
 	}
 
 	static void FreeDll(void* dll) noexcept
@@ -52,12 +53,17 @@ namespace oeng::core
 		FreeLibrary(HMODULE(dll));
 	}
 	
-	Dll::Dll(String8 filepath)
+	Dll::Dll(std::u8string filepath)
 	{
-		const auto path = ToUtf16(filepath);
+		// Should not use pool allocator
+		const auto path = ToUtf16<std::allocator<char16_t>>(filepath);
 		
 		auto* const dll = LoadLibraryW(LPCWSTR(path.c_str()));
-		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
+		if (!dll)
+		{
+			const auto msg = fmt::format(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());
+			throw std::runtime_error{AsString(msg)};
+		}
 
 		dll_.reset(dll, &FreeDll);
 		filepath_ = std::move(filepath);
@@ -66,7 +72,11 @@ namespace oeng::core
 	void* Dll::GetSymbol(std::u8string_view name) const
 	{
 		auto* const symbol = FindSymbol(name);
-		if (!symbol) Throw(u8"{}: {}: {}"sv, filepath_, name, GetLastErrStr());
+		if (!symbol)
+		{
+			const auto msg = fmt::format(u8"{}: {}: {}"sv, filepath_, name, GetLastErrStr());
+			throw std::runtime_error{AsString(msg)};
+		}
 		return symbol;
 	}
 

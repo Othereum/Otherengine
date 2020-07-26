@@ -48,7 +48,7 @@ namespace oeng::core
 		
 	private:
 		friend EngineBase;
-		explicit CoreSystem(std::u8string_view game_module_path);
+		explicit CoreSystem(std::u8string game_module_path);
 		~CoreSystem();
 		
 		std::thread::id thread_id_;
@@ -80,7 +80,7 @@ namespace oeng::core
 		friend ScopeCounter;
 		friend ScopeStackCounter;
 
-		explicit EngineBase(std::u8string_view game_module_path);
+		explicit EngineBase(std::u8string game_module_path);
 		~EngineBase() = default;
 
 		NameSet names_;

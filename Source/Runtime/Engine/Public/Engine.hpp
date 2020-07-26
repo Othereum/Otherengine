@@ -21,7 +21,7 @@ namespace oeng::engine
 
 		[[nodiscard]] static Engine& Get() noexcept;
 		
-		explicit Engine(std::u8string_view game_module_path);
+		explicit Engine(std::u8string game_module_path);
 		~Engine() = default;
 		
 		void RunLoop();

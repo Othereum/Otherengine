@@ -1,9 +1,9 @@
 #include "Memory.hpp"
 #include <sstream>
 #include <thread>
+#include "Debug.hpp"
 #include "Log.hpp"
 #include "otm/Basic.hpp"
-#include "Templates/DyArr.hpp"
 
 namespace oeng::core
 {
@@ -31,21 +31,20 @@ namespace oeng::core
 		return storage.pool;
 	}
 
-	static String8 ThreadId()
+	static std::u8string ThreadId()
 	{
-		std::basic_stringstream<char, std::char_traits<char>, PoolAllocator<char>> ss;
+		std::stringstream ss;
 		ss << std::this_thread::get_id();
 		return AsString8(ss.str());
 	}
 
-	void LogMemPoolStatus()
+	static void LogInfo()
 	{
 		using namespace otm;
-		assert(storage.is_initialized);
 		auto& pools = storage.pool.Pools();
 		
 		omem::PoolInfo max;
-		DyArr<omem::PoolInfo> infos;
+		std::vector<omem::PoolInfo> infos;
 		infos.reserve(pools.size());
 		
 		for (const auto& [size, pool] : pools)
@@ -71,28 +70,20 @@ namespace oeng::core
 		align.peak = Log(max.peak, 10) + 1;
 		align.fault = Log(max.fault, 10) + 1;
 		
-		log::Debug(u8"[Mem] Memory pool info for thread {}"sv, ThreadId());
+		log::Log(log::Level::kDebug, fmt::format(u8"[Mem] Memory pool info for thread {}:"sv, ThreadId()));
 		for (const auto& info : infos)
 		{
-			log::Debug(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, in use: {}"sv,
-				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur);
+			log::Log(log::Level::kDebug, fmt::format(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, in use: {}"sv,
+				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur));
 		}
+		if (max.cur > 0) log::Log(log::Level::kWarn, u8"[Mem] Memory leak detected"sv);
 	}
 
 	void CleanUpMemPool() noexcept
 	{
 		assert(storage.is_initialized);
-		
-		for (const auto& [size, pool] : storage.pool.Pools())
-		{
-			if (pool.GetInfo().cur > 0)
-			{
-				log::Warn(u8"[Mem] Memory leak detected from thread {}"sv, ThreadId());
-				break;
-			}
-		}
-		
-		storage.pool.~MemoryPoolManager();
 		storage.is_initialized = false;
+		TRY(LogInfo());
+		storage.pool.~MemoryPoolManager();
 	}
 }
