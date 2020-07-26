@@ -42,15 +42,6 @@ namespace oeng::core
 			return thread_id_ == std::this_thread::get_id();
 		}
 
-		/**
-		 * Get memory pool manager for current thread.
-		 * @return Reference to memory pool manager.
-		 */
-		[[nodiscard]] omem::MemoryPoolManager& GetMemPool()
-		{
-			return mem_pools_[std::this_thread::get_id()];
-		}
-		
 		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
 		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
@@ -65,8 +56,6 @@ namespace oeng::core
 		
 		std::u8string_view game_name_;
 		log::Logger logger_;
-		
-		std::unordered_map<std::thread::id, omem::MemoryPoolManager> mem_pools_;
 	};
 	
 	class CORE_API EngineBase : RegisterEngineBase, public CoreSystem

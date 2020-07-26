@@ -1,51 +1,11 @@
 #include "EngineBase.hpp"
 #include <csignal>
 #include <sstream>
-#include "otm/Basic.hpp"
+#include "Debug.hpp"
 
 namespace oeng::core
 {
 	static EngineBase* engine_base = nullptr;
-
-	static void LogMemoryInfo(const omem::MemoryPoolManager& pool_manager)
-	{
-		auto& pools = pool_manager.Pools();
-		
-		omem::PoolInfo max;
-		std::vector<omem::PoolInfo> infos;
-		infos.reserve(pools.size());
-		
-		for (const auto& [size, pool] : pools)
-		{
-			auto compare = [](const omem::PoolInfo& a, const omem::PoolInfo& b) noexcept
-			{
-				return a.size < b.size;
-			};
-			const auto& info = pool.GetInfo();
-			const auto pos = std::upper_bound(infos.begin(), infos.end(), info, compare);
-			infos.insert(pos, info);
-
-			max.size = Max(max.size, info.size);
-			max.count = Max(max.count, info.count);
-			max.cur = Max(max.cur, info.cur);
-			max.peak = Max(max.peak, info.peak);
-			max.fault = Max(max.fault, info.fault);
-		}
-
-		omem::PoolInfo align;
-		align.size = Log(max.size, 10) + 1;
-		align.count = Log(max.count, 10) + 1;
-		align.peak = Log(max.peak, 10) + 1;
-		align.fault = Log(max.fault, 10) + 1;
-		
-		for (const auto& info : infos)
-		{
-			log::Debug(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, leaked: {}"sv,
-				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur);
-		}
-
-		if (max.cur > 0) log::Warn(u8"[Mem] Memory leak detected!"sv);
-	}
 
 	static void OnIllegal(int)
 	{
@@ -64,6 +24,8 @@ namespace oeng::core
 	RegisterEngineBase::RegisterEngineBase(EngineBase* engine)
 	{
 		std::signal(SIGILL, &OnIllegal);
+
+		InitMemPool();
 		
 		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
 		CheckCpu();
@@ -76,6 +38,7 @@ namespace oeng::core
 	RegisterEngineBase::~RegisterEngineBase()
 	{
 		engine_base = nullptr;
+		CleanUpMemPool();
 	}
 
 	CoreSystem::CoreSystem(std::u8string game_module_path)
@@ -87,19 +50,7 @@ namespace oeng::core
 
 	CoreSystem::~CoreSystem()
 	{
-		try
-		{
-			for (const auto& [id, pool] : mem_pools_)
-			{
-				const auto thread = AsString8((std::stringstream{} << id).str());
-				log::Debug(u8"[Mem] Memory pool for thread {}:"sv, thread);
-				LogMemoryInfo(pool);
-			}
-		}
-		catch (const std::exception& e)
-		{
-			log::Error(u8"MemoryPoolWrapper::~MemoryPoolWrapper(): {}", What(e));
-		}
+		TRY(LogMemPoolStatus());
 	}
 
 	EngineBase& EngineBase::Get() noexcept
