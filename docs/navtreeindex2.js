@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"_pointer_8hpp.html#ac079f06b0cac37a2159c4079525f8b83":[2,0,0,0,0,0,0,3,31],
+"_pointer_8hpp.html#ac9e772b3d98137d33c916df3943f8cee":[2,0,0,0,0,0,0,3,39],
+"_pointer_8hpp.html#ad83b3b3335f69a6eda30a69f63be270f":[2,0,0,0,0,0,0,3,15],
 "_pointer_8hpp.html#ad9e4a8e72e0a7d59a63eda38a926fe3e":[2,0,0,0,0,0,0,3,27],
 "_pointer_8hpp.html#af369b262e8c6ac4993c59609e2da8607":[2,0,0,0,0,0,0,3,28],
 "_pointer_8hpp.html#af7b77c330050cfe394f679cdaad77212":[2,0,0,0,0,0,0,3,37],
@@ -113,10 +116,9 @@ var NAVTREEINDEX2 =
 "classoeng_1_1core_1_1_core_system.html":[1,0,0,0,4],
 "classoeng_1_1core_1_1_core_system.html#a130466845134689e324a1127f69a9ff8":[1,0,0,0,4,2],
 "classoeng_1_1core_1_1_core_system.html#a71b9284166dc9f9dc907790a524b5642":[1,0,0,0,4,0],
-"classoeng_1_1core_1_1_core_system.html#a98dcff4ea8ea45861bde0391a832cb71":[1,0,0,0,4,5],
+"classoeng_1_1core_1_1_core_system.html#a98dcff4ea8ea45861bde0391a832cb71":[1,0,0,0,4,4],
 "classoeng_1_1core_1_1_core_system.html#ad120febc71312cefbb2c904c68c321b9":[1,0,0,0,4,1],
 "classoeng_1_1core_1_1_core_system.html#aea07f18b9b9475d9488560374fbc0b11":[1,0,0,0,4,3],
-"classoeng_1_1core_1_1_core_system.html#afe9643dcd03ea9df1ea732d2e619ffe0":[1,0,0,0,4,4],
 "classoeng_1_1core_1_1_counter_manager.html":[1,0,0,0,5],
 "classoeng_1_1core_1_1_counter_manager.html#aa4cf5dcb845df8e4ca10e7837be2c31e":[1,0,0,0,5,0],
 "classoeng_1_1core_1_1_cpu_info.html":[1,0,0,0,6],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "classoeng_1_1core_1_1_shared_ptr.html#a2a21384466c52fd8d95b09a4a571d571":[1,0,0,0,27,34],
 "classoeng_1_1core_1_1_shared_ptr.html#a3266b7772f835913f19cd14d8078f460":[1,0,0,0,27,17],
 "classoeng_1_1core_1_1_shared_ptr.html#a3edddc667f3f30f3eadc088125f944ab":[1,0,0,0,27,4],
-"classoeng_1_1core_1_1_shared_ptr.html#a4c709a7ba2a92ef9f7dd484e425e3104":[1,0,0,0,27,5],
-"classoeng_1_1core_1_1_shared_ptr.html#a4ebca707def2db1fd07877c5d7ace539":[1,0,0,0,27,1],
-"classoeng_1_1core_1_1_shared_ptr.html#a57b27f46843f8e4e099d1fa2d3a349a6":[1,0,0,0,27,30]
+"classoeng_1_1core_1_1_shared_ptr.html#a4c709a7ba2a92ef9f7dd484e425e3104":[1,0,0,0,27,5]
 };

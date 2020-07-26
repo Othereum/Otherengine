@@ -4,6 +4,5 @@ var classoeng_1_1core_1_1_core_system =
     [ "GetGameDll", "classoeng_1_1core_1_1_core_system.html#ad120febc71312cefbb2c904c68c321b9", null ],
     [ "GetGameName", "classoeng_1_1core_1_1_core_system.html#a130466845134689e324a1127f69a9ff8", null ],
     [ "GetLogger", "classoeng_1_1core_1_1_core_system.html#aea07f18b9b9475d9488560374fbc0b11", null ],
-    [ "GetMemPool", "classoeng_1_1core_1_1_core_system.html#afe9643dcd03ea9df1ea732d2e619ffe0", null ],
     [ "IsGameThread", "classoeng_1_1core_1_1_core_system.html#a98dcff4ea8ea45861bde0391a832cb71", null ]
 ];
