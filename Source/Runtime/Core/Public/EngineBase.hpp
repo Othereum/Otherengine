@@ -47,10 +47,9 @@ namespace oeng::core
 		 * @return Reference to memory pool manager.
 		 * @note It should only be called from a game thread.
 		 */
-		[[nodiscard]] omem::MemoryPoolManager& GetMemPool() noexcept
+		[[nodiscard]] omem::MemoryPoolManager& GetMemPool()
 		{
-			assert(IsGameThread());
-			return mem_pool_;
+			return mem_pools_[std::this_thread::get_id()];
 		}
 		
 		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
@@ -68,7 +67,7 @@ namespace oeng::core
 		std::u8string_view game_name_;
 		log::Logger logger_;
 		
-		omem::MemoryPoolManager mem_pool_;
+		std::unordered_map<std::thread::id, omem::MemoryPoolManager> mem_pools_;
 	};
 	
 	class CORE_API EngineBase : RegisterEngineBase, public CoreSystem
