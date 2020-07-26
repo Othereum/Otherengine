@@ -1,5 +1,6 @@
 #include "EngineBase.hpp"
 #include <csignal>
+#include <sstream>
 #include "otm/Basic.hpp"
 
 namespace oeng::core
@@ -88,7 +89,12 @@ namespace oeng::core
 	{
 		try
 		{
-			LogMemoryInfo(mem_pool_);
+			for (const auto& [id, pool] : mem_pools_)
+			{
+				const auto thread = AsString8((std::stringstream{} << id).str());
+				log::Debug(u8"[Mem] Memory pool for thread {}:"sv, thread);
+				LogMemoryInfo(pool);
+			}
 		}
 		catch (const std::exception& e)
 		{
