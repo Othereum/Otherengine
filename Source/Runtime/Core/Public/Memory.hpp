@@ -4,7 +4,30 @@
 
 namespace oeng::core
 {
+	/**
+	 * Initialize memory pool for current thread.
+	 * It must be called only once before using memory pool.
+	 */
+	CORE_API void InitMemPool();
+
+	/**
+	 * Get memory pool for current thread.
+	 * Must initialize it via InitMemPool() before using it.
+	 */
 	[[nodiscard]] CORE_API omem::MemoryPoolManager& GetMemPool() noexcept;
+
+	/**
+	 * Log memory pool info for current thread.
+	 * Memory pool must be initialized.
+	 */
+	CORE_API void LogMemPoolStatus();
+
+	/**
+	 * Clean up memory pool for current thread.
+	 * It must be called only once after using memory pool.
+	 * You really should not use memory pool after calling it.
+	 */
+	CORE_API void CleanUpMemPool() noexcept;
 
 	[[nodiscard]] inline void* Alloc(size_t size)
 	{
