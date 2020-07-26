@@ -24,10 +24,7 @@ namespace oeng::core
 	RegisterEngineBase::RegisterEngineBase(EngineBase* engine)
 	{
 		std::signal(SIGILL, &OnIllegal);
-
 		InitMemPool();
-		
-		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
 		CheckCpu();
 		
 		assert(engine);
@@ -41,11 +38,12 @@ namespace oeng::core
 		CleanUpMemPool();
 	}
 
-	CoreSystem::CoreSystem(std::u8string game_module_path)
+	CoreSystem::CoreSystem(std::u8string_view game_module_path)
 		:thread_id_{std::this_thread::get_id()},
-		game_dll_{std::move(game_module_path)},
+		game_dll_{String8{game_module_path}},
 		game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)}
 	{
+		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
 	}
 
 	CoreSystem::~CoreSystem()
@@ -64,9 +62,9 @@ namespace oeng::core
 		return engine_base;
 	}
 
-	EngineBase::EngineBase(std::u8string game_module_path)
+	EngineBase::EngineBase(std::u8string_view game_module_path)
 		:RegisterEngineBase(this),
-		CoreSystem{std::move(game_module_path)},
+		CoreSystem{game_module_path},
 		ticks_{}, names_{String8{}}, paths_{fs::path{}}
 	{
 	}

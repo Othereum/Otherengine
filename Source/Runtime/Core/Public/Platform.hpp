@@ -1,9 +1,8 @@
 #pragma once
 #include <bitset>
 #include <filesystem>
-#include <memory>
-#include <string>
-#include "Core.hpp"
+#include "Templates/Pointer.hpp"
+#include "Templates/String.hpp"
 
 namespace oeng::core
 {
@@ -42,7 +41,7 @@ namespace oeng::core
 	class CORE_API Dll
 	{
 	public:
-		explicit Dll(std::u8string filepath);
+		explicit Dll(String8 filepath);
 
 		[[nodiscard]] void* GetSymbol(std::u8string_view name) const;
 		[[nodiscard]] void* FindSymbol(std::u8string_view name) const noexcept;
@@ -60,9 +59,8 @@ namespace oeng::core
 		}
 
 	private:
-		// Should not use memory pool because this is created before it's initialized.
-		std::shared_ptr<void> dll_;
-		std::u8string filepath_;
+		SharedPtr<void> dll_;
+		String8 filepath_;
 	};
 
 	class CORE_API CpuInfo

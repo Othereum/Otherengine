@@ -37,9 +37,7 @@ namespace oeng::core::log
 		auto dir = GetUserDataPath() /= u8"Logs"sv;
 		create_directories(dir);
 
-		// Should not use memory pool
-		dir /= fmt::format(u8"{}.log"sv, EngineBase::Get().GetGameName());
-		
+		dir /= Format(u8"{}.log"sv, EngineBase::Get().GetGameName());
 		auto daily_file = std::make_shared<Daily>(dir.string(), 0, 0);
 		auto stdout_color = std::make_shared<Stdout>();
 		

@@ -41,9 +41,7 @@ namespace oeng::core::log
 		Logger();
 		
 		std::shared_ptr<spdlog::logger> logger_;
-		
-		// Should not use memory pool because this is created before it's initialized.
-		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
+		CondMonitor<HashMap<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
 	CORE_API void Log(Level level, std::u8string_view message);

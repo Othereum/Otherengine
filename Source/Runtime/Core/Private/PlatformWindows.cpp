@@ -8,7 +8,6 @@
 #include "EngineBase.hpp"
 #include "Format.hpp"
 #include "Platform.hpp"
-#include "Templates/String.hpp"
 
 namespace oeng::core
 {
@@ -19,7 +18,7 @@ namespace oeng::core
 
 		wchar_t* wide;
 		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
-		std::unique_ptr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
+		UniquePtr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
 		
 		return fs::path{wide} /= engine_base->GetGameName();
 	}
@@ -30,7 +29,7 @@ namespace oeng::core
 	}
 #endif
 	
-	static std::u8string GetLastErrStr()
+	static String8 GetLastErrStr()
 	{
 		constexpr auto size = 512;
 		static wchar_t buffer[size];
@@ -45,18 +44,17 @@ namespace oeng::core
 			nullptr
 		);
 		
-		return ToUtf8<std::allocator<char8_t>>({reinterpret_cast<char16_t*>(buffer), len});
+		return ToUtf8({reinterpret_cast<char16_t*>(buffer), len});
 	}
 
 	static void FreeDll(void* dll) noexcept
 	{
-		FreeLibrary(static_cast<HMODULE>(dll));
+		FreeLibrary(HMODULE(dll));
 	}
 	
-	Dll::Dll(std::u8string filepath)
+	Dll::Dll(String8 filepath)
 	{
-		// Should not use pool allocator
-		const auto path = ToUtf16<std::allocator<char16_t>>(filepath);
+		const auto path = ToUtf16(filepath);
 		
 		auto* const dll = LoadLibraryW(LPCWSTR(path.c_str()));
 		if (!dll) Throw(u8"{}: cannot load module: {}"sv, filepath, GetLastErrStr());

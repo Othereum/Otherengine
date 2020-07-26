@@ -30,8 +30,8 @@ namespace oeng::engine
 		return *engine;
 	}
 
-	Engine::Engine(std::u8string game_module_path)
-		:EngineBase{std::move(game_module_path)}, InitEngine(this)
+	Engine::Engine(std::u8string_view game_module_path)
+		:EngineBase{game_module_path}, InitEngine(this)
 	{
 		log::Info(u8"Engine initialization successful."sv);
 		log::Info(u8"Loading game module..."sv);

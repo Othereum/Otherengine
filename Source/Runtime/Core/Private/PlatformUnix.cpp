@@ -15,7 +15,7 @@ namespace oeng::core
 	fs::path GetUserDataPath()
 	{
 		fs::path p = std::getenv("HOME");
-		p /= u8".";
+		p /= u8"."sv;
 		p += EngineBase::Get().GetGameName();
 		return p;
 	}
@@ -46,7 +46,7 @@ namespace oeng::core
 	}
 #endif
 	
-	Dll::Dll(std::u8string filepath)
+	Dll::Dll(String8 filepath)
 	{
 		const auto dll = dlopen(AsString(filepath).c_str(), RTLD_LAZY);
 		if (!dll) throw std::runtime_error{dlerror()};
