@@ -17,7 +17,7 @@ var hierarchy =
     [ "oeng::engine::AxisConfig", "structoeng_1_1engine_1_1_axis_config.html", null ],
     [ "oeng::engine::ai_state::Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", null ],
     [ "oeng::renderer::ISpotLight::Data::Cone", "structoeng_1_1renderer_1_1_i_spot_light_1_1_data_1_1_cone.html", null ],
-    [ "oeng::core::Config", "classoeng_1_1core_1_1_config.html", null ],
+    [ "oeng::core::ConfigSystem", "classoeng_1_1core_1_1_config_system.html", null ],
     [ "otm::Vector< T, L >::const_iterator", "structotm_1_1_vector_1_1const__iterator.html", [
       [ "otm::Vector< T, L >::iterator", "structotm_1_1_vector_1_1iterator.html", null ]
     ] ],

@@ -2,8 +2,8 @@ var dir_ba49309ee78fabe0452662bc1a7ef37d =
 [
     [ "Templates", "dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html", "dir_d923b29e5793e4ca6ecf89bd6d2fe94d" ],
     [ "Asset.hpp", "_asset_8hpp.html", "_asset_8hpp" ],
-    [ "Config.hpp", "_config_8hpp.html", [
-      [ "Config", "classoeng_1_1core_1_1_config.html", "classoeng_1_1core_1_1_config" ]
+    [ "ConfigSystem.hpp", "_config_system_8hpp.html", [
+      [ "ConfigSystem", "classoeng_1_1core_1_1_config_system.html", "classoeng_1_1core_1_1_config_system" ]
     ] ],
     [ "Core.hpp", "_core_8hpp.html", "_core_8hpp" ],
     [ "Debug.hpp", "_debug_8hpp.html", "_debug_8hpp" ],

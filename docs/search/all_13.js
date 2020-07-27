@@ -1,7 +1,7 @@
 var searchData=
 [
   ['s_819',['s',['../structotm_1_1_quaternion.html#a71569cd31826774a05ca2ccaa2f32e88',1,'otm::Quaternion::s()'],['../namespaceoeng_1_1engine.html#aaebb0fd5bea8bcad3248ad83a2f8d06da5dbc98dcc983a70728bd082d1a47546e',1,'oeng::engine::S()']]],
-  ['save_820',['Save',['../classoeng_1_1core_1_1_config.html#a600ef35d458c74d0dce019567a4636e1',1,'oeng::core::Config']]],
+  ['save_820',['Save',['../classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874',1,'oeng::core::ConfigSystem']]],
   ['saveconfig_821',['SaveConfig',['../classoeng_1_1engine_1_1_input_system.html#a2f23ed8faabb992f16e3590aea3d8df4',1,'oeng::engine::InputSystem']]],
   ['scale_822',['scale',['../structoeng_1_1engine_1_1_input_axis.html#a578805d6ad6c46c10b175ebbad58b0b7',1,'oeng::engine::InputAxis::scale()'],['../structotm_1_1_transform.html#a0711c8ecaa31ebec530c8715908fe435',1,'otm::Transform::scale()']]],
   ['scantokey_823',['ScanToKey',['../namespaceoeng_1_1engine.html#a75145d55c3bbfa0726f31af9bd8b26e3',1,'oeng::engine']]],
