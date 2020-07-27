@@ -94,49 +94,64 @@ namespace oeng::core
 		void RemoveProperties(Json& config, const std::string& key, Json& keys)
 		{
 			auto stack = Push(key);
-
 			const auto real_key = key.substr(1);
-			const auto out_it = config.find(real_key);
-			if (out_it == config.end())
+			const auto found = config.find(real_key);
+			if (found != config.end())
+			{
+				RemoveFrom(found.value(), keys);
+			}
+			else
 			{
 				Log(log::Level::kWarn, u8"Could not find '{}'"sv, AsString8(real_key));
-				return;
 			}
+		}
 
-			auto& out = out_it.value();
-			
-			switch (out.type())
+		void RemoveFrom(Json& from, Json& keys) const
+		{
+			switch (from.type())
 			{
 			case JsonType::object:
-				for (auto& k : keys) try
-				{
-					const auto ks = k.get<std::string>();
-					if (!out.erase(ks))
-						Log(log::Level::kWarn, u8"Could not remove '{}' (not found)"sv, AsString8(ks));
-				}
-				catch (const std::exception& e)
-				{
-					Log(log::Level::kErr, What(e));
-				}
+				RemoveFromObject(from, keys);
 				break;
 				
 			case JsonType::array:
-				std::sort(keys.begin(), keys.end(), std::greater<size_t>{});
-				for (auto& idx : keys) try
-				{
-					const auto i = idx.get<size_t>();
-					if (i < out.size()) out.erase(i);
-					else Log(log::Level::kWarn, u8"Could not remove [{}] (out of range)"sv, i);
-				}
-				catch (const std::exception& e)
-				{
-					Log(log::Level::kErr, What(e));
-				}
+				RemoveFromArray(from, keys);
 				break;
 				
 			default:
 				Log(log::Level::kErr, u8"Property removal can only be done on object or array. (actual: {})"sv,
-					reinterpret_cast<const char8_t*>(out.type_name()));
+					reinterpret_cast<const char8_t*>(from.type_name()));
+			}
+		}
+
+		void RemoveFromObject(Json& from, const Json& keys) const
+		{
+			for (auto& k : keys) try
+			{
+				const auto ks = k.get<std::string>();
+				if (!from.erase(ks))
+					Log(log::Level::kWarn, u8"Could not remove '{}' (not found)"sv, AsString8(ks));
+			}
+			catch (const std::exception& e)
+			{
+				Log(log::Level::kErr, What(e));
+			}
+		}
+
+		void RemoveFromArray(Json& from, Json& keys) const
+		{
+			// Erasing must start from back to keep indices valid
+			std::sort(keys.begin(), keys.end(), std::greater<size_t>{});
+			
+			for (auto& idx : keys) try
+			{
+				const auto i = idx.get<size_t>();
+				if (i < from.size()) from.erase(i);
+				else Log(log::Level::kWarn, u8"Could not remove [{}] (out of range)"sv, i);
+			}
+			catch (const std::exception& e)
+			{
+				Log(log::Level::kErr, What(e));
 			}
 		}
 
