@@ -10,12 +10,7 @@ Otherengine uses memory pool. There are several advantages to using it.
 2. High performance in repetitive memory allocation/release.
 3. Cache friendly.
 
-But there are limitations also.
-
-1. Not available in multi-threaded environments. This is because syncing can significantly reduce performance. So it's limited to game threads only. Of course, game modules rarely use multi-threads, so you don't have to worry about it in general.
-2. Static objects and their own objects cannot use memory pools. The memory pool is owned by an engine object, which does not exist at the time of creation of a static object. The same goes for destruction.
-
-In the above case, do not use memory pools, but use the C++ standard memory allocation/release mechanism.
+But there are limitations also. Static objects and their own objects cannot use memory pools. This is because the memory pool is not initialized at the time the static object is created. Instead of using memory pools, you can use the C++ standard memory allocation mechanism.
 
 This is how you can use the memory pool:
 
