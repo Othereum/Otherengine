@@ -32,6 +32,8 @@
   * [Input mapping](Guide/English/Input.md)
   * Game controller support
 
+* [Configuration system](Guide/English/Configuration%20Files.md)
+
 ## Branches
 
 ### **master**
