@@ -183,7 +183,7 @@ namespace oeng::engine
 	{
 		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
 
-		const auto& config = Config::Get()(u8"Input"sv);
+		const auto& config = ConfigSystem::Get()(u8"Input"sv);
 		LoadInput(config, "ActionMap", actions_);
 		LoadInput(config, "AxisMap", axises_);
 
@@ -362,7 +362,7 @@ namespace oeng::engine
 
 	void InputSystem::SaveConfig()
 	{
-		auto& configs = Config::Get();
+		auto& configs = ConfigSystem::Get();
 		const Name conf_name = u8"Input"sv;
 		auto& config = configs(conf_name);
 		

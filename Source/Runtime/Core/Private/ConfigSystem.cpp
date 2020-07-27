@@ -1,4 +1,4 @@
-#include "Config.hpp"
+#include "ConfigSystem.hpp"
 #include <filesystem>
 #include <fstream>
 #include "EngineBase.hpp"
@@ -212,19 +212,19 @@ namespace oeng::core
 		}
 	}
 	
-	Config::Config()
+	ConfigSystem::ConfigSystem()
 	{
 		LoadConfigs(configs_, u8"../Engine/Config"sv);
 		LoadConfigs(configs_, u8"../Config"sv);
 		LoadConfigs(configs_, GetUserConfigDir());
 	}
 
-	Config& Config::Get() noexcept
+	ConfigSystem& ConfigSystem::Get() noexcept
 	{
 		return EngineBase::Get().GetConfig();
 	}
 
-	bool Config::Save(Name name) const
+	bool ConfigSystem::Save(Name name) const
 	{
 		const auto cfg = configs_.find(name);
 		if (cfg == configs_.end()) return false;

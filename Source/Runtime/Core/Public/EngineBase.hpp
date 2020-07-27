@@ -1,6 +1,6 @@
 #pragma once
 #include <thread>
-#include "Config.hpp"
+#include "ConfigSystem.hpp"
 #include "Log.hpp"
 #include "Path.hpp"
 #include "Platform.hpp"
@@ -66,7 +66,7 @@ namespace oeng::core
 		[[nodiscard]] static EngineBase& Get() noexcept;
 		[[nodiscard]] static bool Exists() noexcept;
 		
-		[[nodiscard]] Config& GetConfig() noexcept { return config_; }
+		[[nodiscard]] ConfigSystem& GetConfig() noexcept { return config_; }
 		[[nodiscard]] uint64_t GetTickCount() const noexcept { return ticks_; }
 		
 	protected:
@@ -85,7 +85,7 @@ namespace oeng::core
 
 		NameSet names_;
 		PathSet paths_;
-		Config config_;
+		ConfigSystem config_;
 		CounterManager counters_;
 	};
 }

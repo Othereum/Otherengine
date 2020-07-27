@@ -82,7 +82,7 @@ namespace oeng::renderer
 		SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
 		SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
 
-		auto& config = Config::Get();
+		auto& config = ConfigSystem::Get();
 		const Name config_name = u8"Display"sv;
 		auto& cfg = config(config_name);
 		const auto dp = LoadDisplayIdx(cfg);

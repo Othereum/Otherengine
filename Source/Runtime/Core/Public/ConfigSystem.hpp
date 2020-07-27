@@ -5,10 +5,10 @@
 
 namespace oeng::core
 {
-	class CORE_API Config
+	class CORE_API ConfigSystem
 	{
 	public:
-		[[nodiscard]] static Config& Get() noexcept;
+		[[nodiscard]] static ConfigSystem& Get() noexcept;
 		
 		/**
 		 * Find config or create if not found.
@@ -28,7 +28,7 @@ namespace oeng::core
 		bool Save(Name name) const;
 		
 	private:
-		Config();
+		ConfigSystem();
 		friend class EngineBase;
 		HashMap<Name, Json> configs_;
 	};
