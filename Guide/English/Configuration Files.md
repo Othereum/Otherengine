@@ -41,7 +41,7 @@ Configuration files can be located in the paths below:
 `{userDataPath}`: Path where user-specific data is stored. Note table below:
 
 Build＼OS | **Windows** | **Linux/OS X**
---- | --- | ---
+---: | --- | ---
 **Shipping** | `{userDocumentsPath}\{gameName}` | `~/.{gameName}`
 **Debug/Development** | `{gamePath}\Saved` | `{gamePath}/Saved`
 
