@@ -1,9 +1,8 @@
 var searchData=
 [
-  ['data_1507',['data',['../structoeng_1_1renderer_1_1_vertex.html#ae1f53ece14b632c954be9e961d729df1',1,'oeng::renderer::Vertex']]],
-  ['dead_5fzone_1508',['dead_zone',['../structoeng_1_1engine_1_1_axis_config.html#ad8d2708eb0cdb8e86d8d9bb686f3c116',1,'oeng::engine::AxisConfig']]],
-  ['default_5fobj_1509',['default_obj',['../structoeng_1_1renderer_1_1_asset_cache.html#af8554e2242f3ab2263ed6082fecd8229',1,'oeng::renderer::AssetCache']]],
-  ['deleter_1510',['deleter',['../structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a1dce0211d694b4020975b54cc1bf45d0',1,'oeng::core::detail::SharedObjPtr']]],
-  ['dir_1511',['dir',['../structoeng_1_1renderer_1_1_i_dir_light_1_1_data.html#aedbabbae5c612c04ecb8b1e9c4bca469',1,'oeng::renderer::IDirLight::Data::dir()'],['../structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html#aa275e6124e8b353a33349209394849c2',1,'oeng::renderer::ISpotLight::Data::dir()']]],
-  ['duration_1512',['duration',['../structoeng_1_1core_1_1_scope_stat.html#a33b0118e870fb65caf6cbf6768322c93',1,'oeng::core::ScopeStat']]]
+  ['children_1852',['children',['../structoeng_1_1core_1_1_scope_stack_stat.html#a79f34041eb65868ca62e236d07103665',1,'oeng::core::ScopeStackStat']]],
+  ['code_1853',['code',['../structoeng_1_1engine_1_1_input_axis.html#a3c0a4f36c6c01ae28587da9eda8d9d30',1,'oeng::engine::InputAxis::code()'],['../structoeng_1_1engine_1_1_input_action.html#a55782278fcf64ce3fce169969127562a',1,'oeng::engine::InputAction::code()']]],
+  ['color_1854',['color',['../structoeng_1_1renderer_1_1_i_dir_light_1_1_data.html#af42e7c6c968f5e628173484abb3372c4',1,'oeng::renderer::IDirLight::Data::color()'],['../structoeng_1_1renderer_1_1_i_point_light_1_1_data.html#ace4a0bebecf1149f31338ad897834811',1,'oeng::renderer::IPointLight::Data::color()'],['../structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html#a8ab880a378564dc7499106d17c03d66d',1,'oeng::renderer::ISpotLight::Data::color()']]],
+  ['count_1855',['count',['../structoeng_1_1core_1_1_scope_stat.html#ac966e5a026089eecdc5c6e5f3f3bed0f',1,'oeng::core::ScopeStat::count()'],['../structomem_1_1_pool_info.html#ab1257f857db5555f399a171057e37ee6',1,'omem::PoolInfo::count()']]],
+  ['cur_1856',['cur',['../structomem_1_1_pool_info.html#a173ec0101f4f3500dda05aba9da86a69',1,'omem::PoolInfo']]]
 ];

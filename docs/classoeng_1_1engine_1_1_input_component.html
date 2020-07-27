@@ -105,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a41fce2247cd88bf84229d1924cb97381"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab7e007f9cdd6b49bb3c91fb50d58265d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_input_component.html#ab7e007f9cdd6b49bb3c91fb50d58265d">BindAction</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> action, bool pressed, std::function&lt; void()&gt; &amp;&amp;callback)</td></tr>
 <tr class="separator:ab7e007f9cdd6b49bb3c91fb50d58265d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a114e7579b7ab760fb9c16936369c7011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_input_component.html#a114e7579b7ab760fb9c16936369c7011">BindAxis</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> axis, std::function&lt; void(Float)&gt; &amp;&amp;callback)</td></tr>
+<tr class="memitem:a114e7579b7ab760fb9c16936369c7011"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_input_component.html#a114e7579b7ab760fb9c16936369c7011">BindAxis</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> axis, std::function&lt; void(<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>)&gt; &amp;&amp;callback)</td></tr>
 <tr class="separator:a114e7579b7ab760fb9c16936369c7011"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classoeng_1_1engine_1_1_actor_component"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classoeng_1_1engine_1_1_actor_component')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classoeng_1_1engine_1_1_actor_component.html">oeng::engine::ActorComponent</a></td></tr>
 <tr class="memitem:a5deda4c1d2ee075ab7e759b515b32587 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a5deda4c1d2ee075ab7e759b515b32587">DELETE_CPMV</a> (<a class="el" href="classoeng_1_1engine_1_1_actor_component.html">ActorComponent</a>)</td></tr>
@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7c4d0f4e7d826216a603e8268992f017 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af52e7ecdcd50a35194dbe20aea790a49 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#af52e7ecdcd50a35194dbe20aea790a49">BeginPlay</a> ()</td></tr>
 <tr class="separator:af52e7ecdcd50a35194dbe20aea790a49 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45ef834e7375620cfbe6cbe5a0c00e45 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a45ef834e7375620cfbe6cbe5a0c00e45">Update</a> (Float delta_seconds)</td></tr>
+<tr class="memitem:a45ef834e7375620cfbe6cbe5a0c00e45 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a45ef834e7375620cfbe6cbe5a0c00e45">Update</a> (<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds)</td></tr>
 <tr class="separator:a45ef834e7375620cfbe6cbe5a0c00e45 inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a87f518a373903ee2a7dd13234760d26b inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a87f518a373903ee2a7dd13234760d26b">Activate</a> ()</td></tr>
 <tr class="separator:a87f518a373903ee2a7dd13234760d26b inherit pub_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -251,7 +251,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::function&lt; void(Float)&gt; &amp;&amp;&#160;</td>
+          <td class="paramtype">std::function&lt; void(<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>)&gt; &amp;&amp;&#160;</td>
           <td class="paramname"><em>callback</em>&#160;</td>
         </tr>
         <tr>

@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 442)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-442 752,-442 752,4 -4,4"/>
-<!-- Node71 -->
-<g id="node1" class="node"><title>Node71</title>
+<!-- Node105 -->
+<g id="node1" class="node"><title>Node105</title>
 <g id="a_node1"><a xlink:href="classoeng_1_1core_1_1_enable_shared_from_this.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-185 0,-215 148,-215 148,-185 0,-185"/>
 <text text-anchor="start" x="8" y="-203" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::core::EnableShared</text>
@@ -18,125 +18,125 @@
 </a>
 </g>
 </g>
-<!-- Node72 -->
-<g id="node2" class="node"><title>Node72</title>
+<!-- Node106 -->
+<g id="node2" class="node"><title>Node106</title>
 <g id="a_node2"><a xlink:href="classoeng_1_1engine_1_1_actor_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="184,-190.5 184,-209.5 335,-209.5 335,-190.5 184,-190.5"/>
 <text text-anchor="middle" x="259.5" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::ActorComponent</text>
 </a>
 </g>
 </g>
-<!-- Node71&#45;&gt;Node72 -->
-<g id="edge1" class="edge"><title>Node71&#45;&gt;Node72</title>
+<!-- Node105&#45;&gt;Node106 -->
+<g id="edge1" class="edge"><title>Node105&#45;&gt;Node106</title>
 <path fill="none" stroke="midnightblue" d="M158.086,-200C166.69,-200 175.396,-200 183.899,-200"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="158.051,-196.5 148.051,-200 158.051,-203.5 158.051,-196.5"/>
 </g>
-<!-- Node73 -->
-<g id="node3" class="node"><title>Node73</title>
+<!-- Node107 -->
+<g id="node3" class="node"><title>Node107</title>
 <g id="a_node3"><a xlink:href="classoeng_1_1engine_1_1_a_i_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="388.5,-152.5 388.5,-171.5 525.5,-171.5 525.5,-152.5 388.5,-152.5"/>
 <text text-anchor="middle" x="457" y="-159.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::AIComponent</text>
 </a>
 </g>
 </g>
-<!-- Node72&#45;&gt;Node73 -->
-<g id="edge2" class="edge"><title>Node72&#45;&gt;Node73</title>
+<!-- Node106&#45;&gt;Node107 -->
+<g id="edge2" class="edge"><title>Node106&#45;&gt;Node107</title>
 <path fill="none" stroke="midnightblue" d="M319.61,-188.511C347.504,-183.089 380.402,-176.694 406.899,-171.544"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="318.729,-185.116 309.581,-190.46 320.065,-191.988 318.729,-185.116"/>
 </g>
-<!-- Node74 -->
-<g id="node4" class="node"><title>Node74</title>
+<!-- Node108 -->
+<g id="node4" class="node"><title>Node108</title>
 <g id="a_node4"><a xlink:href="classoeng_1_1engine_1_1_circle_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="381,-114.5 381,-133.5 533,-133.5 533,-114.5 381,-114.5"/>
 <text text-anchor="middle" x="457" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::CircleComponent</text>
 </a>
 </g>
 </g>
-<!-- Node72&#45;&gt;Node74 -->
-<g id="edge3" class="edge"><title>Node72&#45;&gt;Node74</title>
+<!-- Node106&#45;&gt;Node108 -->
+<g id="edge3" class="edge"><title>Node106&#45;&gt;Node108</title>
 <path fill="none" stroke="midnightblue" d="M284.639,-185.246C306.493,-172.454 339.929,-154.274 371,-143 381.234,-139.286 392.435,-136.159 403.25,-133.581"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="282.834,-182.247 276.022,-190.362 286.407,-188.266 282.834,-182.247"/>
 </g>
-<!-- Node75 -->
-<g id="node5" class="node"><title>Node75</title>
+<!-- Node109 -->
+<g id="node5" class="node"><title>Node109</title>
 <g id="a_node5"><a xlink:href="classoeng_1_1engine_1_1_input_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="382.5,-418.5 382.5,-437.5 531.5,-437.5 531.5,-418.5 382.5,-418.5"/>
 <text text-anchor="middle" x="457" y="-425.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::InputComponent</text>
 </a>
 </g>
 </g>
-<!-- Node72&#45;&gt;Node75 -->
-<g id="edge4" class="edge"><title>Node72&#45;&gt;Node75</title>
+<!-- Node106&#45;&gt;Node109 -->
+<g id="edge4" class="edge"><title>Node106&#45;&gt;Node109</title>
 <path fill="none" stroke="midnightblue" d="M264.955,-219.55C275.544,-261.347 306.32,-359.607 371,-409 376.047,-412.854 381.727,-415.956 387.694,-418.447"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="268.343,-218.669 262.59,-209.772 261.539,-220.315 268.343,-218.669"/>
 </g>
-<!-- Node76 -->
-<g id="node6" class="node"><title>Node76</title>
+<!-- Node110 -->
+<g id="node6" class="node"><title>Node110</title>
 <g id="a_node6"><a xlink:href="classoeng_1_1engine_1_1_movement_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="371,-304.5 371,-323.5 543,-323.5 543,-304.5 371,-304.5"/>
 <text text-anchor="middle" x="457" y="-311.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::MovementComponent</text>
 </a>
 </g>
 </g>
-<!-- Node72&#45;&gt;Node76 -->
-<g id="edge5" class="edge"><title>Node72&#45;&gt;Node76</title>
+<!-- Node106&#45;&gt;Node110 -->
+<g id="edge5" class="edge"><title>Node106&#45;&gt;Node110</title>
 <path fill="none" stroke="midnightblue" d="M275.467,-217.282C295.157,-238.875 331.873,-275.37 371,-295 378.704,-298.865 387.191,-301.951 395.731,-304.413"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="277.831,-214.674 268.561,-209.545 272.609,-219.336 277.831,-214.674"/>
 </g>
-<!-- Node77 -->
-<g id="node7" class="node"><title>Node77</title>
+<!-- Node111 -->
+<g id="node7" class="node"><title>Node111</title>
 <g id="a_node7"><a xlink:href="classoeng_1_1engine_1_1_scene_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="379.5,-190.5 379.5,-209.5 534.5,-209.5 534.5,-190.5 379.5,-190.5"/>
 <text text-anchor="middle" x="457" y="-197.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::SceneComponent</text>
 </a>
 </g>
 </g>
-<!-- Node72&#45;&gt;Node77 -->
-<g id="edge6" class="edge"><title>Node72&#45;&gt;Node77</title>
+<!-- Node106&#45;&gt;Node111 -->
+<g id="edge6" class="edge"><title>Node106&#45;&gt;Node111</title>
 <path fill="none" stroke="midnightblue" d="M345.503,-200C356.759,-200 368.246,-200 379.35,-200"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="345.247,-196.5 335.247,-200 345.247,-203.5 345.247,-196.5"/>
 </g>
-<!-- Node67 -->
-<g id="node8" class="node"><title>Node67</title>
+<!-- Node101 -->
+<g id="node8" class="node"><title>Node101</title>
 <g id="a_node8"><a xlink:href="classoeng_1_1engine_1_1_camera_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="583,-338.5 583,-357.5 744,-357.5 744,-338.5 583,-338.5"/>
 <text text-anchor="middle" x="663.5" y="-345.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::CameraComponent</text>
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node67 -->
-<g id="edge7" class="edge"><title>Node77&#45;&gt;Node67</title>
+<!-- Node111&#45;&gt;Node101 -->
+<g id="edge7" class="edge"><title>Node111&#45;&gt;Node101</title>
 <path fill="none" stroke="midnightblue" d="M537.484,-214.697C539.409,-216.019 541.254,-217.451 543,-219 578.961,-250.905 544.558,-287.461 579,-321 587.077,-328.866 597.462,-334.44 608.145,-338.39"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="538.999,-211.531 528.587,-209.572 535.505,-217.596 538.999,-211.531"/>
 </g>
-<!-- Node65 -->
-<g id="node9" class="node"><title>Node65</title>
+<!-- Node99 -->
+<g id="node9" class="node"><title>Node99</title>
 <g id="a_node9"><a xlink:href="classoeng_1_1engine_1_1_dir_light_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="583,-292.5 583,-311.5 744,-311.5 744,-292.5 583,-292.5"/>
 <text text-anchor="middle" x="663.5" y="-299.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::DirLightComponent</text>
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node65 -->
-<g id="edge8" class="edge"><title>Node77&#45;&gt;Node65</title>
+<!-- Node111&#45;&gt;Node99 -->
+<g id="edge8" class="edge"><title>Node111&#45;&gt;Node99</title>
 <path fill="none" stroke="midnightblue" d="M532.983,-213.487C536.467,-215.121 539.829,-216.951 543,-219 565.399,-233.471 557.968,-250.606 579,-267 593.629,-278.403 612.512,-286.73 628.62,-292.394"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="534.101,-210.162 523.521,-209.602 531.442,-216.638 534.101,-210.162"/>
 </g>
-<!-- Node63 -->
-<g id="node10" class="node"><title>Node63</title>
+<!-- Node97 -->
+<g id="node10" class="node"><title>Node97</title>
 <g id="a_node10"><a xlink:href="classoeng_1_1engine_1_1_mesh_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="587.5,-238.5 587.5,-257.5 739.5,-257.5 739.5,-238.5 587.5,-238.5"/>
 <text text-anchor="middle" x="663.5" y="-245.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::MeshComponent</text>
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node63 -->
-<g id="edge9" class="edge"><title>Node77&#45;&gt;Node63</title>
+<!-- Node111&#45;&gt;Node97 -->
+<g id="edge9" class="edge"><title>Node111&#45;&gt;Node97</title>
 <path fill="none" stroke="midnightblue" d="M511.212,-211.739C521.754,-214.108 532.733,-216.607 543,-219 570.133,-225.324 600.656,-232.737 624.063,-238.484"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="511.799,-208.284 501.276,-209.514 510.27,-215.114 511.799,-208.284"/>
 </g>
-<!-- Node57 -->
-<g id="node11" class="node"><title>Node57</title>
+<!-- Node91 -->
+<g id="node11" class="node"><title>Node91</title>
 <g id="a_node11"><a xlink:href="classoeng_1_1engine_1_1_point_light_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="602.5,-187 602.5,-217 724.5,-217 724.5,-187 602.5,-187"/>
 <text text-anchor="start" x="610.5" y="-205" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::PointLight</text>
@@ -144,34 +144,34 @@
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node57 -->
-<g id="edge10" class="edge"><title>Node77&#45;&gt;Node57</title>
+<!-- Node111&#45;&gt;Node91 -->
+<g id="edge10" class="edge"><title>Node111&#45;&gt;Node91</title>
 <path fill="none" stroke="midnightblue" d="M544.772,-200.849C564.136,-201.038 584.259,-201.235 602.274,-201.411"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="544.764,-197.348 534.73,-200.75 544.695,-204.348 544.764,-197.348"/>
 </g>
-<!-- Node55 -->
-<g id="node12" class="node"><title>Node55</title>
+<!-- Node89 -->
+<g id="node12" class="node"><title>Node89</title>
 <g id="a_node12"><a xlink:href="classoeng_1_1engine_1_1_sky_light_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="580.5,-130.5 580.5,-149.5 746.5,-149.5 746.5,-130.5 580.5,-130.5"/>
 <text text-anchor="middle" x="663.5" y="-137.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::SkyLightComponent</text>
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node55 -->
-<g id="edge11" class="edge"><title>Node77&#45;&gt;Node55</title>
+<!-- Node111&#45;&gt;Node89 -->
+<g id="edge11" class="edge"><title>Node111&#45;&gt;Node89</title>
 <path fill="none" stroke="midnightblue" d="M514.757,-188.23C524.233,-186.003 533.928,-183.562 543,-181 575.929,-171.702 613.101,-158.511 637.116,-149.624"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="513.961,-184.821 504.997,-190.469 515.526,-191.644 513.961,-184.821"/>
 </g>
-<!-- Node53 -->
-<g id="node13" class="node"><title>Node53</title>
+<!-- Node87 -->
+<g id="node13" class="node"><title>Node87</title>
 <g id="a_node13"><a xlink:href="classoeng_1_1engine_1_1_spot_light_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="579,-56.5 579,-75.5 748,-75.5 748,-56.5 579,-56.5"/>
 <text text-anchor="middle" x="663.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::engine::SpotLightComponent</text>
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node53 -->
-<g id="edge12" class="edge"><title>Node77&#45;&gt;Node53</title>
+<!-- Node111&#45;&gt;Node87 -->
+<g id="edge12" class="edge"><title>Node111&#45;&gt;Node87</title>
 <path fill="none" stroke="midnightblue" d="M534.938,-186.023C537.745,-184.512 540.446,-182.843 543,-181 568.217,-162.801 557.477,-143.447 579,-121 597.742,-101.454 624.649,-85.3058 642.81,-75.6729"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="533.257,-182.945 525.661,-190.331 536.205,-189.294 533.257,-182.945"/>
 </g>
@@ -183,99 +183,99 @@
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node1 -->
-<g id="edge13" class="edge"><title>Node77&#45;&gt;Node1</title>
+<!-- Node111&#45;&gt;Node1 -->
+<g id="edge13" class="edge"><title>Node111&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M538.348,-184.955C539.971,-183.729 541.526,-182.412 543,-181 587.523,-138.332 534.559,-89.753 579,-47 582.964,-43.1864 587.527,-40.0782 592.432,-37.5513"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="536.334,-182.087 529.722,-190.366 540.053,-188.017 536.334,-182.087"/>
 </g>
-<!-- Node66 -->
-<g id="node15" class="node"><title>Node66</title>
+<!-- Node100 -->
+<g id="node15" class="node"><title>Node100</title>
 <g id="a_node15"><a xlink:href="classoeng_1_1renderer_1_1_i_camera.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="396.5,-380.5 396.5,-399.5 517.5,-399.5 517.5,-380.5 396.5,-380.5"/>
 <text text-anchor="middle" x="457" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::ICamera</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node67 -->
-<g id="edge14" class="edge"><title>Node66&#45;&gt;Node67</title>
+<!-- Node100&#45;&gt;Node101 -->
+<g id="edge14" class="edge"><title>Node100&#45;&gt;Node101</title>
 <path fill="none" stroke="midnightblue" d="M514.481,-378.4C546.392,-371.846 585.798,-363.753 615.926,-357.565"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="513.496,-375.029 504.404,-380.47 514.904,-381.886 513.496,-375.029"/>
 </g>
-<!-- Node68 -->
-<g id="node16" class="node"><title>Node68</title>
+<!-- Node102 -->
+<g id="node16" class="node"><title>Node102</title>
 <g id="a_node16"><a xlink:href="classoeng_1_1renderer_1_1_default_camera.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="589,-380.5 589,-399.5 738,-399.5 738,-380.5 589,-380.5"/>
 <text text-anchor="middle" x="663.5" y="-387.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::DefaultCamera</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node68 -->
-<g id="edge15" class="edge"><title>Node66&#45;&gt;Node68</title>
+<!-- Node100&#45;&gt;Node102 -->
+<g id="edge15" class="edge"><title>Node100&#45;&gt;Node102</title>
 <path fill="none" stroke="midnightblue" d="M527.821,-390C547.522,-390 569.015,-390 588.929,-390"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="527.7,-386.5 517.7,-390 527.7,-393.5 527.7,-386.5"/>
 </g>
-<!-- Node64 -->
-<g id="node17" class="node"><title>Node64</title>
+<!-- Node98 -->
+<g id="node17" class="node"><title>Node98</title>
 <g id="a_node17"><a xlink:href="classoeng_1_1renderer_1_1_i_dir_light.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="397,-342.5 397,-361.5 517,-361.5 517,-342.5 397,-342.5"/>
 <text text-anchor="middle" x="457" y="-349.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::IDirLight</text>
 </a>
 </g>
 </g>
-<!-- Node64&#45;&gt;Node65 -->
-<g id="edge16" class="edge"><title>Node64&#45;&gt;Node65</title>
+<!-- Node98&#45;&gt;Node99 -->
+<g id="edge16" class="edge"><title>Node98&#45;&gt;Node99</title>
 <path fill="none" stroke="midnightblue" d="M512.25,-340.162C522.479,-337.848 533.078,-335.395 543,-333 571.335,-326.16 603.29,-317.838 627.022,-311.54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="511.173,-336.817 502.183,-342.422 512.706,-343.646 511.173,-336.817"/>
 </g>
-<!-- Node62 -->
-<g id="node18" class="node"><title>Node62</title>
+<!-- Node96 -->
+<g id="node18" class="node"><title>Node96</title>
 <g id="a_node18"><a xlink:href="classoeng_1_1renderer_1_1_i_mesh_component.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="376.5,-266.5 376.5,-285.5 537.5,-285.5 537.5,-266.5 376.5,-266.5"/>
 <text text-anchor="middle" x="457" y="-273.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::IMeshComponent</text>
 </a>
 </g>
 </g>
-<!-- Node62&#45;&gt;Node63 -->
-<g id="edge17" class="edge"><title>Node62&#45;&gt;Node63</title>
+<!-- Node96&#45;&gt;Node97 -->
+<g id="edge17" class="edge"><title>Node96&#45;&gt;Node97</title>
 <path fill="none" stroke="midnightblue" d="M537.534,-265.11C555.777,-262.612 575.036,-259.976 592.825,-257.54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="536.952,-261.657 527.52,-266.481 537.902,-268.592 536.952,-261.657"/>
 </g>
-<!-- Node56 -->
-<g id="node19" class="node"><title>Node56</title>
+<!-- Node90 -->
+<g id="node19" class="node"><title>Node90</title>
 <g id="a_node19"><a xlink:href="classoeng_1_1renderer_1_1_i_point_light.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="391.5,-228.5 391.5,-247.5 522.5,-247.5 522.5,-228.5 391.5,-228.5"/>
 <text text-anchor="middle" x="457" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::IPointLight</text>
 </a>
 </g>
 </g>
-<!-- Node56&#45;&gt;Node57 -->
-<g id="edge18" class="edge"><title>Node56&#45;&gt;Node57</title>
+<!-- Node90&#45;&gt;Node91 -->
+<g id="edge18" class="edge"><title>Node90&#45;&gt;Node91</title>
 <path fill="none" stroke="midnightblue" d="M522.01,-226.732C547.698,-222.21 577.149,-217.025 602.429,-212.575"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="521.239,-223.314 511.997,-228.494 522.453,-230.208 521.239,-223.314"/>
 </g>
-<!-- Node54 -->
-<g id="node20" class="node"><title>Node54</title>
+<!-- Node88 -->
+<g id="node20" class="node"><title>Node88</title>
 <g id="a_node20"><a xlink:href="classoeng_1_1renderer_1_1_i_sky_light.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="394.5,-76.5 394.5,-95.5 519.5,-95.5 519.5,-76.5 394.5,-76.5"/>
 <text text-anchor="middle" x="457" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::ISkyLight</text>
 </a>
 </g>
 </g>
-<!-- Node54&#45;&gt;Node55 -->
-<g id="edge19" class="edge"><title>Node54&#45;&gt;Node55</title>
+<!-- Node88&#45;&gt;Node89 -->
+<g id="edge19" class="edge"><title>Node88&#45;&gt;Node89</title>
 <path fill="none" stroke="midnightblue" d="M512.994,-97.7437C523.006,-100.037 533.336,-102.508 543,-105 573.353,-112.829 607.659,-123.017 631.703,-130.381"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="513.652,-94.304 503.126,-95.5146 512.109,-101.132 513.652,-94.304"/>
 </g>
-<!-- Node52 -->
-<g id="node21" class="node"><title>Node52</title>
+<!-- Node86 -->
+<g id="node21" class="node"><title>Node86</title>
 <g id="a_node21"><a xlink:href="classoeng_1_1renderer_1_1_i_spot_light.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="393,-38.5 393,-57.5 521,-57.5 521,-38.5 393,-38.5"/>
 <text text-anchor="middle" x="457" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::renderer::ISpotLight</text>
 </a>
 </g>
 </g>
-<!-- Node52&#45;&gt;Node53 -->
-<g id="edge20" class="edge"><title>Node52&#45;&gt;Node53</title>
+<!-- Node86&#45;&gt;Node87 -->
+<g id="edge20" class="edge"><title>Node86&#45;&gt;Node87</title>
 <path fill="none" stroke="midnightblue" d="M531.069,-54.4315C546.593,-55.7979 563.097,-57.2506 578.976,-58.6483"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="531.294,-50.9378 521.025,-53.5475 530.68,-57.9109 531.294,-50.9378"/>
 </g>

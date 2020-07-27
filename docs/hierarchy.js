@@ -1,5 +1,8 @@
 var hierarchy =
 [
+    [ "otm::All", "structotm_1_1_all.html", null ],
+    [ "otm::Angle< Ratio, T >", "structotm_1_1_angle.html", null ],
+    [ "otm::Angle< RadR >", "structotm_1_1_angle.html", null ],
     [ "oeng::core::Asset", "classoeng_1_1core_1_1_asset.html", [
       [ "oeng::renderer::Material", "classoeng_1_1renderer_1_1_material.html", null ],
       [ "oeng::renderer::Mesh", "classoeng_1_1renderer_1_1_mesh.html", null ],
@@ -15,6 +18,9 @@ var hierarchy =
     [ "oeng::engine::ai_state::Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", null ],
     [ "oeng::renderer::ISpotLight::Data::Cone", "structoeng_1_1renderer_1_1_i_spot_light_1_1_data_1_1_cone.html", null ],
     [ "oeng::core::Config", "classoeng_1_1core_1_1_config.html", null ],
+    [ "otm::Vector< T, L >::const_iterator", "structotm_1_1_vector_1_1const__iterator.html", [
+      [ "otm::Vector< T, L >::iterator", "structotm_1_1_vector_1_1iterator.html", null ]
+    ] ],
     [ "oeng::core::CoreSystem", "classoeng_1_1core_1_1_core_system.html", [
       [ "oeng::core::EngineBase", "classoeng_1_1core_1_1_engine_base.html", [
         [ "oeng::engine::Engine", "classoeng_1_1engine_1_1_engine.html", null ]
@@ -89,6 +95,19 @@ var hierarchy =
     [ "oeng::core::IsTransparent< Container, KeyEquivalent >", "structoeng_1_1core_1_1_is_transparent.html", null ],
     [ "oeng::core::log::detail::LogDelay", "classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html", null ],
     [ "oeng::core::log::Logger", "classoeng_1_1core_1_1log_1_1_logger.html", null ],
+    [ "logic_error", null, [
+      [ "otm::DivByZero", "classotm_1_1_div_by_zero.html", null ]
+    ] ],
+    [ "otm::detail::MatrixBase< T, R, C >", "structotm_1_1detail_1_1_matrix_base.html", [
+      [ "otm::Matrix< T, L, L >", "structotm_1_1_matrix.html", null ],
+      [ "otm::Matrix< T, R, C >", "structotm_1_1_matrix.html", null ]
+    ] ],
+    [ "otm::detail::MatrixBase< Float, R, C >", "structotm_1_1detail_1_1_matrix_base.html", [
+      [ "otm::Matrix< Float, 4 >", "structotm_1_1_matrix.html", null ]
+    ] ],
+    [ "otm::detail::MatrixBase< T, L, L >", "structotm_1_1detail_1_1_matrix_base_3_01_t_00_01_l_00_01_l_01_4.html", null ],
+    [ "omem::MemoryPool", "classomem_1_1_memory_pool.html", null ],
+    [ "omem::MemoryPoolManager", "classomem_1_1_memory_pool_manager.html", null ],
     [ "oeng::core::Monitor< T, Mutex >", "classoeng_1_1core_1_1_monitor.html", null ],
     [ "oeng::core::Monitor< HashSet< fs::path, PathHasher, PathEqual >, kPathThreadSafe >", "classoeng_1_1core_1_1_monitor.html", null ],
     [ "oeng::core::Monitor< HashSet< String8, NameHasher, NameEqual >, kNameThreadSafe >", "classoeng_1_1core_1_1_monitor.html", null ],
@@ -104,6 +123,9 @@ var hierarchy =
     [ "oeng::core::PathHasher", "structoeng_1_1core_1_1_path_hasher.html", null ],
     [ "oeng::core::PoolAllocator< T >", "classoeng_1_1core_1_1_pool_allocator.html", null ],
     [ "oeng::core::PoolDeleter< T >", "classoeng_1_1core_1_1_pool_deleter.html", null ],
+    [ "omem::PoolInfo", "structomem_1_1_pool_info.html", null ],
+    [ "otm::Quaternion< T >", "structotm_1_1_quaternion.html", null ],
+    [ "otm::Quaternion< Float >", "structotm_1_1_quaternion.html", null ],
     [ "oeng::core::RegisterEngineBase", "classoeng_1_1core_1_1_register_engine_base.html", [
       [ "oeng::core::EngineBase", "classoeng_1_1core_1_1_engine_base.html", null ]
     ] ],
@@ -128,11 +150,35 @@ var hierarchy =
     [ "oeng::core::SharedRef< oeng::renderer::Shader >", "classoeng_1_1core_1_1_shared_ref.html", null ],
     [ "oeng::core::SharedRef< oeng::renderer::Texture >", "classoeng_1_1core_1_1_shared_ref.html", null ],
     [ "oeng::core::SharedRef< T >", "classoeng_1_1core_1_1_shared_ref.html", null ],
+    [ "otm::Sphere", "structotm_1_1_sphere.html", null ],
     [ "oeng::engine::TimerHandle", "structoeng_1_1engine_1_1_timer_handle.html", null ],
     [ "oeng::engine::TimerManager", "classoeng_1_1engine_1_1_timer_manager.html", null ],
+    [ "otm::Transform", "structotm_1_1_transform.html", null ],
     [ "type", null, [
       [ "oeng::core::detail::CanEnableShared< T, std::void_t< typename T::EsftType > >", "structoeng_1_1core_1_1detail_1_1_can_enable_shared_3_01_t_00_01std_1_1void__t_3_01typename_01_t_1_1_esft_type_01_4_01_4.html", null ]
     ] ],
+    [ "otm::UnitVec< T, L >", "structotm_1_1_unit_vec.html", null ],
+    [ "otm::UnitVec< Float, 3 >", "structotm_1_1_unit_vec.html", null ],
+    [ "otm::UnitVec< T, 3 >", "structotm_1_1_unit_vec.html", null ],
+    [ "otm::detail::UnitVecBase< T, L >", "structotm_1_1detail_1_1_unit_vec_base.html", null ],
+    [ "otm::detail::UnitVecBase< T, 3 >", "structotm_1_1detail_1_1_unit_vec_base_3_01_t_00_013_01_4.html", null ],
+    [ "otm::detail::VecBase0< T, L >", "structotm_1_1detail_1_1_vec_base0.html", [
+      [ "otm::detail::VecBase< T, L >", "structotm_1_1detail_1_1_vec_base.html", null ]
+    ] ],
+    [ "otm::detail::VecBase0< T, 2 >", "structotm_1_1detail_1_1_vec_base0.html", [
+      [ "otm::detail::VecBase< T, 2 >", "structotm_1_1detail_1_1_vec_base_3_01_t_00_012_01_4.html", null ]
+    ] ],
+    [ "otm::detail::VecBase0< T, 3 >", "structotm_1_1detail_1_1_vec_base0.html", [
+      [ "otm::detail::VecBase< T, 3 >", "structotm_1_1detail_1_1_vec_base_3_01_t_00_013_01_4.html", null ]
+    ] ],
+    [ "otm::Vector< T, L >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< Float, 2 >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< Float, 3 >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< Float, C >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< Float, L >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< T, 3 >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< T, C >", "structotm_1_1_vector.html", null ],
+    [ "otm::Vector< uint16_t, 2 >", "structotm_1_1_vector.html", null ],
     [ "oeng::renderer::Vertex", "structoeng_1_1renderer_1_1_vertex.html", null ],
     [ "oeng::renderer::VertexArray", "classoeng_1_1renderer_1_1_vertex_array.html", null ],
     [ "oeng::core::WeakPtr< T, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],

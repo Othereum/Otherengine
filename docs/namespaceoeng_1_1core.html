@@ -164,7 +164,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:a712d9a71e426d54e3d1be98c5044d3af"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a> = nlohmann::basic_json&lt; <a class="el" href="namespaceoeng_1_1core.html#a9aa580cf47bec3cec915366d3dac0cf2">TreeMap</a>, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>, std::string, bool, int64_t, uint64_t, Float, <a class="el" href="classoeng_1_1core_1_1_pool_allocator.html">PoolAllocator</a>, nlohmann::adl_serializer, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>&lt; std::uint8_t &gt; &gt;</td></tr>
+<tr class="memitem:a712d9a71e426d54e3d1be98c5044d3af"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a> = nlohmann::basic_json&lt; <a class="el" href="namespaceoeng_1_1core.html#a9aa580cf47bec3cec915366d3dac0cf2">TreeMap</a>, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>, std::string, bool, int64_t, uint64_t, <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, <a class="el" href="classoeng_1_1core_1_1_pool_allocator.html">PoolAllocator</a>, nlohmann::adl_serializer, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>&lt; std::uint8_t &gt; &gt;</td></tr>
 <tr class="separator:a712d9a71e426d54e3d1be98c5044d3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29e6fb075d1a2ab58fc2949260f263c0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a29e6fb075d1a2ab58fc2949260f263c0">JsonType</a> = nlohmann::detail::value_t</td></tr>
 <tr class="separator:a29e6fb075d1a2ab58fc2949260f263c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -242,7 +242,7 @@ Functions</h2></td></tr>
 <tr class="memitem:a4d3003b6ebd4467c8f2fcf05b9898381"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a4d3003b6ebd4467c8f2fcf05b9898381">InitMemPool</a> ()</td></tr>
 <tr class="memdesc:a4d3003b6ebd4467c8f2fcf05b9898381"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize memory pool for current thread.  <a href="namespaceoeng_1_1core.html#a4d3003b6ebd4467c8f2fcf05b9898381">More...</a><br /></td></tr>
 <tr class="separator:a4d3003b6ebd4467c8f2fcf05b9898381"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2603f9eab64fb3afed680dedf20d3144"><td class="memItemLeft" align="right" valign="top">CORE_API omem::MemoryPoolManager &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a2603f9eab64fb3afed680dedf20d3144">GetMemPool</a> () noexcept</td></tr>
+<tr class="memitem:a2603f9eab64fb3afed680dedf20d3144"><td class="memItemLeft" align="right" valign="top">CORE_API <a class="el" href="classomem_1_1_memory_pool_manager.html">omem::MemoryPoolManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a2603f9eab64fb3afed680dedf20d3144">GetMemPool</a> () noexcept</td></tr>
 <tr class="memdesc:a2603f9eab64fb3afed680dedf20d3144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get memory pool for current thread.  <a href="namespaceoeng_1_1core.html#a2603f9eab64fb3afed680dedf20d3144">More...</a><br /></td></tr>
 <tr class="separator:a2603f9eab64fb3afed680dedf20d3144"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dcf16610bd8ec43217e746f44a6c22c"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a6dcf16610bd8ec43217e746f44a6c22c">CleanUpMemPool</a> () noexcept</td></tr>
@@ -590,7 +590,7 @@ template&lt;class Key , class Hash  = std::hash&lt;Key&gt;, class KeyEqual  = st
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">oeng::core::Json</a> = typedef nlohmann::basic_json&lt;<a class="el" href="namespaceoeng_1_1core.html#a9aa580cf47bec3cec915366d3dac0cf2">TreeMap</a>, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>, std::string, bool, int64_t, uint64_t, Float, <a class="el" href="classoeng_1_1core_1_1_pool_allocator.html">PoolAllocator</a>, nlohmann::adl_serializer, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>&lt;std::uint8_t&gt; &gt;</td>
+          <td class="memname">using <a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">oeng::core::Json</a> = typedef nlohmann::basic_json&lt;<a class="el" href="namespaceoeng_1_1core.html#a9aa580cf47bec3cec915366d3dac0cf2">TreeMap</a>, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>, std::string, bool, int64_t, uint64_t, <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, <a class="el" href="classoeng_1_1core_1_1_pool_allocator.html">PoolAllocator</a>, nlohmann::adl_serializer, <a class="el" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>&lt;std::uint8_t&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1744,7 +1744,7 @@ template&lt;class... Args&gt; </div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">CORE_API omem::MemoryPoolManager&amp; oeng::core::GetMemPool </td>
+          <td class="memname">CORE_API <a class="el" href="classomem_1_1_memory_pool_manager.html">omem::MemoryPoolManager</a>&amp; oeng::core::GetMemPool </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
