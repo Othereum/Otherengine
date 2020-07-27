@@ -1,4 +1,6 @@
 #pragma once
+#undef JSON_USE_IMPLICIT_CONVERSIONS
+#define JSON_USE_IMPLICIT_CONVERSIONS 0
 #include "JsonFwd.hpp"
 #include <nlohmann/json.hpp>
 #include <otm/otmfwd.hpp>

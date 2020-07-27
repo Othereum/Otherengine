@@ -141,7 +141,7 @@ namespace oeng::core
 		void RemoveFromArray(Json& from, Json& keys) const
 		{
 			// Erasing must start from back to keep indices valid
-			std::sort(keys.begin(), keys.end(), std::greater<size_t>{});
+			std::sort(keys.begin(), keys.end(), std::greater<>{});
 			
 			for (auto& idx : keys) try
 			{

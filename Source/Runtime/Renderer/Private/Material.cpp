@@ -12,8 +12,8 @@ namespace oeng::renderer
 
 	Material::Material(Path path, Renderer& renderer, const Json& json)
 		:Asset{path},
-		shader_{renderer.GetShader(json.at("shader"))},
-		texture_{renderer.GetTexture(json.at("texture"))}
+		shader_{renderer.GetShader(json.at("shader").get<Path>())},
+		texture_{renderer.GetTexture(json.at("texture").get<Path>())}
 	{
 		if (const auto uniforms = json.find("uniforms"); uniforms != json.end())
 		{

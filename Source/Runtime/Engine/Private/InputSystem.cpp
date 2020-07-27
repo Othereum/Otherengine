@@ -127,8 +127,8 @@ namespace oeng::engine
 
 	void from_json(const Json& json, AxisConfig& action)
 	{
-		action.dead_zone = json.at("DeadZone");
-		action.sensitivity = json.at("Sensitivity");
+		action.dead_zone = json.at("DeadZone").get<Float>();
+		action.sensitivity = json.at("Sensitivity").get<Float>();
 	}
 
 	template <class Map>
