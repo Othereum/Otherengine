@@ -52,24 +52,23 @@ namespace oeng::core::log
 #endif
 	}
 
-	void Logger::Log(Level level, std::u8string_view message) const
+	void Logger::Log(Level level, std::u8string_view message) const noexcept
 	{
-		logger_->log(spdlog::level::level_enum(level), AsString(message));
+		ASSERT_TRY(logger_->log(spdlog::level::level_enum(level), AsString(message)));
 	}
 
-	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg)
+	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg) noexcept
 	{
-		{
+		ASSERT_TRY({
 			const auto logs = delayed_.Lock();
 			auto& next = (*logs)[id];
 			const auto now = Clock::now();
 			if (next > now) return;
 			next = now + delay;
-		}
-		Log(level, msg);
+		} Log(level, msg));
 	}
 
-	void Log(Level level, std::u8string_view message)
+	void Log(Level level, std::u8string_view message) noexcept
 	{
 		if (EngineBase::Exists())
 		{
@@ -77,7 +76,7 @@ namespace oeng::core::log
 		}
 		else
 		{
-			spdlog::log(spdlog::level::level_enum(level), AsString(message));
+			ASSERT_TRY(spdlog::log(spdlog::level::level_enum(level), AsString(message)));
 		}
 	}
 
@@ -89,7 +88,7 @@ namespace oeng::core::log
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
+		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const noexcept
 		{
 			if (EngineBase::Exists())
 			{
@@ -97,7 +96,7 @@ namespace oeng::core::log
 			}
 			else
 			{
-				spdlog::log(spdlog::level::level_enum(level), AsString(msg));
+				ASSERT_TRY(spdlog::log(spdlog::level::level_enum(level), AsString(msg)));
 			}
 		}
 	}
