@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"_matrix_8hpp.html":[2,0,0,1,1,0,0,4],
 "_matrix_8hpp.html#a0b557274f9916932174fedf2ce6e7b7d":[2,0,0,1,1,0,0,4,3],
 "_matrix_8hpp.html#a5dcaf4b2480d3d3ad4bb6e14c20f309e":[2,0,0,1,1,0,0,4,4],
 "_matrix_8hpp_source.html":[2,0,0,1,1,0,0,4],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "classoeng_1_1core_1_1_cpu_info.html#aaf2af170c25cc151cce164d326816e88":[1,0,0,0,6,30],
 "classoeng_1_1core_1_1_cpu_info.html#ab7ded4174657ab4cb99a5e7b0855078c":[1,0,0,0,6,13],
 "classoeng_1_1core_1_1_cpu_info.html#abab3ece3a921e88245358110234324f2":[1,0,0,0,6,22],
-"classoeng_1_1core_1_1_cpu_info.html#abbb50f9724b50881c39ced260ed81de4":[1,0,0,0,6,40],
-"classoeng_1_1core_1_1_cpu_info.html#abd7720d7cd2f88bffb7aeb4df6f85b3f":[1,0,0,0,6,1]
+"classoeng_1_1core_1_1_cpu_info.html#abbb50f9724b50881c39ced260ed81de4":[1,0,0,0,6,40]
 };

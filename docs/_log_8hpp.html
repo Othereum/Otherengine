@@ -122,6 +122,9 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:a37709c7f9f405e186a023c34bb3c08c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#a37709c7f9f405e186a023c34bb3c08c7">ASSERT_TRY</a>(expr)&#160;&#160;&#160;do { try { expr; } catch (...) { assert(!&quot;Critical exception&quot;); } } while (false)</td></tr>
+<tr class="memdesc:a37709c7f9f405e186a023c34bb3c08c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to execute the expression; if an exception thrown, swallow the exception if NDEBUG is defined; otherwise, abort the app.  <a href="_log_8hpp.html#a37709c7f9f405e186a023c34bb3c08c7">More...</a><br /></td></tr>
+<tr class="separator:a37709c7f9f405e186a023c34bb3c08c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">OE_DLOG</a>(delay,  level,  format, ...)</td></tr>
 <tr class="memdesc:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log with delay (anti-spam)  <a href="_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">More...</a><br /></td></tr>
 <tr class="separator:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -143,29 +146,29 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad50f616ad2b605c22a3344f8ade50c2a"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ad50f616ad2b605c22a3344f8ade50c2a">oeng::core::log::Log</a> (Level level, std::u8string_view message)</td></tr>
-<tr class="separator:ad50f616ad2b605c22a3344f8ade50c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a2623cd43cd9ab3b992bf31d14934a4c0">oeng::core::log::Log</a> (Level level, std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:a2623cd43cd9ab3b992bf31d14934a4c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab621f44a23b30fe9182ee9b008ad0f7f"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:ab621f44a23b30fe9182ee9b008ad0f7f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ab621f44a23b30fe9182ee9b008ad0f7f">oeng::core::log::Trace</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:ab621f44a23b30fe9182ee9b008ad0f7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a12548a65c5bea479535524e07c361b"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a0a12548a65c5bea479535524e07c361b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a0a12548a65c5bea479535524e07c361b">oeng::core::log::Debug</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:a0a12548a65c5bea479535524e07c361b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6f7eb91be866796e3828557d3ae0013"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:ab6f7eb91be866796e3828557d3ae0013"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ab6f7eb91be866796e3828557d3ae0013">oeng::core::log::Info</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:ab6f7eb91be866796e3828557d3ae0013"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb3c11af802569bc300f4721103bbc3a"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:aeb3c11af802569bc300f4721103bbc3a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#aeb3c11af802569bc300f4721103bbc3a">oeng::core::log::Warn</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:aeb3c11af802569bc300f4721103bbc3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b6d1fac0a56d8a9ade9929965c064e5"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a7b6d1fac0a56d8a9ade9929965c064e5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a7b6d1fac0a56d8a9ade9929965c064e5">oeng::core::log::Error</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:a7b6d1fac0a56d8a9ade9929965c064e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ac57a4977474000eaa4cbb69dfa46e49e">oeng::core::log::Critical</a> (std::u8string_view fmt, const Args &amp;... args)</td></tr>
-<tr class="separator:ac57a4977474000eaa4cbb69dfa46e49e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af8196be73906da949f46fc334e48f3db"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#af8196be73906da949f46fc334e48f3db">oeng::core::log::Log</a> (Level level, std::u8string_view message) noexcept</td></tr>
+<tr class="separator:af8196be73906da949f46fc334e48f3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07e8488306df1356b6cff11cb8e7343b"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a07e8488306df1356b6cff11cb8e7343b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a07e8488306df1356b6cff11cb8e7343b">oeng::core::log::Log</a> (Level level, std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:a07e8488306df1356b6cff11cb8e7343b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a952c18deb6c9a0c406ec5c36ca1fe7dd">oeng::core::log::Trace</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a7e56c7c3a1b56d0b5da6d8a95d12380e">oeng::core::log::Debug</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2286acc279a9eaf5295240785ece959"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:af2286acc279a9eaf5295240785ece959"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#af2286acc279a9eaf5295240785ece959">oeng::core::log::Info</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:af2286acc279a9eaf5295240785ece959"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91894590dc305a4b47df0467ecae7e6a"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a91894590dc305a4b47df0467ecae7e6a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a91894590dc305a4b47df0467ecae7e6a">oeng::core::log::Warn</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:a91894590dc305a4b47df0467ecae7e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a3ad10cad8199c5b8b804be4484a3bbbe">oeng::core::log::Error</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad227fb93e510e7633b33679618624dda"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:ad227fb93e510e7633b33679618624dda"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ad227fb93e510e7633b33679618624dda">oeng::core::log::Critical</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
+<tr class="separator:ad227fb93e510e7633b33679618624dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -173,6 +176,26 @@ Variables</h2></td></tr>
 <tr class="separator:ad89fadcf488a842ad9b64b96d462b076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a37709c7f9f405e186a023c34bb3c08c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37709c7f9f405e186a023c34bb3c08c7">&#9670;&nbsp;</a></span>ASSERT_TRY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ASSERT_TRY</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">expr</td><td>)</td>
+          <td>&#160;&#160;&#160;do { try { expr; } catch (...) { assert(!&quot;Critical exception&quot;); } } while (false)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Try to execute the expression; if an exception thrown, swallow the exception if NDEBUG is defined; otherwise, abort the app. </p>
+
+</div>
+</div>
 <a id="a7ec8e1fba81aab41a4de31c9c223b07b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ec8e1fba81aab41a4de31c9c223b07b">&#9670;&nbsp;</a></span>OE_DLOG</h2>
 

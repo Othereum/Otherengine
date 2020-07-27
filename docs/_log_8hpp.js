@@ -2,6 +2,7 @@ var _log_8hpp =
 [
     [ "Logger", "classoeng_1_1core_1_1log_1_1_logger.html", "classoeng_1_1core_1_1log_1_1_logger" ],
     [ "LogDelay", "classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html", "classoeng_1_1core_1_1log_1_1detail_1_1_log_delay" ],
+    [ "ASSERT_TRY", "_log_8hpp.html#a37709c7f9f405e186a023c34bb3c08c7", null ],
     [ "OE_DLOG", "_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b", null ],
     [ "Level", "_log_8hpp.html#a27b4ec59420cc414f1549d95a73dbbbd", [
       [ "kTrace", "_log_8hpp.html#a27b4ec59420cc414f1549d95a73dbbbdafa21506cd249f400de4a974b5a0c8e0e", null ],
@@ -12,13 +13,13 @@ var _log_8hpp =
       [ "kCritical", "_log_8hpp.html#a27b4ec59420cc414f1549d95a73dbbbda5a20548c220f372fc701cae6de94040b", null ],
       [ "kOff", "_log_8hpp.html#a27b4ec59420cc414f1549d95a73dbbbdacc9ab5e60ac2a9a675ba64bf4bb49dc8", null ]
     ] ],
-    [ "Critical", "_log_8hpp.html#ac57a4977474000eaa4cbb69dfa46e49e", null ],
-    [ "Debug", "_log_8hpp.html#a0a12548a65c5bea479535524e07c361b", null ],
-    [ "Error", "_log_8hpp.html#a7b6d1fac0a56d8a9ade9929965c064e5", null ],
-    [ "Info", "_log_8hpp.html#ab6f7eb91be866796e3828557d3ae0013", null ],
-    [ "Log", "_log_8hpp.html#a2623cd43cd9ab3b992bf31d14934a4c0", null ],
-    [ "Log", "_log_8hpp.html#ad50f616ad2b605c22a3344f8ade50c2a", null ],
-    [ "Trace", "_log_8hpp.html#ab621f44a23b30fe9182ee9b008ad0f7f", null ],
-    [ "Warn", "_log_8hpp.html#aeb3c11af802569bc300f4721103bbc3a", null ],
+    [ "Critical", "_log_8hpp.html#ad227fb93e510e7633b33679618624dda", null ],
+    [ "Debug", "_log_8hpp.html#a7e56c7c3a1b56d0b5da6d8a95d12380e", null ],
+    [ "Error", "_log_8hpp.html#a3ad10cad8199c5b8b804be4484a3bbbe", null ],
+    [ "Info", "_log_8hpp.html#af2286acc279a9eaf5295240785ece959", null ],
+    [ "Log", "_log_8hpp.html#a07e8488306df1356b6cff11cb8e7343b", null ],
+    [ "Log", "_log_8hpp.html#af8196be73906da949f46fc334e48f3db", null ],
+    [ "Trace", "_log_8hpp.html#a952c18deb6c9a0c406ec5c36ca1fe7dd", null ],
+    [ "Warn", "_log_8hpp.html#a91894590dc305a4b47df0467ecae7e6a", null ],
     [ "kLogThreadSafe", "_log_8hpp.html#ad89fadcf488a842ad9b64b96d462b076", null ]
 ];
