@@ -20,11 +20,10 @@ var searchData=
   ['log_2ehpp_502',['Log.hpp',['../_log_8hpp.html',1,'']]],
   ['logdelay_503',['LogDelay',['../classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html',1,'oeng::core::log::detail::LogDelay'],['../classoeng_1_1core_1_1log_1_1_logger.html#a03125a73004adf7aa4765e4deb3474dd',1,'oeng::core::log::Logger::LogDelay()'],['../classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html#a8e282c4d4ffa265e95bf493543c994b8',1,'oeng::core::log::detail::LogDelay::LogDelay()']]],
   ['logger_504',['Logger',['../classoeng_1_1core_1_1log_1_1_logger.html',1,'oeng::core::log']]],
-  ['logmempoolstatus_505',['LogMemPoolStatus',['../namespaceoeng_1_1core.html#a02acc6d52ab9db13e0fc752412310df8',1,'oeng::core']]],
-  ['loop_506',['Loop',['../namespaceoeng_1_1engine.html#a242c29d74fd21b1b1238719755fe8638',1,'oeng::engine']]],
-  ['ls_507',['LS',['../namespaceoeng_1_1engine.html#a55d726f94105f7cfc94c01730c2875b4ae8280907c8d32d5af0f36e5442e84a34',1,'oeng::engine']]],
-  ['lt_508',['LT',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ac562607189d77eb9dfb707464c1e7b0b',1,'oeng::engine']]],
-  ['lx_509',['LX',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ab4b6e894569917b9ca2210bae107c888',1,'oeng::engine']]],
-  ['ly_510',['LY',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ac2d75724334cab079503451aab65ba04',1,'oeng::engine']]],
-  ['lzcnt_511',['LZCNT',['../classoeng_1_1core_1_1_cpu_info.html#ad0c999951eea43603da66e4411b39d0d',1,'oeng::core::CpuInfo']]]
+  ['loop_505',['Loop',['../namespaceoeng_1_1engine.html#a242c29d74fd21b1b1238719755fe8638',1,'oeng::engine']]],
+  ['ls_506',['LS',['../namespaceoeng_1_1engine.html#a55d726f94105f7cfc94c01730c2875b4ae8280907c8d32d5af0f36e5442e84a34',1,'oeng::engine']]],
+  ['lt_507',['LT',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ac562607189d77eb9dfb707464c1e7b0b',1,'oeng::engine']]],
+  ['lx_508',['LX',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ab4b6e894569917b9ca2210bae107c888',1,'oeng::engine']]],
+  ['ly_509',['LY',['../namespaceoeng_1_1engine.html#ad0f6d4c14d7103db33cbbbe332c64d74ac2d75724334cab079503451aab65ba04',1,'oeng::engine']]],
+  ['lzcnt_510',['LZCNT',['../classoeng_1_1core_1_1_cpu_info.html#ad0c999951eea43603da66e4411b39d0d',1,'oeng::core::CpuInfo']]]
 ];

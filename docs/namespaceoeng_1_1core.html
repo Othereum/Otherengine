@@ -245,11 +245,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a2603f9eab64fb3afed680dedf20d3144"><td class="memItemLeft" align="right" valign="top">CORE_API omem::MemoryPoolManager &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a2603f9eab64fb3afed680dedf20d3144">GetMemPool</a> () noexcept</td></tr>
 <tr class="memdesc:a2603f9eab64fb3afed680dedf20d3144"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get memory pool for current thread.  <a href="namespaceoeng_1_1core.html#a2603f9eab64fb3afed680dedf20d3144">More...</a><br /></td></tr>
 <tr class="separator:a2603f9eab64fb3afed680dedf20d3144"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02acc6d52ab9db13e0fc752412310df8"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a02acc6d52ab9db13e0fc752412310df8">LogMemPoolStatus</a> ()</td></tr>
-<tr class="memdesc:a02acc6d52ab9db13e0fc752412310df8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log memory pool info for current thread.  <a href="namespaceoeng_1_1core.html#a02acc6d52ab9db13e0fc752412310df8">More...</a><br /></td></tr>
-<tr class="separator:a02acc6d52ab9db13e0fc752412310df8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6dcf16610bd8ec43217e746f44a6c22c"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a6dcf16610bd8ec43217e746f44a6c22c">CleanUpMemPool</a> () noexcept</td></tr>
-<tr class="memdesc:a6dcf16610bd8ec43217e746f44a6c22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up memory pool for current thread.  <a href="namespaceoeng_1_1core.html#a6dcf16610bd8ec43217e746f44a6c22c">More...</a><br /></td></tr>
+<tr class="memdesc:a6dcf16610bd8ec43217e746f44a6c22c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Clean up and log info of memory pool for current thread.  <a href="namespaceoeng_1_1core.html#a6dcf16610bd8ec43217e746f44a6c22c">More...</a><br /></td></tr>
 <tr class="separator:a6dcf16610bd8ec43217e746f44a6c22c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a3f87198b0ebca9f3374b4755228d5a"><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> (size_t size)</td></tr>
 <tr class="separator:a6a3f87198b0ebca9f3374b4755228d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1324,7 +1321,7 @@ template&lt;template&lt; class &gt; class Tr, template&lt; class &gt; class Al&g
 </table>
 </div><div class="memdoc">
 
-<p>Clean up memory pool for current thread. </p>
+<p>Clean up and log info of memory pool for current thread. </p>
 <p>It must be called only once after using memory pool. You really should not use memory pool after calling it. </p>
 
 </div>
@@ -1834,26 +1831,6 @@ template&lt;class... Args&gt; </div>
 
 <p>Check if the debugger is attached. </p>
 <p>If NDEBUG is defined, always returns false. </p><dl class="section return"><dt>Returns</dt><dd>True if debugger is attached. </dd></dl>
-
-</div>
-</div>
-<a id="a02acc6d52ab9db13e0fc752412310df8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02acc6d52ab9db13e0fc752412310df8">&#9670;&nbsp;</a></span>LogMemPoolStatus()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">CORE_API void oeng::core::LogMemPoolStatus </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Log memory pool info for current thread. </p>
-<p>Memory pool must be initialized. </p>
 
 </div>
 </div>
