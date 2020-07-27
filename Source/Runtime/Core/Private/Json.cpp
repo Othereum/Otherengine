@@ -9,13 +9,13 @@ namespace oeng::core
 		std::ifstream is{*file};
 		if (!is.is_open()) Throw(u8"Can't open file '{}'"sv, file.Str());
 		
-		Json json;
-		try { is >> json; }
+		try
+		{
+			return Json::parse(is, nullptr, true, true);
+		}
 		catch (const std::exception& e)
 		{
 			Throw(u8"Failed to parse '{}': {}"sv, file.Str(), What(e));
 		}
-		
-		return json;
 	}
 }
