@@ -97,6 +97,9 @@ namespace oeng::engine
 			bool pressed;
 		};
 
+		void AddController(int id);
+		void RemoveController(int id);
+
 		[[nodiscard]] Float FilterAxis(InputCode code, Float val) const noexcept;
 		[[nodiscard]] Vec2 FilterAxis(InputCode code, Vec2 val) const noexcept;
 		[[nodiscard]] _SDL_GameController* Ctrl() const noexcept;
@@ -106,6 +109,6 @@ namespace oeng::engine
 		Vec2 mouse_{};
 		struct { bool l, r; } trig_{};
 		
-		DyArr<CtrlPtr> controllers_;
+		DyArr<CtrlPtr> ctrls_;
 	};
 }

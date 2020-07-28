@@ -197,14 +197,11 @@ namespace oeng::engine
 		switch (e.type)
 		{
 		case SDL_CONTROLLERDEVICEADDED:
-			controllers_.emplace_back(SDL_GameControllerOpen(e.cdevice.which), &SDL_GameControllerClose);
+			AddController(e.cdevice.which);
 			break;
 			
 		case SDL_CONTROLLERDEVICEREMOVED:
-			controllers_.erase(std::find_if(controllers_.begin(), controllers_.end(), [&](const CtrlPtr& p)
-			{
-				return e.cdevice.which == SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(p.get()));
-			}));
+			RemoveController(e.cdevice.which);
 			break;
 			
 		default:
@@ -261,16 +258,16 @@ namespace oeng::engine
 	{
 		auto raw = [&](CtrlAxis c)
 		{
-			const auto ax = SDL_GameControllerAxis(c);
-			const auto r = SDL_GameControllerGetAxis(Ctrl(), ax);
-			return ToFloat(r) / (r >= 0 ? 32767_f : 32768_f);
+			const auto axis = SDL_GameControllerAxis(c);
+			const auto val = SDL_GameControllerGetAxis(Ctrl(), axis);
+			return ToFloat(val) / (val >= 0 ? 32767_f : 32768_f);
 		};
 
 		auto stick = [&](CtrlAxis c)
 		{
-			const auto i = static_cast<int>(c) % 2;
-			const auto v = static_cast<int>(c) / 2 * 2;
-			return FilterAxis(c, {raw(CtrlAxis(v)), raw(CtrlAxis(v+1))})[i];
+			const auto is_y = static_cast<int>(c) % 2;
+			const auto x_axis = static_cast<int>(c) / 2 * 2;
+			return FilterAxis(c, {raw(CtrlAxis(x_axis)), raw(CtrlAxis(x_axis+1))})[is_y];
 		};
 		
 		switch (code)
@@ -311,6 +308,28 @@ namespace oeng::engine
 		return FilterAxis(code, val);
 	}
 
+	void InputSystem::AddController(int id)
+	{
+		const auto ctrl = SDL_GameControllerOpen(id);
+		if (ENSURE_MSG(ctrl, u8"{}", reinterpret_cast<const char8_t*>(SDL_GetError())))
+		{
+			ctrls_.emplace_back(ctrl, &SDL_GameControllerClose);
+		}
+	}
+
+	void InputSystem::RemoveController(int id)
+	{
+		const auto found = std::find_if(ctrls_.begin(), ctrls_.end(), [&](const CtrlPtr& p)
+		{
+			return id == SDL_JoystickInstanceID(SDL_GameControllerGetJoystick(p.get()));
+		});
+
+		if (ENSURE(found != ctrls_.end()))
+		{
+			ctrls_.erase(found);
+		}
+	}
+
 	Float InputSystem::FilterAxis(InputCode code, Float val) const noexcept
 	{
 		const auto config = axis_configs_.find(code);
@@ -342,7 +361,7 @@ namespace oeng::engine
 			else
 			{
 				const auto new_len = MapRng({cfg.dead_zone, 1}, {0, 1}, len);
-				val *= Max(0, new_len) * cfg.sensitivity / len;
+				val *= new_len * cfg.sensitivity / len;
 			}
 		}
 		return val;
@@ -387,6 +406,6 @@ namespace oeng::engine
 
 	_SDL_GameController* InputSystem::Ctrl() const noexcept
 	{
-		return controllers_.empty() ? nullptr : controllers_.front().get();
+		return ctrls_.empty() ? nullptr : ctrls_.front().get();
 	}
 }
