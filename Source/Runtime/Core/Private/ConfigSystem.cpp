@@ -17,7 +17,7 @@ namespace oeng::core
 	class ConfigLoader
 	{
 	public:
-		explicit ConfigLoader(Path path) :path_{path} {}
+		explicit ConfigLoader(const fs::path& path) :path_{path} {}
 		
 		void Load(Json& config, Json&& parsed)
 		{
@@ -25,7 +25,9 @@ namespace oeng::core
 			for (auto& [key, value] : parsed.items())
 			{
 				if (key[0] == '-')
+				{
 					RemoveProperties(config, key, value);
+				}
 			}
 
 			// And then add/override
@@ -176,47 +178,19 @@ namespace oeng::core
 		void Log(log::Level level, std::u8string_view msg, const Args&... args) const noexcept
 		{
 			ASSERT_TRY(log::Log(level, u8"While loading \"{}\"{}: {}",
-				path_.Str(), Prop(), Format(msg, args...)));
+				path_.string<char8_t>(PoolAllocator<char8_t>{}), Prop(), Format(msg, args...)));
 		}
 		
-		Path path_;
+		const fs::path& path_;
 		DyArr<std::u8string_view> stack_;
 	};
 
-	static void LoadConfig(HashMap<Name, Json>& configs, const fs::path& file)
-	{
-		if (!is_regular_file(file) || file.extension() != u8".json"sv) return;
-
-		const Path path = file;
-		auto name = file.stem().string<char8_t>(PoolAllocator<char8_t>{});
-		
-		ConfigLoader loader{path};
-		loader.Load(configs[std::move(name)], ReadFileAsJson(path));
-	}
-	
-	static void LoadConfigs(HashMap<Name, Json>& configs, const fs::path& directory)
-	{
-		if (!exists(directory)) return;
-		
-		for (const auto& entry : fs::directory_iterator{directory})
-		{
-			try
-			{
-				LoadConfig(configs, entry);
-			}
-			catch (const std::exception& e)
-			{
-				const auto path = entry.path().string<char8_t>(PoolAllocator<char8_t>{});
-				log::Error(u8"Failed to load config '{}': {}"sv, path, What(e));
-			}
-		}
-	}
-	
 	ConfigSystem::ConfigSystem()
 	{
-		LoadConfigs(configs_, u8"../Engine/Config"sv);
-		LoadConfigs(configs_, u8"../Config"sv);
-		LoadConfigs(configs_, GetUserConfigDir());
+		const TreeSet<fs::path> extensions{u8".json"sv, u8".jsonc"sv};
+		LoadConfigs(u8"../Engine/Config"sv, extensions);
+		LoadConfigs(u8"../Config"sv, extensions);
+		LoadConfigs(GetUserConfigDir(), extensions);
 	}
 
 	ConfigSystem& ConfigSystem::Get() noexcept
@@ -244,6 +218,34 @@ namespace oeng::core
 		{
 			log::Error(u8"Failed to save config '{}': {}"sv, *name, What(e));
 			return false;
+		}
+	}
+
+	void ConfigSystem::LoadConfig(const fs::path& file)
+	{
+		auto name = file.stem().string<char8_t>(PoolAllocator<char8_t>{});
+		ConfigLoader loader{file};
+		loader.Load(configs_[std::move(name)], ReadFileAsJson(file));
+	}
+
+	void ConfigSystem::LoadConfigs(const fs::path& directory, const TreeSet<fs::path>& extensions)
+	{
+		if (!is_directory(directory)) return;
+		
+		for (const auto& entry : fs::directory_iterator{directory})
+		{
+			if (!is_regular_file(entry)) continue;
+			if (!extensions.empty() && !extensions.contains(entry.path().extension())) continue;
+
+			try
+			{
+				LoadConfig(entry);
+			}
+			catch (const std::exception& e)
+			{
+				const auto path = entry.path().string<char8_t>(PoolAllocator<char8_t>{});
+				log::Error(u8"Failed to load config '{}': {}"sv, path, What(e));
+			}
 		}
 	}
 }

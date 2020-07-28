@@ -2,6 +2,7 @@
 #include "Json.hpp"
 #include "Name.hpp"
 #include "Templates/HashMap.hpp"
+#include "Templates/TreeSet.hpp"
 
 namespace oeng::core
 {
@@ -26,6 +27,18 @@ namespace oeng::core
 		 * @return true if successful
 		 */
 		bool Save(Name name) const;
+
+		/**
+		 * Load configurations from file.
+		 */
+		void LoadConfig(const fs::path& file);
+
+		/**
+		 * Load configuration files from given directory (not recursive).
+		 * @param directory Directory path containing configuration files
+		 * @param extensions Extension filter. Load only files with the specified extensions if not empty.
+		 */
+		void LoadConfigs(const fs::path& directory, const TreeSet<fs::path>& extensions = {u8".json"sv, u8".jsonc"sv});
 		
 	private:
 		ConfigSystem();
