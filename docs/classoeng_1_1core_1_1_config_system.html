@@ -103,6 +103,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">Save</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> name) const</td></tr>
 <tr class="memdesc:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save config as file into the user data directory.  <a href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">More...</a><br /></td></tr>
 <tr class="separator:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d7aadaba70bac5cebfb86e681550d1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">LoadConfig</a> (const fs::path &amp;file)</td></tr>
+<tr class="memdesc:a8d7aadaba70bac5cebfb86e681550d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load configurations from file.  <a href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">More...</a><br /></td></tr>
+<tr class="separator:a8d7aadaba70bac5cebfb86e681550d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6367c966427150b1b1c4c6732ab3161d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">LoadConfigs</a> (const fs::path &amp;directory, const <a class="el" href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">TreeSet</a>&lt; fs::path &gt; &amp;extensions={u8&quot;.json&quot;sv, u8&quot;.jsonc&quot;sv})</td></tr>
+<tr class="memdesc:a6367c966427150b1b1c4c6732ab3161d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load configuration files from given directory (not recursive).  <a href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">More...</a><br /></td></tr>
+<tr class="separator:a6367c966427150b1b1c4c6732ab3161d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -137,6 +143,63 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8d7aadaba70bac5cebfb86e681550d1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d7aadaba70bac5cebfb86e681550d1d">&#9670;&nbsp;</a></span>LoadConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::core::ConfigSystem::LoadConfig </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>file</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load configurations from file. </p>
+
+</div>
+</div>
+<a id="a6367c966427150b1b1c4c6732ab3161d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6367c966427150b1b1c4c6732ab3161d">&#9670;&nbsp;</a></span>LoadConfigs()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::core::ConfigSystem::LoadConfigs </td>
+          <td>(</td>
+          <td class="paramtype">const fs::path &amp;&#160;</td>
+          <td class="paramname"><em>directory</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">TreeSet</a>&lt; fs::path &gt; &amp;&#160;</td>
+          <td class="paramname"><em>extensions</em> = <code>{u8&quot;.json&quot;sv,&#160;u8&quot;.jsonc&quot;sv}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load configuration files from given directory (not recursive). </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">directory</td><td>Directory path containing configuration files </td></tr>
+    <tr><td class="paramname">extensions</td><td>Extension filter. Load only files with the specified extensions if not empty. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
