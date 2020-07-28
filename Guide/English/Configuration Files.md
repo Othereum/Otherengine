@@ -6,10 +6,11 @@ Otherengine provides a configuration system that allows you to quickly change va
 
 ## Basic Syntax
 
-The configuration file is written in JSON, and the file extension is `.json`. The file name will be the configuration name.
+The configuration file is written in JSON, and the file extension is `.json` or `.jsonc`. The file name will be the configuration name.
 
 ```jsonc
 // Display.json
+/* Comments available */
 {
     "Display": 0,
     "DisplayMode": 0,
