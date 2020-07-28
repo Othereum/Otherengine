@@ -4,10 +4,10 @@
 
 namespace oeng::core
 {
-	CORE_API Json ReadFileAsJson(Path file)
+	CORE_API Json ReadFileAsJson(const fs::path& file)
 	{
-		std::ifstream is{*file};
-		if (!is.is_open()) Throw(u8"Can't open file '{}'"sv, file.Str());
+		std::ifstream is{file};
+		if (!is.is_open()) Throw(u8"Can't open file '{}'"sv, file.string<char8_t>(PoolAllocator<char8_t>{}));
 		
 		try
 		{
@@ -15,7 +15,7 @@ namespace oeng::core
 		}
 		catch (const std::exception& e)
 		{
-			Throw(u8"Failed to parse '{}': {}"sv, file.Str(), What(e));
+			Throw(u8"Failed to parse '{}': {}"sv, file.string<char8_t>(PoolAllocator<char8_t>{}), What(e));
 		}
 	}
 }

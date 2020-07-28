@@ -41,5 +41,5 @@ namespace oeng::core
 	 * @return Parsed json object
 	 * @throw std::runtime_error If failed to open or parse
 	 */
-	CORE_API Json ReadFileAsJson(Path file);
+	CORE_API Json ReadFileAsJson(const fs::path& file);
 }
