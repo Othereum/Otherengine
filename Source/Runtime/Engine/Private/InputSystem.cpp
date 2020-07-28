@@ -310,10 +310,13 @@ namespace oeng::engine
 
 	void InputSystem::AddController(int id)
 	{
-		const auto ctrl = SDL_GameControllerOpen(id);
-		if (ENSURE_MSG(ctrl, u8"{}", reinterpret_cast<const char8_t*>(SDL_GetError())))
+		if (const auto ctrl = SDL_GameControllerOpen(id))
 		{
 			ctrls_.emplace_back(ctrl, &SDL_GameControllerClose);
+		}
+		else
+		{
+			log::Error(u8"Could not open game controller {}: {}"sv, id, reinterpret_cast<const char8_t*>(SDL_GetError()));
 		}
 	}
 
