@@ -23,6 +23,7 @@ namespace oeng::core
 	RegisterEngineBase::RegisterEngineBase(EngineBase* engine)
 	{
 		std::signal(SIGILL, &OnIllegal);
+		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
 		CheckCpu();
 		
 		assert(engine);
@@ -41,7 +42,6 @@ namespace oeng::core
 		game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)}
 	{
 		InitMemPool();
-		if (IsDebugging()) log::Info(u8"Debugger detected"sv);
 	}
 
 	CoreSystem::~CoreSystem()
