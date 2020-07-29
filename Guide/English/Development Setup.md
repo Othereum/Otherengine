@@ -18,7 +18,8 @@ Add the Otherengine to the Engine folder. In this tutorial, we will use the git 
 
 ```shell
 TestGame$ git init
-TestGame$ git submodule add -b buildable https://github.com/Othereum/Otherengine Engine --depth 1
+TestGame$ git submodule add -b buildable https://github.com/Othereum/Otherengine Engine
+TestGame$ git submodule update --init --recursive
 ```
 
 ```text
