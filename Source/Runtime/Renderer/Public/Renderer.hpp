@@ -46,7 +46,7 @@ namespace oeng::renderer
 
 		void RegisterSprite(const ISpriteComponent& sprite);
 		void RegisterMesh(const IMeshComponent& mesh);
-		void RegisterCamera(ICamera& camera) noexcept { camera_ = &camera; camera.OnScreenSizeChanged(GetWindowSize()); }
+		void RegisterCamera(ICamera& camera) noexcept;
 		void RegisterDirLight(const IDirLight& light) noexcept { dir_light_ = &light; }
 		void RegisterSkyLight(const ISkyLight& light) noexcept { sky_light_ = &light; }
 		void RegisterPointLight(const IPointLight& light) { point_lights_.emplace_back(light); }
