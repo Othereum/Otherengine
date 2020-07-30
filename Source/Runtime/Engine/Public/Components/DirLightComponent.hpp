@@ -14,13 +14,14 @@ namespace oeng::engine
 
 		void SetColor(const Vec3& color) noexcept { data_.color = color; }
 		const Data& GetData() const noexcept override { return data_; }
-		
-	private:
+
+	protected:
 		void OnTrsfChanged() override { data_.dir = GetForward(); }
 		void OnActivated() override;
 		void OnDeactivated() override;
 		void OnBeginPlay() override;
 		
+	private:
 		Data data_;
 	};
 }

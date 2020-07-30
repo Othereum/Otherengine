@@ -73,11 +73,13 @@ namespace oeng::engine
 		[[nodiscard]] World& GetWorld() const noexcept { return world_; }
 		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 
+	protected:
+		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
+		virtual void OnBeginPlay() {}
+
 	private:
 		void RegisterComponent(SharedRef<ActorComponent>&& comp);
 		void UpdateComponents(Float delta_seconds);
-		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
-		virtual void OnBeginPlay() {}
 
 		bool pending_kill_ : 1 = false;
 		bool begun_play_ : 1 = false;

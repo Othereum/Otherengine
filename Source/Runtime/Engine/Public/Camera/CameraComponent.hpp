@@ -20,12 +20,14 @@ namespace oeng::engine
 		const Mat4& GetViewProj() const noexcept override;
 		void OnScreenSizeChanged(Vec2u16 scr) noexcept override;
 
-	private:
+	protected:
 		void OnTrsfChanged() noexcept override;
-		void RecalcView() noexcept;
-		void RecalcProj() noexcept;
 		void OnActivated() override;
 		void OnDeactivated() override;
+
+	private:
+		void RecalcView() noexcept;
+		void RecalcProj() noexcept;
 		
 		Mat4 view_, proj_;
 		Mat4 view_proj_;

@@ -17,9 +17,10 @@ namespace oeng::engine
 		void SetMaxSpeed(Float speed) noexcept { max_speed_ = speed; }
 		[[nodiscard]] Float GetMaxSpeed() const noexcept { return max_speed_; }
 
-	private:
+	protected:
 		void OnUpdate(Float delta_seconds) override;
 
+	private:
 		bool Move(Transform& trsf, Float delta_seconds) noexcept;
 		bool Rotate(Transform& trsf) noexcept;
 		

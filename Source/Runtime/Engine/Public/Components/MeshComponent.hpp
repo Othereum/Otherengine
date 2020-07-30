@@ -27,9 +27,11 @@ namespace oeng::engine
 		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
 		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
 
-	private:
+	protected:
 		void OnBeginPlay() override;
 		void OnTrsfChanged() override;
+
+	private:
 		void ReRegister() const;
 		void RecalcRadius() noexcept;
 		

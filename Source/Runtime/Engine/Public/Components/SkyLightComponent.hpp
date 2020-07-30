@@ -19,11 +19,12 @@ namespace oeng::engine
 		void SetColor(const Vec3& color) noexcept { color_ = color; }
 		[[nodiscard]] const Vec3& GetColor() const noexcept override { return color_; }
 
-	private:
+	protected:
 		void OnActivated() override;
 		void OnDeactivated() override;
 		void OnBeginPlay() override;
-		
+
+	private:
 		Vec3 color_;
 	};
 }

@@ -16,6 +16,8 @@ namespace oeng::engine
 	class ENGINE_API SpriteComponent : public SceneComponent, public ISpriteComponent
 	{
 	public:
+		DELETE_CPMV(SpriteComponent);
+		
 		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
 		~SpriteComponent();
 
@@ -27,14 +29,10 @@ namespace oeng::engine
 		void SetTexture(SharedRef<Texture> texture) noexcept { texture_ = std::move(texture); }
 		[[nodiscard]] Texture& GetTexture() const noexcept override { return *texture_; }
 
-		SpriteComponent(const SpriteComponent&) = delete;
-		SpriteComponent(SpriteComponent&&) = delete;
-		SpriteComponent& operator=(const SpriteComponent&) = delete;
-		SpriteComponent& operator=(SpriteComponent&&) = delete;
+	protected:
+		void OnBeginPlay() override;
 
 	private:
-		void OnBeginPlay() override;
-		
 		SharedRef<Texture> texture_;
 		int draw_order_;
 	};

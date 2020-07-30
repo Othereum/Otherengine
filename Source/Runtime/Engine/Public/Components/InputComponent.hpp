@@ -17,10 +17,11 @@ namespace oeng::engine
 		
 		void BindAction(Name action, bool pressed, std::function<void()>&& callback);
 		void BindAxis(Name axis, std::function<void(Float)>&& callback);
-		
-	private:
+
+	protected:
 		void OnUpdate(Float delta_seconds) override;
 		
+	private:
 		void ProcessActions() const;
 		void ProcessAxises() const;
 		

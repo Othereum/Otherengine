@@ -38,9 +38,10 @@ namespace oeng::engine
 		void SetRadius(Float r) noexcept { radius_ = r; }
 		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
 
-	private:
+	protected:
 		void OnBeginPlay() override;
-		
+
+	private:
 		Event<SphereComponent&> on_overlap_;
 		Float radius_ = 32;
 	};

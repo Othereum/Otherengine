@@ -29,12 +29,13 @@ namespace oeng::engine
 		[[nodiscard]] World& GetWorld() const noexcept;
 		[[nodiscard]] static Renderer& GetRenderer() noexcept;
 
-	private:
+	protected:
 		virtual void OnBeginPlay() {}
 		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
 		virtual void OnActivated() {}
 		virtual void OnDeactivated() {}
-		
+
+	private:
 		AActor& owner_;
 		int update_order_;
 		bool auto_activate_ : 1 = true;

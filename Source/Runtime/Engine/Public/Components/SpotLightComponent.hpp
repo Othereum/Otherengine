@@ -18,10 +18,11 @@ namespace oeng::engine
 		[[nodiscard]] const Data& GetData() const noexcept override { return data_; }
 		[[nodiscard]] bool ShouldAffect() const noexcept override;
 
-	private:
+	protected:
 		void OnBeginPlay() override;
 		void OnTrsfChanged() override;
-		
+
+	private:
 		Data data_;
 	};
 }

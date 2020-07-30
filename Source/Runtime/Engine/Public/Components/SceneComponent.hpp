@@ -43,6 +43,9 @@ namespace oeng::engine
 		[[nodiscard]] UVec3 GetDown() const noexcept { return UVec3::down.RotatedBy(world_trsf_.rot); }
 
 		[[nodiscard]] const Mat4& GetWorldTrsfMatrix() const noexcept { return world_mat_; }
+
+	protected:
+		virtual void OnTrsfChanged() {}
 		
 	private:
 		// Recalculate world transform with relative transform
@@ -51,8 +54,6 @@ namespace oeng::engine
 		// Recalculate relative transform with world transform
 		void RecalcRelTrsf() noexcept;
 		
-		virtual void OnTrsfChanged() {}
-
 		SceneComponent* parent_;
 		DyArr<std::reference_wrapper<SceneComponent>> childs_;
 		Transform rel_trsf_;
