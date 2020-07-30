@@ -28,8 +28,8 @@ namespace oeng::engine
 			return ref;
 		}
 
-		void RegisterCollision(CircleComponent& comp);
-		void UnregisterCollision(CircleComponent& comp);
+		void RegisterCollision(SphereComponent& comp);
+		void UnregisterCollision(SphereComponent& comp);
 		
 		[[nodiscard]] TimerManager& GetTimerManager() noexcept { return timer_; }
 		[[nodiscard]] TimePoint GetTime() const noexcept { return time_; }
@@ -41,7 +41,7 @@ namespace oeng::engine
 
 		TimerManager timer_;
 
-		DyArr<std::reference_wrapper<CircleComponent>> collisions_;
+		DyArr<std::reference_wrapper<SphereComponent>> collisions_;
 		
 		DyArr<SharedRef<AActor>> actors_;
 		DyArr<SharedRef<AActor>> pending_actors_;

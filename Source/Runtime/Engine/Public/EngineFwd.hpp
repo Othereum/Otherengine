@@ -12,7 +12,7 @@ namespace oeng::engine
 	class World;
 	class AActor;
 	class MeshComponent;
-	class CircleComponent;
+	class SphereComponent;
 	class MovementComponent;
 	class CameraComponent;
 	

@@ -2,7 +2,7 @@
 #include "Stat.hpp"
 #include "TimerManager.hpp"
 #include "Actors/Actor.hpp"
-#include "Components/CircleComponent.hpp"
+#include "Components/SphereComponent.hpp"
 
 namespace oeng::engine
 {
@@ -25,14 +25,14 @@ namespace oeng::engine
 		UpdateGame();
 	}
 
-	void World::RegisterCollision(CircleComponent& comp)
+	void World::RegisterCollision(SphereComponent& comp)
 	{
 		collisions_.emplace_back(comp);
 	}
 
-	void World::UnregisterCollision(CircleComponent& comp)
+	void World::UnregisterCollision(SphereComponent& comp)
 	{
-		auto pr = [&](const CircleComponent& v) { return &v == &comp; };
+		auto pr = [&](const SphereComponent& v) { return &v == &comp; };
 		const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
 		if (found != collisions_.crend()) collisions_.erase(found.base() - 1);
 	}
@@ -44,7 +44,7 @@ namespace oeng::engine
 		
 		for (size_t i = 0; i < collisions_.size(); ++i)
 			for (auto j = i+1; j < collisions_.size(); ++j)
-				collisions_[i].get().TestOverlap(collisions_[j]);
+				collisions_[i].get().DoOverlap(collisions_[j]);
 
 		timer_.Update();
 
