@@ -19,7 +19,7 @@ if(TARGET spdlog)
 endif()
 
 set(JSON_BuildTests OFF CACHE BOOL "" FORCE)
-oe_find_package(nlohmann_json 3.9.0)
+oe_find_package(nlohmann_json 3.9)
 
 
 add_subdirectory(ThirdParty)
