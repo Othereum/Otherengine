@@ -29,11 +29,6 @@ namespace oeng::engine
 		mesh_.SetMaterial(std::move(material));
 	}
 
-	void AMeshActor::SetMaxDrawDist(Float dist) const noexcept
-	{
-		mesh_.SetMaxDrawDist(dist);
-	}
-
 	Mesh& AMeshActor::GetMesh() const noexcept
 	{
 		return mesh_.GetMesh();
@@ -42,15 +37,5 @@ namespace oeng::engine
 	Material& AMeshActor::GetMaterial() const noexcept
 	{
 		return mesh_.GetMaterial();
-	}
-
-	Float AMeshActor::GetMaxDrawDist() const noexcept
-	{
-		return mesh_.GetMaxDrawDist();
-	}
-
-	Float AMeshActor::GetRadius() const noexcept
-	{
-		return mesh_.GetRadius();
 	}
 }
