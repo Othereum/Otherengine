@@ -35,8 +35,9 @@ namespace oeng::engine
 			on_overlap_.Add(std::forward<Fn>(on_overlap));
 		}
 
-		void SetRadius(Float r) noexcept { radius_ = r; }
-		[[nodiscard]] Float GetRadius() const noexcept { return radius_; }
+		void SetUnscaledRadius(Float r) noexcept { radius_ = r; }
+		[[nodiscard]] Float GetScaledRadius() const noexcept { return radius_ * Max(GetWorldScale()); }
+		[[nodiscard]] Float GetUnscaledRadius() const noexcept { return radius_; }
 
 	protected:
 		void OnBeginPlay() override;

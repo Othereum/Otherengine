@@ -22,7 +22,8 @@ namespace oeng::renderer
 		INTERFACE_BODY(IMeshComponent);
 
 		[[nodiscard]] virtual Float GetMaxDrawDist() const noexcept = 0;
-		[[nodiscard]] virtual Float GetRadius() const noexcept = 0;
+		[[nodiscard]] virtual Float GetScaledRadius() const noexcept = 0;
+		[[nodiscard]] virtual Float GetUnscaledRadius() const noexcept = 0;
 		[[nodiscard]] virtual bool ShouldDraw() const noexcept = 0;
 		[[nodiscard]] virtual const Transform& GetDrawTrsf() const noexcept = 0;
 		[[nodiscard]] virtual const Mat4& GetDrawTrsfMatrix() const noexcept = 0;

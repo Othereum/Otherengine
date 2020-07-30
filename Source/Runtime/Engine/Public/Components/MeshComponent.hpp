@@ -20,7 +20,8 @@ namespace oeng::engine
 		void SetMaxDrawDist(Float dist)	noexcept { max_draw_dist_ = dist; }
 		
 		[[nodiscard]] Float GetMaxDrawDist() const noexcept override { return max_draw_dist_; }
-		[[nodiscard]] Float GetRadius() const noexcept override { return radius_; }
+		[[nodiscard]] Float GetScaledRadius() const noexcept override { return radius_; }
+		[[nodiscard]] Float GetUnscaledRadius() const noexcept override;
 		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
 		[[nodiscard]] const Transform& GetDrawTrsf() const noexcept override { return GetWorldTrsf(); }
 		[[nodiscard]] const Mat4& GetDrawTrsfMatrix() const noexcept override { return GetWorldTrsfMatrix(); }

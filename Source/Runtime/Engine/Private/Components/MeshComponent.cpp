@@ -41,6 +41,11 @@ namespace oeng::engine
 		ReRegister();
 	}
 
+	Float MeshComponent::GetUnscaledRadius() const noexcept
+	{
+		return mesh_->GetRadius();
+	}
+
 	void MeshComponent::OnBeginPlay()
 	{
 		GetRenderer().RegisterMesh(*this);

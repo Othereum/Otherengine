@@ -361,7 +361,7 @@ namespace oeng::renderer
 		if (loc_num == Shader::invalid_uniform_) return;
 		
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
-		const auto mesh_radius = mesh_comp.GetRadius();
+		const auto mesh_radius = mesh_comp.GetScaledRadius();
 		
 		auto idx = 0;
 		for (auto ref : lights)
@@ -415,7 +415,7 @@ namespace oeng::renderer
 	{
 		if (!mesh_comp.ShouldDraw()) return false;
 		
-		const Sphere mesh_sphere{mesh_comp.GetDrawTrsf().pos, mesh_comp.GetRadius()};
+		const Sphere mesh_sphere{mesh_comp.GetDrawTrsf().pos, mesh_comp.GetScaledRadius()};
 		const Sphere camera_sphere{camera_->GetPos(), mesh_comp.GetMaxDrawDist()};
 		if (!IsOverlapped(mesh_sphere, camera_sphere)) return false;
 

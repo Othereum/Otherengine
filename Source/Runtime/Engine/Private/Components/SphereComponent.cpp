@@ -28,7 +28,7 @@ namespace oeng::engine
 		if (!(IsActive() && other.IsActive())) return false;
 		
 		const auto dist_sqr = GetWorldPos().DistSqr(other.GetWorldPos());
-		const auto r = radius_ + other.radius_;
+		const auto r = GetScaledRadius() + other.GetScaledRadius();
 		return dist_sqr < r*r;
 	}
 
