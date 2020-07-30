@@ -135,6 +135,8 @@ Item | Min Version | Auto Install
   > ex) `vcpkg install sdl2:x64-windows glew:x64-windows`
   >
   > You can also change the default triplet. You can set the value of the system environment variable `VCPKG_DEFAULT_TRIPLET` to `x64-window`.
+  >
+  > **NOTE 2**: In Visual Stduio 2019 16.6.5, If vcpkg is installed in `Program Files`, there is a bug that completely deletes and regenerates the cache, mistaking that the toolchain has changed each time the CMake cache is created. It is recommended to install vcpkg at `%USERPROFILE%`.
 
 > **Tip**: If possible, install libraries manually. CMakeLists.txt auto-installation slows build speed.
 
