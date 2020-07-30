@@ -1,7 +1,9 @@
 #pragma once
-#include "TimerManager.hpp"
 #include "Math.hpp"
+#include "Name.hpp"
+#include "TimerManager.hpp"
 #include "Templates/DyArr.hpp"
+#include "Templates/HashSet.hpp"
 #include "Templates/Pointer.hpp"
 
 namespace oeng::engine
@@ -33,6 +35,10 @@ namespace oeng::engine
 			RegisterComponent(std::move(ptr));
 			return ref;
 		}
+
+		void AddTag(Name tag) { tags_.insert(tag); }
+		void RemoveTag(Name tag) { tags_.erase(tag); }
+		[[nodiscard]] bool HasTag(Name tag) const noexcept { return tags_.contains(tag); }
 
 		/**
 		 * Set root component of this actor. Root component represents this actor's transform.
@@ -90,5 +96,7 @@ namespace oeng::engine
 		World& world_;
 		DyArr<SharedRef<ActorComponent>> comps_;
 		SceneComponent* root_ = nullptr;
+
+		HashSet<Name> tags_;
 	};
 }
