@@ -4,7 +4,7 @@
 namespace oeng::engine
 {
 	AMeshActor::AMeshActor(World& world)
-		:AActor{world}, mesh_{AddComponent<MeshComponent>()}
+		:AActor{world}, mesh_{*AddComponent<MeshComponent>()}
 	{
 		SetRootComponent(&mesh_);
 	}

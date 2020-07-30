@@ -4,7 +4,7 @@
 namespace oeng::engine
 {
 	APointLight::APointLight(World& world)
-		:AActor{world}, light_{AddComponent<PointLightComponent>()}
+		:AActor{world}, light_{*AddComponent<PointLightComponent>()}
 	{
 		SetRootComponent(&light_);
 	}

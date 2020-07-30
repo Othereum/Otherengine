@@ -21,8 +21,9 @@ namespace oeng::engine
 		template <std::derived_from<AActor> T, class... Args>
 		SharedRef<T> SpawnActor(Args&&... args)
 		{
+			static_assert(std::is_constructible_v<T, World&, Args...>);
 			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
-			pending_actors_.push_back(ptr);
+			pending_actors_.emplace_back(ptr);
 			return ptr;
 		}
 

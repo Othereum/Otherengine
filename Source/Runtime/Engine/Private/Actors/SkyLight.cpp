@@ -4,7 +4,7 @@
 namespace oeng::engine
 {
 	ASkyLight::ASkyLight(World& world)
-		:AActor{world}, light_{AddComponent<SkyLightComponent>()}
+		:AActor{world}, light_{*AddComponent<SkyLightComponent>()}
 	{
 		SetRootComponent(&light_);
 	}

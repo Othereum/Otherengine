@@ -26,14 +26,13 @@ namespace oeng::engine
 		void Update(Float delta_seconds);
 		void Destroy();
 
-		template <class T, class... Args>
-		T& AddComponent(Args&&... args)
+		template <std::derived_from<ActorComponent> T, class... Args>
+		SharedRef<T> AddComponent(Args&&... args)
 		{
-			static_assert(std::is_base_of_v<ActorComponent, T>);
+			static_assert(std::is_constructible_v<T, AActor&, Args...>);
 			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
-			auto& ref = *ptr;
-			RegisterComponent(std::move(ptr));
-			return ref;
+			RegisterComponent(ptr);
+			return ptr;
 		}
 
 		void AddTag(Name tag) { tags_.insert(tag); }
@@ -84,7 +83,7 @@ namespace oeng::engine
 		virtual void OnBeginPlay() {}
 
 	private:
-		void RegisterComponent(SharedRef<ActorComponent>&& comp);
+		void RegisterComponent(SharedRef<ActorComponent> comp);
 		void UpdateComponents(Float delta_seconds);
 
 		bool pending_kill_ : 1 = false;
