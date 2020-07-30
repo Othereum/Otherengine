@@ -7,7 +7,7 @@ endif()
 file(GLOB_RECURSE GAME_SRC "${CMAKE_SOURCE_DIR}/Source/${CMAKE_PROJECT_NAME}/Private/*.cpp")
 add_library(${CMAKE_PROJECT_NAME}-Module MODULE ${GAME_SRC})
 target_link_libraries(${CMAKE_PROJECT_NAME}-Module PRIVATE ${PROJECT_NAME}-Engine)
-target_include_directories(${CMAKE_PROJECT_NAME}-Module PRIVATE "${CMAKE_SOURCE_DIR}/${CMAKE_PROJECT_NAME}/Public")
+target_include_directories(${CMAKE_PROJECT_NAME}-Module PRIVATE "${CMAKE_SOURCE_DIR}/Source/${CMAKE_PROJECT_NAME}/Public")
 target_compile_definitions(${CMAKE_PROJECT_NAME}-Module PRIVATE OE_BUILD)
 oe_setup_target(${CMAKE_PROJECT_NAME}-Module)
 
