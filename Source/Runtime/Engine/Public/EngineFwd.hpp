@@ -13,6 +13,8 @@ namespace oeng::engine
 	class AActor;
 	class MeshComponent;
 	class CircleComponent;
+	class MovementComponent;
+	class CameraComponent;
 	
 	enum class Keycode;
 	enum class KeyMod;
