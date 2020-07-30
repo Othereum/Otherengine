@@ -17,7 +17,7 @@ namespace oeng::core
 		 * @return Listener lifecycle handler
 		 */
 		template <std::convertible_to<std::function<void(Args...)>> Fn>
-		[[nodiscard]] void Add(Fn&& fn)
+		void Add(Fn&& fn)
 		{
 			listeners_.emplace_back(std::forward<Fn>(fn));
 		}
