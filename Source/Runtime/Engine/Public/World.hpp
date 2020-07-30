@@ -18,14 +18,21 @@ namespace oeng::engine
 		void BeginTick();
 		void Tick();
 		
-		template <class T>
-		T& SpawnActor()
+		template <std::derived_from<AActor> T, class... Args>
+		SharedRef<T> SpawnActor(Args&&... args)
 		{
-			static_assert(std::is_base_of_v<AActor, T>);
-			auto ptr = MakeShared<T>(*this);
-			auto& ref = *ptr;
-			pending_actors_.emplace_back(std::move(ptr));
-			return ref;
+			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
+			pending_actors_.push_back(ptr);
+			return ptr;
+		}
+
+		template <std::invocable<AActor&> Fn>
+		void ForEachActor(Fn&& fn) const
+		{
+			for (auto& actor : actors_)
+			{
+				fn(*actor);
+			}
 		}
 
 		void RegisterCollision(SphereComponent& comp);
