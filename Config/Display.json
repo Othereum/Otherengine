@@ -1,5 +1,7 @@
 {
     "Display": 0,
     "FullscreenDisplayMode": 0,
-    "Fullscreen": true
+    "Fullscreen": true,
+    "VSync": true,
+    "VSync_Adaptive": true
 }

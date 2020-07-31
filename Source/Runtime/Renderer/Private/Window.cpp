@@ -157,8 +157,32 @@ namespace oeng::renderer
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
 
-		// TODO: vSync config
-		SDL_GL_SetSwapInterval(0);
+		auto& cfg = ConfigSystem::Get()(u8"Display"sv);
+		if (cfg.at("VSync").get<bool>())
+		{
+			if (cfg.at("VSync_Adaptive").get<bool>())
+			{
+				if (SDL_GL_SetSwapInterval(-1) == 0)
+				{
+					log::Info(u8"Adaptive sync enabled"sv);
+				}
+				else
+				{
+					log::Warn(u8"Adaptive sync not supported. Falling back to normal VSync..."sv);
+					SDL_GL_SetSwapInterval(1);
+				}
+			}
+			else
+			{
+				log::Info(u8"VSync enabled"sv);
+				SDL_GL_SetSwapInterval(1);
+			}
+		}
+		else
+		{
+			log::Info(u8"VSync disabled"sv);
+			SDL_GL_SetSwapInterval(0);
+		}
 
 		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
 		
