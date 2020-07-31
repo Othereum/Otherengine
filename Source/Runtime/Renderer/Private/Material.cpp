@@ -10,10 +10,18 @@ namespace oeng::renderer
 	{
 	}
 
+	[[nodiscard]] static SharedRef<Texture> LoadTexture(Renderer& renderer, const Json& json)
+	{
+		const auto found = json.find("texture");
+		return found != json.end()
+			? renderer.GetTexture(found->get<Path>())
+			: renderer.GetDefaultTexture();
+	}
+
 	Material::Material(Path path, Renderer& renderer, const Json& json)
 		:Asset{path},
 		shader_{renderer.GetShader(json.at("shader").get<Path>())},
-		texture_{renderer.GetTexture(json.at("texture").get<Path>())}
+		texture_{LoadTexture(renderer, json)}
 	{
 		if (const auto uniforms = json.find("uniforms"); uniforms != json.end())
 		{
