@@ -1,8 +1,5 @@
 #include "Renderer.hpp"
-
-#include <stdexcept>
 #include <SDL2/SDL.h>
-
 #include "EngineBase.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
@@ -18,170 +15,6 @@ namespace oeng::renderer
 	static constexpr auto kMaxPointLights = 4;
 	static constexpr auto kMaxSpotLights = 4;
 	
-	static void SetGlAttribute(SDL_GLattr attr, int value)
-	{
-		if (0 != SDL_GL_SetAttribute(attr, value))
-			throw std::runtime_error{SDL_GetError()};
-	}
-
-	class WindowCreator
-	{
-	public:
-		DELETE_CPMV(WindowCreator);
-		
-		WindowCreator()
-		{
-			WriteDisplayModes();
-			LoadDisplayIdx();
-			WriteWindowSize();
-			LoadDisplayMode();
-			SetupAttributes();
-		}
-		
-		[[nodiscard]] WindowPtr operator()() const
-		{
-			auto* const window = SDL_CreateWindow(
-				AsString(EngineBase::Get().GetGameName().data()),
-				SDL_WINDOWPOS_CENTERED_DISPLAY(dp_idx_), SDL_WINDOWPOS_CENTERED_DISPLAY(dp_idx_),
-				dp_mode_.w, dp_mode_.h, flags_
-			);
-
-			if (!window) throw std::runtime_error{SDL_GetError()};
-			SDL_SetWindowDisplayMode(window, &dp_mode_);
-			
-			return {window, &SDL_DestroyWindow};
-		}
-
-		~WindowCreator()
-		{
-			(void)ConfigSystem::Get().Save(cfg_name_);
-		}
-
-	private:
-		void WriteDisplayModes() const
-		{
-			const auto num_dp = SDL_GetNumVideoDisplays();
-			if (num_dp < 1) throw std::runtime_error{SDL_GetError()};
-			
-			auto& displays = cfg_["Display modes (read only)"] = Json::object();
-			for (auto dp = 0; dp < num_dp; ++dp)
-			{
-				const auto num_dm = SDL_GetNumDisplayModes(dp);
-				if (num_dm < 1) throw std::runtime_error{SDL_GetError()};
-
-				auto& modes = displays[fmt::format("Display {}", dp)] = Json::array();
-				for (auto dm = 0; dm < num_dm; ++dm)
-				{
-					SDL_DisplayMode mode;
-					SDL_GetDisplayMode(dp, dm, &mode);
-					auto str = Format(u8"[{}] {}x{} {}Hz"sv, dm, mode.w, mode.h, mode.refresh_rate);
-					modes.emplace_back(AsString(std::move(str)));
-				}
-			}
-		}
-
-		void WriteWindowSize() const
-		{
-			if (!cfg_.contains("WindowedSize"))
-			{
-				SDL_DisplayMode dp_mode;
-				SDL_GetDesktopDisplayMode(dp_idx_, &dp_mode);
-				Vector size{dp_mode.w, dp_mode.h};
-				cfg_["WindowedSize"] = (size *= 5, size /= 6);
-			}
-		}
-		
-		void LoadDisplayIdx()
-		{
-			const auto num_dp = SDL_GetNumVideoDisplays();
-			if (dp_idx_ >= num_dp)
-			{
-				log::Warn(u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp_idx_, num_dp-1);
-				log::Warn(u8"Using display 0..."sv);
-				dp_idx_ = 0;
-			}
-		}
-
-		void LoadDisplayMode()
-		{
-			if (fullscreen_) LoadFullscreenDpMode();
-			else LoadWindowedDpMode();
-		}
-
-		void LoadFullscreenDpMode()
-		{
-			auto dm_idx = cfg_.at("FullscreenDisplayMode").get<int>();
-			const auto num_dm = SDL_GetNumDisplayModes(dp_idx_);
-			
-			if (dm_idx >= num_dm)
-			{
-				log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx, num_dm-1);
-				log::Warn(u8"Using display mode 0..."sv);
-				dm_idx = 0;
-			}
-
-			if (0 != SDL_GetDisplayMode(dp_idx_, dm_idx, &dp_mode_))
-				throw std::runtime_error{SDL_GetError()};
-
-			log::Info(u8"Fullscreen mode: {}x{} {}Hz"sv, dp_mode_.w, dp_mode_.h, dp_mode_.refresh_rate);
-		}
-
-		void LoadWindowedDpMode()
-		{
-			const auto size = cfg_.at("WindowedSize").get<Vec2u16>();
-			dp_mode_.w = size[0];
-			dp_mode_.h = size[1];
-			log::Info(u8"Windowed mode: {}x{}"sv, dp_mode_.w, dp_mode_.h);
-		}
-
-		static void SetupAttributes()
-		{
-			SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-			SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SetGlAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-			SetGlAttribute(SDL_GL_RED_SIZE, 8);
-			SetGlAttribute(SDL_GL_GREEN_SIZE, 8);
-			SetGlAttribute(SDL_GL_BLUE_SIZE, 8);
-			SetGlAttribute(SDL_GL_ALPHA_SIZE, 8);
-			SetGlAttribute(SDL_GL_DEPTH_SIZE, 24);
-			SetGlAttribute(SDL_GL_DOUBLEBUFFER, true);
-			SetGlAttribute(SDL_GL_ACCELERATED_VISUAL, true);
-		}
-
-		const Name cfg_name_{u8"Display"sv};
-		Json& cfg_{ConfigSystem::Get()(cfg_name_)};
-
-		const bool fullscreen_ = cfg_.at("Fullscreen").get<bool>();
-		const uint32_t flags_ = SDL_WINDOW_OPENGL | (fullscreen_ ? SDL_WINDOW_FULLSCREEN : 0);
-		
-		int dp_idx_ = cfg_.at("Display").get<int>();
-		SDL_DisplayMode dp_mode_{};
-	};
-
-	static GlContextPtr CreateGlContext(SDL_Window& window)
-	{
-		GlContextPtr context{
-			SDL_GL_CreateContext(&window),
-			&SDL_GL_DeleteContext
-		};
-		if (!context) throw std::runtime_error{SDL_GetError()};
-		
-		glewExperimental = true;
-
-		if (const auto err = glewInit(); err != GLEW_OK)
-			throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
-		
-		// On some platforms, GLEW will emit a benign error code, so clear it
-		glGetError();
-
-		// TODO: vSync config
-		SDL_GL_SetSwapInterval(0);
-
-		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
-		
-		return context;
-	}
-
 	static VertexArray CreateSpriteVerts()
 	{
 		constexpr Vertex vertex_buffer[]
@@ -226,9 +59,7 @@ namespace oeng::renderer
 	}
 
 	Renderer::Renderer()
-		:window_{WindowCreator{}()},
-		gl_context_{CreateGlContext(*window_)},
-		sprite_shader_{u8"../Engine/Shaders/Sprite"sv},
+		:sprite_shader_{u8"../Engine/Shaders/Sprite"sv},
 		sprite_verts_{CreateSpriteVerts()},
 		materials_{shaders_.default_obj, textures_.default_obj},
 		meshes_{materials_.default_obj}
@@ -236,7 +67,7 @@ namespace oeng::renderer
 		UnregisterCamera();
 		UnregisterDirLight();
 		UnregisterSkyLight();
-		sprite_shader_.SetUniform(u8"uViewProj"sv, MakeSimpleViewProj<4>(GetWindowSize()));
+		sprite_shader_.SetUniform(u8"uViewProj"sv, MakeSimpleViewProj<4>(window_.GetSize()));
 	}
 
 	Renderer::~Renderer() = default;
@@ -259,7 +90,7 @@ namespace oeng::renderer
 	void Renderer::PostDrawScene() const
 	{
 		SCOPE_STACK_COUNTER(PostDrawScene);
-		SDL_GL_SwapWindow(window_.get());
+		window_.SwapBuffer();
 	}
 
 	void Renderer::Draw3D()
@@ -510,13 +341,6 @@ namespace oeng::renderer
 		return Get(materials_, path, *this);
 	}
 
-	Vec2u16 Renderer::GetWindowSize() const noexcept
-	{
-		int w, h;
-		SDL_GetWindowSize(window_.get(), &w, &h);
-		return {uint16_t(w), uint16_t(h)};
-	}
-
 	template <class T, class Compare>
 	void Register(Renderer::CompArr<T>& arr, const T& obj, Compare cmp)
 	{
@@ -562,7 +386,7 @@ namespace oeng::renderer
 	void Renderer::RegisterCamera(ICamera& camera) noexcept
 	{
 		camera_ = &camera;
-		camera.OnScreenSizeChanged(GetWindowSize());
+		camera.OnScreenSizeChanged(window_.GetSize());
 	}
 
 	void Renderer::UnregisterSprite(const ISpriteComponent& sprite)

@@ -5,6 +5,7 @@ struct SDL_Window;
 namespace oeng::renderer
 {
 	class Renderer;
+	class Window;
 	
 	class Material;
 	class Texture;

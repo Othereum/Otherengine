@@ -1,8 +1,8 @@
 #pragma once
 #include "Path.hpp"
-#include "RendererFwd.hpp"
 #include "Shader.hpp"
 #include "VertexArray.hpp"
+#include "Window.hpp"
 #include "Interfaces/Camera.hpp"
 #include "Templates/DyArr.hpp"
 #include "Templates/Pointer.hpp"
@@ -14,9 +14,6 @@ namespace oeng::engine
 
 namespace oeng::renderer
 {
-	using WindowPtr = UniquePtr<SDL_Window, void(*)(SDL_Window*)>;
-	using GlContextPtr = UniquePtr<void, void(*)(void*)>;
-	
 	class DefaultCamera final : public ICamera
 	{
 	public:
@@ -84,7 +81,7 @@ namespace oeng::renderer
 		[[nodiscard]] SharedRef<Shader> GetDefaultShader() const noexcept { return shaders_.default_obj; }
 		[[nodiscard]] SharedRef<Material> GetDefaultMaterial() const noexcept { return materials_.default_obj; }
 		
-		[[nodiscard]] Vec2u16 GetWindowSize() const noexcept;
+		[[nodiscard]] Window& GetWindow() noexcept { return window_; }
 
 		template <class T>
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
@@ -105,9 +102,8 @@ namespace oeng::renderer
 		void DrawPointLights(const IMeshComponent& mesh_comp) const;
 		void DrawSpotLights(const IMeshComponent& mesh_comp) const;
 		[[nodiscard]] bool ShouldDraw(const IMeshComponent& mesh_comp) const noexcept;
-		
-		WindowPtr window_;
-		GlContextPtr gl_context_;
+
+		Window window_;
 		
 		Shader sprite_shader_;
 		VertexArray sprite_verts_;
