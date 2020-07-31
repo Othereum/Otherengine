@@ -39,6 +39,8 @@ namespace oeng::engine
 		void RemoveTag(Name tag) { tags_.erase(tag); }
 		[[nodiscard]] bool HasTag(Name tag) const noexcept { return tags_.contains(tag); }
 
+		void SetUpdateEnabled(bool enabled) noexcept { update_enabled_ = enabled; }
+
 		/**
 		 * Set root component of this actor. Root component represents this actor's transform.
 		 * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
@@ -88,6 +90,7 @@ namespace oeng::engine
 
 		bool pending_kill_ : 1 = false;
 		bool begun_play_ : 1 = false;
+		bool update_enabled_ : 1 = true;
 		
 		Float init_lifespan_ = 0;
 		TimerHandle lifespan_timer_;

@@ -28,9 +28,12 @@ namespace oeng::engine
 
 	void AActor::Update(const Float delta_seconds)
 	{
-		SCOPE_STACK_COUNTER(ActorUpdate);
-		UpdateComponents(delta_seconds);
-		OnUpdate(delta_seconds);
+		if (update_enabled_)
+		{
+			SCOPE_STACK_COUNTER(ActorUpdate);
+			UpdateComponents(delta_seconds);
+			OnUpdate(delta_seconds);
+		}
 	}
 
 	void AActor::UpdateComponents(const Float delta_seconds)
