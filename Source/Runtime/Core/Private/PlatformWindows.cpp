@@ -8,6 +8,7 @@
 #include "EngineBase.hpp"
 #include "Format.hpp"
 #include "Platform.hpp"
+#include "Templates/Pointer.hpp"
 #include "Templates/String.hpp"
 
 namespace oeng::core
@@ -21,7 +22,7 @@ namespace oeng::core
 		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
 		UniquePtr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
 		
-		return fs::path{wide} /= engine_base->GetGameName();
+		return fs::path{wide} /= EngineBase::Get().GetGameName();
 	}
 #else
 	bool detail::IsDebuggingImpl() noexcept
