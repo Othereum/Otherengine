@@ -8,7 +8,11 @@ else
     compiler=clang
 fi
 
-# Use installed cmake if exists
-PATH="$PWD/Tools/cmake-install/bin:$PATH"
+proj_dir=$PWD
+engine_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
 
-cmake --build out/${compiler} $1 -- -j $2
+# Use installed cmake if exists
+PATH="$engine_dir/Tools/cmake-install/bin:$PATH"
+
+cd "$proj_dir"
+cmake --build out/build/${compiler} $1 -- -j $2

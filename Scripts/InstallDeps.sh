@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-# cmake
+# CMake
 if ! command -v cmake &> /dev/null; then
     cmake_install=true
     echo "cmake not found"
@@ -15,7 +15,11 @@ else
         echo "cmake $cmake_ver found, but not compatible with required version $cmake_reqver"
     fi
 fi
+
 if [ "$cmake_install" = true ]; then
+    # Go to engine directory
+    cd "$( dirname "${BASH_SOURCE[0]}" )/.."
+
     if [ -f Tools/cmake-install/bin/cmake ]; then
         echo "Downloaded cmake found"
     else
@@ -26,5 +30,5 @@ if [ "$cmake_install" = true ]; then
     fi
 fi
 
-# sdl2 glew
+# SDL2 and GLEW
 sudo apt install libsdl2-dev libglew-dev

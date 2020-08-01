@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
+proj_dir=$PWD
+engine_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." >/dev/null 2>&1 && pwd )"
+
 gcc_reqver=10
 gcc_cxx=g++
 
@@ -34,16 +37,17 @@ else
         should_install=true
     fi
 fi
-if [[ "$should_install" == true ]]; then
-    sudo apt install -y ${compiler}-${!reqver} ${!compiler_cxx}-${!reqver} libstdc++-${!reqver}-dev
-    suffix=-${!reqver}
+if [[ $should_install == true ]]; then
+    suffix="-${!reqver}"
+    sudo apt install -y ${!compiler_cxx}-${suffix} libstdc++-${suffix}-dev
 fi
 
 CC=${compiler}${suffix}
 CXX=${!compiler_cxx}${suffix}
 
 # Use installed cmake if exists
-PATH="$PWD/Tools/cmake-install/bin:$PATH"
+PATH="$engine_dir/Tools/cmake-install/bin:$PATH"
 
-mkdir -p out/${compiler} && cd out/${compiler}
-cmake ../.. -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX "$@"
+cd "$proj_dir"
+mkdir -p out/build/${compiler} && cd out/build/${compiler}
+cmake "$proj_dir" -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX "$@"
