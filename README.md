@@ -9,6 +9,8 @@
 ## Quick Start
 
 * [Engine usage example](https://github.com/Othereum/Otherengine-TestGame)
+  * [Pong 3D](https://github.com/Othereum/Pong-3D)
+  * [Fire Balls](https://github.com/Othereum/FireBalls)
 * [Development Setup](Guide/English/Development%20Setup.md)
 * [API Reference](https://othereum.github.io/Otherengine)
 
@@ -36,16 +38,16 @@
 
 ## Branches
 
-### **master**
-
-[![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=master)](https://travis-ci.com/Othereum/Otherengine)
-
-Reflects live development build. It may not even be compiled.
-
 ### **buildable**
 
 [![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=buildable)](https://travis-ci.com/Othereum/Otherengine)
 
 Compilable build that works well. But it doesn't mean it's stable.
+
+### **develop**
+
+[![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=develop)](https://travis-ci.com/Othereum/Otherengine)
+
+Reflects live development build. It may not even be compiled.
 
 ## [Dependencies](Guide/English/Development%20Setup.md#installing-dependencies)
