@@ -1,9 +1,5 @@
 # Source
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
-
-
 find_package(SDL2 REQUIRED)
 find_package(GLEW REQUIRED)
 

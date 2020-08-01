@@ -6,6 +6,9 @@ project("Otherengine"
 	HOMEPAGE_URL "https://github.com/Othereum/Otherengine"
 )
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+
 include(CMake/Functions.cmake)
 include(CMake/Options.cmake)
 
@@ -16,7 +19,7 @@ oe_install("Shaders")
 oe_install("Config")
 
 if(WIN32)
-	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.dll")
+	install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} DESTINATION "." FILES_MATCHING PATTERN "*.dll")
 else()
-	install(DIRECTORY "../Binaries" DESTINATION "." FILES_MATCHING PATTERN "*.so")
+	install(DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} DESTINATION "." FILES_MATCHING PATTERN "*.so")
 endif()
