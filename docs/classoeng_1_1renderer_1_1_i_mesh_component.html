@@ -105,8 +105,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a141758ea3022377ab67119d96494c4f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa22601f789eee1f8c888a47edf8d2192"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#aa22601f789eee1f8c888a47edf8d2192">GetMaxDrawDist</a> () const noexcept=0</td></tr>
 <tr class="separator:aa22601f789eee1f8c888a47edf8d2192"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4b933470d88f4ec4fcd2820f1f9d770"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ab4b933470d88f4ec4fcd2820f1f9d770">GetRadius</a> () const noexcept=0</td></tr>
-<tr class="separator:ab4b933470d88f4ec4fcd2820f1f9d770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7c3f9cc41bc0ebe5e9cb413ce540d20"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ad7c3f9cc41bc0ebe5e9cb413ce540d20">GetScaledRadius</a> () const noexcept=0</td></tr>
+<tr class="separator:ad7c3f9cc41bc0ebe5e9cb413ce540d20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f2bc86fa8d47e1de82730030f5f341"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a14f2bc86fa8d47e1de82730030f5f341">GetUnscaledRadius</a> () const noexcept=0</td></tr>
+<tr class="separator:a14f2bc86fa8d47e1de82730030f5f341"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a188fa2f3c331bf2dda51e48b5255542b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a188fa2f3c331bf2dda51e48b5255542b">ShouldDraw</a> () const noexcept=0</td></tr>
 <tr class="separator:a188fa2f3c331bf2dda51e48b5255542b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82c4e090ec6873211f58ca2488612e3a"><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="structotm_1_1_transform.html">Transform</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a82c4e090ec6873211f58ca2488612e3a">GetDrawTrsf</a> () const noexcept=0</td></tr>
@@ -254,8 +256,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="ab4b933470d88f4ec4fcd2820f1f9d770"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4b933470d88f4ec4fcd2820f1f9d770">&#9670;&nbsp;</a></span>GetRadius()</h2>
+<a id="ad7c3f9cc41bc0ebe5e9cb413ce540d20"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7c3f9cc41bc0ebe5e9cb413ce540d20">&#9670;&nbsp;</a></span>GetScaledRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -264,7 +266,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::renderer::IMeshComponent::GetRadius </td>
+          <td class="memname">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::renderer::IMeshComponent::GetScaledRadius </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -277,7 +279,34 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a99a44e789eb0908694af60631d549e95">oeng::engine::MeshComponent</a>.</p>
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#aa1abac126de2674041ee713544c47c7b">oeng::engine::MeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="a14f2bc86fa8d47e1de82730030f5f341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f2bc86fa8d47e1de82730030f5f341">&#9670;&nbsp;</a></span>GetUnscaledRadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::renderer::IMeshComponent::GetUnscaledRadius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#ad05bfa7083648348e7abc412d4c3801b">oeng::engine::MeshComponent</a>.</p>
 
 </div>
 </div>

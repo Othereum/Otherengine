@@ -17,6 +17,7 @@ var classoeng_1_1engine_1_1_scene_component =
     [ "GetWorldScale", "classoeng_1_1engine_1_1_scene_component.html#aab0849812d534a56ef886bb1a28c25af", null ],
     [ "GetWorldTrsf", "classoeng_1_1engine_1_1_scene_component.html#ac018f3f4cca7793d8fca767109fdab17", null ],
     [ "GetWorldTrsfMatrix", "classoeng_1_1engine_1_1_scene_component.html#a3b675e28aeb78867d2e4499c3b4a6dfe", null ],
+    [ "OnTrsfChanged", "classoeng_1_1engine_1_1_scene_component.html#ad53542f67e443ddf4ae63d9d4a72a3b0", null ],
     [ "SetRelPos", "classoeng_1_1engine_1_1_scene_component.html#afa204c0966d70285b1ff009abcf05b67", null ],
     [ "SetRelRot", "classoeng_1_1engine_1_1_scene_component.html#a97d7cc2a5731fc27f388fcf14585eec9", null ],
     [ "SetRelScale", "classoeng_1_1engine_1_1_scene_component.html#a35323355b9288039e60ab4ef3373da00", null ],

@@ -184,6 +184,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad1183daa20b67534cb0f53958110c7e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a318bbf103e0f6471e2f93c4eb1faf8f9"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structotm_1_1_vector.html#a318bbf103e0f6471e2f93c4eb1faf8f9">TryNormalize</a> () noexcept</td></tr>
 <tr class="separator:a318bbf103e0f6471e2f93c4eb1faf8f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8d901e4ae61a4bc4a02374234186cb3"><td class="memItemLeft" align="right" valign="top">constexpr void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structotm_1_1_vector.html#aa8d901e4ae61a4bc4a02374234186cb3">Clamp</a> (T min, T max) noexcept</td></tr>
+<tr class="separator:aa8d901e4ae61a4bc4a02374234186cb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abdfadcac8117b6a666cf99eb8efdbdf1"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="structotm_1_1_unit_vec.html">UnitVec</a>&lt; <a class="el" href="namespaceotm.html#a7703bbe29fbddf00dae0f240314d446a">CommonFloat</a>&lt; T &gt;, L &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structotm_1_1_vector.html#abdfadcac8117b6a666cf99eb8efdbdf1">Unit</a> () const noexcept</td></tr>
 <tr class="memdesc:abdfadcac8117b6a666cf99eb8efdbdf1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get normalized vector.  <a href="structotm_1_1_vector.html#abdfadcac8117b6a666cf99eb8efdbdf1">More...</a><br /></td></tr>
 <tr class="separator:abdfadcac8117b6a666cf99eb8efdbdf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1074,6 +1076,44 @@ template&lt;class T , size_t L&gt; </div>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa8d901e4ae61a4bc4a02374234186cb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8d901e4ae61a4bc4a02374234186cb3">&#9670;&nbsp;</a></span>Clamp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T , size_t L&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr void <a class="el" href="structotm_1_1_vector.html">otm::Vector</a>&lt; T, L &gt;::Clamp </td>
+          <td>(</td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>min</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T&#160;</td>
+          <td class="paramname"><em>max</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>

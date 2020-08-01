@@ -32,6 +32,7 @@ var structotm_1_1_vector =
     [ "begin", "structotm_1_1_vector.html#a7bee3d5b5f27b7f326f13d7dd51faf55", null ],
     [ "cbegin", "structotm_1_1_vector.html#a8bf5d287a15c19a8e434b67b76a125ae", null ],
     [ "cend", "structotm_1_1_vector.html#a94811aeca43133e18c9126441f102d23", null ],
+    [ "Clamp", "structotm_1_1_vector.html#aa8d901e4ae61a4bc4a02374234186cb3", null ],
     [ "crbegin", "structotm_1_1_vector.html#a4d1c3727d2cfda7decb24af9a6c50358", null ],
     [ "crend", "structotm_1_1_vector.html#abbc4942987b235b109f0ffcf7c4fd4a8", null ],
     [ "Dist", "structotm_1_1_vector.html#a3ccdc1b970ade91ea1912532292eacaf", null ],

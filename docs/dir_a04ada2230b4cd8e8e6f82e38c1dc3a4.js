@@ -3,9 +3,6 @@ var dir_a04ada2230b4cd8e8e6f82e38c1dc3a4 =
     [ "ActorComponent.hpp", "_actor_component_8hpp.html", [
       [ "ActorComponent", "classoeng_1_1engine_1_1_actor_component.html", "classoeng_1_1engine_1_1_actor_component" ]
     ] ],
-    [ "CircleComponent.hpp", "_circle_component_8hpp.html", [
-      [ "CircleComponent", "classoeng_1_1engine_1_1_circle_component.html", "classoeng_1_1engine_1_1_circle_component" ]
-    ] ],
     [ "DirLightComponent.hpp", "_dir_light_component_8hpp.html", [
       [ "DirLightComponent", "classoeng_1_1engine_1_1_dir_light_component.html", "classoeng_1_1engine_1_1_dir_light_component" ]
     ] ],
@@ -24,6 +21,9 @@ var dir_a04ada2230b4cd8e8e6f82e38c1dc3a4 =
     [ "SceneComponent.hpp", "_scene_component_8hpp.html", "_scene_component_8hpp" ],
     [ "SkyLightComponent.hpp", "_sky_light_component_8hpp.html", [
       [ "SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", "classoeng_1_1engine_1_1_sky_light_component" ]
+    ] ],
+    [ "SphereComponent.hpp", "_sphere_component_8hpp.html", [
+      [ "SphereComponent", "classoeng_1_1engine_1_1_sphere_component.html", "classoeng_1_1engine_1_1_sphere_component" ]
     ] ],
     [ "SpotLightComponent.hpp", "_spot_light_component_8hpp.html", [
       [ "SpotLightComponent", "classoeng_1_1engine_1_1_spot_light_component.html", "classoeng_1_1engine_1_1_spot_light_component" ]

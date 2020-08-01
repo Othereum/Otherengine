@@ -16,5 +16,6 @@ var namespaceoeng_1_1renderer =
     [ "Shader", "classoeng_1_1renderer_1_1_shader.html", "classoeng_1_1renderer_1_1_shader" ],
     [ "Texture", "classoeng_1_1renderer_1_1_texture.html", "classoeng_1_1renderer_1_1_texture" ],
     [ "Vertex", "structoeng_1_1renderer_1_1_vertex.html", "structoeng_1_1renderer_1_1_vertex" ],
-    [ "VertexArray", "classoeng_1_1renderer_1_1_vertex_array.html", "classoeng_1_1renderer_1_1_vertex_array" ]
+    [ "VertexArray", "classoeng_1_1renderer_1_1_vertex_array.html", "classoeng_1_1renderer_1_1_vertex_array" ],
+    [ "Window", "classoeng_1_1renderer_1_1_window.html", "classoeng_1_1renderer_1_1_window" ]
 ];

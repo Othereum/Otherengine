@@ -128,13 +128,11 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_vertex_array.html">VertexArray</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_window.html">Window</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:acb919f7f964bd74e8ce63e91a0cd09d0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1renderer.html#acb919f7f964bd74e8ce63e91a0cd09d0">WindowPtr</a> = <a class="el" href="namespaceoeng_1_1core.html#a7df3cbddb5681a245f3fe0c8bd44b92d">UniquePtr</a>&lt; SDL_Window, void(*)(SDL_Window *)&gt;</td></tr>
-<tr class="separator:acb919f7f964bd74e8ce63e91a0cd09d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a475e7fad1bf87341e5f8e08d8d4ca875"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1renderer.html#a475e7fad1bf87341e5f8e08d8d4ca875">GlContextPtr</a> = <a class="el" href="namespaceoeng_1_1core.html#a7df3cbddb5681a245f3fe0c8bd44b92d">UniquePtr</a>&lt; void, void(*)(void *)&gt;</td></tr>
-<tr class="separator:a475e7fad1bf87341e5f8e08d8d4ca875"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2895474d134040bbb783660dce3c8b6f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1renderer.html#a2895474d134040bbb783660dce3c8b6f">Uniform</a> = std::variant&lt; float, int, <a class="el" href="namespaceotm.html#a482660fc90ef1aab393d1d9c234c7c87">Vec2</a>, <a class="el" href="namespaceotm.html#a4229e817c7a8295e65293de672fc1185">Vec3</a>, <a class="el" href="namespaceotm.html#a0a678440be778000fa305e545e2639c7">Vec4</a>, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt; int, 2 &gt;, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt; int, 3 &gt;, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt; int, 4 &gt;, <a class="el" href="namespaceotm.html#aff57629c68d3bf610c779186cd7b16fe">Mat2</a>, <a class="el" href="namespaceotm.html#aadbc86bfc7bea8e9070e8938c4907c61">Mat3</a>, <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a>, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 2, 3 &gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 2, 4 &gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 3, 2 &gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 3, 4 &gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 4, 2 &gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt; <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 4, 3 &gt; &gt;</td></tr>
 <tr class="separator:a2895474d134040bbb783660dce3c8b6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -162,20 +160,6 @@ Functions</h2></td></tr>
 <tr class="separator:aad5032ce29b6ebe922877e183ac35767"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
-<a id="a475e7fad1bf87341e5f8e08d8d4ca875"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475e7fad1bf87341e5f8e08d8d4ca875">&#9670;&nbsp;</a></span>GlContextPtr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceoeng_1_1renderer.html#a475e7fad1bf87341e5f8e08d8d4ca875">oeng::renderer::GlContextPtr</a> = typedef <a class="el" href="namespaceoeng_1_1core.html#a7df3cbddb5681a245f3fe0c8bd44b92d">UniquePtr</a>&lt;void, void(*)(void*)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a2895474d134040bbb783660dce3c8b6f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2895474d134040bbb783660dce3c8b6f">&#9670;&nbsp;</a></span>Uniform</h2>
 
@@ -184,20 +168,6 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">using <a class="el" href="namespaceoeng_1_1renderer.html#a2895474d134040bbb783660dce3c8b6f">oeng::renderer::Uniform</a> = typedef std::variant&lt; float, int, <a class="el" href="namespaceotm.html#a482660fc90ef1aab393d1d9c234c7c87">Vec2</a>, <a class="el" href="namespaceotm.html#a4229e817c7a8295e65293de672fc1185">Vec3</a>, <a class="el" href="namespaceotm.html#a0a678440be778000fa305e545e2639c7">Vec4</a>, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt;int, 2&gt;, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt;int, 3&gt;, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt;int, 4&gt;, <a class="el" href="namespaceotm.html#aff57629c68d3bf610c779186cd7b16fe">Mat2</a>, <a class="el" href="namespaceotm.html#aadbc86bfc7bea8e9070e8938c4907c61">Mat3</a>, <a class="el" href="namespaceotm.html#a16824f30dd9e70c5177a4fc9ea4c65aa">Mat4</a>, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 2, 3&gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 2, 4&gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 3, 2&gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 3, 4&gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 4, 2&gt;, <a class="el" href="structotm_1_1_matrix.html">Matrix</a>&lt;<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>, 4, 3&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="acb919f7f964bd74e8ce63e91a0cd09d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb919f7f964bd74e8ce63e91a0cd09d0">&#9670;&nbsp;</a></span>WindowPtr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespaceoeng_1_1renderer.html#acb919f7f964bd74e8ce63e91a0cd09d0">oeng::renderer::WindowPtr</a> = typedef <a class="el" href="namespaceoeng_1_1core.html#a7df3cbddb5681a245f3fe0c8bd44b92d">UniquePtr</a>&lt;SDL_Window, void(*)(SDL_Window*)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">

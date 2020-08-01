@@ -133,8 +133,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 , <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a7f63a30731c70062514213104292448f">oeng::engine::MeshComponent</a>
 </li>
 <li>SetMaxDrawDist()
-: <a class="el" href="classoeng_1_1engine_1_1_a_mesh_actor.html#a6c83fb4a28339516f3796bd24e9554a3">oeng::engine::AMeshActor</a>
-, <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#abc07afe84430c14e7200f4905fad51fd">oeng::engine::MeshComponent</a>
+: <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#abc07afe84430c14e7200f4905fad51fd">oeng::engine::MeshComponent</a>
 </li>
 <li>SetMaxSpeed()
 : <a class="el" href="classoeng_1_1engine_1_1_movement_component.html#accd454c1b1269640c80cba2d31ef8002">oeng::engine::MovementComponent</a>
@@ -152,7 +151,6 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 </li>
 <li>SetRadius()
 : <a class="el" href="classoeng_1_1engine_1_1_a_point_light.html#a925a30825c3cd83b15bd485ef9f173b4">oeng::engine::APointLight</a>
-, <a class="el" href="classoeng_1_1engine_1_1_circle_component.html#a8782ae8846b3b050ff38536ac596cc96">oeng::engine::CircleComponent</a>
 , <a class="el" href="classoeng_1_1engine_1_1_point_light_component.html#a92f5b352c59507e0e0450569c260a368">oeng::engine::PointLightComponent</a>
 , <a class="el" href="classoeng_1_1engine_1_1_spot_light_component.html#aacae0ef801fbf39da19ed0d646744a67">oeng::engine::SpotLightComponent</a>
 </li>
@@ -186,11 +184,20 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 <li>SetTimerForNextTick()
 : <a class="el" href="classoeng_1_1engine_1_1_timer_manager.html#a10bde08f444074f87b8e68a9a6e62c1e">oeng::engine::TimerManager</a>
 </li>
+<li>SetTitle()
+: <a class="el" href="classoeng_1_1renderer_1_1_window.html#a52b6f825f661b539dd027ab23ae95c8a">oeng::renderer::Window</a>
+</li>
 <li>SetTrsf()
 : <a class="el" href="classoeng_1_1engine_1_1_a_actor.html#a304b39d4a8d3676ca492c5aeb5801c49">oeng::engine::AActor</a>
 </li>
 <li>SetUniform()
 : <a class="el" href="classoeng_1_1renderer_1_1_shader.html#a1f791e2957b6b6472e4a437f88c500ae">oeng::renderer::Shader</a>
+</li>
+<li>SetUnscaledRadius()
+: <a class="el" href="classoeng_1_1engine_1_1_sphere_component.html#a4e36f784096cb859fac4cf2e8a05345b">oeng::engine::SphereComponent</a>
+</li>
+<li>SetUpdateEnabled()
+: <a class="el" href="classoeng_1_1engine_1_1_a_actor.html#a02aeeeef3ae3d32c87b9bc981a6d352e">oeng::engine::AActor</a>
 </li>
 <li>SetVFov()
 : <a class="el" href="classoeng_1_1engine_1_1_a_camera_actor.html#ac6792d1f1a629540556ae5ebd0e3c060">oeng::engine::ACameraActor</a>
@@ -215,7 +222,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 : <a class="el" href="classoeng_1_1renderer_1_1_shader.html#ad45ba363f0d684194ed514bb88d70e64">oeng::renderer::Shader</a>
 </li>
 <li>shared_from_this()
-: <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a8629dba977c25dd80dd13e34c07c5a64">oeng::core::EnableSharedFromThis&lt; T, ThreadSafe &gt;</a>
+: <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#aaa57071ee633423fda9f117b78eb67a6">oeng::core::EnableSharedFromThis&lt; T, ThreadSafe &gt;</a>
 </li>
 <li>SharedObjInline()
 : <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_inline.html#a338efeb9c3c008a13d264e72f94d5a1e">oeng::core::detail::SharedObjInline&lt; T, Alloc, ThreadSafe &gt;</a>
@@ -227,7 +234,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 : <a class="el" href="classoeng_1_1core_1_1_shared_ptr.html#a6a9b9c2825161ab0faa65f3b17ae809c">oeng::core::SharedPtr&lt; T, ThreadSafe &gt;</a>
 </li>
 <li>SharedRef()
-: <a class="el" href="classoeng_1_1core_1_1_shared_ref.html#a56cb2132361e6a535b3f4385d6756d22">oeng::core::SharedRef&lt; T, ThreadSafe &gt;</a>
+: <a class="el" href="classoeng_1_1core_1_1_shared_ref.html#a61b82308fd9bfd4fd0a329e0e46e9c08">oeng::core::SharedRef&lt; T, ThreadSafe &gt;</a>
 </li>
 <li>ShouldAffect()
 : <a class="el" href="classoeng_1_1engine_1_1_point_light_component.html#a49976f0bf28a0de521c6aaa9bbeb9986">oeng::engine::PointLightComponent</a>
@@ -254,13 +261,16 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 : <a class="el" href="structotm_1_1_matrix.html#ad163b186c3be4a7b0cda31fd52e60e15">otm::Matrix&lt; T, R, C &gt;</a>
 </li>
 <li>SpawnActor()
-: <a class="el" href="classoeng_1_1engine_1_1_world.html#aeeef6e1d0156e8f9347d5922bba61a21">oeng::engine::World</a>
+: <a class="el" href="classoeng_1_1engine_1_1_world.html#aa8348e7982ca63f9219961c3b8a22159">oeng::engine::World</a>
+</li>
+<li>SphereComponent()
+: <a class="el" href="classoeng_1_1engine_1_1_sphere_component.html#a5565185dfe90cfcadf4f52ab9a2f5fd8">oeng::engine::SphereComponent</a>
 </li>
 <li>SpotLightComponent()
 : <a class="el" href="classoeng_1_1engine_1_1_spot_light_component.html#a72513410955595e687c5b23f780e91cb">oeng::engine::SpotLightComponent</a>
 </li>
 <li>SpriteComponent()
-: <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#acee8f1d8dd3f4c60cfe79a5b595c1902">oeng::engine::SpriteComponent</a>
+: <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#a67f398813015fd81d89df8ab98d9853d">oeng::engine::SpriteComponent</a>
 </li>
 <li>SSE()
 : <a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a21c0a27550f44590306a68e47dd761fb">oeng::core::CpuInfo</a>
@@ -302,6 +312,9 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 , <a class="el" href="classoeng_1_1renderer_1_1_texture.html#ae0b298fa068ada79bc04919f0de446a6">oeng::renderer::Texture</a>
 , <a class="el" href="classoeng_1_1renderer_1_1_vertex_array.html#ad1b7eaf839b38720a09f4defe842e609">oeng::renderer::VertexArray</a>
 , <a class="el" href="classomem_1_1_memory_pool.html#a0c1033c124a1b0dd1128c91135a433cf">omem::MemoryPool</a>
+</li>
+<li>SwapBuffer()
+: <a class="el" href="classoeng_1_1renderer_1_1_window.html#a8dba0c4837bfe7f656696169a69ad5ac">oeng::renderer::Window</a>
 </li>
 <li>SYSCALL()
 : <a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a211bffd8ceb2fafc88db6ed6e695052e">oeng::core::CpuInfo</a>

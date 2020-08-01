@@ -12,6 +12,10 @@ var classoeng_1_1engine_1_1_actor_component =
     [ "HasBegunPlay", "classoeng_1_1engine_1_1_actor_component.html#af355c94418f884d4f173f088f25375dd", null ],
     [ "IsActive", "classoeng_1_1engine_1_1_actor_component.html#a15f2cd469601d453b79cb0dd27359d19", null ],
     [ "IsAutoActivate", "classoeng_1_1engine_1_1_actor_component.html#a26a845082626396d283843d0b6003043", null ],
+    [ "OnActivated", "classoeng_1_1engine_1_1_actor_component.html#aaaf61fc566d162dadcf6e7ed091242d5", null ],
+    [ "OnBeginPlay", "classoeng_1_1engine_1_1_actor_component.html#a5ca622a0ed21ec4214c4e9e27249c16c", null ],
+    [ "OnDeactivated", "classoeng_1_1engine_1_1_actor_component.html#a4d249ee29b459cfe8a98a9aad412815b", null ],
+    [ "OnUpdate", "classoeng_1_1engine_1_1_actor_component.html#a295b57141fd5f53a6c015e1afde777eb", null ],
     [ "SetAutoActivate", "classoeng_1_1engine_1_1_actor_component.html#ab8d5bba061d1366501681318e0c27d86", null ],
     [ "Update", "classoeng_1_1engine_1_1_actor_component.html#a45ef834e7375620cfbe6cbe5a0c00e45", null ]
 ];

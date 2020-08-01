@@ -86,6 +86,7 @@ $(document).ready(function(){initNavTree('classoeng_1_1engine_1_1_actor_componen
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classoeng_1_1engine_1_1_actor_component-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">oeng::engine::ActorComponent Class Reference</div>  </div>
@@ -96,7 +97,7 @@ $(document).ready(function(){initNavTree('classoeng_1_1engine_1_1_actor_componen
 <div class="dynheader">
 Inheritance diagram for oeng::engine::ActorComponent:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classoeng_1_1engine_1_1_actor_component__inherit__graph.svg" width="1008" height="400"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classoeng_1_1engine_1_1_actor_component__inherit__graph.svg" width="1008" height="408"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -145,11 +146,16 @@ Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a51ee0009aa58e6bfb384d1ab9ed293f6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a51ee0009aa58e6bfb384d1ab9ed293f6">GetRenderer</a> () noexcept</td></tr>
 <tr class="separator:a51ee0009aa58e6bfb384d1ab9ed293f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
-<tr class="memitem:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a9a2e205797b8f968719ea35d9ff57e25">EsftType</a> = <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">EnableSharedFromThis</a></td></tr>
-<tr class="separator:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a5ca622a0ed21ec4214c4e9e27249c16c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a5ca622a0ed21ec4214c4e9e27249c16c">OnBeginPlay</a> ()</td></tr>
+<tr class="separator:a5ca622a0ed21ec4214c4e9e27249c16c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a295b57141fd5f53a6c015e1afde777eb"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a295b57141fd5f53a6c015e1afde777eb">OnUpdate</a> ([[maybe_unused]] <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds)</td></tr>
+<tr class="separator:a295b57141fd5f53a6c015e1afde777eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf61fc566d162dadcf6e7ed091242d5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#aaaf61fc566d162dadcf6e7ed091242d5">OnActivated</a> ()</td></tr>
+<tr class="separator:aaaf61fc566d162dadcf6e7ed091242d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d249ee29b459cfe8a98a9aad412815b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a4d249ee29b459cfe8a98a9aad412815b">OnDeactivated</a> ()</td></tr>
+<tr class="separator:a4d249ee29b459cfe8a98a9aad412815b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
 <tr class="memitem:ad4181fa5840279211276ed9f04d309e5 inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#ad4181fa5840279211276ed9f04d309e5">EnableSharedFromThis</a> () noexcept</td></tr>
 <tr class="separator:ad4181fa5840279211276ed9f04d309e5 inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -159,6 +165,12 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:af1eb8c52d06cc4387ac19610526c8c5a inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e62457da0a4784fd7acc09a0a3040df inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a0e62457da0a4784fd7acc09a0a3040df">~EnableSharedFromThis</a> ()=default</td></tr>
 <tr class="separator:a0e62457da0a4784fd7acc09a0a3040df inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
+<tr class="memitem:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a9a2e205797b8f968719ea35d9ff57e25">EsftType</a> = <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">EnableSharedFromThis</a></td></tr>
+<tr class="separator:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a01466760985dda84c5cd2bfea8625aaa"></a>
@@ -477,6 +489,113 @@ Additional Inherited Members</h2></td></tr>
   </td>
   <td class="mlabels-right">
 <span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aaaf61fc566d162dadcf6e7ed091242d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaaf61fc566d162dadcf6e7ed091242d5">&#9670;&nbsp;</a></span>OnActivated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void oeng::engine::ActorComponent::OnActivated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classoeng_1_1engine_1_1_camera_component.html#ad517003af6618f955a837a223c2a09e5">oeng::engine::CameraComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_sky_light_component.html#ac06e6b1cc2bb79ed4f72089d2d79f6b1">oeng::engine::SkyLightComponent</a>, and <a class="el" href="classoeng_1_1engine_1_1_dir_light_component.html#a903be868c90b0fa38e4e067bf0626966">oeng::engine::DirLightComponent</a>.</p>
+
+</div>
+</div>
+<a id="a5ca622a0ed21ec4214c4e9e27249c16c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ca622a0ed21ec4214c4e9e27249c16c">&#9670;&nbsp;</a></span>OnBeginPlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void oeng::engine::ActorComponent::OnBeginPlay </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classoeng_1_1engine_1_1_sphere_component.html#a361773f2ab3f9c4bb3187857c7a08799">oeng::engine::SphereComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_sprite_component.html#a35fd915857544cbd82ac76ce620a5f29">oeng::engine::SpriteComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a2a75e9d570527de99254b727f3c6419b">oeng::engine::MeshComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_sky_light_component.html#a00acc31046a7b01edc303eb70a4ef4ca">oeng::engine::SkyLightComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_point_light_component.html#a012466be2f01366dc6a8fbb50f2248e3">oeng::engine::PointLightComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_dir_light_component.html#a95a1b41342e18dc3b4c2feaea37aa0d8">oeng::engine::DirLightComponent</a>, and <a class="el" href="classoeng_1_1engine_1_1_spot_light_component.html#a27cc3363d07d7758717a7e9765a4c95c">oeng::engine::SpotLightComponent</a>.</p>
+
+</div>
+</div>
+<a id="a4d249ee29b459cfe8a98a9aad412815b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4d249ee29b459cfe8a98a9aad412815b">&#9670;&nbsp;</a></span>OnDeactivated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void oeng::engine::ActorComponent::OnDeactivated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="classoeng_1_1engine_1_1_camera_component.html#aa4efc056a893312d446892e4e853bcf6">oeng::engine::CameraComponent</a>, <a class="el" href="classoeng_1_1engine_1_1_sky_light_component.html#a937417e2f7cf1667fba1668458595cb7">oeng::engine::SkyLightComponent</a>, and <a class="el" href="classoeng_1_1engine_1_1_dir_light_component.html#a41608d0df27fc652e2d9df747bc71aa9">oeng::engine::DirLightComponent</a>.</p>
+
+</div>
+</div>
+<a id="a295b57141fd5f53a6c015e1afde777eb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a295b57141fd5f53a6c015e1afde777eb">&#9670;&nbsp;</a></span>OnUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void oeng::engine::ActorComponent::OnUpdate </td>
+          <td>(</td>
+          <td class="paramtype">[[maybe_unused] ] <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td>
+          <td class="paramname"><em>delta_seconds</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">

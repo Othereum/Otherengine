@@ -105,13 +105,16 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac0fe52a5e20ae71cc938733207568f6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a61a71474376423d3e9a6d52b835380be"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a61a71474376423d3e9a6d52b835380be">Tick</a> ()</td></tr>
 <tr class="separator:a61a71474376423d3e9a6d52b835380be"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeeef6e1d0156e8f9347d5922bba61a21"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
-<tr class="memitem:aeeef6e1d0156e8f9347d5922bba61a21"><td class="memTemplItemLeft" align="right" valign="top">T &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#aeeef6e1d0156e8f9347d5922bba61a21">SpawnActor</a> ()</td></tr>
-<tr class="separator:aeeef6e1d0156e8f9347d5922bba61a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d46da5c342acf4e2520f59ba887d9ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a0d46da5c342acf4e2520f59ba887d9ff">RegisterCollision</a> (<a class="el" href="classoeng_1_1engine_1_1_circle_component.html">CircleComponent</a> &amp;comp)</td></tr>
-<tr class="separator:a0d46da5c342acf4e2520f59ba887d9ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77229aa18ce7be345cba742bd1f9eb7a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a77229aa18ce7be345cba742bd1f9eb7a">UnregisterCollision</a> (<a class="el" href="classoeng_1_1engine_1_1_circle_component.html">CircleComponent</a> &amp;comp)</td></tr>
-<tr class="separator:a77229aa18ce7be345cba742bd1f9eb7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8348e7982ca63f9219961c3b8a22159"><td class="memTemplParams" colspan="2">template&lt;std::derived_from&lt; AActor &gt; T, class... Args&gt; </td></tr>
+<tr class="memitem:aa8348e7982ca63f9219961c3b8a22159"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef</a>&lt; T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#aa8348e7982ca63f9219961c3b8a22159">SpawnActor</a> (Args &amp;&amp;... args)</td></tr>
+<tr class="separator:aa8348e7982ca63f9219961c3b8a22159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ad6c92afc217db74cbff61770ebac6a"><td class="memTemplParams" colspan="2">template&lt;std::invocable&lt; AActor &amp; &gt; Fn&gt; </td></tr>
+<tr class="memitem:a8ad6c92afc217db74cbff61770ebac6a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a8ad6c92afc217db74cbff61770ebac6a">ForEachActor</a> (Fn &amp;&amp;fn) const</td></tr>
+<tr class="separator:a8ad6c92afc217db74cbff61770ebac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedeb1a6df2fc758dce21c779faff884c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#aedeb1a6df2fc758dce21c779faff884c">RegisterCollision</a> (<a class="el" href="classoeng_1_1engine_1_1_sphere_component.html">SphereComponent</a> &amp;comp)</td></tr>
+<tr class="separator:aedeb1a6df2fc758dce21c779faff884c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa7a9ef7973ecfe0d4b209f45fa932d3d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#aa7a9ef7973ecfe0d4b209f45fa932d3d">UnregisterCollision</a> (<a class="el" href="classoeng_1_1engine_1_1_sphere_component.html">SphereComponent</a> &amp;comp)</td></tr>
+<tr class="separator:aa7a9ef7973ecfe0d4b209f45fa932d3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8288311d89429231fd6eef44285ba1fe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1engine_1_1_timer_manager.html">TimerManager</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a8288311d89429231fd6eef44285ba1fe">GetTimerManager</a> () noexcept</td></tr>
 <tr class="separator:a8288311d89429231fd6eef44285ba1fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a519e23f3037cdada89b48cf83f62d203"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceoeng_1_1core.html#a1aeba739a3528afaa68a4069168ae887">TimePoint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_world.html#a519e23f3037cdada89b48cf83f62d203">GetTime</a> () const noexcept</td></tr>
@@ -186,6 +189,34 @@ Public Member Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8ad6c92afc217db74cbff61770ebac6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ad6c92afc217db74cbff61770ebac6a">&#9670;&nbsp;</a></span>ForEachActor()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;std::invocable&lt; AActor &amp; &gt; Fn&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::World::ForEachActor </td>
+          <td>(</td>
+          <td class="paramtype">Fn &amp;&amp;&#160;</td>
+          <td class="paramname"><em>fn</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
@@ -265,8 +296,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a0d46da5c342acf4e2520f59ba887d9ff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d46da5c342acf4e2520f59ba887d9ff">&#9670;&nbsp;</a></span>RegisterCollision()</h2>
+<a id="aedeb1a6df2fc758dce21c779faff884c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedeb1a6df2fc758dce21c779faff884c">&#9670;&nbsp;</a></span>RegisterCollision()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,7 +305,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void oeng::engine::World::RegisterCollision </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classoeng_1_1engine_1_1_circle_component.html">CircleComponent</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1engine_1_1_sphere_component.html">SphereComponent</a> &amp;&#160;</td>
           <td class="paramname"><em>comp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -283,21 +314,22 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aeeef6e1d0156e8f9347d5922bba61a21"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeeef6e1d0156e8f9347d5922bba61a21">&#9670;&nbsp;</a></span>SpawnActor()</h2>
+<a id="aa8348e7982ca63f9219961c3b8a22159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8348e7982ca63f9219961c3b8a22159">&#9670;&nbsp;</a></span>SpawnActor()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;class T &gt; </div>
+template&lt;std::derived_from&lt; AActor &gt; T, class... Args&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">T&amp; oeng::engine::World::SpawnActor </td>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef</a>&lt;T&gt; oeng::engine::World::SpawnActor </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -327,8 +359,8 @@ template&lt;class T &gt; </div>
 
 </div>
 </div>
-<a id="a77229aa18ce7be345cba742bd1f9eb7a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77229aa18ce7be345cba742bd1f9eb7a">&#9670;&nbsp;</a></span>UnregisterCollision()</h2>
+<a id="aa7a9ef7973ecfe0d4b209f45fa932d3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa7a9ef7973ecfe0d4b209f45fa932d3d">&#9670;&nbsp;</a></span>UnregisterCollision()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -336,7 +368,7 @@ template&lt;class T &gt; </div>
         <tr>
           <td class="memname">void oeng::engine::World::UnregisterCollision </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classoeng_1_1engine_1_1_circle_component.html">CircleComponent</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classoeng_1_1engine_1_1_sphere_component.html">SphereComponent</a> &amp;&#160;</td>
           <td class="paramname"><em>comp</em></td><td>)</td>
           <td></td>
         </tr>

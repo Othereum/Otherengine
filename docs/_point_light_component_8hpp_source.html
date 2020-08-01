@@ -108,13 +108,14 @@ $(document).ready(function(){initNavTree('_point_light_component_8hpp_source.htm
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_point_light_component.html#a98cb6cdf7ed37f0e367c0b66c1c33d9e">   19</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structoeng_1_1renderer_1_1_i_point_light_1_1_data.html">Data</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_point_light_component.html#a98cb6cdf7ed37f0e367c0b66c1c33d9e">GetData</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> data_; }</div>
 <div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_point_light_component.html#a49976f0bf28a0de521c6aaa9bbeb9986">   20</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_point_light_component.html#a49976f0bf28a0de521c6aaa9bbeb9986">ShouldAffect</a>() const noexcept override;</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    private:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> OnBeginPlay() override;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">void</span> OnTrsfChanged()<span class="keyword"> override </span>{ data_.pos = GetWorldPos(); }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        Data data_;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    protected:</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_point_light_component.html#a012466be2f01366dc6a8fbb50f2248e3">   23</a></span>&#160;        <span class="keywordtype">void</span> OnBeginPlay() override;</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_point_light_component.html#a8a83c74e83b2bc6bcd2c8ac4c7f77433">   24</a></span>&#160;        <span class="keywordtype">void</span> OnTrsfChanged()<span class="keyword"> override </span>{ data_.pos = GetWorldPos(); }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        Data data_;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    };</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassoeng_1_1engine_1_1_point_light_component_html_a7576805396c8ea7ff2da28893515e4e9"><div class="ttname"><a href="classoeng_1_1engine_1_1_point_light_component.html#a7576805396c8ea7ff2da28893515e4e9">oeng::engine::PointLightComponent::PointLightComponent</a></div><div class="ttdeci">PointLightComponent(AActor &amp;owner, int update_order=100)</div></div>
@@ -132,7 +133,7 @@ $(document).ready(function(){initNavTree('_point_light_component_8hpp_source.htm
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_point_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_point_light.html">oeng::renderer::IPointLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:29</div></div>
 <div class="ttc" id="a_light_8hpp_html"><div class="ttname"><a href="_light_8hpp.html">Light.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
 <div class="ttc" id="a_scene_component_8hpp_html"><div class="ttname"><a href="_scene_component_8hpp.html">SceneComponent.hpp</a></div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
 <!-- start footer part -->

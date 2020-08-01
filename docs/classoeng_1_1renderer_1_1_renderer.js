@@ -10,7 +10,7 @@ var classoeng_1_1renderer_1_1_renderer =
     [ "GetMesh", "classoeng_1_1renderer_1_1_renderer.html#a22b648ff2845839b7d40e530ea7701fc", null ],
     [ "GetShader", "classoeng_1_1renderer_1_1_renderer.html#a72b83956438b7434e76f9ceb0d6f695f", null ],
     [ "GetTexture", "classoeng_1_1renderer_1_1_renderer.html#a8d4b416b3c0e184d4e794c33e52ccc22", null ],
-    [ "GetWindowSize", "classoeng_1_1renderer_1_1_renderer.html#a953b4a8845fbe4899fc025b4af8feae4", null ],
+    [ "GetWindow", "classoeng_1_1renderer_1_1_renderer.html#a3c1a92f3403395c2938dfbf324373742", null ],
     [ "IsCameraRegistered", "classoeng_1_1renderer_1_1_renderer.html#ad86038b3f4ad9aae7c2a090966cc0294", null ],
     [ "IsCameraRegistered", "classoeng_1_1renderer_1_1_renderer.html#a68d62a0233a79ca1e5e8120f285346c0", null ],
     [ "IsDirLightRegistered", "classoeng_1_1renderer_1_1_renderer.html#aa063649a3678403899d95625fd53ee3d", null ],

@@ -10,6 +10,7 @@ var namespaceoeng_1_1core =
     [ "Dll", "classoeng_1_1core_1_1_dll.html", "classoeng_1_1core_1_1_dll" ],
     [ "EnableSharedFromThis", "classoeng_1_1core_1_1_enable_shared_from_this.html", "classoeng_1_1core_1_1_enable_shared_from_this" ],
     [ "EngineBase", "classoeng_1_1core_1_1_engine_base.html", "classoeng_1_1core_1_1_engine_base" ],
+    [ "Event", "classoeng_1_1core_1_1_event.html", "classoeng_1_1core_1_1_event" ],
     [ "IsTransparent", "structoeng_1_1core_1_1_is_transparent.html", null ],
     [ "Monitor", "classoeng_1_1core_1_1_monitor.html", "classoeng_1_1core_1_1_monitor" ],
     [ "Name", "structoeng_1_1core_1_1_name.html", "structoeng_1_1core_1_1_name" ],

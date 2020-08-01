@@ -85,6 +85,7 @@ $(document).ready(function(){initNavTree('classoeng_1_1engine_1_1_mesh_component
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="classoeng_1_1engine_1_1_mesh_component-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">oeng::engine::MeshComponent Class Reference</div>  </div>
@@ -119,8 +120,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abc07afe84430c14e7200f4905fad51fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae76a50be70966134a7e8b2b051564779"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#ae76a50be70966134a7e8b2b051564779">GetMaxDrawDist</a> () const noexcept override</td></tr>
 <tr class="separator:ae76a50be70966134a7e8b2b051564779"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99a44e789eb0908694af60631d549e95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a99a44e789eb0908694af60631d549e95">GetRadius</a> () const noexcept override</td></tr>
-<tr class="separator:a99a44e789eb0908694af60631d549e95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa1abac126de2674041ee713544c47c7b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#aa1abac126de2674041ee713544c47c7b">GetScaledRadius</a> () const noexcept override</td></tr>
+<tr class="separator:aa1abac126de2674041ee713544c47c7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad05bfa7083648348e7abc412d4c3801b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#ad05bfa7083648348e7abc412d4c3801b">GetUnscaledRadius</a> () const noexcept override</td></tr>
+<tr class="separator:ad05bfa7083648348e7abc412d4c3801b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c5d94e23c936bd7f6a9761e87176b0c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a0c5d94e23c936bd7f6a9761e87176b0c">ShouldDraw</a> () const noexcept override</td></tr>
 <tr class="separator:a0c5d94e23c936bd7f6a9761e87176b0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37dd4b5793f9ee66fb953da48b3c8265"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structotm_1_1_transform.html">Transform</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a37dd4b5793f9ee66fb953da48b3c8265">GetDrawTrsf</a> () const noexcept override</td></tr>
@@ -224,14 +227,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a141758ea3022377ab67119d96494c4f4 inherit pub_methods_classoeng_1_1renderer_1_1_i_mesh_component"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a141758ea3022377ab67119d96494c4f4">INTERFACE_BODY</a> (<a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html">IMeshComponent</a>)</td></tr>
 <tr class="separator:a141758ea3022377ab67119d96494c4f4 inherit pub_methods_classoeng_1_1renderer_1_1_i_mesh_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
-Additional Inherited Members</h2></td></tr>
-<tr class="inherit_header pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
-<tr class="memitem:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a9a2e205797b8f968719ea35d9ff57e25">EsftType</a> = <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">EnableSharedFromThis</a></td></tr>
-<tr class="separator:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="inherit_header pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classoeng_1_1engine_1_1_actor_component')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classoeng_1_1engine_1_1_actor_component.html">oeng::engine::ActorComponent</a></td></tr>
-<tr class="memitem:a51ee0009aa58e6bfb384d1ab9ed293f6 inherit pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a51ee0009aa58e6bfb384d1ab9ed293f6">GetRenderer</a> () noexcept</td></tr>
-<tr class="separator:a51ee0009aa58e6bfb384d1ab9ed293f6 inherit pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2a75e9d570527de99254b727f3c6419b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a2a75e9d570527de99254b727f3c6419b">OnBeginPlay</a> () override</td></tr>
+<tr class="separator:a2a75e9d570527de99254b727f3c6419b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e5098393b1d4ab01f764e2fcf668b71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_mesh_component.html#a0e5098393b1d4ab01f764e2fcf668b71">OnTrsfChanged</a> () override</td></tr>
+<tr class="separator:a0e5098393b1d4ab01f764e2fcf668b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pro_methods_classoeng_1_1engine_1_1_actor_component"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classoeng_1_1engine_1_1_actor_component')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classoeng_1_1engine_1_1_actor_component.html">oeng::engine::ActorComponent</a></td></tr>
+<tr class="memitem:a295b57141fd5f53a6c015e1afde777eb inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a295b57141fd5f53a6c015e1afde777eb">OnUpdate</a> ([[maybe_unused]] <a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds)</td></tr>
+<tr class="separator:a295b57141fd5f53a6c015e1afde777eb inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaaf61fc566d162dadcf6e7ed091242d5 inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#aaaf61fc566d162dadcf6e7ed091242d5">OnActivated</a> ()</td></tr>
+<tr class="separator:aaaf61fc566d162dadcf6e7ed091242d5 inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d249ee29b459cfe8a98a9aad412815b inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a4d249ee29b459cfe8a98a9aad412815b">OnDeactivated</a> ()</td></tr>
+<tr class="separator:a4d249ee29b459cfe8a98a9aad412815b inherit pro_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pro_methods_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
 <tr class="memitem:ad4181fa5840279211276ed9f04d309e5 inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#ad4181fa5840279211276ed9f04d309e5">EnableSharedFromThis</a> () noexcept</td></tr>
 <tr class="separator:ad4181fa5840279211276ed9f04d309e5 inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -241,6 +249,15 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:af1eb8c52d06cc4387ac19610526c8c5a inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e62457da0a4784fd7acc09a0a3040df inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a0e62457da0a4784fd7acc09a0a3040df">~EnableSharedFromThis</a> ()=default</td></tr>
 <tr class="separator:a0e62457da0a4784fd7acc09a0a3040df inherit pro_methods_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classoeng_1_1core_1_1_enable_shared_from_this')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">oeng::core::EnableSharedFromThis&lt; ActorComponent &gt;</a></td></tr>
+<tr class="memitem:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html#a9a2e205797b8f968719ea35d9ff57e25">EsftType</a> = <a class="el" href="classoeng_1_1core_1_1_enable_shared_from_this.html">EnableSharedFromThis</a></td></tr>
+<tr class="separator:a9a2e205797b8f968719ea35d9ff57e25 inherit pub_types_classoeng_1_1core_1_1_enable_shared_from_this"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classoeng_1_1engine_1_1_actor_component')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classoeng_1_1engine_1_1_actor_component.html">oeng::engine::ActorComponent</a></td></tr>
+<tr class="memitem:a51ee0009aa58e6bfb384d1ab9ed293f6 inherit pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a51ee0009aa58e6bfb384d1ab9ed293f6">GetRenderer</a> () noexcept</td></tr>
+<tr class="separator:a51ee0009aa58e6bfb384d1ab9ed293f6 inherit pub_static_methods_classoeng_1_1engine_1_1_actor_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a69379f0ab6718a549a53e68cc564f401"></a>
@@ -450,8 +467,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a99a44e789eb0908694af60631d549e95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99a44e789eb0908694af60631d549e95">&#9670;&nbsp;</a></span>GetRadius()</h2>
+<a id="aa1abac126de2674041ee713544c47c7b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa1abac126de2674041ee713544c47c7b">&#9670;&nbsp;</a></span>GetScaledRadius()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -460,7 +477,7 @@ Additional Inherited Members</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::engine::MeshComponent::GetRadius </td>
+          <td class="memname"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::engine::MeshComponent::GetScaledRadius </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -473,7 +490,88 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ab4b933470d88f4ec4fcd2820f1f9d770">oeng::renderer::IMeshComponent</a>.</p>
+<p>Implements <a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#ad7c3f9cc41bc0ebe5e9cb413ce540d20">oeng::renderer::IMeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="ad05bfa7083648348e7abc412d4c3801b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad05bfa7083648348e7abc412d4c3801b">&#9670;&nbsp;</a></span>GetUnscaledRadius()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> oeng::engine::MeshComponent::GetUnscaledRadius </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="classoeng_1_1renderer_1_1_i_mesh_component.html#a14f2bc86fa8d47e1de82730030f5f341">oeng::renderer::IMeshComponent</a>.</p>
+
+</div>
+</div>
+<a id="a2a75e9d570527de99254b727f3c6419b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a75e9d570527de99254b727f3c6419b">&#9670;&nbsp;</a></span>OnBeginPlay()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::MeshComponent::OnBeginPlay </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classoeng_1_1engine_1_1_actor_component.html#a5ca622a0ed21ec4214c4e9e27249c16c">oeng::engine::ActorComponent</a>.</p>
+
+</div>
+</div>
+<a id="a0e5098393b1d4ab01f764e2fcf668b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e5098393b1d4ab01f764e2fcf668b71">&#9670;&nbsp;</a></span>OnTrsfChanged()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::MeshComponent::OnTrsfChanged </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classoeng_1_1engine_1_1_scene_component.html#ad53542f67e443ddf4ae63d9d4a72a3b0">oeng::engine::SceneComponent</a>.</p>
 
 </div>
 </div>

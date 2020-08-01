@@ -47,7 +47,6 @@ var hierarchy =
     [ "oeng::core::EnableSharedFromThis< ActorComponent >", "classoeng_1_1core_1_1_enable_shared_from_this.html", [
       [ "oeng::engine::ActorComponent", "classoeng_1_1engine_1_1_actor_component.html", [
         [ "oeng::engine::AIComponent", "classoeng_1_1engine_1_1_a_i_component.html", null ],
-        [ "oeng::engine::CircleComponent", "classoeng_1_1engine_1_1_circle_component.html", null ],
         [ "oeng::engine::InputComponent", "classoeng_1_1engine_1_1_input_component.html", null ],
         [ "oeng::engine::MovementComponent", "classoeng_1_1engine_1_1_movement_component.html", null ],
         [ "oeng::engine::SceneComponent", "classoeng_1_1engine_1_1_scene_component.html", [
@@ -56,11 +55,14 @@ var hierarchy =
           [ "oeng::engine::MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html", null ],
           [ "oeng::engine::PointLightComponent", "classoeng_1_1engine_1_1_point_light_component.html", null ],
           [ "oeng::engine::SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", null ],
+          [ "oeng::engine::SphereComponent", "classoeng_1_1engine_1_1_sphere_component.html", null ],
           [ "oeng::engine::SpotLightComponent", "classoeng_1_1engine_1_1_spot_light_component.html", null ],
           [ "oeng::engine::SpriteComponent", "classoeng_1_1engine_1_1_sprite_component.html", null ]
         ] ]
       ] ]
     ] ],
+    [ "oeng::core::Event< Args >", "classoeng_1_1core_1_1_event.html", null ],
+    [ "oeng::core::Event< oeng::engine::SphereComponent & >", "classoeng_1_1core_1_1_event.html", null ],
     [ "false_type", null, [
       [ "oeng::core::detail::CanEnableShared< T, class >", "structoeng_1_1core_1_1detail_1_1_can_enable_shared.html", null ]
     ] ],
@@ -184,5 +186,6 @@ var hierarchy =
     [ "oeng::core::WeakPtr< T, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
     [ "oeng::core::WeakPtr< AActor, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
     [ "oeng::core::WeakPtr< ActorComponent, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
+    [ "oeng::renderer::Window", "classoeng_1_1renderer_1_1_window.html", null ],
     [ "oeng::engine::World", "classoeng_1_1engine_1_1_world.html", null ]
 ];

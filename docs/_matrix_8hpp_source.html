@@ -372,13 +372,13 @@ $(document).ready(function(){initNavTree('_matrix_8hpp_source.html',''); initRes
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            <a class="code" href="structotm_1_1_matrix.html">Matrix</a>&lt;T, R-1, C-1&gt; m;</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            <span class="keywordtype">size_t</span> i = 0;</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;            <span class="keywordflow">for</span> (; i &lt; y; ++i)</div>
-<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="structotm_1_1_vector.html#a8a65039e0114964598bcc2a4d8bbce16">  293</a></span>&#160;            {</div>
-<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="structotm_1_1_vector.html#aabd432f022541d2f7fb4aa7a7d3a3b74">  294</a></span>&#160;                <span class="keywordtype">size_t</span> j = 0;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                <span class="keywordtype">size_t</span> j = 0;</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                <span class="keywordflow">for</span> (; j &lt; x; ++j) m[i][j] = arr[i][j];</div>
 <div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;                <span class="keywordflow">for</span> (++j; j &lt; C; ++j) m[i][j-1] = arr[i][j];</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;            }</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;            <span class="keywordflow">for</span> (++i; i &lt; R; ++i)</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;            {</div>
+<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="structotm_1_1_vector.html#a8a65039e0114964598bcc2a4d8bbce16">  298</a></span>&#160;            <span class="keywordflow">for</span> (++i; i &lt; R; ++i)</div>
+<div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="structotm_1_1_vector.html#aabd432f022541d2f7fb4aa7a7d3a3b74">  299</a></span>&#160;            {</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                <span class="keywordtype">size_t</span> j = 0;</div>
 <div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                <span class="keywordflow">for</span> (; j &lt; x; ++j) m[i-1][j] = arr[i][j];</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                <span class="keywordflow">for</span> (++j; j &lt; C; ++j) m[i-1][j-1] = arr[i][j];</div>

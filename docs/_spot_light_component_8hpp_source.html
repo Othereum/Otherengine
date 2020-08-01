@@ -107,13 +107,14 @@ $(document).ready(function(){initNavTree('_spot_light_component_8hpp_source.html
 <div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_spot_light_component.html#ab5c9dc1242d274403676d77d12efe85f">   18</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html">Data</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_spot_light_component.html#ab5c9dc1242d274403676d77d12efe85f">GetData</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> data_; }</div>
 <div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_spot_light_component.html#a55879dd8a40d16b0978744a5e2913a82">   19</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_spot_light_component.html#a55879dd8a40d16b0978744a5e2913a82">ShouldAffect</a>() const noexcept override;</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    private:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">void</span> OnBeginPlay() override;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span> OnTrsfChanged() override;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html">Data</a> data_;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    };</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    protected:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_spot_light_component.html#a27cc3363d07d7758717a7e9765a4c95c">   22</a></span>&#160;        <span class="keywordtype">void</span> OnBeginPlay() override;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_spot_light_component.html#aaa40a1a10cc59fb0980b6e2d9a7ad199">   23</a></span>&#160;        <span class="keywordtype">void</span> OnTrsfChanged() override;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    private:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html">Data</a> data_;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    };</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="aclassoeng_1_1engine_1_1_spot_light_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_spot_light_component.html">oeng::engine::SpotLightComponent</a></div><div class="ttdef"><b>Definition:</b> SpotLightComponent.hpp:8</div></div>
@@ -128,7 +129,7 @@ $(document).ready(function(){initNavTree('_spot_light_component_8hpp_source.html
 <div class="ttc" id="aclassoeng_1_1engine_1_1_spot_light_component_html_a55879dd8a40d16b0978744a5e2913a82"><div class="ttname"><a href="classoeng_1_1engine_1_1_spot_light_component.html#a55879dd8a40d16b0978744a5e2913a82">oeng::engine::SpotLightComponent::ShouldAffect</a></div><div class="ttdeci">bool ShouldAffect() const noexcept override</div></div>
 <div class="ttc" id="a_light_8hpp_html"><div class="ttname"><a href="_light_8hpp.html">Light.hpp</a></div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_i_spot_light_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_i_spot_light.html">oeng::renderer::ISpotLight</a></div><div class="ttdef"><b>Definition:</b> Light.hpp:45</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:16</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
 <div class="ttc" id="a_scene_component_8hpp_html"><div class="ttname"><a href="_scene_component_8hpp.html">SceneComponent.hpp</a></div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_spot_light_component_html_aa46baffb9be6505ea8ea7946a75b5dfb"><div class="ttname"><a href="classoeng_1_1engine_1_1_spot_light_component.html#aa46baffb9be6505ea8ea7946a75b5dfb">oeng::engine::SpotLightComponent::SetColor</a></div><div class="ttdeci">void SetColor(const Vec3 &amp;color) noexcept</div><div class="ttdef"><b>Definition:</b> SpotLightComponent.hpp:16</div></div>
