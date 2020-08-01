@@ -2,100 +2,17 @@
 
 [한국어](../한국어/개발%20셋업.md)
 
-## Game Project Configuration
+## Install Engine
 
-### Create a game project folder
-
-The folder name doesn't matter, but you'd better use the game name. In this tutorial, we'll go with TestGame.
-
-```text
-◢ TestGame
-```
-
-### Add Otherengine
-
-Add the Otherengine to the Engine folder. In this tutorial, we will use the git submodule. This will facilitate engine updates.
+Install the engine in the desired position.
 
 ```shell
-TestGame$ git init
-TestGame$ git submodule add -b buildable https://github.com/Othereum/Otherengine Engine
-TestGame$ git submodule update --init --recursive
+$ git clone -b buildable --recurse-submodules https://github.com/Othereum/Otherengine
 ```
 
-```text
-◢ TestGame
-  ◢ Engine
-    ▷ Config
-    ▷ Docs
-    ▷ Shader
-    ▷ Source
-      ...
-    .gitmodules
-```
+## Game Project Configuration
 
-### Write CMakeLists.txt
-
-```text
-◢ TestGame
-  ▷ Engine
-    .gitmodules
-    CMakeLists.txt
-```
-
-```cmake
-cmake_minimum_required(VERSION 3.14)
-project("TestGame")
-add_subdirectory("Engine")
-```
-
-You just need to write these three lines. The CMakeLists.txt inside the engine will take care of the entire build configuration.
-
-### Configure Module
-
-Create a Public and Private folder in TestGame/Source/TestGame.
-
-```text
-◢ TestGame
-  ▷ Engine
-  ◢ Source
-    ◢ TestGame
-      ◢ Public
-      ◢ Private
-    .gitmodules
-    CMakeLists.txt
-```
-
-A folder in the Source directory means a module. A folder with the same name as the project name is automatically added to the build target as game module. In this tutorial, it's TestGame. You can add custom modules if you like, but they are not automatically added to the build target, so you must add them manually to CMakeLists.txt.
-
-Each module's Private folder contains sources that will only be used inside the module, and the Public folder contains that will be visible from outside the module. So usually .cpp files are put into Private and .hpp files into Public. All .cpp files in the Private are automatically added to the build target, and the Public folder is added to the include directory for modules that use it.
-
-### Implement Module
-
-Create a cpp file to create a game module.
-
-```text
-◢ TestGame
-  ▷ Engine
-  ◢ Source
-    ◢ TestGame
-      ◢ Public
-      ◢ Private
-          TestGame.cpp
-    .gitmodules
-    CMakeLists.txt
-```
-
-```cpp
-#include <Engine.hpp>
-
-using namespace oeng;
-
-DEFINE_GAME_MODULE(u8"Test Game");
-
-GAME_API void GameMain(Engine& e)
-{
-}
-```
+Template helps you setup your game projects quickly and easily: <https://github.com/Othereum/Otherengine-Template>
 
 ## Installing Dependencies
 
@@ -124,7 +41,7 @@ Item | Min Version | Auto Install
   Enter following command in shell:
 
   ```shell
-  TestGame$ Engine/Scripts/InstallDeps.sh
+  MyGame$ path_to_engine/Scripts/InstallDeps.sh
   ```
 
 - Windows
@@ -147,7 +64,7 @@ Item | Min Version | Auto Install
   - Generate
 
     ```shell
-    TestGame$ Engine/Scripts/Generate.sh [compiler] [cmake_args...]
+    MyGame$ path_to_engine/Scripts/Generate.sh [compiler] [cmake_args...]
     ```
 
     - `[compiler]`: Specifies the compiler to use. You can specify gcc or clang. The default is clang.
@@ -156,7 +73,7 @@ Item | Min Version | Auto Install
   - Build
 
     ```shell
-    TestGame$ Engine/Scripts/Build.sh [compiler] [cmake_args] [build_args]
+    MyGame$ path_to_engine/Scripts/Build.sh [compiler] [cmake_args] [build_args]
     ```
 
     - `[compiler]`: Specifies the compiler to use.
@@ -170,18 +87,16 @@ Item | Min Version | Auto Install
 In Windows, this is what the build result will look like:
 
 ```text
-◢ TestGame
+◢ MyGame
   ◢ Binaries
       Otherengine-Core.dll
       Othrengine-Engine.dll
       Otherengine-Renderer.dll
-      TestGame.exe
-      TestGame-Module.dll
+      MyGame.exe
+      MyGame-Module.dll
       ...
-  ▷ Engine
   ▷ out
   ▷ Source
-    .gitmodules
     CMakeLists.txt
     CMakeSettings.json
     ...
