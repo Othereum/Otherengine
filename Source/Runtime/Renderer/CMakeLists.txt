@@ -1,14 +1,18 @@
 # Source/Runtime/Renderer
 
-list(APPEND PUBLIC_LIBS
-	${PROJECT_NAME}-Core
-)
+add_module(Renderer)
 
-list(APPEND PRIVATE_LIBS
+target_link_libraries(${PROJECT_NAME}-Renderer
+  PUBLIC
+	${PROJECT_NAME}-Core
+
+  PRIVATE
 	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
 	GLEW::glew
 	soil2
 )
 
-add_engine_module(Renderer "${PUBLIC_LIBS}" "${PRIVATE_LIBS}")
-target_include_directories(${PROJECT_NAME}-Renderer PRIVATE ${SDL2_INCLUDE_DIRS})
+target_include_directories(${PROJECT_NAME}-Renderer
+  PRIVATE
+	${SDL2_INCLUDE_DIRS}
+)

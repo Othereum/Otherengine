@@ -27,12 +27,11 @@ function(oe_setup_target target)
 	)
 endfunction()
 
-function(add_engine_module name public_libs private_libs)
+function(add_module name)
 	set(target ${PROJECT_NAME}-${name})
+
 	file(GLOB_RECURSE sources "Private/*.cpp")
 	add_library(${target} SHARED ${sources})
-
-	target_link_libraries(${target} PUBLIC ${public_libs} PRIVATE ${private_libs})
 	target_include_directories(${target} PUBLIC "Public")
 
 	string(TOUPPER ${name}_API api)
