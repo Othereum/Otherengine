@@ -4,18 +4,19 @@ dist: focal
 
 addons:
   apt:
-    update: true
-    sources:
-    - ubuntu-toolchain-r-test
-    packages:
-    - clang++-10
-    - cmake
-    - libsdl2-dev
-    - libglew-dev
+  - clang++-10
+  - libsdl2-dev
+  - libglew-dev
 
 env:
-  - CMAKE_BUILD_TYPE=Debug
-  - CMAKE_BUILD_TYPE=Release
+- CMAKE_BUILD_TYPE=Debug
+- CMAKE_BUILD_TYPE=Release
+
+install:
+- wget https://github.com/Kitware/CMake/releases/download/v3.18.0/cmake-3.18.0-Linux-x86_64.tar.gz
+- tar -xf cmake-3.18.0-Linux-x86_64.tar.gz
+- mv cmake-3.18.0-Linux-x86_64 /usr/local
+- rm cmake-3.18.0-Linux-x86_64.tar.gz
 
 script:
 - mkdir -p out && cd out
