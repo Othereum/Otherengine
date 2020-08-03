@@ -1,10 +1,12 @@
 language: cpp
+compiler: clang
 os: linux
 dist: focal
 
 addons:
   apt:
   - clang++-10
+  - libstdc++-10-dev
   - libsdl2-dev
   - libglew-dev
 
@@ -19,5 +21,5 @@ install:
 
 script:
 - mkdir -p out && cd out
-- cmake -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DCMAKE_CXX_COMPILER=clang++-10 ..
+- cmake -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE -DCMAKE_C_COMPILER=clang-10 -DCMAKE_CXX_COMPILER=clang++-10 ..
 - make -j
