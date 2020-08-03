@@ -1,12 +1,14 @@
 language: cpp
 compiler: clang
+
 os: linux
 dist: focal
 
 addons:
   apt:
   - clang++-10
-  - libstdc++-10-dev
+  - libstdc++-10-dev # For C++20 standard library headers
+  - llvm-10-dev # For LTO (LLVMgold.so)
   - libsdl2-dev
   - libglew-dev
 
