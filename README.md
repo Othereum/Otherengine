@@ -38,11 +38,17 @@
 
 ## Branches
 
+### **release**
+
+[![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=release)](https://travis-ci.com/Othereum/Otherengine)
+
+Fully tested, practical, and stable build.
+
 ### **buildable**
 
 [![Build Status](https://travis-ci.com/Othereum/Otherengine.svg?branch=buildable)](https://travis-ci.com/Othereum/Otherengine)
 
-Compilable build that works well. But it doesn't mean it's stable.
+Compilable but unstable build. It is good for testing new features.
 
 ### **develop**
 
