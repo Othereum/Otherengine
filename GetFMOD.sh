@@ -10,7 +10,7 @@ if [[ ! -d Source/ThirdParty/fmod ]]; then
     if [[ ! -f fmodstudioapi${ver}linux.tar.gz ]]; then
         TOKEN=$(curl -X POST -u $1:$2 https://www.fmod.com/api-login | jq -r '.token')
         URL=$(curl -H 'Accept: application/json' -H "Authorization: Bearer ${TOKEN}" https://www.fmod.com/api-get-download-link\?path\=files/fmodstudio/api/Linux/\&filename\=fmodstudioapi${ver}linux.tar.gz\&user\=$1 | jq -r '.url')
-        wget -O fmodstudioapi${ver}linux.tar.gz $URL
+        wget -nv -O fmodstudioapi${ver}linux.tar.gz $URL
     fi
 
     tar -xf fmodstudioapi${ver}linux.tar.gz
