@@ -2,6 +2,10 @@
 
 namespace oeng::renderer
 {
+	class Texture;
+	class Material;
+	class Mesh;
+	
 	class RENDERER_API ISpriteComponent
 	{
 	public:

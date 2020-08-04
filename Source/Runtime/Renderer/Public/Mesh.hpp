@@ -1,12 +1,11 @@
 #pragma once
-#include "Asset.hpp"
-#include "RendererFwd.hpp"
 #include "VertexArray.hpp"
-#include "Templates/DyArr.hpp"
-#include "Templates/Pointer.hpp"
 
 namespace oeng::renderer
 {
+	class Material;
+	class Renderer;
+	
 	class RENDERER_API Mesh : public Asset
 	{
 	public:

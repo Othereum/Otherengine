@@ -1,5 +1,4 @@
 #pragma once
-#include "RendererFwd.hpp"
 
 namespace oeng::renderer
 {

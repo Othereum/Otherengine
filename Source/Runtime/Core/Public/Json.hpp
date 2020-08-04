@@ -7,22 +7,21 @@
 #include "Templates/DyArr.hpp"
 #include "Templates/TreeMap.hpp"
 
-CORE_BEGIN
+namespace oeng::core
+{
+	namespace fs = std::filesystem;
 
-namespace fs = std::filesystem;
+	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<std::uint8_t>>;
+	using JsonType = nlohmann::detail::value_t;
 
-using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<std::uint8_t>>;
-using JsonType = nlohmann::detail::value_t;
-
-/**
-* Parse json file
-* @param file File path
-* @return Parsed json object
-* @throw std::runtime_error If failed to open or parse
-*/
-CORE_API Json ReadFileAsJson(const fs::path& file);
-
-CORE_END
+	/**
+	* Parse json file
+	* @param file File path
+	* @return Parsed json object
+	* @throw std::runtime_error If failed to open or parse
+	*/
+	CORE_API Json ReadFileAsJson(const fs::path& file);
+}
 
 namespace otm
 {

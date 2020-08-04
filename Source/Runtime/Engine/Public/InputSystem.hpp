@@ -1,14 +1,12 @@
 #pragma once
 #include <variant>
 #include "InputCode.hpp"
-#include "Math.hpp"
-#include "Name.hpp"
-#include "Templates/DyArr.hpp"
-#include "Templates/HashMap.hpp"
-#include "Templates/Pointer.hpp"
+
+struct _SDL_GameController;
+union SDL_Event;
 
 namespace oeng::engine
-{
+{	
 	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
 	using CtrlPtr = UniquePtr<_SDL_GameController, void(*)(_SDL_GameController*)>;
 	

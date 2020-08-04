@@ -1,9 +1,4 @@
 #pragma once
-#include <optional>
-#include "Core.hpp"
-#include "EngineFwd.hpp"
-#include "Templates/DyArr.hpp"
-#include "Templates/String.hpp"
 
 namespace oeng::engine
 {

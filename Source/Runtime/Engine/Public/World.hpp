@@ -1,12 +1,11 @@
 #pragma once
-#include "EngineFwd.hpp"
 #include "TimerManager.hpp"
-#include "Templates/DyArr.hpp"
-#include "Templates/Pointer.hpp"
-#include "Templates/Time.hpp"
 
 namespace oeng::engine
 {
+	class AActor;
+	class SphereComponent;
+	
 	class ENGINE_API World
 	{
 	public:

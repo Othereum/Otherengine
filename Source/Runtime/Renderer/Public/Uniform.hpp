@@ -1,6 +1,5 @@
 #pragma once
 #include <variant>
-#include "Math.hpp"
 
 namespace oeng::renderer
 {

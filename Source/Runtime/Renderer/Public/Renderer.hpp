@@ -14,6 +14,16 @@ namespace oeng::engine
 
 namespace oeng::renderer
 {
+	class ISpriteComponent;
+	class IMeshComponent;
+	class IDirLight;
+	class ISkyLight;
+	class IPointLight;
+	class ISpotLight;
+	class Texture;
+	class Mesh;
+	class Material;
+	
 	class DefaultCamera final : public ICamera
 	{
 	public:
@@ -87,7 +97,7 @@ namespace oeng::renderer
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
 
 	private:
-		friend engine::Engine;
+		friend Engine;
 		
 		Renderer();
 		~Renderer();

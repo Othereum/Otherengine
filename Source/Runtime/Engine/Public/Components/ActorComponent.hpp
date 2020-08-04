@@ -1,7 +1,15 @@
 #pragma once
 
+namespace oeng::renderer
+{
+	class Renderer;
+}
+
 namespace oeng::engine
 {
+	class AActor;
+	class World;
+	
 	class ENGINE_API ActorComponent : public EnableSharedFromThis<ActorComponent>
 	{
 	public:
@@ -23,7 +31,7 @@ namespace oeng::engine
 		[[nodiscard]] int GetUpdateOrder() const noexcept { return update_order_; }
 		[[nodiscard]] AActor& GetOwner() const noexcept { return owner_; }
 		[[nodiscard]] World& GetWorld() const noexcept;
-		[[nodiscard]] static Renderer& GetRenderer() noexcept;
+		[[nodiscard]] static renderer::Renderer& GetRenderer() noexcept;
 
 	protected:
 		virtual void OnBeginPlay() {}

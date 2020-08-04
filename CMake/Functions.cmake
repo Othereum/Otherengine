@@ -37,6 +37,13 @@ function(add_module name)
 	string(TOUPPER ${name}_API api)
 	target_compile_definitions(${target} PRIVATE ${api}=OE_EXPORT INTERFACE ${api}=OE_IMPORT)
 
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Public/pch.hpp")
+		target_precompile_headers(${target} PUBLIC Public/pch.hpp)
+	endif()
+	if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/Private/pch.hpp")
+		target_precompile_headers(${target} PRIVATE Private/pch.hpp)
+	endif()
+
 	oe_setup_target(${target})
 endfunction()
 

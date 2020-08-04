@@ -1,7 +1,6 @@
 #pragma once
-#include "Core.hpp"
-#include "Math.hpp"
-#include "RendererFwd.hpp"
+
+struct SDL_Window;
 
 namespace oeng::renderer
 {
