@@ -17,3 +17,6 @@ target_link_libraries(${PROJECT_NAME}-Core
   PRIVATE
 	spdlog::spdlog
 )
+
+file(GLOB_RECURSE HEADER_FILES Public/*.hpp)
+target_precompile_headers(${PROJECT_NAME}-Core PUBLIC ${HEADER_FILES})
