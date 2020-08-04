@@ -17,9 +17,9 @@ env:
 - CMAKE_BUILD_TYPE=Release
 
 install:
-- ./GetCMake.sh 3.18.1
+- ./GetCMake.sh
 - PATH=$PWD/cmake-install/bin:$PATH
-- ./GetFMOD.sh $FMODUSER $FMODPASS 20010
+- ./GetFMOD.sh $FMODUSER $FMODPASS
 
 script:
 - mkdir -p out && cd out
