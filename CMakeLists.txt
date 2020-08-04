@@ -1,16 +1,19 @@
 cmake_minimum_required(VERSION 3.16)
 
-project("Otherengine"
+project(Otherengine
 	VERSION 0.2.0
 	DESCRIPTION "3D Game Engine made by Othereum"
 	HOMEPAGE_URL "https://github.com/Othereum/Otherengine"
 )
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+message("${PROJECT_NAME} ${PROJECT_VERSION} made by Othereum")
 
+include(CMake/Version.cmake)
 include(CMake/Functions.cmake)
 include(CMake/Options.cmake)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_SOURCE_DIR}/Binaries>)
 
 add_subdirectory(Source)
 
