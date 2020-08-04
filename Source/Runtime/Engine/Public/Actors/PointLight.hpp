@@ -1,22 +1,21 @@
 #pragma once
 #include "Actor.hpp"
 
-ENGINE_BEGIN
-
-class PointLightComponent;
-
-class ENGINE_API APointLight : public AActor
+namespace oeng::engine
 {
-public:
-	explicit APointLight(World& world);
+	class PointLightComponent;
+	
+	class ENGINE_API APointLight : public AActor
+	{
+	public:
+		explicit APointLight(World& world);
 
-	void SetRadius(float radius) const noexcept;
-	void SetColor(const Vec3& color) const noexcept;
-	[[nodiscard]] float GetRadius() const noexcept;
-	[[nodiscard]] const Vec3& GetColor() const noexcept;
+		void SetRadius(float radius) const noexcept;
+		void SetColor(const Vec3& color) const noexcept;
+		[[nodiscard]] float GetRadius() const noexcept;
+		[[nodiscard]] const Vec3& GetColor() const noexcept;
 
-private:
-	PointLightComponent& light_;
-};
-
-ENGINE_END
+	private:
+		PointLightComponent& light_;
+	};
+}

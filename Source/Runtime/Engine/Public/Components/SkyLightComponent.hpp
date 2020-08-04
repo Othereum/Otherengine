@@ -2,30 +2,29 @@
 #include "Components/SceneComponent.hpp"
 #include "Interfaces/Light.hpp"
 
-ENGINE_BEGIN
-
-class ENGINE_API SkyLightComponent : public SceneComponent, public ISkyLight
+namespace oeng::engine
 {
-public:
-	DELETE_CPMV(SkyLightComponent);
-	
-	explicit SkyLightComponent(AActor& owner, int update_order = 100)
-		:SceneComponent{owner, update_order}, color_{0.1, 0.1, 0.1}
+	class ENGINE_API SkyLightComponent : public SceneComponent, public ISkyLight
 	{
-	}
+	public:
+		DELETE_CPMV(SkyLightComponent);
+		
+		explicit SkyLightComponent(AActor& owner, int update_order = 100)
+			:SceneComponent{owner, update_order}, color_{0.1, 0.1, 0.1}
+		{
+		}
 
-	~SkyLightComponent();
+		~SkyLightComponent();
 
-	void SetColor(const Vec3& color) noexcept { color_ = color; }
-	[[nodiscard]] const Vec3& GetColor() const noexcept override { return color_; }
+		void SetColor(const Vec3& color) noexcept { color_ = color; }
+		[[nodiscard]] const Vec3& GetColor() const noexcept override { return color_; }
 
-protected:
-	void OnActivated() override;
-	void OnDeactivated() override;
-	void OnBeginPlay() override;
+	protected:
+		void OnActivated() override;
+		void OnDeactivated() override;
+		void OnBeginPlay() override;
 
-private:
-	Vec3 color_;
-};
-
-ENGINE_END
+	private:
+		Vec3 color_;
+	};
+}

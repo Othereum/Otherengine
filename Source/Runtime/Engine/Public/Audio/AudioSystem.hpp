@@ -11,21 +11,20 @@ namespace FMOD
 }
 #endif
 
-ENGINE_BEGIN
-
-class ENGINE_API AudioSystem
+namespace oeng::engine
 {
-public:
-	DELETE_CPMV(AudioSystem);
-	
-	AudioSystem();
-	~AudioSystem();
+	class ENGINE_API AudioSystem
+	{
+	public:
+		DELETE_CPMV(AudioSystem);
+		
+		AudioSystem();
+		~AudioSystem();
 
-	void Update(Float delta_seconds) const;
+		void Update(Float delta_seconds) const;
 
-private:
-	FMOD::Studio::System* system_;
-	FMOD::System* core_system_;
-};
-
-ENGINE_END
+	private:
+		FMOD::Studio::System* system_;
+		FMOD::System* core_system_;
+	};
+}

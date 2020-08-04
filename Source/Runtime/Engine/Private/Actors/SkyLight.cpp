@@ -1,27 +1,26 @@
 #include "Actors/SkyLight.hpp"
 #include "Components/SkyLightComponent.hpp"
 
-ENGINE_BEGIN
-
-ASkyLight::ASkyLight(World& world)
-	:AActor{world}, light_{*AddComponent<SkyLightComponent>()}
+namespace oeng::engine
 {
-	SetRootComponent(&light_);
-}
+	ASkyLight::ASkyLight(World& world)
+		:AActor{world}, light_{*AddComponent<SkyLightComponent>()}
+	{
+		SetRootComponent(&light_);
+	}
 
-void ASkyLight::Activate() const noexcept
-{
-	light_.Activate();
-}
+	void ASkyLight::Activate() const noexcept
+	{
+		light_.Activate();
+	}
 
-void ASkyLight::SetColor(const Vec3& color) const noexcept
-{
-	light_.SetColor(color);
-}
+	void ASkyLight::SetColor(const Vec3& color) const noexcept
+	{
+		light_.SetColor(color);
+	}
 
-const Vec3& ASkyLight::GetColor() const noexcept
-{
-	return light_.GetColor();
+	const Vec3& ASkyLight::GetColor() const noexcept
+	{
+		return light_.GetColor();
+	}
 }
-
-ENGINE_END

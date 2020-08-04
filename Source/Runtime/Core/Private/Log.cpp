@@ -14,9 +14,7 @@
 #include "Platform.hpp"
 #include "Templates/Sync.hpp"
 
-CORE_BEGIN
-
-namespace log
+namespace oeng::core::log
 {
 	static_assert(Level::kTrace == Level(spdlog::level::trace));
 	static_assert(Level::kDebug == Level(spdlog::level::debug));
@@ -103,5 +101,3 @@ namespace log
 		}
 	}
 }
-
-CORE_END

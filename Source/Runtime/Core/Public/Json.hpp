@@ -50,3 +50,14 @@ namespace otm
 		for (size_t i=0; i<Row; ++i) from_json(json.at(i), m[i]);
 	}
 }
+
+namespace oeng::core
+{
+	/**
+	 * Parse json file
+	 * @param file File path
+	 * @return Parsed json object
+	 * @throw std::runtime_error If failed to open or parse
+	 */
+	CORE_API Json ReadFileAsJson(const fs::path& file);
+}

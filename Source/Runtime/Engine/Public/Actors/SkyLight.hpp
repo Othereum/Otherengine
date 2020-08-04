@@ -1,22 +1,21 @@
 #pragma once
 #include "Actors/Actor.hpp"
 
-ENGINE_BEGIN
-
-class SkyLightComponent;
-
-class ENGINE_API ASkyLight : public AActor
+namespace oeng::engine
 {
-public:
-	explicit ASkyLight(World& world);
-
-	void Activate() const noexcept;
+	class SkyLightComponent;
 	
-	void SetColor(const Vec3& color) const noexcept;
-	[[nodiscard]] const Vec3& GetColor() const noexcept;
+	class ENGINE_API ASkyLight : public AActor
+	{
+	public:
+		explicit ASkyLight(World& world);
 
-private:
-	SkyLightComponent& light_;
-};
+		void Activate() const noexcept;
+		
+		void SetColor(const Vec3& color) const noexcept;
+		[[nodiscard]] const Vec3& GetColor() const noexcept;
 
-ENGINE_END
+	private:
+		SkyLightComponent& light_;
+	};
+}

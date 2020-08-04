@@ -2,39 +2,38 @@
 #include <functional>
 #include "DyArr.hpp"
 
-CORE_BEGIN
-
-/**
-* Delegates that can be bound to multiple functions and execute them all at once.
-*/
-template <class... Args>
-class Event
+namespace oeng::core
 {
-public:
 	/**
-	* Add listener to this event.
-	* @param fn Callback function
-	* @return Listener lifecycle handler
-	*/
-	template <std::convertible_to<std::function<void(Args...)>> Fn>
-	void Add(Fn&& fn)
+	 * Delegates that can be bound to multiple functions and execute them all at once.
+	 */
+	template <class... Args>
+	class Event
 	{
-		listeners_.emplace_back(std::forward<Fn>(fn));
-	}
-
-	/**
-	* Broadcasts this event to all bound listeners.
-	*/
-	void Broadcast(Args&&... args) const
-	{
-		for (auto& listener : listeners_)
+	public:
+		/**
+		 * Add listener to this event.
+		 * @param fn Callback function
+		 * @return Listener lifecycle handler
+		 */
+		template <std::convertible_to<std::function<void(Args...)>> Fn>
+		void Add(Fn&& fn)
 		{
-			listener(std::forward<Args>(args)...);
+			listeners_.emplace_back(std::forward<Fn>(fn));
 		}
-	}
 
-private:
-	DyArr<std::function<void(Args...)>> listeners_;
-};
+		/**
+		 * Broadcasts this event to all bound listeners.
+		 */
+		void Broadcast(Args&&... args) const
+		{
+			for (auto& listener : listeners_)
+			{
+				listener(std::forward<Args>(args)...);
+			}
+		}
 
-CORE_END
+	private:
+		DyArr<std::function<void(Args...)>> listeners_;
+	};
+}

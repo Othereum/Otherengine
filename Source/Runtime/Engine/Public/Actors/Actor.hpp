@@ -6,100 +6,99 @@
 #include "Templates/HashSet.hpp"
 #include "Templates/Pointer.hpp"
 
-ENGINE_BEGIN
-
-class Engine;
-class World;
-class ActorComponent;
-class SceneComponent;
-class TimerManager;
-
-class ENGINE_API AActor : public EnableSharedFromThis<AActor>
+namespace oeng::engine
 {
-public:
-	DELETE_CPMV(AActor);
+	class Engine;
+	class World;
+	class ActorComponent;
+	class SceneComponent;
+	class TimerManager;
 	
-	explicit AActor(World& world);
-	virtual ~AActor();
-
-	void BeginPlay();
-	void Update(Float delta_seconds);
-	void Destroy();
-
-	template <std::derived_from<ActorComponent> T, class... Args>
-	SharedRef<T> AddComponent(Args&&... args)
+	class ENGINE_API AActor : public EnableSharedFromThis<AActor>
 	{
-		static_assert(std::is_constructible_v<T, AActor&, Args...>);
-		auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
-		RegisterComponent(ptr);
-		return ptr;
-	}
+	public:
+		DELETE_CPMV(AActor);
+		
+		explicit AActor(World& world);
+		virtual ~AActor();
 
-	void AddTag(Name tag) { tags_.insert(tag); }
-	void RemoveTag(Name tag) { tags_.erase(tag); }
-	[[nodiscard]] bool HasTag(Name tag) const noexcept { return tags_.contains(tag); }
+		void BeginPlay();
+		void Update(Float delta_seconds);
+		void Destroy();
 
-	void SetUpdateEnabled(bool enabled) noexcept { update_enabled_ = enabled; }
+		template <std::derived_from<ActorComponent> T, class... Args>
+		SharedRef<T> AddComponent(Args&&... args)
+		{
+			static_assert(std::is_constructible_v<T, AActor&, Args...>);
+			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
+			RegisterComponent(ptr);
+			return ptr;
+		}
 
-	/**
-	 * Set root component of this actor. Root component represents this actor's transform.
-	 * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
-	 */
-	void SetRootComponent(SceneComponent* new_root) noexcept;
-	[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
+		void AddTag(Name tag) { tags_.insert(tag); }
+		void RemoveTag(Name tag) { tags_.erase(tag); }
+		[[nodiscard]] bool HasTag(Name tag) const noexcept { return tags_.contains(tag); }
 
-	[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
+		void SetUpdateEnabled(bool enabled) noexcept { update_enabled_ = enabled; }
 
-	/**
-	 * Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
-	 * @param in_seconds New lifespan in seconds. <=0 means infinite.
-	 */
-	void SetLifespan(Float in_seconds);
-	[[nodiscard]] Float GetLifespan() const noexcept;
-	[[nodiscard]] Float GetInitialLifespan() const noexcept { return init_lifespan_; }
+		/**
+		 * Set root component of this actor. Root component represents this actor's transform.
+		 * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
+		 */
+		void SetRootComponent(SceneComponent* new_root) noexcept;
+		[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
 
-	void SetTrsf(const Transform& trsf) const noexcept;
-	[[nodiscard]] const Transform& GetTrsf() const noexcept;
-	
-	void SetPos(const Vec3& pos) const noexcept;
-	[[nodiscard]] const Vec3& GetPos() const noexcept;
+		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
 
-	void SetRot(const Quat& rot) const noexcept;
-	[[nodiscard]] const Quat& GetRot() const noexcept;
+		/**
+		 * Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
+		 * @param in_seconds New lifespan in seconds. <=0 means infinite.
+		 */
+		void SetLifespan(Float in_seconds);
+		[[nodiscard]] Float GetLifespan() const noexcept;
+		[[nodiscard]] Float GetInitialLifespan() const noexcept { return init_lifespan_; }
 
-	void SetScale(const Vec3& scale) const noexcept;
-	[[nodiscard]] const Vec3& GetScale() const noexcept;
+		void SetTrsf(const Transform& trsf) const noexcept;
+		[[nodiscard]] const Transform& GetTrsf() const noexcept;
+		
+		void SetPos(const Vec3& pos) const noexcept;
+		[[nodiscard]] const Vec3& GetPos() const noexcept;
 
-	[[nodiscard]] UVec3 GetForward() const noexcept;
-	[[nodiscard]] UVec3 GetBackward() const noexcept;
-	[[nodiscard]] UVec3 GetRight() const noexcept;
-	[[nodiscard]] UVec3 GetLeft() const noexcept;
-	[[nodiscard]] UVec3 GetUp() const noexcept;
-	[[nodiscard]] UVec3 GetDown() const noexcept;
+		void SetRot(const Quat& rot) const noexcept;
+		[[nodiscard]] const Quat& GetRot() const noexcept;
 
-	[[nodiscard]] World& GetWorld() const noexcept { return world_; }
-	[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
+		void SetScale(const Vec3& scale) const noexcept;
+		[[nodiscard]] const Vec3& GetScale() const noexcept;
 
-protected:
-	virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
-	virtual void OnBeginPlay() {}
+		[[nodiscard]] UVec3 GetForward() const noexcept;
+		[[nodiscard]] UVec3 GetBackward() const noexcept;
+		[[nodiscard]] UVec3 GetRight() const noexcept;
+		[[nodiscard]] UVec3 GetLeft() const noexcept;
+		[[nodiscard]] UVec3 GetUp() const noexcept;
+		[[nodiscard]] UVec3 GetDown() const noexcept;
 
-private:
-	void RegisterComponent(SharedRef<ActorComponent> comp);
-	void UpdateComponents(Float delta_seconds);
+		[[nodiscard]] World& GetWorld() const noexcept { return world_; }
+		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
 
-	bool pending_kill_ : 1 = false;
-	bool begun_play_ : 1 = false;
-	bool update_enabled_ : 1 = true;
-	
-	Float init_lifespan_ = 0;
-	TimerHandle lifespan_timer_;
-	
-	World& world_;
-	DyArr<SharedRef<ActorComponent>> comps_;
-	SceneComponent* root_ = nullptr;
+	protected:
+		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
+		virtual void OnBeginPlay() {}
 
-	HashSet<Name> tags_;
-};
+	private:
+		void RegisterComponent(SharedRef<ActorComponent> comp);
+		void UpdateComponents(Float delta_seconds);
 
-ENGINE_END
+		bool pending_kill_ : 1 = false;
+		bool begun_play_ : 1 = false;
+		bool update_enabled_ : 1 = true;
+		
+		Float init_lifespan_ = 0;
+		TimerHandle lifespan_timer_;
+		
+		World& world_;
+		DyArr<SharedRef<ActorComponent>> comps_;
+		SceneComponent* root_ = nullptr;
+
+		HashSet<Name> tags_;
+	};
+}

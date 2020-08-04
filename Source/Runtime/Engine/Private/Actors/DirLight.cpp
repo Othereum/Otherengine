@@ -1,27 +1,26 @@
 #include "Actors/DirLight.hpp"
 #include "Components/DirLightComponent.hpp"
 
-ENGINE_BEGIN
-
-ADirLight::ADirLight(World& world)
-	:AActor{world}, light_{*AddComponent<DirLightComponent>()}
+namespace oeng::engine
 {
-	SetRootComponent(&light_);
-}
+	ADirLight::ADirLight(World& world)
+		:AActor{world}, light_{*AddComponent<DirLightComponent>()}
+	{
+		SetRootComponent(&light_);
+	}
 
-void ADirLight::Activate() const noexcept
-{
-	light_.Activate();
-}
+	void ADirLight::Activate() const noexcept
+	{
+		light_.Activate();
+	}
 
-void ADirLight::SetColor(const Vec3& color) const noexcept
-{
-	light_.SetColor(color);
-}
+	void ADirLight::SetColor(const Vec3& color) const noexcept
+	{
+		light_.SetColor(color);
+	}
 
-const Vec3& ADirLight::GetColor() const noexcept
-{
-	return light_.GetData().color;
+	const Vec3& ADirLight::GetColor() const noexcept
+	{
+		return light_.GetData().color;
+	}
 }
-
-ENGINE_END

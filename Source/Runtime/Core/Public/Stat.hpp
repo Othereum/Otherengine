@@ -3,71 +3,70 @@
 #include "Templates/HashMap.hpp"
 #include "Templates/Time.hpp"
 
-CORE_BEGIN
-
-struct ScopeStat
+namespace oeng::core
 {
-	Duration duration{};
-	uint64_t count{};
-};
-
-struct ScopeStackStat : ScopeStat
-{
-	TreeMap<Name, ScopeStackStat> children;
-};
-
-class CORE_API ScopeStackCounter
-{
-public:
-	DELETE_CPMV(ScopeStackCounter);
-	
-	explicit ScopeStackCounter(Name name);
-	~ScopeStackCounter();
-};
-
-class CORE_API ScopeCounter
-{
-public:
-	DELETE_CPMV(ScopeCounter);
-	
-	explicit ScopeCounter(Name name) noexcept
-		:start_{Clock::now()}, name_{name}
+	struct ScopeStat
 	{
-	}
+		Duration duration{};
+		uint64_t count{};
+	};
 	
-	~ScopeCounter();
-
-private:
-	TimePoint start_;
-	Name name_;
-};
-
-class CORE_API CounterManager
-{
-	DELETE_CPMV(CounterManager);
-	
-	friend ScopeCounter;
-	friend ScopeStackCounter;
-	friend class EngineBase;
-	
-	struct Frame
+	struct ScopeStackStat : ScopeStat
 	{
-		Name name;
-		TimePoint start;
+		TreeMap<Name, ScopeStackStat> children;
 	};
 
-	CounterManager() = default;
-	~CounterManager();
+	class CORE_API ScopeStackCounter
+	{
+	public:
+		DELETE_CPMV(ScopeStackCounter);
+		
+		explicit ScopeStackCounter(Name name);
+		~ScopeStackCounter();
+	};
 	
-	void PushScope(Name name);
-	void PopScope();
-	
-	HashMap<Name, ScopeStat> scope_stats_;
-	TreeMap<Name, ScopeStackStat> scope_stack_stats_;
-	DyArr<Frame> frames_;
-};
+	class CORE_API ScopeCounter
+	{
+	public:
+		DELETE_CPMV(ScopeCounter);
+		
+		explicit ScopeCounter(Name name) noexcept
+			:start_{Clock::now()}, name_{name}
+		{
+		}
+		
+		~ScopeCounter();
 
-CORE_END
+	private:
+		TimePoint start_;
+		Name name_;
+	};
+	
+	class CORE_API CounterManager
+	{
+		DELETE_CPMV(CounterManager);
+		
+		friend ScopeCounter;
+		friend ScopeStackCounter;
+		friend class EngineBase;
+		
+		struct Frame
+		{
+			Name name;
+			TimePoint start;
+		};
+
+		CounterManager() = default;
+		~CounterManager();
+		
+		void PushScope(Name name);
+		void PopScope();
+		
+		HashMap<Name, ScopeStat> scope_stats_;
+		TreeMap<Name, ScopeStackStat> scope_stack_stats_;
+		DyArr<Frame> frames_;
+	};
+}
 
 #ifdef NDEBUG
 	#define SCOPE_COUNTER(name)

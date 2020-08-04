@@ -1,42 +1,41 @@
 #include "Camera/CameraActor.hpp"
 #include "Camera/CameraComponent.hpp"
 
-ENGINE_BEGIN
-
-ACameraActor::ACameraActor(World& world)
-	:AActor{world}, camera_{*AddComponent<CameraComponent>()}
+namespace oeng::engine
 {
-	SetRootComponent(&camera_);
-}
+	ACameraActor::ACameraActor(World& world)
+		:AActor{world}, camera_{*AddComponent<CameraComponent>()}
+	{
+		SetRootComponent(&camera_);
+	}
 
-void ACameraActor::Activate() const noexcept
-{
-	camera_.Activate();
-}
+	void ACameraActor::Activate() const noexcept
+	{
+		camera_.Activate();
+	}
 
-void ACameraActor::SetVFov(Rad vfov) const noexcept
-{
-	camera_.SetVFov(vfov);
-}
+	void ACameraActor::SetVFov(Rad vfov) const noexcept
+	{
+		camera_.SetVFov(vfov);
+	}
 
-void ACameraActor::SetNearFar(Float near, Float far) const noexcept
-{
-	camera_.SetNearFar(near, far);
-}
+	void ACameraActor::SetNearFar(Float near, Float far) const noexcept
+	{
+		camera_.SetNearFar(near, far);
+	}
 
-Rad ACameraActor::GetVFov() const noexcept
-{
-	return camera_.GetData().vfov;
-}
+	Rad ACameraActor::GetVFov() const noexcept
+	{
+		return camera_.GetData().vfov;
+	}
 
-Float ACameraActor::GetNear() const noexcept
-{
-	return camera_.GetData().near;
-}
+	Float ACameraActor::GetNear() const noexcept
+	{
+		return camera_.GetData().near;
+	}
 
-Float ACameraActor::GetFar() const noexcept
-{
-	return camera_.GetData().far;
+	Float ACameraActor::GetFar() const noexcept
+	{
+		return camera_.GetData().far;
+	}
 }
-
-ENGINE_END
