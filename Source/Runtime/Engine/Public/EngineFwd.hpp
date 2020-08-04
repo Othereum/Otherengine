@@ -15,6 +15,7 @@ namespace oeng::engine
 	class SphereComponent;
 	class MovementComponent;
 	class CameraComponent;
+	class AudioSystem;
 	
 	enum class Keycode;
 	enum class KeyMod;
