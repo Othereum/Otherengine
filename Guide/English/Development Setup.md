@@ -16,24 +16,35 @@ Template helps you setup your game projects quickly and easily: <https://github.
 
 ## Installing Dependencies
 
+### Build Toolchain
+
 Item | Min Version | Note
 --- | --- | ---
 MSVC | 19.26 | Windows
 Clang | 10 | Linux
-[CMake](https://cmake.org/download) | 3.14
+[CMake](https://cmake.org/download) | 3.14 | \*
+
+\* For Linux, we do provide a auto installation script: `$ ./GetCMake.sh [version]`; However, it is recommended to install it using package manager.
+
+### Libraries
 
 Item | Min Version | Auto Install
 --- | --- | ---
 [{fmt}](https://github.com/fmtlib/fmt) | 7.0.0 | O
 [spdlog](https://github.com/gabime/spdlog) | 1.7.0 | O
 [nlohmann-json](https://github.com/nlohmann/json) | 3.9.0 | O
+[FMOD] | 2.00 | △\*
 [SDL2](https://www.libsdl.org/download-2.0.php) | | X
 [GLEW](https://github.com/nigels-com/glew) | | X
 [SOIL2](https://github.com/SpartanJ/SOIL2) | | O
 [omem](https://github.com/Othereum/omem) | | O
 [otm](https://github.com/Othereum/otm) | | O
 
-Use [vcpkg](https://github.com/microsoft/vcpkg) to install libraries in Windows.
+[FMOD]: https://www.fmod.com
+
+\* You have to sign up on the [FMOD official website][FMOD]. In Windows, you can download the installer and install it in the default path(`C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows`). On Linux, install manually on `/usr/local/` or use a script: `$ ./GetFMOD.sh <username> <password> [version]`
+
+Use [vcpkg](https://github.com/microsoft/vcpkg) to install libraries manually in Windows.
 
 > **NOTE**: The default triplet for vcpkg is `x86-window`. To install the x64 package, you must specify it.  
 > ex) `vcpkg install sdl2:x64-windows glew:x64-windows`
