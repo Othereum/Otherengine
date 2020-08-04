@@ -22,7 +22,7 @@ Item | Min Version | Note
 --- | --- | ---
 MSVC | 19.26 | Windows
 Clang | 10 | Linux
-[CMake](https://cmake.org/download) | 3.14 | \*
+[CMake](https://cmake.org/download) | 3.16 | \*
 
 \* For Linux, we do provide a auto installation script: `$ ./GetCMake.sh [version]`; However, it is recommended to install it using package manager.
 
