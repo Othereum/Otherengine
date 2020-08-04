@@ -54,7 +54,7 @@ macro(oe_check_mutex opt1 opt2)
 endmacro()
 
 function(oe_download_package name)
-	set(cmake_dir "${PROJECT_SOURCE_DIR}/CMake/ThirdParty")
+	set(cmake_dir "${PROJECT_SOURCE_DIR}/CMake/AutoInstall")
 	set(src_dir "${PROJECT_SOURCE_DIR}/Source/ThirdParty/${name}")
 	set(build_dir "${CMAKE_BINARY_DIR}/ThirdParty/${name}-build")
 	set(download_dir "${CMAKE_BINARY_DIR}/ThirdParty/${name}-download")
