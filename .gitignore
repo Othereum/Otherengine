@@ -1,6 +1,7 @@
 /.vs/
 /out/
-/Tools/
+/cmake-install/
+/Downloads/
 /Source/ThirdParty/*/
 !/Source/ThirdParty/otm/
 !/Source/ThirdParty/omem/
