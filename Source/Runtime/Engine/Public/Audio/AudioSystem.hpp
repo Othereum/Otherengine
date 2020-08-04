@@ -3,6 +3,7 @@
 #include "EngineFwd.hpp"
 #include "MathFwd.hpp"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace FMOD
 {
 	namespace Studio
@@ -11,6 +12,7 @@ namespace FMOD
 	}
 	class System;
 }
+#endif
 
 namespace oeng::engine
 {
