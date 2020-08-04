@@ -42,7 +42,7 @@ Item | Min Version | Auto Install
 
 [FMOD]: https://www.fmod.com
 
-\* You have to sign up on the [FMOD official website][FMOD]. In Windows, you can download the installer and install it in the default path(`C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows`). On Linux, install manually on `/usr/local/` or use a script: `$ ./GetFMOD.sh <username> <password> [version]`
+\* You have to sign up on the [FMOD official website][FMOD]. In Windows, you can download the installer and install it in the default path(`C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows`). On Linux, install manually on `/usr/local/` (recommended) or use a script: `$ ./GetFMOD.sh <username> <password> [version]`
 
 Use [vcpkg](https://github.com/microsoft/vcpkg) to install libraries manually in Windows.
 
