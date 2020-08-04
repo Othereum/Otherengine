@@ -2,7 +2,7 @@
 #include "fmod_studio.hpp"
 #include "Format.hpp"
 
-namespace oeng::core
+namespace oeng::engine
 {
 	AudioSystem::AudioSystem()
 		:system_{}, core_system_{}

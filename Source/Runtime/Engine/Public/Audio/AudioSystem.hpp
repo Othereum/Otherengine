@@ -12,7 +12,7 @@ namespace FMOD
 	class System;
 }
 
-namespace oeng::core
+namespace oeng::engine
 {
 	class ENGINE_API AudioSystem
 	{
