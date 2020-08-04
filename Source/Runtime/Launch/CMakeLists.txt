@@ -1,7 +1,7 @@
 # Source/Runtime/Game
 
-if (CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-	return()
+if(NOT BUILD_GAME)
+    return()
 endif()
 
 file(GLOB_RECURSE GAME_SRC "${CMAKE_SOURCE_DIR}/Source/${CMAKE_PROJECT_NAME}/Private/*.cpp")

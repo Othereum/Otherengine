@@ -1,3 +1,7 @@
+if(NOT BUILD_GAME)
+    return()
+endif()
+
 if(NOT ENGINE_VERSION_REQUIRED)
 	message(FATAL_ERROR "ENGINE_VERSION_REQUIRED must be specified.")
 endif()

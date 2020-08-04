@@ -8,6 +8,10 @@ project(Otherengine
 
 message("${PROJECT_NAME} ${PROJECT_VERSION} made by Othereum")
 
+if(NOT CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
+	set(BUILD_GAME TRUE)
+endif()
+
 include(CMake/Version.cmake)
 include(CMake/Functions.cmake)
 include(CMake/Options.cmake)
