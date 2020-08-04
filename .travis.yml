@@ -19,7 +19,7 @@ env:
 install:
 - ./GetCMake.sh 3.18.1
 - PATH=$PWD/cmake-install/bin:$PATH
-- ./GetFMOD $FMODUSER $FMODPASS 20010
+- ./GetFMOD.sh $FMODUSER $FMODPASS 20010
 
 script:
 - mkdir -p out && cd out
