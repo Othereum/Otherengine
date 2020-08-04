@@ -5,35 +5,36 @@
 
 struct SDL_Renderer;
 
-namespace oeng::renderer
-{
+RENDERER_BEGIN
 	class Renderer;
 	class Texture;
-}
+RENDERER_END
 
-namespace oeng::engine
+
+ENGINE_BEGIN
+
+class ENGINE_API SpriteComponent : public SceneComponent, public ISpriteComponent
 {
-	class ENGINE_API SpriteComponent : public SceneComponent, public ISpriteComponent
-	{
-	public:
-		DELETE_CPMV(SpriteComponent);
-		
-		explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
-		~SpriteComponent();
+public:
+	DELETE_CPMV(SpriteComponent);
+	
+	explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
+	~SpriteComponent();
 
-		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
-		[[nodiscard]] int GetDrawOrder() const noexcept override { return draw_order_; }
-		[[nodiscard]] const Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
+	[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
+	[[nodiscard]] int GetDrawOrder() const noexcept override { return draw_order_; }
+	[[nodiscard]] const Mat4& GetDrawTrsf() const noexcept override { return GetWorldTrsfMatrix(); }
 
-		void SetTexture(Path file);
-		void SetTexture(SharedRef<Texture> texture) noexcept { texture_ = std::move(texture); }
-		[[nodiscard]] Texture& GetTexture() const noexcept override { return *texture_; }
+	void SetTexture(Path file);
+	void SetTexture(SharedRef<Texture> texture) noexcept { texture_ = std::move(texture); }
+	[[nodiscard]] Texture& GetTexture() const noexcept override { return *texture_; }
 
-	protected:
-		void OnBeginPlay() override;
+protected:
+	void OnBeginPlay() override;
 
-	private:
-		SharedRef<Texture> texture_;
-		int draw_order_;
-	};
-}
+private:
+	SharedRef<Texture> texture_;
+	int draw_order_;
+};
+
+ENGINE_END

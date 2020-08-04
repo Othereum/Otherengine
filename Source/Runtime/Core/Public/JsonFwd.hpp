@@ -28,8 +28,9 @@ namespace nlohmann
 }
 #endif
 
-namespace oeng::core
-{
-	using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<std::uint8_t>>;
-	using JsonType = nlohmann::detail::value_t;
-}
+CORE_BEGIN
+
+using Json = nlohmann::basic_json<TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr<std::uint8_t>>;
+using JsonType = nlohmann::detail::value_t;
+
+CORE_END

@@ -32,12 +32,6 @@
 	virtual ~name() {} \
 	EXPLICIT_CPMV(name, default)
 
-namespace oeng
-{
-	namespace core {}
-	using namespace core;
-}
-
 #define U8_TEXT_IMPL(x) u8##x
 #define U8_TEXT(x) U8_TEXT_IMPL(x)
 #define U8_FILE U8_TEXT(__FILE__)
@@ -45,3 +39,6 @@ namespace oeng
 #define STRINGIZE_IMPL(x) #x
 #define STRINGIZE(x) STRINGIZE_IMPL(x)
 #define U8_LINE U8_TEXT(STRINGIZE(__LINE__))
+
+#define OE_BEGIN(module) namespace oeng { namespace module {
+#define OE_END(module) } using namespace module; }

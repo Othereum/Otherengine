@@ -1,49 +1,50 @@
 #pragma once
 #include "Path.hpp"
 
-namespace oeng::core
+CORE_BEGIN
+
+class Asset
 {
-	class Asset
+public:
+	~Asset() = default;
+	Asset() noexcept = default;
+	Asset(const Asset&) = default;
+	
+	Asset(Asset&& r) noexcept
+		:path_{r.path_}, stem_{r.stem_}
 	{
-	public:
-		~Asset() = default;
-		Asset() noexcept = default;
-		Asset(const Asset&) = default;
-		
-		Asset(Asset&& r) noexcept
-			:path_{r.path_}, stem_{r.stem_}
-		{
-			r.path_ = {};
-			r.stem_ = {};
-		}
-		
-		explicit Asset(Path path) noexcept
-			:path_{path},
-			stem_{path->stem().string<char8_t>(PoolAllocator<char8_t>{})}
-		{
-		}
+		r.path_ = {};
+		r.stem_ = {};
+	}
+	
+	explicit Asset(Path path) noexcept
+		:path_{path},
+		stem_{path->stem().string<char8_t>(PoolAllocator<char8_t>{})}
+	{
+	}
 
-		Asset& operator=(const Asset&) = default;
-		Asset& operator=(Asset&& r) noexcept
-		{
-			Asset{std::move(r)}.swap(*this);
-			return *this;
-		}
+	Asset& operator=(const Asset&) = default;
+	Asset& operator=(Asset&& r) noexcept
+	{
+		Asset{std::move(r)}.swap(*this);
+		return *this;
+	}
 
-		void swap(Asset& r) noexcept
-		{
-			using std::swap;
-			swap(path_, r.path_);
-			swap(stem_, r.stem_);
-		}
+	void swap(Asset& r) noexcept
+	{
+		using std::swap;
+		swap(path_, r.path_);
+		swap(stem_, r.stem_);
+	}
 
-		[[nodiscard]] Path GetPath() const noexcept { return path_; }
-		[[nodiscard]] Name GetStem() const noexcept { return stem_; }
-		
-	private:
-		Path path_;
-		Name stem_;
-	};
+	[[nodiscard]] Path GetPath() const noexcept { return path_; }
+	[[nodiscard]] Name GetStem() const noexcept { return stem_; }
+	
+private:
+	Path path_;
+	Name stem_;
+};
 
-	inline void swap(Asset& a, Asset& b) noexcept { a.swap(b); }
-}
+inline void swap(Asset& a, Asset& b) noexcept { a.swap(b); }
+
+CORE_END

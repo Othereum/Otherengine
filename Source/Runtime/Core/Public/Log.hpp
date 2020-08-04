@@ -17,12 +17,11 @@ namespace spdlog
 }
 #endif
 
-namespace oeng::core
-{
-	class CoreSystem;
-}
+CORE_BEGIN
 
-namespace oeng::core::log
+class CoreSystem;
+
+namespace log
 {
 #ifdef OE_LOG_THREADSAFE
 	constexpr auto kLogThreadSafe = true;
@@ -121,6 +120,8 @@ namespace oeng::core::log
 		};
 	}
 }
+
+CORE_END
 
 /**
  * Log with delay (anti-spam)

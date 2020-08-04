@@ -2,72 +2,73 @@
 #include "Mesh.hpp"
 #include "Renderer.hpp"
 
-namespace oeng::engine
+ENGINE_BEGIN
+
+MeshComponent::MeshComponent(AActor& owner, int update_order)
+	:SceneComponent{owner, update_order},
+	mesh_{GetRenderer().GetDefaultMesh()},
+	material_{GetRenderer().GetDefaultMaterial()}
 {
-	MeshComponent::MeshComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order},
-		mesh_{GetRenderer().GetDefaultMesh()},
-		material_{GetRenderer().GetDefaultMaterial()}
-	{
-	}
+}
 
-	MeshComponent::~MeshComponent()
-	{
-		if (HasBegunPlay()) GetRenderer().UnregisterMesh(*this);
-	}
+MeshComponent::~MeshComponent()
+{
+	if (HasBegunPlay()) GetRenderer().UnregisterMesh(*this);
+}
 
-	void MeshComponent::SetMesh(Path file)
-	{
-		auto mesh = GetRenderer().GetMesh(file);
-		material_ = mesh->GetMaterialShared();
-		SetMesh(std::move(mesh));
-	}
+void MeshComponent::SetMesh(Path file)
+{
+	auto mesh = GetRenderer().GetMesh(file);
+	material_ = mesh->GetMaterialShared();
+	SetMesh(std::move(mesh));
+}
 
-	void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
-	{
-		mesh_ = std::move(mesh);
-		ReRegister();
-		RecalcRadius();
-	}
+void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
+{
+	mesh_ = std::move(mesh);
+	ReRegister();
+	RecalcRadius();
+}
 
-	void MeshComponent::SetMaterial(Path path)
-	{
-		SetMaterial(GetRenderer().GetMaterial(path));
-	}
+void MeshComponent::SetMaterial(Path path)
+{
+	SetMaterial(GetRenderer().GetMaterial(path));
+}
 
-	void MeshComponent::SetMaterial(SharedRef<Material> material)
-	{
-		material_ = std::move(material);
-		ReRegister();
-	}
+void MeshComponent::SetMaterial(SharedRef<Material> material)
+{
+	material_ = std::move(material);
+	ReRegister();
+}
 
-	Float MeshComponent::GetUnscaledRadius() const noexcept
-	{
-		return mesh_->GetRadius();
-	}
+Float MeshComponent::GetUnscaledRadius() const noexcept
+{
+	return mesh_->GetRadius();
+}
 
-	void MeshComponent::OnBeginPlay()
-	{
-		GetRenderer().RegisterMesh(*this);
-	}
+void MeshComponent::OnBeginPlay()
+{
+	GetRenderer().RegisterMesh(*this);
+}
 
-	void MeshComponent::OnTrsfChanged()
-	{
-		RecalcRadius();
-	}
+void MeshComponent::OnTrsfChanged()
+{
+	RecalcRadius();
+}
 
-	void MeshComponent::ReRegister() const
+void MeshComponent::ReRegister() const
+{
+	if (HasBegunPlay())
 	{
-		if (HasBegunPlay())
-		{
-			auto& renderer = GetRenderer();
-			renderer.UnregisterMesh(*this);
-			renderer.RegisterMesh(*this);
-		}
-	}
-
-	void MeshComponent::RecalcRadius() noexcept
-	{
-		radius_ = Max(GetWorldScale()) * mesh_->GetRadius();
+		auto& renderer = GetRenderer();
+		renderer.UnregisterMesh(*this);
+		renderer.RegisterMesh(*this);
 	}
 }
+
+void MeshComponent::RecalcRadius() noexcept
+{
+	radius_ = Max(GetWorldScale()) * mesh_->GetRadius();
+}
+
+ENGINE_END

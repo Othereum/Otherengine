@@ -1,6 +1,5 @@
 #pragma once
 #include "Core.hpp"
-#include "EngineFwd.hpp"
 #include "MathFwd.hpp"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -14,20 +13,21 @@ namespace FMOD
 }
 #endif
 
-namespace oeng::engine
+ENGINE_BEGIN
+
+class ENGINE_API AudioSystem
 {
-	class ENGINE_API AudioSystem
-	{
-	public:
-		DELETE_CPMV(AudioSystem);
-		
-		AudioSystem();
-		~AudioSystem();
+public:
+	DELETE_CPMV(AudioSystem);
+	
+	AudioSystem();
+	~AudioSystem();
 
-		void Update(Float delta_seconds) const;
+	void Update(Float delta_seconds) const;
 
-	private:
-		FMOD::Studio::System* system_;
-		FMOD::System* core_system_;
-	};
-}
+private:
+	FMOD::Studio::System* system_;
+	FMOD::System* core_system_;
+};
+
+ENGINE_END

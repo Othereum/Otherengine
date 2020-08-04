@@ -33,13 +33,14 @@ namespace otm
 	}
 }
 
-namespace oeng::core
-{
-	/**
-	 * Parse json file
-	 * @param file File path
-	 * @return Parsed json object
-	 * @throw std::runtime_error If failed to open or parse
-	 */
-	CORE_API Json ReadFileAsJson(const fs::path& file);
-}
+CORE_BEGIN
+
+/**
+* Parse json file
+* @param file File path
+* @return Parsed json object
+* @throw std::runtime_error If failed to open or parse
+*/
+CORE_API Json ReadFileAsJson(const fs::path& file);
+
+CORE_END

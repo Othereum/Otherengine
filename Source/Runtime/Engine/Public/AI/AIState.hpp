@@ -1,7 +1,9 @@
 #pragma once
 #include "Name.hpp"
 
-namespace oeng::engine::ai_state
+ENGINE_BEGIN
+
+namespace ai_state
 {
 	class Base
 	{
@@ -20,7 +22,4 @@ namespace oeng::engine::ai_state
 	};
 }
 
-namespace oeng
-{
-	using namespace engine;
-}
+ENGINE_END
