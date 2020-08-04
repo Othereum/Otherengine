@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 
 project("Otherengine"
-	VERSION 0.1.0
+	VERSION 0.2.0
 	DESCRIPTION "3D Game Engine made by Othereum"
 	HOMEPAGE_URL "https://github.com/Othereum/Otherengine"
 )
