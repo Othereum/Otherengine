@@ -3,6 +3,7 @@ var namespaceoeng_1_1core =
     [ "detail", "namespaceoeng_1_1core_1_1detail.html", "namespaceoeng_1_1core_1_1detail" ],
     [ "log", "namespaceoeng_1_1core_1_1log.html", "namespaceoeng_1_1core_1_1log" ],
     [ "Asset", "classoeng_1_1core_1_1_asset.html", "classoeng_1_1core_1_1_asset" ],
+    [ "AudioSystem", "classoeng_1_1core_1_1_audio_system.html", "classoeng_1_1core_1_1_audio_system" ],
     [ "ConfigSystem", "classoeng_1_1core_1_1_config_system.html", "classoeng_1_1core_1_1_config_system" ],
     [ "CoreSystem", "classoeng_1_1core_1_1_core_system.html", "classoeng_1_1core_1_1_core_system" ],
     [ "CounterManager", "classoeng_1_1core_1_1_counter_manager.html", "classoeng_1_1core_1_1_counter_manager" ],

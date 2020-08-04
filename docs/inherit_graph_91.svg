@@ -13,7 +13,7 @@
 <g id="node1" class="node"><title>Node0</title>
 <g id="a_node1"><a xlink:href="structotm_1_1_unit_vec.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 108,-19.5 108,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="54" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">otm::UnitVec&lt; T, L &gt;</text>
+<text text-anchor="middle" x="54" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">otm::UnitVec&lt; T, 3 &gt;</text>
 </a>
 </g>
 </g>
