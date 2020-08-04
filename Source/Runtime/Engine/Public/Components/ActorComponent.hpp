@@ -1,6 +1,4 @@
 #pragma once
-#include "MathFwd.hpp"
-#include "Templates/Pointer.hpp"
 
 RENDERER_BEGIN
 	class Renderer;

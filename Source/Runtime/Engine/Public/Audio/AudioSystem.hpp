@@ -1,6 +1,4 @@
 #pragma once
-#include "Core.hpp"
-#include "MathFwd.hpp"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace FMOD

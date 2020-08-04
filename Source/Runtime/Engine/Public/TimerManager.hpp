@@ -1,8 +1,4 @@
 #pragma once
-#include <functional>
-#include "MathFwd.hpp"
-#include "Templates/Time.hpp"
-#include "Templates/HashMap.hpp"
 
 ENGINE_BEGIN
 	struct TimerHandle;

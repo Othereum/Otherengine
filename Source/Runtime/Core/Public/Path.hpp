@@ -4,8 +4,6 @@
 
 CORE_BEGIN
 
-namespace fs = std::filesystem;
-
 #ifdef OE_PATH_THREADSAFE
 constexpr auto kPathThreadSafe = true;
 #else

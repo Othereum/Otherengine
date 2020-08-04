@@ -1,8 +1,5 @@
 #pragma once
 #include <span>
-#include "Core.hpp"
-#include "JsonFwd.hpp"
-#include "Math.hpp"
 
 RENDERER_BEGIN
 

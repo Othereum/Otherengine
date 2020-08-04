@@ -1,6 +1,4 @@
 #pragma once
-#include "Core.hpp"
-#include "MathFwd.hpp"
 
 RENDERER_BEGIN
 
