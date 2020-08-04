@@ -17,9 +17,9 @@ env:
 - CMAKE_BUILD_TYPE=Release
 
 install:
-- wget https://github.com/Kitware/CMake/releases/download/v3.18.1/cmake-3.18.1-Linux-x86_64.tar.gz
-- tar -xf cmake-3.18.1-Linux-x86_64.tar.gz
-- PATH=$PWD/cmake-3.18.1-Linux-x86_64/bin:$PATH
+- ./GetCMake.sh 3.18.1
+- PATH=$PWD/cmake-install/bin:$PATH
+- ./GetFMOD $FMODUSER $FMODPASS 20010
 
 script:
 - mkdir -p out && cd out
