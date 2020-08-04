@@ -1,5 +1,5 @@
 
-set(CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/Source/ThirdParty/fmod/core;${PROJECT_SOURCE_DIR}/Source/ThirdParty/fmod/studio")
+set(CMAKE_PREFIX_PATH "${PROJECT_SOURCE_DIR}/Source/ThirdParty/fmod/api/core;${PROJECT_SOURCE_DIR}/Source/ThirdParty/fmod/api/studio")
 
 if(WIN32)
   set(CMAKE_FIND_LIBRARY_PREFIXES "")
