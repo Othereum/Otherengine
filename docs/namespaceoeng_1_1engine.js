@@ -9,6 +9,7 @@ var namespaceoeng_1_1engine =
     [ "AMeshActor", "classoeng_1_1engine_1_1_a_mesh_actor.html", "classoeng_1_1engine_1_1_a_mesh_actor" ],
     [ "APointLight", "classoeng_1_1engine_1_1_a_point_light.html", "classoeng_1_1engine_1_1_a_point_light" ],
     [ "ASkyLight", "classoeng_1_1engine_1_1_a_sky_light.html", "classoeng_1_1engine_1_1_a_sky_light" ],
+    [ "AudioSystem", "classoeng_1_1engine_1_1_audio_system.html", "classoeng_1_1engine_1_1_audio_system" ],
     [ "AxisConfig", "structoeng_1_1engine_1_1_axis_config.html", "structoeng_1_1engine_1_1_axis_config" ],
     [ "CameraComponent", "classoeng_1_1engine_1_1_camera_component.html", "classoeng_1_1engine_1_1_camera_component" ],
     [ "DirLightComponent", "classoeng_1_1engine_1_1_dir_light_component.html", "classoeng_1_1engine_1_1_dir_light_component" ],

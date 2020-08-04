@@ -14,7 +14,7 @@ var hierarchy =
     [ "oeng::renderer::AssetCache< oeng::renderer::Mesh >", "structoeng_1_1renderer_1_1_asset_cache.html", null ],
     [ "oeng::renderer::AssetCache< oeng::renderer::Shader >", "structoeng_1_1renderer_1_1_asset_cache.html", null ],
     [ "oeng::renderer::AssetCache< oeng::renderer::Texture >", "structoeng_1_1renderer_1_1_asset_cache.html", null ],
-    [ "oeng::core::AudioSystem", "classoeng_1_1core_1_1_audio_system.html", null ],
+    [ "oeng::engine::AudioSystem", "classoeng_1_1engine_1_1_audio_system.html", null ],
     [ "oeng::engine::AxisConfig", "structoeng_1_1engine_1_1_axis_config.html", null ],
     [ "oeng::engine::ai_state::Base", "classoeng_1_1engine_1_1ai__state_1_1_base.html", null ],
     [ "oeng::renderer::ISpotLight::Data::Cone", "structoeng_1_1renderer_1_1_i_spot_light_1_1_data_1_1_cone.html", null ],

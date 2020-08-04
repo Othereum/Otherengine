@@ -1,6 +1,8 @@
 var _json_8hpp =
 [
     [ "JSON_USE_IMPLICIT_CONVERSIONS", "_json_8hpp.html#a24c96ca7fc59096c30b32339a953f97d", null ],
+    [ "Json", "_json_8hpp.html#a712d9a71e426d54e3d1be98c5044d3af", null ],
+    [ "JsonType", "_json_8hpp.html#a29e6fb075d1a2ab58fc2949260f263c0", null ],
     [ "from_json", "_json_8hpp.html#a68174c971c9f192d925d10e84556f504", null ],
     [ "from_json", "_json_8hpp.html#a10512bc57f12eb1a41fe1f90dec93fe6", null ],
     [ "ReadFileAsJson", "_json_8hpp.html#a555787d7b60b9e2ab0e381be40a3367e", null ],

@@ -88,43 +88,39 @@ $(document).ready(function(){initNavTree('_window_8hpp_source.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <a href="_window_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_core_8hpp.html">Core.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_math_8hpp.html">Math.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_renderer_fwd_8hpp.html">RendererFwd.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html">    8</a></span>&#160;    <span class="keyword">class </span>RENDERER_API <a class="code" href="classoeng_1_1renderer_1_1_window.html">Window</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a3e6574f840de712fbebac1ab7c157716">   11</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#a3e6574f840de712fbebac1ab7c157716">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1renderer_1_1_window.html">Window</a>);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#af7db4ce5f39ae55364fae365026aa72e">   13</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#af7db4ce5f39ae55364fae365026aa72e">Window</a>();</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a88d42b56b8bac445b4af649f6fe99b53">   14</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#a88d42b56b8bac445b4af649f6fe99b53">~Window</a>();</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a33b81978c02be4f31eb331eb3061e3bd">   16</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_vector.html">Vec2u16</a> <a class="code" href="classoeng_1_1renderer_1_1_window.html#a33b81978c02be4f31eb331eb3061e3bd">GetSize</a>() const noexcept;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a52b6f825f661b539dd027ab23ae95c8a">   18</a></span>&#160;        <span class="keywordtype">void</span> SetTitle(std::u8string_view title) const noexcept;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a8dba0c4837bfe7f656696169a69ad5ac">   20</a></span>&#160;        <span class="keywordtype">void</span> SwapBuffer() const noexcept;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    private:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        SDL_Window* window_;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordtype">void</span>* gl_context_;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    };</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">struct </span>SDL_Window;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html">    7</a></span>&#160;    <span class="keyword">class </span>RENDERER_API <a class="code" href="classoeng_1_1renderer_1_1_window.html">Window</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a3e6574f840de712fbebac1ab7c157716">   10</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#a3e6574f840de712fbebac1ab7c157716">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1renderer_1_1_window.html">Window</a>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#af7db4ce5f39ae55364fae365026aa72e">   12</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#af7db4ce5f39ae55364fae365026aa72e">Window</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a88d42b56b8bac445b4af649f6fe99b53">   13</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_window.html#a88d42b56b8bac445b4af649f6fe99b53">~Window</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        </div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a33b81978c02be4f31eb331eb3061e3bd">   15</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_vector.html">Vec2u16</a> <a class="code" href="classoeng_1_1renderer_1_1_window.html#a33b81978c02be4f31eb331eb3061e3bd">GetSize</a>() const noexcept;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a52b6f825f661b539dd027ab23ae95c8a">   17</a></span>&#160;        <span class="keywordtype">void</span> SetTitle(std::u8string_view title) const noexcept;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_window.html#a8dba0c4837bfe7f656696169a69ad5ac">   19</a></span>&#160;        <span class="keywordtype">void</span> SwapBuffer() const noexcept;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    private:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        SDL_Window* window_;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keywordtype">void</span>* gl_context_;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    };</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html">oeng::renderer::Window</a></div><div class="ttdef"><b>Definition:</b> Window.hpp:9</div></div>
-<div class="ttc" id="a_core_8hpp_html"><div class="ttname"><a href="_core_8hpp.html">Core.hpp</a></div></div>
-<div class="ttc" id="a_math_8hpp_html"><div class="ttname"><a href="_math_8hpp.html">Math.hpp</a></div></div>
+<div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html">oeng::renderer::Window</a></div><div class="ttdef"><b>Definition:</b> Window.hpp:8</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html_a88d42b56b8bac445b4af649f6fe99b53"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html#a88d42b56b8bac445b4af649f6fe99b53">oeng::renderer::Window::~Window</a></div><div class="ttdeci">~Window()</div></div>
-<div class="ttc" id="a_renderer_fwd_8hpp_html"><div class="ttname"><a href="_renderer_fwd_8hpp.html">RendererFwd.hpp</a></div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html_a33b81978c02be4f31eb331eb3061e3bd"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html#a33b81978c02be4f31eb331eb3061e3bd">oeng::renderer::Window::GetSize</a></div><div class="ttdeci">Vec2u16 GetSize() const noexcept</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html_a3e6574f840de712fbebac1ab7c157716"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html#a3e6574f840de712fbebac1ab7c157716">oeng::renderer::Window::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(Window)</div></div>
 <div class="ttc" id="aclassoeng_1_1renderer_1_1_window_html_af7db4ce5f39ae55364fae365026aa72e"><div class="ttname"><a href="classoeng_1_1renderer_1_1_window.html#af7db4ce5f39ae55364fae365026aa72e">oeng::renderer::Window::Window</a></div><div class="ttdeci">Window()</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; uint16_t, 2 &gt;</a></div></div>
-<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:9</div></div>
+<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> MeshActor.hpp:6</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
