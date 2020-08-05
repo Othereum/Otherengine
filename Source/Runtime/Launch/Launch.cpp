@@ -3,8 +3,6 @@
 #endif
 
 #include "Engine.hpp"
-#include "Log.hpp"
-#include "Platform.hpp"
 
 static void EngineMain()
 {
@@ -29,6 +27,7 @@ int main()
 		catch (const std::exception& e)
 		{
 			log::Critical(What(e));
+			return EXIT_FAILURE;
 		}
 	}
 }
