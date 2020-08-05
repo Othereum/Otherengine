@@ -97,7 +97,7 @@ namespace oeng::renderer
 		using CompArr = DyArr<std::reference_wrapper<const T>>;
 
 	private:
-		friend Engine;
+		friend engine::Engine;
 		
 		Renderer();
 		~Renderer();
