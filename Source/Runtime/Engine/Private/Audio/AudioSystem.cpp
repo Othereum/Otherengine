@@ -4,6 +4,7 @@
 
 namespace oeng::engine
 {
+	static String8 GetName(const FMOD::Studio::EventDescription& event);
 	static std::u8string_view FModErrorString(FMOD_RESULT result);
 	
 	template <class... Args>
@@ -14,6 +15,22 @@ namespace oeng::engine
 
 #define FMOD_CHECK(result, message, ...) (void)(result == FMOD_OK || (FModThrow(result, message, ##__VA_ARGS__), false))
 
+	template <class Fn>
+	static void ForEachEvent(const FMOD::Studio::Bank& bank, Fn&& fn)
+	{
+		int num_events;
+		bank.getEventCount(&num_events);
+		
+		DyArr<FMOD::Studio::EventDescription*> events(num_events);
+		bank.getEventList(events.data(), num_events, &num_events);
+
+		for (auto* const event : events)
+		{
+			fn(*event);
+		}
+	}
+
+	
 	AudioSystem::AudioSystem()
 		:system_{}, core_system_{}
 	{
@@ -38,7 +55,7 @@ namespace oeng::engine
 
 	bool AudioSystem::LoadBank(Path path)
 	{
-		if (banks_.find(path) != banks_.end()) return false;
+		if (banks_.contains(path)) return false;
 
 		FMOD::Studio::Bank* bank = nullptr;
 		const auto result = system_->loadBankFile(
@@ -52,27 +69,60 @@ namespace oeng::engine
 		banks_.try_emplace(path, bank);
 		bank->loadSampleData();
 
-		int num_events;
-		bank->getEventCount(&num_events);
-		
-		DyArr<FMOD::Studio::EventDescription*> events(num_events);
-		bank->getEventList(events.data(), num_events, &num_events);
-
-		String event_name;
-		for (auto* const event : events)
+		ForEachEvent(*bank, [this](FMOD::Studio::EventDescription& event)
 		{
-			int buf_size;
-			event->getPath(nullptr, 0, &buf_size);
-			
-			event_name.resize(buf_size - 1);
-			event->getPath(event_name.data(), buf_size, nullptr);
-
-			events_.try_emplace(AsString8(event_name), event);
-		}
+			auto [it, inserted] = events_.try_emplace(GetName(event), &event);
+			if (!inserted) log::Warn(u8"Event name duplicated: {}"sv, *it->first);
+		});
 
 		return true;
 	}
 
+	bool AudioSystem::UnloadBank(Path path)
+	{
+		const auto bank_it = banks_.find(path);
+		if (bank_it == banks_.end()) return false;
+
+		UnloadBank(*bank_it->second);
+		banks_.erase(bank_it);
+		
+		return true;
+	}
+
+	void AudioSystem::UnloadAllBanks()
+	{
+		for (auto& [path, bank] : banks_)
+		{
+			UnloadBank(*bank);
+		}
+
+		banks_.clear();
+	}
+
+	void AudioSystem::UnloadBank(FMOD::Studio::Bank& bank)
+	{
+		ForEachEvent(bank, [this](FMOD::Studio::EventDescription& event)
+		{
+			events_.erase(GetName(event));
+		});
+
+		bank.unload();
+	}
+
+
+	String8 GetName(const FMOD::Studio::EventDescription& event)
+	{
+		String8 event_name;
+
+		int buf_size;
+		event.getPath(nullptr, 0, &buf_size);
+		
+		event_name.resize(buf_size - 1);
+		event.getPath(AsString(event_name).data(), buf_size, nullptr);
+
+		return event_name;
+	}
+	
 	std::u8string_view FModErrorString(FMOD_RESULT result)
 	{
 		switch (result)

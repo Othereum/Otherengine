@@ -26,13 +26,26 @@ namespace oeng::engine
 		void Update(Float delta_seconds) const;
 
 		/**
-		 * Load the bank and its sample data and all events.
-		 * @return False if already loaded. True otherwise.
+		 * Load the bank and its sample data and events.
+		 * @return False if already loaded. True if successful.
 		 * @throw std::runtime_error If failed to load the bank.
 		 */
 		bool LoadBank(Path path);
 
+		/**
+		 * Unload the bank and its sample data and events.
+		 * @return False if already unloaded. True if successful.
+		 */
+		bool UnloadBank(Path path);
+
+		/**
+		 * Unload all banks, sample data and events.
+		 */
+		void UnloadAllBanks();
+
 	private:
+		void UnloadBank(FMOD::Studio::Bank& bank);
+		
 		FMOD::Studio::System* system_;
 		FMOD::System* core_system_;
 
