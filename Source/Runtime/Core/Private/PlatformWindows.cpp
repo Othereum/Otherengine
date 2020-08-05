@@ -5,11 +5,6 @@
 #include <intrin.h>
 #include <ShlObj.h>
 #include <Windows.h>
-#include "EngineBase.hpp"
-#include "Format.hpp"
-#include "Platform.hpp"
-#include "Templates/Pointer.hpp"
-#include "Templates/String.hpp"
 
 namespace oeng::core
 {
