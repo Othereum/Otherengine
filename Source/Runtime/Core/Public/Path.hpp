@@ -57,7 +57,7 @@ namespace oeng::core
 		bool operator<=(const Path& r) const noexcept { return p <= r.p; }
 		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
-		template <class T = char8_t, class Al = PoolAllocator<char8_t>>
+		template <class T = char8_t, class Al = PoolAllocator<T>>
 		[[nodiscard]] auto Str() const { return p->string<T>(Al{}); }
 		
 		operator String8() const { return Str(); }
