@@ -12,14 +12,14 @@ namespace oeng::engine
 
 	std::u8string_view GetName(CtrlAxis axis) noexcept
 	{
-		const auto s = SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis(axis));
+		const auto* const s = SDL_GameControllerGetStringForAxis(SDL_GameControllerAxis(axis));
 		if (s) return AsString8(s);
 		return {};
 	}
 
 	std::u8string_view GetName(CtrlBtn btn) noexcept
 	{
-		const auto s = SDL_GameControllerGetStringForButton(SDL_GameControllerButton(btn));
+		const auto* const s = SDL_GameControllerGetStringForButton(SDL_GameControllerButton(btn));
 		if (s) return AsString8(s);
 		return {};
 	}
@@ -42,7 +42,7 @@ namespace oeng::engine
 
 	std::optional<Keycode> ToKeycode(std::u8string_view name) noexcept
 	{
-		const auto str = AsString(name.data());
+		const auto* const str = AsString(name.data());
 		const auto key = SDL_GetKeyFromName(str);
 		if (key != SDLK_UNKNOWN) return Keycode(key);
 		return std::nullopt;
@@ -50,7 +50,7 @@ namespace oeng::engine
 
 	std::optional<CtrlAxis> ToCtrlAxis(std::u8string_view name) noexcept
 	{
-		const auto str = AsString(name.data());
+		const auto* const str = AsString(name.data());
 		const auto axis = SDL_GameControllerGetAxisFromString(str);
 		if (axis != SDL_CONTROLLER_AXIS_INVALID) return CtrlAxis(axis);
 		return std::nullopt;
@@ -58,7 +58,7 @@ namespace oeng::engine
 
 	std::optional<CtrlBtn> ToCtrlBtn(std::u8string_view name) noexcept
 	{
-		const auto str = AsString(name.data());
+		const auto* const str = AsString(name.data());
 		const auto btn = SDL_GameControllerGetButtonFromString(str);
 		if (btn != SDL_CONTROLLER_BUTTON_INVALID) return CtrlBtn(btn);
 		return std::nullopt;
