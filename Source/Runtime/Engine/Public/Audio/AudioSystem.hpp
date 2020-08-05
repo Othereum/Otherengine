@@ -6,6 +6,8 @@ namespace FMOD
 	namespace Studio
 	{
 		class System;
+		class Bank;
+		class EventDescription;
 	}
 	class System;
 }
@@ -23,8 +25,18 @@ namespace oeng::engine
 
 		void Update(Float delta_seconds) const;
 
+		/**
+		 * Load the bank and its sample data and all events.
+		 * @return False if already loaded. True otherwise.
+		 * @throw std::runtime_error If failed to load the bank.
+		 */
+		bool LoadBank(Path path);
+
 	private:
 		FMOD::Studio::System* system_;
 		FMOD::System* core_system_;
+
+		HashMap<Path, FMOD::Studio::Bank*> banks_;
+		HashMap<Name, FMOD::Studio::EventDescription*> events_;
 	};
 }

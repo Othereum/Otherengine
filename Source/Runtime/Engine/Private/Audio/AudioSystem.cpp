@@ -35,6 +35,44 @@ namespace oeng::engine
 	{
 		system_->update();
 	}
+
+	bool AudioSystem::LoadBank(Path path)
+	{
+		if (banks_.find(path) != banks_.end()) return false;
+
+		FMOD::Studio::Bank* bank = nullptr;
+		const auto result = system_->loadBankFile(
+			path.Str<char>().c_str(),
+			FMOD_STUDIO_LOAD_BANK_NORMAL,
+			&bank
+		);
+
+		FMOD_CHECK(result, u8"Failed to load bank from file '{}'", path.Str());
+
+		banks_.try_emplace(path, bank);
+		bank->loadSampleData();
+
+		int num_events;
+		bank->getEventCount(&num_events);
+		
+		DyArr<FMOD::Studio::EventDescription*> events(num_events);
+		bank->getEventList(events.data(), num_events, &num_events);
+
+		String event_name;
+		for (auto* const event : events)
+		{
+			int buf_size;
+			event->getPath(nullptr, 0, &buf_size);
+			
+			event_name.resize(buf_size - 1);
+			event->getPath(event_name.data(), buf_size, nullptr);
+
+			events_.try_emplace(AsString8(event_name), event);
+		}
+
+		return true;
+	}
+
 	std::u8string_view FModErrorString(FMOD_RESULT result)
 	{
 		switch (result)
