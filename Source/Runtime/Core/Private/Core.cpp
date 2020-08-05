@@ -1,4 +1,5 @@
 #include "Core.hpp"
+#include <thread>
 
 namespace oeng::core
 {
