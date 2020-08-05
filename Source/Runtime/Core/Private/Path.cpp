@@ -5,6 +5,10 @@ namespace oeng::core
 {
 	PathSet& Path::Set() noexcept
 	{
+		if constexpr (!kPathThreadSafe)
+		{
+			assert(IsGameThread());
+		}
 		return EngineBase::Get().paths_;
 	}
 

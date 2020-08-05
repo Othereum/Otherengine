@@ -5,6 +5,10 @@ namespace oeng::core
 {
 	NameSet& Name::Set() noexcept
 	{
+		if constexpr (!kNameThreadSafe)
+		{
+			assert(IsGameThread());
+		}
 		return EngineBase::Get().names_;
 	}
 
