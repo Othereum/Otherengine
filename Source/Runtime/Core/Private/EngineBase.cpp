@@ -1,6 +1,5 @@
 #include "EngineBase.hpp"
 #include <csignal>
-#include "Debug.hpp"
 
 namespace oeng::core
 {
@@ -37,8 +36,7 @@ namespace oeng::core
 	}
 
 	CoreSystem::CoreSystem(std::u8string game_module_path)
-		:thread_id_{std::this_thread::get_id()},
-		game_dll_{std::move(game_module_path)},
+		:game_dll_{std::move(game_module_path)},
 		game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)}
 	{
 		InitMemPool();

@@ -1,19 +1,13 @@
 #pragma once
-#include <thread>
 #include "ConfigSystem.hpp"
 #include "Log.hpp"
 #include "Path.hpp"
 #include "Platform.hpp"
 #include "Stat.hpp"
 
-namespace oeng
+namespace oeng::engine
 {
-	namespace engine
-	{
-		class Engine;
-	}
-	
-	using namespace engine;
+	class Engine;
 }
 
 namespace oeng::core
@@ -33,15 +27,6 @@ namespace oeng::core
 	public:
 		DELETE_CPMV(CoreSystem);
 		
-		/**
-		 * Check if the current thread is a game thread.
-		 * @return True if called from the game thread.
-		 */
-		[[nodiscard]] bool IsGameThread() const noexcept
-		{
-			return thread_id_ == std::this_thread::get_id();
-		}
-
 		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
 		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
@@ -51,9 +36,7 @@ namespace oeng::core
 		explicit CoreSystem(std::u8string game_module_path);
 		~CoreSystem();
 		
-		std::thread::id thread_id_;
 		Dll game_dll_;
-		
 		std::u8string_view game_name_;
 		log::Logger logger_;
 	};
@@ -75,7 +58,7 @@ namespace oeng::core
 	private:
 		friend Name;
 		friend Path;
-		friend Engine;
+		friend engine::Engine;
 		friend CounterManager;
 		friend ScopeCounter;
 		friend ScopeStackCounter;
