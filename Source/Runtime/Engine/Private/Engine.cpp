@@ -1,6 +1,5 @@
 ﻿#include "Engine.hpp"
 #include <SDL2/SDL.h>
-#include "Debug.hpp"
 
 namespace oeng::engine
 {
