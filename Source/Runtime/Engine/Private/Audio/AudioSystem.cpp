@@ -12,7 +12,7 @@ namespace oeng::engine
 		Throw(u8"{}: {} ({})"sv, Format(message, args...), FModErrorString(result), result);
 	}
 
-#define FMOD_CHECK(result, message, ...) (void)(result != FMOD_OK && (FModThrow(result, message, ##__VA_ARGS__), false))
+#define FMOD_CHECK(result, message, ...) (void)(result == FMOD_OK || (FModThrow(result, message, ##__VA_ARGS__), false))
 
 	AudioSystem::AudioSystem()
 		:system_{}, core_system_{}
