@@ -3,6 +3,7 @@
 #include "InputSystem.hpp"
 #include "Renderer.hpp"
 #include "World.hpp"
+#include "Audio/AudioSystem.hpp"
 
 namespace oeng::engine
 {
@@ -35,6 +36,7 @@ namespace oeng::engine
 		void Tick();
 		void ProcessEvent();
 
+		AudioSystem audio_system_;
 		Renderer renderer_;
 		InputSystem input_system_;
 		World world_;
