@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.14)
+cmake_minimum_required(VERSION 3.10)
 project(soil2)
 
 file(GLOB_RECURSE SOIL2_SRC "src/SOIL2/*.c")
