@@ -19,7 +19,7 @@ namespace oeng::core
 	enum class LogLevel
 	{
 		/**
-		 * Prints a message to log file if NDEBUG is not defined.
+		 * Prints a debug message to log file if NDEBUG is not defined.
 		 */
 		kDebug,
 
@@ -52,6 +52,7 @@ namespace oeng::core
 	struct LogCategory
 	{
 		std::u8string_view name;
+		LogLevel default_level = LogLevel::kLog;
 		LogLevel min_level = LogLevel::kDebug;
 	};
 
@@ -78,6 +79,12 @@ namespace oeng::core
 	void Log(const LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args)
 	{
 		Log(category, level, Format(fmt, args...));
+	}
+	
+	template <class... Args>
+	void Log(const LogCategory& category, std::u8string_view fmt, const Args&... args)
+	{
+		Log(category, category.default_level, fmt, args...);
 	}
 	
 	namespace detail
