@@ -10,51 +10,92 @@
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
-#include "EngineBase.hpp"
-#include "Platform.hpp"
-#include "Templates/Sync.hpp"
 
 namespace oeng::core::log
 {
-	static_assert(Level::kTrace == Level(spdlog::level::trace));
-	static_assert(Level::kDebug == Level(spdlog::level::debug));
-	static_assert(Level::kInfo == Level(spdlog::level::info));
-	static_assert(Level::kWarn == Level(spdlog::level::warn));
-	static_assert(Level::kErr == Level(spdlog::level::err));
-	static_assert(Level::kCritical == Level(spdlog::level::critical));
-	static_assert(Level::kOff == Level(spdlog::level::off));
+	[[nodiscard]] static spdlog::level::level_enum ToSpdLogLevel(Level level)
+	{
+		using namespace spdlog::level;
+		
+		switch (level)
+		{
+		case Level::kDebug:
+			return debug;
+			
+		case Level::kLog:
+		case Level::kDisplay:
+			return info;
+
+		case Level::kWarn:
+			return warn;
+			
+		case Level::kErr:
+			return err;
+			
+		case Level::kCritical:
+			return critical;
+			
+		default:
+			throw std::invalid_argument{"Invalid log level"};
+		}
+	}
+
+	[[nodiscard]] static constexpr bool ShouldLog(Level level) noexcept
+	{
+#ifdef NDEBUG
+		return level != Level::kDebug;
+#else
+		return true;
+#endif
+	}
+	
+	[[nodiscard]] static constexpr bool ShouldLogConsole(Level level) noexcept
+	{
+#ifdef NDEBUG
+		switch (level)
+		{
+		case Level::kDebug:
+		case Level::kLog:
+			return false;
+
+		default: ;
+		}
+#endif
+
+		return true;
+	}
 	
 	Logger::Logger()
 	{
-		using Daily = std::conditional_t<kLogThreadSafe,
-			spdlog::sinks::daily_file_sink_mt,
-			spdlog::sinks::daily_file_sink_st>;
-		
-		using Stdout = std::conditional_t<kLogThreadSafe,
-			spdlog::sinks::stdout_color_sink_mt,
-			spdlog::sinks::stdout_color_sink_st>;
-
 		auto dir = GetUserDataPath() /= u8"Logs"sv;
 		create_directories(dir);
 
-		// Should not use memory pool
+		// Should NOT use memory pool
 		dir /= fmt::format(u8"{}.log"sv, EngineBase::Get().GetGameName());
-		
-		auto daily_file = std::make_shared<Daily>(dir.string(), 0, 0);
-		auto stdout_color = std::make_shared<Stdout>();
-		
-		spdlog::sinks_init_list list{std::move(daily_file), std::move(stdout_color)};
-		logger_ = std::make_shared<spdlog::logger>(std::string{}, list);
-		logger_->flush_on(spdlog::level::critical);
-		
-#ifndef NDEBUG
-		logger_->set_level(spdlog::level::debug);
-#endif
+
+		if constexpr (kLogThreadSafe)
+		{
+			console_ = spdlog::stdout_color_mt({});
+			file_ = spdlog::daily_logger_mt({}, dir.string());
+		}
+		else
+		{
+			console_ = spdlog::stdout_color_st({});
+			file_ = spdlog::daily_logger_st({}, dir.string());
+		}
 	}
 
 	void Logger::Log(Level level, std::u8string_view message) const noexcept
 	{
-		ASSERT_TRY(logger_->log(spdlog::level::level_enum(level), AsString(message)));
+		if (ShouldLog(level))
+		{
+			file_->log(ToSpdLogLevel(level), AsString(message));
+
+			if (ShouldLogConsole(level))
+			{
+				console_->log(ToSpdLogLevel(level), AsString(message));
+			}
+		}
 	}
 
 	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg) noexcept
