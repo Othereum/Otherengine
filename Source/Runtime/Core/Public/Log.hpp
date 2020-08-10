@@ -51,7 +51,7 @@ namespace oeng::core::log
 		/**
 		 * Prints an error to console and log file.
 		 */
-		kError,
+		kErr,
 
 		/**
 		 * Prints a critical error to console and log file.
