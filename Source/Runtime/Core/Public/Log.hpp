@@ -109,12 +109,13 @@ namespace oeng::core
 
 /**
  * Log with delay (anti-spam)
- * @param delay time::duration
- * @param level log::level
- * @param format message format
+ * @param delay Minimum interval
+ * @param category Log category
+ * @param level Log level
+ * @param format Message format
  */
-#define OE_DLOG(delay, level, format, ...) [&] \
+#define OE_DLOG(delay, category, level, format, ...) [&] \
 { \
 	static const ::oeng::log::detail::LogDelay log_delay; \
-	log_delay(delay, level, format, ##__VA_ARGS__); \
+	log_delay(delay, category, level, format, ##__VA_ARGS__); \
 }()
