@@ -1,8 +1,4 @@
 #pragma once
-#include "Core.hpp"
-#include "Format.hpp"
-#include "Templates/HashMap.hpp"
-#include "Templates/Sync.hpp"
 #include "Templates/Time.hpp"
 
 /**
