@@ -1,6 +1,7 @@
 #pragma once
 #include <cassert>
 #include <memory>
+#include "CompPair.hpp"
 #include "Memory.hpp"
 #include "Sync.hpp"
 
@@ -92,7 +93,7 @@ namespace oeng::core
 		{
 			template <class... Args>
 			SharedObjInline(Alloc alloc, Args&&... args)
-				:obj{ std::forward<Args>(args)... }, alloc{std::move(alloc)}
+				:storage{OneThen{}, std::move(alloc), std::forward<Args>(args)... }
 			{
 			}
 
@@ -100,44 +101,42 @@ namespace oeng::core
 
 			void Destroy() noexcept override
 			{
-				std::allocator_traits<Alloc>::destroy(alloc, &obj);
+				std::allocator_traits<Alloc>::destroy(storage.first(), &storage.second());
 			}
 			
 			void DeleteThis() noexcept override
 			{
 				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjInline>;
 				using Tr = std::allocator_traits<Al>;
-				alloc.~Alloc();
-				Al al{std::move(alloc)};
+				storage.first().~Alloc();
+				Al al{std::move(storage.first())};
 				Tr::deallocate(al, this, 1);
 			}
 
-			union { T obj; };
-			[[no_unique_address]] Alloc alloc;
+			union Obj { T obj; };
+			CompressedPair<Alloc, Obj> storage;
 		};
 
 		template <class T, class Deleter, class Alloc, bool ThreadSafe>
 		struct SharedObjPtr : SharedObjBase<ThreadSafe>
 		{
 			SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
-				:ptr{ptr}, deleter{std::move(deleter)}, alloc{std::move(alloc)}
+				: storage{OneThen{}, std::move(alloc), OneThen{}, std::move(deleter), ptr}
 			{
 			}
 
-			void Destroy() noexcept override { deleter(ptr); }
+			void Destroy() noexcept override { storage.second().first()(storage.second().second()); }
 			void DeleteThis() noexcept override
 			{
 				using Al = typename std::allocator_traits<Alloc>::template rebind_alloc<SharedObjPtr>;
 				using Tr = std::allocator_traits<Al>;
-				alloc.~Alloc();
-				deleter.~Deleter();
-				Al al{std::move(alloc)};
+				storage.first().~Alloc();
+				storage.second().first().~Deleter();
+				Al al{std::move(storage.first())};
 				Tr::deallocate(al, this, 1);
 			}
 
-			T* ptr;
-			[[no_unique_address]] Deleter deleter;
-			[[no_unique_address]] Alloc alloc;
+			CompressedPair<Alloc, CompressedPair<Deleter, T*>> storage;
 		};
 
 		template <class T, class = void>

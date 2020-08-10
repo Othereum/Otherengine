@@ -1,6 +1,7 @@
 #pragma once
 #include <atomic>
 #include <mutex>
+#include "CompPair.hpp"
 
 namespace oeng::core
 {
@@ -84,7 +85,7 @@ namespace oeng::core
 	{
 		struct Handle
 		{
-			explicit Handle(Monitor& set) :object{set.object_}, lock{set.mutex_} {}
+			explicit Handle(Monitor& set) :object{set.storage_.second()}, lock{set.storage_.first()} {}
 			T* operator->() const noexcept { return &object; }
 			T& operator*() const noexcept { return object; }
 			
@@ -95,7 +96,7 @@ namespace oeng::core
 		
 		struct ConstHandle
 		{
-			explicit ConstHandle(const Monitor& set) :object{set.object_}, lock{set.mutex_} {}
+			explicit ConstHandle(const Monitor& set) :object{storage_.second()}, lock{storage_.first()} {}
 			const T* operator->() const noexcept { return &object; }
 			const T& operator*() const noexcept { return object; }
 			
@@ -103,14 +104,13 @@ namespace oeng::core
 			const T& object;
 			std::lock_guard<Mutex> lock;
 		};
-		
-		T object_;
-		[[no_unique_address]] Mutex mutex_;
+
+		CompressedPair<Mutex, T> storage_;
 		
 	public:
 		template <class... Args>
 		explicit(sizeof...(Args) == 1)
-		Monitor(Args&&... args) :object_{std::forward<Args>(args)...} {}
+			Monitor(Args&&... args) :storage_{ZeroThen{}, std::forward<Args>(args)...} {}
 
 		Handle operator->() { return Lock(); }
 		Handle operator*() { return Lock(); }
@@ -120,8 +120,8 @@ namespace oeng::core
 		[[nodiscard]] Handle Lock() { return Handle{*this}; }
 		[[nodiscard]] ConstHandle Lock() const { return ConstHandle{*this}; }
 
-		[[nodiscard]] T& GetUnsafe() noexcept { return object_; }
-		[[nodiscard]] const T& GetUnsafe() const noexcept { return object_; }
+		[[nodiscard]] T& GetUnsafe() noexcept { return storage_.second(); }
+		[[nodiscard]] const T& GetUnsafe() const noexcept { return storage_.second(); }
 	};
 
 	template <class T, bool ThreadSafe>
