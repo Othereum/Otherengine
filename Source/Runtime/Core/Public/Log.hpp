@@ -68,8 +68,8 @@ namespace oeng::core::log
 	class CORE_API Logger
 	{
 	public:
-		void Log(Level level, std::u8string_view message) const noexcept;
-		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg) noexcept;
+		void Log(Level level, std::u8string_view message) const;
+		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
 		
 	private:
 		friend CoreSystem;
@@ -82,12 +82,12 @@ namespace oeng::core::log
 		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
-	CORE_API void Log(Level level, std::u8string_view message) noexcept;
+	CORE_API void Log(Level level, std::u8string_view message);
 
 	template <class... Args>
-	void Log(Level level, std::u8string_view fmt, const Args&... args) noexcept
+	void Log(Level level, std::u8string_view fmt, const Args&... args)
 	{
-		ASSERT_TRY(Log(level, Format(fmt, args...)));
+		Log(level, Format(fmt, args...));
 	}
 	
 	namespace detail
@@ -95,18 +95,18 @@ namespace oeng::core::log
 		class CORE_API LogDelay
 		{
 		public:
-			LogDelay() noexcept;
+			LogDelay();
 			
-			void operator()(Duration delay, Level level, std::u8string_view msg) const noexcept;
+			void operator()(Duration delay, Level level, std::u8string_view msg) const;
 
 			template <class Rep, class Period>
-			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view msg) const noexcept
+			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view msg) const
 			{
 				operator()(time::duration_cast<Duration>(delay), level, msg);
 			}
 
 			template <class Rep, class Period, class... Args>
-			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view fmt, const Args&... args) const noexcept
+			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view fmt, const Args&... args) const
 			{
 				operator()(time::duration_cast<Duration>(delay), level, Format(fmt, args...));
 			}

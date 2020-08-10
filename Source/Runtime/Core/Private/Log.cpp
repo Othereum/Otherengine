@@ -40,13 +40,19 @@ namespace oeng::core::log
 		}
 	}
 
-	[[nodiscard]] static constexpr bool ShouldLog(Level level) noexcept
+	[[nodiscard]] static constexpr bool ShouldLogFile(Level level) noexcept
 	{
 #ifdef NDEBUG
-		return level != Level::kDebug;
-#else
-		return true;
+		switch (level)
+		{
+		case Level::kDebug:
+			return false;
+
+		default: ;
+		}
 #endif
+		
+		return true;
 	}
 	
 	[[nodiscard]] static constexpr bool ShouldLogConsole(Level level) noexcept
@@ -83,33 +89,36 @@ namespace oeng::core::log
 			console_ = spdlog::stdout_color_st({});
 			file_ = spdlog::daily_logger_st({}, dir.string());
 		}
+
+		console_->set_level(spdlog::level::debug);
+		file_->set_level(spdlog::level::debug);
 	}
 
-	void Logger::Log(Level level, std::u8string_view message) const noexcept
+	void Logger::Log(Level level, std::u8string_view message) const
 	{
-		if (ShouldLog(level))
-		{
+		if (ShouldLogFile(level))
 			file_->log(ToSpdLogLevel(level), AsString(message));
 
-			if (ShouldLogConsole(level))
-			{
-				console_->log(ToSpdLogLevel(level), AsString(message));
-			}
-		}
+		if (ShouldLogConsole(level))
+			console_->log(ToSpdLogLevel(level), AsString(message));
 	}
 
-	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg) noexcept
+	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg)
 	{
-		ASSERT_TRY({
+		{
 			const auto logs = delayed_.Lock();
 			auto& next = (*logs)[id];
+			
 			const auto now = Clock::now();
 			if (next > now) return;
+			
 			next = now + delay;
-		} Log(level, msg));
+		}
+		
+		Log(level, msg);
 	}
 
-	void Log(Level level, std::u8string_view message) noexcept
+	void Log(Level level, std::u8string_view message)
 	{
 		if (EngineBase::Exists())
 		{
@@ -117,19 +126,19 @@ namespace oeng::core::log
 		}
 		else
 		{
-			ASSERT_TRY(spdlog::log(spdlog::level::level_enum(level), AsString(message)));
+			spdlog::log(ToSpdLogLevel(level), AsString(message));
 		}
 	}
 
 	namespace detail
 	{
-		LogDelay::LogDelay() noexcept
+		LogDelay::LogDelay()
 		{
 			static CondAtomic<unsigned, kLogThreadSafe> id = 0u;
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const noexcept
+		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
 		{
 			if (EngineBase::Exists())
 			{
@@ -137,7 +146,7 @@ namespace oeng::core::log
 			}
 			else
 			{
-				ASSERT_TRY(spdlog::log(spdlog::level::level_enum(level), AsString(msg)));
+				spdlog::log(ToSpdLogLevel(level), AsString(msg));
 			}
 		}
 	}
