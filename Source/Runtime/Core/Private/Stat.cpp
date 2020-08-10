@@ -6,17 +6,19 @@
 
 namespace oeng::core
 {
+	static constexpr LogCategory kLogStat{u8"Stat"sv, LogLevel::kLog};
+	
 	static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
 	{
 		const auto ticks = EngineBase::Get().GetTickCount();
 		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
 		const auto count = ToFloat(stat.count) / ToFloat(ticks);
-		log::Debug(u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
+		Log(kLogStat, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
 	}
 
 	static void LogStats(const TreeMap<Name, ScopeStackStat>& stats, int depth = 0)
 	{
-		for (auto& [name, stat] : stats)
+		for (const auto& [name, stat] : stats)
 		{
 			LogStat(name, stat, depth);
 			LogStats(stat.children, depth + 1);
@@ -63,28 +65,14 @@ namespace oeng::core
 
 	ScopeStackCounter::~ScopeStackCounter()
 	{
-		try
-		{
-			EngineBase::Get().counters_.PopScope();
-		}
-		catch (const std::exception& e)
-		{
-			OE_ELOG(u8"ScopeStackCounter::~ScopeStackCounter(): {}"sv, What(e));
-		}
+		EngineBase::Get().counters_.PopScope();
 	}
 
 	ScopeCounter::~ScopeCounter()
 	{
-		try
-		{
-			const auto end = Clock::now();
-			auto& counter = EngineBase::Get().counters_.scope_stats_[name_];
-			counter.duration += end - start_;
-			++counter.count;
-		}
-		catch (const std::exception& e)
-		{
-			OE_ELOG(u8"ScopeCounter: {}"sv, What(e));
-		}
+		const auto end = Clock::now();
+		auto& counter = EngineBase::Get().counters_.scope_stats_[name_];
+		counter.duration += end - start_;
+		++counter.count;
 	}
 }
