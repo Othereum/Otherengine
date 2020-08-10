@@ -105,7 +105,7 @@ namespace oeng::core
 			std::lock_guard<Mutex> lock;
 		};
 
-		CompressedPair<Mutex, T> storage_;
+		CompPair<Mutex, T> storage_;
 		
 	public:
 		template <class... Args>

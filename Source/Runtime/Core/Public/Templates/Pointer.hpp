@@ -114,7 +114,7 @@ namespace oeng::core
 			}
 
 			union Obj { T obj; };
-			CompressedPair<Alloc, Obj> storage;
+			CompPair<Alloc, Obj> storage;
 		};
 
 		template <class T, class Deleter, class Alloc, bool ThreadSafe>
@@ -136,7 +136,7 @@ namespace oeng::core
 				Tr::deallocate(al, this, 1);
 			}
 
-			CompressedPair<Alloc, CompressedPair<Deleter, T*>> storage;
+			CompPair<Alloc, CompPair<Deleter, T*>> storage;
 		};
 
 		template <class T, class = void>
