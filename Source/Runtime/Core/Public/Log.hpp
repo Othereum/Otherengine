@@ -15,18 +15,13 @@ namespace spdlog
 
 namespace oeng::core
 {
-	class CoreSystem;
-}
-
-namespace oeng::core::log
-{
 #ifdef OE_LOG_THREADSAFE
 	constexpr auto kLogThreadSafe = true;
 #else
 	constexpr auto kLogThreadSafe = false;
 #endif
 
-	enum class Level
+	enum class LogLevel
 	{
 		/**
 		 * Prints a message to console and log file (does not print if NDEBUG is defined).
@@ -62,7 +57,7 @@ namespace oeng::core::log
 	struct LogCategory
 	{
 		std::u8string_view name;
-		Level min_level = Level::kDebug;
+		LogLevel min_level = LogLevel::kDebug;
 	};
 
 	class CORE_API Logger
@@ -72,7 +67,7 @@ namespace oeng::core::log
 		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
 		
 	private:
-		friend CoreSystem;
+		friend class CoreSystem;
 		Logger();
 		
 		std::shared_ptr<spdlog::logger> console_;
