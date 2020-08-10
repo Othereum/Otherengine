@@ -40,7 +40,8 @@ namespace oeng::core
 
 	Logger::Logger()
 	{
-		auto dir = GetUserDataPath() /= u8"Logs"sv;
+		auto dir = GetUserDataPath();
+		dir /= u8"Logs"sv;
 		create_directories(dir);
 
 		// Should NOT use memory pool
