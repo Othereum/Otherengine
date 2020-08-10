@@ -90,42 +90,6 @@ namespace oeng::core::log
 		ASSERT_TRY(Log(level, Format(fmt, args...)));
 	}
 	
-	template <class... Args>
-	void Trace(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kTrace, fmt, args...);
-	}
-
-	template <class... Args>
-	void Debug(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kDebug, fmt, args...);
-	}
-
-	template <class... Args>
-	void Info(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kInfo, fmt, args...);
-	}
-
-	template <class... Args>
-	void Warn(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kWarn, fmt, args...);
-	}
-
-	template <class... Args>
-	void Error(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kErr, fmt, args...);
-	}
-
-	template <class... Args>
-	void Critical(std::u8string_view fmt, const Args&... args) noexcept
-	{
-		Log(Level::kCritical, fmt, args...);
-	}
-
 	namespace detail
 	{
 		class CORE_API LogDelay
