@@ -31,6 +31,12 @@ namespace oeng::core::log
 	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
 	};
 
+	struct LogCategory
+	{
+		std::u8string_view name;
+		Level min_level = Level::kDebug;
+	};
+
 	class CORE_API Logger
 	{
 	public:
