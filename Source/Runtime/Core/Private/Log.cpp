@@ -11,66 +11,33 @@
 #pragma warning(pop)
 #endif
 
-namespace oeng::core::log
+namespace oeng::core
 {
-	[[nodiscard]] static spdlog::level::level_enum ToSpdLogLevel(Level level)
+	[[nodiscard]] static spdlog::level::level_enum ToSpdLogLevel(LogLevel level)
 	{
-		using namespace spdlog::level;
-		
 		switch (level)
 		{
-		case Level::kDebug:
-			return debug;
+		case LogLevel::kDebug:
+			return spdlog::level::debug;
 			
-		case Level::kLog:
-		case Level::kDisplay:
-			return info;
+		case LogLevel::kLog:
+		case LogLevel::kDisplay:
+			return spdlog::level::info;
 
-		case Level::kWarn:
-			return warn;
+		case LogLevel::kWarn:
+			return spdlog::level::warn;
 			
-		case Level::kErr:
-			return err;
+		case LogLevel::kErr:
+			return spdlog::level::err;
 			
-		case Level::kCritical:
-			return critical;
+		case LogLevel::kCritical:
+			return spdlog::level::critical;
 			
 		default:
 			throw std::invalid_argument{"Invalid log level"};
 		}
 	}
 
-	[[nodiscard]] static constexpr bool ShouldLogFile(Level level) noexcept
-	{
-#ifdef NDEBUG
-		switch (level)
-		{
-		case Level::kDebug:
-			return false;
-
-		default: ;
-		}
-#endif
-		
-		return true;
-	}
-	
-	[[nodiscard]] static constexpr bool ShouldLogConsole(Level level) noexcept
-	{
-#ifdef NDEBUG
-		switch (level)
-		{
-		case Level::kDebug:
-		case Level::kLog:
-			return false;
-
-		default: ;
-		}
-#endif
-
-		return true;
-	}
-	
 	Logger::Logger()
 	{
 		auto dir = GetUserDataPath() /= u8"Logs"sv;
@@ -90,20 +57,27 @@ namespace oeng::core::log
 			file_ = spdlog::daily_logger_st({}, dir.string());
 		}
 
-		console_->set_level(spdlog::level::debug);
+#ifndef NDEBUG
 		file_->set_level(spdlog::level::debug);
+#endif
 	}
 
-	void Logger::Log(Level level, std::u8string_view message) const
+	void Logger::Log(const LogCategory& category, LogLevel level, std::u8string_view message) const
 	{
-		if (ShouldLogFile(level))
-			file_->log(ToSpdLogLevel(level), AsString(message));
+		if (category.min_level > level) return;
+		
+		const auto msg = Format(u8"[{}] {}"sv, category.name, message);
+		file_->log(ToSpdLogLevel(level), AsString(msg));
 
-		if (ShouldLogConsole(level))
-			console_->log(ToSpdLogLevel(level), AsString(message));
+#ifdef NDEBUG
+		if (level != LogLevel::kLog)
+#endif
+		{
+			console_->log(ToSpdLogLevel(level), AsString(msg));
+		}
 	}
 
-	void Logger::LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg)
+	void Logger::LogDelay(unsigned id, Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg)
 	{
 		{
 			const auto logs = delayed_.Lock();
@@ -115,10 +89,10 @@ namespace oeng::core::log
 			next = now + delay;
 		}
 		
-		Log(level, msg);
+		Log(category, level, msg);
 	}
 
-	void Log(Level level, std::u8string_view message)
+	void Log(LogLevel level, std::u8string_view message)
 	{
 		if (EngineBase::Exists())
 		{
@@ -138,11 +112,11 @@ namespace oeng::core::log
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, Level level, std::u8string_view msg) const
+		void LogDelay::operator()(Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const
 		{
 			if (EngineBase::Exists())
 			{
-				EngineBase::Get().GetLogger().LogDelay(id_, delay, level, msg);
+				EngineBase::Get().GetLogger().LogDelay(id_, delay, category, level, msg);
 			}
 			else
 			{

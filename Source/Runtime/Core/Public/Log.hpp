@@ -24,12 +24,12 @@ namespace oeng::core
 	enum class LogLevel
 	{
 		/**
-		 * Prints a message to console and log file (does not print if NDEBUG is defined).
+		 * Prints a message to log file if NDEBUG is not defined.
 		 */
 		kDebug,
 
 		/**
-		 * Prints a message to a log file (does not print to console if NDEBUG is defined).
+		 * Prints a message to log file (and console if NDEBUG is not defined).
 		 */
 		kLog,
 
@@ -63,8 +63,8 @@ namespace oeng::core
 	class CORE_API Logger
 	{
 	public:
-		void Log(Level level, std::u8string_view message) const;
-		void LogDelay(unsigned id, Duration delay, Level level, std::u8string_view msg);
+		void Log(const LogCategory& category, LogLevel level, std::u8string_view message) const;
+		void LogDelay(unsigned id, Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg);
 		
 	private:
 		friend class CoreSystem;
@@ -77,12 +77,12 @@ namespace oeng::core
 		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
-	CORE_API void Log(Level level, std::u8string_view message);
+	CORE_API void Log(const LogCategory& category, LogLevel level, std::u8string_view message);
 
 	template <class... Args>
-	void Log(Level level, std::u8string_view fmt, const Args&... args)
+	void Log(const LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args)
 	{
-		Log(level, Format(fmt, args...));
+		Log(category, level, Format(fmt, args...));
 	}
 	
 	namespace detail
@@ -92,18 +92,18 @@ namespace oeng::core
 		public:
 			LogDelay();
 			
-			void operator()(Duration delay, Level level, std::u8string_view msg) const;
+			void operator()(Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const;
 
 			template <class Rep, class Period>
-			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view msg) const
+			void operator()(time::duration<Rep, Period> delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const
 			{
-				operator()(time::duration_cast<Duration>(delay), level, msg);
+				operator()(time::duration_cast<Duration>(delay), category, level, msg);
 			}
 
 			template <class Rep, class Period, class... Args>
-			void operator()(time::duration<Rep, Period> delay, Level level, std::u8string_view fmt, const Args&... args) const
+			void operator()(time::duration<Rep, Period> delay, const LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args) const
 			{
-				operator()(time::duration_cast<Duration>(delay), level, Format(fmt, args...));
+				operator()(time::duration_cast<Duration>(delay), category, level, Format(fmt, args...));
 			}
 
 		private:
