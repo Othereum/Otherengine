@@ -28,7 +28,35 @@ namespace oeng::core::log
 
 	enum class Level
 	{
-	    kTrace, kDebug, kInfo, kWarn, kErr, kCritical, kOff,
+		/**
+		 * Prints a message to console and log file (does not print if NDEBUG is defined).
+		 */
+		kDebug,
+
+		/**
+		 * Prints a message to a log file (does not print to console if NDEBUG is defined).
+		 */
+		kLog,
+
+		/**
+		 * Prints a message to console and log file.
+		 */
+		kDisplay,
+
+		/**
+		 * Prints a warning to console and log file.
+		 */
+		kWarn,
+		
+		/**
+		 * Prints an error to console and log file.
+		 */
+		kError,
+
+		/**
+		 * Prints a critical error to console and log file.
+		 */
+		kCritical
 	};
 
 	struct LogCategory
