@@ -16,10 +16,6 @@ namespace FMOD
 
 namespace oeng::engine
 {
-	class AudioSystemError : public std::runtime_error {};
-	class FModError : public AudioSystemError {};
-	class BankAlreadyLoaded : public AudioSystemError {};
-	
 	class ENGINE_API AudioSystem
 	{
 	public:
@@ -33,8 +29,7 @@ namespace oeng::engine
 		/**
 		 * @brief Load the bank and its sample data and events.
 		 * @param path Bank file path. Must be valid.
-		 * @return False if already loaded. True if successful.
-		 * @throw std::runtime_error If failed to load the bank.
+		 * @return False if already loaded or failed. True if successful.
 		 */
 		bool LoadBank(Path path);
 

@@ -1,8 +1,6 @@
 #include "Audio/AudioSystem.hpp"
-
 #include "FModError.hpp"
 #include "fmod_studio.hpp"
-#include "Format.hpp"
 
 namespace oeng::engine
 {
@@ -57,7 +55,11 @@ namespace oeng::engine
 			&bank
 		);
 
-		FModCheck(result, u8"Failed to load bank from file '{}'", path.Str());
+		if (result != FMOD_OK)
+		{
+			log::Error(u8"Failed to load bank from file '{}'", path.Str());
+			return false;
+		}
 
 		banks_.try_emplace(path, bank);
 		bank->loadSampleData();
