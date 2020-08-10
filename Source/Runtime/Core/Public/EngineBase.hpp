@@ -12,6 +12,8 @@ namespace oeng::engine
 
 namespace oeng::core
 {
+	extern CORE_API const LogCategory kLogEngine;
+	
 	class EngineBase;
 	
 	class CORE_API RegisterEngineBase
@@ -27,7 +29,7 @@ namespace oeng::core
 	public:
 		DELETE_CPMV(CoreSystem);
 		
-		[[nodiscard]] log::Logger& GetLogger() noexcept { return logger_; }
+		[[nodiscard]] Logger& GetLogger() noexcept { return logger_; }
 		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
 		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
 		
@@ -38,7 +40,7 @@ namespace oeng::core
 		
 		Dll game_dll_;
 		std::u8string_view game_name_;
-		log::Logger logger_;
+		Logger logger_;
 	};
 	
 	class CORE_API EngineBase : RegisterEngineBase, public CoreSystem
