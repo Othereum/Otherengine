@@ -75,9 +75,10 @@ namespace oeng::core::log
 		friend CoreSystem;
 		Logger();
 		
-		std::shared_ptr<spdlog::logger> logger_;
+		std::shared_ptr<spdlog::logger> console_;
+		std::shared_ptr<spdlog::logger> file_;
 
-		// Should not use memory pool
+		// Should NOT use memory pool
 		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
