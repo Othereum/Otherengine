@@ -1,11 +1,6 @@
 #pragma once
 #include "Templates/Time.hpp"
 
-/**
- * Try to execute the expression; if an exception thrown, swallow the exception if NDEBUG is defined; otherwise, abort the app.
- */
-#define ASSERT_TRY(expr) do { try { expr; } catch (...) { assert(!"Critical exception"); } } while (false)
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace spdlog
 {
