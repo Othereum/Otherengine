@@ -82,10 +82,9 @@ namespace oeng::core::logcat
 #define EXPECT_NO_ENTRY() EXPECT(!u8"Enclosing block should never be called")
 
 /**
- * Log error with anti-spam and debug break.
- * @param fmt Formatted message to log
+ * Try to execute the expression, and if an exception thrown, log the error and swallow the exception.
  */
-#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())
+#define EXPECT_NO_THROW(expr) do { try { expr; } catch (const std::exception& e) { EXPECT_MSG(!u8"No exceptions should be thrown", u8"{}: {}"sv, u8 ## #expr ## sv, What(e)); } } while (false)
 
 /**
  * Log error with anti-spam and debug break.
@@ -93,7 +92,3 @@ namespace oeng::core::logcat
  */
 #define OE_ELOG(category, format, ...) (OE_DLOG(1s, category, kErr, format, ##__VA_ARGS__), DEBUG_BREAK())
 
-/**
- * Try to execute the expression, and if an exception thrown, log the error and swallow the exception.
- */
-#define TRY(expr) do { try { expr; } catch (const std::exception& e) { OE_ELOG(u8"{}: {}"sv, u8 ## #expr ## sv, What(e)); } } while (false)
