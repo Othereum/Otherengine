@@ -1,8 +1,7 @@
 #include "Shader.hpp"
 #include <fstream>
-#include "Math.hpp"
-#include "OpenGL.hpp"
-#include "Stat.hpp"
+#include <GL/glew.h>
+#include "Renderer.hpp"
 
 namespace oeng::renderer
 {
@@ -20,14 +19,14 @@ namespace oeng::renderer
 	static void CheckShader(unsigned shader)
 	{
 		auto is_valid = 0;
-		gl(glGetShaderiv, shader, GL_COMPILE_STATUS, &is_valid);
+		glGetShaderiv(shader, GL_COMPILE_STATUS, &is_valid);
 		if (!is_valid)
 		{
 			auto len = 0;
-			gl(glGetShaderiv, shader, GL_INFO_LOG_LENGTH, &len);
+			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &len);
 			
 			std::string log(len, '\0');
-			gl(glGetShaderInfoLog, shader, len, nullptr, log.data());
+			glGetShaderInfoLog(shader, len, nullptr, log.data());
 			
 			throw std::runtime_error{log};
 		}
@@ -36,14 +35,14 @@ namespace oeng::renderer
 	static void CheckProgram(unsigned program)
 	{
 		auto is_valid = 0;
-		gl(glGetProgramiv, program, GL_LINK_STATUS, &is_valid);
+		glGetProgramiv(program, GL_LINK_STATUS, &is_valid);
 		if (!is_valid)
 		{
 			auto len = 0;
-			gl(glGetProgramiv, program, GL_INFO_LOG_LENGTH, &len);
+			glGetProgramiv(program, GL_INFO_LOG_LENGTH, &len);
 			
 			std::string log(len, '\0');
-			gl(glGetProgramInfoLog, program, len, nullptr, log.data());
+			glGetProgramInfoLog(program, len, nullptr, log.data());
 			
 			throw std::runtime_error{log};
 		}
@@ -53,9 +52,9 @@ namespace oeng::renderer
 	{
 		const auto code = ReadFile(file);
 		const auto* const c_str = code.c_str();
-		const auto shader = gl(glCreateShader, type);
-		gl(glShaderSource, shader, 1, &c_str, nullptr);
-		gl(glCompileShader, shader);
+		const auto shader = glCreateShader(type);
+		glShaderSource(shader, 1, &c_str, nullptr);
+		glCompileShader(shader);
 		CheckShader(shader);
 		return shader;
 	}
@@ -69,33 +68,32 @@ namespace oeng::renderer
 		:Asset{path},
 		vert_shader_{Compile(Ext(path, u8".vert"), GL_VERTEX_SHADER)},
 		frag_shader_{Compile(Ext(path, u8".frag"), GL_FRAGMENT_SHADER)},
-		shader_program_{gl(glCreateProgram)}
+		shader_program_{glCreateProgram()}
 	{
-		gl(glAttachShader, shader_program_, vert_shader_);
-		gl(glAttachShader, shader_program_, frag_shader_);
-		gl(glLinkProgram, shader_program_);
+		glAttachShader(shader_program_, vert_shader_);
+		glAttachShader(shader_program_, frag_shader_);
+		glLinkProgram(shader_program_);
 		CheckProgram(shader_program_);
 		Activate();
 	}
 
 	Shader::~Shader()
 	{
-		GL(glDeleteProgram, shader_program_);
-		GL(glDeleteShader, vert_shader_);
-		GL(glDeleteShader, frag_shader_);
+		glDeleteProgram(shader_program_);
+		glDeleteShader(vert_shader_);
+		glDeleteShader(frag_shader_);
 	}
 
 	void Shader::Activate() const
 	{
-		gl(glUseProgram, shader_program_);
+		glUseProgram(shader_program_);
 	}
 
 	template <class... Args, std::invocable<int, Args...> Fn>
 	static bool GlUniform(Fn fn, int location, Args... args) noexcept
 	{
-		unsigned err;
-		gl(err, fn, location, args...);
-		return err == GL_NO_ERROR;
+		fn(location, args...);
+		return glGetError() == GL_NO_ERROR;
 	}
 
 	template <class Fn, size_t Row, size_t Col>
@@ -124,17 +122,22 @@ namespace oeng::renderer
 	static bool GlUniform(int l, float v) noexcept { return GlUniform(glUniform1f, l, v); }
 	static bool GlUniform(int l, int v) noexcept { return GlUniform(glUniform1i, l, v); }
 
-	bool Shader::TryUniform(int location, const Uniform& value)
+	bool Shader::SetUniform(int location, const Uniform& value)
 	{
-		if (location == invalid_uniform_) return false;
 		SCOPE_COUNTER(SetUniform);
+
+		if (location == invalid_uniform)
+		{
+			OE_LOG(kRenderer, kWarn, u8"Attempted to set uniform with invalid location -1"sv);
+			return false;
+		}
 
 		const auto cache = uniform_cache_.find(location);
 		if (cache != uniform_cache_.end())
 		{
-			auto equals = []<class T0, class T1>(const T0& a, const T1& b)
+			auto equals = []<class T1, class T2>(const T1& a, const T2& b)
 			{
-				if constexpr (!std::is_same_v<T0, T1>) { return false; }
+				if constexpr (!std::is_same_v<T1, T2>) { return false; }
 				else { return IsNearlyEqual(a, b); }
 			};
 			if (std::visit(equals, cache->second, value)) return true;
@@ -151,9 +154,8 @@ namespace oeng::renderer
 		if (const auto found = loc_cache_.find(name); found != loc_cache_.end())
 			return found->second;
 
-		unsigned err;
-		const auto loc = gl(err, glGetUniformLocation, shader_program_, AsString(name->c_str()));
-		if (loc != invalid_uniform_) loc_cache_.try_emplace(name, loc);
+		const auto loc = glGetUniformLocation(shader_program_, AsString(name->c_str()));
+		if (loc != invalid_uniform) loc_cache_.try_emplace(name, loc);
 		return loc;
 	}
 }

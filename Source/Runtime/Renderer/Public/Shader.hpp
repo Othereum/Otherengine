@@ -9,7 +9,7 @@ namespace oeng::renderer
 	class RENDERER_API Shader : public Asset
 	{
 	public:
-		static constexpr int invalid_uniform_ = -1;
+		static constexpr int invalid_uniform = -1;
 
 		Shader() = default;
 		explicit Shader(Path path);
@@ -48,51 +48,45 @@ namespace oeng::renderer
 		void Activate() const;
 		
 		/**
-		 * Set uniform variable of this shader with given name.
-		 * @param name The name of the uniform variable. Must be valid.
-		 * @param value The new value to be set.
-		 * @throw std::out_of_range If name is invalid
-		 */
-		void SetUniform(Name name, const Uniform& value)
-		{
-			SetUniform(GetUniformLocation(name), value);
-		}
-
-		/**
-		 * Set uniform variable of this shader with given name.
-		 * @param location The location of the uniform variable. Must be valid.
-		 * @param value The new value to be set.
-		 * @throw std::out_of_range If location is invalid
-		 */
-		void SetUniform(int location, const Uniform& value)
-		{
-			if (!TryUniform(location, value))
-				throw std::out_of_range{"location is invalid"};
-		}
-		
-		/**
 		 * Try to set uniform variable of this shader with given name.
-		 * @param name The name of the uniform variable. Must be valid.
+		 * If the name is not valid, it returns false quietly.
+		 * Otherwise, error will be logged if occurs.
+		 * @param name The name of the uniform variable.
 		 * @param value The new value to be set.
-		 * @return true if successful
+		 * @return True if successful.
 		 */
 		bool TryUniform(Name name, const Uniform& value)
 		{
-			return TryUniform(GetUniformLocation(name), value);
+			const auto location = GetUniformLocation(name);
+			if (location == invalid_uniform) return false;
+			return SetUniform(location, value);
 		}
 
 		/**
-		 * Set uniform variable with given location.
-		 * @param location The location of the uniform variable. Must be valid.
-		 * @param value New value of uniform
-		 * @return true if successful
+		 * Set uniform variable of this shader with given name.
+		 * An error will be logged if occurs.
+		 * @param name The name of the uniform variable. Must be valid.
+		 * @param value The new value to be set.
+		 * @return True if successful.
 		 */
-		bool TryUniform(int location, const Uniform& value);
+		bool SetUniform(Name name, const Uniform& value)
+		{
+			return SetUniform(GetUniformLocation(name), value);
+		}
+
+		/**
+		 * Set uniform variable of this shader with given location.
+		 * An error will be logged if occurs.
+		 * @param location The location of the uniform variable. Must be valid.
+		 * @param value The new value to be set.
+		 * @return True if successful.
+		 */
+		bool SetUniform(int location, const Uniform& value);
 		
 		/**
 		 * Get location of the uniform variable
 		 * @param name The name of the uniform
-		 * @return Location of the uniform or invalid_uniform_ if name is invalid
+		 * @return Location of the uniform or invalid_uniform if name is invalid
 		 */
 		[[nodiscard]] int GetUniformLocation(Name name) noexcept;
 
