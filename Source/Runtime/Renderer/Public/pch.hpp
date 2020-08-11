@@ -2,6 +2,7 @@
 
 namespace oeng
 {
-	namespace renderer {}
-	using namespace renderer;
+	inline namespace renderer
+	{
+	}
 }

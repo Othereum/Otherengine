@@ -40,16 +40,14 @@
 #define STRINGIZE(x) STRINGIZE_IMPL(x)
 #define U8_LINE U8_TEXT(STRINGIZE(__LINE__))
 
-namespace oeng::core
-{
-	/**
-	 * Check if the current thread is a game thread.
-	 * @return True if called from the game thread.
-	 */
-	[[nodiscard]] CORE_API bool IsGameThread() noexcept;
-}
-
 namespace oeng
 {
-	using namespace core;
+	inline namespace core
+	{
+		/**
+		 * Check if the current thread is a game thread.
+		 * @return True if called from the game thread.
+		 */
+		[[nodiscard]] CORE_API bool IsGameThread() noexcept;
+	}
 }
