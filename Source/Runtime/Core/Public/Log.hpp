@@ -119,3 +119,5 @@ namespace oeng::core
 	static const ::oeng::LogDelay log_delay; \
 	log_delay(delay, logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \
 }()
+
+#define OE_LOG(category, level, format, ...) ::oeng::Log(logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)
