@@ -49,13 +49,13 @@ namespace oeng::core
 
 		if constexpr (kLogThreadSafe)
 		{
-			console_ = spdlog::stdout_color_mt({});
-			file_ = spdlog::daily_logger_mt({}, dir.string());
+			console_ = spdlog::stdout_color_mt("console"s);
+			file_ = spdlog::daily_logger_mt("file"s, dir.string());
 		}
 		else
 		{
-			console_ = spdlog::stdout_color_st({});
-			file_ = spdlog::daily_logger_st({}, dir.string());
+			console_ = spdlog::stdout_color_st("console"s);
+			file_ = spdlog::daily_logger_st("file"s, dir.string());
 		}
 
 #ifndef NDEBUG

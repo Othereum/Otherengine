@@ -8,22 +8,22 @@ namespace oeng::engine
 		instance_->start();
 	}
 
-	void SoundEvent::Stop(bool allow_fadeout) const noexcept
+	void SoundEvent::Stop(bool allow_fadeout) const
 	{
 		instance_->stop(allow_fadeout ? FMOD_STUDIO_STOP_ALLOWFADEOUT : FMOD_STUDIO_STOP_IMMEDIATE);
 	}
 
-	void SoundEvent::SetPaused(bool paused) const noexcept
+	void SoundEvent::SetPaused(bool paused) const
 	{
 		instance_->setPaused(paused);
 	}
 
-	void SoundEvent::SetVolume(float volume) const noexcept
+	void SoundEvent::SetVolume(float volume) const
 	{
 		instance_->setVolume(volume);
 	}
 
-	void SoundEvent::SetPitch(float pitch) const noexcept
+	void SoundEvent::SetPitch(float pitch) const
 	{
 		instance_->setPitch(pitch);
 	}
@@ -33,28 +33,28 @@ namespace oeng::engine
 		instance_->setParameterByName(name, value);
 	}
 
-	bool SoundEvent::IsPaused() const noexcept
+	bool SoundEvent::IsPaused() const
 	{
 		bool paused;
 		instance_->getPaused(&paused);
 		return paused;
 	}
 
-	float SoundEvent::GetVolume() const noexcept
+	float SoundEvent::GetVolume() const
 	{
 		float volume;
 		instance_->getVolume(&volume);
 		return volume;
 	}
 
-	float SoundEvent::GetPitch() const noexcept
+	float SoundEvent::GetPitch() const
 	{
 		float pitch;
 		instance_->getPitch(&pitch);
 		return pitch;
 	}
 
-	float SoundEvent::GetParam(const char* name) const noexcept
+	float SoundEvent::GetParam(const char* name) const
 	{
 		float value;
 		instance_->getParameterByName(name, &value);

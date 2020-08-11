@@ -2,6 +2,11 @@
 #include "FModError.hpp"
 #include "fmod_studio.hpp"
 
+namespace logcat
+{
+	const LogCategory kAudio{u8"Audio"sv};
+}
+
 namespace oeng::engine
 {
 	static String8 GetName(const FMOD::Studio::EventDescription& event);
@@ -20,7 +25,6 @@ namespace oeng::engine
 			fn(*event);
 		}
 	}
-
 
 	AudioSystem::AudioSystem()
 		:system_{}, core_system_{}
@@ -57,7 +61,7 @@ namespace oeng::engine
 
 		if (result != FMOD_OK)
 		{
-			log::Error(u8"Failed to load bank from file '{}'", path.Str());
+			OE_LOG(kAudio, kErr, u8"Failed to load bank from file '{}'", path.Str());
 			return false;
 		}
 
@@ -67,7 +71,7 @@ namespace oeng::engine
 		ForEachEvent(*bank, [this](FMOD::Studio::EventDescription& event)
 		{
 			auto [it, inserted] = events_.try_emplace(GetName(event), &event);
-			if (!inserted) log::Warn(u8"Event name duplicated: {}"sv, *it->first);
+			if (!inserted) OE_LOG(kAudio, kWarn, u8"Event name duplicated: {}"sv, *it->first);
 		});
 
 		return true;
@@ -94,9 +98,10 @@ namespace oeng::engine
 		banks_.clear();
 	}
 
-	SoundEvent AudioSystem::PlayEvent(Name name)
+	SoundEvent AudioSystem::PlayEvent(Name /*name*/)
 	{
-		
+		// TODO: IMPLEMENT
+		return {};
 	}
 
 	void AudioSystem::UnloadBank(FMOD::Studio::Bank& bank)

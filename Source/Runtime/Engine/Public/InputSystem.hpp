@@ -5,6 +5,11 @@
 struct _SDL_GameController;
 union SDL_Event;
 
+namespace logcat
+{
+	extern ENGINE_API const LogCategory kInput;
+}
+
 namespace oeng::engine
 {	
 	using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;

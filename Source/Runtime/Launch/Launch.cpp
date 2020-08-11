@@ -26,7 +26,7 @@ int main()
 		}
 		catch (const std::exception& e)
 		{
-			log::Critical(What(e));
+			OE_LOG(kEngine, kCritical, What(e));
 			return EXIT_FAILURE;
 		}
 	}

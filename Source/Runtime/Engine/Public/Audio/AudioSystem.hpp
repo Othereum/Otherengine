@@ -14,6 +14,11 @@ namespace FMOD
 }
 #endif
 
+namespace logcat
+{
+	extern ENGINE_API const LogCategory kAudio;
+}
+
 namespace oeng::engine
 {
 	class ENGINE_API AudioSystem

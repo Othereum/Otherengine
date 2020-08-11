@@ -3,6 +3,11 @@
 #include "Engine.hpp"
 #include "Math.hpp"
 
+namespace logcat
+{
+	const LogCategory kInput{u8"Input"sv};
+}
+
 namespace oeng::engine
 {
 	template <class... Ts>
@@ -147,7 +152,7 @@ namespace oeng::engine
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"Failed to load input mapping {}.{}[{}]: {}"sv,
+				OE_LOG(kInput, kErr, u8"Failed to load input mapping {}.{}[{}]: {}"sv,
 					AsString8(key), AsString8(name), i, What(e));
 			}
 		}
@@ -163,7 +168,7 @@ namespace oeng::engine
 	{
 		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
 		{
-			for (auto& mod_in : mods_in.value()) try
+			for (const auto& mod_in : mods_in.value()) try
 			{
 				mod |= ToKeyMod(AsString8(mod_in.get<String>())).value();
 			}
@@ -181,7 +186,8 @@ namespace oeng::engine
 
 	InputSystem::InputSystem()
 	{
-		SHOULD(0 == SDL_SetRelativeMouseMode(SDL_TRUE), AsString8(SDL_GetError()));
+		if (0 != SDL_SetRelativeMouseMode(SDL_TRUE))
+			OE_LOG(kInput, kErr, AsString8(SDL_GetError()));
 
 		const auto& config = ConfigSystem::Get()(u8"Input"sv);
 		LoadInput(config, "ActionMap", actions_);
@@ -310,13 +316,13 @@ namespace oeng::engine
 
 	void InputSystem::AddController(int id)
 	{
-		if (const auto ctrl = SDL_GameControllerOpen(id))
+		if (auto* const ctrl = SDL_GameControllerOpen(id))
 		{
 			ctrls_.emplace_back(ctrl, &SDL_GameControllerClose);
 		}
 		else
 		{
-			log::Error(u8"Could not open game controller {}: {}"sv, id, reinterpret_cast<const char8_t*>(SDL_GetError()));
+			OE_LOG(kInput, kErr, u8"Could not open game controller {}: {}"sv, id, reinterpret_cast<const char8_t*>(SDL_GetError()));
 		}
 	}
 
