@@ -2,7 +2,6 @@
 
 namespace oeng
 {
-	inline namespace engine
-	{
-	}
+	namespace engine {}
+	using namespace engine;
 }
