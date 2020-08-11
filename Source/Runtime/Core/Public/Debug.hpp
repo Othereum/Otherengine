@@ -2,7 +2,7 @@
 #include "Log.hpp"
 #include "Platform.hpp"
 
-namespace oeng::core::logcat
+namespace logcat
 {
 	extern CORE_API const LogCategory kDebug;
 }

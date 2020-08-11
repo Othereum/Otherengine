@@ -1,13 +1,13 @@
 #include "EngineBase.hpp"
 #include <csignal>
 
+namespace logcat
+{
+	const LogCategory kEngine{u8"Engine"sv};
+}
+	
 namespace oeng::core
 {
-	namespace logcat
-	{
-		const LogCategory kEngine{u8"Engine"sv};
-	}
-	
 	static EngineBase* engine_base = nullptr;
 
 	static void OnIllegal(int)

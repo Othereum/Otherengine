@@ -3,13 +3,13 @@
 #include "Templates/HashMap.hpp"
 #include "Templates/Time.hpp"
 
+namespace logcat
+{
+	extern CORE_API const LogCategory kStat;
+}
+
 namespace oeng::core
 {
-	namespace logcat
-	{
-		extern CORE_API const LogCategory kStat;
-	}
-	
 	struct ScopeStat
 	{
 		Duration duration{};

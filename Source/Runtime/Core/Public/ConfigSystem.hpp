@@ -5,13 +5,13 @@
 #include "Templates/HashMap.hpp"
 #include "Templates/TreeSet.hpp"
 
+namespace logcat
+{
+	extern CORE_API const LogCategory kConfig;
+}
+	
 namespace oeng::core
 {
-	namespace logcat
-	{
-		extern CORE_API const LogCategory kConfig;
-	}
-	
 	class CORE_API ConfigSystem
 	{
 	public:

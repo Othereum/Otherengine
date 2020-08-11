@@ -1,12 +1,12 @@
 #include "Stat.hpp"
 
+namespace logcat
+{
+	const LogCategory kStat{u8"Stat"sv};
+}
+	
 namespace oeng::core
 {
-	namespace logcat
-	{
-		const LogCategory kStat{u8"Stat"sv};
-	}
-	
 	static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
 	{
 		const auto ticks = EngineBase::Get().GetTickCount();

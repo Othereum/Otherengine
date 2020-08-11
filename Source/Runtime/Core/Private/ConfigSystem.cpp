@@ -2,13 +2,13 @@
 #include <filesystem>
 #include <fstream>
 
+namespace logcat
+{
+	const LogCategory kConfig{u8"Config"sv};
+}
+	
 namespace oeng::core
 {
-	namespace logcat
-	{
-		const LogCategory kConfig{u8"Config"sv};
-	}
-	
 	namespace fs = std::filesystem;
 	
 	[[nodiscard]] static fs::path GetUserConfigDir()
@@ -179,7 +179,7 @@ namespace oeng::core
 		template <class... Args>
 		void Log(LogLevel level, std::u8string_view msg, const Args&... args) const
 		{
-			Log(logcat::kConfig, level, u8"While loading \"{}\"{}: {}"sv,
+			oeng::Log(logcat::kConfig, level, u8"While loading \"{}\"{}: {}"sv,
 				path_.string<char8_t>(PoolAllocator<char8_t>{}), Prop(), Format(msg, args...));
 		}
 		

@@ -9,6 +9,49 @@ namespace spdlog
 }
 #endif
 
+/**
+ * Namespace for log categories.
+ * You should declare/define log categories in logcat namespace.
+ */
+namespace logcat
+{
+	/**
+	 * Log category. You can add custom log category with it:
+	 *
+	 * In .hpp:
+	 * @code{cpp}
+	 * namespace logcat
+	 * {
+	 *     extern const LogCategory kMyCategory;
+	 * }
+	 * @endcode
+	 * 
+	 * In .cpp:
+	 * @code{cpp}
+	 * namespace logcat
+	 * {
+	 *     const LogCategory kMyCategory{u8"MyCategory"sv};
+	 * }
+	 * @endcode
+	 *
+	 * Or simply define it as static in .cpp:
+	 * @code{cpp}
+	 * namespace logcat
+	 * {
+	 *     static constexpr LogCategory kMyCategory{u8"MyCategory"sv};
+	 * }
+	 * @endcode
+	 *
+	 * @note You should declare/define log categories in logcat namespace.
+	 */
+	struct LogCategory
+	{
+		std::u8string_view name;
+	};
+
+	using namespace std::string_view_literals;
+}
+
 namespace oeng::core
 {
 #ifdef OE_LOG_THREADSAFE
@@ -50,52 +93,6 @@ namespace oeng::core
 		kCritical
 	};
 
-	/**
-	 * Namespace for log categories.
-	 *
-	 * @note
-	 * You should declare/define log categories in logcat namespace.
-	 * But logcat namespace itself is fine wherever it is.
-	 */
-	namespace logcat
-	{
-		/**
-		 * Log category. You can add custom log category with it:
-		 *
-		 * In .hpp:
-		 * @code{cpp}
-		 * namespace logcat
-		 * {
-		 *     extern const LogCategory kMyCategory;
-		 * }
-		 * @endcode
-		 * 
-		 * In .cpp:
-		 * @code{cpp}
-		 * namespace logcat
-		 * {
-		 *     const LogCategory kMyCategory{u8"MyCategory"sv};
-		 * }
-		 * @endcode
-		 *
-		 * Or simply define it as static in .cpp:
-		 * @code{cpp}
-		 * namespace logcat
-		 * {
-		 *     static constexpr LogCategory kMyCategory{u8"MyCategory"sv};
-		 * }
-		 * @endcode
-		 *
-		 * @note
-		 * You should declare/define log categories in logcat namespace.
-		 * But logcat namespace itself is fine wherever it is.
-		 */
-		struct LogCategory
-		{
-			std::u8string_view name;
-		};
-	}
-
 	class CORE_API Logger
 	{
 	public:
@@ -121,10 +118,10 @@ namespace oeng::core
 		Log(category, level, Format(fmt, args...));
 	}
 	
-	class CORE_API LogDelay
+	class CORE_API DelayedLog
 	{
 	public:
-		LogDelay();
+		DelayedLog();
 		
 		void operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const;
 
@@ -154,8 +151,8 @@ namespace oeng::core
  */
 #define OE_DLOG(delay, category, level, format, ...) [&] \
 { \
-	static const ::oeng::LogDelay log_delay; \
-	log_delay(delay, logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \
+	static const ::oeng::DelayedLog log_delay; \
+	log_delay(delay, ::logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \
 }()
 
 /**
@@ -165,4 +162,4 @@ namespace oeng::core
  * @param format Log format.
  * @param ... Format arguments.
  */
-#define OE_LOG(category, level, format, ...) ::oeng::Log(logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)
+#define OE_LOG(category, level, format, ...) ::oeng::Log(::logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)

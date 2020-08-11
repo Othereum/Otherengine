@@ -2,13 +2,13 @@
 #include <sstream>
 #include <thread>
 
+namespace logcat
+{
+	const LogCategory kMemory{u8"Memory"sv};
+}
+
 namespace oeng::core
 {
-	namespace logcat
-	{
-		const LogCategory kMemory{u8"Memory"sv};
-	}
-	
 	struct MemPoolStorage
 	{
 		DELETE_CPMV(MemPoolStorage);

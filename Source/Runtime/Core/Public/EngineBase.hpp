@@ -5,6 +5,11 @@
 #include "Platform.hpp"
 #include "Stat.hpp"
 
+namespace logcat
+{
+	extern CORE_API const LogCategory kEngine;
+}
+
 namespace oeng::engine
 {
 	class Engine;
@@ -12,11 +17,6 @@ namespace oeng::engine
 
 namespace oeng::core
 {
-	namespace logcat
-	{
-		extern CORE_API const LogCategory kEngine;
-	}
-	
 	class EngineBase;
 	
 	class CORE_API RegisterEngineBase

@@ -1,6 +1,6 @@
 #include "Debug.hpp"
 
-namespace oeng::core::logcat
+namespace logcat
 {
 	const LogCategory kDebug{u8"Debug"sv};
 }

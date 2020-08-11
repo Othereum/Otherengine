@@ -103,24 +103,21 @@ namespace oeng::core
 		}
 	}
 
-	namespace detail
+	DelayedLog::DelayedLog()
 	{
-		LogDelay::LogDelay()
-		{
-			static CondAtomic<unsigned, kLogThreadSafe> id = 0u;
-			id_ = id++;
-		}
+		static CondAtomic<unsigned, kLogThreadSafe> id = 0u;
+		id_ = id++;
+	}
 
-		void LogDelay::operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const
+	void DelayedLog::operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const
+	{
+		if (EngineBase::Exists())
 		{
-			if (EngineBase::Exists())
-			{
-				EngineBase::Get().GetLogger().LogDelay(id_, delay, category, level, msg);
-			}
-			else
-			{
-				spdlog::log(ToSpdLogLevel(level), AsString(msg));
-			}
+			EngineBase::Get().GetLogger().LogDelay(id_, delay, category, level, msg);
+		}
+		else
+		{
+			spdlog::log(ToSpdLogLevel(level), AsString(msg));
 		}
 	}
 }
