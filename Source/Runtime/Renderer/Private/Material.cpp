@@ -25,14 +25,7 @@ namespace oeng::renderer
 	{
 		if (const auto uniforms = json.find("uniforms"); uniforms != json.end())
 		{
-			try
-			{
-				LoadUniforms(*uniforms);
-			}
-			catch (const std::exception& e)
-			{
-				log::Error(u8"'{}': failed to load uniforms: {}"sv, What(e));
-			}
+			LoadUniforms(*uniforms);
 		}
 	}
 
@@ -40,11 +33,8 @@ namespace oeng::renderer
 	{	
 		for (auto& uniform : uniforms_)
 		{
-			auto set_uniform = [&](auto& val) { return shader_->TryUniform(uniform.first, val); };
-			if (!std::visit(set_uniform, uniform.second))
-			{
-				OE_DLOG(1s, log::Level::kErr, u8"{}: Failed to set uniform '{}'", GetPath().Str(), *uniform.first);
-			}
+			auto set_uniform = [&](auto& val) { shader_->SetUniform(uniform.first, val); };
+			std::visit(set_uniform, uniform.second);
 		}
 	}
 
@@ -127,19 +117,22 @@ namespace oeng::renderer
 	{
 		for (auto& [name_narrow, value] : uniforms.items())
 		{
-			auto& name_str = AsString8(name_narrow);
+			const Name name{AsString8(name_narrow)};
+			const auto location = shader_->GetUniformLocation(name);
+			
+			if (location == Shader::invalid_uniform)
+			{
+				OE_LOG(kRenderer, kWarn, u8"'{}': uniform '{}' not found in shader"sv, GetPath().Str(), AsString8(name_narrow));
+				continue;
+			}
+		
 			try
 			{
-				const Name name{name_str};
-				
-				if (shader_->GetUniformLocation(name) == Shader::invalid_uniform_)
-					throw std::out_of_range{"could not be found"};
-				
-				uniforms_.try_emplace(name, LoadUniform(value));
+				uniforms_.try_emplace(location, LoadUniform(value));
 			}
 			catch (const std::exception& e)
 			{
-				log::Error(u8"'{}': invalid uniform '{}': {}"sv, GetPath().Str(), name_str, What(e));
+				OE_LOG(kRenderer, kErr, u8"'{}': invalid uniform '{}': {}"sv, GetPath().Str(), AsString8(name_narrow), What(e));
 			}
 		}
 	}
