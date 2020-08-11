@@ -7,6 +7,11 @@
 #include "Templates/DyArr.hpp"
 #include "Templates/Pointer.hpp"
 
+namespace logcat
+{
+	extern RENDERER_API const LogCategory kRenderer;
+}
+
 namespace oeng::engine
 {
 	class Engine;

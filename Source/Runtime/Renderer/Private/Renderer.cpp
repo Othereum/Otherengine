@@ -1,14 +1,19 @@
 #include "Renderer.hpp"
+#include <GL/glew.h>
 #include <SDL2/SDL.h>
 #include "EngineBase.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
-#include "OpenGL.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
 #include "Interfaces/Light.hpp"
+
+namespace logcat
+{
+	const LogCategory kRenderer{u8"Renderer"sv};
+}
 
 namespace oeng::renderer
 {
@@ -75,15 +80,15 @@ namespace oeng::renderer
 	void Renderer::PreDrawScene() const
 	{
 		SCOPE_STACK_COUNTER(PreDrawScene);
-		gl(glClear, GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
 	void Renderer::DrawScene()
 	{
 		SCOPE_STACK_COUNTER(DrawScene);
 		PreDrawScene();
-		TRY(Draw3D());
-		TRY(Draw2D());
+		Draw3D();
+		Draw2D();
 		PostDrawScene();
 	}
 
@@ -95,42 +100,32 @@ namespace oeng::renderer
 
 	void Renderer::Draw3D()
 	{
-		gl(glEnable, GL_DEPTH_TEST);
-		gl(glDisable, GL_BLEND);
+		glEnable(GL_DEPTH_TEST);
+		glDisable(GL_BLEND);
 
 		prev_ = {};
 		
-		for (auto mesh_comp : mesh_comps_) try
+		for (auto mesh_comp : mesh_comps_)
 		{
 			DrawMesh(mesh_comp);
-		}
-		catch (const std::exception& e)
-		{
-			const auto stem = mesh_comp.get().GetMesh().GetStem();
-			OE_ELOG(u8"Failed to draw mesh '{}': {}"sv, *stem, What(e));
 		}
 	}
 
 	void Renderer::Draw2D()
 	{
-		gl(glEnable, GL_BLEND);
-		gl(glDisable, GL_DEPTH_TEST);
-		gl(glBlendFunc, GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_BLEND);
+		glDisable(GL_DEPTH_TEST);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		sprite_shader_.Activate();
-		for (auto sprite_ref : sprites_) try
+		for (auto sprite_ref : sprites_)
 		{
 			const auto& sprite = sprite_ref.get();
 			if (!sprite.ShouldDraw()) continue;
 
 			SCOPE_STACK_COUNTER(DrawSprite);
-			sprite_shader_.SetUniform(u8"uWorldTransform"sv, sprite.GetDrawTrsf());
-			gl(glDrawElements, GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
-		}
-		catch (const std::exception& e)
-		{
-			const auto stem = sprite_ref.get().GetTexture().GetStem();
-			OE_ELOG(u8"Failed to draw sprite '{}': {}"sv, *stem, What(e));
+			sprite_shader_.TryUniform(u8"uWorldTransform"sv, sprite.GetDrawTrsf());
+			glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
 		}
 	}
 
@@ -180,7 +175,7 @@ namespace oeng::renderer
 		DrawSpotLights(mesh_comp);
 
 		shader.TryUniform(u8"uWorldTransform"sv, mesh_comp.GetDrawTrsfMatrix());
-		gl(glDrawElements, GL_TRIANGLES, GLsizei(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+		glDrawElements(GL_TRIANGLES, GLsizei(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
 	}
 
 	template <class Light, class Fn>
@@ -189,7 +184,7 @@ namespace oeng::renderer
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
 		const auto loc_num = shader.GetUniformLocation(Format(u8"uNum{}Lights"sv, name));
-		if (loc_num == Shader::invalid_uniform_) return;
+		if (loc_num == Shader::invalid_uniform) return;
 		
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
 		const auto mesh_radius = mesh_comp.GetScaledRadius();
@@ -223,7 +218,7 @@ namespace oeng::renderer
 			++idx;
 		}
 		
-		shader.TryUniform(loc_num, idx);
+		shader.SetUniform(loc_num, idx);
 	}
 
 	void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
@@ -316,7 +311,7 @@ namespace oeng::renderer
 		}
 		catch (const std::exception& e)
 		{
-			log::Error(u8"Failed to load '{}': {}"sv, path.Str(), What(e));
+			OE_LOG(kRenderer, kErr, u8"Failed to load '{}': {}"sv, path.Str(), What(e));
 			return cache.default_obj;
 		}
 	}
