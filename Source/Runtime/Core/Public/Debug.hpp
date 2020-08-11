@@ -88,10 +88,10 @@ namespace oeng::core::logcat
 #define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())
 
 /**
- * Same as ENSURE(), but it always resolves to test expression even if NDEBUG is defined.
+ * Log error with anti-spam and debug break.
  * @param fmt Formatted message to log
  */
-#define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))
+#define OE_ELOG(category, format, ...) (OE_DLOG(1s, category, kErr, format, ##__VA_ARGS__), DEBUG_BREAK())
 
 /**
  * Try to execute the expression, and if an exception thrown, log the error and swallow the exception.
