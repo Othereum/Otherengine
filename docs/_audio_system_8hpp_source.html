@@ -88,43 +88,71 @@ $(document).ready(function(){initNavTree('_audio_system_8hpp_source.html',''); i
 </div><!--header-->
 <div class="contents">
 <a href="_audio_system_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifndef DOXYGEN_SHOULD_SKIP_THIS</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>FMOD</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">namespace </span>Studio</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <span class="keyword">class </span>System;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">class </span>System;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html">   16</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_audio_system.html">AudioSystem</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a8c34a6e33c8f1867c6c242c431f66f9f">   19</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a8c34a6e33c8f1867c6c242c431f66f9f">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_audio_system.html">AudioSystem</a>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a793f0c4866e3fa1fe9f6adb35e1bf0ad">   21</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a793f0c4866e3fa1fe9f6adb35e1bf0ad">AudioSystem</a>();</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#ad962d08af40a9fe9df91c2c0afa3d1b4">   22</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#ad962d08af40a9fe9df91c2c0afa3d1b4">~AudioSystem</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">   24</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">Update</a>(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        FMOD::Studio::System* system_;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        FMOD::System* core_system_;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_sound_event_8hpp.html">SoundEvent.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifndef DOXYGEN_SHOULD_SKIP_THIS</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>FMOD</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">namespace </span>Studio</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;        <span class="keyword">class </span>System;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keyword">class </span>Bank;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keyword">class </span>EventDescription;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>System;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html">   19</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_audio_system.html">AudioSystem</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a8c34a6e33c8f1867c6c242c431f66f9f">   22</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a8c34a6e33c8f1867c6c242c431f66f9f">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_audio_system.html">AudioSystem</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a793f0c4866e3fa1fe9f6adb35e1bf0ad">   24</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a793f0c4866e3fa1fe9f6adb35e1bf0ad">AudioSystem</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#ad962d08af40a9fe9df91c2c0afa3d1b4">   25</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#ad962d08af40a9fe9df91c2c0afa3d1b4">~AudioSystem</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">   27</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">Update</a>(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a7e798b836ae17ae4e3905dd179c620bd">   34</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a7e798b836ae17ae4e3905dd179c620bd">LoadBank</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a0d05ad4d9952c5802378353b70df80aa">   41</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a0d05ad4d9952c5802378353b70df80aa">UnloadBank</a>(<a class="code" href="structoeng_1_1core_1_1_path.html">Path</a> path);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#a36e4d4628cbc4d5f894cb796df0fd588">   46</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#a36e4d4628cbc4d5f894cb796df0fd588">UnloadAllBanks</a>();</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_audio_system.html#add4faabcfd12a6aa83f6f714d8e141f0">   53</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_sound_event.html">SoundEvent</a> <a class="code" href="classoeng_1_1engine_1_1_audio_system.html#add4faabcfd12a6aa83f6f714d8e141f0">PlayEvent</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordtype">void</span> UnloadBank(FMOD::Studio::Bank&amp; bank);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        FMOD::Studio::System* system_;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        FMOD::System* core_system_;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">HashMap&lt;Path, FMOD::Studio::Bank*&gt;</a> banks_;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">HashMap&lt;Name, FMOD::Studio::EventDescription*&gt;</a> events_;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordtype">unsigned</span> next_id_ = 0;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">HashMap&lt;unsigned, FMOD::Studio::EventInstance*&gt;</a> event_instances_;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    };</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<div class="ttc" id="anamespaceoeng_1_1core_html_a5f3e7fb865d21c83d2df4e9a92f0770f"><div class="ttname"><a href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">oeng::core::HashMap</a></div><div class="ttdeci">std::unordered_map&lt; Key, T, Hash, KeyEqual, Alloc &gt; HashMap</div><div class="ttdef"><b>Definition:</b> HashMap.hpp:8</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a7e798b836ae17ae4e3905dd179c620bd"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a7e798b836ae17ae4e3905dd179c620bd">oeng::engine::AudioSystem::LoadBank</a></div><div class="ttdeci">bool LoadBank(Path path)</div><div class="ttdoc">Load the bank and its sample data and events.</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_sound_event_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_sound_event.html">oeng::engine::SoundEvent</a></div><div class="ttdef"><b>Definition:</b> SoundEvent.hpp:15</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a793f0c4866e3fa1fe9f6adb35e1bf0ad"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a793f0c4866e3fa1fe9f6adb35e1bf0ad">oeng::engine::AudioSystem::AudioSystem</a></div><div class="ttdeci">AudioSystem()</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_name_html"><div class="ttname"><a href="structoeng_1_1core_1_1_name.html">oeng::core::Name</a></div><div class="ttdoc">Lightweight string.</div><div class="ttdef"><b>Definition:</b> Name.hpp:74</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a0d05ad4d9952c5802378353b70df80aa"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a0d05ad4d9952c5802378353b70df80aa">oeng::engine::AudioSystem::UnloadBank</a></div><div class="ttdeci">bool UnloadBank(Path path)</div><div class="ttdoc">Unload the bank and its sample data and events.</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a8c34a6e33c8f1867c6c242c431f66f9f"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a8c34a6e33c8f1867c6c242c431f66f9f">oeng::engine::AudioSystem::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(AudioSystem)</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:12</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html">oeng::engine::AudioSystem</a></div><div class="ttdef"><b>Definition:</b> AudioSystem.hpp:17</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_path_html"><div class="ttname"><a href="structoeng_1_1core_1_1_path.html">oeng::core::Path</a></div><div class="ttdoc">Lightweight representation of path.</div><div class="ttdef"><b>Definition:</b> Path.hpp:41</div></div>
+<div class="ttc" id="a_sound_event_8hpp_html"><div class="ttname"><a href="_sound_event_8hpp.html">SoundEvent.hpp</a></div></div>
+<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:9</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html">oeng::engine::AudioSystem</a></div><div class="ttdef"><b>Definition:</b> AudioSystem.hpp:20</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a52cf20b63c45c408e657cf7e26ba7274"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">oeng::engine::AudioSystem::Update</a></div><div class="ttdeci">void Update(Float delta_seconds) const</div></div>
 <div class="ttc" id="anamespaceotm_html_a4f541d78fc864cf735b8bb3d350ac52b"><div class="ttname"><a href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">otm::Float</a></div><div class="ttdeci">OTM_DEFAULT_FLOAT Float</div><div class="ttdef"><b>Definition:</b> otmfwd.hpp:8</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_add4faabcfd12a6aa83f6f714d8e141f0"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#add4faabcfd12a6aa83f6f714d8e141f0">oeng::engine::AudioSystem::PlayEvent</a></div><div class="ttdeci">SoundEvent PlayEvent(Name name)</div><div class="ttdoc">Create an event instance and start playback.</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_a36e4d4628cbc4d5f894cb796df0fd588"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#a36e4d4628cbc4d5f894cb796df0fd588">oeng::engine::AudioSystem::UnloadAllBanks</a></div><div class="ttdeci">void UnloadAllBanks()</div><div class="ttdoc">Unload all banks, sample data and events.</div></div>
 <div class="ttc" id="aclassoeng_1_1engine_1_1_audio_system_html_ad962d08af40a9fe9df91c2c0afa3d1b4"><div class="ttname"><a href="classoeng_1_1engine_1_1_audio_system.html#ad962d08af40a9fe9df91c2c0afa3d1b4">oeng::engine::AudioSystem::~AudioSystem</a></div><div class="ttdeci">~AudioSystem()</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

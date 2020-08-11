@@ -103,11 +103,8 @@ Inheritance diagram for oeng::core::CoreSystem:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a71b9284166dc9f9dc907790a524b5642"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#a71b9284166dc9f9dc907790a524b5642">DELETE_CPMV</a> (<a class="el" href="classoeng_1_1core_1_1_core_system.html">CoreSystem</a>)</td></tr>
 <tr class="separator:a71b9284166dc9f9dc907790a524b5642"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a98dcff4ea8ea45861bde0391a832cb71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#a98dcff4ea8ea45861bde0391a832cb71">IsGameThread</a> () const noexcept</td></tr>
-<tr class="memdesc:a98dcff4ea8ea45861bde0391a832cb71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if the current thread is a game thread.  <a href="classoeng_1_1core_1_1_core_system.html#a98dcff4ea8ea45861bde0391a832cb71">More...</a><br /></td></tr>
-<tr class="separator:a98dcff4ea8ea45861bde0391a832cb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea07f18b9b9475d9488560374fbc0b11"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1log_1_1_logger.html">log::Logger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#aea07f18b9b9475d9488560374fbc0b11">GetLogger</a> () noexcept</td></tr>
-<tr class="separator:aea07f18b9b9475d9488560374fbc0b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7922be3cb38bdaa8f69544c1d0fed4a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_logger.html">Logger</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#af7922be3cb38bdaa8f69544c1d0fed4a">GetLogger</a> () noexcept</td></tr>
+<tr class="separator:af7922be3cb38bdaa8f69544c1d0fed4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad120febc71312cefbb2c904c68c321b9"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classoeng_1_1core_1_1_dll.html">Dll</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#ad120febc71312cefbb2c904c68c321b9">GetGameDll</a> () const noexcept</td></tr>
 <tr class="separator:ad120febc71312cefbb2c904c68c321b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a130466845134689e324a1127f69a9ff8"><td class="memItemLeft" align="right" valign="top">std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_core_system.html#a130466845134689e324a1127f69a9ff8">GetGameName</a> () const noexcept</td></tr>
@@ -182,8 +179,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aea07f18b9b9475d9488560374fbc0b11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea07f18b9b9475d9488560374fbc0b11">&#9670;&nbsp;</a></span>GetLogger()</h2>
+<a id="af7922be3cb38bdaa8f69544c1d0fed4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7922be3cb38bdaa8f69544c1d0fed4a">&#9670;&nbsp;</a></span>GetLogger()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,7 +189,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classoeng_1_1core_1_1log_1_1_logger.html">log::Logger</a>&amp; oeng::core::CoreSystem::GetLogger </td>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_logger.html">Logger</a>&amp; oeng::core::CoreSystem::GetLogger </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -204,34 +201,6 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a98dcff4ea8ea45861bde0391a832cb71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98dcff4ea8ea45861bde0391a832cb71">&#9670;&nbsp;</a></span>IsGameThread()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CoreSystem::IsGameThread </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Check if the current thread is a game thread. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if called from the game thread. </dd></dl>
 
 </div>
 </div>

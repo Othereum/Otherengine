@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['timermanager_2336',['TimerManager',['../structoeng_1_1engine_1_1_timer_handle.html#a8f762e12639d620eb0f10068e6ab6521',1,'oeng::engine::TimerHandle']]]
+  ['sharedptr_2403',['SharedPtr',['../classoeng_1_1core_1_1_shared_ptr.html#aaecfa7fa45b80deff2bff2b414ce39ad',1,'oeng::core::SharedPtr::SharedPtr()'],['../classoeng_1_1core_1_1_weak_ptr.html#aaecfa7fa45b80deff2bff2b414ce39ad',1,'oeng::core::WeakPtr::SharedPtr()'],['../classoeng_1_1core_1_1_enable_shared_from_this.html#aaecfa7fa45b80deff2bff2b414ce39ad',1,'oeng::core::EnableSharedFromThis::SharedPtr()']]]
 ];

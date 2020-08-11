@@ -1,7 +1,10 @@
 var searchData=
 [
-  ['debug_5fbreak_2339',['DEBUG_BREAK',['../_debug_8hpp.html#a0f722bf86505c5431e71505f46b5fd21',1,'Debug.hpp']]],
-  ['default_5fcpmv_2340',['DEFAULT_CPMV',['../_core_8hpp.html#ae5a4b5ee3d31ed2bee67ad20ad6d9db7',1,'Core.hpp']]],
-  ['define_5fgame_5fmodule_2341',['DEFINE_GAME_MODULE',['../_core_8hpp.html#aa846beb8c3cb2779b4dc9be2b8ed5fca',1,'Core.hpp']]],
-  ['delete_5fcpmv_2342',['DELETE_CPMV',['../_core_8hpp.html#a60162f6d2624000a4362a7b430036ac8',1,'Core.hpp']]]
+  ['ensure_2410',['ENSURE',['../_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71',1,'Debug.hpp']]],
+  ['ensure_5fmsg_2411',['ENSURE_MSG',['../_debug_8hpp.html#a8599dea72277981a537bec15acd9c2d9',1,'Debug.hpp']]],
+  ['expect_2412',['EXPECT',['../_debug_8hpp.html#a76d13b1910e4df78459e830f9583db8f',1,'Debug.hpp']]],
+  ['expect_5fmsg_2413',['EXPECT_MSG',['../_debug_8hpp.html#a29d39a37edbe13694ae902b1e53ef4e6',1,'Debug.hpp']]],
+  ['expect_5fno_5fentry_2414',['EXPECT_NO_ENTRY',['../_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c',1,'Debug.hpp']]],
+  ['expect_5fno_5fthrow_2415',['EXPECT_NO_THROW',['../_debug_8hpp.html#a59ed1052a93c35da6c57a38e711e7681',1,'Debug.hpp']]],
+  ['explicit_5fcpmv_2416',['EXPLICIT_CPMV',['../_core_8hpp.html#a02dbd57672197e86dd1bf669ee27c93b',1,'Core.hpp']]]
 ];

@@ -102,7 +102,7 @@ Inheritance diagram for oeng::core::detail::SharedObjPtr&lt; T, Deleter, Alloc, 
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9ba17423797786e7da18e33a5d1e1b10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a9ba17423797786e7da18e33a5d1e1b10">SharedObjPtr</a> (T *<a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a0698a806802fdef5410b611fd3c83630">ptr</a>, Deleter <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a1dce0211d694b4020975b54cc1bf45d0">deleter</a>, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#aa6956c2a0cffae86462a929eafc3b682">alloc</a>) noexcept</td></tr>
+<tr class="memitem:a9ba17423797786e7da18e33a5d1e1b10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a9ba17423797786e7da18e33a5d1e1b10">SharedObjPtr</a> (T *ptr, Deleter deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> alloc) noexcept</td></tr>
 <tr class="separator:a9ba17423797786e7da18e33a5d1e1b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a334c12df6174c7aaf1ffed79efc87c87"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a334c12df6174c7aaf1ffed79efc87c87">Destroy</a> () noexcept override</td></tr>
 <tr class="separator:a334c12df6174c7aaf1ffed79efc87c87"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,12 +126,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a0698a806802fdef5410b611fd3c83630"><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a0698a806802fdef5410b611fd3c83630">ptr</a></td></tr>
-<tr class="separator:a0698a806802fdef5410b611fd3c83630"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dce0211d694b4020975b54cc1bf45d0"><td class="memItemLeft" align="right" valign="top">Deleter&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a1dce0211d694b4020975b54cc1bf45d0">deleter</a></td></tr>
-<tr class="separator:a1dce0211d694b4020975b54cc1bf45d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa6956c2a0cffae86462a929eafc3b682"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#aa6956c2a0cffae86462a929eafc3b682">alloc</a></td></tr>
-<tr class="separator:aa6956c2a0cffae86462a929eafc3b682"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9280a15407062c71752749bfd9d58ce0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a>&lt; <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a>&lt; Deleter, T * &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html#a9280a15407062c71752749bfd9d58ce0">storage</a></td></tr>
+<tr class="separator:a9280a15407062c71752749bfd9d58ce0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_structoeng_1_1core_1_1detail_1_1_shared_obj_base"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_structoeng_1_1core_1_1detail_1_1_shared_obj_base')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_base.html">oeng::core::detail::SharedObjBase&lt; ThreadSafe &gt;</a></td></tr>
 <tr class="memitem:a1e52fed63a75e42cf0424163e6600fc2 inherit pub_attribs_structoeng_1_1core_1_1detail_1_1_shared_obj_base"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_base.html#a8be2455e0d4c9f769569de5cbe4208b0">RefCnt</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_base.html#a1e52fed63a75e42cf0424163e6600fc2">strong</a> = 1</td></tr>
 <tr class="separator:a1e52fed63a75e42cf0424163e6600fc2 inherit pub_attribs_structoeng_1_1core_1_1detail_1_1_shared_obj_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,8 +245,8 @@ template&lt;class T , class Deleter , class Alloc , bool ThreadSafe&gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa6956c2a0cffae86462a929eafc3b682"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa6956c2a0cffae86462a929eafc3b682">&#9670;&nbsp;</a></span>alloc</h2>
+<a id="a9280a15407062c71752749bfd9d58ce0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9280a15407062c71752749bfd9d58ce0">&#9670;&nbsp;</a></span>storage</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,39 +254,7 @@ template&lt;class T , class Deleter , class Alloc , bool ThreadSafe&gt; </div>
 template&lt;class T , class Deleter , class Alloc , bool ThreadSafe&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a> <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html">oeng::core::detail::SharedObjPtr</a>&lt; T, Deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, ThreadSafe &gt;::alloc</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1dce0211d694b4020975b54cc1bf45d0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dce0211d694b4020975b54cc1bf45d0">&#9670;&nbsp;</a></span>deleter</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , class Deleter , class Alloc , bool ThreadSafe&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">Deleter <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html">oeng::core::detail::SharedObjPtr</a>&lt; T, Deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, ThreadSafe &gt;::deleter</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0698a806802fdef5410b611fd3c83630"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0698a806802fdef5410b611fd3c83630">&#9670;&nbsp;</a></span>ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T , class Deleter , class Alloc , bool ThreadSafe&gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">T* <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html">oeng::core::detail::SharedObjPtr</a>&lt; T, Deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, ThreadSafe &gt;::ptr</td>
+          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a>&lt;<a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a>&lt;Deleter, T*&gt; &gt; <a class="el" href="structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html">oeng::core::detail::SharedObjPtr</a>&lt; T, Deleter, <a class="el" href="namespaceoeng_1_1core.html#a6a3f87198b0ebca9f3374b4755228d5a">Alloc</a>, ThreadSafe &gt;::storage</td>
         </tr>
       </table>
 </div><div class="memdoc">

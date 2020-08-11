@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['scope_5fcounter_2357',['SCOPE_COUNTER',['../_stat_8hpp.html#a58e03986c066e7a04a4034e06da08a74',1,'Stat.hpp']]],
-  ['scope_5fstack_5fcounter_2358',['SCOPE_STACK_COUNTER',['../_stat_8hpp.html#ac3bf53026585d358005b06633a1de3ba',1,'Stat.hpp']]],
-  ['should_2359',['SHOULD',['../_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c',1,'Debug.hpp']]],
-  ['stringize_2360',['STRINGIZE',['../_core_8hpp.html#a3428692efe6051ef30016ffde1a9f7bb',1,'Core.hpp']]],
-  ['stringize_5fimpl_2361',['STRINGIZE_IMPL',['../_core_8hpp.html#abe365693b784b0470549b63af6c923c1',1,'Core.hpp']]]
+  ['u8_5ffile_2430',['U8_FILE',['../_core_8hpp.html#abebd7d964890f5a3aa1c0847cf4b20d1',1,'Core.hpp']]],
+  ['u8_5fline_2431',['U8_LINE',['../_core_8hpp.html#a6dbbf8097302f5d47f8968ade0c2d636',1,'Core.hpp']]],
+  ['u8_5ftext_2432',['U8_TEXT',['../_core_8hpp.html#a1b04e1058634c4fc5f9cb851363aad51',1,'Core.hpp']]],
+  ['u8_5ftext_5fimpl_2433',['U8_TEXT_IMPL',['../_core_8hpp.html#a96d1ca596cff22cd163a0eaaf540dab0',1,'Core.hpp']]]
 ];

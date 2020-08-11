@@ -91,46 +91,52 @@ $(document).ready(function(){initNavTree('_debug_8hpp_source.html',''); initResi
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_log_8hpp.html">Log.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_platform_8hpp.html">Platform.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifdef NDEBUG</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">    #define DEBUG_BREAK() (void)0</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">    #define ENSURE(expr) !!(expr)</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">    #define ENSURE_MSG(expr, fmt, ...) !!(expr)</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1core_1_1logcat.html">oeng::core::logcat</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">extern</span> CORE_API <span class="keyword">const</span> LogCategory <a class="code" href="namespaceoeng_1_1core_1_1logcat.html#ab7c02dc175dff658cc35c00074d572a7">kDebug</a>;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;}</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifdef NDEBUG</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    #define EXPECT(expr) (void)0</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #define EXPECT_MSG(expr, fmt, ...) (void)0</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">    #define DEBUG_BREAK() (void)0</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">    #define ENSURE(expr) !!(expr)</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">    #define ENSURE_MSG(expr, fmt, ...) !!(expr)</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    #ifdef _WIN32</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">        #define DEBUG_BREAK() (void)(::oeng::IsDebugging() &amp;&amp; (::__debugbreak(), true))</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">    #else</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">        #include &lt;csignal&gt;</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">        #define DEBUG_BREAK() (void)(::oeng::IsDebugging() &amp;&amp; (::std::raise(SIGTRAP), true))</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a0f722bf86505c5431e71505f46b5fd21">   25</a></span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">    #define ENSURE(expr) (!!(expr) || (OE_ELOG(u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), false))</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71">   48</a></span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">    #define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a8599dea72277981a537bec15acd9c2d9">   62</a></span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">    #define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), false))</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a76d13b1910e4df78459e830f9583db8f">   68</a></span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">    #define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), false))</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a29d39a37edbe13694ae902b1e53ef4e6">   74</a></span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#define EXPECT_NO_ENTRY() EXPECT(!u8&quot;Enclosing block should never be called&quot;)</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c">   78</a></span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#define OE_ELOG(fmt, ...) (OE_DLOG(1s, ::oeng::log::Level::kErr, fmt, ##__VA_ARGS__), DEBUG_BREAK())</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a93dfcf08baa18ca9793e3072a8a93be8">   84</a></span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a605db9d579c44e2dec320fcbbcb5749c">   89</a></span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define TRY(expr) do { try { expr; } catch (const std::exception&amp; e) { OE_ELOG(u8&quot;{}: {}&quot;sv, u8 ## #expr ## sv, What(e)); } } while (false)</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">    #define EXPECT(expr) (void)0</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">    #define EXPECT_MSG(expr, fmt, ...) (void)0</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">    #ifdef _WIN32</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">        #define DEBUG_BREAK() (void)(::oeng::IsDebugging() &amp;&amp; (::__debugbreak(), true))</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">    #else</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">        #include &lt;csignal&gt;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">        #define DEBUG_BREAK() (void)(::oeng::IsDebugging() &amp;&amp; (::std::raise(SIGTRAP), true))</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a0f722bf86505c5431e71505f46b5fd21">   30</a></span>&#160;<span class="preprocessor">    #endif</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    #define ENSURE(expr) (!!(expr) || (OE_ELOG(kDebug, u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), false))</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#afb70bbb6de1ca63ed5eed1390510cb71">   53</a></span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">    #define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(kDebug, u8&quot;Ensure failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), DEBUG_BREAK(), false))</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a8599dea72277981a537bec15acd9c2d9">   67</a></span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    #define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(kDebug, u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE), DEBUG_BREAK(), false))</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a76d13b1910e4df78459e830f9583db8f">   73</a></span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">    #define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(kDebug, u8&quot;Expect failed: &quot; u8 ## #expr u8&quot;, &quot; fmt u8&quot;, file &quot; U8_FILE u8&quot;, line &quot; U8_LINE, ##__VA_ARGS__), DEBUG_BREAK(), false))</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a29d39a37edbe13694ae902b1e53ef4e6">   79</a></span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#define EXPECT_NO_ENTRY() EXPECT(!u8&quot;Enclosing block should never be called&quot;)</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c">   83</a></span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="preprocessor">#define EXPECT_NO_THROW(expr) do { try { expr; } catch (const std::exception&amp; e) { EXPECT_MSG(!u8&quot;No exceptions should be thrown&quot;, u8&quot;{}: {}&quot;sv, u8 ## #expr ## sv, What(e)); } } while (false)</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#a59ed1052a93c35da6c57a38e711e7681">   88</a></span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define OE_ELOG(category, format, ...) (OE_DLOG(1s, category, kErr, format, ##__VA_ARGS__), DEBUG_BREAK())</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="_debug_8hpp.html#acc8bc5c45180af63feba16fc6e615eac">   94</a></span>&#160; </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="a_platform_8hpp_html"><div class="ttname"><a href="_platform_8hpp.html">Platform.hpp</a></div></div>
+<div class="ttc" id="anamespaceoeng_1_1core_1_1logcat_html"><div class="ttname"><a href="namespaceoeng_1_1core_1_1logcat.html">oeng::core::logcat</a></div><div class="ttdoc">Namespace for log categories.</div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:11</div></div>
+<div class="ttc" id="anamespaceoeng_1_1core_1_1logcat_html_ab7c02dc175dff658cc35c00074d572a7"><div class="ttname"><a href="namespaceoeng_1_1core_1_1logcat.html#ab7c02dc175dff658cc35c00074d572a7">oeng::core::logcat::kDebug</a></div><div class="ttdeci">CORE_API const LogCategory kDebug</div></div>
 <div class="ttc" id="a_log_8hpp_html"><div class="ttname"><a href="_log_8hpp.html">Log.hpp</a></div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->

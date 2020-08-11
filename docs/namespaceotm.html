@@ -205,12 +205,12 @@ Functions</h2></td></tr>
 <tr class="memitem:a42f929fb6e8011f5f3f4db1f6fa91c78"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a42f929fb6e8011f5f3f4db1f6fa91c78"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="structotm_1_1_angle.html">Angle</a>&lt; <a class="el" href="namespaceotm.html#a698d4183073a9328377b3579775e47fb">RadR</a>, T &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#a42f929fb6e8011f5f3f4db1f6fa91c78">H2VFov</a> (<a class="el" href="structotm_1_1_angle.html">Angle</a>&lt; <a class="el" href="namespaceotm.html#a698d4183073a9328377b3579775e47fb">RadR</a>, T &gt; hfov, <a class="el" href="structotm_1_1_vector.html">Vector</a>&lt; T, 2 &gt; scr)</td></tr>
 <tr class="separator:a42f929fb6e8011f5f3f4db1f6fa91c78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa3ec829013cf8d0470cbc00fa42a7dc2"><td class="memTemplParams" colspan="2">template&lt;class T1 , class T2 &gt; </td></tr>
-<tr class="memitem:aa3ec829013cf8d0470cbc00fa42a7dc2"><td class="memTemplItemLeft" align="right" valign="top">constexpr T1&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#aa3ec829013cf8d0470cbc00fa42a7dc2">Log</a> (T1 x, T2 base) noexcept</td></tr>
-<tr class="separator:aa3ec829013cf8d0470cbc00fa42a7dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9aee1cf01231c7d963b26e431e602a62"><td class="memTemplParams" colspan="2">template&lt;class T1 , class T2 &gt; </td></tr>
-<tr class="memitem:a9aee1cf01231c7d963b26e431e602a62"><td class="memTemplItemLeft" align="right" valign="top">constexpr T1&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#a9aee1cf01231c7d963b26e431e602a62">LogCeil</a> (T1 x, T2 base) noexcept</td></tr>
-<tr class="separator:a9aee1cf01231c7d963b26e431e602a62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32b62fb198c979a491199d088f7978e8"><td class="memTemplParams" colspan="2">template&lt;class T1 , class T2 &gt; </td></tr>
+<tr class="memitem:a32b62fb198c979a491199d088f7978e8"><td class="memTemplItemLeft" align="right" valign="top">constexpr T1&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#a32b62fb198c979a491199d088f7978e8">IntLog</a> (T1 x, T2 base) noexcept</td></tr>
+<tr class="separator:a32b62fb198c979a491199d088f7978e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32a6f91e4171a06f1f97522dda47dd7f"><td class="memTemplParams" colspan="2">template&lt;class T1 , class T2 &gt; </td></tr>
+<tr class="memitem:a32a6f91e4171a06f1f97522dda47dd7f"><td class="memTemplItemLeft" align="right" valign="top">constexpr T1&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#a32a6f91e4171a06f1f97522dda47dd7f">IntLogCeil</a> (T1 x, T2 base) noexcept</td></tr>
+<tr class="separator:a32a6f91e4171a06f1f97522dda47dd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73853aa2a9e63d9e1e2931483662b7d9"><td class="memTemplParams" colspan="2">template&lt;class T &gt; </td></tr>
 <tr class="memitem:a73853aa2a9e63d9e1e2931483662b7d9"><td class="memTemplItemLeft" align="right" valign="top">constexpr T&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceotm.html#a73853aa2a9e63d9e1e2931483662b7d9">PadToPowerOf2</a> (T x) noexcept</td></tr>
 <tr class="separator:a73853aa2a9e63d9e1e2931483662b7d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1399,6 +1399,82 @@ template&lt;class It , class Fn &gt; </div>
 
 </div>
 </div>
+<a id="a32b62fb198c979a491199d088f7978e8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32b62fb198c979a491199d088f7978e8">&#9670;&nbsp;</a></span>IntLog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T1 , class T2 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T1 otm::IntLog </td>
+          <td>(</td>
+          <td class="paramtype">T1&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T2&#160;</td>
+          <td class="paramname"><em>base</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a32a6f91e4171a06f1f97522dda47dd7f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32a6f91e4171a06f1f97522dda47dd7f">&#9670;&nbsp;</a></span>IntLogCeil()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class T1 , class T2 &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr T1 otm::IntLogCeil </td>
+          <td>(</td>
+          <td class="paramtype">T1&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">T2&#160;</td>
+          <td class="paramname"><em>base</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a4ab7c84e87f8e34e4783fd4dae488cc6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4ab7c84e87f8e34e4783fd4dae488cc6">&#9670;&nbsp;</a></span>IsEquivalent()</h2>
 
@@ -1841,82 +1917,6 @@ template&lt;class T , class U , class V &gt; </div>
           <td></td>
           <td class="paramtype">V&#160;</td>
           <td class="paramname"><em>alpha</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa3ec829013cf8d0470cbc00fa42a7dc2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3ec829013cf8d0470cbc00fa42a7dc2">&#9670;&nbsp;</a></span>Log()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr T1 otm::Log </td>
-          <td>(</td>
-          <td class="paramtype">T1&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T2&#160;</td>
-          <td class="paramname"><em>base</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9aee1cf01231c7d963b26e431e602a62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9aee1cf01231c7d963b26e431e602a62">&#9670;&nbsp;</a></span>LogCeil()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr T1 otm::LogCeil </td>
-          <td>(</td>
-          <td class="paramtype">T1&#160;</td>
-          <td class="paramname"><em>x</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">T2&#160;</td>
-          <td class="paramname"><em>base</em>&#160;</td>
         </tr>
         <tr>
           <td></td>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['interface_5fbody_2351',['INTERFACE_BODY',['../_core_8hpp.html#ad1bdd75cca5affc2cf2ef9fb5743c661',1,'Core.hpp']]]
+  ['json_5fuse_5fimplicit_5fconversions_2420',['JSON_USE_IMPLICIT_CONVERSIONS',['../_json_8hpp.html#a24c96ca7fc59096c30b32339a953f97d',1,'Json.hpp']]]
 ];

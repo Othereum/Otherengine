@@ -149,6 +149,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_sound_event.html">SoundEvent</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_sphere_component.html">SphereComponent</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple sphere collision component.  <a href="classoeng_1_1engine_1_1_sphere_component.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -545,6 +547,13 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a1c340e7e663211bf736381669bc27410"><td class="memItemLeft" align="right" valign="top">std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">FModErrorString</a> (FMOD_RESULT result)</td></tr>
+<tr class="separator:a1c340e7e663211bf736381669bc27410"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33f65e3fe255b4b42419a5183d587362"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1engine.html#a33f65e3fe255b4b42419a5183d587362">FModCheck</a> (FMOD_RESULT result)</td></tr>
+<tr class="separator:a33f65e3fe255b4b42419a5183d587362"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21b2ecff8ec569982cb6ba16888b779"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:ac21b2ecff8ec569982cb6ba16888b779"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1engine.html#ac21b2ecff8ec569982cb6ba16888b779">FModCheck</a> (FMOD_RESULT result, std::u8string_view message, const Args &amp;... args)</td></tr>
+<tr class="separator:ac21b2ecff8ec569982cb6ba16888b779"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaacd7d270960de375df5b8d16c80f3f"><td class="memItemLeft" align="right" valign="top">constexpr uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1engine.html#aaaacd7d270960de375df5b8d16c80f3f">MouseMask</a> (<a class="el" href="namespaceoeng_1_1engine.html#a75947ea8c9ca64e930a8a3f743f5c53a">MouseBtn</a> btn) noexcept</td></tr>
 <tr class="separator:aaaacd7d270960de375df5b8d16c80f3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e40354c052a2472f350aa82f463b771"><td class="memItemLeft" align="right" valign="top">constexpr <a class="el" href="namespaceoeng_1_1engine.html#a817a5831aa5679b3c319fc07f217592e">KeyMod</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1engine.html#a4e40354c052a2472f350aa82f463b771">operator|</a> (<a class="el" href="namespaceoeng_1_1engine.html#a817a5831aa5679b3c319fc07f217592e">KeyMod</a> a, <a class="el" href="namespaceoeng_1_1engine.html#a817a5831aa5679b3c319fc07f217592e">KeyMod</a> b) noexcept</td></tr>
@@ -1098,6 +1107,86 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a33f65e3fe255b4b42419a5183d587362"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33f65e3fe255b4b42419a5183d587362">&#9670;&nbsp;</a></span>FModCheck() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::FModCheck </td>
+          <td>(</td>
+          <td class="paramtype">FMOD_RESULT&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ac21b2ecff8ec569982cb6ba16888b779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac21b2ecff8ec569982cb6ba16888b779">&#9670;&nbsp;</a></span>FModCheck() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class... Args&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::FModCheck </td>
+          <td>(</td>
+          <td class="paramtype">FMOD_RESULT&#160;</td>
+          <td class="paramname"><em>result</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::u8string_view&#160;</td>
+          <td class="paramname"><em>message</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Args &amp;...&#160;</td>
+          <td class="paramname"><em>args</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a1c340e7e663211bf736381669bc27410"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c340e7e663211bf736381669bc27410">&#9670;&nbsp;</a></span>FModErrorString()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::u8string_view oeng::engine::FModErrorString </td>
+          <td>(</td>
+          <td class="paramtype">FMOD_RESULT&#160;</td>
+          <td class="paramname"><em>result</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a65216cc156e347e4e2aca522e5367c35"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65216cc156e347e4e2aca522e5367c35">&#9670;&nbsp;</a></span>from_json()</h2>
 

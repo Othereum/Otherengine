@@ -94,19 +94,19 @@ $(document).ready(function(){initNavTree('_log_8hpp.html',''); initResizable(); 
 <div class="title">Log.hpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="_core_8hpp_source.html">Core.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_format_8hpp_source.html">Format.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_hash_map_8hpp_source.html">Templates/HashMap.hpp</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="_sync_8hpp_source.html">Templates/Sync.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_sync_8hpp_source.html">Templates/Sync.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_time_8hpp_source.html">Templates/Time.hpp</a>&quot;</code><br />
 </div>
 <p><a href="_log_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1log_1_1_logger.html">oeng::core::log::Logger</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structoeng_1_1core_1_1logcat_1_1_log_category.html">oeng::core::logcat::LogCategory</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log category.  <a href="structoeng_1_1core_1_1logcat_1_1_log_category.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1log_1_1detail_1_1_log_delay.html">oeng::core::log::detail::LogDelay</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_logger.html">oeng::core::Logger</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_log_delay.html">oeng::core::LogDelay</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
@@ -115,89 +115,49 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespaceoeng_1_1core"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html">oeng::core</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceoeng_1_1core_1_1log"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html">oeng::core::log</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespaceoeng_1_1core_1_1log_1_1detail"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log_1_1detail.html">oeng::core::log::detail</a></td></tr>
+<tr class="memitem:namespaceoeng_1_1core_1_1logcat"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1logcat.html">oeng::core::logcat</a></td></tr>
+<tr class="memdesc:namespaceoeng_1_1core_1_1logcat"><td class="mdescLeft">&#160;</td><td class="mdescRight">Namespace for log categories. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a37709c7f9f405e186a023c34bb3c08c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#a37709c7f9f405e186a023c34bb3c08c7">ASSERT_TRY</a>(expr)&#160;&#160;&#160;do { try { expr; } catch (...) { assert(!&quot;Critical exception&quot;); } } while (false)</td></tr>
-<tr class="memdesc:a37709c7f9f405e186a023c34bb3c08c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Try to execute the expression; if an exception thrown, swallow the exception if NDEBUG is defined; otherwise, abort the app.  <a href="_log_8hpp.html#a37709c7f9f405e186a023c34bb3c08c7">More...</a><br /></td></tr>
-<tr class="separator:a37709c7f9f405e186a023c34bb3c08c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">OE_DLOG</a>(delay,  level,  format, ...)</td></tr>
-<tr class="memdesc:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log with delay (anti-spam)  <a href="_log_8hpp.html#a7ec8e1fba81aab41a4de31c9c223b07b">More...</a><br /></td></tr>
-<tr class="separator:a7ec8e1fba81aab41a4de31c9c223b07b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab73ba6a3010c551298f643678609883a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#ab73ba6a3010c551298f643678609883a">OE_DLOG</a>(delay,  category,  level,  format, ...)</td></tr>
+<tr class="memdesc:ab73ba6a3010c551298f643678609883a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log with delay (anti-spam)  <a href="_log_8hpp.html#ab73ba6a3010c551298f643678609883a">More...</a><br /></td></tr>
+<tr class="separator:ab73ba6a3010c551298f643678609883a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d105b08a24eb94588501d307dc33529"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_log_8hpp.html#a8d105b08a24eb94588501d307dc33529">OE_LOG</a>(category,  level,  format, ...)&#160;&#160;&#160;::oeng::Log(logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)</td></tr>
+<tr class="memdesc:a8d105b08a24eb94588501d307dc33529"><td class="mdescLeft">&#160;</td><td class="mdescRight">Log macro that allows you to easily specify categories and levels.  <a href="_log_8hpp.html#a8d105b08a24eb94588501d307dc33529">More...</a><br /></td></tr>
+<tr class="separator:a8d105b08a24eb94588501d307dc33529"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a27b4ec59420cc414f1549d95a73dbbbd"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbd">oeng::core::log::Level</a> { <br />
-&#160;&#160;<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbdafa21506cd249f400de4a974b5a0c8e0e">oeng::core::log::Level::kTrace</a>, 
-<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbdabb53ce21b7c0b7c8a8f7860a41901d29">oeng::core::log::Level::kDebug</a>, 
-<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbda176a473e63c17ccdac91640c67f149bf">oeng::core::log::Level::kInfo</a>, 
-<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbda61a920eb4a24199ec6a36dd90f2a30b7">oeng::core::log::Level::kWarn</a>, 
+<tr class="memitem:a7383bd83e9974ff8bf603909cb0890a5"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">oeng::core::LogLevel</a> { <br />
+&#160;&#160;<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5abb53ce21b7c0b7c8a8f7860a41901d29">oeng::core::LogLevel::kDebug</a>, 
+<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5af7971cffe1eeab35748c8d08e50703ec">oeng::core::LogLevel::kLog</a>, 
+<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5acac1f0f007798c3cdcdc5f676634471e">oeng::core::LogLevel::kDisplay</a>, 
+<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5a61a920eb4a24199ec6a36dd90f2a30b7">oeng::core::LogLevel::kWarn</a>, 
 <br />
-&#160;&#160;<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbda9b99a2b91d086cb660c4e3fdbdd8a2b0">oeng::core::log::Level::kErr</a>, 
-<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbda5a20548c220f372fc701cae6de94040b">oeng::core::log::Level::kCritical</a>, 
-<a class="el" href="namespaceoeng_1_1core_1_1log.html#a27b4ec59420cc414f1549d95a73dbbbdacc9ab5e60ac2a9a675ba64bf4bb49dc8">oeng::core::log::Level::kOff</a>
+&#160;&#160;<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5a9b99a2b91d086cb660c4e3fdbdd8a2b0">oeng::core::LogLevel::kErr</a>, 
+<a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5a5a20548c220f372fc701cae6de94040b">oeng::core::LogLevel::kCritical</a>
 <br />
  }</td></tr>
-<tr class="separator:a27b4ec59420cc414f1549d95a73dbbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="separator:a7383bd83e9974ff8bf603909cb0890a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:af8196be73906da949f46fc334e48f3db"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#af8196be73906da949f46fc334e48f3db">oeng::core::log::Log</a> (Level level, std::u8string_view message) noexcept</td></tr>
-<tr class="separator:af8196be73906da949f46fc334e48f3db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07e8488306df1356b6cff11cb8e7343b"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a07e8488306df1356b6cff11cb8e7343b"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a07e8488306df1356b6cff11cb8e7343b">oeng::core::log::Log</a> (Level level, std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:a07e8488306df1356b6cff11cb8e7343b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a952c18deb6c9a0c406ec5c36ca1fe7dd">oeng::core::log::Trace</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:a952c18deb6c9a0c406ec5c36ca1fe7dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a7e56c7c3a1b56d0b5da6d8a95d12380e">oeng::core::log::Debug</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:a7e56c7c3a1b56d0b5da6d8a95d12380e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2286acc279a9eaf5295240785ece959"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:af2286acc279a9eaf5295240785ece959"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#af2286acc279a9eaf5295240785ece959">oeng::core::log::Info</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:af2286acc279a9eaf5295240785ece959"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91894590dc305a4b47df0467ecae7e6a"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a91894590dc305a4b47df0467ecae7e6a"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a91894590dc305a4b47df0467ecae7e6a">oeng::core::log::Warn</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:a91894590dc305a4b47df0467ecae7e6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#a3ad10cad8199c5b8b804be4484a3bbbe">oeng::core::log::Error</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:a3ad10cad8199c5b8b804be4484a3bbbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad227fb93e510e7633b33679618624dda"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
-<tr class="memitem:ad227fb93e510e7633b33679618624dda"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ad227fb93e510e7633b33679618624dda">oeng::core::log::Critical</a> (std::u8string_view fmt, const Args &amp;... args) noexcept</td></tr>
-<tr class="separator:ad227fb93e510e7633b33679618624dda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac52a3e0e4778e2d69facdb7be8a8f7e2"><td class="memItemLeft" align="right" valign="top">CORE_API void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#ac52a3e0e4778e2d69facdb7be8a8f7e2">oeng::core::Log</a> (const logcat::LogCategory &amp;category, LogLevel level, std::u8string_view message)</td></tr>
+<tr class="separator:ac52a3e0e4778e2d69facdb7be8a8f7e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a637148f2c8a566df4abec9f80f0c2b9f"><td class="memTemplParams" colspan="2">template&lt;class... Args&gt; </td></tr>
+<tr class="memitem:a637148f2c8a566df4abec9f80f0c2b9f"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a637148f2c8a566df4abec9f80f0c2b9f">oeng::core::Log</a> (const logcat::LogCategory &amp;category, LogLevel level, std::u8string_view fmt, const Args &amp;... args)</td></tr>
+<tr class="separator:a637148f2c8a566df4abec9f80f0c2b9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ad89fadcf488a842ad9b64b96d462b076"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core_1_1log.html#ad89fadcf488a842ad9b64b96d462b076">oeng::core::log::kLogThreadSafe</a> = false</td></tr>
-<tr class="separator:ad89fadcf488a842ad9b64b96d462b076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ac9eaab116aa1b9d820cfa4e90e0188"><td class="memItemLeft" align="right" valign="top">constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespaceoeng_1_1core.html#a5ac9eaab116aa1b9d820cfa4e90e0188">oeng::core::kLogThreadSafe</a> = false</td></tr>
+<tr class="separator:a5ac9eaab116aa1b9d820cfa4e90e0188"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="a37709c7f9f405e186a023c34bb3c08c7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a37709c7f9f405e186a023c34bb3c08c7">&#9670;&nbsp;</a></span>ASSERT_TRY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define ASSERT_TRY</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">expr</td><td>)</td>
-          <td>&#160;&#160;&#160;do { try { expr; } catch (...) { assert(!&quot;Critical exception&quot;); } } while (false)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Try to execute the expression; if an exception thrown, swallow the exception if NDEBUG is defined; otherwise, abort the app. </p>
-
-</div>
-</div>
-<a id="a7ec8e1fba81aab41a4de31c9c223b07b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ec8e1fba81aab41a4de31c9c223b07b">&#9670;&nbsp;</a></span>OE_DLOG</h2>
+<a id="ab73ba6a3010c551298f643678609883a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab73ba6a3010c551298f643678609883a">&#9670;&nbsp;</a></span>OE_DLOG</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,6 +167,12 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">delay, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">category, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -235,16 +201,68 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">[&amp;] \</div>
 <div class="line">{ \</div>
-<div class="line">    static const ::oeng::log::detail::LogDelay log_delay; \</div>
-<div class="line">    log_delay(delay, level, format, ##__VA_ARGS__); \</div>
+<div class="line">    static const ::oeng::LogDelay log_delay; \</div>
+<div class="line">    log_delay(delay, logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \</div>
 <div class="line">}()</div>
 </div><!-- fragment -->
 <p>Log with delay (anti-spam) </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">delay</td><td>time::duration </td></tr>
-    <tr><td class="paramname">level</td><td>log::level </td></tr>
-    <tr><td class="paramname">format</td><td>message format </td></tr>
+    <tr><td class="paramname">delay</td><td>Minimum interval </td></tr>
+    <tr><td class="paramname">category</td><td>Log category </td></tr>
+    <tr><td class="paramname">level</td><td>Log level </td></tr>
+    <tr><td class="paramname">format</td><td>Message format </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a8d105b08a24eb94588501d307dc33529"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d105b08a24eb94588501d307dc33529">&#9670;&nbsp;</a></span>OE_LOG</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OE_LOG</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">category, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">level, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">format, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;::oeng::Log(logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Log macro that allows you to easily specify categories and levels. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">category</td><td>Log category. <code>logcat::</code> must be omitted. </td></tr>
+    <tr><td class="paramname">level</td><td>Log level. <code>LogLevel::</code> must be omitted. </td></tr>
+    <tr><td class="paramname">format</td><td>Log format. </td></tr>
+    <tr><td class="paramname">...</td><td>Format arguments. </td></tr>
   </table>
   </dd>
 </dl>

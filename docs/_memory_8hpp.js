@@ -10,5 +10,6 @@ var _memory_8hpp =
     [ "GetMemPool", "_memory_8hpp.html#a2603f9eab64fb3afed680dedf20d3144", null ],
     [ "InitMemPool", "_memory_8hpp.html#a4d3003b6ebd4467c8f2fcf05b9898381", null ],
     [ "New", "_memory_8hpp.html#af0ece6991d53ce1ba96077fe0289cb2c", null ],
-    [ "NewArr", "_memory_8hpp.html#a7b5500551046edf60eda90c740852ec5", null ]
+    [ "NewArr", "_memory_8hpp.html#a7b5500551046edf60eda90c740852ec5", null ],
+    [ "kMemory", "_memory_8hpp.html#aa6e26f1cfa5469b8346c19a4b1a4ed93", null ]
 ];

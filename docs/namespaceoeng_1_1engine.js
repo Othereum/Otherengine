@@ -25,6 +25,7 @@ var namespaceoeng_1_1engine =
     [ "PointLightComponent", "classoeng_1_1engine_1_1_point_light_component.html", "classoeng_1_1engine_1_1_point_light_component" ],
     [ "SceneComponent", "classoeng_1_1engine_1_1_scene_component.html", "classoeng_1_1engine_1_1_scene_component" ],
     [ "SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", "classoeng_1_1engine_1_1_sky_light_component" ],
+    [ "SoundEvent", "classoeng_1_1engine_1_1_sound_event.html", "classoeng_1_1engine_1_1_sound_event" ],
     [ "SphereComponent", "classoeng_1_1engine_1_1_sphere_component.html", "classoeng_1_1engine_1_1_sphere_component" ],
     [ "SpotLightComponent", "classoeng_1_1engine_1_1_spot_light_component.html", "classoeng_1_1engine_1_1_spot_light_component" ],
     [ "SpriteComponent", "classoeng_1_1engine_1_1_sprite_component.html", "classoeng_1_1engine_1_1_sprite_component" ],

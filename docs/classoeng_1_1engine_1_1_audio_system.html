@@ -103,6 +103,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad962d08af40a9fe9df91c2c0afa3d1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52cf20b63c45c408e657cf7e26ba7274"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_audio_system.html#a52cf20b63c45c408e657cf7e26ba7274">Update</a> (<a class="el" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds) const</td></tr>
 <tr class="separator:a52cf20b63c45c408e657cf7e26ba7274"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e798b836ae17ae4e3905dd179c620bd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_audio_system.html#a7e798b836ae17ae4e3905dd179c620bd">LoadBank</a> (<a class="el" href="structoeng_1_1core_1_1_path.html">Path</a> path)</td></tr>
+<tr class="memdesc:a7e798b836ae17ae4e3905dd179c620bd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load the bank and its sample data and events.  <a href="classoeng_1_1engine_1_1_audio_system.html#a7e798b836ae17ae4e3905dd179c620bd">More...</a><br /></td></tr>
+<tr class="separator:a7e798b836ae17ae4e3905dd179c620bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d05ad4d9952c5802378353b70df80aa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_audio_system.html#a0d05ad4d9952c5802378353b70df80aa">UnloadBank</a> (<a class="el" href="structoeng_1_1core_1_1_path.html">Path</a> path)</td></tr>
+<tr class="memdesc:a0d05ad4d9952c5802378353b70df80aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload the bank and its sample data and events.  <a href="classoeng_1_1engine_1_1_audio_system.html#a0d05ad4d9952c5802378353b70df80aa">More...</a><br /></td></tr>
+<tr class="separator:a0d05ad4d9952c5802378353b70df80aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36e4d4628cbc4d5f894cb796df0fd588"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_audio_system.html#a36e4d4628cbc4d5f894cb796df0fd588">UnloadAllBanks</a> ()</td></tr>
+<tr class="memdesc:a36e4d4628cbc4d5f894cb796df0fd588"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unload all banks, sample data and events.  <a href="classoeng_1_1engine_1_1_audio_system.html#a36e4d4628cbc4d5f894cb796df0fd588">More...</a><br /></td></tr>
+<tr class="separator:a36e4d4628cbc4d5f894cb796df0fd588"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add4faabcfd12a6aa83f6f714d8e141f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1engine_1_1_sound_event.html">SoundEvent</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1engine_1_1_audio_system.html#add4faabcfd12a6aa83f6f714d8e141f0">PlayEvent</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> name)</td></tr>
+<tr class="memdesc:add4faabcfd12a6aa83f6f714d8e141f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create an event instance and start playback.  <a href="classoeng_1_1engine_1_1_audio_system.html#add4faabcfd12a6aa83f6f714d8e141f0">More...</a><br /></td></tr>
+<tr class="separator:add4faabcfd12a6aa83f6f714d8e141f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a793f0c4866e3fa1fe9f6adb35e1bf0ad"></a>
@@ -155,6 +167,106 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7e798b836ae17ae4e3905dd179c620bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e798b836ae17ae4e3905dd179c620bd">&#9670;&nbsp;</a></span>LoadBank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool oeng::engine::AudioSystem::LoadBank </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_path.html">Path</a>&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Load the bank and its sample data and events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Bank file path. Must be valid. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>False if already loaded or failed. True if successful. </dd></dl>
+
+</div>
+</div>
+<a id="add4faabcfd12a6aa83f6f714d8e141f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add4faabcfd12a6aa83f6f714d8e141f0">&#9670;&nbsp;</a></span>PlayEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classoeng_1_1engine_1_1_sound_event.html">SoundEvent</a> oeng::engine::AudioSystem::PlayEvent </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_name.html">Name</a>&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Create an event instance and start playback. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Event name. Must be valid. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sound event. </dd></dl>
+
+</div>
+</div>
+<a id="a36e4d4628cbc4d5f894cb796df0fd588"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36e4d4628cbc4d5f894cb796df0fd588">&#9670;&nbsp;</a></span>UnloadAllBanks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void oeng::engine::AudioSystem::UnloadAllBanks </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unload all banks, sample data and events. </p>
+
+</div>
+</div>
+<a id="a0d05ad4d9952c5802378353b70df80aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0d05ad4d9952c5802378353b70df80aa">&#9670;&nbsp;</a></span>UnloadBank()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool oeng::engine::AudioSystem::UnloadBank </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_path.html">Path</a>&#160;</td>
+          <td class="paramname"><em>path</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Unload the bank and its sample data and events. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>Bank file path. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>False if already unloaded. True if successful. </dd></dl>
 
 </div>
 </div>
