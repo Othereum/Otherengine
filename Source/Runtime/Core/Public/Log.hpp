@@ -1,4 +1,5 @@
 #pragma once
+#include "Templates/Sync.hpp"
 #include "Templates/Time.hpp"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -49,18 +50,19 @@ namespace oeng::core
 		kCritical
 	};
 
-	struct LogCategory
+	namespace logcat
 	{
-		std::u8string_view name;
-		LogLevel default_level = LogLevel::kLog;
-		LogLevel min_level = LogLevel::kDebug;
-	};
+		struct LogCategory
+		{
+			std::u8string_view name;
+		};
+	}
 
 	class CORE_API Logger
 	{
 	public:
-		void Log(const LogCategory& category, LogLevel level, std::u8string_view message) const;
-		void LogDelay(unsigned id, Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg);
+		void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message) const;
+		void LogDelay(unsigned id, Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg);
 		
 	private:
 		friend class CoreSystem;
@@ -73,45 +75,36 @@ namespace oeng::core
 		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
-	CORE_API void Log(const LogCategory& category, LogLevel level, std::u8string_view message);
+	CORE_API void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message);
 
 	template <class... Args>
-	void Log(const LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args)
+	void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args)
 	{
 		Log(category, level, Format(fmt, args...));
 	}
 	
-	template <class... Args>
-	void Log(const LogCategory& category, std::u8string_view fmt, const Args&... args)
+	class CORE_API LogDelay
 	{
-		Log(category, category.default_level, fmt, args...);
-	}
-	
-	namespace detail
-	{
-		class CORE_API LogDelay
+	public:
+		LogDelay();
+		
+		void operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const;
+
+		template <class Rep, class Period>
+		void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const
 		{
-		public:
-			LogDelay();
-			
-			void operator()(Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const;
+			operator()(time::duration_cast<Duration>(delay), category, level, msg);
+		}
 
-			template <class Rep, class Period>
-			void operator()(time::duration<Rep, Period> delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const
-			{
-				operator()(time::duration_cast<Duration>(delay), category, level, msg);
-			}
+		template <class Rep, class Period, class... Args>
+		void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args) const
+		{
+			operator()(time::duration_cast<Duration>(delay), category, level, Format(fmt, args...));
+		}
 
-			template <class Rep, class Period, class... Args>
-			void operator()(time::duration<Rep, Period> delay, const LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args) const
-			{
-				operator()(time::duration_cast<Duration>(delay), category, level, Format(fmt, args...));
-			}
-
-		private:
-			unsigned id_;
-		};
-	}
+	private:
+		unsigned id_;
+	};
 }
 
 /**
@@ -123,6 +116,6 @@ namespace oeng::core
  */
 #define OE_DLOG(delay, category, level, format, ...) [&] \
 { \
-	static const ::oeng::log::detail::LogDelay log_delay; \
-	log_delay(delay, category, level, format, ##__VA_ARGS__); \
+	static const ::oeng::LogDelay log_delay; \
+	log_delay(delay, logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \
 }()

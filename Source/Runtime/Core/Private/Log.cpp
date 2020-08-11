@@ -63,10 +63,8 @@ namespace oeng::core
 #endif
 	}
 
-	void Logger::Log(const LogCategory& category, LogLevel level, std::u8string_view message) const
+	void Logger::Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message) const
 	{
-		if (category.min_level > level) return;
-		
 		const auto msg = Format(u8"[{}] {}"sv, category.name, message);
 		file_->log(ToSpdLogLevel(level), AsString(msg));
 
@@ -78,7 +76,7 @@ namespace oeng::core
 		}
 	}
 
-	void Logger::LogDelay(unsigned id, Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg)
+	void Logger::LogDelay(unsigned id, Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg)
 	{
 		{
 			const auto logs = delayed_.Lock();
@@ -93,11 +91,11 @@ namespace oeng::core
 		Log(category, level, msg);
 	}
 
-	void Log(LogLevel level, std::u8string_view message)
+	void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message)
 	{
 		if (EngineBase::Exists())
 		{
-			EngineBase::Get().GetLogger().Log(level, message);
+			EngineBase::Get().GetLogger().Log(category, level, message);
 		}
 		else
 		{
@@ -113,7 +111,7 @@ namespace oeng::core
 			id_ = id++;
 		}
 
-		void LogDelay::operator()(Duration delay, const LogCategory& category, LogLevel level, std::u8string_view msg) const
+		void LogDelay::operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const
 		{
 			if (EngineBase::Exists())
 			{
