@@ -2,6 +2,11 @@
 #include "Log.hpp"
 #include "Platform.hpp"
 
+namespace oeng::core::logcat
+{
+	extern CORE_API const LogCategory kDebug;
+}
+
 #ifdef NDEBUG
 
 	#define DEBUG_BREAK() (void)0
@@ -44,7 +49,7 @@
 	 *
 	 * Resolves to just evaluate the expression when NDEBUG is defined.
 	 */
-	#define ENSURE(expr) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), false))
+	#define ENSURE(expr) (!!(expr) || (OE_ELOG(kDebug, u8"Ensure failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), false))
 
 	/**
 	 * Same as ENSURE(), but it can log additional information that can be helpful.
@@ -52,25 +57,25 @@
 	 * Supports formatting. Example:
 	 * 
 	 * @code{cpp}
-	 * if (ENSURE_MSG(count == 0, u8"count must be 0, but it was {}"sv, count))
+	 * if (ENSURE_MSG(count == 0, u8"count must be 0, but it was {}", count))
 	 * {
 	 *     ...
 	 * }
 	 * @endcode
 	 */
-	#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(u8"Ensure failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), false))
+	#define ENSURE_MSG(expr, fmt, ...) (!!(expr) || (OE_ELOG(kDebug, u8"Ensure failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), DEBUG_BREAK(), false))
 
 	/**
 	 * Same as ENSURE(), but it **CAN'T** be nested within conditionals.
 	 * Resolves to empty expression when NDEBUG is defined.
 	 */
-	#define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), false))
+	#define EXPECT(expr) (void)(!!(expr) || (OE_ELOG(kDebug, u8"Expect failed: " u8 ## #expr u8", file " U8_FILE u8", line " U8_LINE), DEBUG_BREAK(), false))
 
 	/**
 	 * Same as EXPECT(), but it can log additional information that can be helpful.
 	 * Supports formatting. See ENSURE_MSG()
 	 */
-	#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(u8"Expect failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), false))
+	#define EXPECT_MSG(expr, fmt, ...) (void)(!!(expr) || (OE_ELOG(kDebug, u8"Expect failed: " u8 ## #expr u8", " fmt u8", file " U8_FILE u8", line " U8_LINE, ##__VA_ARGS__), DEBUG_BREAK(), false))
 
 #endif
 
@@ -84,6 +89,7 @@
 
 /**
  * Same as ENSURE(), but it always resolves to test expression even if NDEBUG is defined.
+ * @param fmt Formatted message to log
  */
 #define SHOULD(expr, fmt, ...) (!!(expr) || (OE_ELOG(fmt, ##__VA_ARGS__), false))
 
