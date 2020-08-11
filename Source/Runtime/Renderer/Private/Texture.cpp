@@ -1,6 +1,6 @@
 #include "Texture.hpp"
 #include <SOIL2/SOIL2.h>
-#include "OpenGL.hpp"
+#include <GL/glew.h>
 
 namespace oeng::renderer
 {
@@ -29,24 +29,24 @@ namespace oeng::renderer
 		}
 
 		size_ = Vec2u16{size};
-		gl(glGenTextures, 1, &id_);
+		glGenTextures(1, &id_);
 		Activate();
 
-		gl(glPixelStorei, GL_UNPACK_ALIGNMENT, alignment);
-		gl(glTexImage2D, GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, image.get());
+		glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
+		glTexImage2D(GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, image.get());
 		
-		gl(glTexParameteri, GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		gl(glTexParameteri, GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	}
 
 	Texture::~Texture()
 	{
 		// glDelete silently ignores 0
-		GL(glDeleteTextures, 1, &id_);
+		glDeleteTextures(1, &id_);
 	}
 
 	void Texture::Activate() const
 	{
-		gl(glBindTexture, GL_TEXTURE_2D, id_);
+		glBindTexture(GL_TEXTURE_2D, id_);
 	}
 }
