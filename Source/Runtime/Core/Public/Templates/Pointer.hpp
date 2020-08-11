@@ -113,8 +113,10 @@ namespace oeng::core
 				Tr::deallocate(al, this, 1);
 			}
 
-			union Obj { T obj; };
-			CompPair<Alloc, Obj> storage;
+			union
+			{
+				CompPair<Alloc, T> storage;
+			};
 		};
 
 		template <class T, class Deleter, class Alloc, bool ThreadSafe>
@@ -692,7 +694,7 @@ namespace oeng::core
 			try
 			{
 				SharedPtr<T, ThreadSafe> ret;
-				detail::SetAndEnableShared<T, ThreadSafe>(ret, &obj->obj, obj);
+				detail::SetAndEnableShared<T, ThreadSafe>(ret, &obj->storage.second(), obj);
 				return SharedRef<T, ThreadSafe>{std::move(ret)};
 			}
 			catch (...)
