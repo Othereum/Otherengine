@@ -1,12 +1,14 @@
 #include "Memory.hpp"
 #include <sstream>
 #include <thread>
-#include "Debug.hpp"
-#include "Log.hpp"
-#include "otm/Basic.hpp"
 
 namespace oeng::core
 {
+	namespace logcat
+	{
+		const LogCategory kMemory{u8"Memory"sv};
+	}
+	
 	struct MemPoolStorage
 	{
 		DELETE_CPMV(MemPoolStorage);
@@ -40,8 +42,9 @@ namespace oeng::core
 
 	static void LogInfo()
 	{
+#ifndef NDEBUG
 		using namespace otm;
-		auto& pools = storage.pool.Pools();
+		const auto& pools = storage.pool.Pools();
 		
 		omem::PoolInfo max;
 		std::vector<omem::PoolInfo> infos;
@@ -63,27 +66,28 @@ namespace oeng::core
 			max.peak = Max(max.peak, info.peak);
 			max.fault = Max(max.fault, info.fault);
 		}
-
+		
 		omem::PoolInfo align;
 		align.size = IntLog(max.size, 10) + 1;
 		align.count = IntLog(max.count, 10) + 1;
 		align.peak = IntLog(max.peak, 10) + 1;
 		align.fault = IntLog(max.fault, 10) + 1;
 		
-		log::Log(log::Level::kDebug, fmt::format(u8"[Mem] Memory pool info for thread {}:"sv, ThreadId()));
+		OE_LOG(kMemory, kDebug, fmt::format(u8"[Mem] Memory pool info for thread {}:"sv, ThreadId()));
 		for (const auto& info : infos)
 		{
-			log::Log(log::Level::kDebug, fmt::format(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, in use: {}"sv,
+			OE_LOG(kMemory, kDebug, fmt::format(u8"[Mem] {:>{}}-byte blocks, total: {:>{}}, peak: {:>{}}, fault: {:>{}}, in use: {}"sv,
 				info.size, align.size, info.count, align.count, info.peak, align.peak, info.fault, align.fault, info.cur));
 		}
-		if (max.cur > 0) log::Log(log::Level::kWarn, u8"[Mem] Memory leak detected"sv);
+		if (max.cur > 0) OE_LOG(kMemory, kWarn, u8"[Mem] Memory leak detected"sv);
+#endif
 	}
 
 	void CleanUpMemPool() noexcept
 	{
 		assert(storage.is_initialized);
 		storage.is_initialized = false;
-		TRY(LogInfo());
+		EXPECT_NO_THROW(LogInfo());
 		storage.pool.~MemoryPoolManager();
 	}
 }

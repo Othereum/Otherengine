@@ -1,9 +1,15 @@
 #pragma once
 #include <omem.hpp>
 #include "Core.hpp"
+#include "Log.hpp"
 
 namespace oeng::core
 {
+	namespace logcat
+	{
+		extern CORE_API const LogCategory kMemory;
+	}
+	
 	/**
 	 * Initialize memory pool for current thread.
 	 * It must be called only once before using memory pool.
