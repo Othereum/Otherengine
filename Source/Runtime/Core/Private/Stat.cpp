@@ -1,19 +1,18 @@
 #include "Stat.hpp"
-#include "Debug.hpp"
-#include "EngineBase.hpp"
-#include "otm/Basic.hpp"
-#include "Templates/Time.hpp"
 
 namespace oeng::core
 {
-	static constexpr LogCategory kLogStat{u8"Stat"sv, LogLevel::kLog};
+	namespace logcat
+	{
+		const LogCategory kStat{u8"Stat"sv};
+	}
 	
 	static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
 	{
 		const auto ticks = EngineBase::Get().GetTickCount();
 		const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
 		const auto count = ToFloat(stat.count) / ToFloat(ticks);
-		Log(kLogStat, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
+		OE_LOG(kStat, kLog, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
 	}
 
 	static void LogStats(const TreeMap<Name, ScopeStackStat>& stats, int depth = 0)

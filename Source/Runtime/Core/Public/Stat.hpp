@@ -5,6 +5,11 @@
 
 namespace oeng::core
 {
+	namespace logcat
+	{
+		extern CORE_API const LogCategory kStat;
+	}
+	
 	struct ScopeStat
 	{
 		Duration duration{};
