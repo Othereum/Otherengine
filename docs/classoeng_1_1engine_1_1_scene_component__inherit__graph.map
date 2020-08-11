@@ -1,13 +1,13 @@
 <map id="oeng::engine::SceneComponent" name="oeng::engine::SceneComponent">
-<area shape="rect" id="node1" title=" " alt="" coords="500,195,707,221"/>
-<area shape="rect" id="node4" href="$classoeng_1_1engine_1_1_camera_component.html" title=" " alt="" coords="760,5,975,32"/>
-<area shape="rect" id="node5" href="$classoeng_1_1engine_1_1_dir_light_component.html" title=" " alt="" coords="760,56,975,83"/>
-<area shape="rect" id="node6" href="$classoeng_1_1engine_1_1_mesh_component.html" title=" " alt="" coords="766,107,969,133"/>
-<area shape="rect" id="node7" href="$classoeng_1_1engine_1_1_point_light_component.html" title=" " alt="" coords="786,158,949,199"/>
-<area shape="rect" id="node8" href="$classoeng_1_1engine_1_1_sky_light_component.html" title=" " alt="" coords="757,224,978,251"/>
-<area shape="rect" id="node9" href="$classoeng_1_1engine_1_1_sphere_component.html" title="Simple sphere collision component." alt="" coords="762,275,973,301"/>
-<area shape="rect" id="node10" href="$classoeng_1_1engine_1_1_spot_light_component.html" title=" " alt="" coords="755,325,980,352"/>
-<area shape="rect" id="node11" href="$classoeng_1_1engine_1_1_sprite_component.html" title=" " alt="" coords="765,376,969,403"/>
-<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_actor_component.html" title=" " alt="" coords="251,195,452,221"/>
-<area shape="rect" id="node3" href="$classoeng_1_1core_1_1_enable_shared_from_this.html" title=" " alt="" coords="5,187,203,229"/>
+<area shape="rect" id="node1" title=" " alt="" coords="460,195,667,221"/>
+<area shape="rect" id="node4" href="$classoeng_1_1engine_1_1_camera_component.html" title=" " alt="" coords="720,5,935,32"/>
+<area shape="rect" id="node5" href="$classoeng_1_1engine_1_1_dir_light_component.html" title=" " alt="" coords="720,56,935,83"/>
+<area shape="rect" id="node6" href="$classoeng_1_1engine_1_1_mesh_component.html" title=" " alt="" coords="726,107,929,133"/>
+<area shape="rect" id="node7" href="$classoeng_1_1engine_1_1_point_light_component.html" title=" " alt="" coords="746,158,909,199"/>
+<area shape="rect" id="node8" href="$classoeng_1_1engine_1_1_sky_light_component.html" title=" " alt="" coords="717,224,938,251"/>
+<area shape="rect" id="node9" href="$classoeng_1_1engine_1_1_sphere_component.html" title="Simple sphere collision component." alt="" coords="722,275,933,301"/>
+<area shape="rect" id="node10" href="$classoeng_1_1engine_1_1_spot_light_component.html" title=" " alt="" coords="715,325,940,352"/>
+<area shape="rect" id="node11" href="$classoeng_1_1engine_1_1_sprite_component.html" title=" " alt="" coords="725,376,929,403"/>
+<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_actor_component.html" title=" " alt="" coords="211,195,412,221"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,187,163,229"/>
 </map>

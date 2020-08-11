@@ -7,7 +7,8 @@ var hierarchy =
     ] ],
     [ "otm::Angle< Ratio, T >", "structotm_1_1_angle.html", null ],
     [ "otm::Angle< RadR >", "structotm_1_1_angle.html", null ],
-    [ "oeng::core::Asset", "classoeng_1_1core_1_1_asset.html", [
+    [ "oeng::core::Asset", "classoeng_1_1core_1_1_asset.html", null ],
+    [ "Asset", null, [
       [ "oeng::renderer::Material", "classoeng_1_1renderer_1_1_material.html", null ],
       [ "oeng::renderer::Mesh", "classoeng_1_1renderer_1_1_mesh.html", null ],
       [ "oeng::renderer::Shader", "classoeng_1_1renderer_1_1_shader.html", null ],
@@ -28,9 +29,7 @@ var hierarchy =
       [ "otm::Vector< T, L >::iterator", "structotm_1_1_vector_1_1iterator.html", null ]
     ] ],
     [ "oeng::core::CoreSystem", "classoeng_1_1core_1_1_core_system.html", [
-      [ "oeng::core::EngineBase", "classoeng_1_1core_1_1_engine_base.html", [
-        [ "oeng::engine::Engine", "classoeng_1_1engine_1_1_engine.html", null ]
-      ] ]
+      [ "oeng::core::EngineBase", "classoeng_1_1core_1_1_engine_base.html", null ]
     ] ],
     [ "oeng::core::CounterManager", "classoeng_1_1core_1_1_counter_manager.html", null ],
     [ "oeng::core::CpuInfo", "classoeng_1_1core_1_1_cpu_info.html", null ],
@@ -39,18 +38,16 @@ var hierarchy =
     [ "oeng::renderer::IPointLight::Data", "structoeng_1_1renderer_1_1_i_point_light_1_1_data.html", null ],
     [ "oeng::renderer::ISpotLight::Data", "structoeng_1_1renderer_1_1_i_spot_light_1_1_data.html", null ],
     [ "oeng::renderer::Vertex::Data", "structoeng_1_1renderer_1_1_vertex_1_1_data.html", null ],
+    [ "oeng::core::DelayedLog", "classoeng_1_1core_1_1_delayed_log.html", null ],
     [ "oeng::core::Dll", "classoeng_1_1core_1_1_dll.html", null ],
-    [ "oeng::core::EnableSharedFromThis< T, ThreadSafe >", "classoeng_1_1core_1_1_enable_shared_from_this.html", null ],
-    [ "oeng::core::EnableSharedFromThis< AActor >", "classoeng_1_1core_1_1_enable_shared_from_this.html", [
+    [ "EnableSharedFromThis", null, [
       [ "oeng::engine::AActor", "classoeng_1_1engine_1_1_a_actor.html", [
         [ "oeng::engine::ACameraActor", "classoeng_1_1engine_1_1_a_camera_actor.html", null ],
         [ "oeng::engine::ADirLight", "classoeng_1_1engine_1_1_a_dir_light.html", null ],
         [ "oeng::engine::AMeshActor", "classoeng_1_1engine_1_1_a_mesh_actor.html", null ],
         [ "oeng::engine::APointLight", "classoeng_1_1engine_1_1_a_point_light.html", null ],
         [ "oeng::engine::ASkyLight", "classoeng_1_1engine_1_1_a_sky_light.html", null ]
-      ] ]
-    ] ],
-    [ "oeng::core::EnableSharedFromThis< ActorComponent >", "classoeng_1_1core_1_1_enable_shared_from_this.html", [
+      ] ],
       [ "oeng::engine::ActorComponent", "classoeng_1_1engine_1_1_actor_component.html", [
         [ "oeng::engine::AIComponent", "classoeng_1_1engine_1_1_a_i_component.html", null ],
         [ "oeng::engine::InputComponent", "classoeng_1_1engine_1_1_input_component.html", null ],
@@ -67,19 +64,26 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "oeng::core::EnableSharedFromThis< T, ThreadSafe >", "classoeng_1_1core_1_1_enable_shared_from_this.html", null ],
+    [ "EngineBase", null, [
+      [ "oeng::engine::Engine", "classoeng_1_1engine_1_1_engine.html", null ]
+    ] ],
     [ "oeng::core::Event< Args >", "classoeng_1_1core_1_1_event.html", null ],
-    [ "oeng::core::Event< oeng::engine::SphereComponent & >", "classoeng_1_1core_1_1_event.html", null ],
     [ "false_type", null, [
       [ "oeng::core::detail::CanEnableShared< T, class >", "structoeng_1_1core_1_1detail_1_1_can_enable_shared.html", null ]
     ] ],
+    [ "ICamera", null, [
+      [ "oeng::engine::CameraComponent", "classoeng_1_1engine_1_1_camera_component.html", null ]
+    ] ],
     [ "oeng::renderer::ICamera", "classoeng_1_1renderer_1_1_i_camera.html", [
-      [ "oeng::engine::CameraComponent", "classoeng_1_1engine_1_1_camera_component.html", null ],
       [ "oeng::renderer::DefaultCamera", "classoeng_1_1renderer_1_1_default_camera.html", null ]
     ] ],
-    [ "oeng::renderer::IDirLight", "classoeng_1_1renderer_1_1_i_dir_light.html", [
+    [ "IDirLight", null, [
       [ "oeng::engine::DirLightComponent", "classoeng_1_1engine_1_1_dir_light_component.html", null ]
     ] ],
-    [ "oeng::renderer::IMeshComponent", "classoeng_1_1renderer_1_1_i_mesh_component.html", [
+    [ "oeng::renderer::IDirLight", "classoeng_1_1renderer_1_1_i_dir_light.html", null ],
+    [ "oeng::renderer::IMeshComponent", "classoeng_1_1renderer_1_1_i_mesh_component.html", null ],
+    [ "IMeshComponent", null, [
       [ "oeng::engine::MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html", null ]
     ] ],
     [ "oeng::engine::InitEngine", "classoeng_1_1engine_1_1_init_engine.html", [
@@ -88,18 +92,22 @@ var hierarchy =
     [ "oeng::engine::InputAction", "structoeng_1_1engine_1_1_input_action.html", null ],
     [ "oeng::engine::InputAxis", "structoeng_1_1engine_1_1_input_axis.html", null ],
     [ "oeng::engine::InputSystem", "classoeng_1_1engine_1_1_input_system.html", null ],
-    [ "oeng::renderer::IPointLight", "classoeng_1_1renderer_1_1_i_point_light.html", [
+    [ "IPointLight", null, [
       [ "oeng::engine::PointLightComponent", "classoeng_1_1engine_1_1_point_light_component.html", null ]
     ] ],
-    [ "oeng::renderer::ISkyLight", "classoeng_1_1renderer_1_1_i_sky_light.html", [
+    [ "oeng::renderer::IPointLight", "classoeng_1_1renderer_1_1_i_point_light.html", null ],
+    [ "ISkyLight", null, [
       [ "oeng::engine::SkyLightComponent", "classoeng_1_1engine_1_1_sky_light_component.html", null ]
     ] ],
-    [ "oeng::renderer::ISpotLight", "classoeng_1_1renderer_1_1_i_spot_light.html", [
+    [ "oeng::renderer::ISkyLight", "classoeng_1_1renderer_1_1_i_sky_light.html", null ],
+    [ "oeng::renderer::ISpotLight", "classoeng_1_1renderer_1_1_i_spot_light.html", null ],
+    [ "ISpotLight", null, [
       [ "oeng::engine::SpotLightComponent", "classoeng_1_1engine_1_1_spot_light_component.html", null ]
     ] ],
-    [ "oeng::renderer::ISpriteComponent", "classoeng_1_1renderer_1_1_i_sprite_component.html", [
+    [ "ISpriteComponent", null, [
       [ "oeng::engine::SpriteComponent", "classoeng_1_1engine_1_1_sprite_component.html", null ]
     ] ],
+    [ "oeng::renderer::ISpriteComponent", "classoeng_1_1renderer_1_1_i_sprite_component.html", null ],
     [ "oeng::core::IsTransparent< Container, KeyEquivalent >", "structoeng_1_1core_1_1_is_transparent.html", null ],
     [ "kLogThreadSafe", null, [
       [ "oeng::core::CompPair< kLogThreadSafe, std::unordered_map< unsigned, TimePoint > >", "classoeng_1_1core_1_1_comp_pair.html", null ]
@@ -110,8 +118,7 @@ var hierarchy =
     [ "kPathThreadSafe", null, [
       [ "oeng::core::CompPair< kPathThreadSafe, HashSet< fs::path, PathHasher, PathEqual > >", "classoeng_1_1core_1_1_comp_pair.html", null ]
     ] ],
-    [ "oeng::core::logcat::LogCategory", "structoeng_1_1core_1_1logcat_1_1_log_category.html", null ],
-    [ "oeng::core::LogDelay", "classoeng_1_1core_1_1_log_delay.html", null ],
+    [ "logcat::LogCategory", "structlogcat_1_1_log_category.html", null ],
     [ "oeng::core::Logger", "classoeng_1_1core_1_1_logger.html", null ],
     [ "logic_error", null, [
       [ "otm::DivByZero", "classotm_1_1_div_by_zero.html", null ]
@@ -168,11 +175,6 @@ var hierarchy =
     ] ],
     [ "oeng::core::SharedPtr< T, ThreadSafe >", "classoeng_1_1core_1_1_shared_ptr.html", null ],
     [ "oeng::core::SharedRef< T, ThreadSafe >", "classoeng_1_1core_1_1_shared_ref.html", null ],
-    [ "oeng::core::SharedRef< oeng::renderer::Material >", "classoeng_1_1core_1_1_shared_ref.html", null ],
-    [ "oeng::core::SharedRef< oeng::renderer::Mesh >", "classoeng_1_1core_1_1_shared_ref.html", null ],
-    [ "oeng::core::SharedRef< oeng::renderer::Shader >", "classoeng_1_1core_1_1_shared_ref.html", null ],
-    [ "oeng::core::SharedRef< oeng::renderer::Texture >", "classoeng_1_1core_1_1_shared_ref.html", null ],
-    [ "oeng::core::SharedRef< T >", "classoeng_1_1core_1_1_shared_ref.html", null ],
     [ "oeng::engine::SoundEvent", "classoeng_1_1engine_1_1_sound_event.html", null ],
     [ "otm::Sphere", "structotm_1_1_sphere.html", null ],
     [ "T1", null, [
@@ -209,8 +211,6 @@ var hierarchy =
     [ "oeng::renderer::Vertex", "structoeng_1_1renderer_1_1_vertex.html", null ],
     [ "oeng::renderer::VertexArray", "classoeng_1_1renderer_1_1_vertex_array.html", null ],
     [ "oeng::core::WeakPtr< T, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
-    [ "oeng::core::WeakPtr< AActor, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
-    [ "oeng::core::WeakPtr< ActorComponent, ThreadSafe >", "classoeng_1_1core_1_1_weak_ptr.html", null ],
     [ "oeng::renderer::Window", "classoeng_1_1renderer_1_1_window.html", null ],
     [ "oeng::engine::World", "classoeng_1_1engine_1_1_world.html", null ],
     [ "oeng::core::ZeroThen", "structoeng_1_1core_1_1_zero_then.html", null ]

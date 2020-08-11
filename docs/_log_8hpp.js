@@ -1,8 +1,8 @@
 var _log_8hpp =
 [
-    [ "LogCategory", "structoeng_1_1core_1_1logcat_1_1_log_category.html", "structoeng_1_1core_1_1logcat_1_1_log_category" ],
+    [ "LogCategory", "structlogcat_1_1_log_category.html", "structlogcat_1_1_log_category" ],
     [ "Logger", "classoeng_1_1core_1_1_logger.html", "classoeng_1_1core_1_1_logger" ],
-    [ "LogDelay", "classoeng_1_1core_1_1_log_delay.html", "classoeng_1_1core_1_1_log_delay" ],
+    [ "DelayedLog", "classoeng_1_1core_1_1_delayed_log.html", "classoeng_1_1core_1_1_delayed_log" ],
     [ "OE_DLOG", "_log_8hpp.html#ab73ba6a3010c551298f643678609883a", null ],
     [ "OE_LOG", "_log_8hpp.html#a8d105b08a24eb94588501d307dc33529", null ],
     [ "LogLevel", "_log_8hpp.html#a7383bd83e9974ff8bf603909cb0890a5", [

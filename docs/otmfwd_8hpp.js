@@ -1,10 +1,5 @@
 var otmfwd_8hpp =
 [
-    [ "Quaternion", "structotm_1_1_quaternion.html", "structotm_1_1_quaternion" ],
-    [ "Vector", "structotm_1_1_vector.html", "structotm_1_1_vector" ],
-    [ "UnitVec", "structotm_1_1_unit_vec.html", "structotm_1_1_unit_vec" ],
-    [ "Angle", "structotm_1_1_angle.html", "structotm_1_1_angle" ],
-    [ "Matrix", "structotm_1_1_matrix.html", "structotm_1_1_matrix" ],
     [ "CommonFloat", "otmfwd_8hpp.html#a7703bbe29fbddf00dae0f240314d446a", null ],
     [ "Deg", "otmfwd_8hpp.html#a84272f9b0e4e1dfb4f48ddde44f1673a", null ],
     [ "DegR", "otmfwd_8hpp.html#a6652e999816a247b44babdbb6eef1868", null ],

@@ -32,10 +32,10 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="classoeng_1_1core_1_1_enable_shared_from_this.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="1.5,-112.5 1.5,-142.5 149.5,-142.5 149.5,-112.5 1.5,-112.5"/>
-<text text-anchor="start" x="9.5" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::core::EnableShared</text>
-<text text-anchor="middle" x="75.5" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">FromThis&lt; ActorComponent &gt;</text>
+<g id="a_node3"><a xlink:title=" ">
+<polygon fill="white" stroke="#bfbfbf" points="16.5,-112.5 16.5,-142.5 134.5,-142.5 134.5,-112.5 16.5,-112.5"/>
+<text text-anchor="start" x="24.5" y="-130.5" font-family="Helvetica,sans-Serif" font-size="10.00">EnableSharedFromThis</text>
+<text text-anchor="middle" x="75.5" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; ActorComponent &gt;</text>
 </a>
 </g>
 </g>

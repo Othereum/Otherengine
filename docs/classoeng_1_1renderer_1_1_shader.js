@@ -8,7 +8,7 @@ var classoeng_1_1renderer_1_1_shader =
     [ "Activate", "classoeng_1_1renderer_1_1_shader.html#a82ed71b34b93e8889dab63cb721c49c0", null ],
     [ "GetUniformLocation", "classoeng_1_1renderer_1_1_shader.html#a809b8d8f7a18a6fa88cdbc83a8078a04", null ],
     [ "Load", "classoeng_1_1renderer_1_1_shader.html#a9369b5a30b23bb886bd4f50897e81381", null ],
-    [ "operator", "classoeng_1_1renderer_1_1_shader.html#acdf090050f5d6c213d87ccf865d30bbd", null ],
+    [ "operator<=>", "classoeng_1_1renderer_1_1_shader.html#a0c648d1c55c184ca5dde42e19c048f38", null ],
     [ "operator=", "classoeng_1_1renderer_1_1_shader.html#a6c9a08fbb9e1ac7d2b8b443fa25d50b7", null ],
     [ "operator=", "classoeng_1_1renderer_1_1_shader.html#a1c326668cbe4b89080a1784e32fe9c63", null ],
     [ "SetUniform", "classoeng_1_1renderer_1_1_shader.html#accde1205c9d8463c592c8632c6f7ac3e", null ],

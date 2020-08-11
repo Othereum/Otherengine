@@ -7,5 +7,5 @@ var _stat_8hpp =
     [ "CounterManager", "classoeng_1_1core_1_1_counter_manager.html", "classoeng_1_1core_1_1_counter_manager" ],
     [ "SCOPE_COUNTER", "_stat_8hpp.html#a58e03986c066e7a04a4034e06da08a74", null ],
     [ "SCOPE_STACK_COUNTER", "_stat_8hpp.html#ac3bf53026585d358005b06633a1de3ba", null ],
-    [ "kStat", "_stat_8hpp.html#a00721dd9dd6fb0fc2e724621d4c471e5", null ]
+    [ "kStat", "_stat_8hpp.html#af61e34e744b847c79e24ae539c4c1390", null ]
 ];

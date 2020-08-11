@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 185,-24 185,4 -4,4"/>
-<!-- Node88 -->
-<g id="node1" class="node"><title>Node88</title>
+<!-- Node80 -->
+<g id="node1" class="node"><title>Node80</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="0,-0.5 0,-19.5 62,-19.5 62,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="31" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">logic_error</text>
@@ -25,8 +25,8 @@
 </a>
 </g>
 </g>
-<!-- Node88&#45;&gt;Node0 -->
-<g id="edge1" class="edge"><title>Node88&#45;&gt;Node0</title>
+<!-- Node80&#45;&gt;Node0 -->
+<g id="edge1" class="edge"><title>Node80&#45;&gt;Node0</title>
 <path fill="none" stroke="midnightblue" d="M72.4608,-10C80.7735,-10 89.5281,-10 97.8476,-10"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="72.2338,-6.5001 62.2338,-10 72.2337,-13.5001 72.2338,-6.5001"/>
 </g>

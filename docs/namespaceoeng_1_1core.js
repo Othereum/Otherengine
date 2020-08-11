@@ -1,7 +1,6 @@
 var namespaceoeng_1_1core =
 [
     [ "detail", "namespaceoeng_1_1core_1_1detail.html", "namespaceoeng_1_1core_1_1detail" ],
-    [ "logcat", "namespaceoeng_1_1core_1_1logcat.html", "namespaceoeng_1_1core_1_1logcat" ],
     [ "Asset", "classoeng_1_1core_1_1_asset.html", "classoeng_1_1core_1_1_asset" ],
     [ "CompPair", "classoeng_1_1core_1_1_comp_pair.html", "classoeng_1_1core_1_1_comp_pair" ],
     [ "CompPair< T1, T2, false >", "classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html", "classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4" ],
@@ -9,12 +8,12 @@ var namespaceoeng_1_1core =
     [ "CoreSystem", "classoeng_1_1core_1_1_core_system.html", "classoeng_1_1core_1_1_core_system" ],
     [ "CounterManager", "classoeng_1_1core_1_1_counter_manager.html", "classoeng_1_1core_1_1_counter_manager" ],
     [ "CpuInfo", "classoeng_1_1core_1_1_cpu_info.html", "classoeng_1_1core_1_1_cpu_info" ],
+    [ "DelayedLog", "classoeng_1_1core_1_1_delayed_log.html", "classoeng_1_1core_1_1_delayed_log" ],
     [ "Dll", "classoeng_1_1core_1_1_dll.html", "classoeng_1_1core_1_1_dll" ],
     [ "EnableSharedFromThis", "classoeng_1_1core_1_1_enable_shared_from_this.html", "classoeng_1_1core_1_1_enable_shared_from_this" ],
     [ "EngineBase", "classoeng_1_1core_1_1_engine_base.html", "classoeng_1_1core_1_1_engine_base" ],
     [ "Event", "classoeng_1_1core_1_1_event.html", "classoeng_1_1core_1_1_event" ],
     [ "IsTransparent", "structoeng_1_1core_1_1_is_transparent.html", null ],
-    [ "LogDelay", "classoeng_1_1core_1_1_log_delay.html", "classoeng_1_1core_1_1_log_delay" ],
     [ "Logger", "classoeng_1_1core_1_1_logger.html", "classoeng_1_1core_1_1_logger" ],
     [ "Monitor", "classoeng_1_1core_1_1_monitor.html", "classoeng_1_1core_1_1_monitor" ],
     [ "Name", "structoeng_1_1core_1_1_name.html", "structoeng_1_1core_1_1_name" ],

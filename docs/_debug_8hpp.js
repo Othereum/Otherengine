@@ -8,5 +8,5 @@ var _debug_8hpp =
     [ "EXPECT_NO_ENTRY", "_debug_8hpp.html#a6bccbfeba8ff419024ba3534e410438c", null ],
     [ "EXPECT_NO_THROW", "_debug_8hpp.html#a59ed1052a93c35da6c57a38e711e7681", null ],
     [ "OE_ELOG", "_debug_8hpp.html#acc8bc5c45180af63feba16fc6e615eac", null ],
-    [ "kDebug", "_debug_8hpp.html#ab7c02dc175dff658cc35c00074d572a7", null ]
+    [ "kDebug", "_debug_8hpp.html#a15bb766b11be028b1d8ef2fe93267ad1", null ]
 ];
