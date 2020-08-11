@@ -1,12 +1,14 @@
 #include "ConfigSystem.hpp"
 #include <filesystem>
 #include <fstream>
-#include "EngineBase.hpp"
-#include "Log.hpp"
-#include "Platform.hpp"
 
 namespace oeng::core
 {
+	namespace logcat
+	{
+		const LogCategory kConfig{u8"Config"sv};
+	}
+	
 	namespace fs = std::filesystem;
 	
 	[[nodiscard]] static fs::path GetUserConfigDir()
@@ -88,7 +90,7 @@ namespace oeng::core
 				break;
 				
 			default:
-				Log(log::Level::kErr, u8"The type of the property with add flag '+' must be object or array. (actual: {})"sv,
+				Log(LogLevel::kErr, u8"The type of the property with add flag '+' must be object or array. (actual: {})"sv,
 					reinterpret_cast<const char8_t*>(properties.type_name()));
 			}
 		}
@@ -104,7 +106,7 @@ namespace oeng::core
 			}
 			else
 			{
-				Log(log::Level::kWarn, u8"Could not find '{}'"sv, AsString8(real_key));
+				Log(LogLevel::kWarn, u8"Could not find '{}'"sv, AsString8(real_key));
 			}
 		}
 
@@ -121,22 +123,22 @@ namespace oeng::core
 				break;
 				
 			default:
-				Log(log::Level::kErr, u8"Property removal can only be done on object or array. (actual: {})"sv,
+				Log(LogLevel::kErr, u8"Property removal can only be done on object or array. (actual: {})"sv,
 					reinterpret_cast<const char8_t*>(from.type_name()));
 			}
 		}
 
 		void RemoveFromObject(Json& from, const Json& keys) const
 		{
-			for (auto& k : keys) try
+			for (const auto& k : keys) try
 			{
 				const auto ks = k.get<std::string>();
 				if (!from.erase(ks))
-					Log(log::Level::kWarn, u8"Could not remove '{}' (not found)"sv, AsString8(ks));
+					Log(LogLevel::kWarn, u8"Could not remove '{}' (not found)"sv, AsString8(ks));
 			}
 			catch (const std::exception& e)
 			{
-				Log(log::Level::kErr, What(e));
+				Log(LogLevel::kErr, What(e));
 			}
 		}
 
@@ -149,11 +151,11 @@ namespace oeng::core
 			{
 				const auto i = idx.get<size_t>();
 				if (i < from.size()) from.erase(i);
-				else Log(log::Level::kWarn, u8"Could not remove [{}] (out of range)"sv, i);
+				else Log(LogLevel::kWarn, u8"Could not remove [{}] (out of range)"sv, i);
 			}
 			catch (const std::exception& e)
 			{
-				Log(log::Level::kErr, What(e));
+				Log(LogLevel::kErr, What(e));
 			}
 		}
 
@@ -175,10 +177,10 @@ namespace oeng::core
 		}
 
 		template <class... Args>
-		void Log(log::Level level, std::u8string_view msg, const Args&... args) const noexcept
+		void Log(LogLevel level, std::u8string_view msg, const Args&... args) const
 		{
-			ASSERT_TRY(log::Log(level, u8"While loading \"{}\"{}: {}",
-				path_.string<char8_t>(PoolAllocator<char8_t>{}), Prop(), Format(msg, args...)));
+			Log(logcat::kConfig, level, u8"While loading \"{}\"{}: {}"sv,
+				path_.string<char8_t>(PoolAllocator<char8_t>{}), Prop(), Format(msg, args...));
 		}
 		
 		const fs::path& path_;
@@ -216,7 +218,7 @@ namespace oeng::core
 		}
 		catch (const std::exception& e)
 		{
-			log::Error(u8"Failed to save config '{}': {}"sv, *name, What(e));
+			OE_LOG(kConfig, kErr, u8"Failed to save config '{}': {}"sv, *name, What(e));
 			return false;
 		}
 	}
@@ -244,7 +246,7 @@ namespace oeng::core
 			catch (const std::exception& e)
 			{
 				const auto path = entry.path().string<char8_t>(PoolAllocator<char8_t>{});
-				log::Error(u8"Failed to load config '{}': {}"sv, path, What(e));
+				OE_LOG(kConfig, kErr, u8"Failed to load config '{}': {}"sv, path, What(e));
 			}
 		}
 	}

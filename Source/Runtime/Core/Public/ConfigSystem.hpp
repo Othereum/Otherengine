@@ -1,11 +1,17 @@
 #pragma once
 #include "Json.hpp"
+#include "Log.hpp"
 #include "Name.hpp"
 #include "Templates/HashMap.hpp"
 #include "Templates/TreeSet.hpp"
 
 namespace oeng::core
 {
+	namespace logcat
+	{
+		extern CORE_API const LogCategory kConfig;
+	}
+	
 	class CORE_API ConfigSystem
 	{
 	public:
