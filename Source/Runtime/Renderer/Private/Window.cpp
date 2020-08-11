@@ -123,8 +123,8 @@ namespace oeng::renderer
 		static void SetupAttributes()
 		{
 			SetGlAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-			SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-			SetGlAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+			SetGlAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, OE_OPENGL_VERSION_MAJOR);
+			SetGlAttribute(SDL_GL_CONTEXT_MINOR_VERSION, OE_OPENGL_VERSION_MINOR);
 			SetGlAttribute(SDL_GL_RED_SIZE, 8);
 			SetGlAttribute(SDL_GL_GREEN_SIZE, 8);
 			SetGlAttribute(SDL_GL_BLUE_SIZE, 8);

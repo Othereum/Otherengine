@@ -16,3 +16,9 @@ target_include_directories(${PROJECT_NAME}-Renderer
   PRIVATE
 	${SDL2_INCLUDE_DIRS}
 )
+
+target_compile_definitions(${PROJECT_NAME}-Renderer
+  PRIVATE
+    OE_OPENGL_VERSION_MAJOR=${OE_OPENGL_VERSION_MAJOR}
+    OE_OPENGL_VERSION_MINOR=${OE_OPENGL_VERSION_MINOR}
+)
