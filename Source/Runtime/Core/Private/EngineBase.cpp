@@ -3,19 +3,22 @@
 
 namespace oeng::core
 {
-	const LogCategory kLogEngine{u8"Engine"sv};
+	namespace logcat
+	{
+		const LogCategory kEngine{u8"Engine"sv};
+	}
 	
 	static EngineBase* engine_base = nullptr;
 
 	static void OnIllegal(int)
 	{
-		Log(kLogEngine, LogLevel::kCritical, u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
+		OE_LOG(kEngine, kCritical, u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
 	}
 	
 	static void CheckCpu()
 	{
 		const auto& cpu = CpuInfo::Get();
-		Log(kLogEngine, LogLevel::kLog, cpu.GetBrand());
+		OE_LOG(kEngine, kLog, cpu.GetBrand());
 		
 #ifdef OE_USE_AVX2
 		if (!cpu.AVX2()) throw std::runtime_error{"Unsupported CPU (AVX2)"};
@@ -25,7 +28,7 @@ namespace oeng::core
 	RegisterEngineBase::RegisterEngineBase(EngineBase* engine)
 	{
 		std::signal(SIGILL, &OnIllegal);
-		if (IsDebugging()) Log(kLogEngine, LogLevel::kDebug, u8"Debugger detected"sv);
+		if (IsDebugging()) OE_LOG(kEngine, kDebug, u8"Debugger detected"sv);
 		CheckCpu();
 		
 		assert(engine);

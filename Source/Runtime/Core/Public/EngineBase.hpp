@@ -12,7 +12,10 @@ namespace oeng::engine
 
 namespace oeng::core
 {
-	extern CORE_API const LogCategory kLogEngine;
+	namespace logcat
+	{
+		extern CORE_API const LogCategory kEngine;
+	}
 	
 	class EngineBase;
 	
