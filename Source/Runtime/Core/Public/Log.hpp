@@ -50,8 +50,46 @@ namespace oeng::core
 		kCritical
 	};
 
+	/**
+	 * Namespace for log categories.
+	 *
+	 * @note
+	 * You should declare/define log categories in logcat namespace.
+	 * But logcat namespace itself is fine wherever it is.
+	 */
 	namespace logcat
 	{
+		/**
+		 * Log category. You can add custom log category with it:
+		 *
+		 * In .hpp:
+		 * @code{cpp}
+		 * namespace logcat
+		 * {
+		 *     extern const LogCategory kMyCategory;
+		 * }
+		 * @endcode
+		 * 
+		 * In .cpp:
+		 * @code{cpp}
+		 * namespace logcat
+		 * {
+		 *     const LogCategory kMyCategory{u8"MyCategory"sv};
+		 * }
+		 * @endcode
+		 *
+		 * Or simply define it as static in .cpp:
+		 * @code{cpp}
+		 * namespace logcat
+		 * {
+		 *     static constexpr LogCategory kMyCategory{u8"MyCategory"sv};
+		 * }
+		 * @endcode
+		 *
+		 * @note
+		 * You should declare/define log categories in logcat namespace.
+		 * But logcat namespace itself is fine wherever it is.
+		 */
 		struct LogCategory
 		{
 			std::u8string_view name;
@@ -120,4 +158,11 @@ namespace oeng::core
 	log_delay(delay, logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__); \
 }()
 
+/**
+ * Log macro that allows you to easily specify categories and levels.
+ * @param category Log category. `logcat::` must be omitted.
+ * @param level Log level. `LogLevel::` must be omitted.
+ * @param format Log format.
+ * @param ... Format arguments.
+ */
 #define OE_LOG(category, level, format, ...) ::oeng::Log(logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)
