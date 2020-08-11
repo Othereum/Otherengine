@@ -65,10 +65,10 @@ namespace oeng::core
 		}
 
 		omem::PoolInfo align;
-		align.size = Log(max.size, 10) + 1;
-		align.count = Log(max.count, 10) + 1;
-		align.peak = Log(max.peak, 10) + 1;
-		align.fault = Log(max.fault, 10) + 1;
+		align.size = IntLog(max.size, 10) + 1;
+		align.count = IntLog(max.count, 10) + 1;
+		align.peak = IntLog(max.peak, 10) + 1;
+		align.fault = IntLog(max.fault, 10) + 1;
 		
 		log::Log(log::Level::kDebug, fmt::format(u8"[Mem] Memory pool info for thread {}:"sv, ThreadId()));
 		for (const auto& info : infos)
