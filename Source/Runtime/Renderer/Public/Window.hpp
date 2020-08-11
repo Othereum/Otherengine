@@ -2,6 +2,11 @@
 
 struct SDL_Window;
 
+namespace logcat
+{
+	extern RENDERER_API const LogCategory kWindow;
+}
+
 namespace oeng::renderer
 {
 	class RENDERER_API Window

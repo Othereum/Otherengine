@@ -1,8 +1,11 @@
 #include "Window.hpp"
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
-#include "EngineBase.hpp"
-#include "OpenGL.hpp"
+
+namespace logcat
+{
+	const LogCategory kWindow{u8"Renderer"sv};
+}
 
 namespace oeng::renderer
 {
@@ -82,8 +85,8 @@ namespace oeng::renderer
 			const auto num_dp = SDL_GetNumVideoDisplays();
 			if (dp_idx_ >= num_dp)
 			{
-				log::Warn(u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp_idx_, num_dp-1);
-				log::Warn(u8"Using display 0..."sv);
+				OE_LOG(kWindow, kWarn, u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp_idx_, num_dp-1);
+				OE_LOG(kWindow, kWarn, u8"Using display 0..."sv);
 				dp_idx_ = 0;
 			}
 		}
@@ -101,15 +104,15 @@ namespace oeng::renderer
 			
 			if (dm_idx >= num_dm)
 			{
-				log::Warn(u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx, num_dm-1);
-				log::Warn(u8"Using display mode 0..."sv);
+				OE_LOG(kWindow, kWarn, u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx, num_dm-1);
+				OE_LOG(kWindow, kWarn, u8"Using display mode 0..."sv);
 				dm_idx = 0;
 			}
 
 			if (0 != SDL_GetDisplayMode(dp_idx_, dm_idx, &dp_mode_))
 				throw std::runtime_error{SDL_GetError()};
 
-			log::Info(u8"Fullscreen mode: {}x{} {}Hz"sv, dp_mode_.w, dp_mode_.h, dp_mode_.refresh_rate);
+			OE_LOG(kWindow, kLog, u8"Fullscreen mode: {}x{} {}Hz"sv, dp_mode_.w, dp_mode_.h, dp_mode_.refresh_rate);
 		}
 
 		void LoadWindowedDpMode()
@@ -117,7 +120,7 @@ namespace oeng::renderer
 			const auto size = cfg_.at("WindowedSize").get<Vec2u16>();
 			dp_mode_.w = size[0];
 			dp_mode_.h = size[1];
-			log::Info(u8"Windowed mode: {}x{}"sv, dp_mode_.w, dp_mode_.h);
+			OE_LOG(kWindow, kLog, u8"Windowed mode: {}x{}"sv, dp_mode_.w, dp_mode_.h);
 		}
 
 		static void SetupAttributes()
@@ -144,6 +147,36 @@ namespace oeng::renderer
 		SDL_DisplayMode dp_mode_{};
 	};
 
+	static void LoadVSync()
+	{
+		auto& cfg = ConfigSystem::Get()(u8"Display"sv);
+		if (cfg.at("VSync").get<bool>())
+		{
+			if (cfg.at("VSync_Adaptive").get<bool>())
+			{
+				if (SDL_GL_SetSwapInterval(-1) == 0)
+				{
+					OE_LOG(kWindow, kLog, u8"Adaptive sync enabled"sv);
+				}
+				else
+				{
+					OE_LOG(kWindow, kWarn, u8"Adaptive sync not supported. Falling back to normal VSync..."sv);
+					SDL_GL_SetSwapInterval(1);
+				}
+			}
+			else
+			{
+				OE_LOG(kWindow, kLog, u8"VSync enabled"sv);
+				SDL_GL_SetSwapInterval(1);
+			}
+		}
+		else
+		{
+			OE_LOG(kWindow, kLog, u8"VSync disabled"sv);
+			SDL_GL_SetSwapInterval(0);
+		}
+	}
+
 	static void* CreateGlContext(SDL_Window* window)
 	{
 		auto* const context = SDL_GL_CreateContext(window);
@@ -157,34 +190,10 @@ namespace oeng::renderer
 		// On some platforms, GLEW will emit a benign error code, so clear it
 		glGetError();
 
-		auto& cfg = ConfigSystem::Get()(u8"Display"sv);
-		if (cfg.at("VSync").get<bool>())
-		{
-			if (cfg.at("VSync_Adaptive").get<bool>())
-			{
-				if (SDL_GL_SetSwapInterval(-1) == 0)
-				{
-					log::Info(u8"Adaptive sync enabled"sv);
-				}
-				else
-				{
-					log::Warn(u8"Adaptive sync not supported. Falling back to normal VSync..."sv);
-					SDL_GL_SetSwapInterval(1);
-				}
-			}
-			else
-			{
-				log::Info(u8"VSync enabled"sv);
-				SDL_GL_SetSwapInterval(1);
-			}
-		}
-		else
-		{
-			log::Info(u8"VSync disabled"sv);
-			SDL_GL_SetSwapInterval(0);
-		}
+		LoadVSync();
 
-		gl(glClearColor, 0.f, 0.f, 0.f, 1.f);
+		glEnable(GL_DEBUG_OUTPUT);
+		glClearColor(0.f, 0.f, 0.f, 1.f);
 		
 		return context;
 	}
