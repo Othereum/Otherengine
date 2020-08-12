@@ -40,24 +40,17 @@ namespace oeng::core
 
 	Logger::Logger()
 	{
+		using ConsoleSink = std::conditional_t<kLogThreadSafe, spdlog::sinks::stdout_color_sink_mt, spdlog::sinks::stdout_color_sink_st>;
+		using FileSink = std::conditional_t<kLogThreadSafe, spdlog::sinks::daily_file_sink_mt, spdlog::sinks::daily_file_sink_st>;
+		
 		auto dir = GetUserDataPath();
 		dir /= u8"Logs"sv;
 		create_directories(dir);
-
-		// Should NOT use memory pool
 		dir /= fmt::format(u8"{}.log"sv, EngineBase::Get().GetGameName());
-
-		if constexpr (kLogThreadSafe)
-		{
-			console_ = spdlog::stdout_color_mt("console"s);
-			file_ = spdlog::daily_logger_mt("file"s, dir.string());
-		}
-		else
-		{
-			console_ = spdlog::stdout_color_st("console"s);
-			file_ = spdlog::daily_logger_st("file"s, dir.string());
-		}
-
+		
+		console_ = std::make_shared<spdlog::logger>(std::string{}, std::make_shared<ConsoleSink>());
+		file_ = std::make_shared<spdlog::logger>(std::string{}, std::make_shared<FileSink>(dir.string(), 0, 0));
+		
 #ifndef NDEBUG
 		file_->set_level(spdlog::level::debug);
 #endif
