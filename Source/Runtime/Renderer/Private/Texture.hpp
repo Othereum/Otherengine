@@ -1,6 +1,5 @@
 #pragma once
 #include "Math.hpp"
-#include "Asset.hpp"
 
 namespace oeng::renderer
 {

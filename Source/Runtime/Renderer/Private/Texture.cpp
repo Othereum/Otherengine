@@ -1,6 +1,6 @@
 #include "Texture.hpp"
-#include <SOIL2/SOIL2.h>
 #include <GL/glew.h>
+#include <SOIL2/SOIL2.h>
 
 namespace oeng::renderer
 {
@@ -13,12 +13,13 @@ Texture::Texture(Path path)
     const std::unique_ptr<const unsigned char[]> image{
         SOIL_load_image(path->string().c_str(), &size[0], &size[1], &num_channels, SOIL_LOAD_AUTO)
     };
+
     if (!image)
         throw std::runtime_error{SOIL_last_result()};
 
     constexpr auto max_size = std::numeric_limits<uint16_t>::max();
     if (size[0] > max_size || size[1] > max_size)
-        Throw(u8"Too big ({0}x{1}). Max size is {2}x{2}"sv, size[0], size[1], max_size);
+        throw std::runtime_error{fmt::format("Too big ({0}x{1}). Max size is {2}x{2}"sv, size[0], size[1], max_size)};
 
     int img_format;
     int alignment;
@@ -28,12 +29,16 @@ Texture::Texture(Path path)
         img_format = GL_RGB;
         alignment = 1;
         break;
+
     case 4:
         img_format = GL_RGBA;
         alignment = 4;
         break;
+
     default:
-        Throw(u8"Invalid format: num_channels was {}. Must be 3 or 4"sv, num_channels);
+        throw std::runtime_error{
+            fmt::format("Invalid format: It has {} channels, but only RGB and RGBA formats are supported."sv,
+                        num_channels)};
     }
 
     size_ = Vec2u16{size};
