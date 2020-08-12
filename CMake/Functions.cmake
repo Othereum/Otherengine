@@ -15,8 +15,14 @@ function(oe_setup_target target)
 
 	target_compile_options(${target} PRIVATE
 		$<IF:$<CXX_COMPILER_ID:MSVC>,
-			$<$<CONFIG:Release>:/GL> /MP /fp:fast /W4 /WX /wd4251 /wd4275,
-			$<$<CONFIG:Release>:-flto> -ffast-math -Wall -Wextra -pedantic -Werror>
+			/wd4251 # 'type' : class 'type1' needs to have dll-interface to be used by clients of class 'type2'
+			/wd4275 # non - DLL-interface class 'class_1' used as base for DLL-interface class 'class_2'
+			$<$<CONFIG:Release>:/GL> /MP /fp:fast /W4 /WX
+
+			, # else
+			$<$<CONFIG:Release>:-flto> -ffast-math -Wall -Wextra -pedantic -Werror
+		>
+
 		$<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
 	)
 
