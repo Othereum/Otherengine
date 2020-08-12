@@ -10,7 +10,6 @@ add_switch(Core OE_LOG_THREADSAFE FALSE "Should logging be thread-safe?")
 target_link_libraries(${PROJECT_NAME}-Core
   PUBLIC
 	otm
-	omem
 	nlohmann_json::nlohmann_json
 	fmt::fmt
 
