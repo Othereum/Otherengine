@@ -51,7 +51,7 @@ namespace oeng::core
 		class Pusher
 		{
 		public:
-			Pusher(DyArr<std::u8string_view>& stack, std::u8string_view name)
+			Pusher(std::vector<std::u8string_view>& stack, std::u8string_view name)
 				:stack_{&stack}
 			{
 				stack_->emplace_back(name);
@@ -70,7 +70,7 @@ namespace oeng::core
 			}
 			
 		private:
-			DyArr<std::u8string_view>* stack_;
+			std::vector<std::u8string_view>* stack_;
 		};
 
 		void AddProperties(Json& config, const std::string& key, Json&& properties)
@@ -138,7 +138,7 @@ namespace oeng::core
 			}
 			catch (const std::exception& e)
 			{
-				Log(LogLevel::kErr, What(e));
+				Log(LogLevel::kErr, AsString8(e.what()));
 			}
 		}
 
@@ -155,7 +155,7 @@ namespace oeng::core
 			}
 			catch (const std::exception& e)
 			{
-				Log(LogLevel::kErr, What(e));
+				Log(LogLevel::kErr, AsString8(e.what()));
 			}
 		}
 
@@ -164,9 +164,9 @@ namespace oeng::core
 			return {stack_, AsString8(name)};
 		}
 
-		[[nodiscard]] String8 Prop() const
+		[[nodiscard]] std::u8string Prop() const
 		{
-			String8 prop;
+			std::u8string prop;
 			for (const auto p : stack_)
 			{
 				prop += u8'[';
@@ -176,20 +176,20 @@ namespace oeng::core
 			return prop;	
 		}
 
-		template <class... Args>
-		void Log(LogLevel level, std::u8string_view msg, const Args&... args) const
+		template <class Str, class... Args>
+		void Log(LogLevel level, Str&& format, const Args&... args) const
 		{
 			oeng::Log(logcat::kConfig, level, u8"While loading \"{}\"{}: {}"sv,
-				path_.string<char8_t>(PoolAllocator<char8_t>{}), Prop(), Format(msg, args...));
+				path_.u8string(), Prop(), fmt::format(std::forward<Str>(format), args...));
 		}
 		
 		const fs::path& path_;
-		DyArr<std::u8string_view> stack_;
+		std::vector<std::u8string_view> stack_;
 	};
 
 	ConfigSystem::ConfigSystem()
 	{
-		const TreeSet<fs::path> extensions{u8".json"sv, u8".jsonc"sv};
+		const std::set<fs::path> extensions{u8".json"sv, u8".jsonc"sv};
 		LoadConfigs(u8"../Engine/Config"sv, extensions);
 		LoadConfigs(u8"../Config"sv, extensions);
 		LoadConfigs(GetUserConfigDir(), extensions);
@@ -197,7 +197,7 @@ namespace oeng::core
 
 	ConfigSystem& ConfigSystem::Get() noexcept
 	{
-		return EngineBase::Get().GetConfig();
+		return EngineBase::Get().GetConfigSystem();
 	}
 
 	bool ConfigSystem::Save(Name name) const
@@ -210,7 +210,7 @@ namespace oeng::core
 			auto dir = GetUserConfigDir();
 			create_directories(dir);
 
-			std::ofstream file{dir /= Format(u8"{}.json"sv, *name)};
+			std::ofstream file{dir /= fmt::format(u8"{}.json"sv, *name)};
 			file.exceptions(std::ios_base::failbit | std::ios_base::badbit);
 			file << cfg->second.dump(4);
 			
@@ -218,19 +218,19 @@ namespace oeng::core
 		}
 		catch (const std::exception& e)
 		{
-			OE_LOG(kConfig, kErr, u8"Failed to save config '{}': {}"sv, *name, What(e));
+			OE_LOG(kConfig, kErr, u8"Failed to save config '{}': {}"sv, *name, AsString8(e.what()));
 			return false;
 		}
 	}
 
 	void ConfigSystem::LoadConfig(const fs::path& file)
 	{
-		auto name = file.stem().string<char8_t>(PoolAllocator<char8_t>{});
+		auto name = file.stem().u8string();
 		ConfigLoader loader{file};
 		loader.Load(configs_[std::move(name)], ReadFileAsJson(file));
 	}
 
-	void ConfigSystem::LoadConfigs(const fs::path& directory, const TreeSet<fs::path>& extensions)
+	void ConfigSystem::LoadConfigs(const fs::path& directory, const std::set<fs::path>& extensions)
 	{
 		if (!is_directory(directory)) return;
 		
@@ -245,8 +245,8 @@ namespace oeng::core
 			}
 			catch (const std::exception& e)
 			{
-				const auto path = entry.path().string<char8_t>(PoolAllocator<char8_t>{});
-				OE_LOG(kConfig, kErr, u8"Failed to load config '{}': {}"sv, path, What(e));
+				const auto path = entry.path().u8string();
+				OE_LOG(kConfig, kErr, u8"Failed to load config '{}': {}"sv, path, AsString8(e.what()));
 			}
 		}
 	}

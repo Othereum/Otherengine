@@ -1,13 +1,12 @@
 #include "Json.hpp"
 #include <fstream>
-#include "Format.hpp"
 
 namespace oeng::core
 {
 	CORE_API Json ReadFileAsJson(const fs::path& file)
 	{
 		std::ifstream is{file};
-		if (!is.is_open()) Throw(u8"Can't open file '{}'"sv, file.string<char8_t>(PoolAllocator<char8_t>{}));
+		if (!is.is_open()) throw std::runtime_error{fmt::format("Can't open file '{}'"sv, file.string())};
 		
 		try
 		{
@@ -15,7 +14,7 @@ namespace oeng::core
 		}
 		catch (const std::exception& e)
 		{
-			Throw(u8"Failed to parse '{}': {}"sv, file.string<char8_t>(PoolAllocator<char8_t>{}), What(e));
+			throw std::runtime_error{fmt::format("Failed to parse '{}': {}", file.string(), e.what())};
 		}
 	}
 }

@@ -63,7 +63,7 @@ namespace oeng::renderer
 				{
 					SDL_DisplayMode mode;
 					SDL_GetDisplayMode(dp, dm, &mode);
-					auto str = Format(u8"[{}] {}x{} {}Hz"sv, dm, mode.w, mode.h, mode.refresh_rate);
+					auto str = fmt::format(u8"[{}] {}x{} {}Hz"sv, dm, mode.w, mode.h, mode.refresh_rate);
 					modes.emplace_back(AsString(std::move(str)));
 				}
 			}

@@ -19,7 +19,7 @@ namespace oeng::core
 		
 		explicit Asset(Path path) noexcept
 			:path_{path},
-			stem_{path->stem().string<char8_t>(PoolAllocator<char8_t>{})}
+			stem_{path->stem().u8string()}
 		{
 		}
 

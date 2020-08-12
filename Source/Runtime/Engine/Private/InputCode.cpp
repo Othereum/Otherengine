@@ -5,7 +5,7 @@
 
 namespace oeng::engine
 {
-	String8 GetName(Keycode btn) noexcept
+	std::u8string GetName(Keycode btn) noexcept
 	{
 		return AsString8(SDL_GetKeyName(SDL_Keycode(btn)));
 	}

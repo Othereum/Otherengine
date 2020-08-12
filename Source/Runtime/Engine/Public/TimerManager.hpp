@@ -89,7 +89,7 @@ namespace oeng::engine
 		};
 		
 		World& world_;
-		HashMap<TimerHandle, FTimer> timers_;
-		HashMap<TimerHandle, FTimer> pending_timers_;
+		std::unordered_map<TimerHandle, FTimer> timers_;
+		std::unordered_map<TimerHandle, FTimer> pending_timers_;
 	};
 }

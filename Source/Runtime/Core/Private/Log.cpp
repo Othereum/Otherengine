@@ -1,15 +1,8 @@
 #include "Log.hpp"
 #include <filesystem>
-#ifdef _MSC_VER
-#pragma warning(push)
-#pragma warning(disable:4819)
-#endif
 #include <spdlog/spdlog.h>
 #include <spdlog/sinks/daily_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 namespace oeng::core
 {
@@ -58,7 +51,7 @@ namespace oeng::core
 
 	void Logger::Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message) const
 	{
-		const auto msg = Format(u8"[{}] {}"sv, category.name, message);
+		const auto msg = fmt::format(u8"[{}] {}"sv, category.name, message);
 		file_->log(ToSpdLogLevel(level), AsString(msg));
 
 #ifdef NDEBUG

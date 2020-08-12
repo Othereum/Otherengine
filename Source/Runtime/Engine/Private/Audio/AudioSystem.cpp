@@ -9,7 +9,7 @@ namespace logcat
 
 namespace oeng::engine
 {
-	static String8 GetName(const FMOD::Studio::EventDescription& event);
+	static std::u8string GetName(const FMOD::Studio::EventDescription& event);
 
 	template <class Fn>
 	static void ForEachEvent(const FMOD::Studio::Bank& bank, Fn&& fn)
@@ -115,9 +115,9 @@ namespace oeng::engine
 	}
 
 
-	String8 GetName(const FMOD::Studio::EventDescription& event)
+	std::u8string GetName(const FMOD::Studio::EventDescription& event)
 	{
-		String8 event_name;
+		std::u8string event_name;
 
 		int buf_size;
 		event.getPath(nullptr, 0, &buf_size);

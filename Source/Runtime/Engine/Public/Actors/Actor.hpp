@@ -3,7 +3,7 @@
 #include "Name.hpp"
 #include "TimerManager.hpp"
 #include "Templates/DyArr.hpp"
-#include "Templates/HashSet.hpp"
+#include "Templates/std::unordered_set.hpp"
 #include "Templates/Pointer.hpp"
 
 namespace oeng::engine
@@ -99,6 +99,6 @@ namespace oeng::engine
 		DyArr<SharedRef<ActorComponent>> comps_;
 		SceneComponent* root_ = nullptr;
 
-		HashSet<Name> tags_;
+		std::unordered_set<Name> tags_;
 	};
 }

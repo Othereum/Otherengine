@@ -87,7 +87,7 @@ namespace oeng::engine
 		}
 	}
 
-	String ToString(InputCode code)
+	std::string ToString(InputCode code)
 	{
 		const auto type = std::visit(Overload{
 			[](Keycode) { return u8"Keycode"sv; },
@@ -97,13 +97,13 @@ namespace oeng::engine
 			[](CtrlAxis) { return u8"CtrlAxis"sv; },
 		}, code);
 		
-		String8 buffer;
+		std::u8string buffer;
 		const auto name = std::visit(Overload{
 			[&](Keycode c)->std::u8string_view { return buffer = GetName(c); },
 			[](auto c) { return GetName(c); }
 		}, code);
 		
-		return AsString(Format(u8"{}.{}"sv, type, name));
+		return AsString(fmt::format(u8"{}.{}"sv, type, name));
 	}
 
 	void to_json(Json& json, const InputAxis& axis)
@@ -144,7 +144,7 @@ namespace oeng::engine
 
 		for (auto& [name, inputs] : map->items())
 		{
-			auto& arr = mapped[String8{AsString8(name)}];
+			auto& arr = mapped[std::u8string{AsString8(name)}];
 			const auto size = inputs.size();
 			for (size_t i=0; i<size; ++i) try
 			{
@@ -159,22 +159,22 @@ namespace oeng::engine
 	}
 
 	InputAxis::InputAxis(const Json& json)
-		:code{ToInputCode(json.at("Code").get<String>())}, scale{json.at("Scale")}
+		:code{ToInputCode(json.at("Code").get<std::string>())}, scale{json.at("Scale")}
 	{
 	}
 
 	InputAction::InputAction(const Json& json)
-		:code{ToInputCode(json.at("Code").get<String>())}, mod{KeyMod::NONE}
+		:code{ToInputCode(json.at("Code").get<std::string>())}, mod{KeyMod::NONE}
 	{
 		if (const auto mods_in = json.find("Mods"); mods_in != json.end())
 		{
 			for (const auto& mod_in : mods_in.value()) try
 			{
-				mod |= ToKeyMod(AsString8(mod_in.get<String>())).value();
+				mod |= ToKeyMod(AsString8(mod_in.get<std::string>())).value();
 			}
 			catch (const std::bad_optional_access&)
 			{
-				Throw(u8"Invalid mod '{}'"sv, AsString8(mod_in.get<String>()));
+				Throw(u8"Invalid mod '{}'"sv, AsString8(mod_in.get<std::string>()));
 			}
 		}
 	}

@@ -15,6 +15,6 @@ namespace oeng::engine
 	void FModCheck(FMOD_RESULT result, std::u8string_view message, const Args&... args)
 	{
 		if (result != FMOD_OK)
-			Throw(u8"{}: {} ({})"sv, Format(message, args...), FModErrorString(result), result);
+			Throw(u8"{}: {} ({})"sv, fmt::format(message, args...), FModErrorString(result), result);
 	}
 }

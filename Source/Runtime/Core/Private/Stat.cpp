@@ -15,7 +15,7 @@ namespace oeng::core
 		OE_LOG(kStat, kLog, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
 	}
 
-	static void LogStats(const TreeMap<Name, ScopeStackStat>& stats, int depth = 0)
+	static void LogStats(const std::map<Name, ScopeStackStat>& stats, int depth = 0)
 	{
 		for (const auto& [name, stat] : stats)
 		{
@@ -48,7 +48,7 @@ namespace oeng::core
 		const auto top = frames_.back();
 		frames_.pop_back();
 		
-		std::reference_wrapper<TreeMap<Name, ScopeStackStat>> stats = scope_stack_stats_;
+		std::reference_wrapper<std::map<Name, ScopeStackStat>> stats = scope_stack_stats_;
 		for (auto& frame : frames_)
 			stats = stats.get()[frame.name].children;
 		

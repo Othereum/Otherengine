@@ -1,4 +1,5 @@
 #pragma once
+#include <fmt/format.h> // Not core.h because of char8_t
 #include "Templates/Sync.hpp"
 #include "Templates/Time.hpp"
 
@@ -100,22 +101,21 @@ namespace oeng::core
 		void LogDelay(unsigned id, Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg);
 		
 	private:
-		friend class CoreSystem;
+		friend class EngineBase;
 		Logger();
 		
 		std::shared_ptr<spdlog::logger> console_;
 		std::shared_ptr<spdlog::logger> file_;
 
-		// Should NOT use memory pool
 		CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
 	};
 	
 	CORE_API void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message);
 
-	template <class... Args>
-	void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args)
+	template <class Str, class... Args>
+	void Log(const logcat::LogCategory& category, LogLevel level, Str&& format, const Args&... args)
 	{
-		Log(category, level, Format(fmt, args...));
+		Log(category, level, std::u8string_view{fmt::format(std::forward<Str>(format), args...)});
 	}
 	
 	class CORE_API DelayedLog
@@ -125,16 +125,10 @@ namespace oeng::core
 		
 		void operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const;
 
-		template <class Rep, class Period>
-		void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const
+		template <class Rep, class Period, class Str, class... Args>
+		void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level, Str&& format, const Args&... args) const
 		{
-			operator()(time::duration_cast<Duration>(delay), category, level, msg);
-		}
-
-		template <class Rep, class Period, class... Args>
-		void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view fmt, const Args&... args) const
-		{
-			operator()(time::duration_cast<Duration>(delay), category, level, Format(fmt, args...));
+			operator()(time::duration_cast<Duration>(delay), category, level, std::u8string_view{fmt::format(std::forward<Str>(format), args...)});
 		}
 
 	private:
@@ -159,7 +153,7 @@ namespace oeng::core
  * Log macro that allows you to easily specify categories and levels.
  * @param category Log category. `logcat::` must be omitted.
  * @param level Log level. `LogLevel::` must be omitted.
- * @param format Log format.
+ * @param format Log format string.
  * @param ... Format arguments.
  */
 #define OE_LOG(category, level, format, ...) ::oeng::Log(::logcat::category, ::oeng::LogLevel::level, format, ##__VA_ARGS__)

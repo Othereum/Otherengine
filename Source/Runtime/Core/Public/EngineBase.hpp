@@ -23,30 +23,11 @@ namespace oeng::core
 	{
 		friend EngineBase;
 		DELETE_CPMV(RegisterEngineBase);
-		explicit RegisterEngineBase(EngineBase* engine);
+		RegisterEngineBase();
 		~RegisterEngineBase();
 	};
 	
-	class CORE_API CoreSystem
-	{
-	public:
-		DELETE_CPMV(CoreSystem);
-		
-		[[nodiscard]] Logger& GetLogger() noexcept { return logger_; }
-		[[nodiscard]] const Dll& GetGameDll() const noexcept { return game_dll_; }
-		[[nodiscard]] std::u8string_view GetGameName() const noexcept { return game_name_; }
-		
-	private:
-		friend EngineBase;
-		explicit CoreSystem(std::u8string game_module_path);
-		~CoreSystem();
-		
-		Dll game_dll_;
-		std::u8string_view game_name_;
-		Logger logger_;
-	};
-	
-	class CORE_API EngineBase : RegisterEngineBase, public CoreSystem
+	class CORE_API EngineBase : RegisterEngineBase
 	{
 	public:
 		DELETE_CPMV(EngineBase);
@@ -54,8 +35,11 @@ namespace oeng::core
 		[[nodiscard]] static EngineBase& Get() noexcept;
 		[[nodiscard]] static bool Exists() noexcept;
 		
-		[[nodiscard]] ConfigSystem& GetConfig() noexcept { return config_; }
-		[[nodiscard]] uint64_t GetTickCount() const noexcept { return ticks_; }
+		[[nodiscard]] auto GetTickCount() const noexcept { return ticks_; }
+		[[nodiscard]] auto GetGameName() const noexcept { return game_name_; }
+		[[nodiscard]] auto& GetGameDll() const noexcept { return game_dll_; }
+		[[nodiscard]] auto& GetLogger() noexcept { return logger_; }
+		[[nodiscard]] auto& GetConfigSystem() noexcept { return config_system_; }
 		
 	protected:
 		uint64_t ticks_;
@@ -71,9 +55,12 @@ namespace oeng::core
 		explicit EngineBase(std::u8string game_module_path);
 		~EngineBase() = default;
 
+		Dll game_dll_;
+		std::u8string_view game_name_;
+		Logger logger_;
 		NameSet names_;
 		PathSet paths_;
-		ConfigSystem config_;
+		ConfigSystem config_system_;
 		CounterManager counters_;
 	};
 }

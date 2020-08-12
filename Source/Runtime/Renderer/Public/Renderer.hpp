@@ -47,7 +47,7 @@ namespace oeng::renderer
 		template <class... Args>
 		AssetCache(Args&&... args) :default_obj{ MakeShared<T>(std::forward<Args>(args)...) } {}
 
-		HashMap<Path, WeakPtr<T>> map;
+		std::unordered_map<Path, WeakPtr<T>> map;
 		const SharedRef<T> default_obj;
 	};
 

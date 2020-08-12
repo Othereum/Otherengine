@@ -47,7 +47,7 @@ namespace oeng::renderer
 
 		SharedRef<Shader> shader_;
 		SharedRef<Texture> texture_;
-		HashMap<int, Uniform> uniforms_;
+		std::unordered_map<int, Uniform> uniforms_;
 	};
 
 	inline void swap(Material& a, Material& b) noexcept

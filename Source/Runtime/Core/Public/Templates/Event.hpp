@@ -1,6 +1,5 @@
 #pragma once
 #include <functional>
-#include "DyArr.hpp"
 
 namespace oeng::core
 {
@@ -34,6 +33,6 @@ namespace oeng::core
 		}
 
 	private:
-		DyArr<std::function<void(Args...)>> listeners_;
+		std::vector<std::function<void(Args...)>> listeners_;
 	};
 }

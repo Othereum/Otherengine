@@ -183,7 +183,7 @@ namespace oeng::renderer
 		const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 	{
 		auto& shader = mesh_comp.GetMaterial().GetShader();
-		const auto loc_num = shader.GetUniformLocation(Format(u8"uNum{}Lights"sv, name));
+		const auto loc_num = shader.GetUniformLocation(fmt::format(u8"uNum{}Lights"sv, name));
 		if (loc_num == Shader::invalid_uniform) return;
 		
 		const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
@@ -205,7 +205,7 @@ namespace oeng::renderer
 			auto try_uniform = [&]<class T>(std::u8string_view uniform, T&& value)
 			{
 				return shader.TryUniform(
-					Format(u8"u{}Lights[{}].{}"sv, name, idx, uniform),
+					fmt::format(u8"u{}Lights[{}].{}"sv, name, idx, uniform),
 					std::forward<T>(value)
 				);
 			};

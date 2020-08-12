@@ -2,30 +2,10 @@
 #include <cassert>
 #include <memory>
 #include "CompPair.hpp"
-#include "Memory.hpp"
 #include "Sync.hpp"
 
 namespace oeng::core
 {
-	template <class T, class Deleter = PoolDeleter<T>>
-	using UniquePtr = std::unique_ptr<T, Deleter>;
-
-	template <class T, class... Args, std::enable_if_t<!std::is_array_v<T>, int> = 0>
-	[[nodiscard]] UniquePtr<T> MakeUnique(Args&&... args)
-	{
-	    return UniquePtr<T>(New<T>(std::forward<Args>(args)...));
-	}
-
-	template <class T, std::enable_if_t<std::is_array_v<T> && std::extent_v<T> == 0, int> = 0>
-	[[nodiscard]] UniquePtr<T> MakeUnique(size_t size)
-	{
-	    using Elem = std::remove_extent_t<T>;
-	    return UniquePtr<T>(NewArr<Elem>(size)());
-	}
-
-	template <class T, class... Args, std::enable_if_t<std::extent_v<T> != 0, int> = 0>
-	void MakeUnique(Args&&...) = delete;
-
 	template <class T, bool ThreadSafe = false>
 	class SharedPtr;
 	
@@ -93,7 +73,7 @@ namespace oeng::core
 		{
 			template <class... Args>
 			SharedObjInline(Alloc alloc, Args&&... args)
-				:storage{OneThen{}, std::move(alloc), std::forward<Args>(args)... }
+				:storage{OneThen{}, std::move(alloc), std::forward<Args>(args)...}
 			{
 			}
 
@@ -182,12 +162,11 @@ namespace oeng::core
 
 		/**
 		 * Construct with raw pointer
-		 * @param ptr Must be allocated by New<T>() because it uses PoolDeleter<Y> to delete ptr
-		 * @note Only participates in overload if T is not array
+		 * @param ptr Raw pointer
 		 */
-		template <class Y, class Deleter = std::enable_if_t<!std::is_array_v<T>, PoolDeleter<Y>>>
+		template <class Y>
 		explicit SharedPtr(Y* ptr)
-			:SharedPtr{ptr, Deleter{}}
+			:SharedPtr{ptr, std::default_delete<Y>{}}
 		{
 		}
 
@@ -197,7 +176,7 @@ namespace oeng::core
 		 * @param deleter To be used to delete ptr
 		 * @param alloc To be used to allocate/deallocate control block
 		 */
-		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
+		template <class Y, class Deleter, class Alloc = std::allocator<Y>>
 		SharedPtr(Y* ptr, Deleter deleter, Alloc alloc = {})
 		{
 			using Obj = detail::SharedObjPtr<Y, Deleter, Alloc, ThreadSafe>;
@@ -436,7 +415,7 @@ namespace oeng::core
 		 * @param alloc To be used to allocate/deallocate control block
 		 * @throw std::invalid_argument If ptr is nullptr
 		 */
-		template <class Y, class Deleter, class Alloc = PoolAllocator<Y>>
+		template <class Y, class Deleter, class Alloc = std::allocator<Y>>
 		SharedRef(Y* ptr, Deleter deleter, Alloc alloc = {})
 			:Base{ThrowIfNull(ptr), std::move(deleter), std::move(alloc)}
 		{
@@ -741,14 +720,14 @@ namespace oeng::core
 		std::enable_if_t<!std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(Args&&... args)
 	{
-		return AllocateShared<T, ThreadSafe>(PoolAllocator<T>{}, std::forward<Args>(args)...);
+		return AllocateShared<T, ThreadSafe>(std::allocator<T>{}, std::forward<Args>(args)...);
 	}
 
 	template <class T, bool ThreadSafe = false,
 		std::enable_if_t<std::is_array_v<T>, int> = 0>
 	SharedRef<T, ThreadSafe> MakeShared(size_t n)
 	{
-		return AllocateShared<T, ThreadSafe>(PoolAllocator<std::remove_extent_t<T>>{}, n);
+		return AllocateShared<T, ThreadSafe>(std::allocator<std::remove_extent_t<T>>{}, n);
 	}
 
 	template <class T, class U, bool ThreadSafe>

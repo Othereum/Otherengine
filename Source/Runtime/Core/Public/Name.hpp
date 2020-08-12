@@ -1,7 +1,7 @@
 #pragma once
+#include <unordered_set>
 #include "Json.hpp"
 #include "Math.hpp"
-#include "Templates/HashSet.hpp"
 #include "Templates/String.hpp"
 #include "Templates/Sync.hpp"
 
@@ -33,7 +33,7 @@ namespace oeng::core
 		}
 	};
 
-	using NameSet = CondMonitor<HashSet<String8, NameHasher, NameEqual>, kNameThreadSafe>;
+	using NameSet = CondMonitor<std::unordered_set<std::u8string, NameHasher, NameEqual>, kNameThreadSafe>;
 	
 	template <class Container, class KeyEquivalent>
 	struct IsTransparent
@@ -66,15 +66,15 @@ namespace oeng::core
 	 * Lightweight string.
 	 * Very fast O(1) copy and comparison.
 	 * No heap allocation on copy.
-	 * Good to use as key for Map/Set.
+	 * Good to use as key for std::map/Set.
 	 * @note Case-insensitive.
 	 * @note Comparisons are not lexical.
 	 */
 	struct CORE_API Name
 	{
-		Name() noexcept :sp{&*Set()->find(String8{})} {}
-		Name(String8&& s) :sp{&*Set()->insert(std::move(s)).first} {}
-		Name(const String8& s) :sp{&*Set()->insert(s).first} {}
+		Name() noexcept :sp{&*Set()->find(std::u8string{})} {}
+		Name(std::u8string&& s) :sp{&*Set()->insert(std::move(s)).first} {}
+		Name(const std::u8string& s) :sp{&*Set()->insert(s).first} {}
 
 		Name(std::u8string_view s)
 		{
@@ -84,9 +84,9 @@ namespace oeng::core
 			sp = &*found;
 		}
 
-		operator const String8&() const noexcept { return *sp; }
-		const String8& operator*() const noexcept { return *sp; }
-		const String8* operator->() const noexcept { return sp; }
+		operator const std::u8string&() const noexcept { return *sp; }
+		const std::u8string& operator*() const noexcept { return *sp; }
+		const std::u8string* operator->() const noexcept { return sp; }
 
 		bool operator==(const Name& r) const noexcept { return sp == r.sp; }
 		bool operator!=(const Name& r) const noexcept { return sp != r.sp; }
@@ -97,7 +97,7 @@ namespace oeng::core
 
 	private:
 		[[nodiscard]] static NameSet& Set() noexcept;
-		const String8* sp;
+		const std::u8string* sp;
 	};
 	
 	CORE_API void to_json(Json& json, const Name& name);

@@ -1,9 +1,8 @@
 #pragma once
+#include <set>
 #include "Json.hpp"
 #include "Log.hpp"
 #include "Name.hpp"
-#include "Templates/HashMap.hpp"
-#include "Templates/TreeSet.hpp"
 
 namespace logcat
 {
@@ -44,11 +43,11 @@ namespace oeng::core
 		 * @param directory Directory path containing configuration files
 		 * @param extensions Extension filter. Load only files with the specified extensions if not empty.
 		 */
-		void LoadConfigs(const fs::path& directory, const TreeSet<fs::path>& extensions = {u8".json"sv, u8".jsonc"sv});
+		void LoadConfigs(const fs::path& directory, const std::set<fs::path>& extensions = {u8".json"sv, u8".jsonc"sv});
 		
 	private:
 		ConfigSystem();
 		friend class EngineBase;
-		HashMap<Name, Json> configs_;
+		std::unordered_map<Name, Json> configs_;
 	};
 }

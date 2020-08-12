@@ -91,4 +91,3 @@ namespace logcat
  * @param fmt Formatted message to log
  */
 #define OE_ELOG(category, format, ...) (OE_DLOG(1s, category, kErr, format, ##__VA_ARGS__), DEBUG_BREAK())
-

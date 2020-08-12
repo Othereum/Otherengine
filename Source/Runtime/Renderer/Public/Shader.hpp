@@ -2,7 +2,7 @@
 #include <compare>
 #include "Asset.hpp"
 #include "Uniform.hpp"
-#include "Templates/HashMap.hpp"
+#include "Templates/std::unordered_map.hpp"
 
 namespace oeng::renderer
 {
@@ -107,8 +107,8 @@ namespace oeng::renderer
 		unsigned vert_shader_ = 0;
 		unsigned frag_shader_ = 0;
 		unsigned shader_program_ = 0;
-		HashMap<Name, int> loc_cache_;
-		HashMap<int, Uniform> uniform_cache_;
+		std::unordered_map<Name, int> loc_cache_;
+		std::unordered_map<int, Uniform> uniform_cache_;
 	};
 
 	inline void swap(Shader& a, Shader& b) noexcept { a.swap(b); }

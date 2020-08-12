@@ -1,6 +1,5 @@
 #pragma once
 #include "Name.hpp"
-#include "Templates/HashMap.hpp"
 #include "Templates/Time.hpp"
 
 namespace logcat
@@ -18,7 +17,7 @@ namespace oeng::core
 	
 	struct ScopeStackStat : ScopeStat
 	{
-		TreeMap<Name, ScopeStackStat> children;
+		std::map<Name, ScopeStackStat> children;
 	};
 
 	class CORE_API ScopeStackCounter
@@ -67,9 +66,9 @@ namespace oeng::core
 		void PushScope(Name name);
 		void PopScope();
 		
-		HashMap<Name, ScopeStat> scope_stats_;
-		TreeMap<Name, ScopeStackStat> scope_stack_stats_;
-		DyArr<Frame> frames_;
+		std::unordered_map<Name, ScopeStat> scope_stats_;
+		std::map<Name, ScopeStackStat> scope_stack_stats_;
+		std::vector<Frame> frames_;
 	};
 }
 

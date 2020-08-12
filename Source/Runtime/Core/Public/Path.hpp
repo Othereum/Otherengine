@@ -27,13 +27,13 @@ namespace oeng::core
 		}
 	};
 	
-	using PathSet = CondMonitor<HashSet<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
+	using PathSet = CondMonitor<std::unordered_set<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
 	
 	/**
 	 * Lightweight representation of path.
 	 * Very fast O(1) copy and comparison.
 	 * No heap allocation on copy.
-	 * Good to use as key for Map/Set.
+	 * Good to use as key for std::map/Set.
 	 * @note Case-insensitive on any platform
 	 * @note Comparisons are not lexical.
 	 */
@@ -57,10 +57,10 @@ namespace oeng::core
 		bool operator<=(const Path& r) const noexcept { return p <= r.p; }
 		bool operator>=(const Path& r) const noexcept { return p >= r.p; }
 
-		template <class T = char8_t, class Al = PoolAllocator<T>>
+		template <class T = char8_t, class Al = std::allocator<T>>
 		[[nodiscard]] auto Str() const { return p->string<T>(Al{}); }
 		
-		operator String8() const { return Str(); }
+		operator std::u8string() const { return Str(); }
 		operator const fs::path&() const noexcept { return *p; }
 		const fs::path& operator*() const noexcept { return *p; }
 		const fs::path* operator->() const noexcept { return p; }

@@ -63,10 +63,10 @@ namespace oeng::engine
 		FMOD::Studio::System* system_;
 		FMOD::System* core_system_;
 
-		HashMap<Path, FMOD::Studio::Bank*> banks_;
-		HashMap<Name, FMOD::Studio::EventDescription*> events_;
+		std::unordered_map<Path, FMOD::Studio::Bank*> banks_;
+		std::unordered_map<Name, FMOD::Studio::EventDescription*> events_;
 
 		unsigned next_id_ = 0;
-		HashMap<unsigned, FMOD::Studio::EventInstance*> event_instances_;
+		std::unordered_map<unsigned, FMOD::Studio::EventInstance*> event_instances_;
 	};
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Name.hpp"
 #include "Components/ActorComponent.hpp"
-#include "Templates/HashMap.hpp"
+#include "Templates/std::unordered_map.hpp"
 
 namespace oeng::engine
 {
@@ -32,7 +32,7 @@ namespace oeng::engine
 	private:
 		void OnUpdate(Float delta_seconds) override;
 		
-		HashMap<Name, UniquePtr<ai_state::Base>> states_;
+		std::unordered_map<Name, UniquePtr<ai_state::Base>> states_;
 		std::reference_wrapper<ai_state::Base> cur_;
 	};
 }

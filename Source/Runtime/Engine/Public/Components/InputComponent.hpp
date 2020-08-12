@@ -2,7 +2,7 @@
 #include <functional>
 #include "ActorComponent.hpp"
 #include "Name.hpp"
-#include "Templates/HashMap.hpp"
+#include "Templates/std::unordered_map.hpp"
 
 struct SDL_KeyboardEvent;
 

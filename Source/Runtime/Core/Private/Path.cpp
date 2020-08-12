@@ -19,6 +19,6 @@ namespace oeng::core
 
 	void from_json(const Json& json, Path& path)
 	{
-		path = AsString8(json.get<String>());
+		path = AsString8(json.get<std::string>());
 	}
 }

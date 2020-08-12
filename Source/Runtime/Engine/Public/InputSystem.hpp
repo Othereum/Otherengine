@@ -56,7 +56,7 @@ namespace oeng::engine
 		bool pressed;
 	};
 
-	ENGINE_API String ToString(InputCode code);
+	ENGINE_API std::string ToString(InputCode code);
 	ENGINE_API InputCode ToInputCode(std::string_view str);
 	ENGINE_API void to_json(Json& json, const InputAxis& axis);
 	ENGINE_API void to_json(Json& json, const InputAction& action);
@@ -89,9 +89,9 @@ namespace oeng::engine
 		
 		[[nodiscard]] auto& GetEvents() const noexcept { return events_; }
 
-		HashMap<Name, DyArr<InputAxis>> axises_;
-		HashMap<Name, DyArr<InputAction>> actions_;
-		HashMap<InputCode, AxisConfig> axis_configs_;
+		std::unordered_map<Name, DyArr<InputAxis>> axises_;
+		std::unordered_map<Name, DyArr<InputAction>> actions_;
+		std::unordered_map<InputCode, AxisConfig> axis_configs_;
 		
 	private:
 		struct InputEvent
