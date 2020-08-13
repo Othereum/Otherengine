@@ -5,19 +5,6 @@
 
 namespace oeng::renderer
 {
-std::string ReadFile(const fs::path& path)
-{
-    std::ifstream file{path, std::ios_base::in | std::ios_base::ate};
-
-    if (!file.is_open())
-        throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}"sv, path.string())};
-
-    std::string code(file.tellg(), '\0');
-    file.seekg(0);
-    file.read(code.data(), code.size());
-    return code;
-}
-
 template <class GetParam, class GetInfoLog>
 static void CheckValid(unsigned object, GetParam get_param, unsigned status_param_name, GetInfoLog get_info_log)
 {
@@ -32,6 +19,7 @@ static void CheckValid(unsigned object, GetParam get_param, unsigned status_para
         int len;
         std::string log(buf_sz - 1, '\0');
         get_info_log(object, buf_sz, &len, log.data());
+        assert(buf_sz == len + 1);
 
         throw ShaderCompileError{log};
     }
@@ -47,20 +35,7 @@ static void CheckProgram(unsigned program)
     CheckValid(program, glGetProgramiv, GL_LINK_STATUS, glGetProgramInfoLog);
 }
 
-static unsigned Compile(const fs::path& file, unsigned type)
-{
-    const auto code = ReadFile(file);
-    const auto* const c_str = code.c_str();
-
-    const auto shader = glCreateShader(type);
-    glShaderSource(shader, 1, &c_str, nullptr);
-    glCompileShader(shader);
-
-    CheckShader(shader);
-    return shader;
-}
-
-static fs::path Ext(fs::path path, std::u8string_view ext)
+[[nodiscard]] static fs::path Ext(fs::path path, std::u8string_view ext)
 {
     path += ext;
     return path;
@@ -72,23 +47,16 @@ Shader::Shader(Path path)
       frag_shader_{Compile(Ext(path, u8".frag"sv), GL_FRAGMENT_SHADER)},
       shader_program_{glCreateProgram()}
 {
-    glAttachShader(shader_program_, vert_shader_);
-    glAttachShader(shader_program_, frag_shader_);
-    glLinkProgram(shader_program_);
-    CheckProgram(shader_program_);
+    glAttachShader(*shader_program_, *vert_shader_);
+    glAttachShader(*shader_program_, *frag_shader_);
+    glLinkProgram(*shader_program_);
+    CheckProgram(*shader_program_);
     Activate();
-}
-
-Shader::~Shader()
-{
-    glDeleteProgram(shader_program_);
-    glDeleteShader(vert_shader_);
-    glDeleteShader(frag_shader_);
 }
 
 void Shader::Activate() const
 {
-    glUseProgram(shader_program_);
+    glUseProgram(*shader_program_);
 }
 
 static void GlUniform(int l, const Matrix<Float, 2, 2>& v) noexcept
@@ -223,11 +191,47 @@ int Shader::GetUniformLocation(Name name) noexcept
     if (const auto found = loc_cache_.find(name); found != loc_cache_.end())
         return found->second;
 
-    const auto loc = glGetUniformLocation(shader_program_, AsString(name->c_str()));
+    const auto loc = glGetUniformLocation(*shader_program_, AsString(name->c_str()));
 
     if (loc != invalid_uniform)
         loc_cache_.try_emplace(name, loc);
 
     return loc;
+}
+
+void Shader::ShaderDeleter::operator()(unsigned id) const noexcept
+{
+    glDeleteShader(id);
+}
+
+void Shader::ProgramDeleter::operator()(unsigned id) const noexcept
+{
+    glDeleteProgram(id);
+}
+
+[[nodiscard]] std::string ReadFile(const fs::path& path)
+{
+    std::ifstream file{path, std::ios_base::in | std::ios_base::ate};
+
+    if (!file.is_open())
+        throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}"sv, path.string())};
+
+    std::string code(file.tellg(), '\0');
+    file.seekg(0);
+    file.read(code.data(), code.size());
+    return code;
+}
+
+Resource<unsigned, Shader::ShaderDeleter> Shader::Compile(const fs::path& file, unsigned type)
+{
+    const auto code = ReadFile(file);
+    const auto* const c_str = code.c_str();
+
+    Resource<unsigned, ShaderDeleter> shader{glCreateShader(type)};
+    glShaderSource(*shader, 1, &c_str, nullptr);
+    glCompileShader(*shader);
+
+    CheckShader(*shader);
+    return shader;
 }
 }

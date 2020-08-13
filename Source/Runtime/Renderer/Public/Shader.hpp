@@ -1,5 +1,6 @@
 #pragma once
 #include "Uniform.hpp"
+#include "Templates/Resource.hpp"
 
 namespace oeng::renderer
 {
@@ -24,9 +25,6 @@ class RENDERER_API Shader : public Asset
 public:
     static constexpr int invalid_uniform = -1;
 
-    Shader() = default;
-    ~Shader();
-
     /**
      * Load shader from given path.
      * @param path Shader path. For example, "../Shaders/Phong" loads Phong.vert and Phong.frag.
@@ -34,35 +32,6 @@ public:
      * @throw ShaderCompileError If compilation failed.
      */
     explicit Shader(Path path);
-
-    Shader(Shader&& r) noexcept
-        : Asset{std::move(r)}, vert_shader_{r.vert_shader_}, frag_shader_{r.frag_shader_},
-          shader_program_{r.shader_program_}, loc_cache_{std::move(r.loc_cache_)},
-          uniform_cache_{std::move(r.uniform_cache_)}
-    {
-        r.vert_shader_ = 0;
-        r.frag_shader_ = 0;
-        r.shader_program_ = 0;
-    }
-
-    void Load(Path path)
-    {
-        Shader{path}.swap(*this);
-    }
-
-    Shader& operator=(Shader&& r) noexcept
-    {
-        Shader{std::move(r)}.swap(*this);
-        return *this;
-    }
-
-    Shader(const Shader&) = delete;
-    Shader& operator=(const Shader&) = delete;
-
-    std::strong_ordering operator<=>(const Shader& r) const noexcept
-    {
-        return shader_program_ <=> r.shader_program_;
-    }
 
     void Activate() const;
 
@@ -112,40 +81,39 @@ public:
      */
     [[nodiscard]] int GetUniformLocation(Name name) noexcept;
 
-    void swap(Shader& r) noexcept
+    [[nodiscard]] size_t hash_value() const noexcept
     {
-        Asset::swap(r);
-        using std::swap;
-        swap(vert_shader_, r.vert_shader_);
-        swap(frag_shader_, r.frag_shader_);
-        swap(shader_program_, r.shader_program_);
-        swap(loc_cache_, r.loc_cache_);
-        swap(uniform_cache_, r.uniform_cache_);
+        return *shader_program_;
     }
 
 private:
-    friend std::hash<Shader>;
+    struct ShaderDeleter
+    {
+        void operator()(unsigned id) const noexcept;
+    };
 
-    unsigned vert_shader_ = 0;
-    unsigned frag_shader_ = 0;
-    unsigned shader_program_ = 0;
+    struct ProgramDeleter
+    {
+        void operator()(unsigned id) const noexcept;
+    };
+
+    [[nodiscard]] static Resource<unsigned, ShaderDeleter> Compile(const fs::path& file, unsigned type);
+
+    Resource<unsigned, ShaderDeleter> vert_shader_;
+    Resource<unsigned, ShaderDeleter> frag_shader_;
+    Resource<unsigned, ProgramDeleter> shader_program_;
     std::unordered_map<Name, int> loc_cache_;
     std::unordered_map<int, Uniform> uniform_cache_;
 };
-
-inline void swap(Shader& a, Shader& b) noexcept
-{
-    a.swap(b);
-}
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 template <>
 struct std::hash<oeng::renderer::Shader>
 {
-    size_t operator()(const oeng::renderer::Shader& key) const noexcept
+    [[nodiscard]] size_t operator()(const oeng::renderer::Shader& key) const noexcept
     {
-        return size_t(key.shader_program_);
+        return key.hash_value();
     }
 };
 #endif
