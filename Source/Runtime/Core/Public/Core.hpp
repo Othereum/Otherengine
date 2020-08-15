@@ -26,7 +26,7 @@
 
 #define INTERFACE_BODY(name) \
 	constexpr name() noexcept = default; \
-	virtual ~name() {} \
+	virtual ~name() = default; \
 	EXPLICIT_CPMV(name, default)
 
 #define U8_TEXT_IMPL(x) u8##x
