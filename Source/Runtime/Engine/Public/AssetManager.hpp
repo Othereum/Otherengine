@@ -15,6 +15,8 @@ public:
     DELETE_CPMV(AssetManager);
     ~AssetManager();
 
+    [[nodiscard]] static AssetManager& Get() noexcept;
+
     /**
      * Returns the asset if it is already loaded, otherwise load it.
      * @tparam T Asset type. Must match actual type.

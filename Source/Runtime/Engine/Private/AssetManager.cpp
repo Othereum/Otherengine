@@ -1,4 +1,5 @@
 #include "AssetManager.hpp"
+#include "Engine.hpp"
 
 namespace logcat
 {
@@ -23,4 +24,9 @@ AssetManager::~AssetManager()
 #else
 = default;
 #endif
+
+AssetManager& AssetManager::Get() noexcept
+{
+    return Engine::Get().GetAssetManager();
+}
 }
