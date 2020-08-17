@@ -1,18 +1,17 @@
 #pragma once
 
 #ifdef _WIN32
-	#define OE_EXPORT __declspec(dllexport)
-	#define OE_IMPORT __declspec(dllimport)
+#define OE_EXPORT __declspec(dllexport)
+#define OE_IMPORT __declspec(dllimport)
 #else
-	#if defined(__GNUC__) && __GNUC__>=4
-		#define OE_IMPORT __attribute__ ((visibility("default")))
-	#elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
-		#define OE_IMPORT __global
-	#else
-		#define OE_IMPORT
-	#endif
-
-	#define OE_EXPORT OE_IMPORT
+#if defined(__GNUC__) && __GNUC__>=4
+#define OE_IMPORT __attribute__ ((visibility("default")))
+#elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+#define OE_IMPORT __global
+#else
+#define OE_IMPORT
+#endif
+#define OE_EXPORT OE_IMPORT
 #endif
 
 #define EXPLICIT_CPMV(name, spec) \
@@ -27,7 +26,7 @@
 #define INTERFACE_BODY(name) \
 	constexpr name() noexcept = default; \
 	virtual ~name() = default; \
-	EXPLICIT_CPMV(name, default)
+	DEFAULT_CPMV(name)
 
 #define U8_TEXT_IMPL(x) u8##x
 #define U8_TEXT(x) U8_TEXT_IMPL(x)
@@ -39,14 +38,14 @@
 
 namespace oeng
 {
-	namespace core
-	{
-		/**
-		 * Check if the current thread is a game thread.
-		 * @return True if called from the game thread.
-		 */
-		[[nodiscard]] CORE_API bool IsGameThread() noexcept;
-	}
+namespace core
+{
+/**
+ * Check if the current thread is a game thread.
+ * @return True if called from the game thread.
+ */
+[[nodiscard]] CORE_API bool IsGameThread() noexcept;
+}
 
-	using namespace core;
+using namespace core;
 }
