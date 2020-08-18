@@ -3,61 +3,15 @@
 #undef JSON_USE_IMPLICIT_CONVERSIONS
 #define JSON_USE_IMPLICIT_CONVERSIONS 0
 
-#include <filesystem>
 #include <nlohmann/json.hpp>
-#include "Core.hpp"
-#include "Math.hpp"
 
-namespace oeng::core
+namespace oeng
 {
-	namespace fs = std::filesystem;
-
-	using Json = nlohmann::json;
-	using JsonType = nlohmann::detail::value_t;
-
-	/**
-	* Parse json file
-	* @param file File path
-	* @return Parsed json object
-	* @throw std::runtime_error If failed to open or parse
-	*/
-	CORE_API Json ReadFileAsJson(const fs::path& file);
+namespace core
+{
+using Json = nlohmann::json;
+using JsonType = nlohmann::detail::value_t;
 }
 
-namespace otm
-{
-	template <class T, size_t L>
-	void to_json(oeng::Json& json, const Vector<T, L>& v)
-	{
-		json = v.data;
-	}
-
-	template <class T, size_t L>
-	void from_json(const oeng::Json& json, Vector<T, L>& v)
-	{
-		json.get_to(v.data);
-	}
-
-	template <class T, size_t Row, size_t Col>
-	void to_json(oeng::Json& json, const Matrix<T, Row, Col>& m)
-	{
-		for (auto& v : m) json.emplace_back(v);
-	}
-
-	template <class T, size_t Row, size_t Col>
-	void from_json(const oeng::Json& json, Matrix<T, Row, Col>& m)
-	{
-		for (size_t i=0; i<Row; ++i) from_json(json.at(i), m[i]);
-	}
-}
-
-namespace oeng::core
-{
-	/**
-	 * Parse json file
-	 * @param file File path
-	 * @return Parsed json object
-	 * @throw std::runtime_error If failed to open or parse
-	 */
-	CORE_API Json ReadFileAsJson(const fs::path& file);
+using namespace core;
 }
