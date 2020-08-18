@@ -17,6 +17,8 @@ public:
         return true;
     }
 
+    Archive& operator<<(Json& json) override;
+
 private:
     std::ifstream stream_;
 };
