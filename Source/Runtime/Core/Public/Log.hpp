@@ -2,7 +2,7 @@
 #include "Core.hpp"
 #include "Templates/Sync.hpp"
 #include "Templates/Time.hpp"
-#include <fmt/format.h> // Not core.h because of char8_t
+#include <fmt/compile.h>
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 namespace spdlog
