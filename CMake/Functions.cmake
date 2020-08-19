@@ -95,7 +95,9 @@ function(oe_download_package name)
 		configure_file("${cmake_dir}/${name}-build.cmake" "${src_dir}/CMakeLists.txt" @ONLY)
 	endif()
 
-	add_subdirectory("${src_dir}" "${build_dir}" EXCLUDE_FROM_ALL)
+	if(EXISTS "${src_dir}/CMakeLists.txt")
+		add_subdirectory("${src_dir}" "${build_dir}" EXCLUDE_FROM_ALL)
+	endif()
 endfunction()
 
 function(oe_find_package name)
