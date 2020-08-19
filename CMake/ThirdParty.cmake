@@ -1,7 +1,7 @@
 find_package(SDL2 REQUIRED)
 find_package(GLEW REQUIRED)
 
-oe_find_package(soil2)
+oe_find_path(stb STB_INCLUDE_DIRS stb.h)
 
 set(BUILD_SHARED_LIBS ON CACHE BOOL "" FORCE)
 oe_find_package(fmt 7.0.0)
