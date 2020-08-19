@@ -1,23 +1,31 @@
 #pragma once
 #include "Archive.hpp"
-#include <fstream>
+#include "File.hpp"
 
 namespace oeng::core
 {
-class ArchiveFileReader final : public Archive
+class CORE_API ArchiveFileReader : public Archive
 {
 public:
+    /**
+     * Open the file in read mode.
+     * @param filepath File path.
+     * @throw std::ifstream::failure If failed to open file.
+     */
     explicit ArchiveFileReader(const fs::path& filepath)
-        : stream_{filepath, std::ios_base::in | std::ios_base::binary}
+        : stream_{ReadFile(filepath, std::ifstream::binary)}
     {
+    }
+
+    [[nodiscard]] explicit operator bool() const noexcept override
+    {
+        return stream_.operator bool();
     }
 
     [[nodiscard]] bool IsLoading() const noexcept override
     {
         return true;
     }
-
-    Archive& operator<<(Json& json) override;
 
 private:
     std::ifstream stream_;
