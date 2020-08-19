@@ -115,9 +115,9 @@ private:
 CORE_API void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message);
 
 template <class Str, class... Args>
-void Log(const logcat::LogCategory& category, LogLevel level, Str&& format, const Args&... args)
+void Log(const logcat::LogCategory& category, LogLevel level, const Str& format, const Args&... args)
 {
-    Log(category, level, std::u8string_view{fmt::format(std::forward<Str>(format), args...)});
+    Log(category, level, std::u8string_view{fmt::format(format, args...)});
 }
 
 class CORE_API DelayedLog
@@ -129,10 +129,10 @@ public:
 
     template <class Rep, class Period, class Str, class... Args>
     void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level,
-                    Str&& format, const Args&... args) const
+                    const Str& format, const Args&... args) const
     {
         operator()(time::duration_cast<Duration>(delay), category, level,
-                   std::u8string_view{fmt::format(std::forward<Str>(format), args...)});
+                   std::u8string_view{fmt::format(format, args...)});
     }
 
 private:

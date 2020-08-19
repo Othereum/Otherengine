@@ -139,7 +139,7 @@ private:
 
         default:
             Log(LogLevel::kErr, u8"Property removal can only be done on object or array. (actual: {})"sv,
-                reinterpret_cast<const char8_t*>(from.type_name()));
+                AsString8(from.type_name()));
         }
     }
 
@@ -196,10 +196,10 @@ private:
     }
 
     template <class Str, class... Args>
-    void Log(LogLevel level, Str&& format, const Args&... args) const
+    void Log(LogLevel level, const Str& format, const Args&... args) const
     {
         oeng::Log(logcat::kConfig, level, u8"While loading \"{}\"{}: {}"sv,
-                  path_.u8string(), Prop(), fmt::format(std::forward<Str>(format), args...));
+                  path_.u8string(), Prop(), fmt::format(format, args...));
     }
 
     const fs::path& path_;
@@ -246,8 +246,12 @@ bool ConfigSystem::Save(Name name) const
 void ConfigSystem::LoadConfig(const fs::path& file)
 {
     auto name = file.stem().u8string();
+
+    Json json;
+    ArchiveFileReader{file} << json;
+
     ConfigLoader loader{file};
-    loader.Load(configs_[std::move(name)], ReadFileAsJson(file));
+    loader.Load(configs_[std::move(name)], std::move(json));
 }
 
 void ConfigSystem::LoadConfigs(const fs::path& directory, const std::set<fs::path>& extensions)
@@ -259,6 +263,7 @@ void ConfigSystem::LoadConfigs(const fs::path& directory, const std::set<fs::pat
     {
         if (!is_regular_file(entry))
             continue;
+
         if (!extensions.empty() && !extensions.contains(entry.path().extension()))
             continue;
 
