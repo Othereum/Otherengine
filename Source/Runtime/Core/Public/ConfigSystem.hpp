@@ -41,7 +41,7 @@ public:
     /**
      * Load configurations from file.
      */
-    void LoadConfig(const fs::path& file);
+    void LoadConfig(const fs::path& filepath);
 
     /**
      * Load configuration files from given directory (not recursive).

@@ -1,6 +1,4 @@
 #include "ConfigSystem.hpp"
-#include <filesystem>
-#include <fstream>
 
 namespace logcat
 {
@@ -227,13 +225,7 @@ bool ConfigSystem::Save(Name name) const
 
     try
     {
-        auto dir = GetUserConfigDir();
-        create_directories(dir);
-
-        std::ofstream file{dir /= fmt::format(u8"{}.json"sv, *name)};
-        file.exceptions(std::ios_base::failbit | std::ios_base::badbit);
-        file << cfg->second.dump(4);
-
+        WriteJsonFile(GetUserConfigDir() / fmt::format(u8"{}.json"sv, *name), cfg->second);
         return true;
     }
     catch (const std::exception& e)
@@ -243,15 +235,9 @@ bool ConfigSystem::Save(Name name) const
     }
 }
 
-void ConfigSystem::LoadConfig(const fs::path& file)
+void ConfigSystem::LoadConfig(const fs::path& filepath)
 {
-    auto name = file.stem().u8string();
-
-    Json json;
-    ArchiveFileReader{file} << json;
-
-    ConfigLoader loader{file};
-    loader.Load(configs_[std::move(name)], std::move(json));
+    ConfigLoader{filepath}.Load(configs_[filepath.stem().u8string()], ReadJsonFile(filepath));
 }
 
 void ConfigSystem::LoadConfigs(const fs::path& directory, const std::set<fs::path>& extensions)
