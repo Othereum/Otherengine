@@ -24,9 +24,9 @@
 #define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)
 
 #define INTERFACE_BODY(name) \
-	constexpr name() noexcept = default; \
-	virtual ~name() = default; \
-	DELETE_CPMV(name)
+	name() = default; \
+    virtual ~name() = default; \
+    DELETE_CPMV(name)
 
 #define U8_TEXT_IMPL(x) u8##x
 #define U8_TEXT(x) U8_TEXT_IMPL(x)
