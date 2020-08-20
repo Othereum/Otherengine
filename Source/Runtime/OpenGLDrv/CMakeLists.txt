@@ -4,7 +4,6 @@ add_module(OpenGLDrv)
 
 target_link_libraries(${PROJECT_NAME}-OpenGLDrv
   PUBLIC
-	${PROJECT_NAME}-Core
 	${PROJECT_NAME}-RHI
 
   PRIVATE
