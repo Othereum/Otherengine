@@ -5,9 +5,9 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-SharedRef<Texture> OpenGLDynamicRHI::CreateTexture(const fs::path& filepath)
+RHITexture* OpenGLDynamicRHI::CreateTexture(const TextureData& data) const
 {
-    return MakeShared<OpenGLTexture>(filepath);
+    return new OpenGLTexture{data};
 }
 }
 }
