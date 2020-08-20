@@ -4,11 +4,10 @@
 
 namespace oeng
 {
-namespace fs = std::filesystem;
-}
-
-namespace oeng::core
+inline namespace core
 {
+namespace fs = std::filesystem;
+
 /**
  * Open the file in read mode.
  * @param filepath File path.
@@ -42,5 +41,6 @@ namespace oeng::core
         throw std::ofstream::failure{
             fmt::format(FMT_COMPILE("Failed to open file '{}' for write"sv), filepath.string())};
     return file;
+}
 }
 }
