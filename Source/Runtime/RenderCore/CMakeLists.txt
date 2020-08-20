@@ -9,8 +9,3 @@ target_link_libraries(${PROJECT_NAME}-RenderCore
   PRIVATE
     ${PROJECT_NAME}-RHI
 )
-
-target_include_directories(${PROJECT_NAME}-RenderCore
-  PRIVATE
-    ${STB_INCLUDE_DIRS}
-)
