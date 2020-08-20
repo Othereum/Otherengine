@@ -19,6 +19,11 @@ public:
     {
     }
 
+    void Serialize(void* data, std::streamsize size) override
+    {
+        stream_.write(static_cast<char*>(data), size);
+    }
+
     [[nodiscard]] explicit operator bool() const noexcept override
     {
         return stream_.operator bool();
@@ -27,6 +32,21 @@ public:
     [[nodiscard]] bool IsLoading() const noexcept override
     {
         return false;
+    }
+
+    void Seek(std::streampos pos) override
+    {
+        stream_.seekp(pos);
+    }
+
+    void Seek(std::streamoff off, std::ios::seekdir dir) override
+    {
+        stream_.seekp(off, dir);
+    }
+
+    [[nodiscard]] std::streampos Tell() override
+    {
+        return stream_.tellp();
     }
 
 private:

@@ -7,6 +7,8 @@ class Archive
 public:
     INTERFACE_BODY(Archive);
 
+    virtual void Serialize(void* data, std::streamsize size) = 0;
+
     /**
      * Checks whether the archive has no errors.
      * @return `true` if the archive has no errors, `false` otherwise.
@@ -18,5 +20,19 @@ public:
      * @return `true` if the archive is for loading data, `false` otherwise.
      */
     [[nodiscard]] virtual bool IsLoading() const noexcept = 0;
+
+    virtual void Seek(std::streampos pos) = 0;
+    virtual void Seek(std::streamoff off, std::ios::seekdir dir) = 0;
+
+    [[nodiscard]] virtual std::streampos Tell() = 0;
+
+    [[nodiscard]] virtual std::streamsize Size()
+    {
+        const auto pos = Tell();
+        Seek(0, std::ios::end);
+        const auto size = Tell();
+        Seek(pos);
+        return size;
+    }
 };
 }
