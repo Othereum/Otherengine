@@ -6,11 +6,11 @@ inline namespace rhi
 {
 class RHI_API DynamicRHI
 {
+public:
     INTERFACE_BODY(DynamicRHI);
 
     [[nodiscard]] static DynamicRHI& Get() noexcept;
-
-    [[nodiscard]] virtual SharedRef<class Texture> CreateTexture(const fs::path& filepath) = 0;
+    [[nodiscard]] virtual class RHITexture* CreateTexture(const struct TextureData& data) const = 0;
 };
 }
 }
