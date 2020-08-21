@@ -1,23 +1,23 @@
-#include "OpenGLVertexArray.hpp"
+#include "OpenGLMesh.hpp"
+#include "Vertex.hpp"
 #include <GL/glew.h>
 
 namespace oeng
 {
 inline namespace opengldrv
 {
-OpenGLVertexArray::OpenGLVertexArray(std::vector<Vertex> vertices, std::vector<Vec3u16> indices)
-    : VertexArray{std::move(vertices), std::move(indices)}
+OpenGLMesh::OpenGLMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices)
 {
     glGenVertexArrays(1, &vertex_array_);
-    OpenGLVertexArray::Activate();
+    OpenGLMesh::Activate();
 
     glGenBuffers(1, &vertex_buffer_);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);
-    glBufferData(GL_ARRAY_BUFFER, Vertices().size() * sizeof(Vertex), Vertices().data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size_bytes(), vertices.data(), GL_STATIC_DRAW);
 
     glGenBuffers(1, &index_buffer_);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer_);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices().size() * sizeof(Vec3u16), Indices().data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size_bytes(), indices.data(), GL_STATIC_DRAW);
 
     // for calculate offset
     constexpr const Vertex* v = nullptr;
@@ -36,7 +36,7 @@ OpenGLVertexArray::OpenGLVertexArray(std::vector<Vertex> vertices, std::vector<V
     glVertexAttribPointer(2, 2, type, false, size, &v->uv);
 }
 
-OpenGLVertexArray::~OpenGLVertexArray()
+OpenGLMesh::~OpenGLMesh()
 {
     // glDelete functions silently ignores 0
     glDeleteBuffers(1, &index_buffer_);
@@ -44,7 +44,7 @@ OpenGLVertexArray::~OpenGLVertexArray()
     glDeleteVertexArrays(1, &vertex_array_);
 }
 
-void OpenGLVertexArray::Activate() const noexcept
+void OpenGLMesh::Activate() const noexcept
 {
     glBindVertexArray(vertex_array_);
 }
