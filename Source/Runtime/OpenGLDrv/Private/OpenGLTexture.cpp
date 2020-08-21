@@ -5,12 +5,12 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-OpenGLTexture::OpenGLTexture(const TextureData& data)
+OpenGLTexture::OpenGLTexture(Vec2i size, int channels, const void* pixels)
 {
     int img_format;
     int alignment;
 
-    switch (data.channels)
+    switch (channels)
     {
     case 3:
         img_format = GL_RGB;
@@ -25,15 +25,16 @@ OpenGLTexture::OpenGLTexture(const TextureData& data)
     default:
         throw std::runtime_error{
             fmt::format(
-                FMT_COMPILE("Invalid format: It has {} channels, but only RGB and RGBA formats are supported for OpenGL."sv),
-                data.channels)};
+                FMT_COMPILE(
+                    "Invalid format: It has {} channels, but only RGB and RGBA formats are supported for OpenGL."sv),
+                channels)};
     }
 
     glGenTextures(1, &id_);
     OpenGLTexture::Activate();
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
-    glTexImage2D(GL_TEXTURE_2D, 0, img_format, data.size[0], data.size[1], 0, img_format, GL_UNSIGNED_BYTE, data.pixels.get());
+    glTexImage2D(GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, pixels);
 
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);

@@ -5,9 +5,9 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-RHITexture* OpenGLDynamicRHI::CreateTexture(const TextureData& data) const
+RHIResource* OpenGLDynamicRHI::CreateTexture(Vec2i size, int channels, const void* pixels) const
 {
-    return new OpenGLTexture{data};
+    return new OpenGLTexture{size, channels, pixels};
 }
 }
 }

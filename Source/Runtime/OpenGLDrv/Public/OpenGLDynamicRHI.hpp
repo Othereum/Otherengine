@@ -8,7 +8,7 @@ inline namespace opengldrv
 class OPENGLDRV_API OpenGLDynamicRHI : public DynamicRHI
 {
 public:
-    [[nodiscard]] RHITexture* CreateTexture(const TextureData& data) const override;
+    RHIResource* CreateTexture(Vec2i size, int channels, const void* pixels) const override;
 };
 }
 }
