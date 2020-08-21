@@ -10,7 +10,7 @@ public:
     INTERFACE_BODY(DynamicRHI);
 
     [[nodiscard]] static DynamicRHI& Get() noexcept;
-    [[nodiscard]] virtual class RHITexture* CreateTexture(const struct TextureData& data) const = 0;
+    [[nodiscard]] virtual class RHIResource* CreateTexture(Vec2i size, int channels, const void* pixels) const = 0;
 };
 }
 }
