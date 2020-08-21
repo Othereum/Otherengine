@@ -1,4 +1,5 @@
 #pragma once
+#include "Serializable.hpp"
 
 namespace oeng::core
 {
@@ -8,6 +9,12 @@ public:
     INTERFACE_BODY(Archive);
 
     virtual void Serialize(void* data, std::streamsize size) = 0;
+
+    Archive& operator<<(ISerializable& obj)
+    {
+        obj.Serialize(*this);
+        return *this;
+    }
 
     /**
      * Checks whether the archive has no errors.
