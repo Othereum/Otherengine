@@ -44,6 +44,34 @@ public:
     }
 
     /**
+     * Reads all remaining content in the buffer. Valid only for loading archives.
+     * @tparam T Trivial type to store data.
+     * @return first Read data.
+     * @return second Number of elements read.
+     * @throw WrongArchiveDirection If attempted to call on saving archive.
+     */
+    template <Trivial T>
+    [[nodiscard]] std::pair<std::unique_ptr<T[]>, std::streamsize> ReadAll()
+    {
+        if (!IsLoading())
+            throw WrongArchiveDirection{false};
+
+        const auto count = (Size() - Tell()) / sizeof(T);
+        if (count <= 0)
+            return {};
+
+        std::unique_ptr<T[]> data{new T[count]};
+        Serialize(data.get(), count * sizeof(T));
+        return {std::move(data), count};
+    }
+
+    [[nodiscard]] Json ReadAllAsJson()
+    {
+        const auto [raw, len] = ReadAll<char>();
+        return Json::parse(raw.get(), raw.get() + len, nullptr, true, true);
+    }
+
+    /**
      * Checks whether the archive has no errors.
      * @return `true` if the archive has no errors, `false` otherwise.
      */
