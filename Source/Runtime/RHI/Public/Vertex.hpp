@@ -1,10 +1,10 @@
 #pragma once
 
-namespace oeng::rhi
+namespace oeng
 {
-class Material;
-
-struct RHI_API Vertex
+inline namespace rhi
+{
+struct Vertex
 {
     Vec3 pos;
     Vec3 norm;
@@ -38,35 +38,5 @@ inline void to_json(Json& json, const Vertex& vertex)
 {
     json = vertex.AsArray();
 }
-
-class RHI_API RHIMesh
-{
-public:
-    DELETE_CPMV(RHIMesh);
-
-    explicit RHIMesh(const fs::path& filepath);
-    virtual ~RHIMesh() = default;
-
-    virtual void Activate() const noexcept = 0;
-
-    [[nodiscard]] auto& Vertices() const noexcept
-    {
-        return vertices_;
-    }
-
-    [[nodiscard]] auto& Indices() const noexcept
-    {
-        return indices_;
-    }
-
-    [[nodiscard]] Float Radius() const noexcept
-    {
-        return radius_;
-    }
-
-private:
-    std::vector<Vertex> vertices_;
-    std::vector<Vec3u16> indices_;
-    Float radius_ = 0;
-};
+}
 }
