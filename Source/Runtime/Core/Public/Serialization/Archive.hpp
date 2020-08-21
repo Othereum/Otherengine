@@ -3,6 +3,33 @@
 
 namespace oeng::core
 {
+template <class T>
+concept Trivial = std::is_trivial_v<T>;
+
+class WrongArchiveDirection : public std::exception
+{
+public:
+    explicit WrongArchiveDirection(bool was_loading)
+        : was_loading_{was_loading}
+    {
+    }
+
+    [[nodiscard]] const char* what() const noexcept override
+    {
+        return was_loading_
+                   ? "Expected saving archive, but it was loading"
+                   : "Expected loading archive, but it was saving";
+    }
+
+    [[nodiscard]] bool WasLoading() const noexcept
+    {
+        return was_loading_;
+    }
+
+private:
+    bool was_loading_;
+};
+
 class Archive
 {
 public:
