@@ -6,19 +6,18 @@ namespace oeng
 {
 inline namespace engine
 {
-Archive& operator<<(Archive& ar, Texture& texture)
+void Texture::Serialize(Archive& ar)
 {
     assert(ar.IsLoading());
 
-    const auto size = ar.Size();
-    const auto pixels = std::make_unique<unsigned char[]>(size);
-    ar.Serialize(pixels.get(), size);
+    const auto len = ar.Size();
+    const std::unique_ptr<unsigned char[]> raw{new unsigned char[len]};
+    ar.Serialize(raw.get(), len);
 
-    texture.data_.pixels.reset(stbi_load_from_memory(pixels.get(), size, &texture.data_.size[0], &texture.data_.size[1],
-                                                     &texture.data_.channels, 0));
-    texture.rhi_.reset(DynamicRHI::Get().CreateTexture(texture.data_));
-
-    return ar;
+    int channels;
+    const std::unique_ptr<unsigned char[]> pixels{
+        stbi_load_from_memory(raw.get(), len, &size_[0], &size_[1], &channels, 0)};
+    rhi_.reset(DynamicRHI::Get().CreateTexture(size_, channels, pixels.get()));
 }
 }
 }

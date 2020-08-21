@@ -1,23 +1,34 @@
 #pragma once
-#include "RHITexture.hpp"
+
+namespace oeng
+{
+inline namespace rhi
+{
+class RHIResource;
+}
+}
 
 namespace oeng
 {
 inline namespace engine
 {
-class ENGINE_API Texture
+class ENGINE_API Texture : public ISerializable
 {
 public:
-    friend ENGINE_API Archive& operator<<(Archive& ar, Texture& texture);
+    /**
+     * Load texture from archive.
+     * Only loading is supported.
+     */
+    void Serialize(Archive& ar) override;
 
-    [[nodiscard]] const TextureData& Data() const noexcept
+    [[nodiscard]] Vec2i Size() const noexcept
     {
-        return data_;
+        return size_;
     }
 
 private:
-    TextureData data_;
-    std::unique_ptr<RHITexture> rhi_;
+    Vec2i size_;
+    std::unique_ptr<RHIResource> rhi_;
 };
 }
 }
