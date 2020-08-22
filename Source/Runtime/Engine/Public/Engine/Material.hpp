@@ -1,23 +1,13 @@
 #pragma once
-#include "Uniform.hpp"
+#include "Serialization/Serializable.hpp"
 
-namespace oeng::renderer
+namespace oeng
 {
-class Shader;
-class Texture;
-class Renderer;
-
-class RENDERER_API Material : public Asset
+inline namespace engine
+{
+class ENGINE_API Material : public ISerializable
 {
 public:
-    /**
-     * Load material from file
-     * @param path File path
-     * @param renderer Renderer
-     * @throw std::runtime_error If failed to open or parse
-     */
-    Material(Path path, Renderer& renderer);
-
     void TryUniforms();
 
     [[nodiscard]] Shader* GetShader() const noexcept
@@ -38,4 +28,5 @@ private:
     SharedPtr<Texture> texture_;
     std::unordered_map<int, Uniform> uniforms_;
 };
+}
 }

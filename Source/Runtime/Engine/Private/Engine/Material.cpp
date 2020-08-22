@@ -1,9 +1,6 @@
-#include "Material.hpp"
-#include "Log.hpp"
-#include "Json.hpp"
-#include "Renderer.hpp"
+#include "Engine/Material.hpp"
 
-namespace oeng::renderer
+namespace oeng::engine
 {
 Material::Material(Path path, Renderer& renderer)
     : Material{path, renderer, ReadFileAsJson(path)}
