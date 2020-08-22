@@ -3,7 +3,6 @@
 #include "VertexArray.hpp"
 #include "Window.hpp"
 #include "Interfaces/Camera.hpp"
-#include "Templates/Pointer.hpp"
 
 namespace logcat
 {
@@ -129,10 +128,10 @@ public:
      * @param path Texture file path
      * @return Loaded texture or default texture if failed to load.
      */
-    [[nodiscard]] SharedPtr<Texture> GetTexture(Path path);
-    [[nodiscard]] SharedPtr<Mesh> GetMesh(Path path);
-    [[nodiscard]] SharedPtr<Shader> GetShader(Path path);
-    [[nodiscard]] SharedPtr<Material> GetMaterial(Path path);
+    [[nodiscard]] std::shared_ptr<Texture> GetTexture(Path path);
+    [[nodiscard]] std::shared_ptr<Mesh> GetMesh(Path path);
+    [[nodiscard]] std::shared_ptr<Shader> GetShader(Path path);
+    [[nodiscard]] std::shared_ptr<Material> GetMaterial(Path path);
 
     [[nodiscard]] Window& GetWindow() noexcept
     {
@@ -164,10 +163,10 @@ private:
     Shader sprite_shader_;
     VertexArray sprite_verts_;
 
-    std::unordered_map<Path, WeakPtr<Texture>> textures_;
-    std::unordered_map<Path, WeakPtr<Shader>> shaders_;
-    std::unordered_map<Path, WeakPtr<Material>> materials_;
-    std::unordered_map<Path, WeakPtr<Mesh>> meshes_;
+    std::unordered_map<Path, std::weak_ptr<Texture>> textures_;
+    std::unordered_map<Path, std::weak_ptr<Shader>> shaders_;
+    std::unordered_map<Path, std::weak_ptr<Material>> materials_;
+    std::unordered_map<Path, std::weak_ptr<Mesh>> meshes_;
 
     ICamera* camera_{};
     DefaultCamera default_camera_;

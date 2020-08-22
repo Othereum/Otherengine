@@ -23,7 +23,7 @@ public:
     }
 
 private:
-    SharedPtr<class Material> material_;
+    std::shared_ptr<class Material> material_;
     std::unique_ptr<RHIResource> rhi_;
     Float radius_ = 0;
 };

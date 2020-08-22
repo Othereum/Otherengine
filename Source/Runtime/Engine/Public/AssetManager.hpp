@@ -26,12 +26,12 @@ public:
      * @throw std::exception Any exceptions thrown from the constructor of type `T`.
      */
     template <std::derived_from<ISerializable> T>
-    [[nodiscard]] SharedRef<T> Load(Path path)
+    [[nodiscard]] std::shared_ptr<T> Load(Path path)
     {
         if (const auto found = assets_.find(path); found != assets_.end())
         {
             if (const auto ptr = found->second.lock())
-                return DynamicCast<T>(SharedRef{std::move(ptr)});
+                return DynamicCast<T>(std::shared_ptr{std::move(ptr)});
 
 #ifndef NDEBUG
             ++reload_count_[path];
@@ -39,7 +39,7 @@ public:
         }
 
         ArchiveFileReader file{path};
-        auto loaded = MakeShared<T>();
+        auto loaded = std::make_shared<T>();
         file << *loaded;
 
         assets_.insert_or_assign(path, loaded);
@@ -47,7 +47,7 @@ public:
     }
 
 private:
-    std::unordered_map<Path, WeakPtr<ISerializable>> assets_;
+    std::unordered_map<Path, std::weak_ptr<ISerializable>> assets_;
 #ifndef NDEBUG
     std::unordered_map<Path, unsigned> reload_count_;
 #endif

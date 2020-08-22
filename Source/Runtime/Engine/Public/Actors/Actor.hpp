@@ -1,104 +1,133 @@
 #pragma once
-#include "Math.hpp"
-#include "Name.hpp"
 #include "TimerManager.hpp"
-#include "Templates/DyArr.hpp"
-#include "Templates/std::unordered_set.hpp"
-#include "Templates/Pointer.hpp"
 
 namespace oeng::engine
 {
-	class Engine;
-	class World;
-	class ActorComponent;
-	class SceneComponent;
-	class TimerManager;
-	
-	class ENGINE_API AActor : public EnableSharedFromThis<AActor>
-	{
-	public:
-		DELETE_CPMV(AActor);
-		
-		explicit AActor(World& world);
-		virtual ~AActor();
+class Engine;
+class World;
+class ActorComponent;
+class SceneComponent;
+class TimerManager;
 
-		void BeginPlay();
-		void Update(Float delta_seconds);
-		void Destroy();
+class ENGINE_API AActor : public std::enable_shared_from_this<AActor>
+{
+public:
+    DELETE_CPMV(AActor);
 
-		template <std::derived_from<ActorComponent> T, class... Args>
-		SharedRef<T> AddComponent(Args&&... args)
-		{
-			static_assert(std::is_constructible_v<T, AActor&, Args...>);
-			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
-			RegisterComponent(ptr);
-			return ptr;
-		}
+    explicit AActor(World& world);
+    virtual ~AActor();
 
-		void AddTag(Name tag) { tags_.insert(tag); }
-		void RemoveTag(Name tag) { tags_.erase(tag); }
-		[[nodiscard]] bool HasTag(Name tag) const noexcept { return tags_.contains(tag); }
+    void BeginPlay();
+    void Update(Float delta_seconds);
+    void Destroy();
 
-		void SetUpdateEnabled(bool enabled) noexcept { update_enabled_ = enabled; }
+    template <std::derived_from<ActorComponent> T, class... Args>
+    std::shared_ptr<T> AddComponent(Args&&... args)
+    {
+        static_assert(std::is_constructible_v<T, AActor&, Args...>);
+        auto ptr = std::make_shared<T>(*this, std::forward<Args>(args)...);
+        RegisterComponent(ptr);
+        return ptr;
+    }
 
-		/**
-		 * Set root component of this actor. Root component represents this actor's transform.
-		 * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
-		 */
-		void SetRootComponent(SceneComponent* new_root) noexcept;
-		[[nodiscard]] SceneComponent* GetRootComponent() const noexcept { return root_; }
+    void AddTag(Name tag)
+    {
+        tags_.insert(tag);
+    }
 
-		[[nodiscard]] bool IsPendingKill() const noexcept { return pending_kill_; }
+    void RemoveTag(Name tag)
+    {
+        tags_.erase(tag);
+    }
 
-		/**
-		 * Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
-		 * @param in_seconds New lifespan in seconds. <=0 means infinite.
-		 */
-		void SetLifespan(Float in_seconds);
-		[[nodiscard]] Float GetLifespan() const noexcept;
-		[[nodiscard]] Float GetInitialLifespan() const noexcept { return init_lifespan_; }
+    [[nodiscard]] bool HasTag(Name tag) const noexcept
+    {
+        return tags_.contains(tag);
+    }
 
-		void SetTrsf(const Transform& trsf) const noexcept;
-		[[nodiscard]] const Transform& GetTrsf() const noexcept;
-		
-		void SetPos(const Vec3& pos) const noexcept;
-		[[nodiscard]] const Vec3& GetPos() const noexcept;
+    void SetUpdateEnabled(bool enabled) noexcept
+    {
+        update_enabled_ = enabled;
+    }
 
-		void SetRot(const Quat& rot) const noexcept;
-		[[nodiscard]] const Quat& GetRot() const noexcept;
+    /**
+     * Set root component of this actor. Root component represents this actor's transform.
+     * @param new_root New root component. It can be nullptr or MUST be owned by this actor. 
+     */
+    void SetRootComponent(SceneComponent* new_root) noexcept;
 
-		void SetScale(const Vec3& scale) const noexcept;
-		[[nodiscard]] const Vec3& GetScale() const noexcept;
+    [[nodiscard]] SceneComponent* GetRootComponent() const noexcept
+    {
+        return root_;
+    }
 
-		[[nodiscard]] UVec3 GetForward() const noexcept;
-		[[nodiscard]] UVec3 GetBackward() const noexcept;
-		[[nodiscard]] UVec3 GetRight() const noexcept;
-		[[nodiscard]] UVec3 GetLeft() const noexcept;
-		[[nodiscard]] UVec3 GetUp() const noexcept;
-		[[nodiscard]] UVec3 GetDown() const noexcept;
+    [[nodiscard]] bool IsPendingKill() const noexcept
+    {
+        return pending_kill_;
+    }
 
-		[[nodiscard]] World& GetWorld() const noexcept { return world_; }
-		[[nodiscard]] TimerManager& GetTimerManager() const noexcept;
+    /**
+     * Set actor's lifespan. Default is 0 (infinite). Timer is updated when called.
+     * @param in_seconds New lifespan in seconds. <=0 means infinite.
+     */
+    void SetLifespan(Float in_seconds);
+    [[nodiscard]] Float GetLifespan() const noexcept;
 
-	protected:
-		virtual void OnUpdate([[maybe_unused]] Float delta_seconds) {}
-		virtual void OnBeginPlay() {}
+    [[nodiscard]] Float GetInitialLifespan() const noexcept
+    {
+        return init_lifespan_;
+    }
 
-	private:
-		void RegisterComponent(SharedRef<ActorComponent> comp);
-		void UpdateComponents(Float delta_seconds);
+    void SetTrsf(const Transform& trsf) const noexcept;
+    [[nodiscard]] const Transform& GetTrsf() const noexcept;
 
-		bool pending_kill_ : 1 = false;
-		bool begun_play_ : 1 = false;
-		bool update_enabled_ : 1 = true;
-		
-		Float init_lifespan_ = 0;
-		TimerHandle lifespan_timer_;
-		
-		World& world_;
-		DyArr<SharedRef<ActorComponent>> comps_;
-		SceneComponent* root_ = nullptr;
+    void SetPos(const Vec3& pos) const noexcept;
+    [[nodiscard]] const Vec3& GetPos() const noexcept;
 
-		std::unordered_set<Name> tags_;
-	};
+    void SetRot(const Quat& rot) const noexcept;
+    [[nodiscard]] const Quat& GetRot() const noexcept;
+
+    void SetScale(const Vec3& scale) const noexcept;
+    [[nodiscard]] const Vec3& GetScale() const noexcept;
+
+    [[nodiscard]] UVec3 GetForward() const noexcept;
+    [[nodiscard]] UVec3 GetBackward() const noexcept;
+    [[nodiscard]] UVec3 GetRight() const noexcept;
+    [[nodiscard]] UVec3 GetLeft() const noexcept;
+    [[nodiscard]] UVec3 GetUp() const noexcept;
+    [[nodiscard]] UVec3 GetDown() const noexcept;
+
+    [[nodiscard]] World& GetWorld() const noexcept
+    {
+        return world_;
+    }
+
+    [[nodiscard]] TimerManager& GetTimerManager() const noexcept;
+
+protected:
+    virtual void OnUpdate([[maybe_unused]] Float delta_seconds)
+    {
+    }
+
+    virtual void OnBeginPlay()
+    {
+    }
+
+private:
+    void RegisterComponent(std::shared_ptr<ActorComponent> comp);
+    void UpdateComponents(Float delta_seconds);
+
+    bool pending_kill_ : 1 = false;
+    bool begun_play_ : 1 = false;
+    bool update_enabled_ : 1 = true;
+
+    Float init_lifespan_ = 0;
+    TimerHandle lifespan_timer_;
+
+    World& world_;
+    std::vector<std::shared_ptr<ActorComponent>> comps_;
+    SceneComponent* root_ = nullptr;
+
+    std::unordered_set<Name> tags_;
+};
 }

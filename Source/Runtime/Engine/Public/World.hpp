@@ -18,10 +18,10 @@ namespace oeng::engine
 		void Tick();
 		
 		template <std::derived_from<AActor> T, class... Args>
-		SharedRef<T> SpawnActor(Args&&... args)
+		std::shared_ptr<T> SpawnActor(Args&&... args)
 		{
 			static_assert(std::is_constructible_v<T, World&, Args...>);
-			auto ptr = MakeShared<T>(*this, std::forward<Args>(args)...);
+			auto ptr = std::make_shared<T>(*this, std::forward<Args>(args)...);
 			pending_actors_.emplace_back(ptr);
 			return ptr;
 		}
@@ -50,8 +50,8 @@ namespace oeng::engine
 
 		DyArr<std::reference_wrapper<SphereComponent>> collisions_;
 		
-		DyArr<SharedRef<AActor>> actors_;
-		DyArr<SharedRef<AActor>> pending_actors_;
+		DyArr<std::shared_ptr<AActor>> actors_;
+		DyArr<std::shared_ptr<AActor>> pending_actors_;
 		
 		TimePoint time_;
 		Float delta_seconds_;

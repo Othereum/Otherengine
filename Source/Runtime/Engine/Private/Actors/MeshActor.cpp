@@ -14,7 +14,7 @@ namespace oeng::engine
 		mesh_.SetMesh(path);
 	}
 
-	void AMeshActor::SetMesh(SharedRef<Mesh> mesh) const
+	void AMeshActor::SetMesh(std::shared_ptr<Mesh> mesh) const
 	{
 		mesh_.SetMesh(std::move(mesh));
 	}
@@ -24,7 +24,7 @@ namespace oeng::engine
 		mesh_.SetMaterial(path);
 	}
 
-	void AMeshActor::SetMaterial(SharedRef<Material> material) const
+	void AMeshActor::SetMaterial(std::shared_ptr<Material> material) const
 	{
 		mesh_.SetMaterial(std::move(material));
 	}

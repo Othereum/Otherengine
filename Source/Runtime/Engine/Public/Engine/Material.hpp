@@ -24,8 +24,8 @@ private:
     Material(Path path, Renderer& renderer, const Json& json);
     void LoadUniforms(const Json& uniforms);
 
-    SharedPtr<Shader> shader_;
-    SharedPtr<Texture> texture_;
+    std::shared_ptr<Shader> shader_;
+    std::shared_ptr<Texture> texture_;
     std::unordered_map<int, Uniform> uniforms_;
 };
 }

@@ -3,40 +3,47 @@
 
 namespace oeng::engine
 {
-	namespace ai_state
-	{
-		class Default : public Base
-		{
-		public:
-			Default(): Base{nullptr} {}
-			[[nodiscard]] Name GetName() const override { return u8"Default"sv; }
-		};
+namespace ai_state
+{
+class Default : public Base
+{
+public:
+    Default()
+        : Base{nullptr}
+    {
+    }
 
-		static Default default_state;
-	}
+    [[nodiscard]] Name GetName() const override
+    {
+        return u8"Default"sv;
+    }
+};
 
-	AIComponent::AIComponent(AActor& owner, int update_order):
-		ActorComponent{owner, update_order},
-		cur_{ai_state::default_state}
-	{
-	}
+static Default default_state;
+}
 
-	void AIComponent::OnUpdate(Float delta_seconds)
-	{
-		cur_.get().Update(delta_seconds);
-	}
+AIComponent::AIComponent(AActor& owner, int update_order)
+    : ActorComponent{owner, update_order},
+      cur_{ai_state::default_state}
+{
+}
 
-	void AIComponent::ChangeState(Name name)
-	{
-		auto& prev = cur_.get();
-		auto& next = *states_.at(name);
-		prev.OnExit(next);
-		cur_ = next;
-		next.OnEnter(prev);
-	}
+void AIComponent::OnUpdate(Float delta_seconds)
+{
+    cur_.get().Update(delta_seconds);
+}
 
-	void AIComponent::AddState(UniquePtr<ai_state::Base>&& state)
-	{
-		states_.emplace(state->GetName(), std::move(state));
-	}
+void AIComponent::ChangeState(Name name)
+{
+    auto& prev = cur_.get();
+    auto& next = *states_.at(name);
+    prev.OnExit(next);
+    cur_ = next;
+    next.OnEnter(prev);
+}
+
+void AIComponent::AddState(std::unique_ptr<ai_state::Base> state)
+{
+    states_.emplace(state->GetName(), std::move(state));
+}
 }

@@ -10,7 +10,7 @@ namespace oeng::engine
 	class AActor;
 	class World;
 	
-	class ENGINE_API ActorComponent : public EnableSharedFromThis<ActorComponent>
+	class ENGINE_API ActorComponent : public std::enable_shared_from_this<ActorComponent>
 	{
 	public:
 		DELETE_CPMV(ActorComponent);

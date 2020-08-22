@@ -23,7 +23,7 @@ namespace oeng::engine
 		SetMesh(std::move(mesh));
 	}
 
-	void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
+	void MeshComponent::SetMesh(std::shared_ptr<Mesh> mesh)
 	{
 		mesh_ = std::move(mesh);
 		ReRegister();
@@ -35,7 +35,7 @@ namespace oeng::engine
 		SetMaterial(GetRenderer().GetMaterial(path));
 	}
 
-	void MeshComponent::SetMaterial(SharedRef<Material> material)
+	void MeshComponent::SetMaterial(std::shared_ptr<Material> material)
 	{
 		material_ = std::move(material);
 		ReRegister();

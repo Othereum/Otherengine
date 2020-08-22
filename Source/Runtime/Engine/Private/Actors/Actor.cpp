@@ -46,7 +46,7 @@ namespace oeng::engine
 		return world_.GetTimerManager();
 	}
 
-	void AActor::RegisterComponent(SharedRef<ActorComponent> comp)
+	void AActor::RegisterComponent(std::shared_ptr<ActorComponent> comp)
 	{
 		auto cmp = [](auto&& a, auto&& b) {
 			return a->GetUpdateOrder() <= b->GetUpdateOrder();

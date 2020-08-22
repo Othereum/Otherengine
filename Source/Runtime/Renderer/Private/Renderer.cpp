@@ -303,14 +303,14 @@ bool Renderer::IsSkyLightRegistered() const noexcept
 
 
 template <class T, class... Args>
-SharedPtr<T> Get(std::unordered_map<Path, WeakPtr<T>>& cache, Path path, Args&&... args)
+std::shared_ptr<T> Get(std::unordered_map<Path, std::weak_ptr<T>>& cache, Path path, Args&&... args)
 {
     if (const auto found = cache.find(path); found != cache.end())
-        return SharedPtr<T>{found->second};
+        return std::shared_ptr<T>{found->second};
 
     try
     {
-        SharedPtr<T> loaded(New<T>(path, std::forward<Args>(args)...), [&cache, path](T* p)
+        std::shared_ptr<T> loaded(New<T>(path, std::forward<Args>(args)...), [&cache, path](T* p)
         {
             cache.erase(path);
             Delete(p);
@@ -326,22 +326,22 @@ SharedPtr<T> Get(std::unordered_map<Path, WeakPtr<T>>& cache, Path path, Args&&.
     }
 }
 
-SharedPtr<Texture> Renderer::GetTexture(Path path)
+std::shared_ptr<Texture> Renderer::GetTexture(Path path)
 {
     return Get(textures_, path);
 }
 
-SharedPtr<Mesh> Renderer::GetMesh(Path path)
+std::shared_ptr<Mesh> Renderer::GetMesh(Path path)
 {
     return Get(meshes_, path, *this);
 }
 
-SharedPtr<Shader> Renderer::GetShader(Path path)
+std::shared_ptr<Shader> Renderer::GetShader(Path path)
 {
     return Get(shaders_, path);
 }
 
-SharedPtr<Material> Renderer::GetMaterial(Path path)
+std::shared_ptr<Material> Renderer::GetMaterial(Path path)
 {
     return Get(materials_, path, *this);
 }

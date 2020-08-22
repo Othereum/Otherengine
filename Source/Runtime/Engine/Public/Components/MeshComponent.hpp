@@ -14,9 +14,9 @@ namespace oeng::engine
 		~MeshComponent();
 
 		void SetMesh(Path path);
-		void SetMesh(SharedRef<Mesh> mesh);
+		void SetMesh(std::shared_ptr<Mesh> mesh);
 		void SetMaterial(Path path);
-		void SetMaterial(SharedRef<Material> material);
+		void SetMaterial(std::shared_ptr<Material> material);
 		void SetMaxDrawDist(Float dist)	noexcept { max_draw_dist_ = dist; }
 		
 		[[nodiscard]] Float GetMaxDrawDist() const noexcept override { return max_draw_dist_; }
@@ -36,8 +36,8 @@ namespace oeng::engine
 		void ReRegister() const;
 		void RecalcRadius() noexcept;
 		
-		SharedRef<Mesh> mesh_;
-		SharedRef<Material> material_;
+		std::shared_ptr<Mesh> mesh_;
+		std::shared_ptr<Material> material_;
 		Float max_draw_dist_ = 10000;
 		Float radius_ = 0;
 	};

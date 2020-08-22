@@ -7,7 +7,7 @@ Material::Material(Path path, Renderer& renderer)
 {
 }
 
-[[nodiscard]] static SharedRef<Texture> LoadTexture(Renderer& renderer, const Json& json)
+[[nodiscard]] static std::shared_ptr<Texture> LoadTexture(Renderer& renderer, const Json& json)
 {
     const auto found = json.find("texture");
     return found != json.end()
