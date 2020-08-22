@@ -38,7 +38,7 @@
 
 namespace oeng
 {
-namespace core
+inline namespace core
 {
 /**
  * Check if the current thread is a game thread.
@@ -46,6 +46,4 @@ namespace core
  */
 [[nodiscard]] CORE_API bool IsGameThread() noexcept;
 }
-
-using namespace core;
 }
