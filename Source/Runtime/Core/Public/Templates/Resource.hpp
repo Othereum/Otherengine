@@ -42,6 +42,16 @@ public:
     Resource(const Resource&) = delete;
     Resource& operator=(const Resource&) = delete;
 
+    void reset(T id)
+    {
+        Resource{std::move(id)}.swap(*this);
+    }
+
+    void reset(T id, Deleter deleter)
+    {
+        Resource{std::move(id), std::move(deleter)}.swap(*this);
+    }
+
     T& operator*() noexcept
     {
         return storage_.second();
