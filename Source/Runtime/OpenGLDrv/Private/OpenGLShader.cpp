@@ -1,9 +1,9 @@
-#include "Shader.hpp"
-#include "Renderer.hpp"
-#include <fstream>
+#include "OpenGLShader.hpp"
 #include <GL/glew.h>
 
-namespace oeng::renderer
+namespace oeng
+{
+inline namespace opengldrv
 {
 template <class GetParam, class GetInfoLog>
 static void CheckValid(unsigned object, GetParam get_param, unsigned status_param_name, GetInfoLog get_info_log)
@@ -35,26 +35,29 @@ static void CheckProgram(unsigned program)
     CheckValid(program, glGetProgramiv, GL_LINK_STATUS, glGetProgramInfoLog);
 }
 
-[[nodiscard]] static fs::path Ext(fs::path path, std::u8string_view ext)
+[[nodiscard]] static ShaderHandle Compile(const char* code, unsigned type)
 {
-    path += ext;
-    return path;
+    ShaderHandle shader{glCreateShader(type)};
+    glShaderSource(*shader, 1, &code, nullptr);
+    glCompileShader(*shader);
+
+    CheckShader(*shader);
+    return shader;
 }
 
-Shader::Shader(Path path)
-    : Asset{path},
-      vert_shader_{Compile(Ext(path, u8".vert"sv), GL_VERTEX_SHADER)},
-      frag_shader_{Compile(Ext(path, u8".frag"sv), GL_FRAGMENT_SHADER)},
+OpenGLShader::OpenGLShader(const char* vertex_shader, const char* frag_shader)
+    : vertex_shader_{Compile(vertex_shader, GL_VERTEX_SHADER)},
+      frag_shader_{Compile(frag_shader, GL_FRAGMENT_SHADER)},
       shader_program_{glCreateProgram()}
 {
-    glAttachShader(*shader_program_, *vert_shader_);
+    glAttachShader(*shader_program_, *vertex_shader_);
     glAttachShader(*shader_program_, *frag_shader_);
     glLinkProgram(*shader_program_);
     CheckProgram(*shader_program_);
-    Activate();
+    OpenGLShader::Activate();
 }
 
-void Shader::Activate() const
+void OpenGLShader::Activate() const noexcept
 {
     glUseProgram(*shader_program_);
 }
@@ -144,15 +147,15 @@ static void GlUniform(int l, int v) noexcept
     glUniform1i(l, v);
 }
 
-bool Shader::SetUniform(int location, const Uniform& value)
+static constexpr int kInvalidUniform = -1;
+
+bool OpenGLShader::SetParam(Name name, const Param& value)
 {
     SCOPE_COUNTER(SetUniform);
 
-    if (location == invalid_uniform)
-    {
-        OE_LOG(kRenderer, kWarn, u8"Attempted to set uniform with invalid location -1"sv);
+    const auto location = GetUniformLocation(name);
+    if (location == kInvalidUniform)
         return false;
-    }
 
     const auto cache = uniform_cache_.find(location);
     if (cache != uniform_cache_.end())
@@ -186,52 +189,27 @@ bool Shader::SetUniform(int location, const Uniform& value)
     return true;
 }
 
-int Shader::GetUniformLocation(Name name) noexcept
+int OpenGLShader::GetUniformLocation(Name name)
 {
     if (const auto found = loc_cache_.find(name); found != loc_cache_.end())
         return found->second;
 
     const auto loc = glGetUniformLocation(*shader_program_, AsString(name->c_str()));
 
-    if (loc != invalid_uniform)
+    if (loc != -1)
         loc_cache_.try_emplace(name, loc);
 
     return loc;
 }
 
-void Shader::ShaderDeleter::operator()(unsigned id) const noexcept
+void ShaderDeleter::operator()(unsigned id) const noexcept
 {
     glDeleteShader(id);
 }
 
-void Shader::ProgramDeleter::operator()(unsigned id) const noexcept
+void ProgramDeleter::operator()(unsigned id) const noexcept
 {
     glDeleteProgram(id);
 }
-
-[[nodiscard]] std::string ReadFile(const fs::path& path)
-{
-    std::ifstream file{path, std::ios_base::in | std::ios_base::ate};
-
-    if (!file.is_open())
-        throw std::ios_base::failure{fmt::format("Cannot read file. File not found: {}"sv, path.string())};
-
-    std::string code(file.tellg(), '\0');
-    file.seekg(0);
-    file.read(code.data(), code.size());
-    return code;
-}
-
-Resource<unsigned, Shader::ShaderDeleter> Shader::Compile(const fs::path& file, unsigned type)
-{
-    const auto code = ReadFile(file);
-    const auto* const c_str = code.c_str();
-
-    Resource<unsigned, ShaderDeleter> shader{glCreateShader(type)};
-    glShaderSource(*shader, 1, &c_str, nullptr);
-    glCompileShader(*shader);
-
-    CheckShader(*shader);
-    return shader;
 }
 }
