@@ -4,7 +4,8 @@
 namespace oeng::core
 {
 /**
- * RAII resource handler
+ * RAII resource handler.
+ * @note Regardless of the value of id, the deleter is always called.
  */
 template <std::regular T, std::invocable<T> Deleter>
 class Resource
