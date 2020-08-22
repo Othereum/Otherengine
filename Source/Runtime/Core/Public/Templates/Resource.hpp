@@ -80,7 +80,7 @@ public:
     }
 
 private:
-    CompPair<Deleter, T> storage_;
+    CompPair<Deleter, T> storage_{};
 };
 
 template <std::regular T, std::invocable<T> Deleter>
