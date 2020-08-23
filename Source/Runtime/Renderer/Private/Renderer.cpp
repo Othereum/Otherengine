@@ -2,7 +2,7 @@
 #include "EngineBase.hpp"
 #include "Material.hpp"
 #include "Mesh.hpp"
-#include "Shader.hpp"
+#include "RHIShader.hpp"
 #include "Texture.hpp"
 #include "VertexArray.hpp"
 #include "Interfaces/Drawable.hpp"
@@ -184,7 +184,7 @@ static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& 
 {
     auto& shader = mesh_comp.GetMaterial().GetShader();
     const auto loc_num = shader.GetUniformLocation(fmt::format(u8"uNum{}Lights"sv, name));
-    if (loc_num == Shader::invalid_uniform)
+    if (loc_num == RHIShader::invalid_uniform)
         return;
 
     const auto& mesh_trsf = mesh_comp.GetDrawTrsf();
@@ -336,7 +336,7 @@ std::shared_ptr<Mesh> Renderer::GetMesh(Path path)
     return Get(meshes_, path, *this);
 }
 
-std::shared_ptr<Shader> Renderer::GetShader(Path path)
+std::shared_ptr<RHIShader> Renderer::GetShader(Path path)
 {
     return Get(shaders_, path);
 }

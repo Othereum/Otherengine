@@ -1,5 +1,5 @@
 #pragma once
-#include "Shader.hpp"
+#include "RHIShader.hpp"
 #include "VertexArray.hpp"
 #include "Window.hpp"
 #include "Interfaces/Camera.hpp"
@@ -130,7 +130,7 @@ public:
      */
     [[nodiscard]] std::shared_ptr<Texture> GetTexture(Path path);
     [[nodiscard]] std::shared_ptr<Mesh> GetMesh(Path path);
-    [[nodiscard]] std::shared_ptr<Shader> GetShader(Path path);
+    [[nodiscard]] std::shared_ptr<RHIShader> GetShader(Path path);
     [[nodiscard]] std::shared_ptr<Material> GetMaterial(Path path);
 
     [[nodiscard]] Window& GetWindow() noexcept
@@ -160,11 +160,11 @@ private:
 
     Window window_;
 
-    Shader sprite_shader_;
+    RHIShader sprite_shader_;
     VertexArray sprite_verts_;
 
     std::unordered_map<Path, std::weak_ptr<Texture>> textures_;
-    std::unordered_map<Path, std::weak_ptr<Shader>> shaders_;
+    std::unordered_map<Path, std::weak_ptr<RHIShader>> shaders_;
     std::unordered_map<Path, std::weak_ptr<Material>> materials_;
     std::unordered_map<Path, std::weak_ptr<Mesh>> meshes_;
 
@@ -182,7 +182,7 @@ private:
 
     struct
     {
-        Shader* shader;
+        RHIShader* shader;
         Material* material;
         Texture* texture;
         Mesh* mesh;
