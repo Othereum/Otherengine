@@ -13,7 +13,8 @@ public:
      * @throw std::ios::failure If failed to open file.
      */
     explicit ArchiveFileReader(const fs::path& filepath)
-        : stream_{ReadFile(filepath, std::ios::binary | std::ios::ate)},
+        : Archive{filepath.u8string()},
+          stream_{ReadFile(filepath, std::ios::binary | std::ios::ate)},
           size_{stream_.tellg()}
     {
         stream_.seekg(0, std::ios::beg);
@@ -22,16 +23,6 @@ public:
     void Serialize(void* data, std::streamsize size) override
     {
         stream_.read(static_cast<char*>(data), size);
-    }
-
-    [[nodiscard]] explicit operator bool() const noexcept override
-    {
-        return stream_.operator bool();
-    }
-
-    [[nodiscard]] bool IsLoading() const noexcept override
-    {
-        return true;
     }
 
     void Seek(std::streampos pos) override
@@ -52,6 +43,16 @@ public:
     [[nodiscard]] std::streamsize Size() override
     {
         return size_;
+    }
+
+    [[nodiscard]] explicit operator bool() const noexcept override
+    {
+        return stream_.operator bool();
+    }
+
+    [[nodiscard]] bool IsLoading() const noexcept override
+    {
+        return true;
     }
 
 private:

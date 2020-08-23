@@ -15,23 +15,14 @@ public:
      * @throw std::filesystem::filesystem_error If the path is invalid.
      */
     explicit ArchiveFileWriter(const fs::path& filepath)
-        : stream_{WriteFile(filepath, std::ofstream::binary)}
+        : Archive{filepath.u8string()},
+          stream_{WriteFile(filepath, std::ofstream::binary)}
     {
     }
 
     void Serialize(void* data, std::streamsize size) override
     {
         stream_.write(static_cast<char*>(data), size);
-    }
-
-    [[nodiscard]] explicit operator bool() const noexcept override
-    {
-        return stream_.operator bool();
-    }
-
-    [[nodiscard]] bool IsLoading() const noexcept override
-    {
-        return false;
     }
 
     void Seek(std::streampos pos) override
@@ -47,6 +38,16 @@ public:
     [[nodiscard]] std::streampos Tell() override
     {
         return stream_.tellp();
+    }
+
+    [[nodiscard]] explicit operator bool() const noexcept override
+    {
+        return stream_.operator bool();
+    }
+
+    [[nodiscard]] bool IsLoading() const noexcept override
+    {
+        return false;
     }
 
 private:

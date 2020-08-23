@@ -37,6 +37,11 @@ class Archive
 public:
     INTERFACE_BODY(Archive);
 
+    explicit Archive(std::u8string name)
+        : name_{std::move(name)}
+    {
+    }
+
     virtual void Serialize(void* data, std::streamsize size) = 0;
 
     Archive& operator<<(ISerializable& obj)
@@ -73,18 +78,6 @@ public:
         return Json::parse(raw.get(), raw.get() + len, nullptr, true, true);
     }
 
-    /**
-     * Checks whether the archive has no errors.
-     * @return `true` if the archive has no errors, `false` otherwise.
-     */
-    [[nodiscard]] virtual explicit operator bool() const noexcept = 0;
-
-    /**
-     * Checks whether the archive is for loading data.
-     * @return `true` if the archive is for loading data, `false` otherwise.
-     */
-    [[nodiscard]] virtual bool IsLoading() const noexcept = 0;
-
     virtual void Seek(std::streampos pos) = 0;
     virtual void Seek(std::streamoff off, std::ios::seekdir dir) = 0;
 
@@ -98,6 +91,26 @@ public:
         Seek(pos);
         return size;
     }
+
+    /**
+     * Checks whether the archive has no errors.
+     * @return `true` if the archive has no errors, `false` otherwise.
+     */
+    [[nodiscard]] virtual explicit operator bool() const noexcept = 0;
+
+    /**
+     * Checks whether the archive is for loading data.
+     * @return `true` if the archive is for loading data, `false` otherwise.
+     */
+    [[nodiscard]] virtual bool IsLoading() const noexcept = 0;
+
+    [[nodiscard]] const std::u8string& GetName() const noexcept
+    {
+        return name_;
+    }
+
+protected:
+    std::u8string name_;
 };
 }
 }
