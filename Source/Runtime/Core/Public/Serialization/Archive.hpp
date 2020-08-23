@@ -1,7 +1,9 @@
 #pragma once
 #include "Serializable.hpp"
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 template <class T>
 concept Trivial = std::is_trivial_v<T>;
@@ -97,4 +99,5 @@ public:
         return size;
     }
 };
+}
 }
