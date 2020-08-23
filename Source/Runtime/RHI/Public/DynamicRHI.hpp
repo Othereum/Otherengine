@@ -6,7 +6,7 @@ namespace oeng
 inline namespace rhi
 {
 class RHIResource;
-class Shader;
+class RHIShader;
 struct Vertex;
 
 class RHI_API DynamicRHI
@@ -19,7 +19,7 @@ public:
     [[nodiscard]] virtual RHIResource* CreateMesh(std::span<const Vertex> vertices,
                                                   std::span<const Vec3u16> indices) const = 0;
 
-    [[nodiscard]] virtual Shader* CreateShader(const char* vertex_shader, const char* frag_shader) const = 0;
+    [[nodiscard]] virtual RHIShader* CreateShader(const char* vertex_shader, const char* frag_shader) const = 0;
 };
 }
 }
