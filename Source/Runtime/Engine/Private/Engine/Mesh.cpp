@@ -1,6 +1,7 @@
 #include "Engine/Mesh.hpp"
 #include "AssetManager.hpp"
 #include "DynamicRHI.hpp"
+#include "RHIResource.hpp"
 #include "Vertex.hpp"
 
 namespace oeng
@@ -21,6 +22,11 @@ void Mesh::Serialize(Archive& ar)
     for (const auto& v : vertices)
         max = Max(max, v.pos.DistSqr(Vec3::zero));
     radius_ = std::sqrt(max);
+}
+
+void Mesh::Activate() const noexcept
+{
+    rhi_->Activate();
 }
 }
 }
