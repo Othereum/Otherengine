@@ -149,7 +149,7 @@ static void GlUniform(int l, int v) noexcept
 
 static constexpr int kInvalidUniform = -1;
 
-bool OpenGLShader::SetParam(Name name, const Param& value)
+bool OpenGLShader::SetParam(Name name, const ShaderParam& value)
 {
     SCOPE_COUNTER(SetUniform);
 
@@ -157,24 +157,8 @@ bool OpenGLShader::SetParam(Name name, const Param& value)
     if (location == kInvalidUniform)
         return false;
 
-    const auto cache = uniform_cache_.find(location);
-    if (cache != uniform_cache_.end())
-    {
-        auto equals = []<class T1, class T2>(const T1& a, const T2& b)
-        {
-            if constexpr (!std::is_same_v<T1, T2>)
-            {
-                return false;
-            }
-            else
-            {
-                return IsNearlyEqual(a, b);
-            }
-        };
-
-        if (std::visit(equals, cache->second, value))
-            return true;
-    }
+    if (IsRedundant(name, value))
+        return true;
 
     std::visit([&](const auto& v)
     {
@@ -185,8 +169,16 @@ bool OpenGLShader::SetParam(Name name, const Param& value)
     if (glGetError() != GL_NO_ERROR)
         return false;
 
-    uniform_cache_.insert_or_assign(cache, location, value);
+    UpdateCache(name, value);
     return true;
+}
+
+bool OpenGLShader::IsValidParam(Name name) const noexcept
+{
+    if (loc_cache_.contains(name))
+        return true;
+
+    return kInvalidUniform != glGetUniformLocation(*shader_program_, AsString(name->c_str()));
 }
 
 int OpenGLShader::GetUniformLocation(Name name)
@@ -195,9 +187,8 @@ int OpenGLShader::GetUniformLocation(Name name)
         return found->second;
 
     const auto loc = glGetUniformLocation(*shader_program_, AsString(name->c_str()));
-
-    if (loc != -1)
-        loc_cache_.try_emplace(name, loc);
+    if (loc != kInvalidUniform)
+        loc_cache_.emplace(name, loc);
 
     return loc;
 }

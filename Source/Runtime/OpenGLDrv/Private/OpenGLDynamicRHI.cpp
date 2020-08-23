@@ -17,7 +17,7 @@ RHIResource* OpenGLDynamicRHI::CreateMesh(std::span<const Vertex> vertices, std:
     return new OpenGLMesh{vertices, indices};
 }
 
-Shader* OpenGLDynamicRHI::CreateShader(const char* vertex_shader, const char* frag_shader) const
+RHIShader* OpenGLDynamicRHI::CreateShader(const char* vertex_shader, const char* frag_shader) const
 {
     return new OpenGLShader{vertex_shader, frag_shader};
 }

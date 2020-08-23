@@ -12,7 +12,7 @@ public:
     [[nodiscard]] RHIResource* CreateMesh(std::span<const Vertex> vertices,
                                           std::span<const Vec3u16> indices) const override;
 
-    [[nodiscard]] Shader* CreateShader(const char* vertex_shader, const char* frag_shader) const override;
+    [[nodiscard]] RHIShader* CreateShader(const char* vertex_shader, const char* frag_shader) const override;
 };
 }
 }

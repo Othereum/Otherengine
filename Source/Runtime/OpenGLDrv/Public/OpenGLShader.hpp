@@ -1,5 +1,5 @@
 #pragma once
-#include "Shader.hpp"
+#include "RHIShader.hpp"
 
 namespace oeng
 {
@@ -18,12 +18,13 @@ struct ProgramDeleter
 using ShaderHandle = Resource<unsigned, ShaderDeleter>;
 using ProgramHandle = Resource<unsigned, ProgramDeleter>;
 
-class OPENGLDRV_API OpenGLShader : public Shader
+class OPENGLDRV_API OpenGLShader : public RHIShader
 {
 public:
     OpenGLShader(const char* vertex_shader, const char* frag_shader);
     void Activate() const noexcept override;
-    bool SetParam(Name name, const Param& value) override;
+    bool SetParam(Name name, const ShaderParam& value) override;
+    bool IsValidParam(Name name) const noexcept override;
 
 private:
     [[nodiscard]] int GetUniformLocation(Name name);
@@ -32,7 +33,6 @@ private:
     ShaderHandle frag_shader_;
     ProgramHandle shader_program_;
     std::unordered_map<Name, int> loc_cache_;
-    std::unordered_map<int, Param> uniform_cache_;
 };
 }
 }
