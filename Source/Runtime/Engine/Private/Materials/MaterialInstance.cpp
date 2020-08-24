@@ -1,9 +1,10 @@
-#include "Engine/Material.hpp"
-#include "RHIShader.hpp"
+#include "Materials/MaterialInstance.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-void Material::Serialize(Archive& ar)
+inline namespace engine
+{
+void MaterialInstance::Serialize(Archive& ar)
 {
     const auto json = ar.ReadAllAsJson();
 
@@ -31,11 +32,12 @@ void Material::Serialize(Archive& ar)
     }
 }
 
-void Material::ApplyDefaultParams()
+void MaterialInstance::ApplyDefaultParams()
 {
     for (const auto& [name, param] : params_)
     {
         shader_->SetParam(name, param);
     }
+}
 }
 }
