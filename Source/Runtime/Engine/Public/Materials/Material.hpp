@@ -1,4 +1,5 @@
 #pragma once
+#include "MaterialInterface.hpp"
 #include "ShaderParam.hpp"
 
 namespace oeng
@@ -8,17 +9,12 @@ inline namespace rhi
 class RHIResource;
 class RHIShader;
 }
-}
 
-namespace oeng
-{
 inline namespace engine
 {
-class ENGINE_API Material : public ISerializable
+class ENGINE_API Material : public MaterialInterface
 {
 public:
-    void Serialize(Archive& ar) override;
-    void ApplyDefaultParams();
 
 private:
     std::shared_ptr<RHIShader> shader_;
