@@ -6,20 +6,19 @@ namespace oeng
 {
 inline namespace rhi
 {
-class RHIResource;
 class RHIShader;
 }
 
 inline namespace engine
 {
-class ENGINE_API Material : public MaterialInterface
+class ENGINE_API Material : public MaterialInterface, public ISerializable
 {
 public:
+    void Serialize(Archive& ar) override;
 
 private:
     std::shared_ptr<RHIShader> shader_;
-    std::shared_ptr<RHIResource> texture_;
-    std::unordered_map<Name, ShaderParam> params_;
+    std::unordered_map<Name, ShaderParam> defaults_;
 };
 }
 }
