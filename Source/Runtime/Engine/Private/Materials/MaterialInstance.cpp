@@ -1,4 +1,6 @@
 #include "Materials/MaterialInstance.hpp"
+#include "AssetManager.hpp"
+#include "Materials/Material.hpp"
 
 namespace oeng
 {
@@ -10,6 +12,7 @@ void MaterialInstance::Serialize(Archive& ar)
 
     // TODO: engine::Shader 클래스 정의
     // TODO: AssetManager::Load<Shader>(...)
+    AssetManager::Get().Load<Material>(json.);
 
     params_.clear();
     for (const auto& [name_str, param] : json.items())

@@ -4,10 +4,10 @@ namespace oeng
 {
 inline namespace rhi
 {
-class RHIResource
+class RHITexture
 {
 public:
-    INTERFACE_BODY(RHIResource);
+    INTERFACE_BODY(RHITexture);
     virtual void Activate() const noexcept = 0;
 };
 }

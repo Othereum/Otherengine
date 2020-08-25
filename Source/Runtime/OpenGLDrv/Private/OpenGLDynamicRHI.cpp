@@ -7,12 +7,12 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-RHIResource* OpenGLDynamicRHI::CreateTexture(Vec2i size, int channels, const void* pixels) const
+RHITexture* OpenGLDynamicRHI::CreateTexture(Vec2i size, int channels, const unsigned char* pixels) const
 {
     return new OpenGLTexture{size, channels, pixels};
 }
 
-RHIResource* OpenGLDynamicRHI::CreateMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices) const
+RHIMesh* OpenGLDynamicRHI::CreateMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices) const
 {
     return new OpenGLMesh{vertices, indices};
 }

@@ -30,7 +30,7 @@ public:
      * Set parameter value of this shader with given name.
      * @param name The name of the parameter.
      * @param value The new value to be set.
-     * @return True if successful.
+     * @return `true` if successful.
      */
     virtual bool SetParam(Name name, const ShaderParam& value) = 0;
 

@@ -4,7 +4,7 @@ namespace oeng
 {
 inline namespace rhi
 {
-class RHIResource;
+class RHITexture;
 }
 }
 
@@ -28,7 +28,7 @@ public:
 
 private:
     Vec2i size_;
-    std::unique_ptr<RHIResource> rhi_;
+    std::unique_ptr<RHITexture> rhi_;
 };
 }
 }

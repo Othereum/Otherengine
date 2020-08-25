@@ -1,6 +1,5 @@
 #pragma once
 #include "MaterialInterface.hpp"
-#include "ShaderParam.hpp"
 
 namespace oeng
 {
@@ -17,8 +16,7 @@ public:
     void Serialize(Archive& ar) override;
 
 private:
-    std::shared_ptr<RHIShader> shader_;
-    std::unordered_map<Name, ShaderParam> defaults_;
+    std::unique_ptr<RHIShader> shader_;
 };
 }
 }

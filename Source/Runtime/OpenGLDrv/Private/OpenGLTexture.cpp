@@ -5,7 +5,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-OpenGLTexture::OpenGLTexture(Vec2i size, int channels, const void* pixels)
+OpenGLTexture::OpenGLTexture(Vec2i size, int channels, const unsigned char* pixels)
 {
     int img_format;
     int alignment;

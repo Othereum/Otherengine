@@ -1,5 +1,5 @@
 #pragma once
-#include "RHIResource.hpp"
+#include "RHIMesh.hpp"
 #include <span>
 
 namespace oeng
@@ -14,7 +14,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-class OPENGLDRV_API OpenGLMesh : public RHIResource
+class OPENGLDRV_API OpenGLMesh : public RHIMesh
 {
 public:
     DELETE_CPMV(OpenGLMesh);
