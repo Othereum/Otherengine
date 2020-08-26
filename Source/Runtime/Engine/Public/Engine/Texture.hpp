@@ -15,10 +15,6 @@ inline namespace engine
 class ENGINE_API Texture : public ISerializable
 {
 public:
-    /**
-     * Load texture from archive.
-     * Only loading is supported.
-     */
     void Serialize(Archive& ar) override;
 
     [[nodiscard]] Vec2i Size() const noexcept

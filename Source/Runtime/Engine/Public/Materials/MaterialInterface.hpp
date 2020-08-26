@@ -15,7 +15,10 @@ public:
     virtual void Activate() const = 0;
 
 protected:
-    std::unordered_map<Name, float> params_;
+    void LoadParams(const Json& json);
+
+    std::unordered_map<Name, Float> scalars_;
+    std::unordered_map<Name, Vec4> vectors_;
     std::unordered_map<Name, std::shared_ptr<Texture>> textures_;
 };
 }

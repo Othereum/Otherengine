@@ -13,7 +13,7 @@ public:
     void Serialize(Archive& ar) override;
 
 private:
-    std::shared_ptr<Material> material_;
+    std::shared_ptr<MaterialInterface> parent_;
 };
 }
 }
