@@ -73,17 +73,17 @@ auto Find(const Set& set, std::u8string_view s)
 struct CORE_API Name
 {
     Name() noexcept
-        : sp{&*Set()->find(std::u8string{})}
+        : sp_{&*Set()->find(std::u8string{})}
     {
     }
 
     Name(std::u8string&& s)
-        : sp{&*Set()->insert(std::move(s)).first}
+        : sp_{&*Set()->insert(std::move(s)).first}
     {
     }
 
     Name(const std::u8string& s)
-        : sp{&*Set()->insert(s).first}
+        : sp_{&*Set()->insert(s).first}
     {
     }
 
@@ -93,57 +93,57 @@ struct CORE_API Name
         auto found = Find(*set, s);
         if (found == set->end())
             found = set->emplace(s).first;
-        sp = &*found;
+        sp_ = &*found;
     }
 
     operator const std::u8string&() const noexcept
     {
-        return *sp;
+        return *sp_;
     }
 
     const std::u8string& operator*() const noexcept
     {
-        return *sp;
+        return *sp_;
     }
 
     const std::u8string* operator->() const noexcept
     {
-        return sp;
+        return sp_;
     }
 
     bool operator==(const Name& r) const noexcept
     {
-        return sp == r.sp;
+        return sp_ == r.sp_;
     }
 
     bool operator!=(const Name& r) const noexcept
     {
-        return sp != r.sp;
+        return sp_ != r.sp_;
     }
 
     bool operator<(const Name& r) const noexcept
     {
-        return sp < r.sp;
+        return sp_ < r.sp_;
     }
 
     bool operator>(const Name& r) const noexcept
     {
-        return sp > r.sp;
+        return sp_ > r.sp_;
     }
 
     bool operator<=(const Name& r) const noexcept
     {
-        return sp <= r.sp;
+        return sp_ <= r.sp_;
     }
 
     bool operator>=(const Name& r) const noexcept
     {
-        return sp >= r.sp;
+        return sp_ >= r.sp_;
     }
 
 private:
     [[nodiscard]] static NameSet& Set() noexcept;
-    const std::u8string* sp;
+    const std::u8string* sp_;
 };
 
 CORE_API void to_json(Json& json, const Name& name);
