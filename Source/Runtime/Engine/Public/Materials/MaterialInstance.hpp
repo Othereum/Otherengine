@@ -10,7 +10,7 @@ class Material;
 class ENGINE_API MaterialInstance : public MaterialInterface, public ISerializable
 {
 public:
-    void Serialize(Archive& ar) override;
+    void Serialize(Archive& ar) override final;
 
 private:
     std::shared_ptr<MaterialInterface> parent_;
