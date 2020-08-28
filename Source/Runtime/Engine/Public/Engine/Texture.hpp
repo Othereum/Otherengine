@@ -6,10 +6,7 @@ inline namespace rhi
 {
 class RHITexture;
 }
-}
 
-namespace oeng
-{
 inline namespace engine
 {
 class ENGINE_API Texture : public ISerializable

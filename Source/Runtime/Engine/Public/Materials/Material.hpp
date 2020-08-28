@@ -13,7 +13,7 @@ inline namespace engine
 class ENGINE_API Material : public MaterialInterface, public ISerializable
 {
 public:
-    void Serialize(Archive& ar) override;
+    void Serialize(Archive& ar) override final;
 
 private:
     std::unique_ptr<RHIShader> shader_;
