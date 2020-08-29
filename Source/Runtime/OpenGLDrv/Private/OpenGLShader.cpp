@@ -46,125 +46,84 @@ static void CheckProgram(unsigned program)
 }
 
 OpenGLShader::OpenGLShader(const char* vertex_shader, const char* frag_shader)
-    : vertex_shader_{Compile(vertex_shader, GL_VERTEX_SHADER)},
-      frag_shader_{Compile(frag_shader, GL_FRAGMENT_SHADER)},
-      shader_program_{glCreateProgram()}
+    : vertex_{Compile(vertex_shader, GL_VERTEX_SHADER)},
+      frag_{Compile(frag_shader, GL_FRAGMENT_SHADER)},
+      program_{glCreateProgram()}
 {
-    glAttachShader(*shader_program_, *vertex_shader_);
-    glAttachShader(*shader_program_, *frag_shader_);
-    glLinkProgram(*shader_program_);
-    CheckProgram(*shader_program_);
-    OpenGLShader::Activate();
+    LinkProgram();
+    Activate();
+    SetupTextureIndices();
 }
 
 void OpenGLShader::Activate() const noexcept
 {
-    glUseProgram(*shader_program_);
+    glUseProgram(*program_);
 }
 
-static void GlUniform(int l, const Matrix<Float, 2, 2>& v) noexcept
+void OpenGLShader::LinkProgram()
 {
-    glUniformMatrix2fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 2, 3>& v) noexcept
-{
-    glUniformMatrix2x3fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 2, 4>& v) noexcept
-{
-    glUniformMatrix2x4fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 3, 2>& v) noexcept
-{
-    glUniformMatrix3x2fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 3, 3>& v) noexcept
-{
-    glUniformMatrix3fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 3, 4>& v) noexcept
-{
-    glUniformMatrix3x4fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 4, 2>& v) noexcept
-{
-    glUniformMatrix4x2fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 4, 3>& v) noexcept
-{
-    glUniformMatrix4x3fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, const Matrix<Float, 4, 4>& v) noexcept
-{
-    glUniformMatrix4fv(l, 1, true, v.AsFlatArr());
-}
-
-static void GlUniform(int l, Vec2 v) noexcept
-{
-    glUniform2f(l, v[0], v[1]);
-}
-
-static void GlUniform(int l, Vec3 v) noexcept
-{
-    glUniform3f(l, v[0], v[1], v[2]);
-}
-
-static void GlUniform(int l, Vec4 v) noexcept
-{
-    glUniform4f(l, v[0], v[1], v[2], v[3]);
-}
-
-static void GlUniform(int l, Vector<int, 2> v) noexcept
-{
-    glUniform2i(l, v[0], v[1]);
-}
-
-static void GlUniform(int l, Vector<int, 3> v) noexcept
-{
-    glUniform3i(l, v[0], v[1], v[2]);
-}
-
-static void GlUniform(int l, Vector<int, 4> v) noexcept
-{
-    glUniform4i(l, v[0], v[1], v[2], v[3]);
-}
-
-static void GlUniform(int l, float v) noexcept
-{
-    glUniform1f(l, v);
-}
-
-static void GlUniform(int l, int v) noexcept
-{
-    glUniform1i(l, v);
+    glAttachShader(*program_, *program_);
+    glAttachShader(*program_, *frag_);
+    glLinkProgram(*program_);
+    CheckProgram(*program_);
 }
 
 static constexpr int kInvalidUniform = -1;
 
-bool OpenGLShader::SetParam(Name name, const ShaderParam& value)
+void OpenGLShader::SetupTextureIndices()
+{
+    int count;
+    glGetProgramiv(*program_, GL_ACTIVE_UNIFORMS, &count);
+
+    int name_buf_size;
+    glGetProgramiv(*program_, GL_ACTIVE_UNIFORM_MAX_LENGTH, &name_buf_size);
+    const std::unique_ptr<char8_t[]> name_ptr{new char8_t[name_buf_size]};
+
+    for (auto uniform = 0, tex = 0; uniform < count; ++uniform)
+    {
+        int name_len, size;
+        unsigned type;
+        glGetActiveUniform(*program_, uniform, name_buf_size, &name_len, &size, &type, AsString(name_ptr.get()));
+
+        const auto loc = glGetUniformLocation(*program_, AsString(name_ptr.get()));
+        assert(loc != kInvalidUniform);
+
+        const std::u8string_view name{name_ptr.get(), size_t(name_len)};
+
+        switch (type)
+        {
+        case GL_FLOAT:
+            scalar_loc_.emplace(name, loc);
+            break;
+
+        case GL_FLOAT_VEC4:
+            vector_loc_.emplace(name, loc);
+            break;
+
+        case GL_SAMPLER_2D:
+            glUniform1i(loc, tex);
+            texture_idx_.emplace(name, tex);
+            ++tex;
+            break;
+
+        default: ;
+        }
+    }
+}
+
+template <class T, class Fn>
+bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache, Fn fn)
 {
     SCOPE_COUNTER(SetUniform);
 
-    const auto location = GetUniformLocation(name);
-    if (location == kInvalidUniform)
+    const auto loc = loc_cache.find(name);
+    if (loc == loc_cache.end())
         return false;
 
     if (IsRedundant(name, value))
         return true;
 
-    std::visit([&](const auto& v)
-    {
-        SCOPE_COUNTER(RealSetUniform);
-        return GlUniform(location, v);
-    }, value);
+    fn(loc->second, value);
 
     if (glGetError() != GL_NO_ERROR)
         return false;
@@ -173,24 +132,32 @@ bool OpenGLShader::SetParam(Name name, const ShaderParam& value)
     return true;
 }
 
-bool OpenGLShader::IsValidParam(Name name) const noexcept
+bool OpenGLShader::ApplyParam(Name name, Float value)
 {
-    if (loc_cache_.contains(name))
-        return true;
-
-    return kInvalidUniform != glGetUniformLocation(*shader_program_, AsString(name->c_str()));
+    return ApplyParam(name, value, scalar_loc_, glUniform1f);
 }
 
-int OpenGLShader::GetUniformLocation(Name name)
+bool OpenGLShader::ApplyParam(Name name, const Vec4& value)
 {
-    if (const auto found = loc_cache_.find(name); found != loc_cache_.end())
-        return found->second;
+    return ApplyParam(name, value, vector_loc_, [](int location, const Vec4& val)
+    {
+        glUniform4fv(location, 1, val.data);
+    });
+}
 
-    const auto loc = glGetUniformLocation(*shader_program_, AsString(name->c_str()));
-    if (loc != kInvalidUniform)
-        loc_cache_.emplace(name, loc);
+bool OpenGLShader::IsScalarParam(Name name) const
+{
+    return scalar_loc_.contains(name);
+}
 
-    return loc;
+bool OpenGLShader::IsVectorParam(Name name) const
+{
+    return vector_loc_.contains(name);
+}
+
+bool OpenGLShader::IsTextureParam(Name name) const
+{
+    return texture_idx_.contains(name);
 }
 
 void ShaderDeleter::operator()(unsigned id) const noexcept
