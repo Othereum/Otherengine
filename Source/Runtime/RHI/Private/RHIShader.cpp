@@ -4,27 +4,30 @@ namespace oeng
 {
 inline namespace rhi
 {
-bool RHIShader::IsRedundant(Name name, const ShaderParam& value) const noexcept
+void RHIShader::UpdateCache(Name name, Float value)
 {
-    const auto cache = param_cache_.find(name);
-    if (cache == param_cache_.end())
-        return false;
-
-    auto equals = []<class T1, class T2>(const T1& a, const T2& b)
-    {
-        if constexpr (!std::is_same_v<T1, T2>)
-            return false;
-
-        else
-            return IsNearlyEqual(a, b);
-    };
-
-    return std::visit(equals, cache->second, value);
+    scalar_cache_.insert_or_assign(name, value);
 }
 
-void RHIShader::UpdateCache(Name name, const ShaderParam& value)
+void RHIShader::UpdateCache(Name name, const Vec4& value)
 {
-    param_cache_.insert_or_assign(name, value);
+    scalar_cache_.insert_or_assign(name, value);
+}
+
+bool RHIShader::IsRedundant(Name name, Float value) const noexcept
+{
+    if (const auto it = scalar_cache_.find(name); it != scalar_cache_.end())
+        return IsNearlyEqual(value, it->second);
+
+    return false;
+}
+
+bool RHIShader::IsRedundant(Name name, const Vec4& value) const noexcept
+{
+    if (const auto it = vector_cache_.find(name); it != vector_cache_.end())
+        return IsNearlyEqual(value, it->second);
+
+    return false;
 }
 }
 }
