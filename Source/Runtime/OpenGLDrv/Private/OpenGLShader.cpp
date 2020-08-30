@@ -52,7 +52,7 @@ OpenGLShader::OpenGLShader(const char* vertex_shader, const char* frag_shader)
 {
     LinkProgram();
     Activate();
-    SetupTextureIndices();
+    Init();
 }
 
 void OpenGLShader::Activate() const noexcept
@@ -70,7 +70,7 @@ void OpenGLShader::LinkProgram()
 
 static constexpr int kInvalidUniform = -1;
 
-void OpenGLShader::SetupTextureIndices()
+void OpenGLShader::Init()
 {
     int count;
     glGetProgramiv(*program_, GL_ACTIVE_UNIFORMS, &count);
@@ -114,8 +114,6 @@ void OpenGLShader::SetupTextureIndices()
 template <class T, class Fn>
 bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache, Fn fn)
 {
-    SCOPE_COUNTER(SetUniform);
-
     const auto loc = loc_cache.find(name);
     if (loc == loc_cache.end())
         return false;

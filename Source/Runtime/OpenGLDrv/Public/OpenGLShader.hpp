@@ -35,7 +35,7 @@ public:
 
 private:
     void LinkProgram();
-    void SetupTextureIndices();
+    void Init();
 
     template <class T, class Fn>
     bool ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache, Fn fn);
