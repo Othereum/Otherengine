@@ -11,7 +11,7 @@ void RHIShader::UpdateCache(Name name, Float value)
 
 void RHIShader::UpdateCache(Name name, const Vec4& value)
 {
-    scalar_cache_.insert_or_assign(name, value);
+    vector_cache_.insert_or_assign(name, value);
 }
 
 bool RHIShader::IsRedundant(Name name, Float value) const noexcept
