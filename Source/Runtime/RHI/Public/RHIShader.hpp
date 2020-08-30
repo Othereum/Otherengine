@@ -41,12 +41,15 @@ public:
 protected:
     void UpdateCache(Name name, Float value);
     void UpdateCache(Name name, const Vec4& value);
+    void UpdateCache(Name name, const RHITexture& value);
     [[nodiscard]] bool IsRedundant(Name name, Float value) const noexcept;
     [[nodiscard]] bool IsRedundant(Name name, const Vec4& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, const RHITexture& value) const noexcept;
 
 private:
     std::unordered_map<Name, Float> scalar_cache_;
     std::unordered_map<Name, Vec4> vector_cache_;
+    std::unordered_map<Name, const RHITexture*> texture_cache_;
 };
 }
 }
