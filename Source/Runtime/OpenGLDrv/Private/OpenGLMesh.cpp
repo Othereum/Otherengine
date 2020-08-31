@@ -9,7 +9,7 @@ inline namespace opengldrv
 OpenGLMesh::OpenGLMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices)
 {
     glGenVertexArrays(1, &vertex_array_);
-    OpenGLMesh::Activate();
+    Activate();
 
     glGenBuffers(1, &vertex_buffer_);
     glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer_);

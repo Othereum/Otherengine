@@ -14,7 +14,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-class OPENGLDRV_API OpenGLMesh : public RHIMesh
+class OPENGLDRV_API OpenGLMesh final : public RHIMesh
 {
 public:
     DELETE_CPMV(OpenGLMesh);

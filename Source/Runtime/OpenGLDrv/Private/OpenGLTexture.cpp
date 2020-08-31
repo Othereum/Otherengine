@@ -31,7 +31,7 @@ OpenGLTexture::OpenGLTexture(Vec2i size, int channels, const unsigned char* pixe
     }
 
     glGenTextures(1, &id_);
-    OpenGLTexture::Activate();
+    Activate();
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, alignment);
     glTexImage2D(GL_TEXTURE_2D, 0, img_format, size[0], size[1], 0, img_format, GL_UNSIGNED_BYTE, pixels);

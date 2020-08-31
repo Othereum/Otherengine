@@ -5,7 +5,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-class OPENGLDRV_API OpenGLDynamicRHI : public DynamicRHI
+class OPENGLDRV_API OpenGLDynamicRHI final : public DynamicRHI
 {
 public:
     [[nodiscard]] RHITexture* CreateTexture(Vec2i size, int channels, const unsigned char* pixels) const override;

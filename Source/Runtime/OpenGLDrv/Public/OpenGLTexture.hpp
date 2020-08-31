@@ -5,7 +5,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-class OPENGLDRV_API OpenGLTexture : public RHITexture
+class OPENGLDRV_API OpenGLTexture final : public RHITexture
 {
 public:
     DELETE_CPMV(OpenGLTexture);
