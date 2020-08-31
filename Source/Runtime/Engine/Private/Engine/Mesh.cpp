@@ -1,8 +1,9 @@
 #include "Engine/Mesh.hpp"
 #include "AssetManager.hpp"
 #include "DynamicRHI.hpp"
-#include "RHIResource.hpp"
+#include "RHIMesh.hpp"
 #include "Vertex.hpp"
+#include "Materials/MaterialInterface.hpp"
 
 namespace oeng
 {

@@ -4,7 +4,7 @@ namespace oeng
 {
 inline namespace rhi
 {
-class RHIResource;
+class RHIMesh;
 }
 }
 
@@ -14,8 +14,10 @@ inline namespace engine
 {
 class MaterialInterface;
 
-class ENGINE_API Mesh : public ISerializable
+class ENGINE_API Mesh final : public Object
 {
+CLASS_BODY(Mesh)
+
 public:
     void Serialize(Archive& ar) override;
 
@@ -28,7 +30,7 @@ public:
 
 private:
     std::shared_ptr<MaterialInterface> material_;
-    std::unique_ptr<RHIResource> rhi_;
+    std::unique_ptr<RHIMesh> rhi_;
     Float radius_ = 0;
 };
 }

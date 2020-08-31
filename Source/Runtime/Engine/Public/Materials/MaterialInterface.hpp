@@ -6,11 +6,9 @@ inline namespace engine
 {
 class Texture;
 
-class MaterialInterface
+class MaterialInterface : public Object
 {
 public:
-    INTERFACE_BODY(MaterialInterface);
-
     // For internal use only
     virtual void Activate() const = 0;
 
