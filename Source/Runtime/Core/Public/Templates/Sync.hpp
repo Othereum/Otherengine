@@ -178,53 +178,51 @@ using CondAtomic = std::conditional_t<ThreadSafe, std::atomic<T>, NullAtomic<T>>
 template <class T, class Mutex = std::mutex>
 class Monitor
 {
+public:
     struct Handle
     {
         explicit Handle(Monitor& set)
-            : object{set.storage_.second()}, lock{set.storage_.first()}
+            : object_{set.storage_.second()}, lock_{set.storage_.first()}
         {
         }
 
         T* operator->() const noexcept
         {
-            return &object;
+            return &object_;
         }
 
         T& operator*() const noexcept
         {
-            return object;
+            return object_;
         }
 
     private:
-        T& object;
-        std::lock_guard<Mutex> lock;
+        T& object_;
+        std::unique_lock<Mutex> lock_;
     };
 
     struct ConstHandle
     {
         explicit ConstHandle(const Monitor& set)
-            : object{storage_.second()}, lock{storage_.first()}
+            : object_{storage_.second()}, lock_{storage_.first()}
         {
         }
 
         const T* operator->() const noexcept
         {
-            return &object;
+            return &object_;
         }
 
         const T& operator*() const noexcept
         {
-            return object;
+            return object_;
         }
 
     private:
-        const T& object;
-        std::lock_guard<Mutex> lock;
+        const T& object_;
+        std::unique_lock<Mutex> lock_;
     };
 
-    CompPair<Mutex, T> storage_;
-
-public:
     template <class... Args>
     explicit(sizeof...(Args) == 1)
     Monitor(Args&&... args)
@@ -271,6 +269,9 @@ public:
     {
         return storage_.second();
     }
+
+private:
+    CompPair<Mutex, T> storage_;
 };
 
 template <class T, bool ThreadSafe>
