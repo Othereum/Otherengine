@@ -7,8 +7,8 @@ namespace oeng::core
 using namespace std::literals;
 
 /**
- * Compares two strings case-insensitively
- * @return True if two strings are equivalent
+ * Compares two strings case-insensitively.
+ * @return `true` if two strings are equivalent.
  */
 template <class T>
 [[nodiscard]] constexpr bool StrEqCi(std::basic_string_view<T> a, std::basic_string_view<T> b) noexcept
@@ -21,6 +21,10 @@ template <class T>
     return true;
 }
 
+/**
+ * Compares two strings case-insensitively.
+ * @return `true` if two strings are equivalent.
+ */
 template <class T, class Tr, class Al1, class Al2>
 [[nodiscard]] constexpr bool StrEqCi(const std::basic_string<T, Tr, Al1>& a,
                                      const std::basic_string<T, Tr, Al2>& b) noexcept
@@ -28,6 +32,10 @@ template <class T, class Tr, class Al1, class Al2>
     return StrEqCi(std::basic_string_view<T>{a}, std::basic_string_view<T>{b});
 }
 
+/**
+ * Compares two strings case-insensitively.
+ * @return `true` if two strings are equivalent.
+ */
 template <class T>
 [[nodiscard]] constexpr bool StrEqCi(const T* a, const T* b) noexcept
 {
