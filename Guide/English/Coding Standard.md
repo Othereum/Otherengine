@@ -10,3 +10,7 @@ The C-style API uses a null-terminated string. However, sometimes a length inclu
 * Length excluding null characters should be called **string length**.
 
 All APIs in `std::basic_string` use length excluding null characters.
+
+## null safety
+
+A function that returns a pointer should not normally return `nullptr`. Instead, return a null object or throw an exception.
