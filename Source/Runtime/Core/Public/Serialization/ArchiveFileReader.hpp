@@ -2,9 +2,11 @@
 #include "Archive.hpp"
 #include "File.hpp"
 
-namespace oeng::core
+namespace oeng
 {
-class CORE_API ArchiveFileReader : public Archive
+inline namespace core
+{
+class CORE_API ArchiveFileReader final : public Archive
 {
 public:
     /**
@@ -15,32 +17,32 @@ public:
     explicit ArchiveFileReader(const fs::path& filepath)
         : Archive{filepath.u8string()},
           stream_{ReadFile(filepath, std::ios::binary | std::ios::ate)},
-          size_{stream_.tellg()}
+          size_{SafeCast<size_t>(static_cast<std::streamoff>(stream_.tellg()))}
     {
         stream_.seekg(0, std::ios::beg);
     }
 
-    void Serialize(void* data, std::streamsize size) override
+    void Serialize(void* bytes, size_t num_bytes) override
     {
-        stream_.read(static_cast<char*>(data), size);
+        stream_.read(static_cast<char8_t*>(bytes), SafeCast<std::streamsize>(num_bytes));
     }
 
-    void Seek(std::streampos pos) override
+    void Seek(size_t pos) override
     {
-        stream_.seekg(pos);
+        stream_.seekg(SafeCast<std::streamoff>(pos));
     }
 
-    void Seek(std::streamoff off, std::ios::seekdir dir) override
+    void Seek(intptr_t off, std::ios::seekdir dir) override
     {
-        stream_.seekg(off, dir);
+        stream_.seekg(SafeCast<std::streamoff>(off), dir);
     }
 
-    [[nodiscard]] std::streampos Tell() override
+    [[nodiscard]] size_t Tell() override
     {
         return stream_.tellg();
     }
 
-    [[nodiscard]] std::streamsize Size() override
+    [[nodiscard]] size_t Size() override
     {
         return size_;
     }
@@ -56,7 +58,8 @@ public:
     }
 
 private:
-    std::ifstream stream_;
-    std::streamsize size_;
+    std::basic_ifstream<char8_t> stream_;
+    size_t size_;
 };
+}
 }
