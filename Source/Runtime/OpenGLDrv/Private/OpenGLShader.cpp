@@ -1,4 +1,5 @@
 #include "OpenGLShader.hpp"
+#include "RHITexture.hpp"
 #include <GL/glew.h>
 
 namespace oeng
@@ -140,6 +141,15 @@ bool OpenGLShader::ApplyParam(Name name, const Vec4& value)
     return ApplyParam(name, value, vector_loc_, [](int location, const Vec4& val)
     {
         glUniform4fv(location, 1, val.data);
+    });
+}
+
+bool OpenGLShader::ApplyParam(Name name, const RHITexture& value)
+{
+    return ApplyParam(name, value, texture_idx_, [](int idx, const RHITexture& val)
+    {
+        glActiveTexture(GL_TEXTURE0 + idx);
+        val.Activate();
     });
 }
 
