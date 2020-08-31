@@ -4,7 +4,7 @@
 
 namespace oeng::core
 {
-class CORE_API ArchiveFileWriter : public Archive
+class CORE_API ArchiveFileWriter final : public Archive
 {
 public:
     /**
@@ -20,24 +20,24 @@ public:
     {
     }
 
-    void Serialize(void* data, std::streamsize size) override
+    void Serialize(void* data, size_t size) override
     {
-        stream_.write(static_cast<char*>(data), size);
+        stream_.write(static_cast<const char8_t*>(data), SafeCast<std::streamsize>(size));
     }
 
-    void Seek(std::streampos pos) override
+    void Seek(size_t pos) override
     {
-        stream_.seekp(pos);
+        stream_.seekp(SafeCast<std::streamoff>(pos));
     }
 
-    void Seek(std::streamoff off, std::ios::seekdir dir) override
+    void Seek(intptr_t off, std::ios::seekdir dir) override
     {
-        stream_.seekp(off, dir);
+        stream_.seekp(SafeCast<std::streamoff>(off), dir);
     }
 
-    [[nodiscard]] std::streampos Tell() override
+    [[nodiscard]] size_t Tell() override
     {
-        return stream_.tellp();
+        return SafeCast<size_t>(static_cast<std::streamoff>(stream_.tellp()));
     }
 
     [[nodiscard]] explicit operator bool() const noexcept override
@@ -51,6 +51,6 @@ public:
     }
 
 private:
-    std::ofstream stream_;
+    std::basic_ofstream<char8_t> stream_;
 };
 }
