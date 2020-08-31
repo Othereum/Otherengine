@@ -12,8 +12,9 @@ struct Vertex;
 
 class RHI_API DynamicRHI
 {
+INTERFACE_BODY(DynamicRHI)
+
 public:
-    INTERFACE_BODY(DynamicRHI);
     [[nodiscard]] static DynamicRHI& Get() noexcept;
 
     [[nodiscard]] virtual RHITexture* CreateTexture(Vec2i size, int channels, const unsigned char* pixels) const = 0;

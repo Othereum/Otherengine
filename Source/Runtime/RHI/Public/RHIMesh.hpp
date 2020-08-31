@@ -6,8 +6,9 @@ inline namespace rhi
 {
 class RHIMesh
 {
+INTERFACE_BODY(RHIMesh);
+
 public:
-    INTERFACE_BODY(RHIMesh);
     virtual void Activate() const noexcept = 0;
 };
 }
