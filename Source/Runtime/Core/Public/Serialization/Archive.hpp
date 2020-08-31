@@ -1,12 +1,12 @@
 #pragma once
-#include "Serializable.hpp"
+#include "Math.hpp"
 
 namespace oeng
 {
 inline namespace core
 {
 template <class T>
-concept Trivial = std::is_trivial_v<T>;
+concept POD = std::is_trivial_v<T> && std::is_standard_layout_v<T>;
 
 class WrongArchiveDirection : public std::exception
 {
@@ -34,19 +34,32 @@ private:
 
 class Archive
 {
-public:
-    INTERFACE_BODY(Archive);
+INTERFACE_BODY(Archive)
 
+public:
     explicit Archive(std::u8string name)
         : name_{std::move(name)}
     {
     }
 
-    virtual void Serialize(void* data, std::streamsize size) = 0;
+    virtual void Serialize(void* bytes, size_t num_bytes) = 0;
 
-    Archive& operator<<(ISerializable& obj)
+    template <POD T>
+    Archive& operator<<(T& data)
     {
-        obj.Serialize(*this);
+        Serialize(&data, sizeof(T));
+        return *this;
+    }
+
+    template <class T, class Tr, class Al>
+    Archive& operator<<(std::basic_string<T, Tr, Al>& str)
+    {
+        auto len = SafeCast<uint32_t>(str.length());
+        *this << len;
+
+        str.resize(len);
+        Serialize(str.data(), len * sizeof(T));
+
         return *this;
     }
 
@@ -57,14 +70,16 @@ public:
      * @return second Number of elements read.
      * @throw WrongArchiveDirection If attempted to call on saving archive.
      */
-    template <Trivial T>
-    [[nodiscard]] std::pair<std::unique_ptr<T[]>, std::streamsize> ReadAll()
+    template <POD T>
+    [[nodiscard]] std::pair<std::unique_ptr<T[]>, size_t> ReadAll()
     {
         if (!IsLoading())
             throw WrongArchiveDirection{false};
 
-        const auto count = (Size() - Tell()) / sizeof(T);
-        if (count <= 0)
+        const auto pos = Tell();
+        const auto size = Size();
+        const auto count = (size - pos) / sizeof(T);
+        if (size <= pos || count == 0)
             return {};
 
         std::unique_ptr<T[]> data{new T[count]};
@@ -78,12 +93,12 @@ public:
         return Json::parse(raw.get(), raw.get() + len, nullptr, true, true);
     }
 
-    virtual void Seek(std::streampos pos) = 0;
-    virtual void Seek(std::streamoff off, std::ios::seekdir dir) = 0;
+    virtual void Seek(size_t pos) = 0;
+    virtual void Seek(intptr_t off, std::ios::seekdir dir) = 0;
 
-    [[nodiscard]] virtual std::streampos Tell() = 0;
+    [[nodiscard]] virtual size_t Tell() = 0;
 
-    [[nodiscard]] virtual std::streamsize Size()
+    [[nodiscard]] virtual size_t Size()
     {
         const auto pos = Tell();
         Seek(0, std::ios::end);
