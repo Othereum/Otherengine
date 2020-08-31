@@ -7,60 +7,77 @@
 
 namespace logcat
 {
-	extern CORE_API const LogCategory kEngine;
+extern CORE_API const LogCategory kEngine;
 }
 
 namespace oeng::engine
 {
-	class Engine;
+class Engine;
 }
 
 namespace oeng::core
 {
-	class EngineBase;
-	
-	class CORE_API RegisterEngineBase
-	{
-		friend EngineBase;
-		DELETE_CPMV(RegisterEngineBase);
-		RegisterEngineBase();
-		~RegisterEngineBase();
-	};
-	
-	class CORE_API EngineBase : RegisterEngineBase
-	{
-	public:
-		DELETE_CPMV(EngineBase);
+class EngineBase;
 
-		[[nodiscard]] static EngineBase& Get() noexcept;
-		[[nodiscard]] static bool Exists() noexcept;
-		
-		[[nodiscard]] auto GetTickCount() const noexcept { return ticks_; }
-		[[nodiscard]] auto GetGameName() const noexcept { return game_name_; }
-		[[nodiscard]] auto& GetGameDll() const noexcept { return game_dll_; }
-		[[nodiscard]] auto& GetLogger() noexcept { return logger_; }
-		[[nodiscard]] auto& GetConfigSystem() noexcept { return config_system_; }
-		
-	protected:
-		uint64_t ticks_;
+class CORE_API RegisterEngineBase
+{
+    friend EngineBase;
+    DELETE_CPMV(RegisterEngineBase);
+    RegisterEngineBase();
+    ~RegisterEngineBase();
+};
 
-	private:
-		friend Name;
-		friend Path;
-		friend engine::Engine;
-		friend CounterManager;
-		friend ScopeCounter;
-		friend ScopeStackCounter;
+class CORE_API EngineBase : RegisterEngineBase
+{
+public:
+    DELETE_CPMV(EngineBase);
 
-		explicit EngineBase(std::u8string game_module_path);
-		~EngineBase() = default;
+    [[nodiscard]] static EngineBase& Get() noexcept;
+    [[nodiscard]] static bool Exists() noexcept;
 
-		Dll game_dll_;
-		std::u8string_view game_name_;
-		Logger logger_;
-		NameSet names_;
-		PathSet paths_;
-		ConfigSystem config_system_;
-		CounterManager counters_;
-	};
+    [[nodiscard]] auto GetTickCount() const noexcept
+    {
+        return ticks_;
+    }
+
+    [[nodiscard]] auto GetGameName() const noexcept
+    {
+        return game_name_;
+    }
+
+    [[nodiscard]] auto& GetGameDll() const noexcept
+    {
+        return game_dll_;
+    }
+
+    [[nodiscard]] auto& GetLogger() noexcept
+    {
+        return logger_;
+    }
+
+    [[nodiscard]] auto& GetConfigSystem() noexcept
+    {
+        return config_system_;
+    }
+
+protected:
+    uint64_t ticks_;
+
+private:
+    friend Path;
+    friend engine::Engine;
+    friend CounterManager;
+    friend ScopeCounter;
+    friend ScopeStackCounter;
+
+    explicit EngineBase(std::u8string game_module_path);
+    ~EngineBase() = default;
+
+    Dll game_dll_;
+    std::u8string_view game_name_;
+    Logger logger_;
+    PathSet paths_;
+    ConfigSystem config_system_;
+    CounterManager counters_;
+};
 }

@@ -58,7 +58,6 @@ EngineBase::EngineBase(std::u8string game_module_path)
     : ticks_{},
       game_dll_{std::move(game_module_path)},
       game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)},
-      names_{std::u8string{}},
       paths_{fs::path{}}
 {
 }
