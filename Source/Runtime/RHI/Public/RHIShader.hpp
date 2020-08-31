@@ -30,10 +30,21 @@ public:
 
     virtual void Activate() const noexcept = 0;
 
+    /**
+     * Apply shader parameter. Shader should be activated.
+     * @param name Parameter name.
+     * @param value New value to be set.
+     * @return `true` if successful.
+     */
     virtual bool ApplyParam(Name name, Float value) = 0;
     virtual bool ApplyParam(Name name, const Vec4& value) = 0;
     virtual bool ApplyParam(Name name, const RHITexture& value) = 0;
 
+    /**
+     * Check if parameter name is valid.
+     * @param name Parameter name to test.
+     * @return `true` if valid.
+     */
     [[nodiscard]] virtual bool IsScalarParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsVectorParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsTextureParam(Name name) const = 0;
