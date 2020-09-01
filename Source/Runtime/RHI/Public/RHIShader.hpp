@@ -25,8 +25,9 @@ class ShaderCompileError : public std::runtime_error
 
 class RHIShader
 {
+INTERFACE_BODY(RHIShader)
+
 public:
-    INTERFACE_BODY(RHIShader);
 
     virtual void Activate() const noexcept = 0;
 
