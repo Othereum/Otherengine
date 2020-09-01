@@ -6,8 +6,9 @@ inline namespace rhi
 {
 class RHITexture
 {
+INTERFACE_BODY(RHITexture)
+
 public:
-    INTERFACE_BODY(RHITexture);
     virtual void Activate() const noexcept = 0;
 };
 }
