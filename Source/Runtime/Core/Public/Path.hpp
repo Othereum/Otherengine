@@ -90,10 +90,10 @@ struct CORE_API Path
         return p >= r.p;
     }
 
-    template <class T = char8_t, class Al = std::allocator<T>>
+    template <class T = char8_t>
     [[nodiscard]] auto Str() const
     {
-        return p->string<T>(Al{});
+        return p->string<T>();
     }
 
     operator std::u8string() const
