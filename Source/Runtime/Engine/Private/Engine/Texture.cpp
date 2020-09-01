@@ -8,7 +8,7 @@ inline namespace engine
 {
 void Texture::from_json(const Json& json)
 {
-    const auto src = json.at("texture").get<std::string>();
+    const auto src = json.at("source").get<std::string>();
     
     int channels;
     const std::unique_ptr<unsigned char[]> pixels{
