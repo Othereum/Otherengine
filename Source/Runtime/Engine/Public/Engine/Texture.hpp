@@ -11,12 +11,19 @@ inline namespace engine
 {
 class ENGINE_API Texture final : public Object
 {
+CLASS_BODY(Texture)
+
 public:
     void from_json(const Json& json) override;
 
     [[nodiscard]] Vec2i Size() const noexcept
     {
         return size_;
+    }
+
+    [[nodiscard]] RHITexture& GetRHI() const noexcept
+    {
+        return *rhi_;
     }
 
 private:
