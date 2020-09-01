@@ -10,10 +10,18 @@ class RHIShader;
 
 inline namespace engine
 {
-class ENGINE_API Material : public MaterialInterface, public ISerializable
+class ENGINE_API Material final : public MaterialInterface
 {
+CLASS_BODY(Material)
+
 public:
-    void Serialize(Archive& ar) override final;
+    void from_json(const Json& json) override;
+    RHIShader& GetRHIShader() const noexcept override;
+
+protected:
+    bool IsScalarParam(Name name) const override;
+    bool IsVectorParam(Name name) const override;
+    bool IsTextureParam(Name name) const override;
 
 private:
     std::unique_ptr<RHIShader> shader_;

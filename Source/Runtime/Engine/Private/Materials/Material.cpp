@@ -1,18 +1,39 @@
 #include "Materials/Material.hpp"
 #include "DynamicRHI.hpp"
+#include "RHIShader.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-void Material::Serialize(Archive& ar)
+void Material::from_json(const Json& json)
 {
-    const auto json = ar.ReadAllAsJson();
-    LoadParams(json.at("param_defaults"s));
+    LoadParams(json.at("param_defaults"));
 
+    const auto& shaders = json.at("shaders");
     shader_.reset(DynamicRHI::Get().CreateShader(
-        ReadFileAsString<char>(json.at("vertex_shader").get<std::string>()).c_str(),
-        ReadFileAsString<char>(json.at("frag_shader").get<std::string>()).c_str()));
+        ReadFileAsString<char>(shaders.at("vertex").get<std::string>()).c_str(),
+        ReadFileAsString<char>(shaders.at("fragment").get<std::string>()).c_str()));
+}
+
+RHIShader& Material::GetRHIShader() const noexcept
+{
+    return *shader_;
+}
+
+bool Material::IsScalarParam(Name name) const
+{
+    return shader_->IsScalarParam(name);
+}
+
+bool Material::IsVectorParam(Name name) const
+{
+    return shader_->IsVectorParam(name);
+}
+
+bool Material::IsTextureParam(Name name) const
+{
+    return shader_->IsTextureParam(name);
 }
 }
 }
