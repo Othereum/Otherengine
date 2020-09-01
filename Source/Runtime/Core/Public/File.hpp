@@ -1,6 +1,7 @@
 #pragma once
 #include <filesystem>
 #include <fstream>
+#include <fmt/compile.h>
 
 namespace oeng
 {
