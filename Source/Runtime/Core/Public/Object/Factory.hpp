@@ -18,32 +18,32 @@ public:
     }
 
     /**
-     * Creates an object with a class name and casts it to the target type.
+     * Creates an object with a type name and casts it to the target type.
      * @tparam T Target type.
-     * @param name Class name.
+     * @param type Type name.
      * @return Created object.
-     * @throw std::out_of_range If the class name is not valid.
+     * @throw std::out_of_range If the type name is not valid.
      * @throw std::bad_cast If the cast fails.
      */
-    template <std::derived_from<Object> T>
-    [[nodiscard]] std::shared_ptr<T> Create(Name name) const
+    template <class T>
+    [[nodiscard]] std::shared_ptr<T> Create(Name type) const
     {
-        auto ptr = Create(name);
+        auto ptr = Create(type);
         return {std::move(ptr), &dynamic_cast<T&>(*ptr)};
     }
 
     /**
-     * Creates an object with a class name.
-     * @param name Class name.
+     * Creates an object with a type name.
+     * @param type Type name.
      * @return Created object.
-     * @throw std::out_of_range If the class name is not valid.
+     * @throw std::out_of_range If the type name is not valid.
      */
-    [[nodiscard]] std::shared_ptr<Object> Create(Name name) const
+    [[nodiscard]] std::shared_ptr<Object> Create(Name type) const
     {
-        return makers_.at(name)();
+        return makers_.at(type)();
     }
 
-    template <std::derived_from<Object> T>
+    template <class T>
     void Register()
     {
         std::shared_ptr<Object> (*fn)() = &Create<T>;
