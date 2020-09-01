@@ -48,7 +48,7 @@ std::shared_ptr<Object> AssetManager::Load(Path path)
     const auto type = json.at("type").get<Name>();
 
     auto loaded = Factory::Get().Create(type);
-    loaded->from_json(json);
+    loaded->from_json(json, path);
 
     assets_.insert_or_assign(path, loaded);
     return loaded;
