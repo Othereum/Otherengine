@@ -1,5 +1,6 @@
 {
-	"material": "../Engine/Assets/Gray.omat",
+	"type": "Mesh",
+	"material": "../Engine/Assets/M_Gray.json",
 	"vertices":[
 		[-0.5,-0.5,-0.5,0,0,-1,0,0],
 		[0.5,-0.5,-0.5,0,0,-1,1,0],

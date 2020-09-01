@@ -1,7 +1,0 @@
-{
-	"shader":"../Engine/Shaders/Phong",
-    "texture":"../Engine/Assets/Bricks.png",
-    "uniforms":{
-        "uSpecular":0.15
-    }
-}
