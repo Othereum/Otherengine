@@ -9,10 +9,13 @@ namespace oeng
 {
 inline namespace engine
 {
-void Mesh::Serialize(Archive& ar)
+void Mesh::Activate() const noexcept
 {
-    const auto json = ar.ReadAllAsJson();
+    rhi_->Activate();
+}
 
+void Mesh::from_json(const Json& json)
+{
     const auto vertices = json.at("vertices").get<std::vector<Vertex>>();
     const auto indices = json.at("indices").get<std::vector<Vec3u16>>();
 
@@ -23,11 +26,6 @@ void Mesh::Serialize(Archive& ar)
     for (const auto& v : vertices)
         max = Max(max, v.pos.DistSqr(Vec3::zero));
     radius_ = std::sqrt(max);
-}
-
-void Mesh::Activate() const noexcept
-{
-    rhi_->Activate();
 }
 }
 }

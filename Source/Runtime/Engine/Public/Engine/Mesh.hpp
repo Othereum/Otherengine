@@ -19,14 +19,14 @@ class ENGINE_API Mesh final : public Object
 CLASS_BODY(Mesh)
 
 public:
-    void Serialize(Archive& ar) override;
-
     void Activate() const noexcept;
 
     [[nodiscard]] Float Radius() const noexcept
     {
         return radius_;
     }
+
+    void from_json(const Json& json) override;
 
 private:
     std::shared_ptr<MaterialInterface> material_;
