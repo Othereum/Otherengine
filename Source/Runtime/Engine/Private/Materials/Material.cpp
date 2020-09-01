@@ -8,7 +8,7 @@ inline namespace engine
 {
 void Material::from_json(const Json& json)
 {
-    LoadParams(json.at("param_defaults"));
+    LoadParams(json.at("params"));
 
     const auto& shaders = json.at("shaders");
     shader_.reset(DynamicRHI::Get().CreateShader(
