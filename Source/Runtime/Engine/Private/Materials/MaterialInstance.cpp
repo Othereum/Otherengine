@@ -6,41 +6,30 @@ namespace oeng
 {
 inline namespace engine
 {
-void MaterialInstance::Serialize(Archive& ar)
+void MaterialInstance::from_json(const Json& json)
 {
-    const auto json = ar.ReadAllAsJson();
-
-    // TODO: engine::Shader 클래스 정의
-    // TODO: AssetManager::Load<Shader>(...)
+    LoadParams(json.at("param_overrides"));
     parent_ = AssetManager::Get().Load<Material>(json.at("parent").get<Path>());
-
-    params_.clear();
-    for (const auto& [name_str, param] : json.items())
-    {
-        const Name name{AsString8(name_str)};
-        if (!shader_->IsValidParam(name))
-        {
-            OE_LOG(kEngine, kWarn, u8"'{}': parameter '{}' is not valid."sv, ar.GetName(), *name);
-            continue;
-        }
-
-        try
-        {
-            params_.try_emplace(name, param.get<ShaderParam>());
-        }
-        catch (const std::exception& e)
-        {
-            OE_LOG(kEngine, kErr, u8"'{}': invalid parameter '{}': {}"sv, ar.GetName(), *name, AsString8(e.what()));
-        }
-    }
 }
 
-void MaterialInstance::ApplyDefaultParams()
+RHIShader& MaterialInstance::GetRHIShader() const noexcept
 {
-    for (const auto& [name, param] : params_)
-    {
-        shader_->SetParam(name, param);
-    }
+    return parent_->GetRHIShader();
+}
+
+bool MaterialInstance::IsScalarParam(Name name) const
+{
+    return parent_->GetScalarParams().contains(name);
+}
+
+bool MaterialInstance::IsVectorParam(Name name) const
+{
+    return parent_->GetVectorParams().contains(name);
+}
+
+bool MaterialInstance::IsTextureParam(Name name) const
+{
+    return parent_->GetTextureParams().contains(name);
 }
 }
 }
