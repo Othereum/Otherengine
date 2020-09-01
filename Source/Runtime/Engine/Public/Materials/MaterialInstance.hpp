@@ -13,7 +13,7 @@ CLASS_BODY(MaterialInstance)
 
 public:
     void from_json(const Json& json) override;
-    RHIShader& GetRHIShader() const noexcept override;
+    RHIShader& GetRHI() const noexcept override;
 
     [[nodiscard]] Material& GetParent() const noexcept
     {

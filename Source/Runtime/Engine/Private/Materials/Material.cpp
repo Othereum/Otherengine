@@ -16,7 +16,7 @@ void Material::from_json(const Json& json)
         ReadFileAsString<char>(shaders.at("fragment").get<std::string>()).c_str()));
 }
 
-RHIShader& Material::GetRHIShader() const noexcept
+RHIShader& Material::GetRHI() const noexcept
 {
     return *shader_;
 }

@@ -17,7 +17,7 @@ public:
     void LoadParams(const Json& json);
 
     // For internal use only
-    [[nodiscard]] virtual RHIShader& GetRHIShader() const noexcept = 0;
+    [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
     [[nodiscard]] auto& GetScalarParams() const noexcept
     {

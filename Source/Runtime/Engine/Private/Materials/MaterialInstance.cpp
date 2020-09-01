@@ -12,9 +12,9 @@ void MaterialInstance::from_json(const Json& json)
     parent_ = AssetManager::Get().Load<Material>(json.at("parent").get<Path>());
 }
 
-RHIShader& MaterialInstance::GetRHIShader() const noexcept
+RHIShader& MaterialInstance::GetRHI() const noexcept
 {
-    return parent_->GetRHIShader();
+    return parent_->GetRHI();
 }
 
 bool MaterialInstance::IsScalarParam(Name name) const
