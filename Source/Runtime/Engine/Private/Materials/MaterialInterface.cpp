@@ -5,18 +5,49 @@ namespace oeng
 {
 inline namespace engine
 {
+template <> bool MaterialInterface::IsValidParam<Float>(Name name) const
+{
+    return IsScalarParam(name);
+}
+
+template <> bool MaterialInterface::IsValidParam<Vec4>(Name name) const
+{
+    return IsVectorParam(name);
+}
+
+template <> bool MaterialInterface::IsValidParam<std::shared_ptr<Texture>>(Name name) const
+{
+    return IsTextureParam(name);
+}
+
 template <class T, class Fn>
-void LoadParam(const Json& json, const std::string& name, std::unordered_map<Name, T>& out, Fn&& fn)
+void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn)
 {
     out.clear();
-    for (const auto& [name, value] : json.at(name).items())
-        out.emplace(AsString8(name), fn(value));
+    for (const auto& [name_str, value] : json.items())
+    {
+        const Name name = AsString8(name_str);
+        if (!IsValidParam<T>(name))
+        {
+            OE_LOG(kEngine, kWarn, u8"'{}': parameter '{}' does not exist."sv, GetPath().Str(), *name);
+            continue;
+        }
+
+        try
+        {
+            out.emplace(name, fn(value));
+        }
+        catch (const std::exception& e)
+        {
+            OE_LOG(kEngine, kErr, u8"'{}': invalid parameter '{}': {}"sv, GetPath().Str(), *name, AsString8(e.what()));
+        }
+    }
 }
 
 template <class T>
-void LoadParam(const Json& json, const std::string& name, std::unordered_map<Name, T>& out)
+void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
 {
-    LoadParam(json, name, out, [](const Json& value)
+    LoadParams(json, out, [](const Json& value)
     {
         return value.get<T>();
     });
@@ -24,9 +55,9 @@ void LoadParam(const Json& json, const std::string& name, std::unordered_map<Nam
 
 void MaterialInterface::LoadParams(const Json& json)
 {
-    LoadParam(json, "scalars"s, scalars_);
-    LoadParam(json, "vectors"s, vectors_);
-    LoadParam(json, "textures"s, textures_, [](const Json& value)
+    LoadParams(json.at("scalars"s), scalars_);
+    LoadParams(json.at("vectors"s), vectors_);
+    LoadParams(json.at("textures"s), textures_, [](const Json& value)
     {
         return AssetManager::Get().Load<Texture>(value.get<Path>());
     });
