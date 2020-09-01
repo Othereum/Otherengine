@@ -1,3 +1,2 @@
 # Source/ThirdPary
-
-add_subdirectory(otm)
+oe_add_subdirectories()
