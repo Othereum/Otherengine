@@ -1,7 +1,9 @@
 #pragma once
 #include "ActorComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 enum class AttachRule
 {
@@ -11,6 +13,8 @@ enum class AttachRule
 
 class ENGINE_API SceneComponent : public ActorComponent
 {
+CLASS_BODY(SceneComponent)
+
 public:
     explicit SceneComponent(AActor& owner, int update_order = 100);
 
@@ -157,4 +161,5 @@ private:
     Transform world_trsf_;
     Mat4 world_mat_ = Mat4::identity;
 };
+}
 }
