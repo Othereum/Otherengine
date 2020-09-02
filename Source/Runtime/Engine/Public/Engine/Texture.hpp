@@ -14,6 +14,8 @@ class ENGINE_API Texture final : public Object
 CLASS_BODY(Texture)
 
 public:
+    [[nodiscard]] static std::shared_ptr<Texture> GetDefault();
+
     void from_json(const Json& json) override;
 
     [[nodiscard]] Vec2i Size() const noexcept
