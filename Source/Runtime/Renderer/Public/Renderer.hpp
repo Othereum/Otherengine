@@ -9,19 +9,8 @@ namespace logcat
 extern RENDERER_API const LogCategory kRenderer;
 }
 
-namespace oeng::engine
-{
-class Engine;
-}
-
 namespace oeng::renderer
 {
-class ISpriteComponent;
-class IMeshComponent;
-class IDirLight;
-class ISkyLight;
-class IPointLight;
-class ISpotLight;
 class Texture;
 class Mesh;
 class Material;
@@ -43,86 +32,6 @@ class RENDERER_API Renderer
 public:
     DELETE_CPMV(Renderer);
 
-    void RegisterSprite(const ISpriteComponent& sprite);
-    void RegisterMesh(const IMeshComponent& mesh);
-    void RegisterCamera(ICamera& camera) noexcept;
-
-    void RegisterDirLight(const IDirLight& light) noexcept
-    {
-        dir_light_ = &light;
-    }
-
-    void RegisterSkyLight(const ISkyLight& light) noexcept
-    {
-        sky_light_ = &light;
-    }
-
-    void RegisterPointLight(const IPointLight& light)
-    {
-        point_lights_.emplace_back(light);
-    }
-
-    void RegisterSpotLight(const ISpotLight& light)
-    {
-        spot_lights_.emplace_back(light);
-    }
-
-    void UnregisterSprite(const ISpriteComponent& sprite);
-    void UnregisterMesh(const IMeshComponent& mesh);
-
-    void UnregisterCamera(const ICamera& camera) noexcept
-    {
-        if (camera_ == &camera)
-            UnregisterCamera();
-    }
-
-    void UnregisterCamera() noexcept
-    {
-        RegisterCamera(default_camera_);
-    }
-
-    void UnregisterDirLight(const IDirLight& light) noexcept
-    {
-        if (dir_light_ == &light)
-            UnregisterDirLight();
-    }
-
-    void UnregisterDirLight() noexcept;
-
-    void UnregisterSkyLight(const ISkyLight& light) noexcept
-    {
-        if (sky_light_ == &light)
-            UnregisterSkyLight();
-    }
-
-    void UnregisterSkyLight() noexcept;
-    void UnregisterPointLight(const IPointLight& light);
-    void UnregisterSpotLight(const ISpotLight& light);
-
-    [[nodiscard]] bool IsCameraRegistered() const noexcept
-    {
-        return camera_ == &default_camera_;
-    }
-
-    [[nodiscard]] bool IsCameraRegistered(const ICamera& camera) const noexcept
-    {
-        return camera_ == &camera;
-    }
-
-    [[nodiscard]] bool IsDirLightRegistered() const noexcept;
-
-    [[nodiscard]] bool IsDirLightRegistered(const IDirLight& light) const noexcept
-    {
-        return dir_light_ == &light;
-    }
-
-    [[nodiscard]] bool IsSkyLightRegistered() const noexcept;
-
-    [[nodiscard]] bool IsSkyLightRegistered(const ISkyLight& light) const noexcept
-    {
-        return sky_light_ == &light;
-    }
-
     /**
      * Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
      * @param path Texture file path
@@ -137,9 +46,6 @@ public:
     {
         return window_;
     }
-
-    template <class T>
-    using CompArr = std::vector<std::reference_wrapper<const T>>;
 
 private:
     friend engine::Engine;
@@ -163,22 +69,7 @@ private:
     RHIShader sprite_shader_;
     VertexArray sprite_verts_;
 
-    std::unordered_map<Path, std::weak_ptr<Texture>> textures_;
-    std::unordered_map<Path, std::weak_ptr<RHIShader>> shaders_;
-    std::unordered_map<Path, std::weak_ptr<Material>> materials_;
-    std::unordered_map<Path, std::weak_ptr<Mesh>> meshes_;
-
-    ICamera* camera_{};
     DefaultCamera default_camera_;
-
-    const IDirLight* dir_light_{};
-    const ISkyLight* sky_light_{};
-
-    CompArr<IPointLight> point_lights_;
-    CompArr<ISpotLight> spot_lights_;
-
-    CompArr<ISpriteComponent> sprites_;
-    CompArr<IMeshComponent> mesh_comps_;
 
     struct
     {
