@@ -1,6 +1,7 @@
 #pragma once
 #include "Name.hpp"
 #include <filesystem>
+#include <unordered_set>
 
 namespace oeng::core
 {
