@@ -1,31 +1,33 @@
 #pragma once
-#include <functional>
 #include "ActorComponent.hpp"
-#include "Name.hpp"
-#include "Templates/std::unordered_map.hpp"
 
 struct SDL_KeyboardEvent;
 
-namespace oeng::engine
+namespace oeng
 {
-	class InputSystem;
-	
-	class ENGINE_API InputComponent : public ActorComponent
-	{
-	public:
-		explicit InputComponent(class AActor& owner, int update_order = 0);
-		
-		void BindAction(Name action, bool pressed, std::function<void()>&& callback);
-		void BindAxis(Name axis, std::function<void(Float)>&& callback);
+inline namespace engine
+{
+class InputSystem;
 
-	protected:
-		void OnUpdate(Float delta_seconds) override;
-		
-	private:
-		void ProcessActions() const;
-		void ProcessAxises() const;
-		
-		HashMultiMap<Name, std::function<void()>> actions_[2];
-		HashMultiMap<Name, std::function<void(Float)>> axises_;
-	};
+class ENGINE_API InputComponent final : public ActorComponent
+{
+CLASS_BODY(InputComponent)
+
+public:
+    explicit InputComponent(class AActor& owner, int update_order = 0);
+
+    void BindAction(Name action, bool pressed, std::function<void()>&& callback);
+    void BindAxis(Name axis, std::function<void(Float)>&& callback);
+
+protected:
+    void OnUpdate(Float delta_seconds) override;
+
+private:
+    void ProcessActions() const;
+    void ProcessAxises() const;
+
+    std::unordered_multimap<Name, std::function<void()>> actions_[2];
+    std::unordered_multimap<Name, std::function<void(Float)>> axises_;
+};
+}
 }
