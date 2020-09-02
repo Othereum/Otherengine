@@ -37,7 +37,12 @@ struct CORE_API Name
         return sp_;
     }
 
-    std::strong_ordering operator<=>(const Name& r) const noexcept
+    [[nodiscard]] bool operator==(const Name& r) const noexcept
+    {
+        return sp_ == r.sp_;
+    }
+
+    [[nodiscard]] auto operator<=>(const Name& r) const noexcept
     {
         return sp_ <=> r.sp_;
     }
