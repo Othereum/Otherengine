@@ -5,7 +5,7 @@
         "fragment": "../Engine/Shaders/Phong.frag"
     },
     "params": {
-        "uTexture": "../Engine/Assets/T_Gray.json",
+        "uTexture": "../Engine/Assets/T_Default.json",
         "uSpecular": 0.15
     }
 }

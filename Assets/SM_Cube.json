@@ -1,6 +1,6 @@
 {
 	"type": "Mesh",
-	"material": "../Engine/Assets/M_Gray.json",
+	"material": "../Engine/Assets/M_Default.json",
 	"vertices":[
 		[-0.5,-0.5,-0.5,0,0,-1,0,0],
 		[0.5,-0.5,-0.5,0,0,-1,1,0],
