@@ -48,7 +48,7 @@ public:
     {
         std::shared_ptr<Object> (*fn)() = &Create<T>;
         const auto [it, inserted] = makers_.emplace(T::class_name, fn);
-        assert((inserted || it->second == fn) && "A name conflict has occured.");
+        assert((inserted || it->second == fn) && "Name conflict detected");
     }
 
 private:
