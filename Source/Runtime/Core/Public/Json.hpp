@@ -24,7 +24,7 @@ using JsonParseError = nlohmann::detail::parse_error;
  */
 [[nodiscard]] inline Json ReadJsonFile(const fs::path& filepath)
 {
-    return Json::parse(ReadFile(filepath), nullptr, true, true);
+    return Json::parse(ReadFile<char>(filepath), nullptr, true, true);
 }
 
 /**
@@ -37,7 +37,7 @@ using JsonParseError = nlohmann::detail::parse_error;
  */
 inline void WriteJsonFile(const fs::path& filepath, const Json& json)
 {
-    WriteFile(filepath) << json.dump(4);
+    WriteFile<char>(filepath) << json.dump(4);
 }
 }
 
