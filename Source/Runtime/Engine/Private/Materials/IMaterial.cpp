@@ -1,27 +1,27 @@
-#include "Materials/MaterialInterface.hpp"
+#include "Materials/IMaterial.hpp"
 #include "AssetManager.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-template <> bool MaterialInterface::IsValidParam<Float>(Name name) const
+template <> bool IMaterial::IsValidParam<Float>(Name name) const
 {
     return IsScalarParam(name);
 }
 
-template <> bool MaterialInterface::IsValidParam<Vec4>(Name name) const
+template <> bool IMaterial::IsValidParam<Vec4>(Name name) const
 {
     return IsVectorParam(name);
 }
 
-template <> bool MaterialInterface::IsValidParam<std::shared_ptr<Texture>>(Name name) const
+template <> bool IMaterial::IsValidParam<std::shared_ptr<Texture>>(Name name) const
 {
     return IsTextureParam(name);
 }
 
 template <class T, class Fn>
-void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn)
+void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn)
 {
     out.clear();
     for (const auto& [name_str, value] : json.items())
@@ -45,7 +45,7 @@ void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>
 }
 
 template <class T>
-void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
+void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
 {
     LoadParams(json, out, [](const Json& value)
     {
@@ -53,7 +53,7 @@ void MaterialInterface::LoadParams(const Json& json, std::unordered_map<Name, T>
     });
 }
 
-void MaterialInterface::LoadParams(const Json& json)
+void IMaterial::LoadParams(const Json& json)
 {
     LoadParams(json.at("scalars"s), scalars_);
     LoadParams(json.at("vectors"s), vectors_);

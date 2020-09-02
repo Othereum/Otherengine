@@ -11,13 +11,10 @@ inline namespace engine
 {
 class Texture;
 
-class MaterialInterface : public Object
+class IMaterial : public Object
 {
 public:
     void LoadParams(const Json& json);
-
-    // For internal use only
-    [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
     [[nodiscard]] auto& GetScalarParams() const noexcept
     {
@@ -33,6 +30,8 @@ public:
     {
         return scalars_;
     }
+
+    [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
 protected:
     [[nodiscard]] virtual bool IsScalarParam(Name name) const = 0;

@@ -1,5 +1,5 @@
 #pragma once
-#include "Materials/MaterialInterface.hpp"
+#include "Materials/IMaterial.hpp"
 
 namespace oeng
 {
@@ -7,7 +7,7 @@ inline namespace engine
 {
 class Material;
 
-class ENGINE_API MaterialInstance final : public MaterialInterface
+class ENGINE_API MaterialInstance final : public IMaterial
 {
 CLASS_BODY(MaterialInstance)
 
