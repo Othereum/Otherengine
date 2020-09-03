@@ -1,73 +1,67 @@
 #include "Components/MeshComponent.hpp"
-#include "Mesh.hpp"
-#include "Renderer.hpp"
+#include "IRenderer.hpp"
+#include "Engine/Mesh.hpp"
+#include "Materials/IMaterial.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	MeshComponent::MeshComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order},
-		mesh_{GetRenderer().GetDefaultMesh()},
-		material_{GetRenderer().GetDefaultMaterial()}
-	{
-	}
+inline namespace engine
+{
+MeshComponent::MeshComponent(AActor& owner, int update_order)
+    : SceneComponent{owner, update_order},
+      mesh_{Mesh::GetDefault()}
+{
+}
 
-	MeshComponent::~MeshComponent()
-	{
-		if (HasBegunPlay()) GetRenderer().UnregisterMesh(*this);
-	}
+MeshComponent::~MeshComponent()
+{
+    if (HasBegunPlay())
+        IRenderer::Get().RemoveMesh(*this);
+}
 
-	void MeshComponent::SetMesh(Path file)
-	{
-		auto mesh = GetRenderer().GetMesh(file);
-		material_ = mesh->GetMaterialShared();
-		SetMesh(std::move(mesh));
-	}
+void MeshComponent::SetMesh(std::shared_ptr<Mesh> mesh)
+{
+    mesh_ = std::move(mesh);
+    ReRegister();
+}
 
-	void MeshComponent::SetMesh(std::shared_ptr<Mesh> mesh)
-	{
-		mesh_ = std::move(mesh);
-		ReRegister();
-		RecalcRadius();
-	}
+void MeshComponent::OverrideMaterial(std::shared_ptr<IMaterial> material)
+{
+    material_override_ = std::move(material);
+    ReRegister();
+}
 
-	void MeshComponent::SetMaterial(Path path)
-	{
-		SetMaterial(GetRenderer().GetMaterial(path));
-	}
+Float MeshComponent::GetScaledRadius() const noexcept
+{
+    return mesh_->GetRadius() * Max(GetWorldScale());
+}
 
-	void MeshComponent::SetMaterial(std::shared_ptr<Material> material)
-	{
-		material_ = std::move(material);
-		ReRegister();
-	}
+Float MeshComponent::GetUnscaledRadius() const noexcept
+{
+    return mesh_->GetRadius();
+}
 
-	Float MeshComponent::GetUnscaledRadius() const noexcept
-	{
-		return mesh_->GetRadius();
-	}
+const std::shared_ptr<IMaterial>& MeshComponent::GetMaterial() const noexcept
+{
+    if (material_override_)
+        return material_override_;
 
-	void MeshComponent::OnBeginPlay()
-	{
-		GetRenderer().RegisterMesh(*this);
-	}
+    return mesh_->GetMaterial();
+}
 
-	void MeshComponent::OnTrsfChanged()
-	{
-		RecalcRadius();
-	}
+void MeshComponent::OnBeginPlay()
+{
+    IRenderer::Get().AddMesh(*this);
+}
 
-	void MeshComponent::ReRegister() const
-	{
-		if (HasBegunPlay())
-		{
-			auto& renderer = GetRenderer();
-			renderer.UnregisterMesh(*this);
-			renderer.RegisterMesh(*this);
-		}
-	}
-
-	void MeshComponent::RecalcRadius() noexcept
-	{
-		radius_ = Max(GetWorldScale()) * mesh_->GetRadius();
-	}
+void MeshComponent::ReRegister()
+{
+    if (HasBegunPlay())
+    {
+        auto& renderer = IRenderer::Get();
+        renderer.RemoveMesh(*this);
+        renderer.AddMesh(*this);
+    }
+}
+}
 }

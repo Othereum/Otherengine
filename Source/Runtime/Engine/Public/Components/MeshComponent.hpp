@@ -1,44 +1,69 @@
 #pragma once
-#include "Interfaces/Drawable.hpp"
 #include "SceneComponent.hpp"
-#include "Path.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	class ENGINE_API MeshComponent : public SceneComponent, public IMeshComponent
-	{
-	public:
-		DELETE_CPMV(MeshComponent);
-		
-		explicit MeshComponent(AActor& owner, int update_order = 100);
-		~MeshComponent();
+inline namespace engine
+{
+class Mesh;
+class IMaterial;
 
-		void SetMesh(Path path);
-		void SetMesh(std::shared_ptr<Mesh> mesh);
-		void SetMaterial(Path path);
-		void SetMaterial(std::shared_ptr<Material> material);
-		void SetMaxDrawDist(Float dist)	noexcept { max_draw_dist_ = dist; }
-		
-		[[nodiscard]] Float GetMaxDrawDist() const noexcept override { return max_draw_dist_; }
-		[[nodiscard]] Float GetScaledRadius() const noexcept override { return radius_; }
-		[[nodiscard]] Float GetUnscaledRadius() const noexcept override;
-		[[nodiscard]] bool ShouldDraw() const noexcept override { return IsActive(); }
-		[[nodiscard]] const Transform& GetDrawTrsf() const noexcept override { return GetWorldTrsf(); }
-		[[nodiscard]] const Mat4& GetDrawTrsfMatrix() const noexcept override { return GetWorldTrsfMatrix(); }
-		[[nodiscard]] Mesh& GetMesh() const noexcept override { return *mesh_; }
-		[[nodiscard]] Material& GetMaterial() const noexcept override { return *material_; }
+class ENGINE_API MeshComponent : public SceneComponent
+{
+CLASS_BODY(MeshComponent)
 
-	protected:
-		void OnBeginPlay() override;
-		void OnTrsfChanged() override;
+public:
+    DELETE_CPMV(MeshComponent);
 
-	private:
-		void ReRegister() const;
-		void RecalcRadius() noexcept;
-		
-		std::shared_ptr<Mesh> mesh_;
-		std::shared_ptr<Material> material_;
-		Float max_draw_dist_ = 10000;
-		Float radius_ = 0;
-	};
+    explicit MeshComponent(AActor& owner, int update_order = 100);
+    ~MeshComponent();
+
+    /**
+     * Set mesh of this component.
+     * @param mesh New mesh. Null NOT allowed.
+     */
+    void SetMesh(std::shared_ptr<Mesh> mesh);
+
+    /**
+     * Override default material of mesh.
+     * @param material New material. Null means un-override.
+     */
+    void OverrideMaterial(std::shared_ptr<IMaterial> material);
+
+    /**
+     * Returns the scaled radius of a bound sphere.
+     * @note Due to optimization, it's not accurate, but it's guaranteed that it's not less than the actual radius.
+     */
+    [[nodiscard]] Float GetScaledRadius() const noexcept;
+
+    /**
+     * Returns the unscaled radius of the bound sphere of the original mesh.
+     */
+    [[nodiscard]] Float GetUnscaledRadius() const noexcept;
+
+    /**
+     * @return Mesh. Guaranteed not null.
+     */
+    [[nodiscard]] const std::shared_ptr<Mesh>& GetMesh() const noexcept
+    {
+        return mesh_;
+    }
+
+    /**
+     * @return Material. Guaranteed not null. If overridden, returns it.
+     */
+    [[nodiscard]] const std::shared_ptr<IMaterial>& GetMaterial() const noexcept;
+
+    Float max_draw_dist = 10000_f;
+
+protected:
+    void OnBeginPlay() override;
+
+private:
+    void ReRegister();
+
+    std::shared_ptr<Mesh> mesh_;
+    std::shared_ptr<IMaterial> material_override_;
+};
+}
 }
