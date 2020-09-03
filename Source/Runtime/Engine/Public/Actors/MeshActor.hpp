@@ -1,30 +1,34 @@
 #pragma once
 #include "Actor.hpp"
-#include "Path.hpp"
 
-namespace oeng::renderer
+namespace oeng
 {
-	class Mesh;
-	class Material;
+inline namespace engine
+{
+class Mesh;
+class IMaterial;
+class MeshComponent;
+
+class ENGINE_API AMeshActor : public AActor
+{
+CLASS_BODY(AMeshActor)
+
+public:
+    AMeshActor();
+
+    void SetMesh(std::shared_ptr<Mesh> mesh) const;
+    void OverrideMaterial(std::shared_ptr<IMaterial> material) const;
+
+    [[nodiscard]] const std::shared_ptr<Mesh>& GetMesh() const noexcept;
+    [[nodiscard]] const std::shared_ptr<IMaterial>& GetMaterial() const noexcept;
+
+    [[nodiscard]] MeshComponent& GetMeshComp() const noexcept
+    {
+        return mesh_;
+    }
+
+private:
+    MeshComponent& mesh_;
+};
 }
-
-namespace oeng::engine
-{
-	class MeshComponent;
-	
-	class ENGINE_API AMeshActor : public AActor
-	{
-	public:
-		explicit AMeshActor(World& world);
-		void SetMesh(Path path) const;
-		void SetMesh(std::shared_ptr<Mesh> mesh) const;
-		void SetMaterial(Path path) const;
-		void SetMaterial(std::shared_ptr<Material> material) const;
-		[[nodiscard]] Mesh& GetMesh() const noexcept;
-		[[nodiscard]] Material& GetMaterial() const noexcept;
-		[[nodiscard]] MeshComponent& GetMeshComp() const noexcept { return mesh_; }
-
-	private:
-		MeshComponent& mesh_;
-	};
 }
