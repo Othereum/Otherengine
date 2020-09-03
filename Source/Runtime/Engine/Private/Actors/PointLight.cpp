@@ -1,31 +1,34 @@
 #include "Actors/PointLight.hpp"
 #include "Components/PointLightComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	APointLight::APointLight(World& world)
-		:AActor{world}, light_{*AddComponent<PointLightComponent>()}
-	{
-		SetRootComponent(&light_);
-	}
+inline namespace engine
+{
+APointLight::APointLight()
+    : light_{AddComponent<PointLightComponent>()}
+{
+    SetRootComponent(&light_);
+}
 
-	void APointLight::SetRadius(float radius) const noexcept
-	{
-		light_.SetRadius(radius);
-	}
+void APointLight::SetRadius(Float radius) const noexcept
+{
+    light_.radius = radius;
+}
 
-	void APointLight::SetColor(const Vec3& color) const noexcept
-	{
-		light_.SetColor(color);
-	}
+void APointLight::SetColor(const Vec3& color) const noexcept
+{
+    light_.color = color;
+}
 
-	float APointLight::GetRadius() const noexcept
-	{
-		return light_.GetRadius();
-	}
+Float APointLight::GetRadius() const noexcept
+{
+    return light_.radius;
+}
 
-	const Vec3& APointLight::GetColor() const noexcept
-	{
-		return light_.GetColor();
-	}
+const Vec3& APointLight::GetColor() const noexcept
+{
+    return light_.color;
+}
+}
 }
