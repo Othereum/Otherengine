@@ -12,9 +12,7 @@ class ENGINE_API ACameraActor : public AActor
 CLASS_BODY(ACameraActor)
 
 public:
-    explicit ACameraActor(World& world);
-
-    void Activate() const noexcept;
+    ACameraActor();
 
     void SetVFov(Rad vfov) const noexcept;
     void SetNearFar(Float near, Float far) const noexcept;

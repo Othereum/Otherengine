@@ -10,6 +10,8 @@ namespace ai_state
 class Base
 {
 public:
+    DELETE_CPMV(Base);
+
     explicit Base(class AIComponent& owner) noexcept
         : owner_{owner}
     {

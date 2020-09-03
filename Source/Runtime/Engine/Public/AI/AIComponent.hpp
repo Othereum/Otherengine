@@ -12,8 +12,10 @@ class Base;
 
 class ENGINE_API AIComponent : public ActorComponent
 {
+CLASS_BODY(AIComponent)
+
 public:
-    AIComponent(AActor& owner, int update_order = 100);
+    AIComponent();
 
     /**
      * Change state. You must add state before change, or std::out_of_bound exception will be thrown
@@ -33,7 +35,7 @@ private:
     void OnUpdate(Float delta_seconds) override;
 
     std::unordered_map<Name, std::unique_ptr<ai_state::Base>> states_;
-    std::reference_wrapper<ai_state::Base> cur_;
+    ai_state::Base* cur_;
 };
 }
 }

@@ -1,4 +1,4 @@
-#include "Actors/Actor.hpp"
+#include "GameFramework/Actor.hpp"
 #include "Stat.hpp"
 #include "World.hpp"
 #include "Components/SceneComponent.hpp"

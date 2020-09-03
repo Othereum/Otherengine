@@ -278,3 +278,4 @@ std::u8string_view FModErrorString(FMOD_RESULT result)
     }
 }
 }
+}

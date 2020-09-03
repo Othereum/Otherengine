@@ -20,14 +20,14 @@ public:
     void Stop(bool allow_fadeout = true) const;
 
     void SetPaused(bool paused) const;
-    void SetVolume(float volume) const;
-    void SetPitch(float pitch) const;
-    void SetParam(const char* name, float value) const;
+    void SetVolume(Float volume) const;
+    void SetPitch(Float pitch) const;
+    void SetParam(const char* name, Float value) const;
 
     [[nodiscard]] bool IsPaused() const;
-    [[nodiscard]] float GetVolume() const;
-    [[nodiscard]] float GetPitch() const;
-    [[nodiscard]] float GetParam(const char* name) const;
+    [[nodiscard]] Float GetVolume() const;
+    [[nodiscard]] Float GetPitch() const;
+    [[nodiscard]] Float GetParam(const char* name) const;
 
 private:
     FMOD::Studio::EventInstance* instance_;

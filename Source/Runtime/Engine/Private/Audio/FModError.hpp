@@ -21,3 +21,4 @@ void FModCheck(FMOD_RESULT result, const Str& message, const Args&... args)
             AsString(fmt::format(u8"{}: {} ({})"sv, fmt::format(message, args...), FModErrorString(result), result))};
 }
 }
+}

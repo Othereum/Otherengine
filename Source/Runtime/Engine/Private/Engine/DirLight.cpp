@@ -1,4 +1,4 @@
-#include "Actors/DirLight.hpp"
+#include "Engine/DirLight.hpp"
 #include "Components/DirLightComponent.hpp"
 
 namespace oeng
