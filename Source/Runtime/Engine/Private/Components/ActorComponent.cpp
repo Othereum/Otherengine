@@ -2,32 +2,45 @@
 #include "Engine.hpp"
 #include "Actors/Actor.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	ActorComponent::ActorComponent(AActor& owner, const int update_order)
-		:owner_{owner}, update_order_{update_order}
-	{
-	}
+inline namespace engine
+{
+void ActorComponent::BeginPlay()
+{
+    OnBeginPlay();
+    begun_play_ = true;
 
-	void ActorComponent::BeginPlay()
-	{
-		OnBeginPlay();
-		begun_play_ = true;
-		if (auto_activate_) Activate();
-	}
+    if (auto_activate)
+        Activate();
+}
 
-	void ActorComponent::Update(Float delta_seconds)
-	{
-		OnUpdate(delta_seconds);
-	}
+void ActorComponent::Update(Float delta_seconds)
+{
+    OnUpdate(delta_seconds);
+}
 
-	World& ActorComponent::GetWorld() const noexcept
-	{
-		return owner_.GetWorld();
-	}
+void ActorComponent::Activate()
+{
+    if (!is_active_)
+    {
+        is_active_ = true;
+        OnActivated();
+    }
+}
 
-	Renderer& ActorComponent::GetRenderer() noexcept
-	{
-		return Engine::Get().GetRenderer();
-	}
+void ActorComponent::Deactivate()
+{
+    if (is_active_)
+    {
+        is_active_ = false;
+        OnDeactivated();
+    }
+}
+
+World& ActorComponent::GetWorld() const noexcept
+{
+    return owner_->GetWorld();
+}
+}
 }

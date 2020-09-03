@@ -12,27 +12,13 @@ class ENGINE_API ActorComponent : public Object
 CLASS_BODY(ActorComponent)
 
 public:
-    explicit ActorComponent(AActor& owner, int update_order = 100);
+    ActorComponent() = default;
 
     void BeginPlay();
     void Update(Float delta_seconds);
 
-    void Activate()
-    {
-        if (!is_active_)
-            is_active_ = true, OnActivated();
-    }
-
-    void Deactivate()
-    {
-        if (is_active_)
-            is_active_ = false, OnDeactivated();
-    }
-
-    void SetAutoActivate(bool auto_activate) noexcept
-    {
-        auto_activate_ = auto_activate;
-    }
+    void Activate();
+    void Deactivate();
 
     [[nodiscard]] bool IsActive() const noexcept
     {
@@ -44,11 +30,6 @@ public:
         return begun_play_;
     }
 
-    [[nodiscard]] bool IsAutoActivate() const noexcept
-    {
-        return auto_activate_;
-    }
-
     [[nodiscard]] int GetUpdateOrder() const noexcept
     {
         return update_order_;
@@ -56,12 +37,26 @@ public:
 
     [[nodiscard]] AActor& GetOwner() const noexcept
     {
-        return owner_;
+        return *owner_;
     }
 
     [[nodiscard]] World& GetWorld() const noexcept;
 
+    /**
+     * If true, the component will be activated automatically on begin play.
+     * `true` by default.
+     */
+    bool auto_activate : 1 = true;
+
 protected:
+    /**
+     * Used to override the default update order.
+     */
+    explicit ActorComponent(int update_order)
+        : update_order_{update_order}
+    {
+    }
+
     virtual void OnBeginPlay()
     {
     }
@@ -79,9 +74,10 @@ protected:
     }
 
 private:
-    AActor& owner_;
-    int update_order_;
-    bool auto_activate_ : 1 = true;
+    friend AActor;
+    AActor* owner_ = nullptr;
+    int update_order_ = 100;
+
     bool is_active_ : 1 = false;
     bool begun_play_ : 1 = false;
 };
