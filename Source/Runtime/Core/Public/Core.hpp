@@ -46,6 +46,26 @@
         return class_name;                                                                                             \
     }                                                                                                                  \
                                                                                                                        \
+    [[nodiscard]] std::shared_ptr<name> shared_from_this()                                                             \
+    {                                                                                                                  \
+        return std::static_pointer_cast<name>(Object::shared_from_this());                                             \
+    }                                                                                                                  \
+                                                                                                                       \
+    [[nodiscard]] std::shared_ptr<const name> shared_from_this() const                                                 \
+    {                                                                                                                  \
+        return std::static_pointer_cast<const name>(Object::shared_from_this());                                       \
+    }                                                                                                                  \
+                                                                                                                       \
+    [[nodiscard]] std::weak_ptr<name> weak_from_this()                                                                 \
+    {                                                                                                                  \
+        return std::static_pointer_cast<name>(Object::shared_from_this());                                             \
+    }                                                                                                                  \
+                                                                                                                       \
+    [[nodiscard]] std::weak_ptr<const name> weak_from_this() const                                                     \
+    {                                                                                                                  \
+        return std::static_pointer_cast<const name>(Object::shared_from_this());                                       \
+    }                                                                                                                  \
+                                                                                                                       \
   private:                                                                                                             \
     class _##name##Registerer                                                                                          \
     {                                                                                                                  \
