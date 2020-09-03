@@ -2,7 +2,9 @@
 #include "Actors/Actor.hpp"
 #include "Engine/Texture.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 SpriteComponent::SpriteComponent(AActor& owner, const int draw_order, const int update_order)
     : SceneComponent{owner, update_order},

@@ -7,7 +7,9 @@ namespace logcat
 	const LogCategory kAudio{u8"Audio"sv};
 }
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	static std::u8string GetName(const FMOD::Studio::EventDescription& event);
 

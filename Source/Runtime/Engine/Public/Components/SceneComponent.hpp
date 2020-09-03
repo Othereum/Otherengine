@@ -156,7 +156,7 @@ private:
     void RecalcRelTrsf() noexcept;
 
     SceneComponent* parent_;
-    std::vector<std::reference_wrapper<SceneComponent>> children_;
+    std::vector<SceneComponent*> children_;
     Transform rel_trsf_;
     Transform world_trsf_;
     Mat4 world_mat_ = Mat4::identity;

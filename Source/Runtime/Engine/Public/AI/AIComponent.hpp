@@ -1,7 +1,9 @@
 #pragma once
 #include "Components/ActorComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 namespace ai_state
 {
@@ -33,4 +35,5 @@ private:
     std::unordered_map<Name, std::unique_ptr<ai_state::Base>> states_;
     std::reference_wrapper<ai_state::Base> cur_;
 };
+}
 }

@@ -7,7 +7,9 @@ namespace logcat
 	extern RENDERER_API const LogCategory kWindow;
 }
 
-namespace oeng::renderer
+namespace oeng
+{
+inline namespace renderer
 {
 	class RENDERER_API Window
 	{
@@ -27,4 +29,5 @@ namespace oeng::renderer
 		SDL_Window* window_;
 		void* gl_context_;
 	};
+}
 }

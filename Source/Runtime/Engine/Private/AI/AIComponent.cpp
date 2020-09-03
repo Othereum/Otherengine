@@ -1,7 +1,9 @@
 #include "AI/AIComponent.hpp"
 #include "AI/AIState.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 namespace ai_state
 {

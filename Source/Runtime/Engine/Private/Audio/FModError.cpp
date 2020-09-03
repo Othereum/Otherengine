@@ -1,7 +1,9 @@
 #include "FModError.hpp"
 #include "fmod.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 std::u8string_view FModErrorString(FMOD_RESULT result)
 {

@@ -5,7 +5,7 @@ namespace oeng
 {
 inline namespace engine
 {
-class ENGINE_API CameraComponent final : public SceneComponent
+class ENGINE_API CameraComponent : public SceneComponent
 {
 CLASS_BODY(CameraComponent)
 

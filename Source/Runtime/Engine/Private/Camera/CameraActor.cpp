@@ -1,7 +1,9 @@
 #include "Camera/CameraActor.hpp"
 #include "Camera/CameraComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	ACameraActor::ACameraActor(World& world)
 		:AActor{world}, camera_{*AddComponent<CameraComponent>()}

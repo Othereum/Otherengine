@@ -3,7 +3,9 @@
 #include "Actors/Actor.hpp"
 #include "Components/SceneComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	MovementComponent::MovementComponent(AActor& owner, int update_order)
 		:ActorComponent{owner, update_order}

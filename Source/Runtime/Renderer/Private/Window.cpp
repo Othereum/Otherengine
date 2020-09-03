@@ -7,7 +7,9 @@ namespace logcat
 	const LogCategory kWindow{u8"Renderer"sv};
 }
 
-namespace oeng::renderer
+namespace oeng
+{
+inline namespace renderer
 {
 	static void SetGlAttribute(SDL_GLattr attr, int value)
 	{

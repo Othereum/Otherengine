@@ -1,7 +1,9 @@
 #include "Audio/SoundEvent.hpp"
 #include "fmod_studio.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	void SoundEvent::Restart() const
 	{

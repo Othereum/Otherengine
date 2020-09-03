@@ -1,7 +1,9 @@
 #include "Camera/CameraComponent.hpp"
 #include "Engine.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 CameraComponent::CameraComponent(AActor& owner, int update_order)
     : SceneComponent{owner, update_order},

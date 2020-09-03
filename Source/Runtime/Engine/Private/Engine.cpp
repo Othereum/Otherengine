@@ -1,7 +1,9 @@
 ﻿#include "Engine.hpp"
 #include <SDL2/SDL.h>
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 static Engine* engine = nullptr;
 
