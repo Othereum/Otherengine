@@ -1,0 +1,9 @@
+{
+    "Type": "MaterialInstance",
+    "Parent": "../Engine/Assets/M_Default.json",
+    "ParameterOverrides": {
+        "Textures": {
+            "uTexture": "../Engine/Assets/T_Bricks.json"
+        }
+    }
+}
