@@ -2,11 +2,12 @@
 #include "AssetManager.hpp"
 #include "EngineBase.hpp"
 #include "InputSystem.hpp"
-#include "Renderer.hpp"
 #include "World.hpp"
 #include "Audio/AudioSystem.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 class ENGINE_API InitEngine
 {
@@ -34,11 +35,6 @@ public:
         return world_;
     }
 
-    [[nodiscard]] Renderer& GetRenderer() noexcept
-    {
-        return renderer_;
-    }
-
     [[nodiscard]] InputSystem& GetInputSystem() noexcept
     {
         return input_system_;
@@ -55,9 +51,9 @@ private:
 
     AssetManager asset_manager_;
     AudioSystem audio_system_;
-    Renderer renderer_;
     InputSystem input_system_;
     World world_;
     bool is_running_ = true;
 };
+}
 }

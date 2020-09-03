@@ -1,15 +1,16 @@
 #pragma once
+#include "IRenderer.hpp"
 #include "RHIShader.hpp"
-#include "VertexArray.hpp"
 #include "Window.hpp"
-#include "Interfaces/Camera.hpp"
 
 namespace logcat
 {
 extern RENDERER_API const LogCategory kRenderer;
 }
 
-namespace oeng::renderer
+namespace oeng
+{
+inline namespace renderer
 {
 class Texture;
 class Mesh;
@@ -27,7 +28,7 @@ private:
     Mat4 view_proj_;
 };
 
-class RENDERER_API Renderer
+class RENDERER_API Renderer : public IRenderer
 {
 public:
     DELETE_CPMV(Renderer);
@@ -79,4 +80,5 @@ private:
         Mesh* mesh;
     } prev_{};
 };
+}
 }

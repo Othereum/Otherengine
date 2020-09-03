@@ -15,7 +15,9 @@ namespace logcat
 const LogCategory kRenderer{u8"Renderer"sv};
 }
 
-namespace oeng::renderer
+namespace oeng
+{
+inline namespace renderer
 {
 static constexpr auto kMaxPointLights = 4;
 static constexpr auto kMaxSpotLights = 4;
