@@ -4,7 +4,9 @@
 #include "Log.hpp"
 #include "Renderer.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	SkyLightComponent::~SkyLightComponent()
 	{

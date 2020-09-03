@@ -1,28 +1,25 @@
 #pragma once
-#include "SceneComponent.hpp"
-#include "Interfaces/Light.hpp"
+#include "PointLightComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	class ENGINE_API SpotLightComponent : public SceneComponent, public ISpotLight
-	{
-	public:
-		DELETE_CPMV(SpotLightComponent);
-		
-		explicit SpotLightComponent(AActor& owner, int update_order = 100);
-		~SpotLightComponent();
+inline namespace engine
+{
+class ENGINE_API SpotLightComponent : public PointLightComponent
+{
+CLASS_BODY(SpotLightComponent)
 
-		void SetRadius(float radius) noexcept { data_.radius = radius; }
-		void SetColor(const Vec3& color) noexcept { data_.color = color; }
-		void SetAngle(Data::Cone angle) noexcept { data_.angle_cos = angle; }
-		[[nodiscard]] const Data& GetData() const noexcept override { return data_; }
-		[[nodiscard]] bool ShouldAffect() const noexcept override;
+public:
+    DELETE_CPMV(SpotLightComponent);
 
-	protected:
-		void OnBeginPlay() override;
-		void OnTrsfChanged() override;
+    explicit SpotLightComponent(AActor& owner, int update_order = 100);
+    ~SpotLightComponent();
 
-	private:
-		Data data_;
-	};
+    Float cone_angle_inner_cos = 1_f; // 0_deg
+    Float cone_angle_outer_cos = 0.7193398_f; // 44_deg
+
+protected:
+    void OnBeginPlay() override;
+};
+}
 }

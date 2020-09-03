@@ -1,30 +1,24 @@
 #pragma once
-#include "Components/SceneComponent.hpp"
-#include "Interfaces/Light.hpp"
+#include "SceneComponent.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	class ENGINE_API SkyLightComponent : public SceneComponent, public ISkyLight
-	{
-	public:
-		DELETE_CPMV(SkyLightComponent);
-		
-		explicit SkyLightComponent(AActor& owner, int update_order = 100)
-			:SceneComponent{owner, update_order}, color_{0.1, 0.1, 0.1}
-		{
-		}
+inline namespace engine
+{
+class ENGINE_API SkyLightComponent : public SceneComponent
+{
+CLASS_BODY(SkyLightComponent)
 
-		~SkyLightComponent();
+public:
+    DELETE_CPMV(SkyLightComponent);
 
-		void SetColor(const Vec3& color) noexcept { color_ = color; }
-		[[nodiscard]] const Vec3& GetColor() const noexcept override { return color_; }
+    explicit SkyLightComponent(AActor& owner, int update_order = 100);
+    ~SkyLightComponent();
 
-	protected:
-		void OnActivated() override;
-		void OnDeactivated() override;
-		void OnBeginPlay() override;
+    Vec3 color{1, 1, 1};
 
-	private:
-		Vec3 color_;
-	};
+protected:
+    void OnBeginPlay() override;
+};
+}
 }

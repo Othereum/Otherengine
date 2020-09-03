@@ -3,7 +3,9 @@
 #include "Log.hpp"
 #include "Renderer.hpp"
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 	DirLightComponent::DirLightComponent(AActor& owner, int update_order)
 		:SceneComponent{owner, update_order}, data_{GetForward(), Vec3::one}
