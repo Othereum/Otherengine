@@ -1,21 +1,29 @@
 #pragma once
-#include "Actors/Actor.hpp"
+#include "Actor.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	class DirLightComponent;
-	
-	class ENGINE_API ADirLight : public AActor
-	{
-	public:
-		explicit ADirLight(World& world);
+inline namespace engine
+{
+class DirLightComponent;
 
-		void Activate() const noexcept;
-		
-		void SetColor(const Vec3& color) const noexcept;
-		[[nodiscard]] const Vec3& GetColor() const noexcept;
+class ENGINE_API ADirLight : public AActor
+{
+CLASS_BODY(ADirLight)
 
-	private:
-		DirLightComponent& light_;
-	};
+public:
+    ADirLight();
+
+    void SetColor(const Vec3& color) const noexcept;
+    [[nodiscard]] const Vec3& GetColor() const noexcept;
+
+    [[nodiscard]] DirLightComponent& GetDirLightComp() const noexcept
+    {
+        return light_;
+    }
+
+private:
+    DirLightComponent& light_;
+};
+}
 }
