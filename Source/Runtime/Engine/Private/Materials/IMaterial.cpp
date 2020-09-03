@@ -53,6 +53,11 @@ void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
     });
 }
 
+std::shared_ptr<IMaterial> IMaterial::GetDefault()
+{
+    return AssetManager::Get().Load<IMaterial>(u8"../Engine/Assets/M_Default.json"sv);
+}
+
 void IMaterial::LoadParams(const Json& json)
 {
     LoadParams(json.at("Scalars"s), scalars_);

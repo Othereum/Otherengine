@@ -14,6 +14,8 @@ class Texture;
 class IMaterial : public Object
 {
 public:
+    [[nodiscard]] static std::shared_ptr<IMaterial> GetDefault();
+
     void LoadParams(const Json& json);
 
     [[nodiscard]] auto& GetScalarParams() const noexcept
