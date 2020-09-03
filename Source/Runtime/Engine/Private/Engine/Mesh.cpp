@@ -8,6 +8,11 @@ namespace oeng
 {
 inline namespace engine
 {
+std::shared_ptr<Mesh> Mesh::GetDefault()
+{
+    return AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Default.json"sv);
+}
+
 void Mesh::from_json(const Json& json)
 {
     const auto vertices = json.at("Vertices").get<std::vector<Vertex>>();

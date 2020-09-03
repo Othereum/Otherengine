@@ -19,16 +19,23 @@ class ENGINE_API Mesh final : public Object
 CLASS_BODY(Mesh)
 
 public:
+    [[nodiscard]] static std::shared_ptr<Mesh> GetDefault();
+
     void from_json(const Json& json) override;
 
-    [[nodiscard]] Float Radius() const noexcept
+    [[nodiscard]] auto& GetMaterial() const noexcept
     {
-        return radius_;
+        return material_;
     }
 
     [[nodiscard]] RHIMesh& GetRHI() const noexcept
     {
         return *rhi_;
+    }
+
+    [[nodiscard]] Float GetRadius() const noexcept
+    {
+        return radius_;
     }
 
 private:
