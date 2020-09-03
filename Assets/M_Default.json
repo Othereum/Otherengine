@@ -1,11 +1,15 @@
 {
-    "type": "Material",
-    "shaders": {
-        "vertex": "../Engine/Shaders/Phong.vert",
-        "fragment": "../Engine/Shaders/Phong.frag"
+    "Type": "Material",
+    "Shaders": {
+        "Vertex": "../Engine/Shaders/Phong.vert",
+        "Fragment": "../Engine/Shaders/Phong.frag"
     },
-    "params": {
-        "uTexture": "../Engine/Assets/T_Default.json",
-        "uSpecular": 0.15
+    "Parameters": {
+        "Scalars": {
+            "uSpecular": 0.15
+        },
+        "Textures": {
+            "uTexture": "../Engine/Assets/T_Default.json"
+        }
     }
 }

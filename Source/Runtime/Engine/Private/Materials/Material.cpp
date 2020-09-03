@@ -8,12 +8,12 @@ inline namespace engine
 {
 void Material::from_json(const Json& json)
 {
-    LoadParams(json.at("params"));
+    LoadParams(json.at("Parameters"));
 
-    const auto& shaders = json.at("shaders");
+    const auto& shaders = json.at("Shaders");
     shader_.reset(DynamicRHI::Get().CreateShader(
-        ReadFileAsString<char>(shaders.at("vertex").get<std::string>()).c_str(),
-        ReadFileAsString<char>(shaders.at("fragment").get<std::string>()).c_str()));
+        ReadFileAsString<char>(shaders.at("Vertex").get<std::string>()).c_str(),
+        ReadFileAsString<char>(shaders.at("Fragment").get<std::string>()).c_str()));
 }
 
 RHIShader& Material::GetRHI() const noexcept

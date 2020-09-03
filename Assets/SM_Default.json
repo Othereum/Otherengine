@@ -1,0 +1,6 @@
+{
+	"Type": "Mesh",
+	"Material": "../Engine/Assets/M_Default.json",
+	"Vertices": [],
+	"Indices": []
+}

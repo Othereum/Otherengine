@@ -55,9 +55,9 @@ void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
 
 void IMaterial::LoadParams(const Json& json)
 {
-    LoadParams(json.at("scalars"s), scalars_);
-    LoadParams(json.at("vectors"s), vectors_);
-    LoadParams(json.at("textures"s), textures_, [](const Json& value)
+    LoadParams(json.at("Scalars"s), scalars_);
+    LoadParams(json.at("Vectors"s), vectors_);
+    LoadParams(json.at("Textures"s), textures_, [](const Json& value)
     {
         return AssetManager::Get().Load<Texture>(value.get<Path>());
     });

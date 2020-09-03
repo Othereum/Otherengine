@@ -1,4 +1,4 @@
 {
-    "type": "Texture",
-    "source": "../Engine/Assets/Default.png"
+    "Type": "Texture",
+    "Source": "../Engine/Assets/Default.png"
 }

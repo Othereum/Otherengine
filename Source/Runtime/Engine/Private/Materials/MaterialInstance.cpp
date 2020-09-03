@@ -8,8 +8,8 @@ inline namespace engine
 {
 void MaterialInstance::from_json(const Json& json)
 {
-    LoadParams(json.at("param_overrides"));
-    parent_ = AssetManager::Get().Load<Material>(json.at("parent").get<Path>());
+    LoadParams(json.at("ParameterOverrides"));
+    parent_ = AssetManager::Get().Load<Material>(json.at("Parent").get<Path>());
 }
 
 RHIShader& MaterialInstance::GetRHI() const noexcept

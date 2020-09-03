@@ -1,4 +1,4 @@
 {
-    "type": "Texture",
-    "source": "../Engine/Assets/Bricks.png"
+    "Type": "Texture",
+    "Source": "../Engine/Assets/Bricks.png"
 }
