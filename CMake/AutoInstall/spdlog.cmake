@@ -4,7 +4,7 @@ project(@name@-download NONE)
 include(ExternalProject)
 ExternalProject_Add(@name@-download
 	GIT_REPOSITORY		https://github.com/gabime/spdlog
-	GIT_TAG				v1.7.0
+	GIT_TAG				v1.8.0
 	GIT_SHALLOW			TRUE
 	GIT_PROGRESS		TRUE
 	SOURCE_DIR			"@src_dir@"
