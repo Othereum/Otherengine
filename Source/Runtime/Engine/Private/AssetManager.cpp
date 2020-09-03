@@ -45,7 +45,7 @@ std::shared_ptr<Object> AssetManager::Load(Path path)
     }
 
     const auto json = ReadJsonFile(path);
-    const auto type = json.at("type").get<Name>();
+    const auto type = json.at("Type").get<Name>();
 
     auto loaded = Factory::Get().Create(type);
     loaded->from_json(json, path);
