@@ -1,7 +1,6 @@
 #pragma once
 #include "ConfigSystem.hpp"
 #include "Log.hpp"
-#include "Path.hpp"
 #include "Platform.hpp"
 #include "Stat.hpp"
 
@@ -10,12 +9,14 @@ namespace logcat
 extern CORE_API const LogCategory kEngine;
 }
 
-namespace oeng::engine
+namespace oeng
+{
+inline namespace engine
 {
 class Engine;
 }
 
-namespace oeng::core
+inline namespace core
 {
 class EngineBase;
 
@@ -64,8 +65,7 @@ protected:
     uint64_t ticks_;
 
 private:
-    friend Path;
-    friend engine::Engine;
+    friend Engine;
     friend CounterManager;
     friend ScopeCounter;
     friend ScopeStackCounter;
@@ -76,8 +76,8 @@ private:
     Dll game_dll_;
     std::u8string_view game_name_;
     Logger logger_;
-    PathSet paths_;
     ConfigSystem config_system_;
     CounterManager counters_;
 };
+}
 }

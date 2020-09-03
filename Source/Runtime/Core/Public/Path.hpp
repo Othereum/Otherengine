@@ -1,35 +1,10 @@
 #pragma once
-#include "Name.hpp"
 #include <filesystem>
-#include <unordered_set>
 
-namespace oeng::core
+namespace oeng
 {
-#ifdef OE_PATH_THREADSAFE
-constexpr auto kPathThreadSafe = true;
-#else
-constexpr auto kPathThreadSafe = false;
-#endif
-
-struct PathHasher
+inline namespace core
 {
-    [[nodiscard]] size_t operator()(const fs::path& p) const noexcept
-    {
-        const auto& s = p.native();
-        return HashRange(s.begin(), s.end(), tolower);
-    }
-};
-
-struct PathEqual
-{
-    [[nodiscard]] bool operator()(const fs::path& a, const fs::path& b) const noexcept
-    {
-        return StrEqCi(a.native(), b.native());
-    }
-};
-
-using PathSet = CondMonitor<std::unordered_set<fs::path, PathHasher, PathEqual>, kPathThreadSafe>;
-
 /**
  * Lightweight representation of path.
  * Very fast O(1) copy and comparison.
@@ -40,18 +15,11 @@ using PathSet = CondMonitor<std::unordered_set<fs::path, PathHasher, PathEqual>,
  */
 struct CORE_API Path
 {
-    Path() noexcept
-        : p{&*Set()->find({})}
-    {
-    }
+    Path() noexcept;
+    Path(const fs::path& path);
 
     Path(std::u8string_view s)
         : Path{fs::path{s}}
-    {
-    }
-
-    Path(const fs::path& path)
-        : p{&*Set()->insert(proximate(path)).first}
     {
     }
 
@@ -63,67 +31,42 @@ struct CORE_API Path
 
     bool operator==(const Path& r) const noexcept
     {
-        return p == r.p;
+        return p_ == r.p_;
     }
 
-    bool operator!=(const Path& r) const noexcept
+    auto operator<=>(const Path& r) const noexcept
     {
-        return p != r.p;
-    }
-
-    bool operator<(const Path& r) const noexcept
-    {
-        return p < r.p;
-    }
-
-    bool operator>(const Path& r) const noexcept
-    {
-        return p > r.p;
-    }
-
-    bool operator<=(const Path& r) const noexcept
-    {
-        return p <= r.p;
-    }
-
-    bool operator>=(const Path& r) const noexcept
-    {
-        return p >= r.p;
+        return p_ <=> r.p_;
     }
 
     template <class T = char8_t>
     [[nodiscard]] auto Str() const
     {
-        return p->string<T>();
-    }
-
-    operator std::u8string() const
-    {
-        return Str();
+        return p_->string<T>();
     }
 
     operator const fs::path&() const noexcept
     {
-        return *p;
+        return *p_;
     }
 
     const fs::path& operator*() const noexcept
     {
-        return *p;
+        return *p_;
     }
 
     const fs::path* operator->() const noexcept
     {
-        return p;
+        return p_;
     }
 
 private:
-    [[nodiscard]] static PathSet& Set() noexcept;
-    const fs::path* p;
+    const fs::path* p_;
 };
 
 CORE_API void to_json(Json& json, const Path& path);
 CORE_API void from_json(const Json& json, Path& path);
+}
 }
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
