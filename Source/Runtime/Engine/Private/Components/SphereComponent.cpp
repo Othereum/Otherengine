@@ -1,39 +1,44 @@
 #include "Components/SphereComponent.hpp"
-#include "Actors/Actor.hpp"
 #include "World.hpp"
+#include "Actors/Actor.hpp"
 
-namespace oeng::engine
+namespace oeng
 {
-	SphereComponent::SphereComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order}
-	{
-	}
+inline namespace engine
+{
+SphereComponent::SphereComponent(AActor& owner, int update_order)
+    : SceneComponent{owner, update_order}
+{
+}
 
-	SphereComponent::~SphereComponent()
-	{
-		if (HasBegunPlay()) GetWorld().UnregisterCollision(*this);
-	}
+SphereComponent::~SphereComponent()
+{
+    if (HasBegunPlay())
+        GetWorld().RemoveCollision(*this);
+}
 
-	void SphereComponent::DoOverlap(SphereComponent& other)
-	{
-		if (IsOverlap(other))
-		{
-			on_overlap_.Broadcast(other);
-			other.on_overlap_.Broadcast(*this);
-		}
-	}
+void SphereComponent::DoOverlap(SphereComponent& other)
+{
+    if (IsOverlap(other))
+    {
+        on_overlap_.Broadcast(other);
+        other.on_overlap_.Broadcast(*this);
+    }
+}
 
-	bool SphereComponent::IsOverlap(const SphereComponent& other) const noexcept
-	{
-		if (!(IsActive() && other.IsActive())) return false;
-		
-		const auto dist_sqr = GetWorldPos().DistSqr(other.GetWorldPos());
-		const auto r = GetScaledRadius() + other.GetScaledRadius();
-		return dist_sqr < r*r;
-	}
+bool SphereComponent::IsOverlap(const SphereComponent& other) const noexcept
+{
+    if (!(IsActive() && other.IsActive()))
+        return false;
 
-	void SphereComponent::OnBeginPlay()
-	{
-		GetWorld().RegisterCollision(*this);
-	}
+    const auto dist_sqr = GetWorldPos().DistSqr(other.GetWorldPos());
+    const auto r = GetScaledRadius() + other.GetScaledRadius();
+    return dist_sqr < r * r;
+}
+
+void SphereComponent::OnBeginPlay()
+{
+    GetWorld().AddCollision(*this);
+}
+}
 }
