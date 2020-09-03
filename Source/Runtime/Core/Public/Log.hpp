@@ -54,7 +54,9 @@ struct LogCategory
 using namespace std::string_view_literals;
 }
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 #ifdef OE_LOG_THREADSAFE
 constexpr auto kLogThreadSafe = true;
@@ -138,6 +140,7 @@ public:
 private:
     unsigned id_;
 };
+}
 }
 
 /**

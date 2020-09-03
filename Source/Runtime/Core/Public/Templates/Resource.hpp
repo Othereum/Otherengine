@@ -1,7 +1,9 @@
 #pragma once
 #include "CompPair.hpp"
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 /**
  * RAII resource handler.
@@ -87,5 +89,6 @@ template <std::regular T, std::invocable<T> Deleter>
 void swap(Resource<T, Deleter>& a, Resource<T, Deleter>& b) noexcept
 {
     a.swap(b);
+}
 }
 }

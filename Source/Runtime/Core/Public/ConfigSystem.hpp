@@ -9,7 +9,9 @@ namespace logcat
 extern CORE_API const LogCategory kConfig;
 }
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 namespace fs = std::filesystem;
 
@@ -55,4 +57,5 @@ private:
     friend class EngineBase;
     std::unordered_map<Name, Json> configs_;
 };
+}
 }

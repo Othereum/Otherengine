@@ -1,6 +1,9 @@
 #pragma once
+#include <type_traits>
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 /**
  * Tag type for value-initializing first, constructing second from remaining args
@@ -105,4 +108,5 @@ private:
     T1 first_;
     T2 second_;
 };
+}
 }

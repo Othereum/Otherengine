@@ -8,9 +8,8 @@
 
 namespace oeng
 {
-namespace core
+inline namespace core
 {
-namespace fs = std::filesystem;
 using Json = nlohmann::json;
 using JsonType = nlohmann::detail::value_t;
 using JsonParseError = nlohmann::detail::parse_error;
@@ -40,6 +39,4 @@ inline void WriteJsonFile(const fs::path& filepath, const Json& json)
     WriteFile<char>(filepath) << json.dump(4);
 }
 }
-
-using namespace core;
 }

@@ -5,7 +5,9 @@ namespace logcat
 const LogCategory kConfig{u8"Config"sv};
 }
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 namespace fs = std::filesystem;
 
@@ -263,5 +265,6 @@ void ConfigSystem::LoadConfigs(const fs::path& directory, const std::set<fs::pat
             OE_LOG(kConfig, kErr, u8"Failed to load config '{}': {}"sv, path, AsString8(e.what()));
         }
     }
+}
 }
 }

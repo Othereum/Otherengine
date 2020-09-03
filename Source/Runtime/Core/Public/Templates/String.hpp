@@ -2,7 +2,9 @@
 #include <locale>
 #include <string>
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 using namespace std::literals;
 
@@ -168,5 +170,6 @@ template <class Al = std::allocator<char16_t>>
 
     utf16.resize(to_next - utf16.data());
     return utf16;
+}
 }
 }

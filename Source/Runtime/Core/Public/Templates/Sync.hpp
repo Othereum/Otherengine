@@ -3,7 +3,9 @@
 #include <atomic>
 #include <mutex>
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 class NullMutex
 {
@@ -276,4 +278,5 @@ private:
 
 template <class T, bool ThreadSafe>
 using CondMonitor = Monitor<T, CondMutex<ThreadSafe>>;
+}
 }

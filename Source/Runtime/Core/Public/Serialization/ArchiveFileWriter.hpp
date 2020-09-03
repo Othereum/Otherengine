@@ -2,7 +2,9 @@
 #include "Archive.hpp"
 #include "File.hpp"
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 class CORE_API ArchiveFileWriter final : public Archive
 {

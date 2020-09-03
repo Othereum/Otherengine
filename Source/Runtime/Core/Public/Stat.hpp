@@ -7,7 +7,9 @@ namespace logcat
 extern CORE_API const LogCategory kStat;
 }
 
-namespace oeng::core
+namespace oeng
+{
+inline namespace core
 {
 struct ScopeStat
 {
@@ -71,11 +73,12 @@ class CORE_API CounterManager
     std::vector<Frame> frames_;
 };
 }
+}
 
 #ifdef NDEBUG
 #define SCOPE_COUNTER(name)
 #define SCOPE_STACK_COUNTER(name)
 #else
-	#define SCOPE_COUNTER(name) ScopeCounter _##name##_scope_counter{u8 ## #name ## sv}
-	#define SCOPE_STACK_COUNTER(name) ScopeStackCounter _##name##_scope_stack_counter{u8 ## #name ## sv}
+#define SCOPE_COUNTER(name) ScopeCounter _##name##_scope_counter{u8 ## #name ## sv}
+#define SCOPE_STACK_COUNTER(name) ScopeStackCounter _##name##_scope_stack_counter{u8 ## #name ## sv}
 #endif
