@@ -33,6 +33,16 @@ private:
 };
 
 /**
+ * Casts object pointer dynamically.
+ * @throw std::bad_cast If the cast fails.
+ */
+template <class To, class From>
+[[nodiscard]] std::shared_ptr<To> Cast(std::shared_ptr<From> ptr)
+{
+    return {std::move(ptr), *dynamic_cast<To&>(*ptr)};
+}
+
+/**
  * Creates an object with a class name.
  * @tparam T Target type.
  * @param type Class name.
@@ -52,8 +62,7 @@ private:
 template <class T>
 [[nodiscard]] std::shared_ptr<T> NewObject(Name type)
 {
-    auto ptr = NewObject(type);
-    return {std::move(ptr), *dynamic_cast<T&>(*ptr)};
+    return Cast<T>(NewObject(type));
 }
 
 CORE_API void RegisterClass(Name type, std::shared_ptr<Object> (*creator)());
