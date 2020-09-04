@@ -31,5 +31,16 @@ protected:
 private:
     Path path_;
 };
+
+[[nodiscard]] CORE_API std::shared_ptr<Object> NewObject(Name type);
+
+template <class T>
+[[nodiscard]] std::shared_ptr<T> NewObject(Name type)
+{
+    auto ptr = NewObject(type);
+    return {std::move(ptr), *dynamic_cast<T&>(*ptr)};
+}
+
+CORE_API void RegisterClass(Name type, std::shared_ptr<Object> (*creator)());
 }
 }

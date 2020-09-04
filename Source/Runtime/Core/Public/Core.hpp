@@ -41,6 +41,11 @@
   public:                                                                                                              \
     inline static const Name class_name = u8## #name##sv;                                                              \
                                                                                                                        \
+    [[nodiscard]] static std::shared_ptr<Object> Create()                                                              \
+    {                                                                                                                  \
+        return std::make_shared<name>();                                                                               \
+    }                                                                                                                  \
+                                                                                                                       \
     [[nodiscard]] Name GetClassName() const noexcept override                                                          \
     {                                                                                                                  \
         return class_name;                                                                                             \
@@ -72,7 +77,7 @@
       public:                                                                                                          \
         _##name##Registerer()                                                                                          \
         {                                                                                                              \
-            Factory::Get().Register<name>();                                                                           \
+            RegisterClass(class_name, &Create);                                                                        \
         }                                                                                                              \
     };                                                                                                                 \
                                                                                                                        \
