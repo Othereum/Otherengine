@@ -65,6 +65,9 @@ template <class T>
     return Cast<T>(NewObject(type));
 }
 
+/**
+ * Used by CLASS_BODY() macro. DO NOT USE IT MANUALLY.
+ */
 CORE_API void RegisterClass(Name type, std::shared_ptr<Object> (*creator)());
 }
 }
