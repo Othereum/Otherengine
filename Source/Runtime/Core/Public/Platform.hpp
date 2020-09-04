@@ -21,7 +21,7 @@ namespace detail
 
 /**
  * Get user data path.
- * - On debug/development build: "../Saved"
+ * - On debug/development/test build: "../Saved"
  * - On Windows shipping build: "C:/Users/{user}/Documents/{game}" by default
  * - On Unix shipping build: "/home/{user}/.{game}"
  */
@@ -35,7 +35,7 @@ namespace detail
 [[nodiscard]] inline bool IsDebugging() noexcept
 {
 #ifdef NDEBUG
-		return false;
+    return false;
 #else
     return detail::IsDebuggingImpl();
 #endif
@@ -62,7 +62,6 @@ public:
     }
 
 private:
-    // Should not use memory pool
     std::shared_ptr<void> dll_;
     std::u8string filepath_;
 };
