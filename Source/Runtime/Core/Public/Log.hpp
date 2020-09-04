@@ -1,15 +1,8 @@
 #pragma once
 #include "Core.hpp"
-#include "Templates/Sync.hpp"
+#include "Name.hpp"
 #include "Templates/Time.hpp"
 #include <fmt/compile.h>
-
-#ifndef DOXYGEN_SHOULD_SKIP_THIS
-namespace spdlog
-{
-class logger;
-}
-#endif
 
 /**
  * Namespace for log categories.
@@ -24,7 +17,7 @@ namespace logcat
  * @code{cpp}
  * namespace logcat
  * {
- *     extern const LogCategory kMyCategory;
+ * extern const LogCategory kMyCategory;
  * }
  * @endcode
  * 
@@ -32,7 +25,7 @@ namespace logcat
  * @code{cpp}
  * namespace logcat
  * {
- *     const LogCategory kMyCategory{u8"MyCategory"sv};
+ * const LogCategory kMyCategory{u8"MyCategory"sv};
  * }
  * @endcode
  *
@@ -40,7 +33,7 @@ namespace logcat
  * @code{cpp}
  * namespace logcat
  * {
- *     static constexpr LogCategory kMyCategory{u8"MyCategory"sv};
+ * static const LogCategory kMyCategory{u8"MyCategory"sv};
  * }
  * @endcode
  *
@@ -48,7 +41,7 @@ namespace logcat
  */
 struct LogCategory
 {
-    std::u8string_view name;
+    oeng::Name name;
 };
 
 using namespace std::string_view_literals;
@@ -58,12 +51,6 @@ namespace oeng
 {
 inline namespace core
 {
-#ifdef OE_LOG_THREADSAFE
-constexpr auto kLogThreadSafe = true;
-#else
-constexpr auto kLogThreadSafe = false;
-#endif
-
 enum class LogLevel
 {
     /**
@@ -97,24 +84,8 @@ enum class LogLevel
     kCritical
 };
 
-class CORE_API Logger
-{
-public:
-    void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message) const;
-    void LogDelay(unsigned id, Duration delay, const logcat::LogCategory& category, LogLevel level,
-                  std::u8string_view msg);
-
-private:
-    friend class EngineBase;
-    Logger();
-
-    std::shared_ptr<spdlog::logger> console_;
-    std::shared_ptr<spdlog::logger> file_;
-
-    CondMonitor<std::unordered_map<unsigned, TimePoint>, kLogThreadSafe> delayed_;
-};
-
 CORE_API void Log(const logcat::LogCategory& category, LogLevel level, std::u8string_view message);
+CORE_API void FlushLog();
 
 template <class Str, class... Args>
 void Log(const logcat::LogCategory& category, LogLevel level, const Str& format, const Args&... args)
@@ -138,7 +109,7 @@ public:
     }
 
 private:
-    unsigned id_;
+    size_t id_;
 };
 }
 }
