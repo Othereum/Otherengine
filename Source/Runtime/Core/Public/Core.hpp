@@ -1,4 +1,5 @@
 #pragma once
+#include <string_view>
 
 #ifdef _WIN32
 #define OE_EXPORT __declspec(dllexport)
@@ -119,6 +120,9 @@ namespace oeng
 {
 inline namespace core
 {
+CORE_API void SetGameName(std::u8string_view game_name);
+[[nodiscard]] CORE_API std::u8string_view GetGameName() noexcept;
+
 /**
  * Check if the current thread is a game thread.
  * @return True if called from the game thread.
