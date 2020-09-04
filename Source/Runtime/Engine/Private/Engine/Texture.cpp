@@ -1,12 +1,16 @@
 #include "Engine/Texture.hpp"
 #include "AssetManager.hpp"
 #include "DynamicRHI.hpp"
+#include "RHITexture.hpp"
 #include <stb_image.h>
 
 namespace oeng
 {
 inline namespace engine
 {
+Texture::Texture() = default;
+Texture::~Texture() = default;
+
 std::shared_ptr<Texture> Texture::GetDefault()
 {
     return AssetManager::Get().Load<Texture>(u8"../Engine/Assets/T_Default.json"sv);

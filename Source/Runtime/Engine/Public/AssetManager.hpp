@@ -34,8 +34,7 @@ public:
     template <class T>
     [[nodiscard]] std::shared_ptr<T> Load(Path path)
     {
-        auto ptr = Load(path);
-        return {std::move(ptr), *dynamic_cast<T&>(*ptr)};
+        return Cast<T>(Load(path));
     }
 
 private:

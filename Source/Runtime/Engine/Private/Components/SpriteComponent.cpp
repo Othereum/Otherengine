@@ -1,26 +1,35 @@
 #include "Components/SpriteComponent.hpp"
-#include "Actors/Actor.hpp"
+#include "IRenderer.hpp"
 #include "Engine/Texture.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-SpriteComponent::SpriteComponent(AActor& owner, const int draw_order, const int update_order)
-    : SceneComponent{owner, update_order},
-      texture_{Texture::GetDefault()},
-      draw_order_{draw_order}
+SpriteComponent::SpriteComponent()
+    : texture_{Texture::GetDefault()}
 {
 }
 
-SpriteComponent::~SpriteComponent()
+void SpriteComponent::SetDrawOrder(int draw_order)
 {
+    draw_order_ = draw_order;
+
     if (HasBegunPlay())
-        GetRenderer().UnregisterSprite(*this);
+    {
+        IRenderer::Get().RemoveSprite(*this);
+        IRenderer::Get().AddSprite(*this);
+    }
 }
 
 void SpriteComponent::OnBeginPlay()
 {
-    GetRenderer().RegisterSprite(*this);
+    IRenderer::Get().AddSprite(*this);
+}
+
+void SpriteComponent::OnEndPlay()
+{
+    IRenderer::Get().RemoveSprite(*this);
+}
 }
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "Actors/Actor.hpp"
+#include "GameFramework/Actor.hpp"
 
 namespace oeng
 {

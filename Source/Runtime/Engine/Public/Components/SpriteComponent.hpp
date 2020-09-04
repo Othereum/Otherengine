@@ -12,10 +12,7 @@ class ENGINE_API SpriteComponent : public SceneComponent
 CLASS_BODY(SpriteComponent)
 
 public:
-    DELETE_CPMV(SpriteComponent);
-
-    explicit SpriteComponent(AActor& owner, int draw_order = 100, int update_order = 100);
-    ~SpriteComponent();
+    SpriteComponent();
 
     /**
      * Set new texture.
@@ -30,10 +27,12 @@ public:
      * Get current texture.
      * @return Texture. Guaranteed not null.
      */
-    [[nodiscard]] auto& GetTexture() const noexcept
+    [[nodiscard]] const std::shared_ptr<Texture>& GetTexture() const noexcept
     {
         return texture_;
     }
+
+    void SetDrawOrder(int draw_order);
 
     [[nodiscard]] int GetDrawOrder() const noexcept
     {
@@ -42,10 +41,11 @@ public:
 
 protected:
     void OnBeginPlay() override;
+    void OnEndPlay() override;
 
 private:
     std::shared_ptr<Texture> texture_;
-    int draw_order_;
+    int draw_order_ = 100;
 };
 }
 }

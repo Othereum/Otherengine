@@ -1,4 +1,4 @@
-#include "Actors/SkyLight.hpp"
+#include "Engine/SkyLight.hpp"
 #include "Components/SkyLightComponent.hpp"
 
 namespace oeng

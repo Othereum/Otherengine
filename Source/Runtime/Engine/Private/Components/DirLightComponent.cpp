@@ -1,34 +1,18 @@
 #include "Components/DirLightComponent.hpp"
-#include "Debug.hpp"
-#include "Log.hpp"
-#include "Renderer.hpp"
+#include "IRenderer.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-	DirLightComponent::DirLightComponent(AActor& owner, int update_order)
-		:SceneComponent{owner, update_order}, data_{GetForward(), Vec3::one}
-	{
-	}
+void DirLightComponent::OnBeginPlay()
+{
+    IRenderer::Get().AddDirLight(*this);
+}
 
-	DirLightComponent::~DirLightComponent()
-	{
-		DirLightComponent::OnDeactivated();
-	}
-
-	void DirLightComponent::OnActivated()
-	{
-		GetRenderer().RegisterDirLight(*this);
-	}
-
-	void DirLightComponent::OnDeactivated()
-	{
-		GetRenderer().UnregisterDirLight(*this);
-	}
-
-	void DirLightComponent::OnBeginPlay()
-	{
-		EXPECT(!IsAutoActivate() || !GetRenderer().IsDirLightRegistered());
-	}
+void DirLightComponent::OnEndPlay()
+{
+    IRenderer::Get().RemoveDirLight(*this);
+}
+}
 }

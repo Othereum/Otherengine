@@ -14,6 +14,11 @@ class ENGINE_API Texture final : public Object
 CLASS_BODY(Texture)
 
 public:
+    DELETE_CPMV(Texture);
+
+    Texture();
+    ~Texture();
+
     [[nodiscard]] static std::shared_ptr<Texture> GetDefault();
 
     void from_json(const Json& json) override;

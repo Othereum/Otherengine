@@ -1,30 +1,18 @@
 #include "Components/SkyLightComponent.hpp"
-
-#include "Debug.hpp"
-#include "Log.hpp"
-#include "Renderer.hpp"
+#include "IRenderer.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-	SkyLightComponent::~SkyLightComponent()
-	{
-		SkyLightComponent::OnDeactivated();
-	}
+void SkyLightComponent::OnBeginPlay()
+{
+    IRenderer::Get().AddSkyLight(*this);
+}
 
-	void SkyLightComponent::OnActivated()
-	{
-		GetRenderer().RegisterSkyLight(*this);
-	}
-
-	void SkyLightComponent::OnDeactivated()
-	{
-		GetRenderer().UnregisterSkyLight(*this);
-	}
-
-	void SkyLightComponent::OnBeginPlay()
-	{
-		EXPECT(!IsAutoActivate() || !GetRenderer().IsSkyLightRegistered());
-	}
+void SkyLightComponent::OnEndPlay()
+{
+    IRenderer::Get().RemoveSkyLight(*this);
+}
+}
 }

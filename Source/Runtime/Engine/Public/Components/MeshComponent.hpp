@@ -13,10 +13,7 @@ class ENGINE_API MeshComponent : public SceneComponent
 CLASS_BODY(MeshComponent)
 
 public:
-    DELETE_CPMV(MeshComponent);
-
-    explicit MeshComponent(AActor& owner, int update_order = 100);
-    ~MeshComponent();
+    MeshComponent();
 
     /**
      * Set mesh of this component.
@@ -58,6 +55,7 @@ public:
 
 protected:
     void OnBeginPlay() override;
+    void OnEndPlay() override;
 
 private:
     void ReRegister();

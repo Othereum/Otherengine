@@ -56,3 +56,4 @@ private:
     std::basic_ofstream<char8_t> stream_;
 };
 }
+}

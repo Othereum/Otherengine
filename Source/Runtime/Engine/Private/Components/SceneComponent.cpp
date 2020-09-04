@@ -4,19 +4,14 @@ namespace oeng
 {
 inline namespace engine
 {
-SceneComponent::SceneComponent(AActor& owner, int update_order)
-    : ActorComponent{owner, update_order}, parent_{}
-{
-}
-
 void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
 {
     if (parent_)
     {
         auto& siblings = parent_->children_;
-        const auto me = std::find_if(siblings.begin(), siblings.end(), [this](const SceneComponent& other)
+        const auto me = std::find_if(siblings.begin(), siblings.end(), [this](SceneComponent* other)
         {
-            return &other == this;
+            return other == this;
         });
 
         assert(me != siblings.end());
@@ -26,19 +21,20 @@ void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
     parent_ = new_parent;
 
     if (new_parent)
-    {
-        new_parent->children_.emplace_back(*this);
-    }
+        new_parent->children_.emplace_back(this);
 
     switch (rule)
     {
     case AttachRule::kKeepRelative:
         RecalcWorldTrsf();
         break;
+
     case AttachRule::kKeepWorld:
         RecalcRelTrsf();
         break;
-    default: EXPECT_NO_ENTRY();
+
+    default:
+        EXPECT_NO_ENTRY();
     }
 }
 
@@ -57,7 +53,7 @@ void SceneComponent::RecalcWorldTrsf() noexcept
 
     for (auto c : children_)
     {
-        c.get().RecalcWorldTrsf();
+        c->RecalcWorldTrsf();
     }
 
     OnTrsfChanged();
@@ -92,9 +88,10 @@ void SceneComponent::RecalcRelTrsf() noexcept
 
     for (auto c : children_)
     {
-        c.get().RecalcWorldTrsf();
+        c->RecalcWorldTrsf();
     }
 
     OnTrsfChanged();
+}
 }
 }

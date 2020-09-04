@@ -1,6 +1,7 @@
 #include "Engine/Mesh.hpp"
 #include "AssetManager.hpp"
 #include "DynamicRHI.hpp"
+#include "RHIMesh.hpp"
 #include "Vertex.hpp"
 #include "Materials/IMaterial.hpp"
 
@@ -12,6 +13,9 @@ std::shared_ptr<Mesh> Mesh::GetDefault()
 {
     return AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Default.json"sv);
 }
+
+Mesh::Mesh() = default;
+Mesh::~Mesh() = default;
 
 void Mesh::from_json(const Json& json)
 {

@@ -21,6 +21,10 @@ CLASS_BODY(Mesh)
 public:
     [[nodiscard]] static std::shared_ptr<Mesh> GetDefault();
 
+    Mesh();
+    ~Mesh();
+    DELETE_CPMV(Mesh);
+
     void from_json(const Json& json) override;
 
     [[nodiscard]] auto& GetMaterial() const noexcept

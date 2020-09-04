@@ -7,16 +7,9 @@ namespace oeng
 {
 inline namespace engine
 {
-MeshComponent::MeshComponent(AActor& owner, int update_order)
-    : SceneComponent{owner, update_order},
-      mesh_{Mesh::GetDefault()}
+MeshComponent::MeshComponent()
+    : mesh_{Mesh::GetDefault()}
 {
-}
-
-MeshComponent::~MeshComponent()
-{
-    if (HasBegunPlay())
-        IRenderer::Get().RemoveMesh(*this);
 }
 
 void MeshComponent::SetMesh(std::shared_ptr<Mesh> mesh)
@@ -52,6 +45,11 @@ const std::shared_ptr<IMaterial>& MeshComponent::GetMaterial() const noexcept
 void MeshComponent::OnBeginPlay()
 {
     IRenderer::Get().AddMesh(*this);
+}
+
+void MeshComponent::OnEndPlay()
+{
+    IRenderer::Get().RemoveMesh(*this);
 }
 
 void MeshComponent::ReRegister()

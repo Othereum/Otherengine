@@ -1,4 +1,4 @@
-#include "Actors/PointLight.hpp"
+#include "Engine/PointLight.hpp"
 #include "Components/PointLightComponent.hpp"
 
 namespace oeng

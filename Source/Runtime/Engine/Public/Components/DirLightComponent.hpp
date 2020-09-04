@@ -9,14 +9,9 @@ class ENGINE_API DirLightComponent : public SkyLightComponent
 {
 CLASS_BODY(DirLightComponent)
 
-public:
-    DELETE_CPMV(DirLightComponent);
-
-    explicit DirLightComponent(AActor& owner, int update_order = 100);
-    ~DirLightComponent();
-
 protected:
     void OnBeginPlay() override;
+    void OnEndPlay() override;
 };
 }
 }

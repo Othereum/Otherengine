@@ -39,7 +39,7 @@ private:
 template <class To, class From>
 [[nodiscard]] std::shared_ptr<To> Cast(std::shared_ptr<From> ptr)
 {
-    return {std::move(ptr), *dynamic_cast<To&>(*ptr)};
+    return {std::move(ptr), &dynamic_cast<To&>(*ptr)};
 }
 
 /**

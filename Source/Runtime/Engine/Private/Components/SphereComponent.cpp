@@ -1,22 +1,10 @@
 #include "Components/SphereComponent.hpp"
 #include "World.hpp"
-#include "Actors/Actor.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-SphereComponent::SphereComponent(AActor& owner, int update_order)
-    : SceneComponent{owner, update_order}
-{
-}
-
-SphereComponent::~SphereComponent()
-{
-    if (HasBegunPlay())
-        GetWorld().RemoveCollision(*this);
-}
-
 void SphereComponent::DoOverlap(SphereComponent& other)
 {
     if (IsOverlap(other))
@@ -28,7 +16,7 @@ void SphereComponent::DoOverlap(SphereComponent& other)
 
 bool SphereComponent::IsOverlap(const SphereComponent& other) const noexcept
 {
-    if (!(IsActive() && other.IsActive()))
+    if (!IsActive() || !other.IsActive())
         return false;
 
     const auto dist_sqr = GetWorldPos().DistSqr(other.GetWorldPos());
@@ -39,6 +27,11 @@ bool SphereComponent::IsOverlap(const SphereComponent& other) const noexcept
 void SphereComponent::OnBeginPlay()
 {
     GetWorld().AddCollision(*this);
+}
+
+void SphereComponent::OnEndPlay()
+{
+    GetWorld().RemoveCollision(*this);
 }
 }
 }

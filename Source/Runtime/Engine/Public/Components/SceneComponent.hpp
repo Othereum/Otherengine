@@ -16,8 +16,6 @@ class ENGINE_API SceneComponent : public ActorComponent
 CLASS_BODY(SceneComponent)
 
 public:
-    explicit SceneComponent(AActor& owner, int update_order = 100);
-
     void AttachTo(SceneComponent* new_parent, AttachRule rule);
 
     void SetRelTrsf(const Transform& trsf) noexcept
@@ -155,7 +153,7 @@ private:
     // Recalculate relative transform with world transform
     void RecalcRelTrsf() noexcept;
 
-    SceneComponent* parent_;
+    SceneComponent* parent_ = nullptr;
     std::vector<SceneComponent*> children_;
     Transform rel_trsf_;
     Transform world_trsf_;

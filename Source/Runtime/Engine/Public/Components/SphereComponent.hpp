@@ -1,6 +1,5 @@
 #pragma once
 #include "SceneComponent.hpp"
-#include "Templates/Event.hpp"
 
 namespace oeng
 {
@@ -14,11 +13,6 @@ class ENGINE_API SphereComponent : public SceneComponent
 CLASS_BODY(SphereComponent)
 
 public:
-    DELETE_CPMV(SphereComponent);
-
-    explicit SphereComponent(AActor& owner, int update_order = 100);
-    ~SphereComponent();
-
     /**
      * Test if they overlap, and if so, broadcast the on_overlap event for both components.
      */
@@ -60,9 +54,11 @@ public:
 
 protected:
     void OnBeginPlay() override;
+    void OnEndPlay() override;
 
 private:
     Event<SphereComponent&> on_overlap_;
     Float radius_ = 32;
 };
+}
 }

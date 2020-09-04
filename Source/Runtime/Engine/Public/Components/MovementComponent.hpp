@@ -10,7 +10,7 @@ class ENGINE_API MovementComponent : public ActorComponent
 CLASS_BODY(MovementComponent)
 
 public:
-    explicit MovementComponent(AActor& owner, int update_order = 1000);
+    MovementComponent();
 
     void AddMovInput(const Vec3& input) noexcept
     {

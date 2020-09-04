@@ -58,8 +58,7 @@ bool EngineBase::Exists() noexcept
 EngineBase::EngineBase(std::u8string game_module_path)
     : ticks_{},
       game_dll_{std::move(game_module_path)},
-      game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)},
-      paths_{fs::path{}}
+      game_name_{game_dll_.GetSymbol<const char8_t* const>(u8"kGameName"sv)}
 {
 }
 }
