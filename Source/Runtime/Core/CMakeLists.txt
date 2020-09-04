@@ -3,9 +3,14 @@
 set(OE_USE_AVX2 FALSE)
 add_module(Core)
 
-add_switch(Core OE_NAME_THREADSAFE FALSE "Should 'Name' class be thread-safe?")
-add_switch(Core OE_PATH_THREADSAFE FALSE "Should 'Path' class be thread-safe?")
-add_switch(Core OE_LOG_THREADSAFE FALSE "Should logging be thread-safe?")
+oe_define_switch(Core OE_NAME_THREADSAFE)
+oe_define_switch(Core OE_PATH_THREADSAFE)
+oe_define_switch(Core OE_LOG_THREADSAFE)
+
+oe_define_switch(Core OE_BUILD_DEBUG)
+oe_define_switch(Core OE_BUILD_DEVELOPMENT)
+oe_define_switch(Core OE_BUILD_TEST)
+oe_define_switch(Core OE_BUILD_SHIPPING)
 
 target_link_libraries(${PROJECT_NAME}-Core
   PUBLIC
