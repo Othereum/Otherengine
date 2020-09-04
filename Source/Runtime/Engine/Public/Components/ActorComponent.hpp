@@ -14,12 +14,22 @@ CLASS_BODY(ActorComponent)
 public:
     ActorComponent() = default;
 
-    void BeginPlay();
-    void Update(Float delta_seconds);
-
+    /**
+     * Activate the component.
+     * It also enables the component update.
+     */
     void Activate();
+
+    /**
+     * Deactivate the component.
+     * It also disables the component update.
+     */
     void Deactivate();
 
+    /**
+     * Check if the component is active.
+     * It also indicates whether the component is being updated.
+     */
     [[nodiscard]] bool IsActive() const noexcept
     {
         return is_active_;
@@ -61,6 +71,10 @@ protected:
     {
     }
 
+    virtual void OnEndPlay()
+    {
+    }
+
     virtual void OnUpdate([[maybe_unused]] Float delta_seconds)
     {
     }
@@ -75,6 +89,11 @@ protected:
 
 private:
     friend AActor;
+
+    void BeginPlay();
+    void EndPlay();
+    void Update(Float delta_seconds);
+
     AActor* owner_ = nullptr;
     int update_order_ = 100;
 

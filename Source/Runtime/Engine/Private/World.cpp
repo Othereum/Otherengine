@@ -1,8 +1,8 @@
 #include "World.hpp"
 #include "Stat.hpp"
 #include "TimerManager.hpp"
-#include "Actors/Actor.hpp"
 #include "Components/SphereComponent.hpp"
+#include "GameFramework/Actor.hpp"
 
 namespace oeng
 {
@@ -45,7 +45,7 @@ void World::RemoveCollision(SphereComponent& comp)
 
 void World::UpdateGame()
 {
-    for (auto* actor : updated_actors_)
+    for (const auto& actor : actors_)
         actor->Update(delta_seconds_);
 
     for (size_t i = 0; i < collisions_.size(); ++i)
@@ -55,22 +55,19 @@ void World::UpdateGame()
     timer_.Update();
 
     // Use index-based loop because BeginPlay() can spawn new actors
-    for (size_t i = 0; i < actors_.size(); ++i)
+    for (size_t i = 0; i < pending_actors_.size(); ++i)
     {
-        if (actors_[i]->can_ever_update_)
-            updated_actors_.push_back(actors_[i].get());
-
-        actors_[i]->BeginPlay();
+        auto& ref = *actors_[i];
+        actors_.push_back(std::move(actors_[i]));
+        ref.BeginPlay();
     }
 
     for (auto it = actors_.rbegin(); it != actors_.rend();)
     {
-        const auto& actor = **it;
+        auto& actor = **it;
         if (actor.IsPendingKill())
         {
-            if (actor.can_ever_update_)
-                updated_actors_.erase(std::find(updated_actors_.begin(), updated_actors_.end(), &actor));
-
+            actor.EndPlay();
             const auto next = actors_.erase(it.base() - 1);
             it = make_reverse_iterator(next);
         }

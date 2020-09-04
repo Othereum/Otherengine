@@ -12,11 +12,6 @@ namespace oeng
 {
 inline namespace engine
 {
-AActor::~AActor()
-{
-    GetWorld().GetTimerManager().RemoveTimer(lifespan_timer_);
-}
-
 void AActor::BeginPlay()
 {
     begun_play_ = true;
@@ -28,30 +23,32 @@ void AActor::BeginPlay()
     OnBeginPlay();
 }
 
-void AActor::Update(Float delta_seconds)
+void AActor::EndPlay()
 {
-    if (update_enabled_)
-    {
-        SCOPE_STACK_COUNTER(ActorUpdate);
-        UpdateComponents(delta_seconds);
-        OnUpdate(delta_seconds);
-    }
+    for (const auto& c : comps_)
+        c->EndPlay();
+
+    GetWorld().GetTimerManager().RemoveTimer(lifespan_timer_);
+    OnEndPlay();
 }
 
-void AActor::UpdateComponents(Float delta_seconds)
+void AActor::Update(Float delta_seconds)
 {
+    SCOPE_STACK_COUNTER(ActorUpdate);
+
     for (const auto& comp : comps_)
         comp->Update(delta_seconds);
+
+    if (update_enabled)
+        OnUpdate(delta_seconds);
 }
 
 void AActor::RegisterComponent(std::shared_ptr<ActorComponent>&& comp)
 {
-    auto cmp = [](const std::shared_ptr<ActorComponent>& a, const std::shared_ptr<ActorComponent>& b)
+    comps_.insert(std::upper_bound(comps_.begin(), comps_.end(), comp, [](auto& a, auto& b)
     {
         return a->update_order_ < b->update_order_;
-    };
-    const auto pos = std::upper_bound(comps_.begin(), comps_.end(), comp, cmp);
-    comps_.insert(pos, std::move(comp));
+    }), std::move(comp));
 
     comp->owner_ = this;
 }
@@ -96,20 +93,6 @@ Float AActor::GetLifespan() const noexcept
 {
     auto& timer = GetWorld().GetTimerManager();
     return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
-}
-
-void AActor::SetCanEverUpdate(bool can_ever_update) noexcept
-{
-    if (ENSURE(!begun_play_))
-    {
-        can_ever_update_ = can_ever_update;
-    }
-}
-
-void AActor::SetUpdateEnabled(bool update_enabled) noexcept
-{
-    EXPECT(!begun_play_ || can_ever_update_ || !update_enabled);
-    update_enabled_ = update_enabled;
 }
 
 void AActor::SetTrsf(const Transform& trsf) const noexcept

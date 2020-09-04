@@ -1,6 +1,6 @@
 #include "Components/ActorComponent.hpp"
 #include "Engine.hpp"
-#include "Actors/Actor.hpp"
+#include "GameFramework/Actor.hpp"
 
 namespace oeng
 {
@@ -15,9 +15,15 @@ void ActorComponent::BeginPlay()
         Activate();
 }
 
+void ActorComponent::EndPlay()
+{
+    OnEndPlay();
+}
+
 void ActorComponent::Update(Float delta_seconds)
 {
-    OnUpdate(delta_seconds);
+    if (is_active_)
+        OnUpdate(delta_seconds);
 }
 
 void ActorComponent::Activate()

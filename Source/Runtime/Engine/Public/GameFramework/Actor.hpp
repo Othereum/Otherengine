@@ -21,13 +21,6 @@ class ENGINE_API AActor : public Object
 CLASS_BODY(AActor)
 
 public:
-    DELETE_CPMV(AActor);
-
-    AActor() = default;
-    ~AActor();
-
-    void BeginPlay();
-    void Update(Float delta_seconds);
     void Destroy();
 
     template <class T>
@@ -107,22 +100,6 @@ public:
         return init_lifespan_;
     }
 
-    /**
-     * If false, the actor will never be updated. `false` by default for optimization.
-     * @note It should be called before BeginPlay(). Calls after BeginPlay() are ignored.
-     */
-    void SetCanEverUpdate(bool can_ever_update) noexcept;
-
-    /**
-     * If false, the actor will not being updated. `true` by default.
-     */
-    void SetUpdateEnabled(bool update_enabled) noexcept;
-
-    [[nodiscard]] bool IsBeingUpdated() const noexcept
-    {
-        return can_ever_update_ && update_enabled_;
-    }
-
     void SetPos(const Vec3& pos) const noexcept;
     void SetRot(const Quat& rot) const noexcept;
     void SetScale(const Vec3& scale) const noexcept;
@@ -141,25 +118,38 @@ public:
         return *world_;
     }
 
-protected:
-    virtual void OnUpdate([[maybe_unused]] Float delta_seconds)
-    {
-    }
+    /**
+     * If false, the actor will not being updated. `true` by default.
+     * Components are not affected by this property.
+     */
+    bool update_enabled : 1 = true;
 
+protected:
     virtual void OnBeginPlay()
     {
     }
 
+    virtual void OnEndPlay()
+    {
+    }
+
+    virtual void OnUpdate([[maybe_unused]] Float delta_seconds)
+    {
+    }
+
 private:
-    void RegisterComponent(std::shared_ptr<ActorComponent>&& comp);
-    void UpdateComponents(Float delta_seconds);
-
     friend World;
+
+    void BeginPlay();
+    void EndPlay();
+    void Update(Float delta_seconds);
+
+    void RegisterComponent(std::shared_ptr<ActorComponent>&& comp);
+
     World* world_ = nullptr;
-
     SceneComponent* root_ = nullptr;
-    std::vector<std::shared_ptr<ActorComponent>> comps_;
 
+    std::vector<std::shared_ptr<ActorComponent>> comps_;
     std::unordered_set<Name> tags_;
 
     TimerHandle lifespan_timer_;
@@ -167,8 +157,6 @@ private:
 
     bool pending_kill_ : 1 = false;
     bool begun_play_ : 1 = false;
-    bool can_ever_update_ : 1 = false;
-    bool update_enabled_ : 1 = true;
 };
 }
 }

@@ -25,16 +25,16 @@ public:
         auto ptr = std::make_shared<T>();
         auto& ref = *ptr;
         ref.world_ = this;
-        actors_.emplace_back(std::move(ptr));
+        pending_actors_.emplace_back(std::move(ptr));
         return ref;
     }
 
-    template <std::invocable<AActor&> Fn>
+    template <std::invocable<const std::shared_ptr<AActor>&> Fn>
     void ForEachActor(Fn&& fn) const
     {
         for (auto& actor : actors_)
         {
-            fn(*actor);
+            fn(actor);
         }
     }
 
@@ -63,9 +63,8 @@ private:
     TimerManager timer_;
 
     std::vector<SphereComponent*> collisions_;
-
     std::vector<std::shared_ptr<AActor>> actors_;
-    std::vector<AActor*> updated_actors_;
+    std::vector<std::shared_ptr<AActor>> pending_actors_;
 
     TimePoint time_;
     Float delta_seconds_;
