@@ -3,31 +3,56 @@
 #endif
 
 #include "Engine.hpp"
+#include <csignal>
+
+using namespace oeng;
+
+static void OnIllegal(int)
+{
+    OE_LOG(kEngine, kCritical, u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
+}
+
+static void CheckCpu()
+{
+    const auto& cpu = CpuInfo::Get();
+    OE_LOG(kEngine, kLog, cpu.GetBrand());
+
+#ifdef OE_USE_AVX2
+    if (!cpu.AVX2())
+        throw std::runtime_error{"Unsupported CPU (AVX2)"};
+#endif
+}
 
 static void EngineMain()
 {
-	oeng::Engine engine{u8"./" U8_TEXT(OE_GAME_MODULE)};
-	engine.RunLoop();
+    CheckCpu();
+
+    const Dll game_dll{u8"./" U8_TEXT(OE_GAME_MODULE)};
+    SetGameName(game_dll.GetSymbol<const std::u8string_view>(u8"kGameName"sv));
+
+    Engine engine;
+    engine.RunLoop();
 }
 
 int main()
 {
-	using namespace oeng;
+    std::signal(SIGILL, &OnIllegal);
 
-	if (IsDebugging())
-	{
-		EngineMain();
-	}
-	else
-	{
-		try
-		{
-			EngineMain();
-		}
-		catch (const std::exception& e)
-		{
-			OE_LOG(kEngine, kCritical, What(e));
-			return EXIT_FAILURE;
-		}
-	}
+    if (IsDebugging())
+    {
+        OE_LOG(kEngine, kDebug, u8"Debugger detected"sv);
+        EngineMain();
+    }
+    else
+    {
+        try
+        {
+            EngineMain();
+        }
+        catch (const std::exception& e)
+        {
+            OE_LOG(kEngine, kCritical, AsString8(e.what()));
+            return EXIT_FAILURE;
+        }
+    }
 }

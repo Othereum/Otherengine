@@ -1,6 +1,6 @@
 #include "Audio/AudioSystem.hpp"
 #include "FModError.hpp"
-#include "fmod_studio.hpp"
+#include <fmod_studio.hpp>
 
 namespace logcat
 {
@@ -11,7 +11,18 @@ namespace oeng
 {
 inline namespace engine
 {
-static std::u8string GetName(const FMOD::Studio::EventDescription& event);
+[[nodiscard]] static std::u8string GetName(const FMOD::Studio::EventDescription& event)
+{
+    std::u8string event_name;
+
+    int buf_size;
+    event.getPath(nullptr, 0, &buf_size);
+
+    event_name.resize(buf_size - 1);
+    event.getPath(AsString(event_name).data(), buf_size, nullptr);
+
+    return event_name;
+}
 
 template <class Fn>
 static void ForEachEvent(const FMOD::Studio::Bank& bank, Fn&& fn)
@@ -22,10 +33,16 @@ static void ForEachEvent(const FMOD::Studio::Bank& bank, Fn&& fn)
     std::vector<FMOD::Studio::EventDescription*> events(num_events);
     bank.getEventList(events.data(), num_events, &num_events);
 
-    for (auto* const event : events)
+    for (auto* event : events)
     {
         fn(*event);
     }
+}
+
+AudioSystem& AudioSystem::Get()
+{
+    static AudioSystem system;
+    return system;
 }
 
 AudioSystem::AudioSystem()
@@ -117,20 +134,6 @@ void AudioSystem::UnloadBank(FMOD::Studio::Bank& bank)
     });
 
     bank.unload();
-}
-
-
-std::u8string GetName(const FMOD::Studio::EventDescription& event)
-{
-    std::u8string event_name;
-
-    int buf_size;
-    event.getPath(nullptr, 0, &buf_size);
-
-    event_name.resize(buf_size - 1);
-    event.getPath(AsString(event_name).data(), buf_size, nullptr);
-
-    return event_name;
 }
 }
 }

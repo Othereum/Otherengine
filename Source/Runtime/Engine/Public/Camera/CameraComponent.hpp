@@ -16,9 +16,6 @@ public:
         Float near = 10, far = 10000;
     };
 
-    explicit CameraComponent(AActor& owner, int update_order = 100);
-    ~CameraComponent();
-
     void SetData(const Data& data) noexcept
     {
         data_ = data;
@@ -37,8 +34,6 @@ public:
 
 protected:
     void OnTrsfChanged() noexcept override;
-    void OnActivated() override;
-    void OnDeactivated() override;
 
 private:
     void RecalcView() noexcept;

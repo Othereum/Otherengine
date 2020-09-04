@@ -27,10 +27,11 @@ inline namespace engine
 class ENGINE_API AudioSystem
 {
 public:
-    DELETE_CPMV(AudioSystem);
+    [[nodiscard]] static AudioSystem& Get();
 
     AudioSystem();
     ~AudioSystem();
+    DELETE_CPMV(AudioSystem);
 
     void Update(Float delta_seconds) const;
 

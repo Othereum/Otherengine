@@ -114,7 +114,7 @@ inline namespace renderer
 			if (0 != SDL_GetDisplayMode(dp_idx_, dm_idx, &dp_mode_))
 				throw std::runtime_error{SDL_GetError()};
 
-			OE_LOG(kWindow, kLog, u8"Fullscreen mode: {}x{} {}Hz"sv, dp_mode_.w, dp_mode_.h, dp_mode_.refresh_rate);
+			OE_LOG(kWindow, kInfo, u8"Fullscreen mode: {}x{} {}Hz"sv, dp_mode_.w, dp_mode_.h, dp_mode_.refresh_rate);
 		}
 
 		void LoadWindowedDpMode()
@@ -122,7 +122,7 @@ inline namespace renderer
 			const auto size = cfg_.at("WindowedSize").get<Vec2u16>();
 			dp_mode_.w = size[0];
 			dp_mode_.h = size[1];
-			OE_LOG(kWindow, kLog, u8"Windowed mode: {}x{}"sv, dp_mode_.w, dp_mode_.h);
+			OE_LOG(kWindow, kInfo, u8"Windowed mode: {}x{}"sv, dp_mode_.w, dp_mode_.h);
 		}
 
 		static void SetupAttributes()
@@ -158,7 +158,7 @@ inline namespace renderer
 			{
 				if (SDL_GL_SetSwapInterval(-1) == 0)
 				{
-					OE_LOG(kWindow, kLog, u8"Adaptive sync enabled"sv);
+					OE_LOG(kWindow, kInfo, u8"Adaptive sync enabled"sv);
 				}
 				else
 				{
@@ -168,13 +168,13 @@ inline namespace renderer
 			}
 			else
 			{
-				OE_LOG(kWindow, kLog, u8"VSync enabled"sv);
+				OE_LOG(kWindow, kInfo, u8"VSync enabled"sv);
 				SDL_GL_SetSwapInterval(1);
 			}
 		}
 		else
 		{
-			OE_LOG(kWindow, kLog, u8"VSync disabled"sv);
+			OE_LOG(kWindow, kInfo, u8"VSync disabled"sv);
 			SDL_GL_SetSwapInterval(0);
 		}
 	}

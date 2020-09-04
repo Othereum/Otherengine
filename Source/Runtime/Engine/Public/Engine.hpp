@@ -1,9 +1,8 @@
 ﻿#pragma once
 #include "AssetManager.hpp"
-#include "EngineBase.hpp"
 #include "InputSystem.hpp"
-#include "World.hpp"
 #include "Audio/AudioSystem.hpp"
+#include "Engine/GameInstance.hpp"
 
 namespace oeng
 {
@@ -20,19 +19,16 @@ class ENGINE_API InitEngine
 class ENGINE_API Engine : public EngineBase, InitEngine
 {
 public:
-    DELETE_CPMV(Engine);
-
     [[nodiscard]] static Engine& Get() noexcept;
 
-    explicit Engine(std::u8string game_module_path);
-    ~Engine() = default;
+    Engine();
 
     void RunLoop();
     void Shutdown();
 
-    [[nodiscard]] World& GetWorld() noexcept
+    [[nodiscard]] GameInstance& GetGameInstance() noexcept
     {
-        return world_;
+        return game_instance_;
     }
 
     [[nodiscard]] InputSystem& GetInputSystem() noexcept
@@ -52,7 +48,7 @@ private:
     AssetManager asset_manager_;
     AudioSystem audio_system_;
     InputSystem input_system_;
-    World world_;
+    GameInstance game_instance_;
     bool is_running_ = true;
 };
 }

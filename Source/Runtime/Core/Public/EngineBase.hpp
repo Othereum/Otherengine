@@ -31,10 +31,7 @@ class CORE_API RegisterEngineBase
 class CORE_API EngineBase : RegisterEngineBase
 {
 public:
-    DELETE_CPMV(EngineBase);
-
-    [[nodiscard]] static EngineBase& Get() noexcept;
-    [[nodiscard]] static bool Exists() noexcept;
+    explicit EngineBase(std::u8string game_module_path);
 
     [[nodiscard]] auto GetTickCount() const noexcept
     {
@@ -46,38 +43,14 @@ public:
         return game_name_;
     }
 
-    [[nodiscard]] auto& GetGameDll() const noexcept
-    {
-        return game_dll_;
-    }
-
-    [[nodiscard]] auto& GetLogger() noexcept
-    {
-        return logger_;
-    }
-
-    [[nodiscard]] auto& GetConfigSystem() noexcept
-    {
-        return config_system_;
-    }
+    Dll game_dll;
+    ConfigSystem config_system;
 
 protected:
-    uint64_t ticks_;
+    uint64_t ticks_ = 0;
 
 private:
-    friend Engine;
-    friend CounterManager;
-    friend ScopeCounter;
-    friend ScopeStackCounter;
-
-    explicit EngineBase(std::u8string game_module_path);
-    ~EngineBase() = default;
-
-    Dll game_dll_;
     std::u8string_view game_name_;
-    Logger logger_;
-    ConfigSystem config_system_;
-    CounterManager counters_;
 };
 }
 }

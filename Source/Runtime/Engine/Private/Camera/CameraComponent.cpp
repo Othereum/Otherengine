@@ -1,5 +1,4 @@
 #include "Camera/CameraComponent.hpp"
-#include "Engine.hpp"
 
 namespace oeng
 {
@@ -51,14 +50,5 @@ void CameraComponent::RecalcProj() noexcept
     proj_ = MakePerspective(scr_, data_.near, data_.far, data_.vfov);
     view_proj_ = view_ * proj_;
 }
-
-void CameraComponent::OnActivated()
-{
-    GetRenderer().RegisterCamera(*this);
-}
-
-void CameraComponent::OnDeactivated()
-{
-    GetRenderer().UnregisterCamera(*this);
 }
 }

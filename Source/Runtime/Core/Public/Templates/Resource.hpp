@@ -5,6 +5,31 @@ namespace oeng
 {
 inline namespace core
 {
+template <class Fn>
+class Finally
+{
+public:
+    DELETE_CPMV(Finally);
+
+    explicit Finally(const Fn& fn)
+        : fn_{fn}
+    {
+    }
+
+    explicit Finally(Fn&& fn)
+        : fn_{std::move(fn)}
+    {
+    }
+
+    ~Finally()
+    {
+        fn_();
+    }
+
+private:
+    Fn fn_;
+};
+
 /**
  * RAII resource handler.
  * @note Regardless of the value of id, the deleter is always called.

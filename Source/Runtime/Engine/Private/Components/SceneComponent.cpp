@@ -6,6 +6,9 @@ inline namespace engine
 {
 void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
 {
+    if (parent_ == new_parent)
+        return;
+
     if (parent_)
     {
         auto& siblings = parent_->children_;
@@ -35,6 +38,7 @@ void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
 
     default:
         EXPECT_NO_ENTRY();
+        RecalcWorldTrsf();
     }
 }
 
@@ -51,7 +55,7 @@ void SceneComponent::RecalcWorldTrsf() noexcept
         world_trsf_ = rel_trsf_;
     }
 
-    for (auto c : children_)
+    for (auto* c : children_)
     {
         c->RecalcWorldTrsf();
     }
@@ -86,7 +90,7 @@ void SceneComponent::RecalcRelTrsf() noexcept
         rel_trsf_ = world_trsf_;
     }
 
-    for (auto c : children_)
+    for (auto* c : children_)
     {
         c->RecalcWorldTrsf();
     }
