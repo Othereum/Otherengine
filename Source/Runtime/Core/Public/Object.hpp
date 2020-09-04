@@ -32,8 +32,23 @@ private:
     Path path_;
 };
 
+/**
+ * Creates an object with a class name.
+ * @tparam T Target type.
+ * @param type Class name.
+ * @return Created object.
+ * @throw std::out_of_range If the type name is not valid.
+ */
 [[nodiscard]] CORE_API std::shared_ptr<Object> NewObject(Name type);
 
+/**
+ * Creates an object with a class name and casts it to the target type.
+ * @tparam T Target type.
+ * @param type Class name.
+ * @return Created object.
+ * @throw std::out_of_range If the type name is not valid.
+ * @throw std::bad_cast If the cast fails.
+ */
 template <class T>
 [[nodiscard]] std::shared_ptr<T> NewObject(Name type)
 {
