@@ -11,18 +11,30 @@ namespace oeng
 {
 inline namespace core
 {
-#ifdef NDEBUG
-	fs::path GetUserDataPath()
-	{
-		assert(engine_base);
+struct CoTaskMemDeleter
+{
+    void operator()(void* ptr) const noexcept
+    {
+        CoTaskMemFree(ptr);
+    }
+};
 
-		wchar_t* wide;
-		SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
-		UniquePtr<wchar_t[], void(*)(void*)> wide_raii{wide, &CoTaskMemFree};
-		
-		return fs::path{wide} /= EngineBase::Get().GetGameName();
-	}
-#else
+#ifdef OE_BUILD_SHIPPING
+fs::path GetUserDataPath()
+{
+    assert(engine_base);
+
+    wchar_t* wide;
+    SHGetKnownFolderPath(FOLDERID_Documents, 0, nullptr, &wide);
+    std::unique_ptr<wchar_t[], CoTaskMemDeleter> deleter{wide};
+
+    fs::path ret = wide;
+    ret /= GetGameName();
+    return ret;
+}
+#endif
+
+#ifndef NDEBUG
 bool detail::IsDebuggingImpl() noexcept
 {
     return IsDebuggerPresent();

@@ -1,5 +1,6 @@
 #ifdef __unix__
 
+#include "Platform.hpp"
 #include <cpuid.h>
 #include <dlfcn.h>
 #include <fcntl.h>
@@ -10,15 +11,17 @@ namespace oeng
 {
 inline namespace core
 {
-#ifdef NDEBUG
-	fs::path GetUserDataPath()
-	{
-		fs::path p = std::getenv("HOME");
-		p /= u8"."sv;
-		p += EngineBase::Get().GetGameName();
-		return p;
-	}
-#else
+#ifdef OE_BUILD_SHIPPING
+fs::path GetUserDataPath()
+{
+    fs::path p = std::getenv("HOME");
+    p /= u8"."sv;
+    p += GetGameName();
+    return p;
+}
+#endif
+
+#ifndef NDEBUG
 bool detail::IsDebuggingImpl() noexcept
 {
     const auto status_file = open("/proc/self/status", O_RDONLY);

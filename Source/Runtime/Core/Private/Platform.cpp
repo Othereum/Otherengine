@@ -4,7 +4,7 @@ namespace oeng
 {
 inline namespace core
 {
-#ifndef NDEBUG
+#ifndef OE_BUILD_SHIPPING
 fs::path GetUserDataPath()
 {
     return u8"../Saved"sv;
