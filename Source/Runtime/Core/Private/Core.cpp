@@ -6,7 +6,12 @@ namespace oeng
 inline namespace core
 {
 static std::u8string_view game_name;
-static const std::thread::id kGameThreadId = std::this_thread::get_id();
+static constinit bool is_game_thread_id_initialized = false;
+static const std::thread::id kGameThreadId = [&]
+{
+    is_game_thread_id_initialized = true;
+    return std::this_thread::get_id();
+}();
 
 void InitLogger();
 
@@ -26,6 +31,10 @@ std::u8string_view GetGameName() noexcept
 
 bool IsGameThread() noexcept
 {
+    // If not initialized yet, it is certain to be the main thread.
+    if (!is_game_thread_id_initialized)
+        return true;
+
     return kGameThreadId == std::this_thread::get_id();
 }
 }
