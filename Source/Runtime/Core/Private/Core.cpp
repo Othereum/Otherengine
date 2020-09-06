@@ -15,7 +15,7 @@ static const std::thread::id kGameThreadId = [&]
 
 void InitLogger();
 
-void SetGameName(std::u8string_view game_name)
+OE_EXPORT void SetGameName(std::u8string_view game_name)
 {
     assert(core::game_name.empty());
     assert(!game_name.empty());

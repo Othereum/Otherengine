@@ -120,7 +120,6 @@ namespace oeng
 {
 inline namespace core
 {
-CORE_API void SetGameName(std::u8string_view game_name);
 [[nodiscard]] CORE_API std::u8string_view GetGameName() noexcept;
 
 /**
