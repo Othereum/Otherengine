@@ -12,6 +12,7 @@ void InitLogger();
 
 void SetGameName(std::u8string_view game_name)
 {
+    assert(core::game_name.empty());
     assert(!game_name.empty());
     core::game_name = game_name;
     InitLogger();

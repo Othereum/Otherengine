@@ -98,7 +98,8 @@ class CORE_API DelayedLog
 public:
     DelayedLog();
 
-    void operator()(Duration delay, const logcat::LogCategory& category, LogLevel level, std::u8string_view msg) const;
+    void operator()(Duration delay, const logcat::LogCategory& category, LogLevel level,
+                    std::u8string_view message) const;
 
     template <class Rep, class Period, class Str, class... Args>
     void operator()(time::duration<Rep, Period> delay, const logcat::LogCategory& category, LogLevel level,
