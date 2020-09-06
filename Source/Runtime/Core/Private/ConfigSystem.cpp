@@ -214,9 +214,10 @@ ConfigSystem::ConfigSystem()
     LoadConfigs(GetUserConfigDir(), extensions);
 }
 
-ConfigSystem& ConfigSystem::Get() noexcept
+ConfigSystem& ConfigSystem::Get()
 {
-    return EngineBase::Get().GetConfigSystem();
+    static ConfigSystem config_system;
+    return config_system;
 }
 
 bool ConfigSystem::Save(Name name) const

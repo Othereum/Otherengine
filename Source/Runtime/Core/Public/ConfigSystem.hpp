@@ -18,7 +18,7 @@ namespace fs = std::filesystem;
 class CORE_API ConfigSystem
 {
 public:
-    [[nodiscard]] static ConfigSystem& Get() noexcept;
+    [[nodiscard]] static ConfigSystem& Get();
 
     /**
      * Find config or create if not found.
@@ -54,7 +54,6 @@ public:
 
 private:
     ConfigSystem();
-    friend class EngineBase;
     std::unordered_map<Name, Json> configs_;
 };
 }
