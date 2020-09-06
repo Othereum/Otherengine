@@ -11,17 +11,6 @@ namespace oeng
 {
 inline namespace core
 {
-struct ScopeStat
-{
-    Duration duration{};
-    uint64_t count{};
-};
-
-struct ScopeStackStat : ScopeStat
-{
-    std::map<Name, ScopeStackStat> children;
-};
-
 class CORE_API ScopeStackCounter
 {
 public:
@@ -48,30 +37,7 @@ private:
     Name name_;
 };
 
-class CORE_API CounterManager
-{
-    DELETE_CPMV(CounterManager);
-
-    friend ScopeCounter;
-    friend ScopeStackCounter;
-    friend class EngineBase;
-
-    struct Frame
-    {
-        Name name;
-        TimePoint start;
-    };
-
-    CounterManager() = default;
-    ~CounterManager();
-
-    void PushScope(Name name);
-    void PopScope();
-
-    std::unordered_map<Name, ScopeStat> scope_stats_;
-    std::map<Name, ScopeStackStat> scope_stack_stats_;
-    std::vector<Frame> frames_;
-};
+CORE_API void LogStats(uint64_t ticks);
 }
 }
 

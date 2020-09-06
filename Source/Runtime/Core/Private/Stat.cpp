@@ -9,71 +9,104 @@ namespace oeng
 {
 inline namespace core
 {
-static void LogStat(Name name, const ScopeStat& stat, int depth = 0)
+struct StatData
 {
-    const auto ticks = EngineBase::Get().GetTickCount();
-    const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
-    const auto count = ToFloat(stat.count) / ToFloat(ticks);
-    OE_LOG(kStat, kLog, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
-}
-
-static void LogStats(const std::map<Name, ScopeStackStat>& stats, int depth = 0)
-{
-    for (const auto& [name, stat] : stats)
+    struct ScopeStat
     {
-        LogStat(name, stat, depth);
-        LogStats(stat.children, depth + 1);
-    }
-}
+        Duration duration{};
+        uint64_t count{};
+    };
 
-CounterManager::~CounterManager()
-{
-    auto& engine = EngineBase::Get();
-    if (engine.GetTickCount() == 0)
-        return;
-
-    LogStats(engine.counters_.scope_stack_stats_);
-
-    for (auto& [name, stat] : engine.counters_.scope_stats_)
+    struct ScopeStackStat : ScopeStat
     {
-        LogStat(name, stat);
+        std::map<Name, ScopeStackStat> children;
+    };
+
+    struct ScopeFrame
+    {
+        Name name;
+        TimePoint start;
+    };
+
+    [[nodiscard]] static StatData& Get()
+    {
+        static StatData data;
+        return data;
     }
-}
 
-void CounterManager::PushScope(Name name)
+    void PushScope(Name name)
+    {
+        scope_frames.push_back({name, Clock::now()});
+    }
+
+    void PopScope()
+    {
+        const auto end = Clock::now();
+        const auto top = scope_frames.back();
+        scope_frames.pop_back();
+
+        auto* stats = &scope_stack_stats;
+        for (auto& frame : scope_frames)
+            stats = &(*stats)[frame.name].children;
+
+        auto& stat = (*stats)[top.name];
+        stat.duration += end - top.start;
+        ++stat.count;
+    }
+
+    void LogStat(uint64_t ticks, Name name, const ScopeStat& stat, int depth = 0)
+    {
+        const auto time = duration_cast<time::duration<Float, std::milli>>(stat.duration / ticks).count();
+        const auto count = ToFloat(stat.count) / ToFloat(ticks);
+        OE_LOG(kStat, kLog, u8"[Stat]{:^{}} {} took {:.2f} ms, {:.1f} times"sv, u8""sv, depth, *name, time, count);
+    }
+
+    void LogStats(uint64_t ticks, const std::map<Name, ScopeStackStat>& stats, int depth = 0)
+    {
+        for (const auto& [name, stat] : stats)
+        {
+            LogStat(ticks, name, stat, depth);
+            LogStats(ticks, stat.children, depth + 1);
+        }
+    }
+
+    void LogStats(uint64_t ticks)
+    {
+        if (ticks == 0)
+            return;
+
+        LogStats(ticks, scope_stack_stats);
+
+        for (auto& [name, stat] : scope_stats)
+        {
+            LogStat(ticks, name, stat);
+        }
+    }
+
+    std::unordered_map<Name, ScopeStat> scope_stats;
+    std::map<Name, ScopeStackStat> scope_stack_stats;
+    std::vector<ScopeFrame> scope_frames;
+};
+
+void LogStats(uint64_t ticks)
 {
-    frames_.push_back({name, Clock::now()});
-}
-
-void CounterManager::PopScope()
-{
-    const auto end = Clock::now();
-    const auto top = frames_.back();
-    frames_.pop_back();
-
-    std::reference_wrapper<std::map<Name, ScopeStackStat>> stats = scope_stack_stats_;
-    for (auto& frame : frames_)
-        stats = stats.get()[frame.name].children;
-
-    auto& stat = stats.get()[top.name];
-    stat.duration += end - top.start;
-    ++stat.count;
+    StatData::Get().LogStats(ticks);
 }
 
 ScopeStackCounter::ScopeStackCounter(Name name)
 {
-    EngineBase::Get().counters_.PushScope(name);
+    StatData::Get().PushScope(name);
 }
 
 ScopeStackCounter::~ScopeStackCounter()
 {
-    EngineBase::Get().counters_.PopScope();
+    StatData::Get().PopScope();
 }
 
 ScopeCounter::~ScopeCounter()
 {
     const auto end = Clock::now();
-    auto& counter = EngineBase::Get().counters_.scope_stats_[name_];
+    auto& counter = StatData::Get().scope_stats[name_];
     counter.duration += end - start_;
     ++counter.count;
 }
