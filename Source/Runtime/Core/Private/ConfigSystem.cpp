@@ -13,7 +13,9 @@ namespace fs = std::filesystem;
 
 [[nodiscard]] static fs::path GetUserConfigDir()
 {
-    return GetUserDataPath() /= u8"Config"sv;
+    auto dir = GetUserDataPath();
+    dir /= u8"Config"sv;
+    return dir;
 }
 
 class ConfigLoader
@@ -28,26 +30,19 @@ public:
     {
         // Remove properties first
         for (auto& [key, value] : parsed.items())
-        {
             if (key[0] == '-')
-            {
                 RemoveProperties(config, key, value);
-            }
-        }
 
-        // And then add/override
+        // add/override
         for (auto& [key, value] : parsed.items())
         {
             if (key[0] == '-')
                 continue;
+
             if (key[0] == '+')
-            {
                 AddProperties(config, key, std::move(value));
-            }
             else
-            {
                 config[key] = std::move(value);
-            }
         }
     }
 
