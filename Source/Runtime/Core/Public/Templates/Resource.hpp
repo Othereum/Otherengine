@@ -5,11 +5,16 @@ namespace oeng
 {
 inline namespace core
 {
-template <class Fn>
+template <std::invocable Fn>
 class Finally
 {
 public:
     DELETE_CPMV(Finally);
+
+    template <std::enable_if_t<std::is_default_constructible_v<Fn> && !std::is_pointer_v<Fn>, int> = 0>
+    Finally()
+    {
+    }
 
     explicit Finally(const Fn& fn)
         : fn_{fn}
