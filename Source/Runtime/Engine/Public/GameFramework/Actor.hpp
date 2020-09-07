@@ -14,7 +14,6 @@ inline namespace engine
 class World;
 class ActorComponent;
 class SceneComponent;
-class TimerManager;
 
 class ENGINE_API AActor : public Object
 {

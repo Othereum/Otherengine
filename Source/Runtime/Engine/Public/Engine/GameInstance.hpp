@@ -10,7 +10,7 @@ class GameInstance
 {
 public:
     LocalPlayer local_player;
-    World world_;
+    World world;
 };
 }
 }
