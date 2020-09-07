@@ -1,4 +1,4 @@
-#include "InputCode.hpp"
+#include "Input/InputCode.hpp"
 #include <SDL_gamecontroller.h>
 #include <SDL_keyboard.h>
 #include <unordered_map>

@@ -1,7 +1,5 @@
+#include "Input/InputSystem.hpp"
 #include <SDL_events.h>
-#include "Debug.hpp"
-#include "Engine.hpp"
-#include "Math.hpp"
 
 namespace logcat
 {
@@ -194,7 +192,7 @@ static void LoadInput(const Json& config, const char* key, Map& mapped)
             catch (const std::exception& e)
             {
                 OE_LOG(kInput, kErr, u8"Failed to load input mapping {}.{}[{}]: {}"sv,
-                       AsString8(key), AsString8(name), i, What(e));
+                       AsString8(key), AsString8(name), i, AsString8(e.what()));
             }
     }
 }
@@ -219,11 +217,6 @@ InputAction::InputAction(const Json& json)
                 throw std::runtime_error{fmt::format("Invalid mod '{}'"sv, mod_in.get<std::string>())};
             }
     }
-}
-
-InputSystem& InputSystem::Get() noexcept
-{
-    return Engine::Get().GetInputSystem();
 }
 
 InputSystem::InputSystem()
@@ -368,7 +361,7 @@ Float InputSystem::GetAxisValue(Keycode code) const noexcept
 
 void InputSystem::AddController(int id)
 {
-    if (auto* const ctrl = SDL_GameControllerOpen(id))
+    if (auto* ctrl = SDL_GameControllerOpen(id))
     {
         controllers_.emplace_back(ctrl, &SDL_GameControllerClose);
     }

@@ -12,10 +12,7 @@ inline namespace engine
 class ENGINE_API AssetManager
 {
 public:
-    DELETE_CPMV(AssetManager);
-    ~AssetManager();
-
-    [[nodiscard]] static AssetManager& Get() noexcept;
+    [[nodiscard]] static AssetManager& Get();
 
     /**
      * Returns the asset if it is already loaded, otherwise load it.
@@ -37,10 +34,16 @@ public:
         return Cast<T>(Load(path));
     }
 
-private:
-    std::unordered_map<Path, std::weak_ptr<Object>> assets_;
 #ifndef NDEBUG
-    std::unordered_map<Path, uint32_t> reload_count_;
+    void LogReloadCount();
+#endif
+
+private:
+    AssetManager() = default;
+
+    std::unordered_map<Path, std::weak_ptr<Object>> assets_{};
+#ifndef NDEBUG
+    std::unordered_map<Path, size_t> reload_count_{};
 #endif
 };
 }

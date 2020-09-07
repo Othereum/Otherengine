@@ -20,7 +20,7 @@ using CtrlPtr = std::unique_ptr<_SDL_GameController, void(*)(_SDL_GameController
 struct ENGINE_API InputAxis
 {
     template <std::convertible_to<InputCode> T>
-    constexpr InputAxis(T code, Float scale = 1_f) noexcept
+    constexpr InputAxis(T code, Float scale = 1) noexcept
         : code{code}, scale{scale}
     {
     }
@@ -28,7 +28,7 @@ struct ENGINE_API InputAxis
     explicit InputAxis(const Json& json);
 
     InputCode code;
-    Float scale;
+    Float scale = 1;
 };
 
 struct ENGINE_API InputAction
@@ -68,22 +68,6 @@ ENGINE_API void from_json(const Json& json, AxisConfig& action);
 class ENGINE_API InputSystem
 {
 public:
-    DELETE_CPMV(InputSystem);
-
-    [[nodiscard]] static InputSystem& Get() noexcept;
-
-    InputSystem();
-    ~InputSystem() = default;
-
-    void AddEvent(const SDL_Event& e);
-    void AddEvent(ParsedEvent e);
-
-    void ClearEvents()
-    {
-        events_.clear();
-    }
-
-    void PostAddAllEvents();
     void SaveConfig();
 
     [[nodiscard]] Float GetAxisValue(Name name) const;
@@ -104,12 +88,19 @@ public:
     std::unordered_map<InputCode, AxisConfig> axis_configs;
 
 private:
-    struct InputEvent
-    {
-        Name name;
-        bool pressed;
-    };
+    friend class Engine;
 
+    InputSystem();
+
+    void AddEvent(const SDL_Event& e);
+    void AddEvent(ParsedEvent e);
+
+    void ClearEvents()
+    {
+        events_.clear();
+    }
+
+    void PostAddAllEvents();
     void AddController(int id);
     void RemoveController(int id);
 
@@ -117,16 +108,21 @@ private:
     [[nodiscard]] Vec2 FilterAxis(InputCode code, Vec2 val) const noexcept;
     [[nodiscard]] _SDL_GameController* Ctrl() const noexcept;
 
-    std::vector<InputEvent> events_;
+    struct InputEvent
+    {
+        Name name;
+        bool pressed = false;
+    };
 
-    Vec2 mouse_{};
+    std::vector<InputEvent> events_;
+    std::vector<CtrlPtr> controllers_;
+
+    Vec2 mouse_;
 
     struct
     {
         bool l, r;
     } trig_{};
-
-    std::vector<CtrlPtr> controllers_;
 };
 }
 }

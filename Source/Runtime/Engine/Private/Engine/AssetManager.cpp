@@ -10,26 +10,10 @@ namespace oeng
 {
 inline namespace engine
 {
-AssetManager::~AssetManager()
-#ifndef NDEBUG
+AssetManager& AssetManager::Get()
 {
-    if (!reload_count_.empty())
-    {
-        OE_LOG(kAsset, kDebug, u8"Asset reload count"sv);
-
-        for (const auto& [path, count] : reload_count_)
-        {
-            OE_LOG(kAsset, kDebug, u8"{}: {} times"sv, path.Str(), count);
-        }
-    }
-}
-#else
-= default;
-#endif
-
-AssetManager& AssetManager::Get() noexcept
-{
-    return Engine::Get().GetAssetManager();
+    static AssetManager asset_manager;
+    return asset_manager;
 }
 
 std::shared_ptr<Object> AssetManager::Load(Path path)
@@ -53,5 +37,20 @@ std::shared_ptr<Object> AssetManager::Load(Path path)
     assets_.insert_or_assign(path, loaded);
     return loaded;
 }
+
+#ifndef NDEBUG
+void AssetManager::LogReloadCount()
+{
+    if (!reload_count_.empty())
+    {
+        OE_LOG(kAsset, kDebug, u8"Asset reload count"sv);
+
+        for (const auto& [path, count] : reload_count_)
+        {
+            OE_LOG(kAsset, kDebug, u8"{}: {} times"sv, path.Str(), count);
+        }
+    }
+}
+#endif
 }
 }
