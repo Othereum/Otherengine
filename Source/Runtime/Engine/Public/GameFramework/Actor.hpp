@@ -112,9 +112,18 @@ public:
     [[nodiscard]] UVec3 GetRight() const noexcept;
     [[nodiscard]] UVec3 GetUp() const noexcept;
 
-    [[nodiscard]] World& GetWorld() const noexcept
+    /**
+     * Returns the world to which this actor belongs.
+     * Normally, it does not return null. Therefore, null check is not required except in special cases.
+     */
+    [[nodiscard]] World* GetWorld() const noexcept
     {
-        return *world_;
+        return world_;
+    }
+
+    [[nodiscard]] bool HasBegunPlay() const noexcept
+    {
+        return begun_play_;
     }
 
     /**
