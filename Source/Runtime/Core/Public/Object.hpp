@@ -44,7 +44,6 @@ template <class To, class From>
 
 /**
  * Creates an object with a class name.
- * @tparam T Target type.
  * @param type Class name.
  * @return Created object.
  * @throw std::out_of_range If the type name is not valid.
