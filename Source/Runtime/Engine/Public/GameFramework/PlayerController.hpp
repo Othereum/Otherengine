@@ -5,13 +5,14 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class APlayerCameraManager;
 
 class ENGINE_API APlayerController : public AController
 {
-CLASS_BODY(APlayerController)
+    CLASS_BODY(APlayerController)
 
-public:
+  public:
     [[nodiscard]] ViewInfo CalcCamera() const override;
 
     void SetCameraManagerClass(Name pcm_class);
@@ -26,12 +27,13 @@ public:
         return pcm_;
     }
 
-protected:
+  protected:
     void OnBeginPlay() override;
 
-private:
+  private:
     std::weak_ptr<APlayerCameraManager> pcm_;
-    Name pcm_class_;
+    Name pcm_class_ = u8"APlayerCameraManager"sv;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

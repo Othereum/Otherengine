@@ -6,6 +6,7 @@ namespace oeng
 {
 inline namespace engine
 {
+
 ViewInfo APlayerController::CalcCamera() const
 {
     if (const auto pcm = pcm_.lock())
@@ -24,7 +25,8 @@ void APlayerController::SetCameraManagerClass(Name pcm_class)
 
 void APlayerController::OnBeginPlay()
 {
-    GetWorld()->SpawnActor<>()
+    pcm_ = GetWorld()->SpawnActor<APlayerCameraManager>(pcm_class_).weak_from_this();
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng
