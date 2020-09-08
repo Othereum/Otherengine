@@ -1,5 +1,6 @@
 #include "GameFramework/Actor.hpp"
 #include "Stat.hpp"
+#include "Camera/CameraComponent.hpp"
 #include "Components/SceneComponent.hpp"
 #include "Engine/World.hpp"
 
@@ -56,6 +57,18 @@ void AActor::RegisterComponent(std::shared_ptr<ActorComponent>&& comp)
 void AActor::Destroy()
 {
     pending_kill_ = true;
+}
+
+ViewInfo AActor::CalcCamera() const
+{
+    for (const auto& comp : comps_)
+    {
+        const auto camera = std::dynamic_pointer_cast<CameraComponent>(comp);
+        if (camera && camera->IsActive())
+            return camera->GetCameraView();
+    }
+
+    return {GetPos(), GetForward()};
 }
 
 void AActor::SetRootComponent(SceneComponent* new_root) noexcept

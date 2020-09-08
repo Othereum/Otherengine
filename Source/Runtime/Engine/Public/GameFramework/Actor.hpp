@@ -1,5 +1,7 @@
 #pragma once
 #include "TimerManager.hpp"
+#include "Camera/CameraTypes.hpp"
+
 #include <unordered_set>
 
 namespace logcat
@@ -40,6 +42,8 @@ public:
         RegisterComponent(std::move(ptr));
         return ref;
     }
+
+    [[nodiscard]] virtual ViewInfo CalcCamera() const;
 
     /**
      * Add tag.
