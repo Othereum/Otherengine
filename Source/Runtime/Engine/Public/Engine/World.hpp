@@ -20,11 +20,17 @@ class ENGINE_API World
     void BeginTick();
     void Tick();
 
-    template <class T> T& SpawnActor()
+    AActor& SpawnActor(Name class_name);
+
+    template <class T>[[nodiscard]] T& SpawnActor(Name class_name)
     {
+        return dynamic_cast<T&>(SpawnActor(class_name));
     }
 
-    AActor& SpawnActor(Name class_name);
+    template <class T>[[nodiscard]] T& SpawnActor()
+    {
+        return SpawnActor<T>(T::class_name);
+    }
 
     void AddCollision(SphereComponent& comp);
     void RemoveCollision(SphereComponent& comp);
