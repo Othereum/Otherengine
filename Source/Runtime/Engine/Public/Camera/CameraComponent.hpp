@@ -1,4 +1,5 @@
 #pragma once
+#include "CameraTypes.hpp"
 #include "Components/SceneComponent.hpp"
 
 namespace oeng
@@ -10,39 +11,14 @@ class ENGINE_API CameraComponent : public SceneComponent
 CLASS_BODY(CameraComponent)
 
 public:
-    struct Data
+    [[nodiscard]] ViewInfo GetCameraView() const noexcept
     {
-        Rad vfov = 60_deg;
-        Float near = 10, far = 10000;
-    };
-
-    void SetData(const Data& data) noexcept
-    {
-        data_ = data;
-        RecalcProj();
+        return {GetWorldPos(), GetForward(), vfov, near, far};
     }
 
-    [[nodiscard]] const Data& GetData() const noexcept
-    {
-        return data_;
-    }
-
-    [[nodiscard]] const Vec3& GetPos() const noexcept;
-    [[nodiscard]] const Mat4& GetViewProj() const noexcept;
-
-    void OnScreenSizeChanged(Vec2u16 scr) noexcept;
-
-protected:
-    void OnTrsfChanged() noexcept override;
-
-private:
-    void RecalcView() noexcept;
-    void RecalcProj() noexcept;
-
-    Mat4 view_, proj_;
-    Mat4 view_proj_;
-    Data data_;
-    Vec2 scr_;
+    Rad vfov = 60_deg;
+    Float near = 10;
+    Float far = 10000;
 };
 }
 }
