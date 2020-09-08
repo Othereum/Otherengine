@@ -7,18 +7,31 @@ inline namespace engine
 {
 class APlayerCameraManager;
 
-class APlayerController : public AController
+class ENGINE_API APlayerController : public AController
 {
 CLASS_BODY(APlayerController)
 
 public:
+    [[nodiscard]] ViewInfo CalcCamera() const override;
+
+    void SetCameraManagerClass(Name pcm_class);
+
+    [[nodiscard]] Name GetCameraManagerClass() const noexcept
+    {
+        return pcm_class_;
+    }
+
     [[nodiscard]] auto& GetCameraManager() const noexcept
     {
         return pcm_;
     }
 
+protected:
+    void OnBeginPlay() override;
+
 private:
     std::weak_ptr<APlayerCameraManager> pcm_;
+    Name pcm_class_;
 };
 }
 }
