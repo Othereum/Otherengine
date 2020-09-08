@@ -1,4 +1,5 @@
 #pragma once
+#include "CameraTypes.hpp"
 #include "GameFramework/Actor.hpp"
 
 namespace oeng
@@ -10,9 +11,9 @@ class ENGINE_API APlayerCameraManager : public AActor
 CLASS_BODY(APlayerCameraManager)
 
 public:
+    [[nodiscard]] ViewInfo CalcCamera() const override;
 
-private:
-    std::weak_ptr<AActor> view_target_;
+    std::weak_ptr<AActor> view_target;
 };
 }
 }
