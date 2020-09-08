@@ -106,6 +106,7 @@
     name() = default;                                                                                                  \
     virtual ~name() = default;                                                                                         \
     DELETE_CPMV(name);                                                                                                 \
+                                                                                                                       \
   private:
 
 #define U8_TEXT_IMPL(x) u8##x
@@ -120,6 +121,7 @@ namespace oeng
 {
 inline namespace core
 {
+
 [[nodiscard]] CORE_API std::u8string_view GetGameName() noexcept;
 
 /**
@@ -127,5 +129,6 @@ inline namespace core
  * @return True if called from the game thread.
  */
 [[nodiscard]] CORE_API bool IsGameThread() noexcept;
-}
-}
+
+} // namespace core
+} // namespace oeng
