@@ -134,7 +134,7 @@ public:
      * If false, the actor will not being updated. `true` by default.
      * Components are not affected by this property.
      */
-    bool update_enabled : 1 = true;
+    bool update_enabled = true;
 
 protected:
     virtual void OnBeginPlay()
@@ -167,8 +167,8 @@ private:
     TimerHandle lifespan_timer_;
     Float init_lifespan_ = 0;
 
-    bool pending_kill_ : 1 = false;
-    bool begun_play_ : 1 = false;
+    bool pending_kill_ = false;
+    bool begun_play_ = false;
 };
 }
 }
