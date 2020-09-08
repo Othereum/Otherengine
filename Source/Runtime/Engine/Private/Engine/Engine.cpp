@@ -1,6 +1,6 @@
-﻿#include "Engine.hpp"
-#include "InputSystem.hpp"
+﻿#include "Engine/Engine.hpp"
 #include "IRenderer.hpp"
+#include "Input/InputSystem.hpp"
 #include <SDL2/SDL.h>
 
 namespace logcat
@@ -55,7 +55,7 @@ void Engine::Tick()
 {
     ProcessEvent();
     game_instance.world.Tick();
-    renderer_->DrawScene(game_instance.local_player.CalcViewInfo());
+    renderer_->DrawScene(game_instance.local_player.GetViewPoint());
 }
 
 void Engine::ProcessEvent()

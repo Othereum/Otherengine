@@ -5,12 +5,13 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class AActor;
 class SphereComponent;
 
 class ENGINE_API World
 {
-public:
+  public:
     DELETE_CPMV(World);
 
     World();
@@ -19,31 +20,18 @@ public:
     void BeginTick();
     void Tick();
 
-    template <class T>
-    T& SpawnActor()
+    template <class T> T& SpawnActor()
     {
-        auto ptr = std::make_shared<T>();
-        auto& ref = *ptr;
-        ref.world_ = this;
-        pending_actors_.emplace_back(std::move(ptr));
-        return ref;
     }
 
-    template <std::invocable<const std::shared_ptr<AActor>&> Fn>
-    void ForEachActor(Fn&& fn) const
-    {
-        for (auto& actor : actors_)
-        {
-            fn(actor);
-        }
-    }
+    AActor& SpawnActor(Name class_name);
 
     void AddCollision(SphereComponent& comp);
     void RemoveCollision(SphereComponent& comp);
 
-    [[nodiscard]] TimerManager& GetTimerManager() noexcept
+    [[nodiscard]] auto& GetActors() const noexcept
     {
-        return timer_;
+        return actors_;
     }
 
     [[nodiscard]] TimePoint GetTime() const noexcept
@@ -56,11 +44,11 @@ public:
         return delta_seconds_;
     }
 
-private:
+    TimerManager timer_manager;
+
+  private:
     void UpdateGame();
     void UpdateTime();
-
-    TimerManager timer_;
 
     std::vector<SphereComponent*> collisions_;
     std::vector<std::shared_ptr<AActor>> actors_;
@@ -69,5 +57,6 @@ private:
     TimePoint time_;
     Float delta_seconds_;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

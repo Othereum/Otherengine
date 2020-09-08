@@ -1,15 +1,15 @@
 #include "Engine/World.hpp"
-#include "Stat.hpp"
-#include "TimerManager.hpp"
 #include "Components/SphereComponent.hpp"
 #include "GameFramework/Actor.hpp"
+#include "Stat.hpp"
+#include "TimerManager.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-World::World()
-    : timer_{*this}, delta_seconds_{0}
+
+World::World() : timer_manager{*this}, delta_seconds_{0}
 {
 }
 
@@ -27,6 +27,15 @@ void World::Tick()
     UpdateGame();
 }
 
+AActor& World::SpawnActor(Name class_name)
+{
+    auto ptr = NewObject<AActor>(class_name);
+    auto& ref = *ptr;
+    ref.world_ = this;
+    pending_actors_.emplace_back(std::move(ptr));
+    return ref;
+}
+
 void World::AddCollision(SphereComponent& comp)
 {
     collisions_.emplace_back(comp);
@@ -34,10 +43,7 @@ void World::AddCollision(SphereComponent& comp)
 
 void World::RemoveCollision(SphereComponent& comp)
 {
-    auto pr = [&](const SphereComponent& v)
-    {
-        return &v == &comp;
-    };
+    auto pr = [&](const SphereComponent& v) { return &v == &comp; };
     const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
     if (found != collisions_.crend())
         collisions_.erase(found.base() - 1);
@@ -52,7 +58,7 @@ void World::UpdateGame()
         for (auto j = i + 1; j < collisions_.size(); ++j)
             collisions_[i]->DoOverlap(*collisions_[j]);
 
-    timer_.Update();
+    timer_manager.Update();
 
     // Use index-based loop because BeginPlay() can spawn new actors
     for (size_t i = 0; i < pending_actors_.size(); ++i)
@@ -85,5 +91,6 @@ void World::UpdateTime()
     delta_seconds_ = Min(1_f, delta_seconds_);
     time_ = now;
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng
