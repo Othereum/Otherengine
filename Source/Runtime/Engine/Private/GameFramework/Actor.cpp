@@ -1,8 +1,8 @@
 #include "GameFramework/Actor.hpp"
-#include "Stat.hpp"
 #include "Camera/CameraComponent.hpp"
 #include "Components/SceneComponent.hpp"
 #include "Engine/World.hpp"
+#include "Stat.hpp"
 
 namespace logcat
 {
@@ -13,6 +13,7 @@ namespace oeng
 {
 inline namespace engine
 {
+
 void AActor::BeginPlay()
 {
     begun_play_ = true;
@@ -48,15 +49,15 @@ void AActor::RegisterComponent(std::shared_ptr<ActorComponent>&& comp)
 {
     comp->owner_ = this;
 
-    comps_.insert(std::upper_bound(comps_.begin(), comps_.end(), comp, [](auto& a, auto& b)
-    {
-        return a->update_order_ < b->update_order_;
-    }), std::move(comp));
+    comps_.insert(std::upper_bound(comps_.begin(), comps_.end(), comp,
+                                   [](auto& a, auto& b) { return a->update_order_ < b->update_order_; }),
+                  std::move(comp));
 }
 
 void AActor::Destroy()
 {
-    pending_kill_ = true;
+    if (!immortal)
+        pending_kill_ = true;
 }
 
 ViewInfo AActor::CalcCamera() const
@@ -94,8 +95,7 @@ void AActor::SetLifespan(Float in_seconds)
     }
     else if (init_lifespan_ > 0)
     {
-        lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = weak_from_this()]
-        {
+        lifespan_timer_ = timer.SetTimer(init_lifespan_, [self = weak_from_this()] {
             if (auto ptr = self.lock())
                 ptr->Destroy();
         });
@@ -166,5 +166,6 @@ UVec3 AActor::GetUp() const noexcept
 {
     return root_ ? root_->GetUp() : UVec3::up;
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng

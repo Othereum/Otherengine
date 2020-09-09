@@ -1,7 +1,6 @@
 #pragma once
-#include "TimerManager.hpp"
 #include "Camera/CameraTypes.hpp"
-
+#include "TimerManager.hpp"
 #include <unordered_set>
 
 namespace logcat
@@ -13,19 +12,19 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class World;
 class ActorComponent;
 class SceneComponent;
 
 class ENGINE_API AActor : public Object
 {
-CLASS_BODY(AActor)
+    CLASS_BODY(AActor)
 
-public:
+  public:
     void Destroy();
 
-    template <class T>
-    T& AddComponent()
+    template <class T> T& AddComponent()
     {
         auto ptr = std::make_shared<T>();
         auto& ref = *ptr;
@@ -33,8 +32,7 @@ public:
         return ref;
     }
 
-    template <class T>
-    T& AddComponent(int update_order)
+    template <class T> T& AddComponent(int update_order)
     {
         auto ptr = std::make_shared<T>();
         auto& ref = *ptr;
@@ -77,7 +75,7 @@ public:
 
     /**
      * Set root component of this actor. Root component represents this actor's transform.
-     * @param new_root New root component. It can be null or MUST be owned by this actor. 
+     * @param new_root New root component. It can be null or MUST be owned by this actor.
      */
     void SetRootComponent(SceneComponent* new_root) noexcept;
 
@@ -136,7 +134,12 @@ public:
      */
     bool update_enabled = true;
 
-protected:
+    /**
+     * @brief If true, invoking Destroy() will not delete the actor.
+     */
+    bool immortal = false;
+
+  protected:
     virtual void OnBeginPlay()
     {
     }
@@ -149,7 +152,7 @@ protected:
     {
     }
 
-private:
+  private:
     friend World;
 
     void BeginPlay();
@@ -170,5 +173,6 @@ private:
     bool pending_kill_ = false;
     bool begun_play_ = false;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng
