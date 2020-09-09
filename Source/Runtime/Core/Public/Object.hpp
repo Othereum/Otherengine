@@ -23,6 +23,11 @@ public:
         return path_;
     }
 
+    template <class T>[[nodiscard]] bool IsA() const noexcept
+    {
+        return dynamic_cast<T*>(this);
+    }
+
 protected:
     virtual void from_json([[maybe_unused]] const Json& json)
     {
