@@ -6,7 +6,7 @@ namespace oeng
 inline namespace core
 {
 static std::u8string_view game_name;
-static constinit bool is_game_thread_id_initialized = false;
+static bool is_game_thread_id_initialized = false;
 static const std::thread::id kGameThreadId = [&]
 {
     is_game_thread_id_initialized = true;
