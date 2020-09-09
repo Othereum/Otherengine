@@ -19,7 +19,7 @@ class ENGINE_API Mesh final : public Object
 CLASS_BODY(Mesh)
 
 public:
-    [[nodiscard]] static std::shared_ptr<Mesh> GetDefault();
+    [[nodiscard]] static SharedRef<Mesh> GetDefault();
 
     Mesh();
     ~Mesh();
@@ -43,7 +43,7 @@ public:
     }
 
 private:
-    std::shared_ptr<IMaterial> material_;
+    SharedRef<IMaterial> material_;
     std::unique_ptr<RHIMesh> rhi_;
     Float radius_ = 0;
 };

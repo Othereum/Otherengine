@@ -26,7 +26,7 @@ protected:
     [[nodiscard]] bool IsTextureParam(Name name) const override;
 
 private:
-    std::shared_ptr<Material> parent_;
+    SharedRef<Material> parent_;
 };
 }
 }

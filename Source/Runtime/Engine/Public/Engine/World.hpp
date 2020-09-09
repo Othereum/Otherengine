@@ -67,9 +67,9 @@ class ENGINE_API World
     TimePoint time_{};
     Float delta_seconds_ = 0;
 
-    std::vector<SphereComponent*> collisions_;
-    std::vector<std::shared_ptr<AActor>> actors_;
-    std::vector<std::shared_ptr<AActor>> pending_actors_;
+    std::vector<std::reference_wrapper<SphereComponent>> collisions_;
+    std::vector<SharedRef<AActor>> actors_;
+    std::vector<SharedRef<AActor>> pending_actors_;
 
     AGameModeBase* gamemode_ = nullptr;
 };

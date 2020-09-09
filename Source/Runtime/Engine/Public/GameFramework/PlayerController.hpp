@@ -31,7 +31,7 @@ class ENGINE_API APlayerController : public AController
     void OnBeginPlay() override;
 
   private:
-    std::weak_ptr<APlayerCameraManager> pcm_;
+    WeakPtr<APlayerCameraManager> pcm_;
     Name pcm_class_ = u8"APlayerCameraManager"sv;
 };
 

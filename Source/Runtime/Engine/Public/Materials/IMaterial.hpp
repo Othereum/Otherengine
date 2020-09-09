@@ -14,7 +14,7 @@ class Texture;
 class IMaterial : public Object
 {
 public:
-    [[nodiscard]] static std::shared_ptr<IMaterial> GetDefault();
+    [[nodiscard]] static SharedRef<IMaterial> GetDefault();
 
     void LoadParams(const Json& json);
 
@@ -42,7 +42,7 @@ protected:
 
     std::unordered_map<Name, Float> scalars_;
     std::unordered_map<Name, Vec4> vectors_;
-    std::unordered_map<Name, std::shared_ptr<Texture>> textures_;
+    std::unordered_map<Name, SharedRef<Texture>> textures_;
 
 private:
     template <class T, class Fn>

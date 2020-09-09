@@ -11,7 +11,7 @@ inline namespace engine
 Texture::Texture() = default;
 Texture::~Texture() = default;
 
-std::shared_ptr<Texture> Texture::GetDefault()
+SharedRef<Texture> Texture::GetDefault()
 {
     return AssetManager::Get().Load<Texture>(u8"../Engine/Assets/T_Default.json"sv);
 }

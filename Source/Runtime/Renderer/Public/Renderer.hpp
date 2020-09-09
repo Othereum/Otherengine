@@ -38,10 +38,10 @@ public:
      * @param path Texture file path
      * @return Loaded texture or default texture if failed to load.
      */
-    [[nodiscard]] std::shared_ptr<Texture> GetTexture(Path path);
-    [[nodiscard]] std::shared_ptr<Mesh> GetMesh(Path path);
-    [[nodiscard]] std::shared_ptr<RHIShader> GetShader(Path path);
-    [[nodiscard]] std::shared_ptr<Material> GetMaterial(Path path);
+    [[nodiscard]] SharedRef<Texture> GetTexture(Path path);
+    [[nodiscard]] SharedRef<Mesh> GetMesh(Path path);
+    [[nodiscard]] SharedRef<RHIShader> GetShader(Path path);
+    [[nodiscard]] SharedRef<Material> GetMaterial(Path path);
 
     [[nodiscard]] Window& GetWindow() noexcept
     {

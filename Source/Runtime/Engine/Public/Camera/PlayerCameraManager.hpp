@@ -13,7 +13,7 @@ CLASS_BODY(APlayerCameraManager)
 public:
     [[nodiscard]] ViewInfo CalcCamera() const override;
 
-    std::weak_ptr<AActor> view_target;
+    WeakPtr<AActor> view_target;
 };
 }
 }

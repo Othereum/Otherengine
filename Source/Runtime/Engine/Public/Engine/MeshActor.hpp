@@ -16,11 +16,11 @@ CLASS_BODY(AMeshActor)
 public:
     AMeshActor();
 
-    void SetMesh(std::shared_ptr<Mesh> mesh) const;
-    void OverrideMaterial(std::shared_ptr<IMaterial> material) const;
+    void SetMesh(SharedRef<Mesh> mesh) const;
+    void OverrideMaterial(SharedRef<IMaterial> material) const;
 
-    [[nodiscard]] const std::shared_ptr<Mesh>& GetMesh() const noexcept;
-    [[nodiscard]] const std::shared_ptr<IMaterial>& GetMaterial() const noexcept;
+    [[nodiscard]] const SharedRef<Mesh>& GetMesh() const noexcept;
+    [[nodiscard]] const SharedRef<IMaterial>& GetMaterial() const noexcept;
 
     [[nodiscard]] MeshComponent& GetMeshComp() const noexcept
     {

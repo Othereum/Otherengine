@@ -45,7 +45,7 @@ void AActor::Update(Float delta_seconds)
         OnUpdate(delta_seconds);
 }
 
-void AActor::RegisterComponent(std::shared_ptr<ActorComponent>&& comp)
+void AActor::RegisterComponent(SharedRef<ActorComponent>&& comp)
 {
     comp->owner_ = this;
 
@@ -60,11 +60,16 @@ void AActor::Destroy()
         pending_kill_ = true;
 }
 
+void AActor::SetOwner(WeakPtr<AActor> new_owner)
+{
+    owner_ = std::move(new_owner);
+}
+
 ViewInfo AActor::CalcCamera() const
 {
     for (const auto& comp : comps_)
     {
-        const auto camera = std::dynamic_pointer_cast<CameraComponent>(comp);
+        const auto camera = Cast<CameraComponent>(SharedPtr{comp});
         if (camera && camera->IsActive())
             return camera->GetCameraView();
     }

@@ -12,13 +12,13 @@ MeshComponent::MeshComponent()
 {
 }
 
-void MeshComponent::SetMesh(std::shared_ptr<Mesh> mesh)
+void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
 {
     mesh_ = std::move(mesh);
     ReRegister();
 }
 
-void MeshComponent::OverrideMaterial(std::shared_ptr<IMaterial> material)
+void MeshComponent::OverrideMaterial(SharedRef<IMaterial> material)
 {
     material_override_ = std::move(material);
     ReRegister();
@@ -34,7 +34,7 @@ Float MeshComponent::GetUnscaledRadius() const noexcept
     return mesh_->GetRadius();
 }
 
-const std::shared_ptr<IMaterial>& MeshComponent::GetMaterial() const noexcept
+const SharedRef<IMaterial>& MeshComponent::GetMaterial() const noexcept
 {
     if (material_override_)
         return material_override_;

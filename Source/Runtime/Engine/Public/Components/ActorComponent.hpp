@@ -4,14 +4,15 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class AActor;
 class World;
 
 class ENGINE_API ActorComponent : public Object
 {
-CLASS_BODY(ActorComponent)
+    CLASS_BODY(ActorComponent)
 
-public:
+  public:
     ActorComponent() = default;
 
     /**
@@ -58,12 +59,11 @@ public:
      */
     bool auto_activate : 1 = true;
 
-protected:
+  protected:
     /**
      * Used to override the default update order.
      */
-    explicit ActorComponent(int update_order)
-        : update_order_{update_order}
+    explicit ActorComponent(int update_order) : update_order_{update_order}
     {
     }
 
@@ -87,7 +87,7 @@ protected:
     {
     }
 
-private:
+  private:
     friend AActor;
 
     void BeginPlay();
@@ -100,5 +100,6 @@ private:
     bool is_active_ : 1 = false;
     bool begun_play_ : 1 = false;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

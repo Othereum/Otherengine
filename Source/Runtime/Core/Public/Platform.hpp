@@ -1,5 +1,6 @@
 #pragma once
 #include "Core.hpp"
+#include "Templates/Pointer.hpp"
 #include <bitset>
 #include <filesystem>
 #include <memory>
@@ -9,6 +10,7 @@ namespace oeng
 {
 inline namespace core
 {
+
 namespace fs = std::filesystem;
 using namespace std::literals;
 
@@ -17,7 +19,7 @@ namespace detail
 #ifndef NDEBUG
 [[nodiscard]] CORE_API bool IsDebuggingImpl() noexcept;
 #endif
-}
+} // namespace detail
 
 /**
  * Get user data path.
@@ -43,33 +45,36 @@ namespace detail
 
 class CORE_API Dll
 {
-public:
+  public:
     explicit Dll(std::u8string filepath);
 
     [[nodiscard]] void* GetSymbol(std::u8string_view name) const;
     [[nodiscard]] void* FindSymbol(std::u8string_view name) const noexcept;
 
-    template <class T>
-    [[nodiscard]] T& GetSymbol(std::u8string_view name) const
+    template <class T>[[nodiscard]] T& GetSymbol(std::u8string_view name) const
     {
         return *(T*)GetSymbol(name);
     }
 
-    template <class Fn, class... Args>
-    decltype(auto) Call(std::u8string_view fn_name, Args&&... args) const
+    template <class Fn, class... Args> decltype(auto) Call(std::u8string_view fn_name, Args&&... args) const
     {
         return GetSymbol<Fn>(fn_name)(std::forward<Args>(args)...);
     }
 
-private:
-    std::shared_ptr<void> dll_;
+  private:
+    SharedPtr<void> dll_;
     std::u8string filepath_;
 };
 
 class CORE_API CpuInfo
 {
-public:
-    enum class Vendor { kOther, kIntel, kAmd };
+  public:
+    enum class Vendor
+    {
+        kOther,
+        kIntel,
+        kAmd
+    };
 
     static const CpuInfo& Get();
 
@@ -358,7 +363,7 @@ public:
         return IsAmd() & f_81_edx_.test(31);
     }
 
-private:
+  private:
     CpuInfo();
 
     char8_t vendor_[13]{};
@@ -376,5 +381,6 @@ private:
 
 CORE_API void CpuId(int cpu_info[4], int func_id) noexcept;
 CORE_API void CpuIdCnt(int cpu_info[4], int func_id, int sub_func_id) noexcept;
-}
-}
+
+} // namespace core
+} // namespace oeng

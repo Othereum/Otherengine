@@ -42,9 +42,9 @@
   public:                                                                                                              \
     inline static const Name class_name = u8## #name##sv;                                                              \
                                                                                                                        \
-    [[nodiscard]] static std::shared_ptr<Object> Create()                                                              \
+    [[nodiscard]] static SharedRef<Object> Create()                                                                    \
     {                                                                                                                  \
-        return std::make_shared<name>();                                                                               \
+        return MakeShared<name>();                                                                                     \
     }                                                                                                                  \
                                                                                                                        \
     [[nodiscard]] Name GetClassName() const noexcept override                                                          \
@@ -52,24 +52,24 @@
         return class_name;                                                                                             \
     }                                                                                                                  \
                                                                                                                        \
-    [[nodiscard]] std::shared_ptr<name> shared_from_this()                                                             \
+    [[nodiscard]] SharedRef<name> shared_from_this()                                                                   \
     {                                                                                                                  \
-        return std::static_pointer_cast<name>(Object::shared_from_this());                                             \
+        return CastChecked<name>(Object::shared_from_this());                                                          \
     }                                                                                                                  \
                                                                                                                        \
-    [[nodiscard]] std::shared_ptr<const name> shared_from_this() const                                                 \
+    [[nodiscard]] SharedRef<const name> shared_from_this() const                                                       \
     {                                                                                                                  \
-        return std::static_pointer_cast<const name>(Object::shared_from_this());                                       \
+        return CastChecked<const name>(Object::shared_from_this());                                                    \
     }                                                                                                                  \
                                                                                                                        \
-    [[nodiscard]] std::weak_ptr<name> weak_from_this()                                                                 \
+    [[nodiscard]] WeakPtr<name> weak_from_this()                                                                       \
     {                                                                                                                  \
-        return std::static_pointer_cast<name>(Object::shared_from_this());                                             \
+        return CastChecked<name>(Object::shared_from_this());                                                          \
     }                                                                                                                  \
                                                                                                                        \
-    [[nodiscard]] std::weak_ptr<const name> weak_from_this() const                                                     \
+    [[nodiscard]] WeakPtr<const name> weak_from_this() const                                                           \
     {                                                                                                                  \
-        return std::static_pointer_cast<const name>(Object::shared_from_this());                                       \
+        return CastChecked<const name>(Object::shared_from_this());                                                    \
     }                                                                                                                  \
                                                                                                                        \
   private:                                                                                                             \

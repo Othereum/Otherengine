@@ -26,7 +26,7 @@ class ENGINE_API AActor : public Object
 
     template <class T> T& AddComponent()
     {
-        auto ptr = std::make_shared<T>();
+        auto ptr = MakeShared<T>();
         auto& ref = *ptr;
         RegisterComponent(std::move(ptr));
         return ref;
@@ -34,7 +34,7 @@ class ENGINE_API AActor : public Object
 
     template <class T> T& AddComponent(int update_order)
     {
-        auto ptr = std::make_shared<T>();
+        auto ptr = MakeShared<T>();
         auto& ref = *ptr;
         ref.update_order_ = update_order;
         RegisterComponent(std::move(ptr));
@@ -128,6 +128,13 @@ class ENGINE_API AActor : public Object
         return begun_play_;
     }
 
+    virtual void SetOwner(WeakPtr<AActor> new_owner);
+
+    [[nodiscard]] auto& GetOwner() const noexcept
+    {
+        return owner_;
+    }
+
     /**
      * If false, the actor will not being updated. `true` by default.
      * Components are not affected by this property.
@@ -159,12 +166,13 @@ class ENGINE_API AActor : public Object
     void EndPlay();
     void Update(Float delta_seconds);
 
-    void RegisterComponent(std::shared_ptr<ActorComponent>&& comp);
+    void RegisterComponent(SharedRef<ActorComponent>&& comp);
 
     World* world_ = nullptr;
     SceneComponent* root_ = nullptr;
+    WeakPtr<AActor> owner_;
 
-    std::vector<std::shared_ptr<ActorComponent>> comps_;
+    std::vector<SharedRef<ActorComponent>> comps_;
     std::unordered_set<Name> tags_;
 
     TimerHandle lifespan_timer_;

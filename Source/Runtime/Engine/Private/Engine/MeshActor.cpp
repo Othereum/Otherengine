@@ -11,22 +11,22 @@ AMeshActor::AMeshActor()
     SetRootComponent(&mesh_);
 }
 
-void AMeshActor::SetMesh(std::shared_ptr<Mesh> mesh) const
+void AMeshActor::SetMesh(SharedRef<Mesh> mesh) const
 {
     mesh_.SetMesh(std::move(mesh));
 }
 
-void AMeshActor::OverrideMaterial(std::shared_ptr<IMaterial> material) const
+void AMeshActor::OverrideMaterial(SharedRef<IMaterial> material) const
 {
     mesh_.OverrideMaterial(std::move(material));
 }
 
-const std::shared_ptr<Mesh>& AMeshActor::GetMesh() const noexcept
+const SharedRef<Mesh>& AMeshActor::GetMesh() const noexcept
 {
     return mesh_.GetMesh();
 }
 
-const std::shared_ptr<IMaterial>& AMeshActor::GetMaterial() const noexcept
+const SharedRef<IMaterial>& AMeshActor::GetMaterial() const noexcept
 {
     return mesh_.GetMaterial();
 }

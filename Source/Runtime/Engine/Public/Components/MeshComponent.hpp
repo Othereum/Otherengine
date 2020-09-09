@@ -19,13 +19,13 @@ public:
      * Set mesh of this component.
      * @param mesh New mesh. Null NOT allowed.
      */
-    void SetMesh(std::shared_ptr<Mesh> mesh);
+    void SetMesh(SharedRef<Mesh> mesh);
 
     /**
      * Override default material of mesh.
      * @param material New material. Null means un-override.
      */
-    void OverrideMaterial(std::shared_ptr<IMaterial> material);
+    void OverrideMaterial(SharedRef<IMaterial> material);
 
     /**
      * Returns the scaled radius of a bound sphere.
@@ -41,7 +41,7 @@ public:
     /**
      * @return Mesh. Guaranteed not null.
      */
-    [[nodiscard]] const std::shared_ptr<Mesh>& GetMesh() const noexcept
+    [[nodiscard]] const SharedRef<Mesh>& GetMesh() const noexcept
     {
         return mesh_;
     }
@@ -49,7 +49,7 @@ public:
     /**
      * @return Material. Guaranteed not null. If overridden, returns it.
      */
-    [[nodiscard]] const std::shared_ptr<IMaterial>& GetMaterial() const noexcept;
+    [[nodiscard]] const SharedRef<IMaterial>& GetMaterial() const noexcept;
 
     Float max_draw_dist = 10000_f;
 
@@ -60,8 +60,8 @@ protected:
 private:
     void ReRegister();
 
-    std::shared_ptr<Mesh> mesh_;
-    std::shared_ptr<IMaterial> material_override_;
+    SharedRef<Mesh> mesh_;
+    SharedRef<IMaterial> material_override_;
 };
 }
 }

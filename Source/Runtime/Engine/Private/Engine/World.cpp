@@ -72,7 +72,7 @@ void World::UpdateGame()
 
     for (size_t i = 0; i < collisions_.size(); ++i)
         for (auto j = i + 1; j < collisions_.size(); ++j)
-            collisions_[i]->DoOverlap(*collisions_[j]);
+            collisions_[i].get().DoOverlap(collisions_[j]);
 
     timer_manager.Update();
 

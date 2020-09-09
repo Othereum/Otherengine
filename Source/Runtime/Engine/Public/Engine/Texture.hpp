@@ -19,7 +19,7 @@ public:
     Texture();
     ~Texture();
 
-    [[nodiscard]] static std::shared_ptr<Texture> GetDefault();
+    [[nodiscard]] static SharedRef<Texture> GetDefault();
 
     void from_json(const Json& json) override;
 

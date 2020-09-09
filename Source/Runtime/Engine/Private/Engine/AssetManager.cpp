@@ -16,7 +16,7 @@ AssetManager& AssetManager::Get()
     return asset_manager;
 }
 
-std::shared_ptr<Object> AssetManager::Load(Path path)
+SharedRef<Object> AssetManager::Load(Path path)
 {
     if (const auto found = assets_.find(path); found != assets_.end())
     {

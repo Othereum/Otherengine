@@ -18,7 +18,7 @@ public:
      * Set new texture.
      * @param texture New texture. Null NOT allowed.
      */
-    void SetTexture(std::shared_ptr<Texture> texture) noexcept
+    void SetTexture(SharedRef<Texture> texture) noexcept
     {
         texture_ = std::move(texture);
     }
@@ -27,7 +27,7 @@ public:
      * Get current texture.
      * @return Texture. Guaranteed not null.
      */
-    [[nodiscard]] const std::shared_ptr<Texture>& GetTexture() const noexcept
+    [[nodiscard]] const SharedRef<Texture>& GetTexture() const noexcept
     {
         return texture_;
     }
@@ -44,7 +44,7 @@ protected:
     void OnEndPlay() override;
 
 private:
-    std::shared_ptr<Texture> texture_;
+    SharedRef<Texture> texture_;
     int draw_order_ = 100;
 };
 }
