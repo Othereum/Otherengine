@@ -16,11 +16,11 @@ static const std::thread::id kGameThreadId = [&]
 void InitLogger();
 
 // Called by EngineMain(), launch module
-OE_EXPORT void SetGameName(std::u8string_view game_name)
+OE_EXPORT void SetGameName(std::u8string_view new_game_name)
 {
-    assert(core::game_name.empty());
-    assert(!game_name.empty());
-    core::game_name = game_name;
+    assert(game_name.empty());
+    assert(!new_game_name.empty());
+    game_name = new_game_name;
     InitLogger();
 }
 
