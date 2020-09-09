@@ -1,23 +1,39 @@
 #include "Engine/World.hpp"
+#include "ConfigSystem.hpp"
 #include "Components/SphereComponent.hpp"
 #include "GameFramework/Actor.hpp"
+#include "GameFramework/GameModeBase.hpp"
 #include "Stat.hpp"
 #include "TimerManager.hpp"
+
+namespace logcat
+{
+const LogCategory kWorld{u8"World"sv};
+}
 
 namespace oeng
 {
 inline namespace engine
 {
 
-World::World() : timer_manager{*this}, delta_seconds_{0}
+void World::BeginPlay()
 {
-}
-
-World::~World() = default;
-
-void World::BeginTick()
-{
+    begun_play_ = true;
     time_ = Clock::now();
+
+    auto& cfg = ConfigSystem::Get()(u8"Engine"sv);
+    const auto gm_class = cfg.at("GameMapsSettings"s).at("GlobalDefaultGameMode"s).get<Name>();
+
+    try
+    {
+        gamemode_ = &SpawnActor<AGameModeBase>(gm_class);
+    }
+    catch (const std::exception& e)
+    {
+        OE_LOG(kWorld, kErr, u8"Failed to create gamemode '{}': {}"sv, *gm_class, AsString8(e.what()));
+        OE_LOG(kWorld, kErr, u8"Falling back to default gamemode..."sv);
+        gamemode_ = &SpawnActor<AGameModeBase>();
+    }
 }
 
 void World::Tick()
