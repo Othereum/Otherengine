@@ -31,9 +31,9 @@
  * @code{cpp}
  * class AMyActor : public AActor
  * {
- * CLASS_BODY(AMyActor)
+ *     CLASS_BODY(AMyActor)
  *
- * public:
+ *   public:
  *     // ...
  * }
  * @endcode
