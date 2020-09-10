@@ -4,6 +4,7 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class SpriteComponent;
 class MeshComponent;
 class DirLightComponent;
@@ -12,11 +13,10 @@ class PointLightComponent;
 class SpotLightComponent;
 struct ViewInfo;
 
-class ENGINE_API IRenderer
+class IRenderer
 {
-INTERFACE_BODY(IRenderer)
-
-public:
+  public:
+    virtual ~IRenderer() = default;
     virtual void DrawScene(const ViewInfo& view) = 0;
 
     virtual void AddMesh(MeshComponent& mesh) = 0;
@@ -33,5 +33,6 @@ public:
     virtual void RemoveSpotLight(SpotLightComponent& light) = 0;
     virtual void RemovePointLight(PointLightComponent& light) = 0;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

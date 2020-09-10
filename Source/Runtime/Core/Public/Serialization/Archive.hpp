@@ -34,8 +34,6 @@ private:
 
 class Archive
 {
-INTERFACE_BODY(Archive)
-
 public:
     explicit Archive(std::u8string name)
         : name_{std::move(name)}

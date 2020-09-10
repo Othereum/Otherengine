@@ -4,12 +4,13 @@ namespace oeng
 {
 inline namespace rhi
 {
+
 class RHITexture
 {
-INTERFACE_BODY(RHITexture)
-
-public:
+  public:
+    virtual ~RHITexture() = default;
     virtual void Activate() const noexcept = 0;
 };
-}
-}
+
+} // namespace rhi
+} // namespace oeng

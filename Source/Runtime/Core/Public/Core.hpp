@@ -15,11 +15,11 @@
 #define OE_EXPORT OE_IMPORT
 #endif
 
-#define EXPLICIT_CPMV(name, spec)                                                                                      \
-    name(const name&) = spec;                                                                                          \
-    name(name&&) = spec;                                                                                               \
-    name& operator=(const name&) = spec;                                                                               \
-    name& operator=(name&&) = spec
+#define EXPLICIT_CPMV(name, what)                                                                                      \
+    name(const name&) = what;                                                                                          \
+    name(name&&) = what;                                                                                               \
+    name& operator=(const name&) = what;                                                                               \
+    name& operator=(name&&) = what
 
 #define DELETE_CPMV(name) EXPLICIT_CPMV(name, delete)
 #define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)
@@ -84,32 +84,6 @@
     };                                                                                                                 \
                                                                                                                        \
     inline static const _##name##Registerer _##name##_registerer_;
-
-/**
- * @brief Helper macro for interface classes.
- *
- * @details
- * It declares default constructor, defaulted virtual destructor,
- * and deletes copy/move constructor/assignment operators.
- *
- * Example:
- * @code{cpp}
- * class IMyInterface
- * {
- * INTERFACE_BODY(IMyInterface)
- *
- * public:
- *     // ...
- * }
- * @endcode
- */
-#define INTERFACE_BODY(name)                                                                                           \
-  public:                                                                                                              \
-    name() = default;                                                                                                  \
-    virtual ~name() = default;                                                                                         \
-    DELETE_CPMV(name);                                                                                                 \
-                                                                                                                       \
-  private:
 
 #define U8_TEXT_IMPL(x) u8##x
 #define U8_TEXT(x) U8_TEXT_IMPL(x)

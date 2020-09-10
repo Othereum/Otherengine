@@ -8,8 +8,6 @@ inline namespace core
 
 class CORE_API Object : public EnableSharedFromThis<Object>
 {
-    INTERFACE_BODY(Object)
-
   public:
     [[nodiscard]] virtual Name GetClassName() const noexcept = 0;
 
