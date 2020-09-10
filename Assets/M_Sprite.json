@@ -1,0 +1,12 @@
+{
+    "Type": "Material",
+    "Shaders": {
+        "Vertex": "../Engine/Shaders/Sprite.vert",
+        "Fragment": "../Engine/Shaders/Sprite.frag"
+    },
+    "Parameters": {
+        "Textures": {
+            "uTexture": "../Engine/Assets/T_Default.json"
+        }
+    }
+}
