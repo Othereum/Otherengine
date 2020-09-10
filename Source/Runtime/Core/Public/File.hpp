@@ -8,6 +8,7 @@ namespace oeng
 inline namespace core
 {
 namespace fs = std::filesystem;
+using namespace std::literals;
 
 /**
  * Open the file in read mode.
