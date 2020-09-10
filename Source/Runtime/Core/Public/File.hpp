@@ -1,7 +1,7 @@
 #pragma once
 #include <filesystem>
-#include <fstream>
 #include <fmt/compile.h>
+#include <fstream>
 
 namespace oeng
 {
@@ -21,8 +21,7 @@ template <class Char = char8_t>
 {
     std::basic_ifstream<Char> file{filepath, std::ios::in | extra_mode};
     if (!file.is_open())
-        throw std::ios::failure{
-            fmt::format(FMT_COMPILE("Failed to open file '{}' for read"sv), filepath.string())};
+        throw std::ios::failure{fmt::format(FMT_COMPILE("Failed to open file '{}' for read"sv), filepath.string())};
     return file;
 }
 
@@ -41,8 +40,7 @@ template <class Char = char8_t>
     create_directories(filepath.parent_path());
     std::basic_ofstream<Char> file{filepath, std::ios::out | extra_mode};
     if (!file.is_open())
-        throw std::ios::failure{
-            fmt::format(FMT_COMPILE("Failed to open file '{}' for write"sv), filepath.string())};
+        throw std::ios::failure{fmt::format(FMT_COMPILE("Failed to open file '{}' for write"sv), filepath.string())};
     return file;
 }
 
@@ -52,15 +50,14 @@ template <class Char = char8_t>
  * @throw std::ios::failure If failed to open file.
  * @return Read string.
  */
-template <class Char = char8_t>
-[[nodiscard]] std::basic_string<Char> ReadFileAsString(const fs::path& filepath)
+template <class Char = char8_t>[[nodiscard]] std::basic_string<Char> ReadFileAsString(const fs::path& filepath)
 {
-    auto file = ReadFile(filepath, std::ios::ate);
+    auto file = ReadFile<Char>(filepath, std::ios::ate);
     std::basic_string<Char> str;
     str.reserve(file.tellg());
     file.seekg(0, std::ios::beg);
     str.assign(std::istreambuf_iterator<Char>{file}, {});
     return str;
 }
-}
-}
+} // namespace core
+} // namespace oeng
