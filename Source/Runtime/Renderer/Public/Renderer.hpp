@@ -1,6 +1,5 @@
 #pragma once
 #include "IRenderer.hpp"
-#include "RHIShader.hpp"
 #include "Window.hpp"
 
 namespace logcat
@@ -10,75 +9,87 @@ extern RENDERER_API const LogCategory kRenderer;
 
 namespace oeng
 {
-inline namespace renderer
+inline namespace engine
 {
+class IMaterial;
 class Texture;
 class Mesh;
-class Material;
+class Engine;
+} // namespace engine
 
-class DefaultCamera final : public ICamera
+inline namespace rhi
 {
-public:
-    [[nodiscard]] const Vec3& GetPos() const noexcept override;
-    [[nodiscard]] const Mat4& GetViewProj() const noexcept override;
-    [[nodiscard]] const Data& GetData() const noexcept override;
-    void OnScreenSizeChanged(Vec2u16 scr) override;
+class RHIShader;
+}
 
-private:
-    Mat4 view_proj_;
+inline namespace renderer
+{
+struct ViewInfo2
+{
+    Mat4 view_proj;
+    Vec3 origin;
 };
 
-class RENDERER_API Renderer : public IRenderer
+class RENDERER_API Renderer final : public IRenderer
 {
-public:
-    DELETE_CPMV(Renderer);
-
-    /**
-     * Returns the texture corresponding to a given path. It will be loaded from file if it isn't in the cache.
-     * @param path Texture file path
-     * @return Loaded texture or default texture if failed to load.
-     */
-    [[nodiscard]] SharedRef<Texture> GetTexture(Path path);
-    [[nodiscard]] SharedRef<Mesh> GetMesh(Path path);
-    [[nodiscard]] SharedRef<RHIShader> GetShader(Path path);
-    [[nodiscard]] SharedRef<Material> GetMaterial(Path path);
+  public:
+    explicit Renderer(Engine& engine);
+    ~Renderer();
 
     [[nodiscard]] Window& GetWindow() noexcept
     {
         return window_;
     }
 
-private:
-    friend engine::Engine;
+    void DrawScene(const ViewInfo& view) override;
 
-    Renderer();
-    ~Renderer();
+    void AddMesh(MeshComponent& mesh) override;
+    void AddSprite(SpriteComponent& sprite) override;
+    void AddDirLight(DirLightComponent& light) override;
+    void AddSkyLight(SkyLightComponent& light) override;
+    void AddSpotLight(SpotLightComponent& light) override;
+    void AddPointLight(PointLightComponent& light) override;
 
+    void RemoveMesh(MeshComponent& mesh) override;
+    void RemoveSprite(SpriteComponent& sprite) override;
+    void RemoveDirLight(DirLightComponent& light) override;
+    void RemoveSkyLight(SkyLightComponent& light) override;
+    void RemoveSpotLight(SpotLightComponent& light) override;
+    void RemovePointLight(PointLightComponent& light) override;
+
+  private:
     void PreDrawScene() const;
-    void DrawScene();
     void PostDrawScene() const;
 
-    void Draw3D();
+    void Draw3D(const ViewInfo& view);
     void Draw2D();
-    void DrawMesh(const IMeshComponent& mesh_comp);
-    void DrawPointLights(const IMeshComponent& mesh_comp) const;
-    void DrawSpotLights(const IMeshComponent& mesh_comp) const;
-    [[nodiscard]] bool ShouldDraw(const IMeshComponent& mesh_comp) const noexcept;
+    void DrawMesh(const MeshComponent& mesh_comp, const ViewInfo2& view);
+    void DrawPointLights(const MeshComponent& mesh_comp) const;
+    void DrawSpotLights(const MeshComponent& mesh_comp) const;
+    [[nodiscard]] bool ShouldDraw(const MeshComponent& mesh_comp) const noexcept;
 
+    Engine& engine_;
     Window window_;
-
-    RHIShader sprite_shader_;
-    VertexArray sprite_verts_;
-
-    DefaultCamera default_camera_;
 
     struct
     {
         RHIShader* shader;
-        Material* material;
+        IMaterial* material;
         Texture* texture;
         Mesh* mesh;
     } prev_{};
+
+    std::vector<std::reference_wrapper<MeshComponent>> meshes_;
+    std::vector<std::reference_wrapper<SpriteComponent>> sprites_;
+    std::vector<std::reference_wrapper<DirLightComponent>> dir_lights_;
+    std::vector<std::reference_wrapper<SkyLightComponent>> sky_lights_;
+    std::vector<std::reference_wrapper<SpotLightComponent>> spot_lights_;
+    std::vector<std::reference_wrapper<PointLightComponent>> point_lights_;
+
+    SharedPtr<IMaterial> sprite_mat_;
+    SharedPtr<Mesh> sprite_mesh_;
+
+    Mat4 view_matrix_cache_;
 };
-}
-}
+} // namespace renderer
+} // namespace oeng

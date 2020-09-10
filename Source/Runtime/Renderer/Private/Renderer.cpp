@@ -1,12 +1,12 @@
 #include "Renderer.hpp"
-#include "EngineBase.hpp"
-#include "Material.hpp"
-#include "Mesh.hpp"
+#include "Camera/CameraTypes.hpp"
+#include "Components/MeshComponent.hpp"
+#include "Components/SpriteComponent.hpp"
+#include "Engine/AssetManager.hpp"
+#include "Engine/Mesh.hpp"
+#include "Engine/Texture.hpp"
+#include "Materials/IMaterial.hpp"
 #include "RHIShader.hpp"
-#include "Texture.hpp"
-#include "VertexArray.hpp"
-#include "Interfaces/Drawable.hpp"
-#include "Interfaces/Light.hpp"
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 
@@ -22,57 +22,12 @@ inline namespace renderer
 static constexpr auto kMaxPointLights = 4;
 static constexpr auto kMaxSpotLights = 4;
 
-static VertexArray CreateSpriteVerts()
+Renderer::Renderer(Engine& engine) : engine_{engine}
 {
-    constexpr Vertex vertex_buffer[]
-    {
-        {{-0.5_f, 0.5_f, 0_f}, {}, {0_f, 0_f}},
-        {{0.5_f, 0.5_f, 0_f}, {}, {1_f, 0_f}},
-        {{0.5_f, -0.5_f, 0_f}, {}, {1_f, 1_f}},
-        {{-0.5_f, -0.5_f, 0_f}, {}, {0_f, 1_f}}
-    };
+    sprite_mat_ = AssetManager::Get().Load<IMaterial>(u8"../Engine/Assets/M_Sprite.json"sv);
+    sprite_mat_->GetRHI().ApplyParam(u8"uViewProj"sv, MakeSimpleViewProj<4>(window_.GetSize()));
 
-    constexpr Vec3u16 index_buffer[]
-    {
-        {0, 1, 2},
-        {2, 3, 0}
-    };
-
-    return {vertex_buffer, index_buffer};
-}
-
-const Vec3& DefaultCamera::GetPos() const noexcept
-{
-    return Vec3::zero;
-}
-
-const Mat4& DefaultCamera::GetViewProj() const noexcept
-{
-    return view_proj_;
-}
-
-void DefaultCamera::OnScreenSizeChanged(Vec2u16 scr)
-{
-    static const auto view = *MakeLookAt(Vec3::zero, UVec3::forward, UVec3::up);
-    const auto& data = GetData();
-    const auto proj = MakePerspective(Vec2{scr}, data.near, data.far, data.vfov);
-    view_proj_ = view * proj;
-}
-
-const ICamera::Data& DefaultCamera::GetData() const noexcept
-{
-    static const Data data{10, 10000, 60_deg};
-    return data;
-}
-
-Renderer::Renderer()
-    : sprite_shader_{u8"../Engine/Shaders/Sprite"sv},
-      sprite_verts_{CreateSpriteVerts()}
-{
-    UnregisterCamera();
-    UnregisterDirLight();
-    UnregisterSkyLight();
-    sprite_shader_.SetUniform(u8"uViewProj"sv, MakeSimpleViewProj<4>(window_.GetSize()));
+    sprite_mesh_ = AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Sprite.json"sv);
 }
 
 Renderer::~Renderer() = default;
@@ -83,11 +38,11 @@ void Renderer::PreDrawScene() const
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void Renderer::DrawScene()
+void Renderer::DrawScene(const ViewInfo& view)
 {
     SCOPE_STACK_COUNTER(DrawScene);
     PreDrawScene();
-    Draw3D();
+    Draw3D(view);
     Draw2D();
     PostDrawScene();
 }
@@ -98,16 +53,24 @@ void Renderer::PostDrawScene() const
     window_.SwapBuffer();
 }
 
-void Renderer::Draw3D()
+void Renderer::Draw3D(const ViewInfo& view)
 {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
 
     prev_ = {};
 
-    for (auto mesh_comp : mesh_comps_)
+    auto proj_m = MakePerspective(Vec2{window_.GetSize()}, view.near, view.far, view.vfov);
+    auto view_m = MakeLookAt(view.origin, view.direction, UVec3::up);
+
+    if (view_m)
+        view_matrix_cache_ = *view_m;
+
+    ViewInfo2 view2{view_matrix_cache_ * proj_m, view.origin};
+
+    for (auto mesh_comp : meshes_)
     {
-        DrawMesh(mesh_comp);
+        DrawMesh(mesh_comp, view2);
     }
 }
 
@@ -117,31 +80,32 @@ void Renderer::Draw2D()
     glDisable(GL_DEPTH_TEST);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-    sprite_shader_.Activate();
+    sprite_mat_->GetRHI().Activate();
     for (auto sprite_ref : sprites_)
     {
         const auto& sprite = sprite_ref.get();
-        if (!sprite.ShouldDraw())
+        if (!sprite.IsActive())
             continue;
 
         SCOPE_STACK_COUNTER(DrawSprite);
-        sprite_shader_.TryUniform(u8"uWorldTransform"sv, sprite.GetDrawTrsf());
+        sprite_mat_->GetRHI().ApplyParam(u8"uWorldTransform"sv, sprite.GetWorldTrsfMatrix());
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
     }
 }
 
-void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
+void Renderer::DrawMesh(const MeshComponent& mesh_comp, const ViewInfo& view)
 {
     if (!ShouldDraw(mesh_comp))
         return;
+
     SCOPE_STACK_COUNTER(DrawMesh);
 
-    auto& material = mesh_comp.GetMaterial();
-    auto& shader = material.GetShader();
+    auto& material = *mesh_comp.GetMaterial();
+    auto& shader = material.GetRHI();
     if (&shader != prev_.shader)
     {
         shader.Activate();
-        shader.TryUniform(u8"uViewProj"sv, camera_->GetViewProj());
+        shader.ApplyParam(u8"uViewProj"sv, view.);
         shader.TryUniform(u8"uCamPos"sv, camera_->GetPos());
 
         const auto& dir_light = dir_light_->GetData();
@@ -181,8 +145,8 @@ void Renderer::DrawMesh(const IMeshComponent& mesh_comp)
 }
 
 template <class Light, class Fn>
-static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& lights,
-                       const int max_lights, const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
+static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& lights, const int max_lights,
+                       const IMeshComponent& mesh_comp, Fn&& try_extra_uniforms)
 {
     auto& shader = mesh_comp.GetMaterial().GetShader();
     const auto loc_num = shader.GetUniformLocation(fmt::format(u8"uNum{}Lights"sv, name));
@@ -208,12 +172,8 @@ static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& 
 
         SCOPE_STACK_COUNTER(DrawLight);
 
-        auto try_uniform = [&]<class T>(std::u8string_view uniform, T&& value)
-        {
-            return shader.TryUniform(
-                fmt::format(u8"u{}Lights[{}].{}"sv, name, idx, uniform),
-                std::forward<T>(value)
-                );
+        auto try_uniform = [&]<class T>(std::u8string_view uniform, T&& value) {
+            return shader.TryUniform(fmt::format(u8"u{}Lights[{}].{}"sv, name, idx, uniform), std::forward<T>(value));
         };
 
         try_uniform(u8"color"sv, data.color);
@@ -229,15 +189,12 @@ static void DrawLights(std::u8string_view name, const Renderer::CompArr<Light>& 
 
 void Renderer::DrawPointLights(const IMeshComponent& mesh_comp) const
 {
-    DrawLights(u8"Point"sv, point_lights_, kMaxPointLights, mesh_comp, [](auto&&...)
-    {
-    });
+    DrawLights(u8"Point"sv, point_lights_, kMaxPointLights, mesh_comp, [](auto&&...) {});
 }
 
 void Renderer::DrawSpotLights(const IMeshComponent& mesh_comp) const
 {
-    auto try_uniforms = [](auto&& try_uniform, const ISpotLight::Data& data)
-    {
+    auto try_uniforms = [](auto&& try_uniform, const ISpotLight::Data& data) {
         try_uniform(u8"dir"sv, data.dir);
         try_uniform(u8"inner"sv, data.angle_cos.inner);
         try_uniform(u8"outer"sv, data.angle_cos.outer);
@@ -258,22 +215,21 @@ bool Renderer::ShouldDraw(const IMeshComponent& mesh_comp) const noexcept
     return true;
 }
 
-
 class DefaultDirLight : public IDirLight
 {
-public:
+  public:
     [[nodiscard]] const Data& GetData() const noexcept override
     {
         return data_;
     }
 
-private:
+  private:
     const Data data_{UVec3::down, Vec3::zero};
 };
 
 class DefaultSkyLight : public ISkyLight
 {
-public:
+  public:
     [[nodiscard]] const Vec3& GetColor() const noexcept override
     {
         return Vec3::zero;
@@ -303,7 +259,6 @@ bool Renderer::IsSkyLightRegistered() const noexcept
     return sky_light_ != &kDefaultSkyLight;
 }
 
-
 template <class T, class... Args>
 SharedRef<T> Get(std::unordered_map<Path, WeakPtr<T>>& cache, Path path, Args&&... args)
 {
@@ -312,8 +267,7 @@ SharedRef<T> Get(std::unordered_map<Path, WeakPtr<T>>& cache, Path path, Args&&.
 
     try
     {
-        SharedRef<T> loaded(New<T>(path, std::forward<Args>(args)...), [&cache, path](T* p)
-        {
+        SharedRef<T> loaded(New<T>(path, std::forward<Args>(args)...), [&cache, path](T* p) {
             cache.erase(path);
             Delete(p);
         });
@@ -348,20 +302,15 @@ SharedRef<Material> Renderer::GetMaterial(Path path)
     return Get(materials_, path, *this);
 }
 
-template <class T, class Compare>
-void Register(Renderer::CompArr<T>& arr, const T& obj, Compare cmp)
+template <class T, class Compare> void Register(Renderer::CompArr<T>& arr, const T& obj, Compare cmp)
 {
     const auto pos = std::upper_bound(arr.begin(), arr.end(), obj, cmp);
     arr.emplace(pos, obj);
 }
 
-template <class T>
-void Unregister(Renderer::CompArr<T>& arr, const T& obj)
+template <class T> void Unregister(Renderer::CompArr<T>& arr, const T& obj)
 {
-    const auto cmp = [&obj](const T& x)
-    {
-        return &x == &obj;
-    };
+    const auto cmp = [&obj](const T& x) { return &x == &obj; };
     const auto found = std::find_if(arr.rbegin(), arr.rend(), cmp);
     if (found != arr.rend())
         arr.erase(found.base() - 1);
@@ -369,29 +318,26 @@ void Unregister(Renderer::CompArr<T>& arr, const T& obj)
 
 void Renderer::RegisterSprite(const ISpriteComponent& sprite)
 {
-    Register(sprites_, sprite, [](const ISpriteComponent& a, const ISpriteComponent& b)
-    {
-        return a.GetDrawOrder() < b.GetDrawOrder();
-    });
+    Register(sprites_, sprite,
+             [](const ISpriteComponent& a, const ISpriteComponent& b) { return a.GetDrawOrder() < b.GetDrawOrder(); });
 }
 
 void Renderer::RegisterMesh(const IMeshComponent& mesh)
 {
     // Group mesh components in order of importance for [Shader -> Materials -> Texture -> Mesh]
-    Register(mesh_comps_, mesh, [](const IMeshComponent& a, const IMeshComponent& b)
-    {
+    Register(mesh_comps_, mesh, [](const IMeshComponent& a, const IMeshComponent& b) {
         const auto mat1 = a.GetMaterial(), mat2 = b.GetMaterial();
         const auto s1 = mat1.GetShader(), s2 = mat2.GetShader();
         if (&s1 != &s2)
             return &s1 < &s2;
         if (&mat1 != &mat2)
         {
-            auto& t1 = mat1.GetTexture(),& t2 = mat2.GetTexture();
+            auto &t1 = mat1.GetTexture(), &t2 = mat2.GetTexture();
             if (&t1 != &t2)
                 return &t1 < &t2;
             return &mat1 < &mat2;
         }
-        auto& mesh1 = a.GetMesh(),& mesh2 = b.GetMesh();
+        auto &mesh1 = a.GetMesh(), &mesh2 = b.GetMesh();
         return &mesh1 < &mesh2;
     });
 }
@@ -421,4 +367,4 @@ void Renderer::UnregisterSpotLight(const ISpotLight& light)
 {
     Unregister(spot_lights_, light);
 }
-}
+} // namespace renderer
