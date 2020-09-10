@@ -7,7 +7,7 @@ inline namespace core
 {
 static std::u8string_view game_name;
 static bool is_game_thread_id_initialized = false;
-static const std::thread::id kGameThreadId = [&]
+static const std::thread::id kGameThreadId = []
 {
     is_game_thread_id_initialized = true;
     return std::this_thread::get_id();
