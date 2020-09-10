@@ -5,24 +5,15 @@ namespace oeng
 {
 inline namespace core
 {
-template <std::invocable Fn>
-class Finally
+
+template <std::invocable Fn> class Finally
 {
-public:
-    DELETE_CPMV(Finally);
-
-    template <std::enable_if_t<std::is_default_constructible_v<Fn> && !std::is_pointer_v<Fn>, int> = 0>
-    Finally()
+  public:
+    explicit Finally(const Fn& fn) : fn_{fn}
     {
     }
 
-    explicit Finally(const Fn& fn)
-        : fn_{fn}
-    {
-    }
-
-    explicit Finally(Fn&& fn)
-        : fn_{std::move(fn)}
+    explicit Finally(Fn&& fn) : fn_{std::move(fn)}
     {
     }
 
@@ -31,7 +22,7 @@ public:
         fn_();
     }
 
-private:
+  private:
     Fn fn_;
 };
 
@@ -39,19 +30,16 @@ private:
  * RAII resource handler.
  * @note Regardless of the value of id, the deleter is always called.
  */
-template <std::regular T, std::invocable<T> Deleter>
-class Resource
+template <std::regular T, std::invocable<T> Deleter> class Resource
 {
-public:
+  public:
     Resource() = default;
 
-    explicit Resource(T id)
-        : storage_{ZeroThen{}, std::move(id)}
+    explicit Resource(T id) : storage_{ZeroThen{}, std::move(id)}
     {
     }
 
-    Resource(T id, Deleter deleter)
-        : storage_{OneThen{}, std::move(deleter), std::move(id)}
+    Resource(T id, Deleter deleter) : storage_{OneThen{}, std::move(deleter), std::move(id)}
     {
     }
 
@@ -60,8 +48,7 @@ public:
         storage_.first()(storage_.second());
     }
 
-    Resource(Resource&& r) noexcept
-        : storage_{std::move(r)}
+    Resource(Resource&& r) noexcept : storage_{std::move(r)}
     {
         r = {};
     }
@@ -111,7 +98,7 @@ public:
         swap(storage_, r.storage_);
     }
 
-private:
+  private:
     CompPair<Deleter, T> storage_{};
 };
 
@@ -120,5 +107,6 @@ void swap(Resource<T, Deleter>& a, Resource<T, Deleter>& b) noexcept
 {
     a.swap(b);
 }
-}
-}
+
+} // namespace core
+} // namespace oeng
