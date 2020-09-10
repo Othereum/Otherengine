@@ -24,13 +24,13 @@ APlayerController& AGameModeBase::Login(Player& new_player)
 
     try
     {
-        pc = &GetWorld()->SpawnActor<APlayerController>(pc_class_);
+        pc = &GetWorld().SpawnActor<APlayerController>(pc_class_);
     }
     catch (const std::exception& e)
     {
         OE_LOG(kGameMode, kErr, u8"Failed to create player controller '{}': {}"sv, *pc_class_, AsString8(e.what()));
         OE_LOG(kGameMode, kErr, u8"Falling back to default player controller..."sv);
-        pc = &GetWorld()->SpawnActor<APlayerController>();
+        pc = &GetWorld().SpawnActor<APlayerController>();
     }
 
     new_player.SwitchController(pc->weak_from_this());
@@ -47,9 +47,9 @@ void AGameModeBase::RestartPlayer(AController& player)
     SpawnDefaultPawnFor(player);
 }
 
-void AGameModeBase::SpawnDefaultPawnFor(AController& player)
+void AGameModeBase::SpawnDefaultPawnFor(AController& /*player*/)
 {
-
+    // TODO: Implement
 }
 
 } // namespace engine
