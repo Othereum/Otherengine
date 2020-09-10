@@ -3,9 +3,7 @@ function(oe_install src)
     install(DIRECTORY "../${src}" DESTINATION "." OPTIONAL)
 endfunction()
 
-function(oe_setup_target target)
-    get_target_property(target_type ${target} TYPE)
-
+function(oe_optimize_target target)
     if(OE_USE_AVX2)
         target_compile_options(${target} PRIVATE
             $<IF:$<CXX_COMPILER_ID:MSVC>,/arch:AVX2,-march=haswell>
@@ -15,24 +13,41 @@ function(oe_setup_target target)
 
     target_compile_options(${target} PRIVATE
         $<IF:$<CXX_COMPILER_ID:MSVC>,
-            /wd4251 # 'type' : class 'type1' needs to have dll-interface to be used by clients of class 'type2'
-            /wd4275 # non - DLL-interface class 'class_1' used as base for DLL-interface class 'class_2'
             $<$<CONFIG:Release>:/GL>
-            /MP /fp:fast /W4 /WX
+            /MP /fp:fast
 
             , # Clang/GCC
             $<$<CONFIG:Release>:-flto>
-            -ffast-math -Wall -Wextra -pedantic -Werror
+            -ffast-math
         >
-
-        $<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
     )
 
     target_link_options(${target} PRIVATE
         $<IF:$<CXX_COMPILER_ID:MSVC>,
             $<$<CONFIG:Release>:/LTCG>,
-            $<$<CONFIG:Release>:-flto> -Wl$<COMMA>-rpath='$\{ORIGIN}'>
+            $<$<CONFIG:Release>:-flto>>
     )
+endfunction()
+
+function(oe_setup_target target)
+    oe_optimize_target(${target})
+
+    target_compile_options(${target} PRIVATE
+        $<IF:$<CXX_COMPILER_ID:MSVC>,
+            /wd4251 # 'type' : class 'type1' needs to have dll-interface to be used by clients of class 'type2'
+            /wd4275 # non - DLL-interface class 'class_1' used as base for DLL-interface class 'class_2'
+            /W4 /WX
+
+            , # Clang/GCC
+            -Wall -Wextra -pedantic -Werror
+        >
+
+        $<$<CXX_COMPILER_ID:Clang>:-Wno-gnu-zero-variadic-macro-arguments>
+    )
+
+    if(NOT MSVC)
+        target_link_options(${target} PRIVATE -Wl$<COMMA>-rpath='$\{ORIGIN}')
+    endif()
 endfunction()
 
 function(add_module name)
