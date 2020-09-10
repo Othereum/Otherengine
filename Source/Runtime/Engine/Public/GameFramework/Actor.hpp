@@ -14,6 +14,7 @@ inline namespace engine
 {
 
 class World;
+class Engine;
 class ActorComponent;
 class SceneComponent;
 
@@ -114,15 +115,6 @@ class ENGINE_API AActor : public Object
     [[nodiscard]] UVec3 GetRight() const noexcept;
     [[nodiscard]] UVec3 GetUp() const noexcept;
 
-    /**
-     * Returns the world to which this actor belongs.
-     * Normally, it does not return null. Therefore, null check is not required except in special cases.
-     */
-    [[nodiscard]] World* GetWorld() const noexcept
-    {
-        return world_;
-    }
-
     [[nodiscard]] bool HasBegunPlay() const noexcept
     {
         return begun_play_;
@@ -134,6 +126,14 @@ class ENGINE_API AActor : public Object
     {
         return owner_;
     }
+
+    [[nodiscard]] World& GetWorld() const noexcept
+    {
+        assert(world_);
+        return *world_;
+    }
+
+    [[nodiscard]] Engine& GetEngine() const noexcept;
 
     /**
      * If false, the actor will not being updated. `true` by default.

@@ -14,10 +14,16 @@ inline namespace engine
 class AActor;
 class SphereComponent;
 class AGameModeBase;
+class GameInstance;
+class Engine;
 
 class ENGINE_API World
 {
   public:
+    explicit World(GameInstance& gi) : game_instance{gi}
+    {
+    }
+
     AActor& SpawnActor(Name class_name);
 
     template <class T>[[nodiscard]] T& SpawnActor(Name class_name)
@@ -53,6 +59,9 @@ class ENGINE_API World
         return delta_seconds_;
     }
 
+    [[nodiscard]] Engine& GetEngine() const noexcept;
+
+    GameInstance& game_instance;
     TimerManager timer_manager{*this};
 
   private:

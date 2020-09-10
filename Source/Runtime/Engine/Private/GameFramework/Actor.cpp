@@ -65,6 +65,11 @@ void AActor::SetOwner(WeakPtr<AActor> new_owner)
     owner_ = std::move(new_owner);
 }
 
+Engine& AActor::GetEngine() const noexcept
+{
+    return GetWorld().GetEngine();
+}
+
 ViewInfo AActor::CalcCamera() const
 {
     for (const auto& comp : comps_)

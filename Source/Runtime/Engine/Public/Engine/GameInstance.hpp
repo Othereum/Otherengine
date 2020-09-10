@@ -6,11 +6,20 @@ namespace oeng
 {
 inline namespace engine
 {
+
+class Engine;
+
 class GameInstance
 {
-public:
+  public:
+    GameInstance(Engine& engine) : engine{engine}, world{*this}
+    {
+    }
+
+    Engine& engine;
     LocalPlayer local_player;
     World world;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

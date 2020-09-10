@@ -1,6 +1,7 @@
 #include "Engine/World.hpp"
-#include "ConfigSystem.hpp"
 #include "Components/SphereComponent.hpp"
+#include "ConfigSystem.hpp"
+#include "Engine/GameInstance.hpp"
 #include "GameFramework/Actor.hpp"
 #include "GameFramework/GameModeBase.hpp"
 #include "Stat.hpp"
@@ -63,6 +64,11 @@ void World::RemoveCollision(SphereComponent& comp)
     const auto found = std::find_if(collisions_.crbegin(), collisions_.crend(), pr);
     if (found != collisions_.crend())
         collisions_.erase(found.base() - 1);
+}
+
+Engine& World::GetEngine() const noexcept
+{
+    return game_instance.engine;
 }
 
 void World::UpdateGame()
