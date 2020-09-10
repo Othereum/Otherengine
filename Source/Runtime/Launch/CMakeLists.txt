@@ -18,7 +18,7 @@ else()
 	target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE OE_GAME_MODULE=\"\")
 endif()
 
-target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${PROJECT_NAME}-Engine)
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE ${PROJECT_NAME}-Engine ${PROJECT_NAME}-Renderer)
 target_compile_definitions(${CMAKE_PROJECT_NAME} PRIVATE OE_BUILD)
 
 set(OE_USE_AVX2 FALSE)

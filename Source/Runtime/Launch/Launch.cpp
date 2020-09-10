@@ -13,7 +13,7 @@ inline namespace core
 {
 OE_IMPORT void SetGameName(std::u8string_view game_name);
 }
-}
+} // namespace oeng
 
 static void OnIllegal(int)
 {
