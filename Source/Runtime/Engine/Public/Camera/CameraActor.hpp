@@ -9,10 +9,11 @@ class CameraComponent;
 
 class ENGINE_API ACameraActor : public AActor
 {
-CLASS_BODY(ACameraActor)
+    CLASS_BODY(ACameraActor)
 
-public:
+  public:
     ACameraActor();
+    [[nodiscard]] ViewInfo CalcCamera() const override;
 
     void SetVFov(Rad vfov) const noexcept;
     void SetNearFar(Float near, Float far) const noexcept;
@@ -21,13 +22,7 @@ public:
     [[nodiscard]] Float GetNear() const noexcept;
     [[nodiscard]] Float GetFar() const noexcept;
 
-    [[nodiscard]] CameraComponent& GetCameraComponent() const noexcept
-    {
-        return camera_;
-    }
-
-private:
     CameraComponent& camera_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
