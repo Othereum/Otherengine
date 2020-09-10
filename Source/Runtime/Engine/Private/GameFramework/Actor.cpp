@@ -30,7 +30,7 @@ void AActor::EndPlay()
     for (const auto& c : comps_)
         c->EndPlay();
 
-    GetWorld()->timer_manager.RemoveTimer(lifespan_timer_);
+    GetWorld().timer_manager.RemoveTimer(lifespan_timer_);
     OnEndPlay();
 }
 
@@ -95,7 +95,7 @@ void AActor::SetLifespan(Float in_seconds)
     if (!begun_play_)
         return;
 
-    auto& timer = GetWorld()->timer_manager;
+    auto& timer = GetWorld().timer_manager;
     if (timer.IsTimerExists(lifespan_timer_))
     {
         if (init_lifespan_ > 0)
@@ -114,7 +114,7 @@ void AActor::SetLifespan(Float in_seconds)
 
 Float AActor::GetLifespan() const noexcept
 {
-    auto& timer = GetWorld()->timer_manager;
+    auto& timer = GetWorld().timer_manager;
     return timer.IsTimerExists(lifespan_timer_) ? timer.TimeLeft(lifespan_timer_) : 0;
 }
 
