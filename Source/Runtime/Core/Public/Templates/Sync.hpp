@@ -7,9 +7,10 @@ namespace oeng
 {
 inline namespace core
 {
+
 class NullMutex
 {
-public:
+  public:
     constexpr void lock() const noexcept
     {
     }
@@ -24,13 +25,11 @@ public:
     }
 };
 
-template <class T>
-struct NullAtomic
+template <class T> struct NullAtomic
 {
     constexpr NullAtomic() noexcept = default;
 
-    constexpr NullAtomic(T desired) noexcept
-        : data{std::move(desired)}
+    constexpr NullAtomic(T desired) noexcept : data{std::move(desired)}
     {
     }
 
@@ -167,24 +166,20 @@ struct NullAtomic
         return data ^= std::move(arg);
     }
 
-private:
+  private:
     T data;
 };
 
-template <bool ThreadSafe>
-using CondMutex = std::conditional_t<ThreadSafe, std::mutex, NullMutex>;
+template <bool ThreadSafe> using CondMutex = std::conditional_t<ThreadSafe, std::mutex, NullMutex>;
 
-template <class T, bool ThreadSafe>
-using CondAtomic = std::conditional_t<ThreadSafe, std::atomic<T>, NullAtomic<T>>;
+template <class T, bool ThreadSafe> using CondAtomic = std::conditional_t<ThreadSafe, std::atomic<T>, NullAtomic<T>>;
 
-template <class T, class Mutex = std::mutex>
-class Monitor
+template <class T, class Mutex = std::mutex> class Monitor
 {
-public:
+  public:
     struct Handle
     {
-        explicit Handle(Monitor& set)
-            : object_{set.storage_.second()}, lock_{set.storage_.first()}
+        explicit Handle(Monitor& set) : object_{set.storage_.second()}, lock_{set.storage_.first()}
         {
         }
 
@@ -198,15 +193,14 @@ public:
             return object_;
         }
 
-    private:
+      private:
         T& object_;
         std::unique_lock<Mutex> lock_;
     };
 
     struct ConstHandle
     {
-        explicit ConstHandle(const Monitor& set)
-            : object_{storage_.second()}, lock_{storage_.first()}
+        explicit ConstHandle(const Monitor& set) : object_{set.storage_.second()}, lock_{set.storage_.first()}
         {
         }
 
@@ -220,15 +214,13 @@ public:
             return object_;
         }
 
-    private:
+      private:
         const T& object_;
         std::unique_lock<Mutex> lock_;
     };
 
     template <class... Args>
-    explicit(sizeof...(Args) == 1)
-    Monitor(Args&&... args)
-        : storage_{ZeroThen{}, std::forward<Args>(args)...}
+    explicit(sizeof...(Args) == 1) Monitor(Args&&... args) : storage_{ZeroThen{}, std::forward<Args>(args)...}
     {
     }
 
@@ -272,11 +264,11 @@ public:
         return storage_.second();
     }
 
-private:
+  private:
     CompPair<Mutex, T> storage_;
 };
 
-template <class T, bool ThreadSafe>
-using CondMonitor = Monitor<T, CondMutex<ThreadSafe>>;
-}
-}
+template <class T, bool ThreadSafe> using CondMonitor = Monitor<T, CondMutex<ThreadSafe>>;
+
+} // namespace core
+} // namespace oeng
