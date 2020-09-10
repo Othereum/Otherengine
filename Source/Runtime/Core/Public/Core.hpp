@@ -25,8 +25,9 @@
 #define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)
 
 /**
- * Helper macro that must be used for classes derived from `Object`.
+ * @brief Helper macro that must be used for classes derived from `Object`.
  *
+ * @details
  * Example:
  * @code{cpp}
  * class AMyActor : public AActor
@@ -85,8 +86,9 @@
     inline static const _##name##Registerer _##name##_registerer_;
 
 /**
- * Helper macro for interface classes.
+ * @brief Helper macro for interface classes.
  *
+ * @details
  * It declares default constructor, defaulted virtual destructor,
  * and deletes copy/move constructor/assignment operators.
  *
