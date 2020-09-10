@@ -1,14 +1,14 @@
 #include "Components/MeshComponent.hpp"
-#include "IRenderer.hpp"
+#include "Engine/Engine.hpp"
 #include "Engine/Mesh.hpp"
+#include "IRenderer.hpp"
 #include "Materials/IMaterial.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-MeshComponent::MeshComponent()
-    : mesh_{Mesh::GetDefault()}
+MeshComponent::MeshComponent() : mesh_{Mesh::GetDefault()}
 {
 }
 
@@ -18,7 +18,7 @@ void MeshComponent::SetMesh(SharedRef<Mesh> mesh)
     ReRegister();
 }
 
-void MeshComponent::OverrideMaterial(SharedRef<IMaterial> material)
+void MeshComponent::OverrideMaterial(SharedPtr<IMaterial> material)
 {
     material_override_ = std::move(material);
     ReRegister();
@@ -34,32 +34,38 @@ Float MeshComponent::GetUnscaledRadius() const noexcept
     return mesh_->GetRadius();
 }
 
-const SharedRef<IMaterial>& MeshComponent::GetMaterial() const noexcept
+SharedRef<IMaterial> MeshComponent::GetMaterial() const noexcept
 {
     if (material_override_)
-        return material_override_;
+        return SharedRef{material_override_};
 
     return mesh_->GetMaterial();
 }
 
 void MeshComponent::OnBeginPlay()
 {
-    IRenderer::Get().AddMesh(*this);
+    GetRenderer().AddMesh(*this);
 }
 
 void MeshComponent::OnEndPlay()
 {
-    IRenderer::Get().RemoveMesh(*this);
+    GetRenderer().RemoveMesh(*this);
 }
 
 void MeshComponent::ReRegister()
 {
     if (HasBegunPlay())
     {
-        auto& renderer = IRenderer::Get();
+        auto& renderer = GetRenderer();
         renderer.RemoveMesh(*this);
         renderer.AddMesh(*this);
     }
 }
+
+IRenderer& MeshComponent::GetRenderer() const noexcept
+{
+    return GetEngine().GetRenderer();
 }
-}
+
+} // namespace engine
+} // namespace oeng
