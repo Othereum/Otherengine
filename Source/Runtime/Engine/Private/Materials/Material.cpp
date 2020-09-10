@@ -6,14 +6,22 @@ namespace oeng
 {
 inline namespace engine
 {
+SharedRef<Material> Material::GetDefault()
+{
+    return CastChecked<Material>(IMaterial::GetDefault());
+}
+
+Material::Material() = default;
+Material::~Material() = default;
+
 void Material::from_json(const Json& json)
 {
     LoadParams(json.at("Parameters"));
 
     const auto& shaders = json.at("Shaders");
-    shader_.reset(DynamicRHI::Get().CreateShader(
-        ReadFileAsString<char>(shaders.at("Vertex").get<std::string>()).c_str(),
-        ReadFileAsString<char>(shaders.at("Fragment").get<std::string>()).c_str()));
+    shader_.reset(
+        DynamicRHI::Get().CreateShader(ReadFileAsString<char>(shaders.at("Vertex").get<std::string>()).c_str(),
+                                       ReadFileAsString<char>(shaders.at("Fragment").get<std::string>()).c_str()));
 }
 
 RHIShader& Material::GetRHI() const noexcept
@@ -35,5 +43,5 @@ bool Material::IsTextureParam(Name name) const
 {
     return shader_->IsTextureParam(name);
 }
-}
-}
+} // namespace engine
+} // namespace oeng
