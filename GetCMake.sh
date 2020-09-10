@@ -11,3 +11,4 @@ if [[ ! -f cmake-install/bin/cmake ]]; then
     tar -xf cmake-$ver-Linux-x86_64.tar.gz
     mv cmake-$ver-Linux-x86_64 ../cmake-install
 fi
+
