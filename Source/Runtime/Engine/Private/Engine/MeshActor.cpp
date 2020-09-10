@@ -5,8 +5,7 @@ namespace oeng
 {
 inline namespace engine
 {
-AMeshActor::AMeshActor()
-    : mesh_{AddComponent<MeshComponent>()}
+AMeshActor::AMeshActor() : mesh_{AddComponent<MeshComponent>()}
 {
     SetRootComponent(&mesh_);
 }
@@ -26,9 +25,9 @@ const SharedRef<Mesh>& AMeshActor::GetMesh() const noexcept
     return mesh_.GetMesh();
 }
 
-const SharedRef<IMaterial>& AMeshActor::GetMaterial() const noexcept
+SharedRef<IMaterial> AMeshActor::GetMaterial() const noexcept
 {
     return mesh_.GetMaterial();
 }
-}
-}
+} // namespace engine
+} // namespace oeng

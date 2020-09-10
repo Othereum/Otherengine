@@ -11,24 +11,24 @@ class MeshComponent;
 
 class ENGINE_API AMeshActor : public AActor
 {
-CLASS_BODY(AMeshActor)
+    CLASS_BODY(AMeshActor)
 
-public:
+  public:
     AMeshActor();
 
     void SetMesh(SharedRef<Mesh> mesh) const;
     void OverrideMaterial(SharedRef<IMaterial> material) const;
 
     [[nodiscard]] const SharedRef<Mesh>& GetMesh() const noexcept;
-    [[nodiscard]] const SharedRef<IMaterial>& GetMaterial() const noexcept;
+    [[nodiscard]] SharedRef<IMaterial> GetMaterial() const noexcept;
 
     [[nodiscard]] MeshComponent& GetMeshComp() const noexcept
     {
         return mesh_;
     }
 
-private:
+  private:
     MeshComponent& mesh_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
