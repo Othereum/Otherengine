@@ -25,7 +25,7 @@ void APlayerController::SetCameraManagerClass(Name pcm_class)
 
 void APlayerController::OnBeginPlay()
 {
-    pcm_ = GetWorld()->SpawnActor<APlayerCameraManager>(pcm_class_).weak_from_this();
+    pcm_ = GetWorld().SpawnActor<APlayerCameraManager>(pcm_class_).weak_from_this();
 }
 
 } // namespace engine
