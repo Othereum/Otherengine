@@ -1,5 +1,5 @@
-#include "AssetManager.hpp"
-#include "Engine.hpp"
+#include "Engine/AssetManager.hpp"
+#include "Engine/Engine.hpp"
 
 namespace logcat
 {
@@ -21,7 +21,7 @@ SharedRef<Object> AssetManager::Load(Path path)
     if (const auto found = assets_.find(path); found != assets_.end())
     {
         if (auto ptr = found->second.lock())
-            return ptr;
+            return SharedRef{std::move(ptr)};
 
 #ifndef NDEBUG
         ++reload_count_[path];

@@ -2,7 +2,7 @@
 #error Launch module should not use AVX2
 #endif
 
-#include "Engine.hpp"
+#include "Engine/Engine.hpp"
 #include <csignal>
 
 using namespace oeng;
