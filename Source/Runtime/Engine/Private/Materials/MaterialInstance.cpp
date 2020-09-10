@@ -1,11 +1,15 @@
 #include "Materials/MaterialInstance.hpp"
-#include "AssetManager.hpp"
+#include "Engine/AssetManager.hpp"
 #include "Materials/Material.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
+MaterialInstance::MaterialInstance() : parent_{Material::GetDefault()}
+{
+}
+
 void MaterialInstance::from_json(const Json& json)
 {
     LoadParams(json.at("ParameterOverrides"));
@@ -31,5 +35,5 @@ bool MaterialInstance::IsTextureParam(Name name) const
 {
     return parent_->GetTextureParams().contains(name);
 }
-}
-}
+} // namespace engine
+} // namespace oeng

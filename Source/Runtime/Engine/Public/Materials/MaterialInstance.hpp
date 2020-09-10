@@ -9,9 +9,11 @@ class Material;
 
 class ENGINE_API MaterialInstance final : public IMaterial
 {
-CLASS_BODY(MaterialInstance)
+    CLASS_BODY(MaterialInstance)
 
-public:
+  public:
+    MaterialInstance();
+
     void from_json(const Json& json) override;
     RHIShader& GetRHI() const noexcept override;
 
@@ -20,13 +22,13 @@ public:
         return *parent_;
     }
 
-protected:
+  protected:
     [[nodiscard]] bool IsScalarParam(Name name) const override;
     [[nodiscard]] bool IsVectorParam(Name name) const override;
     [[nodiscard]] bool IsTextureParam(Name name) const override;
 
-private:
+  private:
     SharedRef<Material> parent_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
