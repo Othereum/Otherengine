@@ -812,51 +812,77 @@ SharedRef<T, ThreadSafe> MakeShared(size_t n)
     return AllocateShared<T, ThreadSafe>(std::allocator<std::remove_extent_t<T>>{}, n);
 }
 
-template <class T, class U, bool ThreadSafe> SharedPtr<T, ThreadSafe> ConstCast(SharedPtr<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> StaticCast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), const_cast<T*>(r.get())};
+    return {std::move(ptr), static_cast<To*>(ptr.get())};
 }
 
-template <class T, class U, bool ThreadSafe> SharedRef<T, ThreadSafe> ConstCast(SharedRef<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> StaticCast(SharedRef<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), const_cast<T*>(r.get())};
+    return {std::move(ptr), static_cast<To*>(ptr.get())};
 }
 
-template <class T, class U, bool ThreadSafe>
-SharedPtr<T, ThreadSafe> ReinterpretCast(SharedPtr<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> ConstCast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), reinterpret_cast<T*>(r.get())};
+    return {std::move(ptr), const_cast<To*>(ptr.get())};
 }
 
-template <class T, class U, bool ThreadSafe>
-SharedRef<T, ThreadSafe> ReinterpretCast(SharedRef<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> ConstCast(SharedRef<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), reinterpret_cast<T*>(r.get())};
+    return {std::move(ptr), const_cast<To*>(ptr.get())};
 }
 
-template <class T, class U, bool ThreadSafe> SharedPtr<T, ThreadSafe> Cast(SharedPtr<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedPtr<To, ThreadSafe> ReinterpretCast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), dynamic_cast<T*>(r.get())};
+    return {std::move(ptr), reinterpret_cast<To*>(ptr.get())};
 }
 
-template <class T, class U, bool ThreadSafe> SharedRef<T, ThreadSafe> Cast(SharedRef<U, ThreadSafe> r) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedRef<To, ThreadSafe> ReinterpretCast(SharedRef<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(r), &dynamic_cast<T&>(*r)};
+    return {std::move(ptr), reinterpret_cast<To*>(ptr.get())};
+}
+
+/**
+ * @brief Casts the pointer dynamically.
+ * @tparam To Target type
+ * @tparam From Source type
+ * @param ptr The pointer
+ * @return Casted pointer if successful, null otherwise.
+*/
+template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> Cast(SharedPtr<From, ThreadSafe> ptr) noexcept
+{
+    return {std::move(ptr), dynamic_cast<To*>(ptr.get())};
+}
+
+/**
+ * @brief Casts the pointer dynamically.
+ * @tparam To Target type
+ * @tparam From Source type
+ * @param ptr The pointer
+ * @return Casted pointer
+ * @throw std::bad_cast If failed to cast.
+*/
+template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> Cast(SharedRef<From, ThreadSafe> ptr)
+{
+    return {std::move(ptr), &dynamic_cast<To&>(*ptr)};
 }
 
 /**
  * Casts the object pointer statically and asserts that it is safe to cast.
  * If NDEBUG is not defined, uses dynamic_cast to verify that it is safe to cast.
  * @param ptr Pointer
- * @return Casted pointer.
+ * @return Casted pointer
  */
-template <class To, class From>[[nodiscard]] SharedPtr<To> CastChecked(SharedPtr<From> ptr)
+template <class To, class From, bool ThreadSafe>
+[[nodiscard]] SharedPtr<To, ThreadSafe> CastChecked(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
     if (!ptr)
         return {};
 
     assert(dynamic_cast<To*>(ptr.get()));
-    return {std::move(ptr), static_cast<To*>(ptr.get())};
+    return StaticCast(std::move(ptr));
 }
 
 /**
@@ -865,10 +891,11 @@ template <class To, class From>[[nodiscard]] SharedPtr<To> CastChecked(SharedPtr
  * @param ptr Pointer
  * @return Casted pointer.
  */
-template <class To, class From>[[nodiscard]] SharedRef<To> CastChecked(SharedRef<From> ptr)
+template <class To, class From, bool ThreadSafe>
+[[nodiscard]] SharedRef<To, ThreadSafe> CastChecked(SharedRef<From, ThreadSafe> ptr) noexcept
 {
     assert(dynamic_cast<To*>(ptr.get()));
-    return {std::move(ptr), static_cast<To*>(ptr.get())};
+    return StaticCast(std::move(ptr));
 }
 
 template <class T, bool ThreadSafe>
