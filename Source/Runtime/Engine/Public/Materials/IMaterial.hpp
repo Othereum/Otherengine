@@ -1,5 +1,10 @@
 #pragma once
 
+namespace logcat
+{
+extern ENGINE_API const LogCategory kMaterial;
+}
+
 namespace oeng
 {
 inline namespace rhi
@@ -11,12 +16,12 @@ inline namespace engine
 {
 class Texture;
 
-class IMaterial : public Object
+class ENGINE_API IMaterial : public Object
 {
-public:
-    [[nodiscard]] static SharedRef<IMaterial> GetDefault();
+  public:
+    ~IMaterial();
 
-    void LoadParams(const Json& json);
+    [[nodiscard]] static SharedRef<IMaterial> GetDefault();
 
     [[nodiscard]] auto& GetScalarParams() const noexcept
     {
@@ -35,7 +40,9 @@ public:
 
     [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
-protected:
+  protected:
+    void LoadParams(const Json& json);
+
     [[nodiscard]] virtual bool IsScalarParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsVectorParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsTextureParam(Name name) const = 0;
@@ -44,15 +51,12 @@ protected:
     std::unordered_map<Name, Vec4> vectors_;
     std::unordered_map<Name, SharedRef<Texture>> textures_;
 
-private:
-    template <class T, class Fn>
-    void LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn);
+  private:
+    template <class T, class Fn> void LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn);
 
-    template <class T>
-    void LoadParams(const Json& json, std::unordered_map<Name, T>& out);
+    template <class T> void LoadParams(const Json& json, std::unordered_map<Name, T>& out);
 
-    template <class T>
-    [[nodiscard]] bool IsValidParam(Name name) const;
+    template <class T>[[nodiscard]] bool IsValidParam(Name name) const;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
