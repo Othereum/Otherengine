@@ -35,30 +35,20 @@ struct NameEqual
 using NameSetType = std::unordered_set<std::u8string, NameHasher, NameEqual>;
 using NameSet = CondMonitor<NameSetType, kNameThreadSafe>;
 
-template <class Container, class KeyEquivalent>
-struct IsTransparent
+template <class Container> concept Transparent = requires(Container c)
 {
-private:
-    template <class C, class = decltype(std::declval<C>().find(std::declval<KeyEquivalent>()))>
-    static std::true_type Test(int);
-
-    template <class C>
-    static std::false_type Test(...);
-
-public:
-    static constexpr bool value = decltype(Test<Container>(0))::value;
+    c.find(std::declval<std::u8string_view>());
 };
 
-auto Find(const NameSetType& set, std::u8string_view s)
+template <Transparent Container>
+[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
 {
-    if constexpr (IsTransparent<NameSetType, std::u8string_view>::value)
-    {
-        return set.find(s);
-    }
-    else
-    {
-        return set.find(s.data());
-    }
+    return container.find(key);
+}
+
+template <class Container>[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
+{
+    return container.find(std::u8string{key});
 }
 
 NameSet& GetNameSet() noexcept
@@ -72,18 +62,15 @@ NameSet& GetNameSet() noexcept
     return set;
 }
 
-Name::Name() noexcept
-    : sp_{&*GetNameSet()->find(std::u8string{})}
+Name::Name() noexcept : sp_{&*GetNameSet()->find(std::u8string{})}
 {
 }
 
-Name::Name(std::u8string&& s)
-    : sp_{&*GetNameSet()->insert(std::move(s)).first}
+Name::Name(std::u8string&& s) : sp_{&*GetNameSet()->insert(std::move(s)).first}
 {
 }
 
-Name::Name(const std::u8string& s)
-    : sp_{&*GetNameSet()->insert(s).first}
+Name::Name(const std::u8string& s) : sp_{&*GetNameSet()->insert(s).first}
 {
 }
 
@@ -95,5 +82,5 @@ Name::Name(std::u8string_view s)
         found = set->emplace(s).first;
     sp_ = &*found;
 }
-}
-}
+} // namespace core
+} // namespace oeng
