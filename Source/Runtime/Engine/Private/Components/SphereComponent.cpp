@@ -1,10 +1,11 @@
 #include "Components/SphereComponent.hpp"
-#include "World.hpp"
+#include "Engine/World.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
+
 void SphereComponent::DoOverlap(SphereComponent& other)
 {
     if (IsOverlap(other))
@@ -33,5 +34,6 @@ void SphereComponent::OnEndPlay()
 {
     GetWorld().RemoveCollision(*this);
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng

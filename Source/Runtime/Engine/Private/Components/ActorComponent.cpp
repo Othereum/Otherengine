@@ -6,6 +6,7 @@ namespace oeng
 {
 inline namespace engine
 {
+
 void ActorComponent::BeginPlay()
 {
     OnBeginPlay();
@@ -46,7 +47,13 @@ void ActorComponent::Deactivate()
 
 World& ActorComponent::GetWorld() const noexcept
 {
-    return owner_->GetWorld();
+    return GetOwner().GetWorld();
 }
+
+Engine& ActorComponent::GetEngine() const noexcept
+{
+    return GetOwner().GetEngine();
 }
-}
+
+} // namespace engine
+} // namespace oeng

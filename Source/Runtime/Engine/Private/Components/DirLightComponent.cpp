@@ -5,14 +5,16 @@ namespace oeng
 {
 inline namespace engine
 {
+
 void DirLightComponent::OnBeginPlay()
 {
-    IRenderer::Get().AddDirLight(*this);
+    GetRenderer().AddDirLight(*this);
 }
 
 void DirLightComponent::OnEndPlay()
 {
-    IRenderer::Get().RemoveDirLight(*this);
+    GetRenderer().RemoveDirLight(*this);
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng

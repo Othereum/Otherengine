@@ -7,6 +7,7 @@ inline namespace engine
 
 class AActor;
 class World;
+class Engine;
 
 class ENGINE_API ActorComponent : public Object
 {
@@ -48,16 +49,18 @@ class ENGINE_API ActorComponent : public Object
 
     [[nodiscard]] AActor& GetOwner() const noexcept
     {
+        assert(owner_);
         return *owner_;
     }
 
     [[nodiscard]] World& GetWorld() const noexcept;
+    [[nodiscard]] Engine& GetEngine() const noexcept;
 
     /**
      * If true, the component will be activated automatically on begin play.
      * `true` by default.
      */
-    bool auto_activate : 1 = true;
+    bool auto_activate = true;
 
   protected:
     /**
@@ -97,8 +100,8 @@ class ENGINE_API ActorComponent : public Object
     AActor* owner_ = nullptr;
     int update_order_ = 100;
 
-    bool is_active_ : 1 = false;
-    bool begun_play_ : 1 = false;
+    bool is_active_ = false;
+    bool begun_play_ = false;
 };
 
 } // namespace engine

@@ -5,16 +5,22 @@ namespace oeng
 {
 inline namespace engine
 {
+
+class IRenderer;
+
 class ENGINE_API SkyLightComponent : public SceneComponent
 {
-CLASS_BODY(SkyLightComponent)
+    CLASS_BODY(SkyLightComponent)
 
-public:
+  public:
+    [[nodiscard]] IRenderer& GetRenderer() const noexcept;
+
     Vec3 color{1, 1, 1};
 
-protected:
+  protected:
     void OnBeginPlay() override;
     void OnEndPlay() override;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

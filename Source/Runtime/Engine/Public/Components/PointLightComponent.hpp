@@ -5,20 +5,18 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class ENGINE_API PointLightComponent : public DirLightComponent
 {
-CLASS_BODY(PointLightComponent)
+    CLASS_BODY(PointLightComponent)
 
-public:
-    DELETE_CPMV(PointLightComponent);
+  public:
+    Float radius = 1000;
 
-    explicit PointLightComponent(AActor& owner, int update_order = 100);
-    ~PointLightComponent();
-
-    Float radius = 1000_f;
-
-protected:
+  protected:
     void OnBeginPlay() override;
+    void OnEndPlay() override;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

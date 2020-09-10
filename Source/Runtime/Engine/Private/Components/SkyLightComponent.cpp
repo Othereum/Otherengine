@@ -1,18 +1,26 @@
 #include "Components/SkyLightComponent.hpp"
+#include "Engine/Engine.hpp"
 #include "IRenderer.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
+
 void SkyLightComponent::OnBeginPlay()
 {
-    IRenderer::Get().AddSkyLight(*this);
+    GetRenderer().AddSkyLight(*this);
 }
 
 void SkyLightComponent::OnEndPlay()
 {
-    IRenderer::Get().RemoveSkyLight(*this);
+    GetRenderer().RemoveSkyLight(*this);
 }
+
+IRenderer& SkyLightComponent::GetRenderer() const noexcept
+{
+    return GetEngine().GetRenderer();
 }
-}
+
+} // namespace engine
+} // namespace oeng

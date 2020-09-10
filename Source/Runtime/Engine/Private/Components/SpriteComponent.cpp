@@ -1,13 +1,14 @@
 #include "Components/SpriteComponent.hpp"
-#include "IRenderer.hpp"
+#include "Engine/Engine.hpp"
 #include "Engine/Texture.hpp"
+#include "IRenderer.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-SpriteComponent::SpriteComponent()
-    : texture_{Texture::GetDefault()}
+
+SpriteComponent::SpriteComponent() : texture_{Texture::GetDefault()}
 {
 }
 
@@ -17,19 +18,21 @@ void SpriteComponent::SetDrawOrder(int draw_order)
 
     if (HasBegunPlay())
     {
-        IRenderer::Get().RemoveSprite(*this);
-        IRenderer::Get().AddSprite(*this);
+        auto& renderer = GetEngine().GetRenderer();
+        renderer.RemoveSprite(*this);
+        renderer.AddSprite(*this);
     }
 }
 
 void SpriteComponent::OnBeginPlay()
 {
-    IRenderer::Get().AddSprite(*this);
+    GetEngine().GetRenderer().AddSprite(*this);
 }
 
 void SpriteComponent::OnEndPlay()
 {
-    IRenderer::Get().RemoveSprite(*this);
+    GetEngine().GetRenderer().RemoveSprite(*this);
 }
-}
-}
+
+} // namespace engine
+} // namespace oeng
