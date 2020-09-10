@@ -812,22 +812,26 @@ SharedRef<T, ThreadSafe> MakeShared(size_t n)
     return AllocateShared<T, ThreadSafe>(std::allocator<std::remove_extent_t<T>>{}, n);
 }
 
-template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> StaticCast(SharedPtr<From, ThreadSafe> ptr) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedPtr<To, ThreadSafe> StaticCast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
     return {std::move(ptr), static_cast<To*>(ptr.get())};
 }
 
-template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> StaticCast(SharedRef<From, ThreadSafe> ptr) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedRef<To, ThreadSafe> StaticCast(SharedRef<From, ThreadSafe> ptr) noexcept
 {
     return {std::move(ptr), static_cast<To*>(ptr.get())};
 }
 
-template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> ConstCast(SharedPtr<From, ThreadSafe> ptr) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedPtr<To, ThreadSafe> ConstCast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
     return {std::move(ptr), const_cast<To*>(ptr.get())};
 }
 
-template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> ConstCast(SharedRef<From, ThreadSafe> ptr) noexcept
+template <class To, class From, bool ThreadSafe>
+SharedRef<To, ThreadSafe> ConstCast(SharedRef<From, ThreadSafe> ptr) noexcept
 {
     return {std::move(ptr), const_cast<To*>(ptr.get())};
 }
@@ -850,8 +854,9 @@ SharedRef<To, ThreadSafe> ReinterpretCast(SharedRef<From, ThreadSafe> ptr) noexc
  * @tparam From Source type
  * @param ptr The pointer
  * @return Casted pointer if successful, null otherwise.
-*/
-template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> Cast(SharedPtr<From, ThreadSafe> ptr) noexcept
+ */
+template <class To, class From, bool ThreadSafe>
+SharedPtr<To, ThreadSafe> Cast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
     return {std::move(ptr), dynamic_cast<To*>(ptr.get())};
 }
@@ -863,7 +868,7 @@ template <class To, class From, bool ThreadSafe> SharedPtr<To, ThreadSafe> Cast(
  * @param ptr The pointer
  * @return Casted pointer
  * @throw std::bad_cast If failed to cast.
-*/
+ */
 template <class To, class From, bool ThreadSafe> SharedRef<To, ThreadSafe> Cast(SharedRef<From, ThreadSafe> ptr)
 {
     return {std::move(ptr), &dynamic_cast<To&>(*ptr)};
@@ -882,7 +887,7 @@ template <class To, class From, bool ThreadSafe>
         return {};
 
     assert(dynamic_cast<To*>(ptr.get()));
-    return StaticCast(std::move(ptr));
+    return StaticCast<To>(std::move(ptr));
 }
 
 /**
@@ -895,7 +900,7 @@ template <class To, class From, bool ThreadSafe>
 [[nodiscard]] SharedRef<To, ThreadSafe> CastChecked(SharedRef<From, ThreadSafe> ptr) noexcept
 {
     assert(dynamic_cast<To*>(ptr.get()));
-    return StaticCast(std::move(ptr));
+    return StaticCast<To>(std::move(ptr));
 }
 
 template <class T, bool ThreadSafe>
@@ -942,9 +947,7 @@ template <class T, bool ThreadSafe> void swap(WeakPtr<T, ThreadSafe>& l, WeakPtr
     l.swap(r);
 }
 
-template <class T, bool ThreadSafe> SharedPtr(WeakPtr<T, ThreadSafe>) -> SharedPtr<T, ThreadSafe>;
-template <class T, bool ThreadSafe> SharedRef(WeakPtr<T, ThreadSafe>) -> SharedRef<T, ThreadSafe>;
-template <class T, bool ThreadSafe> WeakPtr(SharedPtr<T, ThreadSafe>) -> WeakPtr<T, ThreadSafe>;
+template <class T, bool ThreadSafe> SharedRef(SharedPtr<T, ThreadSafe>) -> SharedRef<T, ThreadSafe>;
 
 } // namespace core
 } // namespace oeng
