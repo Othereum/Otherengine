@@ -35,22 +35,6 @@ struct NameEqual
 using NameSetType = std::unordered_set<std::u8string, NameHasher, NameEqual>;
 using NameSet = CondMonitor<NameSetType, kNameThreadSafe>;
 
-template <class Container> concept Transparent = requires(Container c)
-{
-    c.find(std::declval<std::u8string_view>());
-};
-
-template <Transparent Container>
-[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
-{
-    return container.find(key);
-}
-
-template <class Container>[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
-{
-    return container.find(std::u8string{key});
-}
-
 NameSet& GetNameSet() noexcept
 {
     if constexpr (!kNameThreadSafe)
@@ -72,6 +56,23 @@ Name::Name(std::u8string&& s) : sp_{&*GetNameSet()->insert(std::move(s)).first}
 
 Name::Name(const std::u8string& s) : sp_{&*GetNameSet()->insert(s).first}
 {
+}
+
+// Some compilers do not support is_transparent
+template <class Container> concept Transparent = requires(Container c)
+{
+    c.find(std::declval<std::u8string_view>());
+};
+
+template <Transparent Container>
+[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
+{
+    return container.find(key);
+}
+
+template <class Container>[[nodiscard]] static decltype(auto) Find(const Container& container, std::u8string_view key)
+{
+    return container.find(std::u8string{key});
 }
 
 Name::Name(std::u8string_view s)
