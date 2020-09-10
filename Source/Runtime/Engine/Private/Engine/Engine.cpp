@@ -27,6 +27,7 @@ Engine::~Engine()
 
 void Engine::RunLoop()
 {
+    assert(renderer_);
     game_instance.world.BeginPlay();
 
     OE_LOG(kEngine, kLog, u8"Engine loop started."sv);

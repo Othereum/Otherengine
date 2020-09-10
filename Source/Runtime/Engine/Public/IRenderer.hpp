@@ -4,7 +4,6 @@ namespace oeng
 {
 inline namespace engine
 {
-
 class SpriteComponent;
 class MeshComponent;
 class DirLightComponent;
