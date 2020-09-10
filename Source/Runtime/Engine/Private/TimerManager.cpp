@@ -1,5 +1,5 @@
 #include "TimerManager.hpp"
-#include "World.hpp"
+#include "Engine/World.hpp"
 
 namespace oeng
 {
@@ -17,8 +17,7 @@ inline namespace engine
 
 TimerHandle TimerManager::SetTimer(Float delay_in_seconds, std::function<void()>&& callback)
 {
-    return SetLoopTimer(delay_in_seconds, [fn = std::move(callback)]
-    {
+    return SetLoopTimer(delay_in_seconds, [fn = std::move(callback)] {
         fn();
         return Loop::kStop;
     });
@@ -97,5 +96,5 @@ void TimerManager::Update()
         }
     }
 }
-}
-}
+} // namespace engine
+} // namespace oeng

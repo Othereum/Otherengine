@@ -9,10 +9,10 @@ namespace Studio
 class System;
 class Bank;
 class EventDescription;
-}
+} // namespace Studio
 
 class System;
-}
+} // namespace FMOD
 #endif
 
 namespace logcat
@@ -24,14 +24,14 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class ENGINE_API AudioSystem
 {
-public:
+  public:
     [[nodiscard]] static AudioSystem& Get();
 
     AudioSystem();
     ~AudioSystem();
-    DELETE_CPMV(AudioSystem);
 
     void Update(Float delta_seconds) const;
 
@@ -58,10 +58,10 @@ public:
      * @brief Create an event instance and start playback.
      * @param name Event name. Must be valid.
      * @return Sound event.
-    */
+     */
     SoundEvent PlayEvent(Name name);
 
-private:
+  private:
     void UnloadBank(FMOD::Studio::Bank& bank);
 
     FMOD::Studio::System* system_;
@@ -73,5 +73,6 @@ private:
     unsigned next_id_ = 0;
     std::unordered_map<unsigned, FMOD::Studio::EventInstance*> event_instances_;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

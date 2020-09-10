@@ -11,11 +11,9 @@ inline namespace engine
 {
 class ENGINE_API Texture final : public Object
 {
-CLASS_BODY(Texture)
+    CLASS_BODY(Texture)
 
-public:
-    DELETE_CPMV(Texture);
-
+  public:
     Texture();
     ~Texture();
 
@@ -33,9 +31,9 @@ public:
         return *rhi_;
     }
 
-private:
+  private:
     Vec2i size_;
     std::unique_ptr<RHITexture> rhi_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng

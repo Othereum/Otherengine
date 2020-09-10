@@ -15,13 +15,12 @@ namespace oeng
 inline namespace engine
 {
 using InputCode = std::variant<Keycode, MouseBtn, CtrlBtn, MouseAxis, CtrlAxis>;
-using CtrlPtr = std::unique_ptr<_SDL_GameController, void(*)(_SDL_GameController*)>;
+using CtrlPtr = std::unique_ptr<_SDL_GameController, void (*)(_SDL_GameController*)>;
 
 struct ENGINE_API InputAxis
 {
     template <std::convertible_to<InputCode> T>
-    constexpr InputAxis(T code, Float scale = 1) noexcept
-        : code{code}, scale{scale}
+    constexpr InputAxis(T code, Float scale = 1) noexcept : code{code}, scale{scale}
     {
     }
 
@@ -34,8 +33,7 @@ struct ENGINE_API InputAxis
 struct ENGINE_API InputAction
 {
     template <std::convertible_to<InputCode> T>
-    constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept
-        : code{code}, mod{mod}
+    constexpr InputAction(T code, KeyMod mod = KeyMod::NONE) noexcept : code{code}, mod{mod}
     {
     }
 
@@ -67,7 +65,9 @@ ENGINE_API void from_json(const Json& json, AxisConfig& action);
 
 class ENGINE_API InputSystem
 {
-public:
+  public:
+    DELETE_CPMV(InputSystem);
+
     void SaveConfig();
 
     [[nodiscard]] Float GetAxisValue(Name name) const;
@@ -87,7 +87,7 @@ public:
     std::unordered_map<Name, std::vector<InputAction>> actions;
     std::unordered_map<InputCode, AxisConfig> axis_configs;
 
-private:
+  private:
     friend class Engine;
 
     InputSystem();
@@ -124,5 +124,5 @@ private:
         bool l, r;
     } trig_{};
 };
-}
-}
+} // namespace engine
+} // namespace oeng

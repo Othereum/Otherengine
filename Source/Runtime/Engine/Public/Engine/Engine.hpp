@@ -15,9 +15,7 @@ class IRenderer;
 
 class ENGINE_API Engine
 {
-public:
-    DELETE_CPMV(Engine);
-
+  public:
     Engine();
     ~Engine();
 
@@ -25,7 +23,7 @@ public:
     void Shutdown();
 
     void SetRenderer(std::unique_ptr<IRenderer> renderer);
-    
+
     [[nodiscard]] IRenderer& GetRenderer() const noexcept
     {
         return *renderer_;
@@ -34,7 +32,7 @@ public:
     InputSystem input_system;
     GameInstance game_instance;
 
-private:
+  private:
     void Tick();
     void ProcessEvent();
 
@@ -42,5 +40,5 @@ private:
     size_t ticks_ = 0;
     bool is_running_ = true;
 };
-}
-}
+} // namespace engine
+} // namespace oeng

@@ -5,13 +5,14 @@ namespace oeng
 {
 inline namespace engine
 {
+
 class DirLightComponent;
 
 class ENGINE_API ADirLight : public AActor
 {
-CLASS_BODY(ADirLight)
+    CLASS_BODY(ADirLight)
 
-public:
+  public:
     ADirLight();
 
     void SetColor(const Vec3& color) const noexcept;
@@ -22,8 +23,9 @@ public:
         return light_;
     }
 
-private:
+  private:
     DirLightComponent& light_;
 };
-}
-}
+
+} // namespace engine
+} // namespace oeng

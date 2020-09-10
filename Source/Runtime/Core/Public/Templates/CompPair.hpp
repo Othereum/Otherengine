@@ -24,10 +24,9 @@ struct OneThen
 /**
  * Compressed pair. If the first type is derivative and empty, it is compressed.
  */
-template <class T1, class T2, bool = std::is_empty_v<T1> && !std::is_final_v<T1>>
-class CompPair final : T1
+template <class T1, class T2, bool = std::is_empty_v<T1> && !std::is_final_v<T1>> class CompPair final : T1
 {
-public:
+  public:
     template <class... Second>
     constexpr explicit CompPair(ZeroThen, Second&&... second) noexcept(
         std::conjunction_v<std::is_nothrow_default_constructible<T1>, std::is_nothrow_constructible<T2, Second...>>)
@@ -62,14 +61,13 @@ public:
         return second_;
     }
 
-private:
+  private:
     T2 second_;
 };
 
-template <class T1, class T2>
-class CompPair<T1, T2, false> final
+template <class T1, class T2> class CompPair<T1, T2, false> final
 {
-public:
+  public:
     template <class... Second>
     constexpr explicit CompPair(ZeroThen, Second&&... second) noexcept(
         std::conjunction_v<std::is_nothrow_default_constructible<T1>, std::is_nothrow_constructible<T2, Second...>>)
@@ -104,9 +102,9 @@ public:
         return second_;
     }
 
-private:
+  private:
     T1 first_;
     T2 second_;
 };
-}
-}
+} // namespace core
+} // namespace oeng

@@ -5,8 +5,8 @@ namespace oeng
 {
 inline namespace engine
 {
-ADirLight::ADirLight()
-    : light_{AddComponent<DirLightComponent>()}
+
+ADirLight::ADirLight() : light_{AddComponent<DirLightComponent>()}
 {
     SetRootComponent(&light_);
 }
@@ -20,4 +20,6 @@ const Vec3& ADirLight::GetColor() const noexcept
 {
     return light_.color;
 }
-}
+
+} // namespace engine
+} // namespace oeng
