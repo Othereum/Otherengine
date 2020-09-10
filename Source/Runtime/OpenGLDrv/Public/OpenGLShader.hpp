@@ -20,20 +20,22 @@ using ProgramHandle = Resource<unsigned, ProgramDeleter>;
 
 class OPENGLDRV_API OpenGLShader final : public RHIShader
 {
-public:
+  public:
     OpenGLShader(const char* vertex_shader, const char* frag_shader);
 
     void Activate() const noexcept override;
 
     bool ApplyParam(Name name, Float value) override;
     bool ApplyParam(Name name, const Vec4& value) override;
-    bool ApplyParam(Name name, const RHITexture& value) override;
+    bool ApplyParam(Name name, const Mat4& value) override;
+    bool ApplyParam(Name name, RHITexture& value) override;
 
     [[nodiscard]] bool IsScalarParam(Name name) const override;
     [[nodiscard]] bool IsVectorParam(Name name) const override;
+    [[nodiscard]] bool IsMatrixParam(Name name) const override;
     [[nodiscard]] bool IsTextureParam(Name name) const override;
 
-private:
+  private:
     void LinkProgram();
     void Init();
 
@@ -46,7 +48,8 @@ private:
 
     std::unordered_map<Name, int> scalar_loc_;
     std::unordered_map<Name, int> vector_loc_;
+    std::unordered_map<Name, int> matrix_loc_;
     std::unordered_map<Name, int> texture_idx_;
 };
-}
-}
+} // namespace opengldrv
+} // namespace oeng

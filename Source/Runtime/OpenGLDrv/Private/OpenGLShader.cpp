@@ -47,8 +47,7 @@ static void CheckProgram(unsigned program)
 }
 
 OpenGLShader::OpenGLShader(const char* vertex_shader, const char* frag_shader)
-    : vertex_{Compile(vertex_shader, GL_VERTEX_SHADER)},
-      frag_{Compile(frag_shader, GL_FRAGMENT_SHADER)},
+    : vertex_{Compile(vertex_shader, GL_VERTEX_SHADER)}, frag_{Compile(frag_shader, GL_FRAGMENT_SHADER)},
       program_{glCreateProgram()}
 {
     LinkProgram();
@@ -101,13 +100,17 @@ void OpenGLShader::Init()
             vector_loc_.emplace(name, loc);
             break;
 
+        case GL_FLOAT_MAT4:
+            matrix_loc_.emplace(name, loc);
+            break;
+
         case GL_SAMPLER_2D:
             glUniform1i(loc, tex);
             texture_idx_.emplace(name, tex);
             ++tex;
             break;
 
-        default: ;
+        default:;
         }
     }
 }
@@ -138,16 +141,19 @@ bool OpenGLShader::ApplyParam(Name name, Float value)
 
 bool OpenGLShader::ApplyParam(Name name, const Vec4& value)
 {
-    return ApplyParam(name, value, vector_loc_, [](int location, const Vec4& val)
-    {
-        glUniform4fv(location, 1, val.data);
-    });
+    return ApplyParam(name, value, vector_loc_,
+                      [](int location, const Vec4& val) { glUniform4fv(location, 1, val.data); });
 }
 
-bool OpenGLShader::ApplyParam(Name name, const RHITexture& value)
+bool OpenGLShader::ApplyParam(Name name, const Mat4& value)
 {
-    return ApplyParam(name, value, texture_idx_, [](int idx, const RHITexture& val)
-    {
+    return ApplyParam(name, value, matrix_loc_,
+                      [](int location, const Mat4& val) { glUniformMatrix4fv(location, 1, true, val.AsFlatArr()); });
+}
+
+bool OpenGLShader::ApplyParam(Name name, RHITexture& value)
+{
+    return ApplyParam(name, value, texture_idx_, [](int idx, RHITexture& val) {
         glActiveTexture(GL_TEXTURE0 + idx);
         val.Activate();
     });
@@ -161,6 +167,11 @@ bool OpenGLShader::IsScalarParam(Name name) const
 bool OpenGLShader::IsVectorParam(Name name) const
 {
     return vector_loc_.contains(name);
+}
+
+bool OpenGLShader::IsMatrixParam(Name name) const
+{
+    return matrix_loc_.contains(name);
 }
 
 bool OpenGLShader::IsTextureParam(Name name) const
@@ -177,5 +188,5 @@ void ProgramDeleter::operator()(unsigned id) const noexcept
 {
     glDeleteProgram(id);
 }
-}
-}
+} // namespace opengldrv
+} // namespace oeng

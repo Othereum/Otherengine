@@ -12,20 +12,18 @@ class RHITexture;
  */
 class ShaderCompileError : public std::runtime_error
 {
-    explicit ShaderCompileError(const std::string& message)
-        : std::runtime_error{message}
+    explicit ShaderCompileError(const std::string& message) : std::runtime_error{message}
     {
     }
 
-    explicit ShaderCompileError(const char* message)
-        : std::runtime_error{message}
+    explicit ShaderCompileError(const char* message) : std::runtime_error{message}
     {
     }
 };
 
 class RHIShader
 {
-public:
+  public:
     virtual ~RHIShader() = default;
     virtual void Activate() const noexcept = 0;
 
@@ -37,7 +35,8 @@ public:
      */
     virtual bool ApplyParam(Name name, Float value) = 0;
     virtual bool ApplyParam(Name name, const Vec4& value) = 0;
-    virtual bool ApplyParam(Name name, const RHITexture& value) = 0;
+    virtual bool ApplyParam(Name name, const Mat4& value) = 0;
+    virtual bool ApplyParam(Name name, RHITexture& value) = 0;
 
     /**
      * Check if parameter name is valid.
@@ -46,20 +45,24 @@ public:
      */
     [[nodiscard]] virtual bool IsScalarParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsVectorParam(Name name) const = 0;
+    [[nodiscard]] virtual bool IsMatrixParam(Name name) const = 0;
     [[nodiscard]] virtual bool IsTextureParam(Name name) const = 0;
 
-protected:
+  protected:
     void UpdateCache(Name name, Float value);
     void UpdateCache(Name name, const Vec4& value);
-    void UpdateCache(Name name, const RHITexture& value);
+    void UpdateCache(Name name, const Mat4& value);
+    void UpdateCache(Name name, RHITexture& value);
     [[nodiscard]] bool IsRedundant(Name name, Float value) const noexcept;
     [[nodiscard]] bool IsRedundant(Name name, const Vec4& value) const noexcept;
-    [[nodiscard]] bool IsRedundant(Name name, const RHITexture& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, const Mat4& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, RHITexture& value) const noexcept;
 
-private:
+  private:
     std::unordered_map<Name, Float> scalar_cache_;
     std::unordered_map<Name, Vec4> vector_cache_;
-    std::unordered_map<Name, const RHITexture*> texture_cache_;
+    std::unordered_map<Name, Mat4> matrix_cache_;
+    std::unordered_map<Name, std::reference_wrapper<RHITexture>> texture_cache_;
 };
-}
-}
+} // namespace rhi
+} // namespace oeng
