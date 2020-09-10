@@ -24,9 +24,11 @@ public:
     void RunLoop();
     void Shutdown();
 
-    void SetRenderer(std::unique_ptr<IRenderer>&& renderer)
+    void SetRenderer(std::unique_ptr<IRenderer> renderer);
+    
+    [[nodiscard]] IRenderer& GetRenderer() const noexcept
     {
-        renderer_ = std::move(renderer);
+        return *renderer_;
     }
 
     InputSystem input_system;

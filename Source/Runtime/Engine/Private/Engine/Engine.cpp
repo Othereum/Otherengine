@@ -1,4 +1,4 @@
-#include "Engine/Engine.hpp"
+﻿#include "Engine/Engine.hpp"
 #include "IRenderer.hpp"
 #include "Input/InputSystem.hpp"
 #include <SDL2/SDL.h>
@@ -48,6 +48,13 @@ void Engine::Shutdown()
 {
     is_running_ = false;
     OE_LOG(kEngine, kLog, u8"Engine shutdown requested."sv);
+}
+
+void Engine::SetRenderer(std::unique_ptr<IRenderer> renderer)
+{
+    assert(!renderer_);
+    assert(renderer);
+    renderer_ = std::move(renderer);
 }
 
 void Engine::Tick()
