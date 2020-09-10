@@ -1,9 +1,9 @@
 #include "Engine/Mesh.hpp"
-#include "AssetManager.hpp"
 #include "DynamicRHI.hpp"
+#include "Engine/AssetManager.hpp"
+#include "Materials/IMaterial.hpp"
 #include "RHIMesh.hpp"
 #include "Vertex.hpp"
-#include "Materials/IMaterial.hpp"
 
 namespace oeng
 {
@@ -14,7 +14,10 @@ SharedRef<Mesh> Mesh::GetDefault()
     return AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Default.json"sv);
 }
 
-Mesh::Mesh() = default;
+Mesh::Mesh() : material_{IMaterial::GetDefault()}
+{
+}
+
 Mesh::~Mesh() = default;
 
 void Mesh::from_json(const Json& json)
@@ -30,5 +33,5 @@ void Mesh::from_json(const Json& json)
         max = Max(max, v.pos.DistSqr(Vec3::zero));
     radius_ = std::sqrt(max);
 }
-}
-}
+} // namespace engine
+} // namespace oeng
