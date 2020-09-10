@@ -10,6 +10,7 @@ target_link_libraries(${PROJECT_NAME}-Engine
     $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
     ${fmod_core_lib}
     ${fmod_studio_lib}
+    stb
 )
 
 target_include_directories(${PROJECT_NAME}-Engine
@@ -17,7 +18,6 @@ target_include_directories(${PROJECT_NAME}-Engine
     ${SDL2_INCLUDE_DIRS}
     ${fmod_core_inc}
     ${fmod_studio_inc}
-    ${STB_INCLUDE_DIRS}
 )
 
 add_custom_command(TARGET ${PROJECT_NAME}-Engine POST_BUILD
