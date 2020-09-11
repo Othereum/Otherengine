@@ -39,6 +39,7 @@ class ENGINE_API IMaterial : public Object
         return scalars_;
     }
 
+    virtual void ApplyParams() const noexcept = 0;
     [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
   protected:

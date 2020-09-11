@@ -27,7 +27,7 @@ void MaterialInstance::from_json(const Json& json)
 
 RHIShader& MaterialInstance::GetRHI() const noexcept
 {
-    return parent_->GetRHI();
+    return root_->GetRHI();
 }
 
 bool MaterialInstance::IsScalarParam(Name name) const
