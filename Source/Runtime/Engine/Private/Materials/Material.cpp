@@ -1,4 +1,5 @@
 #include "Materials/Material.hpp"
+#include "Engine/AssetManager.hpp"
 #include "DynamicRHI.hpp"
 #include "RHIShader.hpp"
 
@@ -8,7 +9,7 @@ inline namespace engine
 {
 SharedRef<Material> Material::GetDefault()
 {
-    return CastChecked<Material>(IMaterial::GetDefault());
+    return AssetManager::Get().Load<Material>(u8"../Engine/Assets/M_Default.json"sv);
 }
 
 Material::Material() = default;

@@ -53,9 +53,9 @@ class ENGINE_API IMaterial : public Object
     std::unordered_map<Name, SharedRef<Texture>> textures_;
 
   private:
-    template <class T, class Fn> void LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn);
-    template <class T> void LoadParams(const Json& json, std::unordered_map<Name, T>& out);
     template <class T>[[nodiscard]] bool IsValidParam(Name name) const;
+    template <class T> void LoadParams(const Json& json, std::unordered_map<Name, T>& out);
+    template <class T, class Fn> void LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn);
 };
 } // namespace engine
 } // namespace oeng
