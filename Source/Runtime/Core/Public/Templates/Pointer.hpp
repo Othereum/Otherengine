@@ -858,7 +858,10 @@ SharedRef<To, ThreadSafe> ReinterpretCast(SharedRef<From, ThreadSafe> ptr) noexc
 template <class To, class From, bool ThreadSafe>
 SharedPtr<To, ThreadSafe> Cast(SharedPtr<From, ThreadSafe> ptr) noexcept
 {
-    return {std::move(ptr), dynamic_cast<To*>(ptr.get())};
+    if (auto* casted = dynamic_cast<To*>(ptr.get()))
+        return {std::move(ptr), casted};
+
+    return {};
 }
 
 /**
