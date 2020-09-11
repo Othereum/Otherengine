@@ -17,9 +17,14 @@ class ENGINE_API MaterialInstance final : public IMaterial
     void from_json(const Json& json) override;
     RHIShader& GetRHI() const noexcept override;
 
-    [[nodiscard]] Material& GetParent() const noexcept
+    [[nodiscard]] auto& GetRoot() const noexcept
     {
-        return *parent_;
+        return root_;
+    }
+
+    [[nodiscard]] auto& GetParent() const noexcept
+    {
+        return parent_;
     }
 
   protected:
@@ -28,7 +33,8 @@ class ENGINE_API MaterialInstance final : public IMaterial
     [[nodiscard]] bool IsTextureParam(Name name) const override;
 
   private:
-    SharedRef<Material> parent_;
+    SharedRef<Material> root_;
+    SharedRef<IMaterial> parent_;
 };
 } // namespace engine
 } // namespace oeng

@@ -1,19 +1,28 @@
 #include "Materials/MaterialInstance.hpp"
-#include "Engine/AssetManager.hpp"
 #include "Materials/Material.hpp"
+#include "Engine/AssetManager.hpp"
 
 namespace oeng
 {
 inline namespace engine
 {
-MaterialInstance::MaterialInstance() : parent_{Material::GetDefault()}
+MaterialInstance::MaterialInstance() : root_{Material::GetDefault()}, parent_{root_}
 {
+}
+
+[[nodiscard]] static SharedRef<Material> FindRoot(SharedRef<IMaterial> parent) noexcept
+{
+    if (auto mat = Cast<Material>(SharedPtr(parent)))
+        return SharedRef(std::move(mat));
+    
+    return FindRoot(CastChecked<MaterialInstance>(std::move(parent))->GetParent());
 }
 
 void MaterialInstance::from_json(const Json& json)
 {
+    parent_ = AssetManager::Get().Load<IMaterial>(json.at("Parent").get<Path>());
+    root_ = FindRoot(parent_);
     LoadParams(json.at("ParameterOverrides"));
-    parent_ = AssetManager::Get().Load<Material>(json.at("Parent").get<Path>());
 }
 
 RHIShader& MaterialInstance::GetRHI() const noexcept
@@ -23,17 +32,17 @@ RHIShader& MaterialInstance::GetRHI() const noexcept
 
 bool MaterialInstance::IsScalarParam(Name name) const
 {
-    return parent_->GetScalarParams().contains(name);
+    return root_->GetScalarParams().contains(name);
 }
 
 bool MaterialInstance::IsVectorParam(Name name) const
 {
-    return parent_->GetVectorParams().contains(name);
+    return root_->GetVectorParams().contains(name);
 }
 
 bool MaterialInstance::IsTextureParam(Name name) const
 {
-    return parent_->GetTextureParams().contains(name);
+    return root_->GetTextureParams().contains(name);
 }
 } // namespace engine
 } // namespace oeng
