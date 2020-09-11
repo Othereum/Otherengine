@@ -1,4 +1,5 @@
 #pragma once
+#include "ShaderParam.hpp"
 
 namespace oeng
 {
@@ -21,7 +22,7 @@ class ShaderCompileError : public std::runtime_error
     }
 };
 
-class RHIShader
+class RHI_API RHIShader
 {
   public:
     virtual ~RHIShader() = default;
@@ -33,9 +34,9 @@ class RHIShader
      * @param value New value to be set.
      * @return `true` if successful.
      */
-    virtual bool ApplyParam(Name name, Float value) = 0;
-    virtual bool ApplyParam(Name name, const Vec4& value) = 0;
-    virtual bool ApplyParam(Name name, const Mat4& value) = 0;
+    virtual bool ApplyParam(Name name, ScalarParam value) = 0;
+    virtual bool ApplyParam(Name name, const VectorParam& value) = 0;
+    virtual bool ApplyParam(Name name, const MatrixParam& value) = 0;
     virtual bool ApplyParam(Name name, RHITexture& value) = 0;
 
     /**
@@ -49,19 +50,19 @@ class RHIShader
     [[nodiscard]] virtual bool IsTextureParam(Name name) const = 0;
 
   protected:
-    void UpdateCache(Name name, Float value);
-    void UpdateCache(Name name, const Vec4& value);
-    void UpdateCache(Name name, const Mat4& value);
+    void UpdateCache(Name name, ScalarParam value);
+    void UpdateCache(Name name, const VectorParam& value);
+    void UpdateCache(Name name, const MatrixParam& value);
     void UpdateCache(Name name, RHITexture& value);
-    [[nodiscard]] bool IsRedundant(Name name, Float value) const noexcept;
-    [[nodiscard]] bool IsRedundant(Name name, const Vec4& value) const noexcept;
-    [[nodiscard]] bool IsRedundant(Name name, const Mat4& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, ScalarParam value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, const VectorParam& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, const MatrixParam& value) const noexcept;
     [[nodiscard]] bool IsRedundant(Name name, RHITexture& value) const noexcept;
 
   private:
-    std::unordered_map<Name, Float> scalar_cache_;
-    std::unordered_map<Name, Vec4> vector_cache_;
-    std::unordered_map<Name, Mat4> matrix_cache_;
+    std::unordered_map<Name, ScalarParam> scalar_cache_;
+    std::unordered_map<Name, VectorParam> vector_cache_;
+    std::unordered_map<Name, MatrixParam> matrix_cache_;
     std::unordered_map<Name, std::reference_wrapper<RHITexture>> texture_cache_;
 };
 } // namespace rhi
