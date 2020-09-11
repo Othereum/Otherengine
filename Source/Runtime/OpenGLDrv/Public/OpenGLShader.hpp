@@ -25,9 +25,9 @@ class OPENGLDRV_API OpenGLShader final : public RHIShader
 
     void Activate() const noexcept override;
 
-    bool ApplyParam(Name name, Float value) override;
-    bool ApplyParam(Name name, const Vec4& value) override;
-    bool ApplyParam(Name name, const Mat4& value) override;
+    bool ApplyParam(Name name, ScalarParam value) override;
+    bool ApplyParam(Name name, const VectorParam& value) override;
+    bool ApplyParam(Name name, const MatrixParam& value) override;
     bool ApplyParam(Name name, RHITexture& value) override;
 
     [[nodiscard]] bool IsScalarParam(Name name) const override;
@@ -39,8 +39,7 @@ class OPENGLDRV_API OpenGLShader final : public RHIShader
     void LinkProgram();
     void Init();
 
-    template <class T, class Fn>
-    bool ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache, Fn fn);
+    template <class T> bool ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache);
 
     ShaderHandle vertex_;
     ShaderHandle frag_;

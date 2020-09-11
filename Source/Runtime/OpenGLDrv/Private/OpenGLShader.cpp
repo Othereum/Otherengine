@@ -92,15 +92,29 @@ void OpenGLShader::Init()
 
         switch (type)
         {
+        case GL_INT:
         case GL_FLOAT:
             scalar_loc_.emplace(name, loc);
             break;
 
+        case GL_FLOAT_VEC2:
+        case GL_FLOAT_VEC3:
         case GL_FLOAT_VEC4:
+        case GL_INT_VEC2:
+        case GL_INT_VEC3:
+        case GL_INT_VEC4:
             vector_loc_.emplace(name, loc);
             break;
 
+        case GL_FLOAT_MAT2:
+        case GL_FLOAT_MAT3:
         case GL_FLOAT_MAT4:
+        case GL_FLOAT_MAT2x3:
+        case GL_FLOAT_MAT2x4:
+        case GL_FLOAT_MAT3x2:
+        case GL_FLOAT_MAT3x4:
+        case GL_FLOAT_MAT4x2:
+        case GL_FLOAT_MAT4x3:
             matrix_loc_.emplace(name, loc);
             break;
 
@@ -109,14 +123,89 @@ void OpenGLShader::Init()
             texture_idx_.emplace(name, tex);
             ++tex;
             break;
-
-        default:;
         }
     }
 }
 
-template <class T, class Fn>
-bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache, Fn fn)
+static void GlUniform(int location, Float value) noexcept
+{
+    glUniform1f(location, value);
+}
+static void GlUniform(int location, int32_t value) noexcept
+{
+    glUniform1i(location, value);
+}
+
+static void GlUniform(int location, const Vec2& value) noexcept
+{
+    glUniform2fv(location, 1, value.data);
+}
+static void GlUniform(int location, const Vec3& value) noexcept
+{
+    glUniform3fv(location, 1, value.data);
+}
+static void GlUniform(int location, const Vec4& value) noexcept
+{
+    glUniform4fv(location, 1, value.data);
+}
+static void GlUniform(int location, const Vec2i& value) noexcept
+{
+    glUniform2iv(location, 1, value.data);
+}
+static void GlUniform(int location, const Vec3i& value) noexcept
+{
+    glUniform3iv(location, 1, value.data);
+}
+static void GlUniform(int location, const Vec4i& value) noexcept
+{
+    glUniform4iv(location, 1, value.data);
+}
+
+static void GlUniform(int location, const Mat2& value) noexcept
+{
+    glUniformMatrix2fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat3& value) noexcept
+{
+    glUniformMatrix3fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat4& value) noexcept
+{
+    glUniformMatrix4fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat2x3& value) noexcept
+{
+    glUniformMatrix2x3fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat2x4& value) noexcept
+{
+    glUniformMatrix2x4fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat3x2& value) noexcept
+{
+    glUniformMatrix3x2fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat3x4& value) noexcept
+{
+    glUniformMatrix3x4fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat4x2& value) noexcept
+{
+    glUniformMatrix4x2fv(location, 1, true, value.AsFlatArr());
+}
+static void GlUniform(int location, const Mat4x3& value) noexcept
+{
+    glUniformMatrix4x3fv(location, 1, true, value.AsFlatArr());
+}
+
+static void GlUniform(int index, RHITexture& value) noexcept
+{
+    glActiveTexture(GL_TEXTURE0 + index);
+    value.Activate();
+}
+
+template <class T>
+bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache)
 {
     const auto loc = loc_cache.find(name);
     if (loc == loc_cache.end())
@@ -125,7 +214,7 @@ bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_ma
     if (IsRedundant(name, value))
         return true;
 
-    fn(loc->second, value);
+    GlUniform(loc->second, value);
 
     if (glGetError() != GL_NO_ERROR)
         return false;
@@ -134,29 +223,24 @@ bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_ma
     return true;
 }
 
-bool OpenGLShader::ApplyParam(Name name, Float value)
+bool OpenGLShader::ApplyParam(Name name, ScalarParam value)
 {
-    return ApplyParam(name, value, scalar_loc_, glUniform1f);
+    return ApplyParam(name, value, scalar_loc_);
 }
 
-bool OpenGLShader::ApplyParam(Name name, const Vec4& value)
+bool OpenGLShader::ApplyParam(Name name, const VectorParam& value)
 {
-    return ApplyParam(name, value, vector_loc_,
-                      [](int location, const Vec4& val) { glUniform4fv(location, 1, val.data); });
+    return ApplyParam(name, value, vector_loc_);
 }
 
-bool OpenGLShader::ApplyParam(Name name, const Mat4& value)
+bool OpenGLShader::ApplyParam(Name name, const MatrixParam& value)
 {
-    return ApplyParam(name, value, matrix_loc_,
-                      [](int location, const Mat4& val) { glUniformMatrix4fv(location, 1, true, val.AsFlatArr()); });
+    return ApplyParam(name, value, matrix_loc_);
 }
 
 bool OpenGLShader::ApplyParam(Name name, RHITexture& value)
 {
-    return ApplyParam(name, value, texture_idx_, [](int idx, RHITexture& val) {
-        glActiveTexture(GL_TEXTURE0 + idx);
-        val.Activate();
-    });
+    return ApplyParam(name, value, texture_idx_);
 }
 
 bool OpenGLShader::IsScalarParam(Name name) const
