@@ -1,5 +1,6 @@
 #include "Renderer.hpp"
 #include "Camera/CameraTypes.hpp"
+#include "Components/SpotLightComponent.hpp"
 #include "Components/MeshComponent.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Engine/AssetManager.hpp"
@@ -42,7 +43,15 @@ void Renderer::DrawScene(const ViewInfo& view)
 {
     SCOPE_STACK_COUNTER(DrawScene);
     PreDrawScene();
-    Draw3D(view);
+
+    if (auto view_m = MakeLookAt(view.origin, view.direction, UVec3::up))
+    {
+        auto proj_m = MakePerspective(Vec2{window_.GetSize()}, view.near, view.far, view.vfov);
+        view_proj = *view_m * proj_m;
+        view_origin = view.origin;
+    }
+
+    Draw3D();
     Draw2D();
     PostDrawScene();
 }
@@ -53,24 +62,16 @@ void Renderer::PostDrawScene() const
     window_.SwapBuffer();
 }
 
-void Renderer::Draw3D(const ViewInfo& view)
+void Renderer::Draw3D()
 {
     glEnable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
 
     prev_ = {};
 
-    auto proj_m = MakePerspective(Vec2{window_.GetSize()}, view.near, view.far, view.vfov);
-    auto view_m = MakeLookAt(view.origin, view.direction, UVec3::up);
-
-    if (view_m)
-        view_matrix_cache_ = *view_m;
-
-    ViewInfo2 view2{view_matrix_cache_ * proj_m, view.origin};
-
     for (auto mesh_comp : meshes_)
     {
-        DrawMesh(mesh_comp, view2);
+        DrawMesh(mesh_comp);
     }
 }
 
@@ -93,7 +94,7 @@ void Renderer::Draw2D()
     }
 }
 
-void Renderer::DrawMesh(const MeshComponent& mesh_comp, const ViewInfo& view)
+void Renderer::DrawMesh(const MeshComponent& mesh_comp)
 {
     if (!ShouldDraw(mesh_comp))
         return;
@@ -105,13 +106,15 @@ void Renderer::DrawMesh(const MeshComponent& mesh_comp, const ViewInfo& view)
     if (&shader != prev_.shader)
     {
         shader.Activate();
-        shader.ApplyParam(u8"uViewProj"sv, view.);
-        shader.TryUniform(u8"uCamPos"sv, camera_->GetPos());
+        shader.ApplyParam(u8"uViewProj"sv, view_proj);
+        shader.ApplyParam(u8"uCamPos"sv, view_origin);
 
-        const auto& dir_light = dir_light_->GetData();
-        shader.TryUniform(u8"uDirLight.dir"sv, dir_light.dir);
-        shader.TryUniform(u8"uDirLight.color"sv, dir_light.color);
-        shader.TryUniform(u8"uSkyLight"sv, sky_light_->GetColor());
+        auto& dir_light = dir_lights_.back().get();
+        shader.ApplyParam(u8"uDirLight.dir"sv, dir_light.GetForward());
+        shader.ApplyParam(u8"uDirLight.color"sv, dir_light.color);
+
+        auto& sky_light = sky_lights_.back().get();
+        shader.ApplyParam(u8"uSkyLight"sv, sky_light.color);
 
         prev_.shader = &shader;
     }

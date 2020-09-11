@@ -24,12 +24,6 @@ class RHIShader;
 
 inline namespace renderer
 {
-struct ViewInfo2
-{
-    Mat4 view_proj;
-    Vec3 origin;
-};
-
 class RENDERER_API Renderer final : public IRenderer
 {
   public:
@@ -61,9 +55,9 @@ class RENDERER_API Renderer final : public IRenderer
     void PreDrawScene() const;
     void PostDrawScene() const;
 
-    void Draw3D(const ViewInfo& view);
+    void Draw3D();
     void Draw2D();
-    void DrawMesh(const MeshComponent& mesh_comp, const ViewInfo2& view);
+    void DrawMesh(const MeshComponent& mesh_comp);
     void DrawPointLights(const MeshComponent& mesh_comp) const;
     void DrawSpotLights(const MeshComponent& mesh_comp) const;
     [[nodiscard]] bool ShouldDraw(const MeshComponent& mesh_comp) const noexcept;
@@ -89,7 +83,8 @@ class RENDERER_API Renderer final : public IRenderer
     SharedPtr<IMaterial> sprite_mat_;
     SharedPtr<Mesh> sprite_mesh_;
 
-    Mat4 view_matrix_cache_;
+    Mat4 view_proj = Mat4::Identity();
+    Vec3 view_origin;
 };
 } // namespace renderer
 } // namespace oeng
