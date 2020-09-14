@@ -6,7 +6,7 @@ namespace oeng
 {
 inline namespace opengldrv
 {
-OpenGLMesh::OpenGLMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices)
+OpenGLMesh::OpenGLMesh(std::span<const Vertex> vertices, std::span<const Vec3u16> indices) : RHIMesh(indices.size())
 {
     glGenVertexArrays(1, &vertex_array_);
     Activate();
@@ -48,5 +48,5 @@ void OpenGLMesh::Activate() const noexcept
 {
     glBindVertexArray(vertex_array_);
 }
-}
-}
+} // namespace opengldrv
+} // namespace oeng
