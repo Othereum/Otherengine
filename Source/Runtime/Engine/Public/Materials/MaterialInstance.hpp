@@ -13,8 +13,13 @@ class ENGINE_API MaterialInstance final : public IMaterial
 
   public:
     MaterialInstance();
-
     void from_json(const Json& json) override;
+
+    void ApplyParams() const override;
+    [[nodiscard]] ScalarParam GetScalarParam(Name name) const override;
+    [[nodiscard]] VectorParam GetVectorParam(Name name) const override;
+    [[nodiscard]] SharedRef<Texture> GetTextureParam(Name name) const override;
+
     RHIShader& GetRHI() const noexcept override;
 
     [[nodiscard]] auto& GetRoot() const noexcept
