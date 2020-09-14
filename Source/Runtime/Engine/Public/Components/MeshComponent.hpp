@@ -11,9 +11,9 @@ class IRenderer;
 
 class ENGINE_API MeshComponent : public SceneComponent
 {
-CLASS_BODY(MeshComponent)
+    CLASS_BODY(MeshComponent)
 
-public:
+  public:
     MeshComponent();
 
     /**
@@ -39,7 +39,7 @@ public:
      */
     [[nodiscard]] Float GetUnscaledRadius() const noexcept;
 
-    [[nodiscard]] auto& GetMesh() const noexcept
+    [[nodiscard]] SharedRef<Mesh> GetMesh() const noexcept
     {
         return mesh_;
     }
@@ -49,15 +49,15 @@ public:
 
     Float max_draw_dist = 10000_f;
 
-protected:
+  protected:
     void OnBeginPlay() override;
     void OnEndPlay() override;
 
-private:
+  private:
     void ReRegister();
 
     SharedRef<Mesh> mesh_;
     SharedPtr<IMaterial> material_override_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
