@@ -4,26 +4,26 @@ struct SDL_Window;
 
 namespace logcat
 {
-extern RENDERER_API const LogCategory kWindow;
+extern ENGINE_API const LogCategory kWindow;
 }
 
 namespace oeng
 {
-inline namespace renderer
+inline namespace engine
 {
-class RENDERER_API Window
+class ENGINE_API Window
 {
   public:
-    Window();
-    ~Window();
+    void Initialize();
+    void CleanUp();
 
     [[nodiscard]] Vec2u16 GetSize() const noexcept;
     void SetTitle(std::u8string_view title) const noexcept;
     void SwapBuffer() const noexcept;
 
   private:
-    SDL_Window* window_;
-    void* gl_context_;
+    SDL_Window* window_ = nullptr;
+    std::unique_ptr<void, void (*)(void*)> context_;
 };
-} // namespace renderer
+} // namespace engine
 } // namespace oeng
