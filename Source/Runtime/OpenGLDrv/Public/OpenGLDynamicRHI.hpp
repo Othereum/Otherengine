@@ -1,6 +1,11 @@
 #pragma once
 #include "DynamicRHI.hpp"
 
+namespace logcat
+{
+extern OPENGLDRV_API const LogCategory kOpenGL;
+}
+
 namespace oeng
 {
 inline namespace opengldrv
@@ -8,6 +13,8 @@ inline namespace opengldrv
 class OPENGLDRV_API OpenGLDynamicRHI final : public DynamicRHI
 {
   public:
+    OpenGLDynamicRHI();
+
     [[nodiscard]] RHITexture* CreateTexture(Vec2i size, int channels, const unsigned char* pixels) const override;
     [[nodiscard]] RHIMesh* CreateMesh(std::span<const Vertex> vertices,
                                       std::span<const Vec3u16> indices) const override;
