@@ -69,7 +69,6 @@ class RENDERER_API Renderer final : public IRenderer
     {
         RHIShader* shader;
         IMaterial* material;
-        Texture* texture;
         Mesh* mesh;
     } prev_{};
 

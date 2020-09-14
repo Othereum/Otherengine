@@ -121,15 +121,8 @@ void Renderer::DrawMesh(const MeshComponent& mesh_comp)
 
     if (&material != prev_.material)
     {
-        material.TryUniforms();
+        material.ApplyParams();
         prev_.material = &material;
-    }
-
-    auto& texture = material.GetTexture();
-    if (&texture != prev_.texture)
-    {
-        texture.Activate();
-        prev_.texture = &texture;
     }
 
     auto& mesh = mesh_comp.GetMesh();
