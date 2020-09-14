@@ -3,9 +3,9 @@
 #endif
 
 #include "Engine/Engine.hpp"
+#include "OpenGLDynamicRHI.hpp"
+#include "Renderer.hpp"
 #include <csignal>
-
-using namespace oeng;
 
 namespace oeng
 {
@@ -13,8 +13,14 @@ inline namespace core
 {
 OE_IMPORT void SetGameName(std::u8string_view game_name);
 }
-} // namespace oeng
 
+inline namespace rhi
+{
+extern OE_IMPORT DynamicRHI* dynamic_rhi;
+}
+
+inline namespace launch
+{
 static void OnIllegal(int)
 {
     OE_LOG(kEngine, kCritical, u8"ILLEGAL INSTRUCTION: It's may be because current CPU is not supported."sv);
@@ -40,11 +46,19 @@ static void EngineMain()
     Finally _{&FlushLog};
 
     Engine engine;
+    OpenGLDynamicRHI opengl;
+    dynamic_rhi = &opengl;
+
+    Renderer renderer{engine};
+    engine.SetRenderer(renderer);
     engine.RunLoop();
 }
+} // namespace launch
+} // namespace oeng
 
 int main()
 {
+    using namespace oeng;
     std::signal(SIGILL, &OnIllegal);
 
     if (IsDebugging())
