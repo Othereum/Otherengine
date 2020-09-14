@@ -21,6 +21,8 @@ class ENGINE_API Material final : public IMaterial
     ~Material();
 
     void from_json(const Json& json) override;
+
+    void ApplyParams() const override;
     RHIShader& GetRHI() const noexcept override;
 
   protected:

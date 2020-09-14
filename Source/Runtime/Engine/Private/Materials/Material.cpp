@@ -1,5 +1,6 @@
 #include "Materials/Material.hpp"
 #include "Engine/AssetManager.hpp"
+#include "Engine/Texture.hpp"
 #include "DynamicRHI.hpp"
 #include "RHIShader.hpp"
 
@@ -23,6 +24,18 @@ void Material::from_json(const Json& json)
     shader_.reset(
         DynamicRHI::Get().CreateShader(ReadFileAsString<char>(shaders.at("Vertex").get<std::string>()).c_str(),
                                        ReadFileAsString<char>(shaders.at("Fragment").get<std::string>()).c_str()));
+}
+
+void Material::ApplyParams() const
+{
+    for (auto& [name, value] : scalars_)
+        shader_->ApplyParam(name, value);
+
+    for (auto& [name, value] : vectors_)
+        shader_->ApplyParam(name, value);
+
+    for (auto& [name, value] : textures_)
+        shader_->ApplyParam(name, value->GetRHI());
 }
 
 RHIShader& Material::GetRHI() const noexcept
