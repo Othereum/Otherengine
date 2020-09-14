@@ -21,7 +21,6 @@ Engine::Engine() : game_instance{*this}
 
 Engine::~Engine()
 {
-    renderer_.reset();
     SDL_Quit();
 }
 
