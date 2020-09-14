@@ -12,7 +12,7 @@ struct Vertex;
 
 class RHI_API DynamicRHI
 {
-public:
+  public:
     virtual ~DynamicRHI() = default;
     [[nodiscard]] static DynamicRHI& Get() noexcept;
 
@@ -22,5 +22,5 @@ public:
 
     [[nodiscard]] virtual RHIShader* CreateShader(const char* vertex_shader, const char* frag_shader) const = 0;
 };
-}
-}
+} // namespace rhi
+} // namespace oeng
