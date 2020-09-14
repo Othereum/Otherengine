@@ -7,11 +7,11 @@ inline namespace engine
 {
 class ENGINE_API DirLightComponent : public SkyLightComponent
 {
-CLASS_BODY(DirLightComponent)
+    CLASS_BODY(DirLightComponent)
 
-protected:
+  protected:
     void OnBeginPlay() override;
     void OnEndPlay() override;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
