@@ -39,7 +39,10 @@ class ENGINE_API IMaterial : public Object
         return scalars_;
     }
 
-    virtual void ApplyParams() const noexcept = 0;
+    virtual void ApplyParams() const = 0;
+    [[nodiscard]] virtual ScalarParam GetScalarParam(Name name) const;
+    [[nodiscard]] virtual VectorParam GetVectorParam(Name name) const;
+    [[nodiscard]] virtual SharedRef<Texture> GetTextureParam(Name name) const;
     [[nodiscard]] virtual RHIShader& GetRHI() const noexcept = 0;
 
   protected:

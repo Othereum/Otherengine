@@ -13,6 +13,21 @@ inline namespace engine
 {
 IMaterial::~IMaterial() = default;
 
+ScalarParam IMaterial::GetScalarParam(Name name) const
+{
+    return scalars_.at(name);
+}
+
+VectorParam IMaterial::GetVectorParam(Name name) const
+{
+    return vectors_.at(name);
+}
+
+SharedRef<Texture> IMaterial::GetTextureParam(Name name) const
+{
+    return textures_.at(name);
+}
+
 template <> bool IMaterial::IsValidParam<Float>(Name name) const
 {
     return IsScalarParam(name);
