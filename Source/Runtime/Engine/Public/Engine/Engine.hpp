@@ -22,10 +22,11 @@ class ENGINE_API Engine
     void RunLoop();
     void Shutdown();
 
-    void SetRenderer(std::unique_ptr<IRenderer> renderer);
+    void SetRenderer(IRenderer& renderer);
 
     [[nodiscard]] IRenderer& GetRenderer() const noexcept
     {
+        assert(renderer_);
         return *renderer_;
     }
 
@@ -36,7 +37,7 @@ class ENGINE_API Engine
     void Tick();
     void ProcessEvent();
 
-    std::unique_ptr<IRenderer> renderer_;
+    IRenderer* renderer_ = nullptr;
     size_t ticks_ = 0;
     bool is_running_ = true;
 };

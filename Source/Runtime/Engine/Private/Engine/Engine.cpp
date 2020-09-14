@@ -51,11 +51,10 @@ void Engine::Shutdown()
     OE_LOG(kEngine, kLog, u8"Engine shutdown requested."sv);
 }
 
-void Engine::SetRenderer(std::unique_ptr<IRenderer> renderer)
+void Engine::SetRenderer(IRenderer& renderer)
 {
     assert(!renderer_);
-    assert(renderer);
-    renderer_ = std::move(renderer);
+    renderer_ = &renderer;
 }
 
 void Engine::Tick()
