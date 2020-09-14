@@ -37,19 +37,19 @@ class RENDERER_API Renderer final : public IRenderer
 
     void DrawScene(const ViewInfo& view) override;
 
-    void AddMesh(MeshComponent& mesh) override;
-    void AddSprite(SpriteComponent& sprite) override;
-    void AddDirLight(DirLightComponent& light) override;
-    void AddSkyLight(SkyLightComponent& light) override;
-    void AddSpotLight(SpotLightComponent& light) override;
-    void AddPointLight(PointLightComponent& light) override;
+    void AddMesh(const MeshComponent& mesh) override;
+    void AddSprite(const SpriteComponent& sprite) override;
+    void AddDirLight(const DirLightComponent& light) override;
+    void AddSkyLight(const SkyLightComponent& light) override;
+    void AddSpotLight(const SpotLightComponent& light) override;
+    void AddPointLight(const PointLightComponent& light) override;
 
-    void RemoveMesh(MeshComponent& mesh) override;
-    void RemoveSprite(SpriteComponent& sprite) override;
-    void RemoveDirLight(DirLightComponent& light) override;
-    void RemoveSkyLight(SkyLightComponent& light) override;
-    void RemoveSpotLight(SpotLightComponent& light) override;
-    void RemovePointLight(PointLightComponent& light) override;
+    void RemoveMesh(const MeshComponent& mesh) override;
+    void RemoveSprite(const SpriteComponent& sprite) override;
+    void RemoveDirLight(const DirLightComponent& light) override;
+    void RemoveSkyLight(const SkyLightComponent& light) override;
+    void RemoveSpotLight(const SpotLightComponent& light) override;
+    void RemovePointLight(const PointLightComponent& light) override;
 
   private:
     void PreDrawScene() const;
@@ -72,12 +72,14 @@ class RENDERER_API Renderer final : public IRenderer
         Mesh* mesh;
     } prev_{};
 
-    std::vector<std::reference_wrapper<MeshComponent>> meshes_;
-    std::vector<std::reference_wrapper<SpriteComponent>> sprites_;
-    std::vector<std::reference_wrapper<DirLightComponent>> dir_lights_;
-    std::vector<std::reference_wrapper<SkyLightComponent>> sky_lights_;
-    std::vector<std::reference_wrapper<SpotLightComponent>> spot_lights_;
-    std::vector<std::reference_wrapper<PointLightComponent>> point_lights_;
+    template <class T> using CompArr = std::vector<std::reference_wrapper<const T>>;
+
+    CompArr<MeshComponent> meshes_;
+    CompArr<SpriteComponent> sprites_;
+    CompArr<DirLightComponent> dir_lights_;
+    CompArr<SkyLightComponent> sky_lights_;
+    CompArr<SpotLightComponent> spot_lights_;
+    CompArr<PointLightComponent> point_lights_;
 
     SharedPtr<IMaterial> sprite_mat_;
     SharedPtr<Mesh> sprite_mesh_;
