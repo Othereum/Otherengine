@@ -2,6 +2,8 @@
 #include "OpenGLMesh.hpp"
 #include "OpenGLShader.hpp"
 #include "OpenGLTexture.hpp"
+#include "OpenGLWindow.hpp"
+#include <GL/glew.h>
 #include <SDL2/SDL.h>
 
 namespace logcat
@@ -13,6 +15,11 @@ namespace oeng
 {
 inline namespace opengldrv
 {
+void OpenGLContextDeleter::operator()(void* context) const noexcept
+{
+    SDL_GL_DeleteContext(context);
+}
+
 static void SetGlAttribute(SDL_GLattr attr, int value)
 {
     if (0 != SDL_GL_SetAttribute(attr, value))
@@ -46,6 +53,32 @@ RHIMesh* OpenGLDynamicRHI::CreateMesh(std::span<const Vertex> vertices, std::spa
 RHIShader* OpenGLDynamicRHI::CreateShader(const char* vertex_shader, const char* frag_shader) const
 {
     return new OpenGLShader{vertex_shader, frag_shader};
+}
+
+RHIWindow* OpenGLDynamicRHI::CreateWindow(const char8_t* title, int x, int y, int w, int h, unsigned flags)
+{
+    return new OpenGLWindow{*this, title, x, y, w, h, flags};
+}
+
+void* OpenGLDynamicRHI::GetContext(SDL_Window* window)
+{
+    if (!context_)
+    {
+        context_.reset(SDL_GL_CreateContext(window));
+        if (!context_)
+            throw std::runtime_error{SDL_GetError()};
+
+        glewExperimental = true;
+        if (const auto err = glewInit(); err != GLEW_OK)
+            throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
+
+        // On some platforms, GLEW will emit a benign error code, so clear it
+        glGetError();
+
+        glEnable(GL_DEBUG_OUTPUT);
+    }
+
+    return context_.get();
 }
 } // namespace opengldrv
 } // namespace oeng
