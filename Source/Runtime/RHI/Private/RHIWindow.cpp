@@ -1,6 +1,5 @@
-#include "Engine/Window.hpp"
-#include <GL/glew.h>
-#include <SDL2/SDL.h>
+#include "RHIWindow.hpp"
+#include <SDL2/SDL_video.h>
 
 namespace logcat
 {
@@ -9,7 +8,7 @@ const LogCategory kWindow{u8"Window"sv};
 
 namespace oeng
 {
-inline namespace engine
+inline namespace rhi
 {
 class WindowCreator
 {
@@ -166,53 +165,26 @@ static void LoadVSync()
     }
 }
 
-static void* CreateGlContext(SDL_Window* window)
+void SDLWindowDeleter::operator()(SDL_Window* window) const noexcept
 {
-    auto* const context = SDL_GL_CreateContext(window);
-    if (!context)
-        throw std::runtime_error{SDL_GetError()};
-
-    glewExperimental = true;
-
-    if (const auto err = glewInit(); err != GLEW_OK)
-        throw std::runtime_error{reinterpret_cast<const char*>(glewGetErrorString(err))};
-
-    // On some platforms, GLEW will emit a benign error code, so clear it
-    glGetError();
-
-    LoadVSync();
-
-    glEnable(GL_DEBUG_OUTPUT);
-    glClearColor(0.f, 0.f, 0.f, 1.f);
-
-    return context;
+    SDL_DestroyWindow(window);
 }
 
-Window::Window() : window_{WindowCreator{}()}, gl_context_{CreateGlContext(window_)}
+RHIWindow::RHIWindow(const char8_t* title, int x, int y, int w, int h, unsigned flags)
+    : sdl_window{SDL_CreateWindow(AsString(title), x, y, w, h, flags)}
 {
 }
 
-Window::~Window()
-{
-    SDL_DestroyWindow(window_);
-    SDL_GL_DeleteContext(gl_context_);
-}
-
-Vec2u16 Window::GetSize() const noexcept
+Vec2u16 RHIWindow::GetSize() const noexcept
 {
     int w, h;
-    SDL_GetWindowSize(window_, &w, &h);
-    return {uint16_t(w), uint16_t(h)};
+    SDL_GetWindowSize(sdl_window.get(), &w, &h);
+    return Vec2u16(w, h);
 }
 
-void Window::SetTitle(std::u8string_view title) const noexcept
+void RHIWindow::SetTitle(const char8_t* title) const noexcept
 {
-    SDL_SetWindowTitle(window_, AsString(title.data()));
+    SDL_SetWindowTitle(sdl_window.get(), AsString(title));
 }
-
-void Window::SwapBuffer() const noexcept
-{
-    SDL_GL_SwapWindow(window_);
-}
-} // namespace engine
+} // namespace rhi
 } // namespace oeng
