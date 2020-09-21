@@ -211,3 +211,15 @@ function(oe_add_subdirectories)
         endif()
     endforeach()
 endfunction()
+
+function(oe_link_sdl2 module)
+    target_link_libraries(${PROJECT_NAME}-${module}
+      PRIVATE
+	    $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
+    )
+
+    target_include_directories(${PROJECT_NAME}-${module}
+      PRIVATE
+	    ${SDL2_INCLUDE_DIRS}
+    )
+endfunction()

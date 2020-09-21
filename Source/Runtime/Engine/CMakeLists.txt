@@ -1,13 +1,13 @@
 # Source/Runtime/Engine
 
 add_module(Engine)
+oe_link_sdl2(Engine)
 
 target_link_libraries(${PROJECT_NAME}-Engine
   PUBLIC
     ${PROJECT_NAME}-RHI
 
   PRIVATE
-    $<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
     ${fmod_core_lib}
     ${fmod_studio_lib}
     stb
@@ -15,7 +15,6 @@ target_link_libraries(${PROJECT_NAME}-Engine
 
 target_include_directories(${PROJECT_NAME}-Engine
   PRIVATE
-    ${SDL2_INCLUDE_DIRS}
     ${fmod_core_inc}
     ${fmod_studio_inc}
 )

@@ -1,6 +1,7 @@
 # Source/Runtime/OpenGLDrv
 
 add_module(OpenGLDrv)
+oe_link_sdl2(OpenGLDrv)
 
 target_link_libraries(${PROJECT_NAME}-OpenGLDrv
   PUBLIC
@@ -8,12 +9,6 @@ target_link_libraries(${PROJECT_NAME}-OpenGLDrv
 
   PRIVATE
 	GLEW::glew
-	$<IF:$<TARGET_EXISTS:SDL2::SDL2>,SDL2::SDL2,${SDL2_LIBRARIES}>
-)
-
-target_include_directories(${PROJECT_NAME}-OpenGLDrv
-  PRIVATE
-	${SDL2_INCLUDE_DIRS}
 )
 
 target_compile_definitions(${PROJECT_NAME}-OpenGLDrv
