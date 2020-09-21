@@ -20,7 +20,6 @@ inline namespace engine
 void World::BeginPlay()
 {
     begun_play_ = true;
-    time_ = Clock::now();
 
     auto& cfg = ConfigSystem::Get()(u8"Engine"sv);
     const auto gm_class = cfg.at("GameMapsSettings"s).at("GlobalDefaultGameMode"s).get<Name>();
@@ -35,6 +34,8 @@ void World::BeginPlay()
         OE_LOG(kWorld, kErr, u8"Falling back to default gamemode..."sv);
         gamemode_ = &SpawnActor<AGameModeBase>();
     }
+
+    time_ = Clock::now();
 }
 
 void World::Tick()
