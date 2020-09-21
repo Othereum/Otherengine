@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "Engine/GameInstance.hpp"
 #include "Input/InputSystem.hpp"
 
@@ -13,11 +13,17 @@ inline namespace engine
 {
 class IRenderer;
 
+class ENGINE_API SDLInitializer
+{
+  public:
+    SDLInitializer();
+    ~SDLInitializer();
+};
+
 class ENGINE_API Engine
 {
   public:
     Engine();
-    ~Engine();
 
     void RunLoop();
     void Shutdown();
@@ -30,7 +36,7 @@ class ENGINE_API Engine
     }
 
     InputSystem input_system;
-    GameInstance game_instance;
+    GameInstance game_instance{*this};
 
   private:
     void Tick();

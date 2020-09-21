@@ -43,16 +43,15 @@ static void EngineMain()
 
     const Dll game_dll{u8"./" U8_TEXT(OE_GAME_MODULE)};
     SetGameName(game_dll.GetSymbol<const std::u8string_view>(u8"kGameName"sv));
-    Finally _{&FlushLog};
+    Finally log_raii{&FlushLog};
 
-    Engine engine;
-
+    SDLInitializer sdl_raii;
     OpenGLDynamicRHI opengl;
     dynamic_rhi = &opengl;
 
+    Engine engine;
     Renderer renderer{engine};
     engine.SetRenderer(renderer);
-
     engine.RunLoop();
 }
 } // namespace launch

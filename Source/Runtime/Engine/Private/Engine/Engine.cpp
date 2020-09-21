@@ -1,4 +1,4 @@
-﻿#include "Engine/Engine.hpp"
+#include "Engine/Engine.hpp"
 #include "IRenderer.hpp"
 #include "Input/InputSystem.hpp"
 #include <SDL2/SDL.h>
@@ -12,14 +12,14 @@ namespace oeng
 {
 inline namespace engine
 {
-Engine::Engine() : game_instance{*this}
+SDLInitializer::SDLInitializer()
 {
     const auto sdl_result = SDL_Init(SDL_INIT_EVERYTHING);
     if (sdl_result != 0)
         throw std::runtime_error{SDL_GetError()};
 }
 
-Engine::~Engine()
+SDLInitializer::~SDLInitializer()
 {
     SDL_Quit();
 }
@@ -81,5 +81,5 @@ void Engine::ProcessEvent()
 
     input_system.PostAddAllEvents();
 }
-}
-}
+} // namespace engine
+} // namespace oeng
