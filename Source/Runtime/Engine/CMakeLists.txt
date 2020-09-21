@@ -5,9 +5,10 @@ oe_link_sdl2(Engine)
 
 target_link_libraries(${PROJECT_NAME}-Engine
   PUBLIC
-    ${PROJECT_NAME}-RHI
+    ${PROJECT_NAME}-Core
 
   PRIVATE
+    ${PROJECT_NAME}-RHI
     ${fmod_core_lib}
     ${fmod_studio_lib}
     stb
