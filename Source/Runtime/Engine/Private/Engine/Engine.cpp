@@ -1,4 +1,4 @@
-#include "Engine/Engine.hpp"
+﻿#include "Engine/Engine.hpp"
 #include "IRenderer.hpp"
 #include "Input/InputSystem.hpp"
 #include <SDL2/SDL.h>
@@ -22,6 +22,51 @@ SDLInitializer::SDLInitializer()
 SDLInitializer::~SDLInitializer()
 {
     SDL_Quit();
+}
+
+static void WriteDisplayModes()
+{
+    const auto num_dp = SDL_GetNumVideoDisplays();
+    if (num_dp < 1)
+        throw std::runtime_error{SDL_GetError()};
+
+    auto& displays = ConfigSystem::Get()(u8"Display"sv)["Display modes (read only)"s] = Json::object();
+    for (auto dp = 0; dp < num_dp; ++dp)
+    {
+        const auto num_dm = SDL_GetNumDisplayModes(dp);
+        if (num_dm < 1)
+            throw std::runtime_error{SDL_GetError()};
+
+        auto& modes = displays[fmt::format(FMT_COMPILE("Display {}"sv), dp)] = Json::array();
+        for (auto dm = 0; dm < num_dm; ++dm)
+        {
+            SDL_DisplayMode mode;
+            SDL_GetDisplayMode(dp, dm, &mode);
+            auto str = fmt::format(u8"[{}] {}x{} {}Hz"sv, dm, mode.w, mode.h, mode.refresh_rate);
+            modes.emplace_back(AsString(std::move(str)));
+        }
+    }
+}
+
+static void WriteWindowSize()
+{
+    auto& cfg = ConfigSystem::Get()(u8"Display"sv);
+    const auto windowed_size = "WindowedSize"s;
+    if (!cfg.contains(windowed_size))
+    {
+        SDL_DisplayMode dp_mode;
+        SDL_GetDesktopDisplayMode(cfg.at("Display"s).get<int>(), &dp_mode);
+
+        Vector size{dp_mode.w, dp_mode.h};
+        size *= 5, size /= 6;
+        cfg[windowed_size] = size;
+    }
+}
+
+Engine::Engine()
+{
+    WriteDisplayModes();
+    WriteWindowSize();
 }
 
 void Engine::RunLoop()
