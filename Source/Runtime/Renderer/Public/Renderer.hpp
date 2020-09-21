@@ -1,6 +1,5 @@
 #pragma once
 #include "IRenderer.hpp"
-#include "Window.hpp"
 
 namespace logcat
 {
@@ -30,11 +29,6 @@ class RENDERER_API Renderer final : public IRenderer
     explicit Renderer(Engine& engine);
     ~Renderer();
 
-    [[nodiscard]] Window& GetWindow() noexcept
-    {
-        return window_;
-    }
-
     void DrawScene(const ViewInfo& view) override;
 
     void AddMesh(const MeshComponent& mesh) override;
@@ -63,7 +57,6 @@ class RENDERER_API Renderer final : public IRenderer
     [[nodiscard]] bool ShouldDraw(const MeshComponent& mesh_comp) const noexcept;
 
     Engine& engine_;
-    Window window_;
 
     struct
     {
