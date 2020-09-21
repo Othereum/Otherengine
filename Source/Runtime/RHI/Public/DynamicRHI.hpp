@@ -8,6 +8,7 @@ inline namespace rhi
 class RHITexture;
 class RHIMesh;
 class RHIShader;
+class RHIWindow;
 struct Vertex;
 
 class RHI_API DynamicRHI
@@ -21,6 +22,7 @@ class RHI_API DynamicRHI
                                               std::span<const Vec3u16> indices) const = 0;
 
     [[nodiscard]] virtual RHIShader* CreateShader(const char* vertex_shader, const char* frag_shader) const = 0;
+    [[nodiscard]] virtual RHIWindow* CreateWindow(const char8_t* title, int x, int y, int w, int h, unsigned flags) = 0;
 };
 } // namespace rhi
 } // namespace oeng
