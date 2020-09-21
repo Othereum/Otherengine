@@ -14,7 +14,7 @@ static const std::thread::id kGameThreadId = [] {
 
 void InitLogger();
 
-// Called by EngineMain(), launch module
+// Called by EngineMain() in launch module
 OE_EXPORT void SetGameName(std::u8string_view new_game_name)
 {
     assert(game_name.empty());

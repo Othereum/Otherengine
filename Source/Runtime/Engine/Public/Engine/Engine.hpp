@@ -26,7 +26,6 @@ class ENGINE_API Engine
 
     [[nodiscard]] IRenderer& GetRenderer() const noexcept
     {
-        assert(renderer_);
         return *renderer_;
     }
 

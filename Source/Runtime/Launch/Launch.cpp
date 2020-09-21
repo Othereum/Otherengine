@@ -46,11 +46,13 @@ static void EngineMain()
     Finally _{&FlushLog};
 
     Engine engine;
+
     OpenGLDynamicRHI opengl;
     dynamic_rhi = &opengl;
 
     Renderer renderer{engine};
     engine.SetRenderer(renderer);
+
     engine.RunLoop();
 }
 } // namespace launch
