@@ -89,7 +89,6 @@ class ENGINE_API InputSystem
 
   private:
     friend class Engine;
-
     InputSystem();
 
     void AddEvent(const SDL_Event& e);
