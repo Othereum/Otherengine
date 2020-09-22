@@ -28,12 +28,12 @@ SharedRef<Texture> IMaterial::GetTextureParam(Name name) const
     return textures_.at(name);
 }
 
-template <> bool IMaterial::IsValidParam<Float>(Name name) const
+template <> bool IMaterial::IsValidParam<ScalarParam>(Name name) const
 {
     return IsScalarParam(name);
 }
 
-template <> bool IMaterial::IsValidParam<Vec4>(Name name) const
+template <> bool IMaterial::IsValidParam<VectorParam>(Name name) const
 {
     return IsVectorParam(name);
 }
