@@ -60,6 +60,19 @@ RHIWindow* OpenGLDynamicRHI::CreateWindow(const char8_t* title, int x, int y, in
     return new OpenGLWindow{*this, title, x, y, w, h, flags};
 }
 
+void OpenGLDynamicRHI::PreDraw2D() const noexcept
+{
+    glEnable(GL_BLEND);
+    glDisable(GL_DEPTH_TEST);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+}
+
+void OpenGLDynamicRHI::PreDraw3D() const noexcept
+{
+    glEnable(GL_DEPTH_TEST);
+    glDisable(GL_BLEND);
+}
+
 void* OpenGLDynamicRHI::GetContext(SDL_Window* window)
 {
     if (!context_)

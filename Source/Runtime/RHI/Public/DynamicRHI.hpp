@@ -23,6 +23,9 @@ class RHI_API DynamicRHI
 
     [[nodiscard]] virtual RHIShader* CreateShader(const char* vertex_shader, const char* frag_shader) const = 0;
     [[nodiscard]] virtual RHIWindow* CreateWindow(const char8_t* title, int x, int y, int w, int h, unsigned flags) = 0;
+
+    virtual void PreDraw3D() const noexcept = 0;
+    virtual void PreDraw2D() const noexcept = 0;
 };
 } // namespace rhi
 } // namespace oeng
