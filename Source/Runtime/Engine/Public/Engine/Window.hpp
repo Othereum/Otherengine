@@ -16,6 +16,10 @@ class ENGINE_API Window
     ~Window();
 
     void SetTitle(const char8_t* title) const noexcept;
+    void SetSize(int w, int h) const;
+    void SetRefreshRate(int hz) const;
+
+    [[nodiscard]] bool IsFullscreen() const noexcept;
     [[nodiscard]] Vec2u16 GetSize() const noexcept;
 
     [[nodiscard]] RHIWindow& GetRHI() const noexcept
