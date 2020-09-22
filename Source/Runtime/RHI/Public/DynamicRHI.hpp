@@ -1,4 +1,5 @@
 #pragma once
+#include "Vertex.hpp"
 #include <span>
 
 namespace oeng
@@ -9,7 +10,6 @@ class RHITexture;
 class RHIMesh;
 class RHIShader;
 class RHIWindow;
-struct Vertex;
 
 class RHI_API DynamicRHI
 {
