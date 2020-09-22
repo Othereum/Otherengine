@@ -4,7 +4,7 @@
 
 namespace oeng
 {
-namespace rhi
+inline namespace rhi
 {
 struct Vertex;
 }
