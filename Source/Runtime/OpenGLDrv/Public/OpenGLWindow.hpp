@@ -7,7 +7,7 @@ inline namespace opengldrv
 {
 class OpenGLDynamicRHI;
 
-class OPENGLDRV_API OpenGLWindow : public RHIWindow
+class OPENGLDRV_API OpenGLWindow final : public RHIWindow
 {
   public:
     OpenGLWindow(OpenGLDynamicRHI& rhi, const char8_t* title, int x, int y, int w, int h, unsigned flags);
