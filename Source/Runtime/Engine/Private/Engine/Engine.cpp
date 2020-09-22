@@ -1,6 +1,8 @@
 ﻿#include "Engine/Engine.hpp"
+#include "DynamicRHI.hpp"
 #include "IRenderer.hpp"
 #include "Input/InputSystem.hpp"
+#include "RHIWindow.hpp"
 #include <SDL2/SDL.h>
 
 namespace logcat
@@ -53,8 +55,14 @@ SDLInitializer::~SDLInitializer()
         }
     }
 
-    std::tuple<int, bool, SDL_DisplayMode> ret;
-    auto& [dp_idx, fullscreen, dp_mode] = ret;
+    std::tuple<int, SDL_DisplayMode, bool, SwapInterval> ret;
+    auto& [dp_idx, dp_mode, fullscreen, swap_interval] = ret;
+
+    fullscreen = cfg.at("Fullscreen"s).get<bool>();
+
+    swap_interval = cfg.at("VSync"s).get<bool>()
+                        ? cfg.at("VSync_Adaptive").get<bool>() ? SwapInterval::adaptive : SwapInterval::synchronized
+                        : SwapInterval::immediate;
 
     auto& dp_idx_cfg = cfg.at("Display"s);
     dp_idx = dp_idx_cfg.get<int>();
@@ -65,6 +73,19 @@ SDLInitializer::~SDLInitializer()
         OE_LOG(kEngine, kWarn, u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp_idx, num_dp - 1);
         OE_LOG(kEngine, kWarn, u8"Using display 0..."sv);
         dp_idx_cfg = dp_idx = 0;
+    }
+
+    const auto num_dm = SDL_GetNumDisplayModes(dp_idx);
+    auto dm_idx_cfg = cfg.at("FullscreenDisplayMode"s);
+    auto dm_idx = dm_idx_cfg.get<int>();
+
+    // Check if display mode is valid
+    if (dm_idx >= num_dm)
+    {
+        OE_LOG(kEngine, kWarn, u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx,
+               num_dm - 1);
+        OE_LOG(kEngine, kWarn, u8"Using display mode 0..."sv);
+        dm_idx_cfg = dm_idx = 0;
     }
 
     // Initialize windowed size
@@ -80,36 +101,17 @@ SDLInitializer::~SDLInitializer()
         ws_cfg = cfg.emplace(std::move(ws), size).first;
     }
 
-    fullscreen = cfg.at("Fullscreen"s).get<bool>();
-
     // Fill SDL_DisplayMode
     if (fullscreen)
     {
-        const auto num_dm = SDL_GetNumDisplayModes(dp_idx);
-        auto dm_idx_cfg = cfg.at("FullscreenDisplayMode"s);
-        auto dm_idx = dm_idx_cfg.get<int>();
-
-        // Check if display mode is valid
-        if (dm_idx >= num_dm)
-        {
-            OE_LOG(kEngine, kWarn, u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx,
-                   num_dm - 1);
-            OE_LOG(kEngine, kWarn, u8"Using display mode 0..."sv);
-            dm_idx_cfg = dm_idx = 0;
-        }
-
         if (0 != SDL_GetDisplayMode(dp_idx, dm_idx, &dp_mode))
             throw std::runtime_error{SDL_GetError()};
-
-        OE_LOG(kEngine, kLog, u8"Running as fullscreen mode... ({}x{} {}Hz)"sv, dp_mode.w, dp_mode.h,
-               dp_mode.refresh_rate);
     }
     else
     {
         const auto size = ws_cfg->get<Vec2i>();
         dp_mode.w = size[0];
         dp_mode.h = size[1];
-        OE_LOG(kEngine, kLog, u8"Running as windowed mode... ({}x{})"sv, dp_mode.w, dp_mode.h);
     }
 
     cfgsys.Save(display);
@@ -118,11 +120,15 @@ SDLInitializer::~SDLInitializer()
 
 Engine::Engine()
 {
-    auto [dp_idx, fullscreen, dp_mode] = InitDisplay();
-    window_.emplace(AsString(GetGameName().data()), SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx),
-                    SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx), dp_mode.w, dp_mode.h,
-                    fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
+    auto [dp_idx, dp_mode, fullscreen, swap_interval] = InitDisplay();
+
+    window_.reset(DynamicRHI::Get().CreateWindow(
+        fmt::format(u8"{} ({}x{} {}Hz)"sv, GetGameName(), dp_mode.w, dp_mode.h, dp_mode.refresh_rate).c_str(),
+        SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx), SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx), dp_mode.w, dp_mode.h,
+        fullscreen ? SDL_WINDOW_FULLSCREEN : 0));
+
     window_->SetRefreshRate(dp_mode.refresh_rate);
+    window_->SetSwapInterval(swap_interval);
 }
 
 void Engine::RunLoop()

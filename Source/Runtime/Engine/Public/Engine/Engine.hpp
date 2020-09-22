@@ -1,6 +1,5 @@
 ﻿#pragma once
 #include "Engine/GameInstance.hpp"
-#include "Engine/Window.hpp"
 #include "Input/InputSystem.hpp"
 
 namespace logcat
@@ -10,6 +9,11 @@ extern ENGINE_API const LogCategory kEngine;
 
 namespace oeng
 {
+inline namespace rhi
+{
+class RHIWindow;
+}
+
 inline namespace engine
 {
 class IRenderer;
@@ -36,7 +40,7 @@ class ENGINE_API Engine
         return *renderer_;
     }
 
-    [[nodiscard]] Window& GetWindow() noexcept
+    [[nodiscard]] RHIWindow& GetWindow() noexcept
     {
         return *window_;
     }
@@ -48,9 +52,7 @@ class ENGINE_API Engine
     void Tick();
     void ProcessEvent();
 
-    // Use optional<> for lazy initialization
-    std::optional<Window> window_;
-
+    std::unique_ptr<RHIWindow> window_;
     IRenderer* renderer_ = nullptr;
     size_t ticks_ = 0;
     bool is_running_ = true;
