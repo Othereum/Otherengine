@@ -48,5 +48,15 @@ void OpenGLMesh::Activate() const noexcept
 {
     glBindVertexArray(vertex_array_);
 }
+
+void OpenGLMesh::Draw() const noexcept
+{
+#ifndef NDEBUG
+    int cur;
+    glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &cur);
+    assert(static_cast<unsigned>(cur) == vertex_array_);
+#endif
+    glDrawElements(GL_TRIANGLES, static_cast<int>(GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+}
 } // namespace opengldrv
 } // namespace oeng

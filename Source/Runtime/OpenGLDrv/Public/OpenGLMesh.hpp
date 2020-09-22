@@ -20,6 +20,7 @@ class OPENGLDRV_API OpenGLMesh final : public RHIMesh
     ~OpenGLMesh();
 
     void Activate() const noexcept override;
+    void Draw() const noexcept override;
 
   private:
     unsigned vertex_array_ = 0;

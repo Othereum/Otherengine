@@ -13,6 +13,7 @@ class RHIMesh
 
     virtual ~RHIMesh() = default;
     virtual void Activate() const noexcept = 0;
+    virtual void Draw() const noexcept = 0;
 
     [[nodiscard]] size_t GetNumIndices() const noexcept
     {
