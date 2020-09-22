@@ -1,11 +1,6 @@
 #include "RHIWindow.hpp"
 #include <SDL2/SDL_video.h>
 
-namespace logcat
-{
-const LogCategory kWindow{u8"Window"sv};
-}
-
 namespace oeng
 {
 inline namespace rhi

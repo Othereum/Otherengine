@@ -2,11 +2,6 @@
 
 struct SDL_Window;
 
-namespace logcat
-{
-extern RHI_API const LogCategory kWindow;
-}
-
 namespace oeng
 {
 inline namespace rhi
