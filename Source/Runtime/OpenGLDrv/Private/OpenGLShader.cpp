@@ -68,8 +68,6 @@ void OpenGLShader::LinkProgram()
     CheckProgram(*program_);
 }
 
-static constexpr int kInvalidUniform = -1;
-
 void OpenGLShader::Init()
 {
     int count;
@@ -86,7 +84,7 @@ void OpenGLShader::Init()
         glGetActiveUniform(*program_, uniform, name_buf_size, &name_len, &size, &type, AsString(name_ptr.get()));
 
         const auto loc = glGetUniformLocation(*program_, AsString(name_ptr.get()));
-        assert(loc != kInvalidUniform);
+        assert(loc != -1);
 
         const std::u8string_view name{name_ptr.get(), size_t(name_len)};
 
