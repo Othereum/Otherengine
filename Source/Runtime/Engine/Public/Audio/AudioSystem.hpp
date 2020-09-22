@@ -70,7 +70,7 @@ class ENGINE_API AudioSystem
     std::unordered_map<Path, FMOD::Studio::Bank*> banks_;
     std::unordered_map<Name, FMOD::Studio::EventDescription*> events_;
 
-    unsigned next_id_ = 0;
+    // unsigned next_id_ = 0;
     std::unordered_map<unsigned, FMOD::Studio::EventInstance*> event_instances_;
 };
 
