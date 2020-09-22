@@ -1,5 +1,6 @@
 #include "OpenGLWindow.hpp"
 #include "OpenGLDynamicRHI.hpp"
+#include <GL/glew.h>
 #include <SDL2/SDL_video.h>
 
 namespace oeng
@@ -21,15 +22,23 @@ void OpenGLWindow::SwapBuffer() const noexcept
     SDL_GL_SwapWindow(sdl_window.get());
 }
 
-bool OpenGLWindow::SetSwapInterval(SwapInterval interval)
+void OpenGLWindow::ClearBuffer() const noexcept
+{
+    assert(IsCurrent());
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+bool OpenGLWindow::SetSwapInterval(SwapInterval interval) const noexcept
+{
+    assert(IsCurrent());
+    return 0 == SDL_GL_SetSwapInterval(static_cast<int>(interval));
+}
+
+bool OpenGLWindow::IsCurrent() const noexcept
 {
     auto cur_context = SDL_GL_GetCurrentContext();
     auto cur_window = SDL_GL_GetCurrentWindow();
-
-    if (ENSURE(cur_context == context_ && cur_window == sdl_window.get()))
-        return 0 == SDL_GL_SetSwapInterval(static_cast<int>(interval));
-
-    return false;
+    return cur_context == context_ && cur_window == sdl_window.get();
 }
 } // namespace opengldrv
 } // namespace oeng
