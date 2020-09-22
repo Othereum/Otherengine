@@ -24,13 +24,18 @@ SDLInitializer::~SDLInitializer()
     SDL_Quit();
 }
 
-static void WriteDisplayModes()
+[[nodiscard]] static auto InitDisplay()
 {
     const auto num_dp = SDL_GetNumVideoDisplays();
     if (num_dp < 1)
         throw std::runtime_error{SDL_GetError()};
 
-    auto& displays = ConfigSystem::Get()(u8"Display"sv)["Display modes (read only)"s] = Json::object();
+    auto& cfgsys = ConfigSystem::Get();
+    const Name display = u8"Display"sv;
+
+    // List supported display modes
+    auto& cfg = cfgsys(display);
+    auto& displays = cfg["Display modes (read only)"s] = Json::object();
     for (auto dp = 0; dp < num_dp; ++dp)
     {
         const auto num_dm = SDL_GetNumDisplayModes(dp);
@@ -42,31 +47,82 @@ static void WriteDisplayModes()
         {
             SDL_DisplayMode mode;
             SDL_GetDisplayMode(dp, dm, &mode);
+
             auto str = fmt::format(u8"[{}] {}x{} {}Hz"sv, dm, mode.w, mode.h, mode.refresh_rate);
             modes.emplace_back(AsString(std::move(str)));
         }
     }
-}
 
-static void WriteWindowSize()
-{
-    auto& cfg = ConfigSystem::Get()(u8"Display"sv);
-    const auto windowed_size = "WindowedSize"s;
-    if (!cfg.contains(windowed_size))
+    std::tuple<int, bool, SDL_DisplayMode> ret;
+    auto& [dp_idx, fullscreen, dp_mode] = ret;
+
+    auto& dp_idx_cfg = cfg.at("Display"s);
+    dp_idx = dp_idx_cfg.get<int>();
+
+    // Check if display is valid
+    if (dp_idx >= num_dp)
     {
-        SDL_DisplayMode dp_mode;
-        SDL_GetDesktopDisplayMode(cfg.at("Display"s).get<int>(), &dp_mode);
-
-        Vector size{dp_mode.w, dp_mode.h};
-        size *= 5, size /= 6;
-        cfg[windowed_size] = size;
+        OE_LOG(kEngine, kWarn, u8"Attempted to use a non-existent display (tried: {}, max: {})"sv, dp_idx, num_dp - 1);
+        OE_LOG(kEngine, kWarn, u8"Using display 0..."sv);
+        dp_idx_cfg = dp_idx = 0;
     }
+
+    // Initialize windowed size
+    auto ws = "WindowedSize"s;
+    auto ws_cfg = cfg.find(ws);
+    if (ws_cfg == cfg.end())
+    {
+        SDL_DisplayMode wm;
+        SDL_GetDesktopDisplayMode(dp_idx, &wm);
+
+        Vector size{wm.w, wm.h};
+        size *= 5, size /= 6;
+        ws_cfg = cfg.emplace(std::move(ws), size).first;
+    }
+
+    fullscreen = cfg.at("Fullscreen"s).get<bool>();
+
+    // Fill SDL_DisplayMode
+    if (fullscreen)
+    {
+        const auto num_dm = SDL_GetNumDisplayModes(dp_idx);
+        auto dm_idx_cfg = cfg.at("FullscreenDisplayMode"s);
+        auto dm_idx = dm_idx_cfg.get<int>();
+
+        // Check if display mode is valid
+        if (dm_idx >= num_dm)
+        {
+            OE_LOG(kEngine, kWarn, u8"Attempted to use a non-existent display mode (tried: {}, max: {})"sv, dm_idx,
+                   num_dm - 1);
+            OE_LOG(kEngine, kWarn, u8"Using display mode 0..."sv);
+            dm_idx_cfg = dm_idx = 0;
+        }
+
+        if (0 != SDL_GetDisplayMode(dp_idx, dm_idx, &dp_mode))
+            throw std::runtime_error{SDL_GetError()};
+
+        OE_LOG(kEngine, kLog, u8"Running as fullscreen mode... ({}x{} {}Hz)"sv, dp_mode.w, dp_mode.h,
+               dp_mode.refresh_rate);
+    }
+    else
+    {
+        const auto size = ws_cfg->get<Vec2i>();
+        dp_mode.w = size[0];
+        dp_mode.h = size[1];
+        OE_LOG(kEngine, kLog, u8"Running as windowed mode... ({}x{})"sv, dp_mode.w, dp_mode.h);
+    }
+
+    cfgsys.Save(display);
+    return ret;
 }
 
 Engine::Engine()
 {
-    WriteDisplayModes();
-    WriteWindowSize();
+    auto [dp_idx, fullscreen, dp_mode] = InitDisplay();
+    window_.emplace(AsString(GetGameName().data()), SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx),
+                    SDL_WINDOWPOS_UNDEFINED_DISPLAY(dp_idx), dp_mode.w, dp_mode.h,
+                    fullscreen ? SDL_WINDOW_FULLSCREEN : 0);
+    window_->SetRefreshRate(dp_mode.refresh_rate);
 }
 
 void Engine::RunLoop()
