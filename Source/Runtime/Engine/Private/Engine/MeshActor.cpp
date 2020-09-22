@@ -20,7 +20,7 @@ void AMeshActor::OverrideMaterial(SharedRef<IMaterial> material) const
     mesh_.OverrideMaterial(std::move(material));
 }
 
-const SharedRef<Mesh>& AMeshActor::GetMesh() const noexcept
+SharedRef<Mesh> AMeshActor::GetMesh() const noexcept
 {
     return mesh_.GetMesh();
 }

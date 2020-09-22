@@ -19,7 +19,7 @@ class ENGINE_API AMeshActor : public AActor
     void SetMesh(SharedRef<Mesh> mesh) const;
     void OverrideMaterial(SharedRef<IMaterial> material) const;
 
-    [[nodiscard]] const SharedRef<Mesh>& GetMesh() const noexcept;
+    [[nodiscard]] SharedRef<Mesh> GetMesh() const noexcept;
     [[nodiscard]] SharedRef<IMaterial> GetMaterial() const noexcept;
 
     [[nodiscard]] MeshComponent& GetMeshComp() const noexcept
