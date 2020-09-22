@@ -4,11 +4,13 @@
 #include "Components/SpotLightComponent.hpp"
 #include "Components/SpriteComponent.hpp"
 #include "Engine/AssetManager.hpp"
+#include "Engine/Engine.hpp"
 #include "Engine/Mesh.hpp"
 #include "Engine/Texture.hpp"
 #include "Materials/IMaterial.hpp"
 #include "RHIMesh.hpp"
 #include "RHIShader.hpp"
+#include "RHIWindow.hpp"
 #include <GL/glew.h>
 #include <SDL2/SDL.h>
 
@@ -24,7 +26,7 @@ inline namespace renderer
 Renderer::Renderer(Engine& engine) : engine_{engine}
 {
     sprite_mat_ = AssetManager::Get().Load<IMaterial>(u8"../Engine/Assets/M_Sprite.json"sv);
-    sprite_mat_->GetRHI().ApplyParam(u8"uViewProj"sv, MakeSimpleViewProj<4>(window_.GetSize()));
+    sprite_mat_->GetRHI().ApplyParam(u8"uViewProj"sv, MakeSimpleViewProj<4>(engine.GetWindow().GetSize()));
 
     sprite_mesh_ = AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Sprite.json"sv);
 
@@ -49,7 +51,7 @@ void Renderer::DrawScene(const ViewInfo& view)
 
     if (auto view_m = MakeLookAt(view.origin, view.direction, UVec3::up))
     {
-        auto proj_m = MakePerspective(Vec2{window_.GetSize()}, view.near, view.far, view.vfov);
+        auto proj_m = MakePerspective(Vec2{engine_.GetWindow().GetSize()}, view.near, view.far, view.vfov);
         view_proj = *view_m * proj_m;
         view_origin = view.origin;
     }
@@ -62,7 +64,7 @@ void Renderer::DrawScene(const ViewInfo& view)
 void Renderer::PostDrawScene() const
 {
     SCOPE_STACK_COUNTER(PostDrawScene);
-    window_.SwapBuffer();
+    engine_.GetWindow().SwapBuffer();
 }
 
 void Renderer::Draw3D()
