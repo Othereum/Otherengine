@@ -131,6 +131,8 @@ Engine::Engine()
     window_->SetSwapInterval(swap_interval);
 }
 
+Engine::~Engine() = default;
+
 void Engine::RunLoop()
 {
     assert(renderer_);

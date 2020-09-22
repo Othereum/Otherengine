@@ -29,6 +29,7 @@ class ENGINE_API Engine
 {
   public:
     Engine();
+    ~Engine();
 
     void RunLoop();
     void Shutdown();
