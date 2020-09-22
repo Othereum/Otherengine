@@ -48,9 +48,9 @@ template <std::regular T, std::invocable<T> Deleter> class Resource
         storage_.first()(storage_.second());
     }
 
-    Resource(Resource&& r) noexcept : storage_{std::move(r)}
+    Resource(Resource&& r) noexcept : storage_{std::move(r.storage_)}
     {
-        r = {};
+        r.storage_ = {};
     }
 
     Resource& operator=(Resource&& r) noexcept
