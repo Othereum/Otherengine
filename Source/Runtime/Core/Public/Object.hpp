@@ -9,6 +9,8 @@ inline namespace core
 class CORE_API Object : public EnableSharedFromThis<Object>
 {
   public:
+    virtual ~Object() = default;
+
     [[nodiscard]] virtual Name GetClassName() const noexcept = 0;
 
     void from_json(const Json& json, Path path)

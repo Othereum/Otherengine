@@ -8,12 +8,10 @@ namespace oeng
 {
 inline namespace core
 {
-
 template <class T, bool ThreadSafe = false> class SharedPtr;
 
 namespace detail
 {
-
 template <bool ThreadSafe> struct SharedObjBase
 {
     bool IncStrongNz() noexcept
@@ -70,7 +68,7 @@ template <bool ThreadSafe> struct SharedObjBase
     RefCnt weak = 1;
 };
 
-template <class T, class Alloc, bool ThreadSafe> struct SharedObjInline : SharedObjBase<ThreadSafe>
+template <class T, class Alloc, bool ThreadSafe> struct SharedObjInline final : SharedObjBase<ThreadSafe>
 {
     template <class... Args>
     SharedObjInline(Alloc alloc, Args&&... args) : storage{OneThen{}, std::move(alloc), std::forward<Args>(args)...}
@@ -100,7 +98,7 @@ template <class T, class Alloc, bool ThreadSafe> struct SharedObjInline : Shared
     };
 };
 
-template <class T, class Deleter, class Alloc, bool ThreadSafe> struct SharedObjPtr : SharedObjBase<ThreadSafe>
+template <class T, class Deleter, class Alloc, bool ThreadSafe> struct SharedObjPtr final : SharedObjBase<ThreadSafe>
 {
     SharedObjPtr(T* ptr, Deleter deleter, Alloc alloc) noexcept
         : storage{OneThen{}, std::move(alloc), OneThen{}, std::move(deleter), ptr}
@@ -142,7 +140,6 @@ template <class T, bool ThreadSafe> struct SetAndEnableShared
         sp.SetAndEnableShared(rp, obj);
     }
 };
-
 } // namespace detail
 
 template <class T, bool ThreadSafe = false> class SharedRef;
