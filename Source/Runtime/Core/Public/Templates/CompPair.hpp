@@ -27,6 +27,8 @@ struct OneThen
 template <class T1, class T2, bool = std::is_empty_v<T1> && !std::is_final_v<T1>> class CompPair final : T1
 {
   public:
+    CompPair() = default;
+
     template <class... Second>
     constexpr explicit CompPair(ZeroThen, Second&&... second) noexcept(
         std::conjunction_v<std::is_nothrow_default_constructible<T1>, std::is_nothrow_constructible<T2, Second...>>)
@@ -68,6 +70,8 @@ template <class T1, class T2, bool = std::is_empty_v<T1> && !std::is_final_v<T1>
 template <class T1, class T2> class CompPair<T1, T2, false> final
 {
   public:
+    CompPair() = default;
+
     template <class... Second>
     constexpr explicit CompPair(ZeroThen, Second&&... second) noexcept(
         std::conjunction_v<std::is_nothrow_default_constructible<T1>, std::is_nothrow_constructible<T2, Second...>>)
