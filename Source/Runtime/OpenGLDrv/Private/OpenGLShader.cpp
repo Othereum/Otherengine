@@ -205,7 +205,7 @@ static void GlUniform(int index, RHITexture& value) noexcept
 }
 
 template <class T>
-bool OpenGLShader::ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache)
+bool OpenGLShader::ApplyParam(Name name, T&& value, const std::unordered_map<Name, int>& loc_cache)
 {
     const auto loc = loc_cache.find(name);
     if (loc == loc_cache.end())

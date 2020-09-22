@@ -58,7 +58,7 @@ class RHI_API RHIShader
     [[nodiscard]] bool IsRedundant(Name name, ScalarParam value) const noexcept;
     [[nodiscard]] bool IsRedundant(Name name, const VectorParam& value) const noexcept;
     [[nodiscard]] bool IsRedundant(Name name, const MatrixParam& value) const noexcept;
-    [[nodiscard]] bool IsRedundant(Name name, RHITexture& value) const noexcept;
+    [[nodiscard]] bool IsRedundant(Name name, const RHITexture& value) const noexcept;
 
   private:
     std::unordered_map<Name, ScalarParam> scalar_cache_;

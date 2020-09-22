@@ -39,7 +39,7 @@ class OPENGLDRV_API OpenGLShader final : public RHIShader
     void LinkProgram();
     void Init();
 
-    template <class T> bool ApplyParam(Name name, const T& value, const std::unordered_map<Name, int>& loc_cache);
+    template <class T> bool ApplyParam(Name name, T&& value, const std::unordered_map<Name, int>& loc_cache);
 
     ShaderHandle vertex_;
     ShaderHandle frag_;

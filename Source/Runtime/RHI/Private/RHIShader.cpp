@@ -55,7 +55,7 @@ bool RHIShader::IsRedundant(Name name, const MatrixParam& value) const noexcept
     return false;
 }
 
-bool RHIShader::IsRedundant(Name name, RHITexture& value) const noexcept
+bool RHIShader::IsRedundant(Name name, const RHITexture& value) const noexcept
 {
     if (const auto it = texture_cache_.find(name); it != texture_cache_.end())
         return &value == &it->second.get();
