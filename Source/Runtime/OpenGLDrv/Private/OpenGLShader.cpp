@@ -204,6 +204,21 @@ static void GlUniform(int index, RHITexture& value) noexcept
     value.Activate();
 }
 
+static void GlUniform(int location, ScalarParam value) noexcept
+{
+    std::visit([location](auto val) { GlUniform(location, val); }, value);
+}
+
+static void GlUniform(int location, const VectorParam& value) noexcept
+{
+    std::visit([location](auto val) { GlUniform(location, val); }, value);
+}
+
+static void GlUniform(int location, const MatrixParam& value) noexcept
+{
+    std::visit([location](auto val) { GlUniform(location, val); }, value);
+}
+
 template <class T>
 bool OpenGLShader::ApplyParam(Name name, T&& value, const std::unordered_map<Name, int>& loc_cache)
 {
