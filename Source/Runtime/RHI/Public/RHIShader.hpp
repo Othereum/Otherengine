@@ -13,6 +13,7 @@ class RHITexture;
  */
 class ShaderCompileError : public std::runtime_error
 {
+  public:
     explicit ShaderCompileError(const std::string& message) : std::runtime_error{message}
     {
     }
