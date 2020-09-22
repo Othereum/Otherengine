@@ -27,7 +27,7 @@ class RHI_API RHIWindow
 
     virtual void MakeCurrent() const noexcept = 0;
     virtual void SwapBuffer() const noexcept = 0;
-    virtual bool SetSwapInterval(SwapInterval interval) = 0;
+    virtual bool SetSwapInterval(SwapInterval interval) const noexcept = 0;
 
     void SetTitle(const char8_t* title) const noexcept;
     void SetSize(int w, int h) const;

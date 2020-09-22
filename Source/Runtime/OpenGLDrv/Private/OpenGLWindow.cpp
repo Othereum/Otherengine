@@ -27,7 +27,7 @@ bool OpenGLWindow::SetSwapInterval(SwapInterval interval)
     auto cur_window = SDL_GL_GetCurrentWindow();
 
     if (ENSURE(cur_context == context_ && cur_window == sdl_window.get()))
-        return SDL_GL_SetSwapInterval(static_cast<int>(interval)) == 0;
+        return 0 == SDL_GL_SetSwapInterval(static_cast<int>(interval));
 
     return false;
 }

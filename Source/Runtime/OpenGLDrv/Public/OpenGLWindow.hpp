@@ -13,7 +13,7 @@ class OPENGLDRV_API OpenGLWindow : public RHIWindow
     OpenGLWindow(OpenGLDynamicRHI& rhi, const char8_t* title, int x, int y, int w, int h, unsigned flags);
     void MakeCurrent() const noexcept override;
     void SwapBuffer() const noexcept override;
-    bool SetSwapInterval(SwapInterval interval) override;
+    bool SetSwapInterval(SwapInterval interval) const noexcept override;
 
   private:
     void* const context_;
