@@ -3,6 +3,7 @@
 #include "Components/MeshComponent.hpp"
 #include "Components/SpotLightComponent.hpp"
 #include "Components/SpriteComponent.hpp"
+#include "DynamicRHI.hpp"
 #include "Engine/AssetManager.hpp"
 #include "Engine/Engine.hpp"
 #include "Engine/Mesh.hpp"
@@ -11,7 +12,6 @@
 #include "RHIMesh.hpp"
 #include "RHIShader.hpp"
 #include "RHIWindow.hpp"
-#include <GL/glew.h>
 #include <SDL2/SDL.h>
 
 namespace logcat
@@ -41,7 +41,6 @@ Renderer::~Renderer() = default;
 void Renderer::PreDrawScene() const
 {
     SCOPE_STACK_COUNTER(PreDrawScene);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::DrawScene(const ViewInfo& view)
@@ -69,9 +68,7 @@ void Renderer::PostDrawScene() const
 
 void Renderer::Draw3D()
 {
-    glEnable(GL_DEPTH_TEST);
-    glDisable(GL_BLEND);
-
+    DynamicRHI::Get().PreDraw3D();
     prev_ = {};
 
     for (auto mesh_comp : meshes_)
@@ -82,11 +79,10 @@ void Renderer::Draw3D()
 
 void Renderer::Draw2D()
 {
-    glEnable(GL_BLEND);
-    glDisable(GL_DEPTH_TEST);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+    DynamicRHI::Get().PreDraw2D();
     sprite_mat_->GetRHI().Activate();
+    sprite_mesh_->GetRHI().Activate();
+
     for (auto sprite_ref : sprites_)
     {
         const auto& sprite = sprite_ref.get();
@@ -95,7 +91,7 @@ void Renderer::Draw2D()
 
         SCOPE_STACK_COUNTER(DrawSprite);
         sprite_mat_->GetRHI().ApplyParam(u8"uWorldTransform"sv, sprite.GetWorldTrsfMatrix());
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, nullptr);
+        sprite_mesh_->GetRHI().Draw();
     }
 }
 
@@ -142,7 +138,7 @@ void Renderer::DrawMesh(const MeshComponent& mesh_comp)
     DrawSpotLights(mesh_comp);
 
     shader.ApplyParam(u8"uWorldTransform"sv, mesh_comp.GetWorldTrsfMatrix());
-    glDrawElements(GL_TRIANGLES, static_cast<int>(verts.GetNumIndices() * 3), GL_UNSIGNED_SHORT, nullptr);
+    verts.Draw();
 }
 
 template <class Lights, class Fn>
@@ -167,12 +163,12 @@ static void DrawLights(std::u8string_view name, const Lights& lights, const Mesh
         if (!light.IsActive())
             continue;
 
-        if (!IsOverlapped({light.GetWorldPos(), light.radius}, {mesh_trsf.GetWorldPos(), mesh_radius}))
+        if (!IsOverlapped({light.GetWorldPos(), light.radius}, {mesh_comp.GetWorldPos(), mesh_radius}))
             continue;
 
         SCOPE_STACK_COUNTER(DrawLight);
 
-        auto apply_param = [&](std::u8string_view param, auto& value) {
+        auto apply_param = [&](std::u8string_view param, auto&& value) {
             return shader.ApplyParam(fmt::format(u8"u{}Lights[{}].{}"sv, name, idx, param), value);
         };
 
