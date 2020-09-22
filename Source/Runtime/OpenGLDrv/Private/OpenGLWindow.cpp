@@ -7,7 +7,7 @@ namespace oeng
 inline namespace opengldrv
 {
 OpenGLWindow::OpenGLWindow(OpenGLDynamicRHI& rhi, const char8_t* title, int x, int y, int w, int h, unsigned flags)
-    : RHIWindow{title, x, y, w, h, flags}, context_{rhi.GetContext(sdl_window.get())}
+    : RHIWindow{title, x, y, w, h, flags | SDL_WINDOW_OPENGL}, context_{rhi.GetContext(sdl_window.get())}
 {
 }
 
