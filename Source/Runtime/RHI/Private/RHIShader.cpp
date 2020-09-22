@@ -27,8 +27,8 @@ void RHIShader::UpdateCache(Name name, RHITexture& value)
 static constexpr auto is_equivalent = []<class T1, class T2>(const T1& a, const T2& b) {
     if constexpr (std::is_same_v<T1, T2>)
         return IsNearlyEqual(a, b);
-
-    return false;
+    else
+        return false;
 };
 
 bool RHIShader::IsRedundant(Name name, ScalarParam value) const noexcept
