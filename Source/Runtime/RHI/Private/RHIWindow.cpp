@@ -61,11 +61,11 @@ bool RHIWindow::IsFullscreen() const noexcept
     return SDL_WINDOW_FULLSCREEN & SDL_GetWindowFlags(sdl_window.get());
 }
 
-Vec2u16 RHIWindow::GetSize() const noexcept
+Vec2i RHIWindow::GetSize() const noexcept
 {
-    int w, h;
-    SDL_GetWindowSize(sdl_window.get(), &w, &h);
-    return Vec2u16(w, h);
+    Vec2i size;
+    SDL_GetWindowSize(sdl_window.get(), &size[0], &size[1]);
+    return size;
 }
 } // namespace rhi
 } // namespace oeng

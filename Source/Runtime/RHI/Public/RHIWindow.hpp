@@ -33,7 +33,7 @@ class RHI_API RHIWindow
     void SetSize(int w, int h) const;
     void SetRefreshRate(int hz) const;
     [[nodiscard]] bool IsFullscreen() const noexcept;
-    [[nodiscard]] Vec2u16 GetSize() const noexcept;
+    [[nodiscard]] Vec2i GetSize() const noexcept;
 
   protected:
     const std::unique_ptr<SDL_Window, SDLWindowDeleter> sdl_window;
