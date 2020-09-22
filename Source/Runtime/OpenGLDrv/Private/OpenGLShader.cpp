@@ -136,29 +136,29 @@ static void GlUniform(int location, int32_t value) noexcept
     glUniform1i(location, value);
 }
 
-static void GlUniform(int location, const Vec2& value) noexcept
+static void GlUniform(int location, Vec2 v) noexcept
 {
-    glUniform2fv(location, 1, value.data);
+    glUniform2f(location, v[0], v[1]);
 }
-static void GlUniform(int location, const Vec3& value) noexcept
+static void GlUniform(int location, Vec3 v) noexcept
 {
-    glUniform3fv(location, 1, value.data);
+    glUniform3f(location, v[0], v[1], v[2]);
 }
-static void GlUniform(int location, const Vec4& value) noexcept
+static void GlUniform(int location, Vec4 v) noexcept
 {
-    glUniform4fv(location, 1, value.data);
+    glUniform4f(location, v[0], v[1], v[2], v[3]);
 }
-static void GlUniform(int location, const Vec2i& value) noexcept
+static void GlUniform(int location, Vec2i v) noexcept
 {
-    glUniform2iv(location, 1, value.data);
+    glUniform2i(location, v[0], v[1]);
 }
-static void GlUniform(int location, const Vec3i& value) noexcept
+static void GlUniform(int location, Vec3i v) noexcept
 {
-    glUniform3iv(location, 1, value.data);
+    glUniform3i(location, v[0], v[1], v[2]);
 }
-static void GlUniform(int location, const Vec4i& value) noexcept
+static void GlUniform(int location, Vec4i v) noexcept
 {
-    glUniform4iv(location, 1, value.data);
+    glUniform4i(location, v[0], v[1], v[2], v[3]);
 }
 
 static void GlUniform(int location, const Mat2& value) noexcept
