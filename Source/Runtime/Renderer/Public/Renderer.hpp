@@ -45,6 +45,8 @@ class RENDERER_API Renderer final : public IRenderer
     void RemoveSpotLight(const SpotLightComponent& light) override;
     void RemovePointLight(const PointLightComponent& light) override;
 
+    template <class T> using CompArr = std::vector<std::reference_wrapper<const T>>;
+
   private:
     void PreDrawScene() const;
     void PostDrawScene() const;
@@ -64,8 +66,6 @@ class RENDERER_API Renderer final : public IRenderer
         IMaterial* material;
         Mesh* mesh;
     } prev_{};
-
-    template <class T> using CompArr = std::vector<std::reference_wrapper<const T>>;
 
     CompArr<MeshComponent> meshes_;
     CompArr<SpriteComponent> sprites_;
