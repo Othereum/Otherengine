@@ -50,16 +50,57 @@ RHIWindow::RHIWindow(const char8_t* title, int x, int y, int w, int h, unsigned 
 {
 }
 
+void RHIWindow::SetTitle(const char8_t* title) const noexcept
+{
+    SDL_SetWindowTitle(sdl_window.get(), AsString(title));
+}
+
+void RHIWindow::SetSize(int w, int h) const
+{
+    if (IsFullscreen())
+    {
+        SDL_DisplayMode dm;
+
+        if (0 != SDL_GetWindowDisplayMode(sdl_window.get(), &dm))
+            throw std::runtime_error{SDL_GetError()};
+
+        dm.w = w, dm.h = h;
+
+        if (0 != SDL_SetWindowDisplayMode(sdl_window.get(), &dm))
+            throw std::runtime_error{SDL_GetError()};
+    }
+    else
+    {
+        SDL_SetWindowSize(sdl_window.get(), w, h);
+    }
+}
+
+void RHIWindow::SetRefreshRate(int hz) const
+{
+    if (!IsFullscreen())
+        return;
+
+    SDL_DisplayMode dm;
+
+    if (0 != SDL_GetWindowDisplayMode(sdl_window.get(), &dm))
+        throw std::runtime_error{SDL_GetError()};
+
+    dm.refresh_rate = hz;
+
+    if (0 != SDL_SetWindowDisplayMode(sdl_window.get(), &dm))
+        throw std::runtime_error{SDL_GetError()};
+}
+
+bool RHIWindow::IsFullscreen() const noexcept
+{
+    return SDL_WINDOW_FULLSCREEN & SDL_GetWindowFlags(sdl_window.get());
+}
+
 Vec2u16 RHIWindow::GetSize() const noexcept
 {
     int w, h;
     SDL_GetWindowSize(sdl_window.get(), &w, &h);
     return Vec2u16(w, h);
-}
-
-void RHIWindow::SetTitle(const char8_t* title) const noexcept
-{
-    SDL_SetWindowTitle(sdl_window.get(), AsString(title));
 }
 } // namespace rhi
 } // namespace oeng

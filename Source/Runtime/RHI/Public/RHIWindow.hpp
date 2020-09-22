@@ -35,6 +35,9 @@ class RHI_API RHIWindow
     virtual bool SetSwapInterval(SwapInterval interval) = 0;
 
     void SetTitle(const char8_t* title) const noexcept;
+    void SetSize(int w, int h) const;
+    void SetRefreshRate(int hz) const;
+    [[nodiscard]] bool IsFullscreen() const noexcept;
     [[nodiscard]] Vec2u16 GetSize() const noexcept;
 
   protected:
