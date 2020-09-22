@@ -12,21 +12,10 @@ function(oe_optimize_target target)
     endif()
 
     target_compile_options(${target} PRIVATE
-        $<IF:$<CXX_COMPILER_ID:MSVC>,
-            $<$<CONFIG:Release>:/GL>
-            /MP /fp:fast
-
-            , # Clang/GCC
-            $<$<CONFIG:Release>:-flto>
-            -ffast-math
-        >
+        $<IF:$<CXX_COMPILER_ID:MSVC>, /MP /fp:fast, -ffast-math>
     )
 
-    target_link_options(${target} PRIVATE
-        $<IF:$<CXX_COMPILER_ID:MSVC>,
-            $<$<CONFIG:Release>:/LTCG>,
-            $<$<CONFIG:Release>:-flto>>
-    )
+    set_property(TARGET ${target} PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
 endfunction()
 
 function(oe_setup_target target)
