@@ -16,7 +16,6 @@ namespace oeng
 {
 inline namespace engine
 {
-
 void World::BeginPlay()
 {
     begun_play_ = true;
@@ -111,9 +110,8 @@ void World::UpdateTime()
 {
     const auto now = Clock::now();
     delta_seconds_ = time::duration<Float>{now - time_}.count();
-    delta_seconds_ = Min(1_f, delta_seconds_);
+    delta_seconds_ = Min(0.1_f, delta_seconds_);
     time_ = now;
 }
-
 } // namespace engine
 } // namespace oeng
