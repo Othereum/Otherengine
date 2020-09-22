@@ -15,7 +15,7 @@ SharedRef<Object> NewObject(Name type)
 
 void RegisterClass(Name type, SharedRef<Object> (*creator)())
 {
-    auto [it, inserted] = object_creation_map.emplace(type, creator);
+    [[maybe_unused]] auto [it, inserted] = object_creation_map.emplace(type, creator);
     assert(inserted || it->second == creator);
 }
 
