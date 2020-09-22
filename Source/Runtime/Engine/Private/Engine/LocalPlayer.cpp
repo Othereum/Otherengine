@@ -12,5 +12,5 @@ ViewInfo LocalPlayer::GetViewPoint() const noexcept
 
     return {};
 }
-}
-}
+} // namespace engine
+} // namespace oeng
