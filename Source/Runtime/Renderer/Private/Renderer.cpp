@@ -41,6 +41,7 @@ Renderer::~Renderer() = default;
 void Renderer::PreDrawScene() const
 {
     SCOPE_STACK_COUNTER(PreDrawScene);
+    engine_.GetWindow().ClearBuffer();
 }
 
 void Renderer::DrawScene(const ViewInfo& view)
