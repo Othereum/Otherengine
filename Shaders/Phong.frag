@@ -1,4 +1,4 @@
-#version 330
+#version 430
 #define MAX_LIGHTS 4
 
 struct DirLight

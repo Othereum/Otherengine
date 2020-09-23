@@ -1,4 +1,4 @@
-#version 330
+#version 430
 
 uniform mat4 uWorldTransform;
 uniform mat4 uViewProj;
