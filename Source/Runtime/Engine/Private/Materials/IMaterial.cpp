@@ -43,10 +43,16 @@ template <> bool IMaterial::IsValidParam<SharedRef<Texture>>(Name name) const
     return IsTextureParam(name);
 }
 
-template <class T, class Fn> void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out, Fn&& fn)
+template <class T, class Fn>
+void IMaterial::LoadParams(const Json& json, const std::string& key, std::unordered_map<Name, T>& out, Fn&& fn)
 {
     out.clear();
-    for (const auto& [name_str, value] : json.items())
+
+    const auto it = json.find(key);
+    if (it == json.end())
+        return;
+
+    for (const auto& [name_str, value] : it->items())
     {
         const Name name = AsString8(name_str);
         if (!IsValidParam<T>(name))
@@ -67,9 +73,10 @@ template <class T, class Fn> void IMaterial::LoadParams(const Json& json, std::u
     }
 }
 
-template <class T> void IMaterial::LoadParams(const Json& json, std::unordered_map<Name, T>& out)
+template <class T>
+void IMaterial::LoadParams(const Json& json, const std::string& key, std::unordered_map<Name, T>& out)
 {
-    LoadParams(json, out, [](const Json& value) { return value.get<T>(); });
+    LoadParams(json, key, out, [](const Json& value) { return value.get<T>(); });
 }
 
 SharedRef<IMaterial> IMaterial::GetDefault()
@@ -79,9 +86,9 @@ SharedRef<IMaterial> IMaterial::GetDefault()
 
 void IMaterial::LoadParams(const Json& json)
 {
-    LoadParams(json.at("Scalars"s), scalars_);
-    LoadParams(json.at("Vectors"s), vectors_);
-    LoadParams(json.at("Textures"s), textures_,
+    LoadParams(json, "Scalars"s, scalars_);
+    LoadParams(json, "Vectors"s, vectors_);
+    LoadParams(json, "Textures"s, textures_,
                [](const Json& value) { return AssetManager::Get().Load<Texture>(value.get<Path>()); });
 }
 } // namespace engine
