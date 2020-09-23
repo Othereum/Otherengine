@@ -26,12 +26,12 @@ class ENGINE_API World
 
     AActor& SpawnActor(Name class_name);
 
-    template <class T>[[nodiscard]] T& SpawnActor(Name class_name)
+    template <class T> T& SpawnActor(Name class_name)
     {
         return dynamic_cast<T&>(SpawnActor(class_name));
     }
 
-    template <class T>[[nodiscard]] T& SpawnActor()
+    template <class T> T& SpawnActor()
     {
         return SpawnActor<T>(T::class_name);
     }
