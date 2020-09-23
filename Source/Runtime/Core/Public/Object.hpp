@@ -9,6 +9,9 @@ inline namespace core
 class CORE_API Object : public EnableSharedFromThis<Object>
 {
   public:
+    DELETE_CPMV(Object);
+
+    Object() = default;
     virtual ~Object() = default;
 
     [[nodiscard]] virtual Name GetClassName() const noexcept = 0;
