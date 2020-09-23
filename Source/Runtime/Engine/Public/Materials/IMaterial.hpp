@@ -31,12 +31,12 @@ class ENGINE_API IMaterial : public Object
 
     [[nodiscard]] auto& GetVectorParams() const noexcept
     {
-        return scalars_;
+        return vectors_;
     }
 
     [[nodiscard]] auto& GetTextureParams() const noexcept
     {
-        return scalars_;
+        return textures_;
     }
 
     virtual void ApplyParams() const = 0;
