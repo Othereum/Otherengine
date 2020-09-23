@@ -62,7 +62,7 @@ void OpenGLShader::Activate() const noexcept
 
 void OpenGLShader::LinkProgram()
 {
-    glAttachShader(*program_, *program_);
+    glAttachShader(*program_, *vertex_);
     glAttachShader(*program_, *frag_);
     glLinkProgram(*program_);
     CheckProgram(*program_);
