@@ -18,12 +18,12 @@ Material::~Material() = default;
 
 void Material::from_json(const Json& json)
 {
-    LoadParams(json.at("Parameters"));
-
     const auto& shaders = json.at("Shaders");
     shader_.reset(
         DynamicRHI::Get().CreateShader(ReadFileAsString<char>(shaders.at("Vertex").get<std::string>()).c_str(),
                                        ReadFileAsString<char>(shaders.at("Fragment").get<std::string>()).c_str()));
+
+    LoadParams(json.at("Parameters"));
 }
 
 void Material::ApplyParams() const
