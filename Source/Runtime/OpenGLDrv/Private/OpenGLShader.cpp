@@ -52,7 +52,7 @@ OpenGLShader::OpenGLShader(const char* vertex_shader, const char* frag_shader)
 {
     LinkProgram();
     Activate();
-    Init();
+    LoadUniforms();
 }
 
 void OpenGLShader::Activate() const noexcept
@@ -68,25 +68,23 @@ void OpenGLShader::LinkProgram()
     CheckProgram(*program_);
 }
 
-void OpenGLShader::Init()
+void OpenGLShader::LoadUniforms()
 {
     int count;
-    glGetProgramiv(*program_, GL_ACTIVE_UNIFORMS, &count);
+    glGetProgramInterfaceiv(*program_, GL_UNIFORM, GL_ACTIVE_RESOURCES, &count);
 
-    int name_buf_size;
-    glGetProgramiv(*program_, GL_ACTIVE_UNIFORM_MAX_LENGTH, &name_buf_size);
-    const std::unique_ptr<char8_t[]> name_ptr{new char8_t[name_buf_size]};
-
-    for (auto uniform = 0, tex = 0; uniform < count; ++uniform)
+    for (auto idx = 0, tex = 0; idx < count; ++idx)
     {
-        int name_len, size;
-        unsigned type;
-        glGetActiveUniform(*program_, uniform, name_buf_size, &name_len, &size, &type, AsString(name_ptr.get()));
+        constexpr unsigned props[]{GL_TYPE, GL_LOCATION, GL_NAME_LENGTH};
+        int values[3];
+        glGetProgramResourceiv(*program_, GL_UNIFORM, idx, 3, props, 3, nullptr, values);
 
-        const auto loc = glGetUniformLocation(*program_, AsString(name_ptr.get()));
+        const auto& [type, loc, name_bufsz] = values;
         assert(loc != -1);
 
-        const std::u8string_view name{name_ptr.get(), size_t(name_len)};
+        const std::unique_ptr<char[]> name_ptr{new char[name_bufsz]};
+        glGetProgramResourceName(*program_, GL_UNIFORM, idx, name_bufsz, nullptr, name_ptr.get());
+        const std::u8string_view name{AsString8(name_ptr.get()), static_cast<size_t>(name_bufsz - 1)};
 
         switch (type)
         {
@@ -206,28 +204,25 @@ static void GlUniform(int location, ScalarParam value) noexcept
 {
     std::visit([location](auto val) { GlUniform(location, val); }, value);
 }
-
 static void GlUniform(int location, const VectorParam& value) noexcept
 {
     std::visit([location](auto val) { GlUniform(location, val); }, value);
 }
-
 static void GlUniform(int location, const MatrixParam& value) noexcept
 {
     std::visit([location](auto val) { GlUniform(location, val); }, value);
 }
 
-template <class T>
-bool OpenGLShader::ApplyParam(Name name, T&& value, const std::unordered_map<Name, int>& loc_cache)
+template <class T> bool OpenGLShader::ApplyUniform(Name name, T& value, const std::unordered_map<Name, int>& loc_cache)
 {
-    const auto loc = loc_cache.find(name);
-    if (loc == loc_cache.end())
+    const auto location = loc_cache.find(name);
+    if (location == loc_cache.end())
         return false;
 
     if (IsRedundant(name, value))
         return true;
 
-    GlUniform(loc->second, value);
+    GlUniform(location->second, value);
 
     if (glGetError() != GL_NO_ERROR)
         return false;
@@ -238,22 +233,22 @@ bool OpenGLShader::ApplyParam(Name name, T&& value, const std::unordered_map<Nam
 
 bool OpenGLShader::ApplyParam(Name name, ScalarParam value)
 {
-    return ApplyParam(name, value, scalar_loc_);
+    return ApplyUniform(name, value, scalar_loc_);
 }
 
 bool OpenGLShader::ApplyParam(Name name, const VectorParam& value)
 {
-    return ApplyParam(name, value, vector_loc_);
+    return ApplyUniform(name, value, vector_loc_);
 }
 
 bool OpenGLShader::ApplyParam(Name name, const MatrixParam& value)
 {
-    return ApplyParam(name, value, matrix_loc_);
+    return ApplyUniform(name, value, matrix_loc_);
 }
 
 bool OpenGLShader::ApplyParam(Name name, RHITexture& value)
 {
-    return ApplyParam(name, value, texture_idx_);
+    return ApplyUniform(name, value, texture_idx_);
 }
 
 bool OpenGLShader::IsScalarParam(Name name) const
