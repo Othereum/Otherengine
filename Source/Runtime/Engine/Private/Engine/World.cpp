@@ -85,10 +85,11 @@ void World::UpdateGame()
     // Use index-based loop because BeginPlay() can spawn new actors
     for (size_t i = 0; i < pending_actors_.size(); ++i)
     {
-        auto& ref = *actors_[i];
-        actors_.push_back(std::move(actors_[i]));
+        auto& ref = *pending_actors_[i];
+        actors_.push_back(std::move(pending_actors_[i]));
         ref.BeginPlay();
     }
+    pending_actors_.clear();
 
     for (auto it = actors_.rbegin(); it != actors_.rend();)
     {
