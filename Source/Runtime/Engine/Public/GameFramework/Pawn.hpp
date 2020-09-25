@@ -13,6 +13,7 @@ class ENGINE_API APawn : public AActor
     CLASS_BODY(APawn)
 
   public:
+    void OnSetOwner() override;
     [[nodiscard]] SharedPtr<AController> GetController() const noexcept;
 };
 
