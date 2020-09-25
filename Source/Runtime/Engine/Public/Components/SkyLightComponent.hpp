@@ -5,17 +5,12 @@ namespace oeng
 {
 inline namespace engine
 {
-
-class IRenderer;
-
 class ENGINE_API SkyLightComponent : public SceneComponent
 {
     CLASS_BODY(SkyLightComponent)
 
   public:
-    [[nodiscard]] IRenderer& GetRenderer() const noexcept;
-
-    Vec3 color{1, 1, 1};
+    Vec3 color{All{}, 0.2};
 
   protected:
     void OnBeginPlay() override;
