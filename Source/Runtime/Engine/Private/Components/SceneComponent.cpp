@@ -1,4 +1,5 @@
 #include "Components/SceneComponent.hpp"
+#include "Engine/Engine.hpp"
 
 namespace oeng
 {
@@ -12,10 +13,8 @@ void SceneComponent::AttachTo(SceneComponent* new_parent, AttachRule rule)
     if (parent_)
     {
         auto& siblings = parent_->children_;
-        const auto me = std::find_if(siblings.begin(), siblings.end(), [this](SceneComponent* other)
-        {
-            return other == this;
-        });
+        const auto me =
+            std::find_if(siblings.begin(), siblings.end(), [this](SceneComponent* other) { return other == this; });
 
         assert(me != siblings.end());
         siblings.erase(me);
@@ -74,7 +73,7 @@ void SceneComponent::RecalcRelTrsf() noexcept
             // pw: parent's world transform
             // r: unknown new relative transform to parent
             // w: desired world transform
-            // 
+            //
             // r * pw = w
             // r * pw * pw(-1) = w * pw(-1)
             // r = w * pw(-1)
@@ -97,5 +96,10 @@ void SceneComponent::RecalcRelTrsf() noexcept
 
     OnTrsfChanged();
 }
+
+IRenderer& SceneComponent::GetRenderer() const noexcept
+{
+    return GetEngine().GetRenderer();
 }
-}
+} // namespace engine
+} // namespace oeng

@@ -11,6 +11,8 @@ enum class AttachRule
     kKeepWorld
 };
 
+class IRenderer;
+
 class ENGINE_API SceneComponent : public ActorComponent
 {
 CLASS_BODY(SceneComponent)
@@ -141,7 +143,9 @@ public:
         return world_mat_;
     }
 
-protected:
+    [[nodiscard]] IRenderer& GetRenderer() const noexcept;
+
+  protected:
     virtual void OnTrsfChanged()
     {
     }
