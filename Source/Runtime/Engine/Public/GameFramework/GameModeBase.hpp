@@ -28,7 +28,7 @@ class ENGINE_API AGameModeBase : public AActor
 
   protected:
     Name pc_class_ = u8"APlayerController"sv;
-    Name default_pawn_class_ = u8"APlayerController"sv;
+    Name default_pawn_class_ = u8"APawn"sv;
 };
 
 } // namespace engine
