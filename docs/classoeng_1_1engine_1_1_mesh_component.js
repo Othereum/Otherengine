@@ -1,21 +1,14 @@
 var classoeng_1_1engine_1_1_mesh_component =
 [
-    [ "MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html#a69379f0ab6718a549a53e68cc564f401", null ],
-    [ "~MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html#afee21333b986b5ff388d5f2a42874fd7", null ],
-    [ "DELETE_CPMV", "classoeng_1_1engine_1_1_mesh_component.html#acfe308fff57fcd13c3bc648ecab6f8f1", null ],
-    [ "GetDrawTrsf", "classoeng_1_1engine_1_1_mesh_component.html#a37dd4b5793f9ee66fb953da48b3c8265", null ],
-    [ "GetDrawTrsfMatrix", "classoeng_1_1engine_1_1_mesh_component.html#aab4b8f4631f11c08046bab8a52536c53", null ],
-    [ "GetMaterial", "classoeng_1_1engine_1_1_mesh_component.html#a968ddfd886c90543b7d2e4f59b7fc38c", null ],
-    [ "GetMaxDrawDist", "classoeng_1_1engine_1_1_mesh_component.html#ae76a50be70966134a7e8b2b051564779", null ],
-    [ "GetMesh", "classoeng_1_1engine_1_1_mesh_component.html#aacdd2a4121bdb7997f2c66ce72a2665c", null ],
-    [ "GetScaledRadius", "classoeng_1_1engine_1_1_mesh_component.html#aa1abac126de2674041ee713544c47c7b", null ],
-    [ "GetUnscaledRadius", "classoeng_1_1engine_1_1_mesh_component.html#ad05bfa7083648348e7abc412d4c3801b", null ],
+    [ "MeshComponent", "classoeng_1_1engine_1_1_mesh_component.html#a914ddb86cdad7480507d75241e444534", null ],
+    [ "GetMaterial", "classoeng_1_1engine_1_1_mesh_component.html#afc1539fd19cffc5e5b6c124f7af9c1f3", null ],
+    [ "GetMesh", "classoeng_1_1engine_1_1_mesh_component.html#ac975c5d143d5193da3b6f437d9e0a875", null ],
+    [ "GetRenderer", "classoeng_1_1engine_1_1_mesh_component.html#af6eff11a338da9441234e2eb41c9c254", null ],
+    [ "GetScaledRadius", "classoeng_1_1engine_1_1_mesh_component.html#adaf0453d27e42d86db86f9f4300d8008", null ],
+    [ "GetUnscaledRadius", "classoeng_1_1engine_1_1_mesh_component.html#a1f6d11d08498550b5cb8c1859248e7c5", null ],
     [ "OnBeginPlay", "classoeng_1_1engine_1_1_mesh_component.html#a2a75e9d570527de99254b727f3c6419b", null ],
-    [ "OnTrsfChanged", "classoeng_1_1engine_1_1_mesh_component.html#a0e5098393b1d4ab01f764e2fcf668b71", null ],
-    [ "SetMaterial", "classoeng_1_1engine_1_1_mesh_component.html#a7f63a30731c70062514213104292448f", null ],
-    [ "SetMaterial", "classoeng_1_1engine_1_1_mesh_component.html#ae702835aefe8bbc456dc1314019a05da", null ],
-    [ "SetMaxDrawDist", "classoeng_1_1engine_1_1_mesh_component.html#abc07afe84430c14e7200f4905fad51fd", null ],
-    [ "SetMesh", "classoeng_1_1engine_1_1_mesh_component.html#ac04aadc3e984d5565e9f74e530fb0bca", null ],
+    [ "OnEndPlay", "classoeng_1_1engine_1_1_mesh_component.html#a52a8efb6c34a553f9a39eee4b3207bc9", null ],
+    [ "OverrideMaterial", "classoeng_1_1engine_1_1_mesh_component.html#a2b3c3129463e2d4bf1735a0f9c46baf2", null ],
     [ "SetMesh", "classoeng_1_1engine_1_1_mesh_component.html#a2cd89df5e83df03ff6fd9a9fec37e117", null ],
-    [ "ShouldDraw", "classoeng_1_1engine_1_1_mesh_component.html#a0c5d94e23c936bd7f6a9761e87176b0c", null ]
+    [ "max_draw_dist", "classoeng_1_1engine_1_1_mesh_component.html#a18b52fa35345b9f02cb55ca49efef589", null ]
 ];

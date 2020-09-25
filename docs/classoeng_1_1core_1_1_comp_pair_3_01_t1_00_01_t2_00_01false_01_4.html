@@ -90,222 +90,30 @@ $(document).ready(function(){initNavTree('classoeng_1_1core_1_1_comp_pair_3_01_t
 <div class="title">oeng::core::CompPair&lt; T1, T2, false &gt; Class Template Reference<span class="mlabels"><span class="mlabel">final</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="_comp_pair_8hpp_source.html">CompPair.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a45687341afe99b50e67eea3185141906"><td class="memTemplParams" colspan="2">template&lt;class... Second&gt; </td></tr>
-<tr class="memitem:a45687341afe99b50e67eea3185141906"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a45687341afe99b50e67eea3185141906">CompPair</a> (<a class="el" href="structoeng_1_1core_1_1_zero_then.html">ZeroThen</a>, Second &amp;&amp;... <a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a03f9232789c593c235a0396bedf8bb06">second</a>) noexcept(std::conjunction_v&lt; std::is_nothrow_default_constructible&lt; T1 &gt;, std::is_nothrow_constructible&lt; T2, Second... &gt;&gt;)</td></tr>
+<tr class="memitem:a45687341afe99b50e67eea3185141906"><td class="memTemplParams" colspan="2"><a id="a45687341afe99b50e67eea3185141906"></a>
+template&lt;class... Second&gt; </td></tr>
+<tr class="memitem:a45687341afe99b50e67eea3185141906"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CompPair</b> (<a class="el" href="structoeng_1_1core_1_1_zero_then.html">ZeroThen</a>, Second &amp;&amp;... second) noexcept(std::conjunction_v&lt; std::is_nothrow_default_constructible&lt; T1 &gt;, std::is_nothrow_constructible&lt; T2, Second... &gt;&gt;)</td></tr>
 <tr class="separator:a45687341afe99b50e67eea3185141906"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a05f3e65c5afe8dc94230712c492851c6"><td class="memTemplParams" colspan="2">template&lt;class First , class... Second&gt; </td></tr>
-<tr class="memitem:a05f3e65c5afe8dc94230712c492851c6"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a05f3e65c5afe8dc94230712c492851c6">CompPair</a> (<a class="el" href="structoeng_1_1core_1_1_one_then.html">OneThen</a>, First &amp;&amp;<a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a77079c3ad1334a4c48079a4438a1d356">first</a>, Second &amp;&amp;... <a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a03f9232789c593c235a0396bedf8bb06">second</a>) noexcept(std::conjunction_v&lt; std::is_nothrow_constructible&lt; T1, First &gt;, std::is_nothrow_constructible&lt; T2, Second... &gt;&gt;)</td></tr>
+<tr class="memitem:a05f3e65c5afe8dc94230712c492851c6"><td class="memTemplParams" colspan="2"><a id="a05f3e65c5afe8dc94230712c492851c6"></a>
+template&lt;class First , class... Second&gt; </td></tr>
+<tr class="memitem:a05f3e65c5afe8dc94230712c492851c6"><td class="memTemplItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memTemplItemRight" valign="bottom"><b>CompPair</b> (<a class="el" href="structoeng_1_1core_1_1_one_then.html">OneThen</a>, First &amp;&amp;first, Second &amp;&amp;... second) noexcept(std::conjunction_v&lt; std::is_nothrow_constructible&lt; T1, First &gt;, std::is_nothrow_constructible&lt; T2, Second... &gt;&gt;)</td></tr>
 <tr class="separator:a05f3e65c5afe8dc94230712c492851c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77079c3ad1334a4c48079a4438a1d356"><td class="memItemLeft" align="right" valign="top">constexpr T1 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a77079c3ad1334a4c48079a4438a1d356">first</a> () noexcept</td></tr>
+<tr class="memitem:a77079c3ad1334a4c48079a4438a1d356"><td class="memItemLeft" align="right" valign="top"><a id="a77079c3ad1334a4c48079a4438a1d356"></a>
+constexpr T1 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>first</b> () noexcept</td></tr>
 <tr class="separator:a77079c3ad1334a4c48079a4438a1d356"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03f9232789c593c235a0396bedf8bb06"><td class="memItemLeft" align="right" valign="top">constexpr T2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a03f9232789c593c235a0396bedf8bb06">second</a> () noexcept</td></tr>
+<tr class="memitem:a03f9232789c593c235a0396bedf8bb06"><td class="memItemLeft" align="right" valign="top"><a id="a03f9232789c593c235a0396bedf8bb06"></a>
+constexpr T2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>second</b> () noexcept</td></tr>
 <tr class="separator:a03f9232789c593c235a0396bedf8bb06"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a871ac6a277aced32ded0ccf326dd3947"><td class="memItemLeft" align="right" valign="top">constexpr const T1 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a871ac6a277aced32ded0ccf326dd3947">first</a> () const noexcept</td></tr>
+<tr class="memitem:a871ac6a277aced32ded0ccf326dd3947"><td class="memItemLeft" align="right" valign="top"><a id="a871ac6a277aced32ded0ccf326dd3947"></a>
+constexpr const T1 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>first</b> () const noexcept</td></tr>
 <tr class="separator:a871ac6a277aced32ded0ccf326dd3947"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ca566fa0a5d0e8b07e43792d7d87aa0"><td class="memItemLeft" align="right" valign="top">constexpr const T2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html#a9ca566fa0a5d0e8b07e43792d7d87aa0">second</a> () const noexcept</td></tr>
+<tr class="memitem:a9ca566fa0a5d0e8b07e43792d7d87aa0"><td class="memItemLeft" align="right" valign="top"><a id="a9ca566fa0a5d0e8b07e43792d7d87aa0"></a>
+constexpr const T2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>second</b> () const noexcept</td></tr>
 <tr class="separator:a9ca566fa0a5d0e8b07e43792d7d87aa0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a45687341afe99b50e67eea3185141906"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45687341afe99b50e67eea3185141906">&#9670;&nbsp;</a></span>CompPair() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<div class="memtemplate">
-template&lt;class... Second&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::<a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_zero_then.html">ZeroThen</a>&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Second &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>second</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a05f3e65c5afe8dc94230712c492851c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05f3e65c5afe8dc94230712c492851c6">&#9670;&nbsp;</a></span>CompPair() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<div class="memtemplate">
-template&lt;class First , class... Second&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::<a class="el" href="classoeng_1_1core_1_1_comp_pair.html">CompPair</a> </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_one_then.html">OneThen</a>&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">First &amp;&amp;&#160;</td>
-          <td class="paramname"><em>first</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Second &amp;&amp;...&#160;</td>
-          <td class="paramname"><em>second</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a871ac6a277aced32ded0ccf326dd3947"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a871ac6a277aced32ded0ccf326dd3947">&#9670;&nbsp;</a></span>first() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const T1&amp; <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::first </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a77079c3ad1334a4c48079a4438a1d356"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a77079c3ad1334a4c48079a4438a1d356">&#9670;&nbsp;</a></span>first() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr T1&amp; <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::first </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9ca566fa0a5d0e8b07e43792d7d87aa0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ca566fa0a5d0e8b07e43792d7d87aa0">&#9670;&nbsp;</a></span>second() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const T2&amp; <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::second </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a03f9232789c593c235a0396bedf8bb06"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03f9232789c593c235a0396bedf8bb06">&#9670;&nbsp;</a></span>second() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class T1 , class T2 &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr T2&amp; <a class="el" href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a>&lt; T1, T2, false &gt;::second </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">constexpr</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Core/Public/Templates/<a class="el" href="_comp_pair_8hpp_source.html">CompPair.hpp</a></li>
 </ul>
@@ -314,7 +122,7 @@ template&lt;class T1 , class T2 &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1core.html">core</a></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html">CompPair&lt; T1, T2, false &gt;</a></li>
+    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>core</b></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_comp_pair_3_01_t1_00_01_t2_00_01false_01_4.html">CompPair&lt; T1, T2, false &gt;</a></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

@@ -92,1618 +92,195 @@ $(document).ready(function(){initNavTree('classoeng_1_1core_1_1_cpu_info.html','
 <div class="title">oeng::core::CpuInfo Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="_platform_8hpp_source.html">Platform.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af82a494bf3d1b644cebf7d41bc34587a"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587a">Vendor</a> { <a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587aa341b8a8f03cf33821c46aa5c3aad4b7a">Vendor::kOther</a>, 
-<a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587aa4bb1308533814f8fa0638d9c844ff45a">Vendor::kIntel</a>, 
-<a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587aa2caecf5b0d6339f0e8a08a337536c6c8">Vendor::kAmd</a>
+<tr class="memitem:af82a494bf3d1b644cebf7d41bc34587a"><td class="memItemLeft" align="right" valign="top"><a id="af82a494bf3d1b644cebf7d41bc34587a"></a>enum &#160;</td><td class="memItemRight" valign="bottom"><b>Vendor</b> { <b>kOther</b>, 
+<b>kIntel</b>, 
+<b>kAmd</b>
  }</td></tr>
 <tr class="separator:af82a494bf3d1b644cebf7d41bc34587a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aabbed37c807fde932968360e11aa9404"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aabbed37c807fde932968360e11aa9404">GetVendor</a> () const noexcept</td></tr>
+<tr class="memitem:aabbed37c807fde932968360e11aa9404"><td class="memItemLeft" align="right" valign="top"><a id="aabbed37c807fde932968360e11aa9404"></a>
+auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetVendor</b> () const noexcept</td></tr>
 <tr class="separator:aabbed37c807fde932968360e11aa9404"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94e66156d29bfd63139bada15e41c12e"><td class="memItemLeft" align="right" valign="top">auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a94e66156d29bfd63139bada15e41c12e">GetBrand</a> () const noexcept</td></tr>
+<tr class="memitem:a94e66156d29bfd63139bada15e41c12e"><td class="memItemLeft" align="right" valign="top"><a id="a94e66156d29bfd63139bada15e41c12e"></a>
+auto &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>GetBrand</b> () const noexcept</td></tr>
 <tr class="separator:a94e66156d29bfd63139bada15e41c12e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a008934ed577dfa48ffe74dc980baf385"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587a">Vendor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a008934ed577dfa48ffe74dc980baf385">GetVendorEnum</a> () const noexcept</td></tr>
+<tr class="memitem:a008934ed577dfa48ffe74dc980baf385"><td class="memItemLeft" align="right" valign="top"><a id="a008934ed577dfa48ffe74dc980baf385"></a>
+Vendor&#160;</td><td class="memItemRight" valign="bottom"><b>GetVendorEnum</b> () const noexcept</td></tr>
 <tr class="separator:a008934ed577dfa48ffe74dc980baf385"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a488196d45c6d19718b87d673b857139b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a488196d45c6d19718b87d673b857139b">IsIntel</a> () const noexcept</td></tr>
+<tr class="memitem:a488196d45c6d19718b87d673b857139b"><td class="memItemLeft" align="right" valign="top"><a id="a488196d45c6d19718b87d673b857139b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsIntel</b> () const noexcept</td></tr>
 <tr class="separator:a488196d45c6d19718b87d673b857139b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afae2424f2132a6bfce0e2d8c72c1915a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#afae2424f2132a6bfce0e2d8c72c1915a">IsAmd</a> () const noexcept</td></tr>
+<tr class="memitem:afae2424f2132a6bfce0e2d8c72c1915a"><td class="memItemLeft" align="right" valign="top"><a id="afae2424f2132a6bfce0e2d8c72c1915a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>IsAmd</b> () const noexcept</td></tr>
 <tr class="separator:afae2424f2132a6bfce0e2d8c72c1915a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a923df7266b13533a11b974fd0e142a33"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a923df7266b13533a11b974fd0e142a33">SSE3</a> () const noexcept</td></tr>
+<tr class="memitem:a923df7266b13533a11b974fd0e142a33"><td class="memItemLeft" align="right" valign="top"><a id="a923df7266b13533a11b974fd0e142a33"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE3</b> () const noexcept</td></tr>
 <tr class="separator:a923df7266b13533a11b974fd0e142a33"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0f68b19c360f3f4a7a5708ec53e94a3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ad0f68b19c360f3f4a7a5708ec53e94a3">PCLMULQDQ</a> () const noexcept</td></tr>
+<tr class="memitem:ad0f68b19c360f3f4a7a5708ec53e94a3"><td class="memItemLeft" align="right" valign="top"><a id="ad0f68b19c360f3f4a7a5708ec53e94a3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PCLMULQDQ</b> () const noexcept</td></tr>
 <tr class="separator:ad0f68b19c360f3f4a7a5708ec53e94a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ed7284a46cb9a29539f8a4730ff8691"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a9ed7284a46cb9a29539f8a4730ff8691">MONITOR</a> () const noexcept</td></tr>
+<tr class="memitem:a9ed7284a46cb9a29539f8a4730ff8691"><td class="memItemLeft" align="right" valign="top"><a id="a9ed7284a46cb9a29539f8a4730ff8691"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>MONITOR</b> () const noexcept</td></tr>
 <tr class="separator:a9ed7284a46cb9a29539f8a4730ff8691"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6bc0471c5a4071e7f13571067571f9de"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a6bc0471c5a4071e7f13571067571f9de">SSSE3</a> () const noexcept</td></tr>
+<tr class="memitem:a6bc0471c5a4071e7f13571067571f9de"><td class="memItemLeft" align="right" valign="top"><a id="a6bc0471c5a4071e7f13571067571f9de"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSSE3</b> () const noexcept</td></tr>
 <tr class="separator:a6bc0471c5a4071e7f13571067571f9de"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ac0c27e312a82545ac8fbbe0952eabe"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a7ac0c27e312a82545ac8fbbe0952eabe">FMA</a> () const noexcept</td></tr>
+<tr class="memitem:a7ac0c27e312a82545ac8fbbe0952eabe"><td class="memItemLeft" align="right" valign="top"><a id="a7ac0c27e312a82545ac8fbbe0952eabe"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>FMA</b> () const noexcept</td></tr>
 <tr class="separator:a7ac0c27e312a82545ac8fbbe0952eabe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa7e0b7fd9f9d46486bd5fea40b5dfb3a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aa7e0b7fd9f9d46486bd5fea40b5dfb3a">CMPXCHG16B</a> () const noexcept</td></tr>
+<tr class="memitem:aa7e0b7fd9f9d46486bd5fea40b5dfb3a"><td class="memItemLeft" align="right" valign="top"><a id="aa7e0b7fd9f9d46486bd5fea40b5dfb3a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CMPXCHG16B</b> () const noexcept</td></tr>
 <tr class="separator:aa7e0b7fd9f9d46486bd5fea40b5dfb3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad94b203820e9ef7be204cf74092e4a0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ad94b203820e9ef7be204cf74092e4a0a">SSE41</a> () const noexcept</td></tr>
+<tr class="memitem:ad94b203820e9ef7be204cf74092e4a0a"><td class="memItemLeft" align="right" valign="top"><a id="ad94b203820e9ef7be204cf74092e4a0a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE41</b> () const noexcept</td></tr>
 <tr class="separator:ad94b203820e9ef7be204cf74092e4a0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5689174f5b4271a1317c22616c1beb11"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a5689174f5b4271a1317c22616c1beb11">SSE42</a> () const noexcept</td></tr>
+<tr class="memitem:a5689174f5b4271a1317c22616c1beb11"><td class="memItemLeft" align="right" valign="top"><a id="a5689174f5b4271a1317c22616c1beb11"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE42</b> () const noexcept</td></tr>
 <tr class="separator:a5689174f5b4271a1317c22616c1beb11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac592b26644e0ff800918268eb2f2825a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ac592b26644e0ff800918268eb2f2825a">MOVBE</a> () const noexcept</td></tr>
+<tr class="memitem:ac592b26644e0ff800918268eb2f2825a"><td class="memItemLeft" align="right" valign="top"><a id="ac592b26644e0ff800918268eb2f2825a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>MOVBE</b> () const noexcept</td></tr>
 <tr class="separator:ac592b26644e0ff800918268eb2f2825a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe7a82d1ebfa117ec2bb85cbb66fd3d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#afe7a82d1ebfa117ec2bb85cbb66fd3d6">POPCNT</a> () const noexcept</td></tr>
+<tr class="memitem:afe7a82d1ebfa117ec2bb85cbb66fd3d6"><td class="memItemLeft" align="right" valign="top"><a id="afe7a82d1ebfa117ec2bb85cbb66fd3d6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>POPCNT</b> () const noexcept</td></tr>
 <tr class="separator:afe7a82d1ebfa117ec2bb85cbb66fd3d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d711ba7a117e5e021c065700d28c68c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a4d711ba7a117e5e021c065700d28c68c">AES</a> () const noexcept</td></tr>
+<tr class="memitem:a4d711ba7a117e5e021c065700d28c68c"><td class="memItemLeft" align="right" valign="top"><a id="a4d711ba7a117e5e021c065700d28c68c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AES</b> () const noexcept</td></tr>
 <tr class="separator:a4d711ba7a117e5e021c065700d28c68c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4501c5b0e0d45d90ba76dda982447973"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a4501c5b0e0d45d90ba76dda982447973">XSAVE</a> () const noexcept</td></tr>
+<tr class="memitem:a4501c5b0e0d45d90ba76dda982447973"><td class="memItemLeft" align="right" valign="top"><a id="a4501c5b0e0d45d90ba76dda982447973"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>XSAVE</b> () const noexcept</td></tr>
 <tr class="separator:a4501c5b0e0d45d90ba76dda982447973"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73566c60c27182fb8c08fe7607c3d777"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a73566c60c27182fb8c08fe7607c3d777">OSXSAVE</a> () const noexcept</td></tr>
+<tr class="memitem:a73566c60c27182fb8c08fe7607c3d777"><td class="memItemLeft" align="right" valign="top"><a id="a73566c60c27182fb8c08fe7607c3d777"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>OSXSAVE</b> () const noexcept</td></tr>
 <tr class="separator:a73566c60c27182fb8c08fe7607c3d777"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5586dab978d358b47e12e2952a1de358"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a5586dab978d358b47e12e2952a1de358">AVX</a> () const noexcept</td></tr>
+<tr class="memitem:a5586dab978d358b47e12e2952a1de358"><td class="memItemLeft" align="right" valign="top"><a id="a5586dab978d358b47e12e2952a1de358"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX</b> () const noexcept</td></tr>
 <tr class="separator:a5586dab978d358b47e12e2952a1de358"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91aaf7512eb98a20f596802a9ce12ebb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a91aaf7512eb98a20f596802a9ce12ebb">F16C</a> () const noexcept</td></tr>
+<tr class="memitem:a91aaf7512eb98a20f596802a9ce12ebb"><td class="memItemLeft" align="right" valign="top"><a id="a91aaf7512eb98a20f596802a9ce12ebb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>F16C</b> () const noexcept</td></tr>
 <tr class="separator:a91aaf7512eb98a20f596802a9ce12ebb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1501fe2500bd72c382d519a34182ab95"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a1501fe2500bd72c382d519a34182ab95">RDRAND</a> () const noexcept</td></tr>
+<tr class="memitem:a1501fe2500bd72c382d519a34182ab95"><td class="memItemLeft" align="right" valign="top"><a id="a1501fe2500bd72c382d519a34182ab95"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RDRAND</b> () const noexcept</td></tr>
 <tr class="separator:a1501fe2500bd72c382d519a34182ab95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101f523ec582967ed0e6d6dc9380a68a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a101f523ec582967ed0e6d6dc9380a68a">MSR</a> () const noexcept</td></tr>
+<tr class="memitem:a101f523ec582967ed0e6d6dc9380a68a"><td class="memItemLeft" align="right" valign="top"><a id="a101f523ec582967ed0e6d6dc9380a68a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>MSR</b> () const noexcept</td></tr>
 <tr class="separator:a101f523ec582967ed0e6d6dc9380a68a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d6a29d447fa9ed6f50d5e6bee149a39"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a3d6a29d447fa9ed6f50d5e6bee149a39">CX8</a> () const noexcept</td></tr>
+<tr class="memitem:a3d6a29d447fa9ed6f50d5e6bee149a39"><td class="memItemLeft" align="right" valign="top"><a id="a3d6a29d447fa9ed6f50d5e6bee149a39"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CX8</b> () const noexcept</td></tr>
 <tr class="separator:a3d6a29d447fa9ed6f50d5e6bee149a39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a28d9776b785b3966fb46ee2a9d745e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a6a28d9776b785b3966fb46ee2a9d745e">SEP</a> () const noexcept</td></tr>
+<tr class="memitem:a6a28d9776b785b3966fb46ee2a9d745e"><td class="memItemLeft" align="right" valign="top"><a id="a6a28d9776b785b3966fb46ee2a9d745e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SEP</b> () const noexcept</td></tr>
 <tr class="separator:a6a28d9776b785b3966fb46ee2a9d745e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a966a053cd2b9dd3575266d53971d78"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a0a966a053cd2b9dd3575266d53971d78">CMOV</a> () const noexcept</td></tr>
+<tr class="memitem:a0a966a053cd2b9dd3575266d53971d78"><td class="memItemLeft" align="right" valign="top"><a id="a0a966a053cd2b9dd3575266d53971d78"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CMOV</b> () const noexcept</td></tr>
 <tr class="separator:a0a966a053cd2b9dd3575266d53971d78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8cabbd1002b5b36dc017c09f6726aa8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a8cabbd1002b5b36dc017c09f6726aa8b">CLFSH</a> () const noexcept</td></tr>
+<tr class="memitem:a8cabbd1002b5b36dc017c09f6726aa8b"><td class="memItemLeft" align="right" valign="top"><a id="a8cabbd1002b5b36dc017c09f6726aa8b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>CLFSH</b> () const noexcept</td></tr>
 <tr class="separator:a8cabbd1002b5b36dc017c09f6726aa8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0f52b50d713a13850db5cd995bba8c83"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a0f52b50d713a13850db5cd995bba8c83">MMX</a> () const noexcept</td></tr>
+<tr class="memitem:a0f52b50d713a13850db5cd995bba8c83"><td class="memItemLeft" align="right" valign="top"><a id="a0f52b50d713a13850db5cd995bba8c83"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>MMX</b> () const noexcept</td></tr>
 <tr class="separator:a0f52b50d713a13850db5cd995bba8c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abab3ece3a921e88245358110234324f2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#abab3ece3a921e88245358110234324f2">FXSR</a> () const noexcept</td></tr>
+<tr class="memitem:abab3ece3a921e88245358110234324f2"><td class="memItemLeft" align="right" valign="top"><a id="abab3ece3a921e88245358110234324f2"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>FXSR</b> () const noexcept</td></tr>
 <tr class="separator:abab3ece3a921e88245358110234324f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21c0a27550f44590306a68e47dd761fb"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a21c0a27550f44590306a68e47dd761fb">SSE</a> () const noexcept</td></tr>
+<tr class="memitem:a21c0a27550f44590306a68e47dd761fb"><td class="memItemLeft" align="right" valign="top"><a id="a21c0a27550f44590306a68e47dd761fb"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE</b> () const noexcept</td></tr>
 <tr class="separator:a21c0a27550f44590306a68e47dd761fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49d0f7449830a70ce44d2b148b1b2ca3"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a49d0f7449830a70ce44d2b148b1b2ca3">SSE2</a> () const noexcept</td></tr>
+<tr class="memitem:a49d0f7449830a70ce44d2b148b1b2ca3"><td class="memItemLeft" align="right" valign="top"><a id="a49d0f7449830a70ce44d2b148b1b2ca3"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE2</b> () const noexcept</td></tr>
 <tr class="separator:a49d0f7449830a70ce44d2b148b1b2ca3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28829416dfde8736233b59a0751ec90f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a28829416dfde8736233b59a0751ec90f">FSGSBASE</a> () const noexcept</td></tr>
+<tr class="memitem:a28829416dfde8736233b59a0751ec90f"><td class="memItemLeft" align="right" valign="top"><a id="a28829416dfde8736233b59a0751ec90f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>FSGSBASE</b> () const noexcept</td></tr>
 <tr class="separator:a28829416dfde8736233b59a0751ec90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1aea29d593d3878f99abfce8c0743366"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a1aea29d593d3878f99abfce8c0743366">BMI1</a> () const noexcept</td></tr>
+<tr class="memitem:a1aea29d593d3878f99abfce8c0743366"><td class="memItemLeft" align="right" valign="top"><a id="a1aea29d593d3878f99abfce8c0743366"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>BMI1</b> () const noexcept</td></tr>
 <tr class="separator:a1aea29d593d3878f99abfce8c0743366"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa663f8eedaf418fbde3afe77be125f54"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aa663f8eedaf418fbde3afe77be125f54">HLE</a> () const noexcept</td></tr>
+<tr class="memitem:aa663f8eedaf418fbde3afe77be125f54"><td class="memItemLeft" align="right" valign="top"><a id="aa663f8eedaf418fbde3afe77be125f54"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>HLE</b> () const noexcept</td></tr>
 <tr class="separator:aa663f8eedaf418fbde3afe77be125f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbdf6fb8d6012bc4e7830c47f02813ab"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#afbdf6fb8d6012bc4e7830c47f02813ab">AVX2</a> () const noexcept</td></tr>
+<tr class="memitem:afbdf6fb8d6012bc4e7830c47f02813ab"><td class="memItemLeft" align="right" valign="top"><a id="afbdf6fb8d6012bc4e7830c47f02813ab"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX2</b> () const noexcept</td></tr>
 <tr class="separator:afbdf6fb8d6012bc4e7830c47f02813ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7ded4174657ab4cb99a5e7b0855078c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ab7ded4174657ab4cb99a5e7b0855078c">BMI2</a> () const noexcept</td></tr>
+<tr class="memitem:ab7ded4174657ab4cb99a5e7b0855078c"><td class="memItemLeft" align="right" valign="top"><a id="ab7ded4174657ab4cb99a5e7b0855078c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>BMI2</b> () const noexcept</td></tr>
 <tr class="separator:ab7ded4174657ab4cb99a5e7b0855078c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27471bb4785cca20280af4436c9be68b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a27471bb4785cca20280af4436c9be68b">ERMS</a> () const noexcept</td></tr>
+<tr class="memitem:a27471bb4785cca20280af4436c9be68b"><td class="memItemLeft" align="right" valign="top"><a id="a27471bb4785cca20280af4436c9be68b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ERMS</b> () const noexcept</td></tr>
 <tr class="separator:a27471bb4785cca20280af4436c9be68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad686225d98430bb4bc7114bfccae5041"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ad686225d98430bb4bc7114bfccae5041">INVPCID</a> () const noexcept</td></tr>
+<tr class="memitem:ad686225d98430bb4bc7114bfccae5041"><td class="memItemLeft" align="right" valign="top"><a id="ad686225d98430bb4bc7114bfccae5041"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>INVPCID</b> () const noexcept</td></tr>
 <tr class="separator:ad686225d98430bb4bc7114bfccae5041"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac187da86ed764d40f7d1ffdd2b6f4951"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ac187da86ed764d40f7d1ffdd2b6f4951">RTM</a> () const noexcept</td></tr>
+<tr class="memitem:ac187da86ed764d40f7d1ffdd2b6f4951"><td class="memItemLeft" align="right" valign="top"><a id="ac187da86ed764d40f7d1ffdd2b6f4951"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RTM</b> () const noexcept</td></tr>
 <tr class="separator:ac187da86ed764d40f7d1ffdd2b6f4951"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad63e3d63b88d213aee8bb061b7cc4c8b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ad63e3d63b88d213aee8bb061b7cc4c8b">AVX512F</a> () const noexcept</td></tr>
+<tr class="memitem:ad63e3d63b88d213aee8bb061b7cc4c8b"><td class="memItemLeft" align="right" valign="top"><a id="ad63e3d63b88d213aee8bb061b7cc4c8b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX512F</b> () const noexcept</td></tr>
 <tr class="separator:ad63e3d63b88d213aee8bb061b7cc4c8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9555b04959f300f7c7eb85d1b6a7447e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a9555b04959f300f7c7eb85d1b6a7447e">RDSEED</a> () const noexcept</td></tr>
+<tr class="memitem:a9555b04959f300f7c7eb85d1b6a7447e"><td class="memItemLeft" align="right" valign="top"><a id="a9555b04959f300f7c7eb85d1b6a7447e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RDSEED</b> () const noexcept</td></tr>
 <tr class="separator:a9555b04959f300f7c7eb85d1b6a7447e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ac9d264a210ee9d630e3b6f4524338a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a2ac9d264a210ee9d630e3b6f4524338a">ADX</a> () const noexcept</td></tr>
+<tr class="memitem:a2ac9d264a210ee9d630e3b6f4524338a"><td class="memItemLeft" align="right" valign="top"><a id="a2ac9d264a210ee9d630e3b6f4524338a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ADX</b> () const noexcept</td></tr>
 <tr class="separator:a2ac9d264a210ee9d630e3b6f4524338a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2c77716e33e4801cc4b125720272049c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a2c77716e33e4801cc4b125720272049c">AVX512PF</a> () const noexcept</td></tr>
+<tr class="memitem:a2c77716e33e4801cc4b125720272049c"><td class="memItemLeft" align="right" valign="top"><a id="a2c77716e33e4801cc4b125720272049c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX512PF</b> () const noexcept</td></tr>
 <tr class="separator:a2c77716e33e4801cc4b125720272049c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff4fc18a51f293522795a042c8f2936b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aff4fc18a51f293522795a042c8f2936b">AVX512ER</a> () const noexcept</td></tr>
+<tr class="memitem:aff4fc18a51f293522795a042c8f2936b"><td class="memItemLeft" align="right" valign="top"><a id="aff4fc18a51f293522795a042c8f2936b"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX512ER</b> () const noexcept</td></tr>
 <tr class="separator:aff4fc18a51f293522795a042c8f2936b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0530ac86d4540b1dae842e3e6f44626c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a0530ac86d4540b1dae842e3e6f44626c">AVX512CD</a> () const noexcept</td></tr>
+<tr class="memitem:a0530ac86d4540b1dae842e3e6f44626c"><td class="memItemLeft" align="right" valign="top"><a id="a0530ac86d4540b1dae842e3e6f44626c"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>AVX512CD</b> () const noexcept</td></tr>
 <tr class="separator:a0530ac86d4540b1dae842e3e6f44626c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cee34dc0ef864826963edd06d9dd237"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a7cee34dc0ef864826963edd06d9dd237">SHA</a> () const noexcept</td></tr>
+<tr class="memitem:a7cee34dc0ef864826963edd06d9dd237"><td class="memItemLeft" align="right" valign="top"><a id="a7cee34dc0ef864826963edd06d9dd237"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SHA</b> () const noexcept</td></tr>
 <tr class="separator:a7cee34dc0ef864826963edd06d9dd237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abbb50f9724b50881c39ced260ed81de4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#abbb50f9724b50881c39ced260ed81de4">PREFETCHWT1</a> () const noexcept</td></tr>
+<tr class="memitem:abbb50f9724b50881c39ced260ed81de4"><td class="memItemLeft" align="right" valign="top"><a id="abbb50f9724b50881c39ced260ed81de4"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>PREFETCHWT1</b> () const noexcept</td></tr>
 <tr class="separator:abbb50f9724b50881c39ced260ed81de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaf2af170c25cc151cce164d326816e88"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aaf2af170c25cc151cce164d326816e88">LAHF</a> () const noexcept</td></tr>
+<tr class="memitem:aaf2af170c25cc151cce164d326816e88"><td class="memItemLeft" align="right" valign="top"><a id="aaf2af170c25cc151cce164d326816e88"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>LAHF</b> () const noexcept</td></tr>
 <tr class="separator:aaf2af170c25cc151cce164d326816e88"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad0c999951eea43603da66e4411b39d0d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ad0c999951eea43603da66e4411b39d0d">LZCNT</a> () const noexcept</td></tr>
+<tr class="memitem:ad0c999951eea43603da66e4411b39d0d"><td class="memItemLeft" align="right" valign="top"><a id="ad0c999951eea43603da66e4411b39d0d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>LZCNT</b> () const noexcept</td></tr>
 <tr class="separator:ad0c999951eea43603da66e4411b39d0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65bbd4405eab8dcb87673cea15eb75fa"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a65bbd4405eab8dcb87673cea15eb75fa">ABM</a> () const noexcept</td></tr>
+<tr class="memitem:a65bbd4405eab8dcb87673cea15eb75fa"><td class="memItemLeft" align="right" valign="top"><a id="a65bbd4405eab8dcb87673cea15eb75fa"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>ABM</b> () const noexcept</td></tr>
 <tr class="separator:a65bbd4405eab8dcb87673cea15eb75fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa455a4c0042c7add6dbfb6564027ac7d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#aa455a4c0042c7add6dbfb6564027ac7d">SSE4a</a> () const noexcept</td></tr>
+<tr class="memitem:aa455a4c0042c7add6dbfb6564027ac7d"><td class="memItemLeft" align="right" valign="top"><a id="aa455a4c0042c7add6dbfb6564027ac7d"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SSE4a</b> () const noexcept</td></tr>
 <tr class="separator:aa455a4c0042c7add6dbfb6564027ac7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af42c17b4bc7c374fea24bb57be79d475"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af42c17b4bc7c374fea24bb57be79d475">XOP</a> () const noexcept</td></tr>
+<tr class="memitem:af42c17b4bc7c374fea24bb57be79d475"><td class="memItemLeft" align="right" valign="top"><a id="af42c17b4bc7c374fea24bb57be79d475"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>XOP</b> () const noexcept</td></tr>
 <tr class="separator:af42c17b4bc7c374fea24bb57be79d475"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b4d9a5064fa5918e557c16fbabc8eff"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a1b4d9a5064fa5918e557c16fbabc8eff">TBM</a> () const noexcept</td></tr>
+<tr class="memitem:a1b4d9a5064fa5918e557c16fbabc8eff"><td class="memItemLeft" align="right" valign="top"><a id="a1b4d9a5064fa5918e557c16fbabc8eff"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>TBM</b> () const noexcept</td></tr>
 <tr class="separator:a1b4d9a5064fa5918e557c16fbabc8eff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a211bffd8ceb2fafc88db6ed6e695052e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a211bffd8ceb2fafc88db6ed6e695052e">SYSCALL</a> () const noexcept</td></tr>
+<tr class="memitem:a211bffd8ceb2fafc88db6ed6e695052e"><td class="memItemLeft" align="right" valign="top"><a id="a211bffd8ceb2fafc88db6ed6e695052e"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>SYSCALL</b> () const noexcept</td></tr>
 <tr class="separator:a211bffd8ceb2fafc88db6ed6e695052e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1eb24e221830a2d5c78070b54080e149"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a1eb24e221830a2d5c78070b54080e149">MMXEXT</a> () const noexcept</td></tr>
+<tr class="memitem:a1eb24e221830a2d5c78070b54080e149"><td class="memItemLeft" align="right" valign="top"><a id="a1eb24e221830a2d5c78070b54080e149"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>MMXEXT</b> () const noexcept</td></tr>
 <tr class="separator:a1eb24e221830a2d5c78070b54080e149"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a88a4ba1ca0da887c407a0370f2f630e1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a88a4ba1ca0da887c407a0370f2f630e1">RDTSCP</a> () const noexcept</td></tr>
+<tr class="memitem:a88a4ba1ca0da887c407a0370f2f630e1"><td class="memItemLeft" align="right" valign="top"><a id="a88a4ba1ca0da887c407a0370f2f630e1"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>RDTSCP</b> () const noexcept</td></tr>
 <tr class="separator:a88a4ba1ca0da887c407a0370f2f630e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae140c335e22223d46a2d91b985fcfa0a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#ae140c335e22223d46a2d91b985fcfa0a">_3DNOWEXT</a> () const noexcept</td></tr>
+<tr class="memitem:ae140c335e22223d46a2d91b985fcfa0a"><td class="memItemLeft" align="right" valign="top"><a id="ae140c335e22223d46a2d91b985fcfa0a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_3DNOWEXT</b> () const noexcept</td></tr>
 <tr class="separator:ae140c335e22223d46a2d91b985fcfa0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd7720d7cd2f88bffb7aeb4df6f85b3f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#abd7720d7cd2f88bffb7aeb4df6f85b3f">_3DNOW</a> () const noexcept</td></tr>
+<tr class="memitem:abd7720d7cd2f88bffb7aeb4df6f85b3f"><td class="memItemLeft" align="right" valign="top"><a id="abd7720d7cd2f88bffb7aeb4df6f85b3f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>_3DNOW</b> () const noexcept</td></tr>
 <tr class="separator:abd7720d7cd2f88bffb7aeb4df6f85b3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a349e2d7b4d48fcaee354908f93a61615"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="classoeng_1_1core_1_1_cpu_info.html">CpuInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#a349e2d7b4d48fcaee354908f93a61615">Get</a> ()</td></tr>
+<tr class="memitem:a349e2d7b4d48fcaee354908f93a61615"><td class="memItemLeft" align="right" valign="top"><a id="a349e2d7b4d48fcaee354908f93a61615"></a>
+static const <a class="el" href="classoeng_1_1core_1_1_cpu_info.html">CpuInfo</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> ()</td></tr>
 <tr class="separator:a349e2d7b4d48fcaee354908f93a61615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Enumeration Documentation</h2>
-<a id="af82a494bf3d1b644cebf7d41bc34587a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af82a494bf3d1b644cebf7d41bc34587a">&#9670;&nbsp;</a></span>Vendor</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587a">oeng::core::CpuInfo::Vendor</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af82a494bf3d1b644cebf7d41bc34587aa341b8a8f03cf33821c46aa5c3aad4b7a"></a>kOther&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af82a494bf3d1b644cebf7d41bc34587aa4bb1308533814f8fa0638d9c844ff45a"></a>kIntel&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="af82a494bf3d1b644cebf7d41bc34587aa2caecf5b0d6339f0e8a08a337536c6c8"></a>kAmd&#160;</td><td class="fielddoc"></td></tr>
-</table>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="abd7720d7cd2f88bffb7aeb4df6f85b3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd7720d7cd2f88bffb7aeb4df6f85b3f">&#9670;&nbsp;</a></span>_3DNOW()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::_3DNOW </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae140c335e22223d46a2d91b985fcfa0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae140c335e22223d46a2d91b985fcfa0a">&#9670;&nbsp;</a></span>_3DNOWEXT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::_3DNOWEXT </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a65bbd4405eab8dcb87673cea15eb75fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65bbd4405eab8dcb87673cea15eb75fa">&#9670;&nbsp;</a></span>ABM()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::ABM </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2ac9d264a210ee9d630e3b6f4524338a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ac9d264a210ee9d630e3b6f4524338a">&#9670;&nbsp;</a></span>ADX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::ADX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4d711ba7a117e5e021c065700d28c68c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d711ba7a117e5e021c065700d28c68c">&#9670;&nbsp;</a></span>AES()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AES </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5586dab978d358b47e12e2952a1de358"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5586dab978d358b47e12e2952a1de358">&#9670;&nbsp;</a></span>AVX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afbdf6fb8d6012bc4e7830c47f02813ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afbdf6fb8d6012bc4e7830c47f02813ab">&#9670;&nbsp;</a></span>AVX2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0530ac86d4540b1dae842e3e6f44626c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0530ac86d4540b1dae842e3e6f44626c">&#9670;&nbsp;</a></span>AVX512CD()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX512CD </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aff4fc18a51f293522795a042c8f2936b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff4fc18a51f293522795a042c8f2936b">&#9670;&nbsp;</a></span>AVX512ER()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX512ER </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad63e3d63b88d213aee8bb061b7cc4c8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad63e3d63b88d213aee8bb061b7cc4c8b">&#9670;&nbsp;</a></span>AVX512F()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX512F </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2c77716e33e4801cc4b125720272049c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c77716e33e4801cc4b125720272049c">&#9670;&nbsp;</a></span>AVX512PF()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::AVX512PF </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1aea29d593d3878f99abfce8c0743366"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1aea29d593d3878f99abfce8c0743366">&#9670;&nbsp;</a></span>BMI1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::BMI1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ab7ded4174657ab4cb99a5e7b0855078c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7ded4174657ab4cb99a5e7b0855078c">&#9670;&nbsp;</a></span>BMI2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::BMI2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8cabbd1002b5b36dc017c09f6726aa8b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8cabbd1002b5b36dc017c09f6726aa8b">&#9670;&nbsp;</a></span>CLFSH()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::CLFSH </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0a966a053cd2b9dd3575266d53971d78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a966a053cd2b9dd3575266d53971d78">&#9670;&nbsp;</a></span>CMOV()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::CMOV </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa7e0b7fd9f9d46486bd5fea40b5dfb3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa7e0b7fd9f9d46486bd5fea40b5dfb3a">&#9670;&nbsp;</a></span>CMPXCHG16B()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::CMPXCHG16B </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a3d6a29d447fa9ed6f50d5e6bee149a39"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d6a29d447fa9ed6f50d5e6bee149a39">&#9670;&nbsp;</a></span>CX8()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::CX8 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a27471bb4785cca20280af4436c9be68b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27471bb4785cca20280af4436c9be68b">&#9670;&nbsp;</a></span>ERMS()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::ERMS </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a91aaf7512eb98a20f596802a9ce12ebb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91aaf7512eb98a20f596802a9ce12ebb">&#9670;&nbsp;</a></span>F16C()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::F16C </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7ac0c27e312a82545ac8fbbe0952eabe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ac0c27e312a82545ac8fbbe0952eabe">&#9670;&nbsp;</a></span>FMA()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::FMA </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a28829416dfde8736233b59a0751ec90f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28829416dfde8736233b59a0751ec90f">&#9670;&nbsp;</a></span>FSGSBASE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::FSGSBASE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abab3ece3a921e88245358110234324f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abab3ece3a921e88245358110234324f2">&#9670;&nbsp;</a></span>FXSR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::FXSR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a349e2d7b4d48fcaee354908f93a61615"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a349e2d7b4d48fcaee354908f93a61615">&#9670;&nbsp;</a></span>Get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static const <a class="el" href="classoeng_1_1core_1_1_cpu_info.html">CpuInfo</a>&amp; oeng::core::CpuInfo::Get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a94e66156d29bfd63139bada15e41c12e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94e66156d29bfd63139bada15e41c12e">&#9670;&nbsp;</a></span>GetBrand()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto&amp; oeng::core::CpuInfo::GetBrand </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aabbed37c807fde932968360e11aa9404"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabbed37c807fde932968360e11aa9404">&#9670;&nbsp;</a></span>GetVendor()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto&amp; oeng::core::CpuInfo::GetVendor </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a008934ed577dfa48ffe74dc980baf385"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a008934ed577dfa48ffe74dc980baf385">&#9670;&nbsp;</a></span>GetVendorEnum()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html#af82a494bf3d1b644cebf7d41bc34587a">Vendor</a> oeng::core::CpuInfo::GetVendorEnum </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa663f8eedaf418fbde3afe77be125f54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa663f8eedaf418fbde3afe77be125f54">&#9670;&nbsp;</a></span>HLE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::HLE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad686225d98430bb4bc7114bfccae5041"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad686225d98430bb4bc7114bfccae5041">&#9670;&nbsp;</a></span>INVPCID()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::INVPCID </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afae2424f2132a6bfce0e2d8c72c1915a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afae2424f2132a6bfce0e2d8c72c1915a">&#9670;&nbsp;</a></span>IsAmd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::IsAmd </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a488196d45c6d19718b87d673b857139b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a488196d45c6d19718b87d673b857139b">&#9670;&nbsp;</a></span>IsIntel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::IsIntel </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aaf2af170c25cc151cce164d326816e88"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf2af170c25cc151cce164d326816e88">&#9670;&nbsp;</a></span>LAHF()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::LAHF </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad0c999951eea43603da66e4411b39d0d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0c999951eea43603da66e4411b39d0d">&#9670;&nbsp;</a></span>LZCNT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::LZCNT </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0f52b50d713a13850db5cd995bba8c83"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0f52b50d713a13850db5cd995bba8c83">&#9670;&nbsp;</a></span>MMX()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::MMX </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1eb24e221830a2d5c78070b54080e149"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1eb24e221830a2d5c78070b54080e149">&#9670;&nbsp;</a></span>MMXEXT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::MMXEXT </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9ed7284a46cb9a29539f8a4730ff8691"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ed7284a46cb9a29539f8a4730ff8691">&#9670;&nbsp;</a></span>MONITOR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::MONITOR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac592b26644e0ff800918268eb2f2825a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac592b26644e0ff800918268eb2f2825a">&#9670;&nbsp;</a></span>MOVBE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::MOVBE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a101f523ec582967ed0e6d6dc9380a68a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a101f523ec582967ed0e6d6dc9380a68a">&#9670;&nbsp;</a></span>MSR()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::MSR </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a73566c60c27182fb8c08fe7607c3d777"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73566c60c27182fb8c08fe7607c3d777">&#9670;&nbsp;</a></span>OSXSAVE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::OSXSAVE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad0f68b19c360f3f4a7a5708ec53e94a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad0f68b19c360f3f4a7a5708ec53e94a3">&#9670;&nbsp;</a></span>PCLMULQDQ()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::PCLMULQDQ </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="afe7a82d1ebfa117ec2bb85cbb66fd3d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe7a82d1ebfa117ec2bb85cbb66fd3d6">&#9670;&nbsp;</a></span>POPCNT()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::POPCNT </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="abbb50f9724b50881c39ced260ed81de4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abbb50f9724b50881c39ced260ed81de4">&#9670;&nbsp;</a></span>PREFETCHWT1()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::PREFETCHWT1 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1501fe2500bd72c382d519a34182ab95"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1501fe2500bd72c382d519a34182ab95">&#9670;&nbsp;</a></span>RDRAND()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::RDRAND </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a9555b04959f300f7c7eb85d1b6a7447e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9555b04959f300f7c7eb85d1b6a7447e">&#9670;&nbsp;</a></span>RDSEED()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::RDSEED </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a88a4ba1ca0da887c407a0370f2f630e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a88a4ba1ca0da887c407a0370f2f630e1">&#9670;&nbsp;</a></span>RDTSCP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::RDTSCP </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ac187da86ed764d40f7d1ffdd2b6f4951"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac187da86ed764d40f7d1ffdd2b6f4951">&#9670;&nbsp;</a></span>RTM()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::RTM </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6a28d9776b785b3966fb46ee2a9d745e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a28d9776b785b3966fb46ee2a9d745e">&#9670;&nbsp;</a></span>SEP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SEP </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7cee34dc0ef864826963edd06d9dd237"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cee34dc0ef864826963edd06d9dd237">&#9670;&nbsp;</a></span>SHA()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SHA </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a21c0a27550f44590306a68e47dd761fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21c0a27550f44590306a68e47dd761fb">&#9670;&nbsp;</a></span>SSE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a49d0f7449830a70ce44d2b148b1b2ca3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49d0f7449830a70ce44d2b148b1b2ca3">&#9670;&nbsp;</a></span>SSE2()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE2 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a923df7266b13533a11b974fd0e142a33"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a923df7266b13533a11b974fd0e142a33">&#9670;&nbsp;</a></span>SSE3()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE3 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ad94b203820e9ef7be204cf74092e4a0a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad94b203820e9ef7be204cf74092e4a0a">&#9670;&nbsp;</a></span>SSE41()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE41 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5689174f5b4271a1317c22616c1beb11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5689174f5b4271a1317c22616c1beb11">&#9670;&nbsp;</a></span>SSE42()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE42 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="aa455a4c0042c7add6dbfb6564027ac7d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa455a4c0042c7add6dbfb6564027ac7d">&#9670;&nbsp;</a></span>SSE4a()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSE4a </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a6bc0471c5a4071e7f13571067571f9de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bc0471c5a4071e7f13571067571f9de">&#9670;&nbsp;</a></span>SSSE3()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SSSE3 </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a211bffd8ceb2fafc88db6ed6e695052e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a211bffd8ceb2fafc88db6ed6e695052e">&#9670;&nbsp;</a></span>SYSCALL()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::SYSCALL </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1b4d9a5064fa5918e557c16fbabc8eff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b4d9a5064fa5918e557c16fbabc8eff">&#9670;&nbsp;</a></span>TBM()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::TBM </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af42c17b4bc7c374fea24bb57be79d475"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af42c17b4bc7c374fea24bb57be79d475">&#9670;&nbsp;</a></span>XOP()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::XOP </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4501c5b0e0d45d90ba76dda982447973"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4501c5b0e0d45d90ba76dda982447973">&#9670;&nbsp;</a></span>XSAVE()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool oeng::core::CpuInfo::XSAVE </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Core/Public/<a class="el" href="_platform_8hpp_source.html">Platform.hpp</a></li>
 </ul>
@@ -1712,7 +289,7 @@ Static Public Member Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1core.html">core</a></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html">CpuInfo</a></li>
+    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>core</b></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_cpu_info.html">CpuInfo</a></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

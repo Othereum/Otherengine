@@ -16,7 +16,7 @@ var structotm_1_1_matrix =
     [ "Matrix", "structotm_1_1_matrix.html#ac81442b779df42aeec96cdabb2f710ef", null ],
     [ "Matrix", "structotm_1_1_matrix.html#a993b2789ebb5f777a1d04519fc98d7b0", null ],
     [ "Matrix", "structotm_1_1_matrix.html#a96a189c99155aaaacb8edf81c8ea5c47", null ],
-    [ "Matrix", "structotm_1_1_matrix.html#a817d2193068aae187594abeea800aecf", null ],
+    [ "Matrix", "structotm_1_1_matrix.html#a70a8c574fbb0a6fa1ba8cc035a0720c6", null ],
     [ "Matrix", "structotm_1_1_matrix.html#a22ebd04c97e3cccbb3f5d6594e610883", null ],
     [ "AsFlatArr", "structotm_1_1_matrix.html#a993e22839d5ae54149d736522ea3f9cb", null ],
     [ "AsFlatArr", "structotm_1_1_matrix.html#ad20edb0f00ed4dde191b8a8856dc73c9", null ],
@@ -58,6 +58,6 @@ var structotm_1_1_matrix =
     [ "Row", "structotm_1_1_matrix.html#a5af9c76ba7dcd21ab6c6cbe652139a02", null ],
     [ "Row", "structotm_1_1_matrix.html#ac9a30686f4e341d690425c61a8bacdd8", null ],
     [ "Row", "structotm_1_1_matrix.html#a63885f1b3249ba788cddf13f2002e790", null ],
-    [ "Slice", "structotm_1_1_matrix.html#ad163b186c3be4a7b0cda31fd52e60e15", null ],
+    [ "Slice", "structotm_1_1_matrix.html#a0b794c0ca86ed4967a5eb820c935335b", null ],
     [ "Transposed", "structotm_1_1_matrix.html#adef18782c1f5ca51f6047b4c540dd6ce", null ]
 ];

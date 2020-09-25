@@ -87,57 +87,37 @@ $(document).ready(function(){initNavTree('_sky_light_component_8hpp_source.html'
 <div class="title">SkyLightComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_sky_light_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_component_8hpp.html">Components/SceneComponent.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_light_8hpp.html">Interfaces/Light.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html">    7</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>, <span class="keyword">public</span> ISkyLight</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#a767db16b34a0bf221c59a6e23a539c8c">   10</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#a767db16b34a0bf221c59a6e23a539c8c">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a>);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#a45d2cd6dae880af17d5651b2c27a6f61">   12</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#a45d2cd6dae880af17d5651b2c27a6f61">SkyLightComponent</a>(<a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a>&amp; owner, <span class="keywordtype">int</span> update_order = 100)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;            :<a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>{owner, update_order}, color_{0.1, 0.1, 0.1}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#ab71a7447b9993735b7d4b2ff0c1a515b">   17</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#ab71a7447b9993735b7d4b2ff0c1a515b">~SkyLightComponent</a>();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#ab7fd3245d4aa6c63c002760858181639">   19</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#ab7fd3245d4aa6c63c002760858181639">SetColor</a>(<span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; color) noexcept { color_ = color; }</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#a98f51ff3b87068ad2200cc7c6c9e1436">   20</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#a98f51ff3b87068ad2200cc7c6c9e1436">GetColor</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> color_; }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#ac06e6b1cc2bb79ed4f72089d2d79f6b1">   23</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#ac06e6b1cc2bb79ed4f72089d2d79f6b1">OnActivated</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#a937417e2f7cf1667fba1668458595cb7">   24</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#a937417e2f7cf1667fba1668458595cb7">OnDeactivated</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html#a00acc31046a7b01edc303eb70a4ef4ca">   25</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html#a00acc31046a7b01edc303eb70a4ef4ca">OnBeginPlay</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="structotm_1_1_vector.html">Vec3</a> color_;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;SceneComponent.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sky_light_component.html">    8</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_sky_light_component.html">SkyLightComponent</a>)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="structotm_1_1_vector.html">Vec3</a> color{<a class="code" href="structotm_1_1_all.html">All</a>{}, 0.2};</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordtype">void</span> OnBeginPlay() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span> OnEndPlay() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;};</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace oeng</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_ac06e6b1cc2bb79ed4f72089d2d79f6b1"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#ac06e6b1cc2bb79ed4f72089d2d79f6b1">oeng::engine::SkyLightComponent::OnActivated</a></div><div class="ttdeci">void OnActivated() override</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_a767db16b34a0bf221c59a6e23a539c8c"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#a767db16b34a0bf221c59a6e23a539c8c">oeng::engine::SkyLightComponent::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(SkyLightComponent)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_a45d2cd6dae880af17d5651b2c27a6f61"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#a45d2cd6dae880af17d5651b2c27a6f61">oeng::engine::SkyLightComponent::SkyLightComponent</a></div><div class="ttdeci">SkyLightComponent(AActor &amp;owner, int update_order=100)</div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:12</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_a00acc31046a7b01edc303eb70a4ef4ca"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#a00acc31046a7b01edc303eb70a4ef4ca">oeng::engine::SkyLightComponent::OnBeginPlay</a></div><div class="ttdeci">void OnBeginPlay() override</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_a937417e2f7cf1667fba1668458595cb7"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#a937417e2f7cf1667fba1668458595cb7">oeng::engine::SkyLightComponent::OnDeactivated</a></div><div class="ttdeci">void OnDeactivated() override</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
+<div class="ttc" id="astructotm_1_1_all_html"><div class="ttname"><a href="structotm_1_1_all.html">otm::All</a></div><div class="ttdef"><b>Definition:</b> Vector.hpp:165</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_a98f51ff3b87068ad2200cc7c6c9e1436"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#a98f51ff3b87068ad2200cc7c6c9e1436">oeng::engine::SkyLightComponent::GetColor</a></div><div class="ttdeci">const Vec3 &amp; GetColor() const noexcept override</div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:20</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_ab7fd3245d4aa6c63c002760858181639"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#ab7fd3245d4aa6c63c002760858181639">oeng::engine::SkyLightComponent::SetColor</a></div><div class="ttdeci">void SetColor(const Vec3 &amp;color) noexcept</div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:19</div></div>
-<div class="ttc" id="a_light_8hpp_html"><div class="ttname"><a href="_light_8hpp.html">Light.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html">oeng::engine::SkyLightComponent</a></div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
-<div class="ttc" id="a_scene_component_8hpp_html"><div class="ttname"><a href="_scene_component_8hpp.html">SceneComponent.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html_ab71a7447b9993735b7d4b2ff0c1a515b"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html#ab71a7447b9993735b7d4b2ff0c1a515b">oeng::engine::SkyLightComponent::~SkyLightComponent</a></div><div class="ttdeci">~SkyLightComponent()</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_sky_light_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_sky_light_component.html">oeng::engine::SkyLightComponent</a></div><div class="ttdef"><b>Definition:</b> SkyLightComponent.hpp:9</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:17</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_a04ada2230b4cd8e8e6f82e38c1dc3a4.html">Components</a></li><li class="navelem"><a class="el" href="_sky_light_component_8hpp.html">SkyLightComponent.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_a04ada2230b4cd8e8e6f82e38c1dc3a4.html">Components</a></li><li class="navelem"><b>SkyLightComponent.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

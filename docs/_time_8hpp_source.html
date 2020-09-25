@@ -87,27 +87,26 @@ $(document).ready(function(){initNavTree('_time_8hpp_source.html',''); initResiz
 <div class="title">Time.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_time_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;chrono&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1core.html">oeng::core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">namespace </span>time = std::chrono;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">using namespace </span>std::literals;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a5c7f152bcfddb1ce6a1e0c4a0d485315">    8</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#a5c7f152bcfddb1ce6a1e0c4a0d485315">Clock</a> = time::steady_clock;</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#ad6eff34008f413197322bd6c2626adde">    9</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#ad6eff34008f413197322bd6c2626adde">Duration</a> = Clock::duration;</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a1aeba739a3528afaa68a4069168ae887">   10</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#a1aeba739a3528afaa68a4069168ae887">TimePoint</a> = Clock::time_point;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>time = std::chrono;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using namespace </span>std::literals;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using</span> Clock = time::steady_clock;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">using</span> Duration = Clock::duration;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using</span> TimePoint = Clock::time_point;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html"><div class="ttname"><a href="namespaceoeng_1_1core.html">oeng::core</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a5c7f152bcfddb1ce6a1e0c4a0d485315"><div class="ttname"><a href="namespaceoeng_1_1core.html#a5c7f152bcfddb1ce6a1e0c4a0d485315">oeng::core::Clock</a></div><div class="ttdeci">time::steady_clock Clock</div><div class="ttdef"><b>Definition:</b> Time.hpp:8</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a1aeba739a3528afaa68a4069168ae887"><div class="ttname"><a href="namespaceoeng_1_1core.html#a1aeba739a3528afaa68a4069168ae887">oeng::core::TimePoint</a></div><div class="ttdeci">Clock::time_point TimePoint</div><div class="ttdef"><b>Definition:</b> Time.hpp:10</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_ad6eff34008f413197322bd6c2626adde"><div class="ttname"><a href="namespaceoeng_1_1core.html#ad6eff34008f413197322bd6c2626adde">oeng::core::Duration</a></div><div class="ttdeci">Clock::duration Duration</div><div class="ttdef"><b>Definition:</b> Time.hpp:9</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><a class="el" href="_time_8hpp.html">Time.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><b>Time.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

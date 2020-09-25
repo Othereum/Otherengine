@@ -87,66 +87,40 @@ $(document).ready(function(){initNavTree('_camera_component_8hpp_source.html',''
 <div class="title">CameraComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_camera_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_component_8hpp.html">Components/SceneComponent.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_camera_8hpp.html">Interfaces/Camera.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;CameraTypes.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Components/SceneComponent.hpp&quot;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html">    7</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_camera_component.html">CameraComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>, <span class="keyword">public</span> ICamera</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a08aa5ed4eed84722b250fe9eb34278b5">   10</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#a08aa5ed4eed84722b250fe9eb34278b5">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_camera_component.html">CameraComponent</a>);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a075bb540218ef4cf6e7ad13e40dfa8da">   12</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#a075bb540218ef4cf6e7ad13e40dfa8da">CameraComponent</a>(<a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a>&amp; owner, <span class="keywordtype">int</span> update_order = 100);</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a63b0acff19de8baabbd0d43a4f694d39">   13</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#a63b0acff19de8baabbd0d43a4f694d39">~CameraComponent</a>();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#ac12ca17a59e9335824150c94ff0bce2a">   15</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#ac12ca17a59e9335824150c94ff0bce2a">SetVFov</a>(<a class="code" href="structotm_1_1_angle.html">Rad</a> vfov) noexcept { data_.vfov = vfov; RecalcProj(); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#ab8a340ef2d011d2535558bf44b405772">   16</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#ab8a340ef2d011d2535558bf44b405772">SetNearFar</a>(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> near, <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> far) noexcept { data_.near = near; data_.far = far; RecalcProj(); }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#abd75f040441463a2f7ae3247264f1586">   18</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#abd75f040441463a2f7ae3247264f1586">GetPos</a>() const noexcept override;</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a83ce605a8198cb5fdd73274507341679">   19</a></span>&#160;        const Data&amp; GetData() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> data_;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#ae4d87838200ba9ff101f5cdbcb1ec804">   20</a></span>&#160;        <span class="keyword">const</span> <a class="code" href="structotm_1_1_matrix.html">Mat4</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_camera_component.html#ae4d87838200ba9ff101f5cdbcb1ec804">GetViewProj</a>() const noexcept override;</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a66cf5b3ae096b4329c57420525876d79">   21</a></span>&#160;        <span class="keywordtype">void</span> OnScreenSizeChanged(<a class="code" href="structotm_1_1_vector.html">Vec2u16</a> scr) noexcept override;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    protected:</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#a092a4c72489e8d8eb28d8bd784991000">   24</a></span>&#160;        <span class="keywordtype">void</span> OnTrsfChanged() noexcept override;</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#ad517003af6618f955a837a223c2a09e5">   25</a></span>&#160;        <span class="keywordtype">void</span> OnActivated() override;</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html#aa4efc056a893312d446892e4e853bcf6">   26</a></span>&#160;        <span class="keywordtype">void</span> OnDeactivated() override;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    private:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordtype">void</span> RecalcView() noexcept;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordtype">void</span> RecalcProj() noexcept;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <a class="code" href="structotm_1_1_matrix.html">Mat4</a> view_, proj_;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <a class="code" href="structotm_1_1_matrix.html">Mat4</a> view_proj_;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        Data data_{10, 10000, 60_deg};</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="structotm_1_1_vector.html">Vec2</a> scr_;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_camera_component.html">    9</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_camera_component.html">CameraComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_camera_component.html">CameraComponent</a>)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    [[nodiscard]] <a class="code" href="structoeng_1_1engine_1_1_view_info.html">ViewInfo</a> GetCameraView() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">return</span> {GetWorldPos(), GetForward(), vfov, near, far};</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="structotm_1_1_angle.html">Rad</a> vfov = 60_deg;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    Float near = 10;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    Float far = 10000;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_ab8a340ef2d011d2535558bf44b405772"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#ab8a340ef2d011d2535558bf44b405772">oeng::engine::CameraComponent::SetNearFar</a></div><div class="ttdeci">void SetNearFar(Float near, Float far) noexcept</div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:16</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_ae4d87838200ba9ff101f5cdbcb1ec804"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#ae4d87838200ba9ff101f5cdbcb1ec804">oeng::engine::CameraComponent::GetViewProj</a></div><div class="ttdeci">const Mat4 &amp; GetViewProj() const noexcept override</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_abd75f040441463a2f7ae3247264f1586"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#abd75f040441463a2f7ae3247264f1586">oeng::engine::CameraComponent::GetPos</a></div><div class="ttdeci">const Vec3 &amp; GetPos() const noexcept override</div></div>
-<div class="ttc" id="astructotm_1_1_matrix_html"><div class="ttname"><a href="structotm_1_1_matrix.html">otm::Matrix&lt; Float, 4 &gt;</a></div></div>
-<div class="ttc" id="a_camera_8hpp_html"><div class="ttname"><a href="_camera_8hpp.html">Camera.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html">oeng::engine::CameraComponent</a></div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_a075bb540218ef4cf6e7ad13e40dfa8da"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#a075bb540218ef4cf6e7ad13e40dfa8da">oeng::engine::CameraComponent::CameraComponent</a></div><div class="ttdeci">CameraComponent(AActor &amp;owner, int update_order=100)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_a63b0acff19de8baabbd0d43a4f694d39"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#a63b0acff19de8baabbd0d43a4f694d39">oeng::engine::CameraComponent::~CameraComponent</a></div><div class="ttdeci">~CameraComponent()</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
-<div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
+<div class="ttc" id="astructoeng_1_1engine_1_1_view_info_html"><div class="ttname"><a href="structoeng_1_1engine_1_1_view_info.html">oeng::engine::ViewInfo</a></div><div class="ttdef"><b>Definition:</b> CameraTypes.hpp:8</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html">oeng::engine::CameraComponent</a></div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:10</div></div>
 <div class="ttc" id="astructotm_1_1_angle_html"><div class="ttname"><a href="structotm_1_1_angle.html">otm::Angle&lt; RadR &gt;</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_ac12ca17a59e9335824150c94ff0bce2a"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#ac12ca17a59e9335824150c94ff0bce2a">oeng::engine::CameraComponent::SetVFov</a></div><div class="ttdeci">void SetVFov(Rad vfov) noexcept</div><div class="ttdef"><b>Definition:</b> CameraComponent.hpp:15</div></div>
-<div class="ttc" id="anamespaceotm_html_a4f541d78fc864cf735b8bb3d350ac52b"><div class="ttname"><a href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">otm::Float</a></div><div class="ttdeci">OTM_DEFAULT_FLOAT Float</div><div class="ttdef"><b>Definition:</b> otmfwd.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
-<div class="ttc" id="a_scene_component_8hpp_html"><div class="ttname"><a href="_scene_component_8hpp.html">SceneComponent.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_camera_component_html_a08aa5ed4eed84722b250fe9eb34278b5"><div class="ttname"><a href="classoeng_1_1engine_1_1_camera_component.html#a08aa5ed4eed84722b250fe9eb34278b5">oeng::engine::CameraComponent::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(CameraComponent)</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:17</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_977df447a731c4d33c696d3a1f50b631.html">Camera</a></li><li class="navelem"><a class="el" href="_camera_component_8hpp.html">CameraComponent.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_977df447a731c4d33c696d3a1f50b631.html">Camera</a></li><li class="navelem"><b>CameraComponent.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

@@ -90,187 +90,17 @@ $(document).ready(function(){initNavTree('classoeng_1_1core_1_1_delayed_log.html
 <div class="title">oeng::core::DelayedLog Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="_log_8hpp_source.html">Log.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa412270f91a5149a8e1c8c439894dc1e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html#aa412270f91a5149a8e1c8c439894dc1e">DelayedLog</a> ()</td></tr>
-<tr class="separator:aa412270f91a5149a8e1c8c439894dc1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a54198a7d6f41c00315fd68e2f108f579"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html#a54198a7d6f41c00315fd68e2f108f579">operator()</a> (<a class="el" href="namespaceoeng_1_1core.html#ad6eff34008f413197322bd6c2626adde">Duration</a> delay, const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;category, <a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a> level, std::u8string_view msg) const</td></tr>
-<tr class="separator:a54198a7d6f41c00315fd68e2f108f579"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cb3035cecd968e2defd6cdf05b6eb2d"><td class="memTemplParams" colspan="2">template&lt;class Rep , class Period &gt; </td></tr>
-<tr class="memitem:a7cb3035cecd968e2defd6cdf05b6eb2d"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html#a7cb3035cecd968e2defd6cdf05b6eb2d">operator()</a> (time::duration&lt; Rep, Period &gt; delay, const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;category, <a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a> level, std::u8string_view msg) const</td></tr>
-<tr class="separator:a7cb3035cecd968e2defd6cdf05b6eb2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2093b6dcf2c1ef7e96b20defceadd42c"><td class="memTemplParams" colspan="2">template&lt;class Rep , class Period , class... Args&gt; </td></tr>
-<tr class="memitem:a2093b6dcf2c1ef7e96b20defceadd42c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html#a2093b6dcf2c1ef7e96b20defceadd42c">operator()</a> (time::duration&lt; Rep, Period &gt; delay, const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;category, <a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a> level, std::u8string_view fmt, const Args &amp;... args) const</td></tr>
-<tr class="separator:a2093b6dcf2c1ef7e96b20defceadd42c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47b9dd9344abf54cf30e3fafabfc391e"><td class="memItemLeft" align="right" valign="top"><a id="a47b9dd9344abf54cf30e3fafabfc391e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>operator()</b> (Duration delay, const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;category, LogLevel level, std::u8string_view message) const</td></tr>
+<tr class="separator:a47b9dd9344abf54cf30e3fafabfc391e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa389fb9fc6fb6f6ad21cf5894b5353dc"><td class="memTemplParams" colspan="2"><a id="aa389fb9fc6fb6f6ad21cf5894b5353dc"></a>
+template&lt;class Rep , class Period , class Str , class... Args&gt; </td></tr>
+<tr class="memitem:aa389fb9fc6fb6f6ad21cf5894b5353dc"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><b>operator()</b> (time::duration&lt; Rep, Period &gt; delay, const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;category, LogLevel level, const Str &amp;format, const Args &amp;... args) const</td></tr>
+<tr class="separator:aa389fb9fc6fb6f6ad21cf5894b5353dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa412270f91a5149a8e1c8c439894dc1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa412270f91a5149a8e1c8c439894dc1e">&#9670;&nbsp;</a></span>DelayedLog()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">oeng::core::DelayedLog::DelayedLog </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a54198a7d6f41c00315fd68e2f108f579"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a54198a7d6f41c00315fd68e2f108f579">&#9670;&nbsp;</a></span>operator()() <span class="overload">[1/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void oeng::core::DelayedLog::operator() </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#ad6eff34008f413197322bd6c2626adde">Duration</a>&#160;</td>
-          <td class="paramname"><em>delay</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;&#160;</td>
-          <td class="paramname"><em>category</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a>&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::u8string_view&#160;</td>
-          <td class="paramname"><em>msg</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2093b6dcf2c1ef7e96b20defceadd42c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2093b6dcf2c1ef7e96b20defceadd42c">&#9670;&nbsp;</a></span>operator()() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Rep , class Period , class... Args&gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void oeng::core::DelayedLog::operator() </td>
-          <td>(</td>
-          <td class="paramtype">time::duration&lt; Rep, Period &gt;&#160;</td>
-          <td class="paramname"><em>delay</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;&#160;</td>
-          <td class="paramname"><em>category</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a>&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::u8string_view&#160;</td>
-          <td class="paramname"><em>fmt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const Args &amp;...&#160;</td>
-          <td class="paramname"><em>args</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a7cb3035cecd968e2defd6cdf05b6eb2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7cb3035cecd968e2defd6cdf05b6eb2d">&#9670;&nbsp;</a></span>operator()() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;class Rep , class Period &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void oeng::core::DelayedLog::operator() </td>
-          <td>(</td>
-          <td class="paramtype">time::duration&lt; Rep, Period &gt;&#160;</td>
-          <td class="paramname"><em>delay</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="structlogcat_1_1_log_category.html">logcat::LogCategory</a> &amp;&#160;</td>
-          <td class="paramname"><em>category</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespaceoeng_1_1core.html#a7383bd83e9974ff8bf603909cb0890a5">LogLevel</a>&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::u8string_view&#160;</td>
-          <td class="paramname"><em>msg</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>Source/Runtime/Core/Public/<a class="el" href="_log_8hpp_source.html">Log.hpp</a></li>
 </ul>
@@ -279,7 +109,7 @@ template&lt;class Rep , class Period &gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1core.html">core</a></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html">DelayedLog</a></li>
+    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>core</b></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_delayed_log.html">DelayedLog</a></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

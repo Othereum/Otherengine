@@ -87,37 +87,36 @@ $(document).ready(function(){initNavTree('_f_mod_error_8hpp_source.html',''); in
 <div class="title">FModError.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_f_mod_error_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;fmod.hpp&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">    6</a></span>&#160;    std::u8string_view <a class="code" href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">FModErrorString</a>(FMOD_RESULT result);</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1engine.html#a33f65e3fe255b4b42419a5183d587362">    8</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceoeng_1_1engine.html#a33f65e3fe255b4b42419a5183d587362">FModCheck</a>(FMOD_RESULT result)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="keywordflow">if</span> (result != FMOD_OK)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;            <a class="code" href="namespaceoeng_1_1core.html#a1c9346291d0c012347f625ad4aac3904">Throw</a>(<a class="code" href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">FModErrorString</a>(result));</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    }</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1engine.html#ac21b2ecff8ec569982cb6ba16888b779">   15</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="namespaceoeng_1_1engine.html#a33f65e3fe255b4b42419a5183d587362">FModCheck</a>(FMOD_RESULT result, std::u8string_view message, <span class="keyword">const</span> Args&amp;... args)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <span class="keywordflow">if</span> (result != FMOD_OK)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;            <a class="code" href="namespaceoeng_1_1core.html#a1c9346291d0c012347f625ad4aac3904">Throw</a>(u8<span class="stringliteral">&quot;{}: {} ({})&quot;</span>sv, <a class="code" href="namespaceoeng_1_1core.html#a3ea5465883df26d80ec252a17fe63ac0">Format</a>(message, args...), <a class="code" href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">FModErrorString</a>(result), result);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    }</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;std::u8string_view FModErrorString(FMOD_RESULT result);</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> FModCheck(FMOD_RESULT result)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keywordflow">if</span> (result != FMOD_OK)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error{AsString(FModErrorString(result)).data()};</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class </span>Str, <span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keywordtype">void</span> FModCheck(FMOD_RESULT result, <span class="keyword">const</span> Str&amp; message, <span class="keyword">const</span> Args&amp;... args)</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">if</span> (result != FMOD_OK)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            AsString(fmt::format(u8<span class="stringliteral">&quot;{}: {} ({})&quot;</span>sv, fmt::format(message, args...), FModErrorString(result), result))};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html_a1c9346291d0c012347f625ad4aac3904"><div class="ttname"><a href="namespaceoeng_1_1core.html#a1c9346291d0c012347f625ad4aac3904">oeng::core::Throw</a></div><div class="ttdeci">void Throw(std::u8string_view str, const Args &amp;... args)</div><div class="ttdef"><b>Definition:</b> Format.hpp:23</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html_a33f65e3fe255b4b42419a5183d587362"><div class="ttname"><a href="namespaceoeng_1_1engine.html#a33f65e3fe255b4b42419a5183d587362">oeng::engine::FModCheck</a></div><div class="ttdeci">void FModCheck(FMOD_RESULT result)</div><div class="ttdef"><b>Definition:</b> FModError.hpp:8</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a3ea5465883df26d80ec252a17fe63ac0"><div class="ttname"><a href="namespaceoeng_1_1core.html#a3ea5465883df26d80ec252a17fe63ac0">oeng::core::Format</a></div><div class="ttdeci">String8 Format(std::u8string_view str, const Args &amp;... args)</div><div class="ttdef"><b>Definition:</b> Format.hpp:15</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html_a1c340e7e663211bf736381669bc27410"><div class="ttname"><a href="namespaceoeng_1_1engine.html#a1c340e7e663211bf736381669bc27410">oeng::engine::FModErrorString</a></div><div class="ttdeci">std::u8string_view FModErrorString(FMOD_RESULT result)</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_fdd6fabb1b004367a390d513d15031de.html">Private</a></li><li class="navelem"><a class="el" href="dir_85a816ff458623044b48c36573ddb7fc.html">Audio</a></li><li class="navelem"><a class="el" href="_f_mod_error_8hpp.html">FModError.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_fdd6fabb1b004367a390d513d15031de.html">Private</a></li><li class="navelem"><a class="el" href="dir_85a816ff458623044b48c36573ddb7fc.html">Audio</a></li><li class="navelem"><b>FModError.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.19"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Engine/Public/Actors/Actor.hpp Source File</title>
+<title>Otherengine: Source/Runtime/Engine/Public/GameFramework/Actor.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,145 +87,188 @@ $(document).ready(function(){initNavTree('_actor_8hpp_source.html',''); initResi
 <div class="title">Actor.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_actor_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_math_8hpp.html">Math.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_name_8hpp.html">Name.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_timer_manager_8hpp.html">TimerManager.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_dy_arr_8hpp.html">Templates/DyArr.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_hash_set_8hpp.html">Templates/HashSet.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_pointer_8hpp.html">Templates/Pointer.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>Engine;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">class </span>World;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">class </span>ActorComponent;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">class </span>SceneComponent;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">class </span>TimerManager;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    </div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html">   17</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a> : <span class="keyword">public</span> EnableSharedFromThis&lt;AActor&gt;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#ab43dc7fb1f4a2acee3fb02d4f42d509d">   20</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#ab43dc7fb1f4a2acee3fb02d4f42d509d">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#ade92f051c6c0412a3c146ad86e154a7e">   22</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#ade92f051c6c0412a3c146ad86e154a7e">AActor</a>(<a class="code" href="classoeng_1_1engine_1_1_world.html">World</a>&amp; world);</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#af026da5af8da7ec71c505a8c8f6ba095">   23</a></span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#af026da5af8da7ec71c505a8c8f6ba095">~AActor</a>();</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Camera/CameraTypes.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;TimerManager.hpp&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">extern</span> ENGINE_API <span class="keyword">const</span> LogCategory kActor;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>World;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Engine;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>ActorComponent;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">class </span>SceneComponent;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html">   21</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1core_1_1_object.html">Object</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a>)</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a8e40143392b108ef61e4f8328f007492">   25</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a8e40143392b108ef61e4f8328f007492">BeginPlay</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#acd1348c854c29a65c2f2388a99827809">   26</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#acd1348c854c29a65c2f2388a99827809">Update</a>(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds);</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#ab50db8d6ba9fabceedf30da137bdd976">   27</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#ab50db8d6ba9fabceedf30da137bdd976">Destroy</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">template</span> &lt;std::derived_from&lt;ActorComponent&gt; T, <span class="keyword">class</span>... Args&gt;</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#ab38e801f4d048a38cb2d3eae95fd8783">   30</a></span>&#160;        SharedRef&lt;T&gt; <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#ab38e801f4d048a38cb2d3eae95fd8783">AddComponent</a>(Args&amp;&amp;... args)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            static_assert(std::is_constructible_v&lt;T, AActor&amp;, Args...&gt;);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <span class="keyword">auto</span> ptr = MakeShared&lt;T&gt;(*<span class="keyword">this</span>, std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            RegisterComponent(ptr);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> ptr;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#ab26a5ab3f896e1a93fe4c63a04b63031">   38</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#ab26a5ab3f896e1a93fe4c63a04b63031">AddTag</a>(Name tag) { tags_.insert(tag); }</div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a485ccb96273598424facbd6c979ac3b1">   39</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a485ccb96273598424facbd6c979ac3b1">RemoveTag</a>(Name tag) { tags_.erase(tag); }</div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">   40</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">HasTag</a>(Name tag) <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> tags_.contains(tag); }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a02aeeeef3ae3d32c87b9bc981a6d352e">   42</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a02aeeeef3ae3d32c87b9bc981a6d352e">SetUpdateEnabled</a>(<span class="keywordtype">bool</span> enabled) noexcept { update_enabled_ = enabled; }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">   48</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">SetRootComponent</a>(<a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>* new_root) noexcept;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a94741fc9a9b897915275f0f1fa6d6994">   49</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>* <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a94741fc9a9b897915275f0f1fa6d6994">GetRootComponent</a>() const noexcept { <span class="keywordflow">return</span> root_; }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a8f8b3d6b025885438b0c4cf205c5ffe3">   51</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a8f8b3d6b025885438b0c4cf205c5ffe3">IsPendingKill</a>() const noexcept { <span class="keywordflow">return</span> pending_kill_; }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">   57</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">SetLifespan</a>(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> in_seconds);</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#aa611f66d98892e547738cbde12af6ac6">   58</a></span>&#160;        [[nodiscard]] <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#aa611f66d98892e547738cbde12af6ac6">GetLifespan</a>() const noexcept;</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a4a8b22ce2706cc7f0029db3ae17db49d">   59</a></span>&#160;        [[nodiscard]] <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> GetInitialLifespan() const noexcept { <span class="keywordflow">return</span> init_lifespan_; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a304b39d4a8d3676ca492c5aeb5801c49">   61</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a304b39d4a8d3676ca492c5aeb5801c49">SetTrsf</a>(<span class="keyword">const</span> <a class="code" href="structotm_1_1_transform.html">Transform</a>&amp; trsf) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a47d6d2aea5556c4eaf0b0dff4f6adad1">   62</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structotm_1_1_transform.html">Transform</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a47d6d2aea5556c4eaf0b0dff4f6adad1">GetTrsf</a>() const noexcept;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        </div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a514eb3bb541b519a1b4857f64aa611df">   64</a></span>&#160;        <span class="keywordtype">void</span> SetPos(const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; pos) const noexcept;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a7d07d1059304f683e2211409834572c1">   65</a></span>&#160;        [[nodiscard]] const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetPos() const noexcept;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span> Destroy();</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; T&amp; AddComponent()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">auto</span> ptr = MakeShared&lt;T&gt;();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">auto</span>&amp; ref = *ptr;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        RegisterComponent(std::move(ptr));</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> ref;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; T&amp; AddComponent(<span class="keywordtype">int</span> update_order)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">auto</span> ptr = MakeShared&lt;T&gt;();</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">auto</span>&amp; ref = *ptr;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        ref.update_order_ = update_order;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        RegisterComponent(std::move(ptr));</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keywordflow">return</span> ref;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    [[nodiscard]] <span class="keyword">virtual</span> <a class="code" href="structoeng_1_1engine_1_1_view_info.html">ViewInfo</a> CalcCamera() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#af594aab69dff9b62953dd59b4d2fb0c8">   52</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#af594aab69dff9b62953dd59b4d2fb0c8">AddTag</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> tag)</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> tags_.insert(tag).second;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#af9edb3a1319544c7f49c3549f0024c5e">   62</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#af9edb3a1319544c7f49c3549f0024c5e">RemoveTag</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> tag)</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> tags_.erase(tag);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a31f288005f1f24638ce70782a4f242c2">   67</a></span>&#160;        <span class="keywordtype">void</span> SetRot(const <a class="code" href="structotm_1_1_quaternion.html">Quat</a>&amp; rot) const noexcept;</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a43428f17d92ed6acecbbb3cb6cde1160">   68</a></span>&#160;        [[nodiscard]] const <a class="code" href="structotm_1_1_quaternion.html">Quat</a>&amp; GetRot() const noexcept;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a85881eb24a8efa053c1366bbb4b79154">   70</a></span>&#160;        <span class="keywordtype">void</span> SetScale(const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; scale) const noexcept;</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a0185a901033becf9c719b5b76ee5c3f0">   71</a></span>&#160;        [[nodiscard]] const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetScale() const noexcept;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a3d7aaec596ee64d94d315816a10b4524">   73</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetForward() const noexcept;</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a707cfed18d6e228c7ac769418d601e50">   74</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetBackward() const noexcept;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#aaeb7702dc6e346c61891d10655d22343">   75</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetRight() const noexcept;</div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a9a88c97b7982c0f97073c13ae856ba28">   76</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetLeft() const noexcept;</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a4f6213909a7b25de7fdb381af848e673">   77</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetUp() const noexcept;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a7e971729bde9b865d647edcc37d80117">   78</a></span>&#160;        [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetDown() const noexcept;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a9dd98d800a04fbb902da92ca4e7c8bfe">   80</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1engine_1_1_world.html">World</a>&amp; GetWorld() const noexcept { <span class="keywordflow">return</span> world_; }</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a1c0feef1cddfa80a75ecfbc2d2e80f94">   81</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1engine_1_1_timer_manager.html">TimerManager</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a1c0feef1cddfa80a75ecfbc2d2e80f94">GetTimerManager</a>() const noexcept;</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">   72</a></span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">HasTag</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> tag) <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">return</span> tags_.contains(tag);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">   81</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">SetRootComponent</a>(<a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>* new_root) noexcept;</div>
 <div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    protected:</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a6b691636856cd3d36833bfebef8b1a10">   84</a></span>&#160;        virtual <span class="keywordtype">void</span> OnUpdate([[maybe_unused]] <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds) {}</div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a2e754295b956d4f0db7c15d007f60768">   85</a></span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a2e754295b956d4f0db7c15d007f60768">OnBeginPlay</a>() {}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;        <span class="keywordtype">void</span> RegisterComponent(SharedRef&lt;ActorComponent&gt; comp);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        <span class="keywordtype">void</span> UpdateComponents(<a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> delta_seconds);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordtype">bool</span> pending_kill_ : 1 = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordtype">bool</span> begun_play_ : 1 = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">bool</span> update_enabled_ : 1 = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">Float</a> init_lifespan_ = 0;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="structoeng_1_1engine_1_1_timer_handle.html">TimerHandle</a> lifespan_timer_;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_world.html">World</a>&amp; world_;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        DyArr&lt;SharedRef&lt;ActorComponent&gt;&gt; comps_;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>* root_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        HashSet&lt;Name&gt; tags_;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    };</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    [[nodiscard]] <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>* GetRootComponent() const noexcept</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">return</span> root_;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> IsPendingKill() const noexcept</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">return</span> pending_kill_;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">   97</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">SetLifespan</a>(Float in_seconds);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    [[nodiscard]] Float GetLifespan() const noexcept;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    [[nodiscard]] Float GetInitialLifespan() const noexcept</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">return</span> init_lifespan_;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> SetPos(<span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; pos) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> SetRot(<span class="keyword">const</span> <a class="code" href="structotm_1_1_quaternion.html">Quat</a>&amp; rot) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> SetScale(<span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; scale) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> SetTrsf(<span class="keyword">const</span> <a class="code" href="structotm_1_1_transform.html">Transform</a>&amp; trsf) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetPos() const noexcept;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    [[nodiscard]] const <a class="code" href="structotm_1_1_quaternion.html">Quat</a>&amp; GetRot() const noexcept;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    [[nodiscard]] const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetScale() const noexcept;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    [[nodiscard]] const <a class="code" href="structotm_1_1_transform.html">Transform</a>&amp; GetTrsf() const noexcept;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetForward() const noexcept;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetRight() const noexcept;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    [[nodiscard]] <a class="code" href="structotm_1_1_unit_vec.html">UVec3</a> GetUp() const noexcept;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    [[nodiscard]] <span class="keywordtype">bool</span> HasBegunPlay() const noexcept</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    {</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">return</span> begun_play_;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> SetOwner(<a class="code" href="classoeng_1_1core_1_1_weak_ptr.html">WeakPtr&lt;AActor&gt;</a> new_owner);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    [[nodiscard]] <span class="keyword">auto</span>&amp; GetOwner() const noexcept</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span> owner_;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    [[nodiscard]] World&amp; GetWorld() const noexcept</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        assert(world_);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">return</span> *world_;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    [[nodiscard]] Engine&amp; GetEngine() const noexcept;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#a52febe7c40956613d40e0fe2b0aa4126">  142</a></span>&#160;    <span class="keywordtype">bool</span> update_enabled = true;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_actor.html#aa93b02cff9084a1d3733149d46e00c52">  147</a></span>&#160;    <span class="keywordtype">bool</span> immortal = false;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  protected:</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    virtual <span class="keywordtype">void</span> OnBeginPlay()</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnEndPlay()</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    }</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnUpdate([[maybe_unused]] Float delta_seconds)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> OnSetOwner()</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keyword">friend</span> World;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">void</span> BeginPlay();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordtype">void</span> EndPlay();</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordtype">void</span> Update(Float delta_seconds);</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordtype">void</span> RegisterComponent(SharedRef&lt;ActorComponent&gt;&amp;&amp; comp);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    World* world_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    SceneComponent* root_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    WeakPtr&lt;AActor&gt; owner_;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    std::vector&lt;SharedRef&lt;ActorComponent&gt;&gt; comps_;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    std::unordered_set&lt;Name&gt; tags_;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    TimerHandle lifespan_timer_;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    Float init_lifespan_ = 0;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <span class="keywordtype">bool</span> pending_kill_ = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordtype">bool</span> begun_play_ = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;};</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;} <span class="comment">// namespace oeng</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <div class="ttc" id="astructotm_1_1_transform_html"><div class="ttname"><a href="structotm_1_1_transform.html">otm::Transform</a></div><div class="ttdef"><b>Definition:</b> Transform.hpp:7</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a1c0feef1cddfa80a75ecfbc2d2e80f94"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a1c0feef1cddfa80a75ecfbc2d2e80f94">oeng::engine::AActor::GetTimerManager</a></div><div class="ttdeci">TimerManager &amp; GetTimerManager() const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a47d6d2aea5556c4eaf0b0dff4f6adad1"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a47d6d2aea5556c4eaf0b0dff4f6adad1">oeng::engine::AActor::GetTrsf</a></div><div class="ttdeci">const Transform &amp; GetTrsf() const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a02aeeeef3ae3d32c87b9bc981a6d352e"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a02aeeeef3ae3d32c87b9bc981a6d352e">oeng::engine::AActor::SetUpdateEnabled</a></div><div class="ttdeci">void SetUpdateEnabled(bool enabled) noexcept</div><div class="ttdef"><b>Definition:</b> Actor.hpp:42</div></div>
-<div class="ttc" id="a_hash_set_8hpp_html"><div class="ttname"><a href="_hash_set_8hpp.html">HashSet.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_ab50db8d6ba9fabceedf30da137bdd976"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#ab50db8d6ba9fabceedf30da137bdd976">oeng::engine::AActor::Destroy</a></div><div class="ttdeci">void Destroy()</div></div>
 <div class="ttc" id="astructotm_1_1_quaternion_html"><div class="ttname"><a href="structotm_1_1_quaternion.html">otm::Quaternion&lt; Float &gt;</a></div></div>
-<div class="ttc" id="a_timer_manager_8hpp_html"><div class="ttname"><a href="_timer_manager_8hpp.html">TimerManager.hpp</a></div></div>
-<div class="ttc" id="a_math_8hpp_html"><div class="ttname"><a href="_math_8hpp.html">Math.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a94741fc9a9b897915275f0f1fa6d6994"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a94741fc9a9b897915275f0f1fa6d6994">oeng::engine::AActor::GetRootComponent</a></div><div class="ttdeci">SceneComponent * GetRootComponent() const noexcept</div><div class="ttdef"><b>Definition:</b> Actor.hpp:49</div></div>
-<div class="ttc" id="a_name_8hpp_html"><div class="ttname"><a href="_name_8hpp.html">Name.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_world_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_world.html">oeng::engine::World</a></div><div class="ttdef"><b>Definition:</b> World.hpp:10</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_acd1348c854c29a65c2f2388a99827809"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#acd1348c854c29a65c2f2388a99827809">oeng::engine::AActor::Update</a></div><div class="ttdeci">void Update(Float delta_seconds)</div></div>
-<div class="ttc" id="astructoeng_1_1engine_1_1_timer_handle_html"><div class="ttname"><a href="structoeng_1_1engine_1_1_timer_handle.html">oeng::engine::TimerHandle</a></div><div class="ttdef"><b>Definition:</b> TimerManager.hpp:28</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a7c774842c9d4bc0cb775bf682c54be83"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">oeng::engine::AActor::HasTag</a></div><div class="ttdeci">bool HasTag(Name tag) const noexcept</div><div class="ttdef"><b>Definition:</b> Actor.hpp:40</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_aa611f66d98892e547738cbde12af6ac6"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#aa611f66d98892e547738cbde12af6ac6">oeng::engine::AActor::GetLifespan</a></div><div class="ttdeci">Float GetLifespan() const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a1b1073e5cb51f9a92841c37980379a1f"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">oeng::engine::AActor::SetLifespan</a></div><div class="ttdeci">void SetLifespan(Float in_seconds)</div><div class="ttdoc">Set actor's lifespan.</div></div>
-<div class="ttc" id="a_dy_arr_8hpp_html"><div class="ttname"><a href="_dy_arr_8hpp.html">DyArr.hpp</a></div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_af9edb3a1319544c7f49c3549f0024c5e"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#af9edb3a1319544c7f49c3549f0024c5e">oeng::engine::AActor::RemoveTag</a></div><div class="ttdeci">bool RemoveTag(Name tag)</div><div class="ttdef"><b>Definition:</b> Actor.hpp:62</div></div>
+<div class="ttc" id="astructoeng_1_1engine_1_1_view_info_html"><div class="ttname"><a href="structoeng_1_1engine_1_1_view_info.html">oeng::engine::ViewInfo</a></div><div class="ttdef"><b>Definition:</b> CameraTypes.hpp:8</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_name_html"><div class="ttname"><a href="structoeng_1_1core_1_1_name.html">oeng::core::Name</a></div><div class="ttdef"><b>Definition:</b> Name.hpp:19</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a7c774842c9d4bc0cb775bf682c54be83"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a7c774842c9d4bc0cb775bf682c54be83">oeng::engine::AActor::HasTag</a></div><div class="ttdeci">bool HasTag(Name tag) const noexcept</div><div class="ttdef"><b>Definition:</b> Actor.hpp:72</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a1b1073e5cb51f9a92841c37980379a1f"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a1b1073e5cb51f9a92841c37980379a1f">oeng::engine::AActor::SetLifespan</a></div><div class="ttdeci">void SetLifespan(Float in_seconds)</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_object_html"><div class="ttname"><a href="classoeng_1_1core_1_1_object.html">oeng::core::Object</a></div><div class="ttdef"><b>Definition:</b> Object.hpp:10</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_weak_ptr_html"><div class="ttname"><a href="classoeng_1_1core_1_1_weak_ptr.html">oeng::core::WeakPtr</a></div><div class="ttdef"><b>Definition:</b> Pointer.hpp:569</div></div>
 <div class="ttc" id="astructotm_1_1_unit_vec_html"><div class="ttname"><a href="structotm_1_1_unit_vec.html">otm::UnitVec&lt; Float, 3 &gt;</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_timer_manager_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_timer_manager.html">oeng::engine::TimerManager</a></div><div class="ttdef"><b>Definition:</b> TimerManager.hpp:41</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a304b39d4a8d3676ca492c5aeb5801c49"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a304b39d4a8d3676ca492c5aeb5801c49">oeng::engine::AActor::SetTrsf</a></div><div class="ttdeci">void SetTrsf(const Transform &amp;trsf) const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_ab43dc7fb1f4a2acee3fb02d4f42d509d"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#ab43dc7fb1f4a2acee3fb02d4f42d509d">oeng::engine::AActor::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(AActor)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_ab26a5ab3f896e1a93fe4c63a04b63031"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#ab26a5ab3f896e1a93fe4c63a04b63031">oeng::engine::AActor::AddTag</a></div><div class="ttdeci">void AddTag(Name tag)</div><div class="ttdef"><b>Definition:</b> Actor.hpp:38</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_af026da5af8da7ec71c505a8c8f6ba095"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#af026da5af8da7ec71c505a8c8f6ba095">oeng::engine::AActor::~AActor</a></div><div class="ttdeci">virtual ~AActor()</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a2e754295b956d4f0db7c15d007f60768"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a2e754295b956d4f0db7c15d007f60768">oeng::engine::AActor::OnBeginPlay</a></div><div class="ttdeci">virtual void OnBeginPlay()</div><div class="ttdef"><b>Definition:</b> Actor.hpp:85</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_ab38e801f4d048a38cb2d3eae95fd8783"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#ab38e801f4d048a38cb2d3eae95fd8783">oeng::engine::AActor::AddComponent</a></div><div class="ttdeci">SharedRef&lt; T &gt; AddComponent(Args &amp;&amp;... args)</div><div class="ttdef"><b>Definition:</b> Actor.hpp:30</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a8e40143392b108ef61e4f8328f007492"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a8e40143392b108ef61e4f8328f007492">oeng::engine::AActor::BeginPlay</a></div><div class="ttdeci">void BeginPlay()</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a8f8b3d6b025885438b0c4cf205c5ffe3"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a8f8b3d6b025885438b0c4cf205c5ffe3">oeng::engine::AActor::IsPendingKill</a></div><div class="ttdeci">bool IsPendingKill() const noexcept</div><div class="ttdef"><b>Definition:</b> Actor.hpp:51</div></div>
-<div class="ttc" id="anamespaceotm_html_a4f541d78fc864cf735b8bb3d350ac52b"><div class="ttname"><a href="namespaceotm.html#a4f541d78fc864cf735b8bb3d350ac52b">otm::Float</a></div><div class="ttdeci">OTM_DEFAULT_FLOAT Float</div><div class="ttdef"><b>Definition:</b> otmfwd.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
-<div class="ttc" id="a_pointer_8hpp_html"><div class="ttname"><a href="_pointer_8hpp.html">Pointer.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a2c46275c14eace433eb269234d4f8871"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">oeng::engine::AActor::SetRootComponent</a></div><div class="ttdeci">void SetRootComponent(SceneComponent *new_root) noexcept</div><div class="ttdoc">Set root component of this actor.</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a485ccb96273598424facbd6c979ac3b1"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a485ccb96273598424facbd6c979ac3b1">oeng::engine::AActor::RemoveTag</a></div><div class="ttdeci">void RemoveTag(Name tag)</div><div class="ttdef"><b>Definition:</b> Actor.hpp:39</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_ade92f051c6c0412a3c146ad86e154a7e"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#ade92f051c6c0412a3c146ad86e154a7e">oeng::engine::AActor::AActor</a></div><div class="ttdeci">AActor(World &amp;world)</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:22</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_a2c46275c14eace433eb269234d4f8871"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#a2c46275c14eace433eb269234d4f8871">oeng::engine::AActor::SetRootComponent</a></div><div class="ttdeci">void SetRootComponent(SceneComponent *new_root) noexcept</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:17</div></div>
+<div class="ttc" id="anamespacelogcat_html"><div class="ttname"><a href="namespacelogcat.html">logcat</a></div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:8</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html_af594aab69dff9b62953dd59b4d2fb0c8"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html#af594aab69dff9b62953dd59b4d2fb0c8">oeng::engine::AActor::AddTag</a></div><div class="ttdeci">bool AddTag(Name tag)</div><div class="ttdef"><b>Definition:</b> Actor.hpp:52</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_66475898a0df7aa270259e5286653f27.html">Actors</a></li><li class="navelem"><a class="el" href="_actor_8hpp.html">Actor.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_021c3cc1d24f86eb8061e1e9ef0c7b40.html">GameFramework</a></li><li class="navelem"><b>Actor.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

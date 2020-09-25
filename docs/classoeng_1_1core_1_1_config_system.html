@@ -86,68 +86,32 @@ $(document).ready(function(){initNavTree('classoeng_1_1core_1_1_config_system.ht
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#friends">Friends</a> &#124;
 <a href="classoeng_1_1core_1_1_config_system-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">oeng::core::ConfigSystem Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-
-<p><code>#include &lt;<a class="el" href="_config_system_8hpp_source.html">ConfigSystem.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a2eadfab41626c1c77e831115ee1164f0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">operator()</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> name)</td></tr>
-<tr class="memdesc:a2eadfab41626c1c77e831115ee1164f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Find config or create if not found.  <a href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">More...</a><br /></td></tr>
+<tr class="memitem:a2eadfab41626c1c77e831115ee1164f0"><td class="memItemLeft" align="right" valign="top">Json &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">operator()</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> name)</td></tr>
 <tr class="separator:a2eadfab41626c1c77e831115ee1164f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">Save</a> (<a class="el" href="structoeng_1_1core_1_1_name.html">Name</a> name) const</td></tr>
-<tr class="memdesc:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="mdescLeft">&#160;</td><td class="mdescRight">Save config as file into the user data directory.  <a href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">More...</a><br /></td></tr>
 <tr class="separator:a1e6bc6f12fefedc5a7316ce396ffa874"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d7aadaba70bac5cebfb86e681550d1d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">LoadConfig</a> (const fs::path &amp;file)</td></tr>
-<tr class="memdesc:a8d7aadaba70bac5cebfb86e681550d1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load configurations from file.  <a href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">More...</a><br /></td></tr>
-<tr class="separator:a8d7aadaba70bac5cebfb86e681550d1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6367c966427150b1b1c4c6732ab3161d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">LoadConfigs</a> (const fs::path &amp;directory, const <a class="el" href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">TreeSet</a>&lt; fs::path &gt; &amp;extensions={u8&quot;.json&quot;sv, u8&quot;.jsonc&quot;sv})</td></tr>
-<tr class="memdesc:a6367c966427150b1b1c4c6732ab3161d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Load configuration files from given directory (not recursive).  <a href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">More...</a><br /></td></tr>
-<tr class="separator:a6367c966427150b1b1c4c6732ab3161d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37055a6c354b44ed22bd3957e57eb878"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a37055a6c354b44ed22bd3957e57eb878">LoadConfig</a> (const fs::path &amp;filepath)</td></tr>
+<tr class="separator:a37055a6c354b44ed22bd3957e57eb878"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83435bdfe4883bab07c80c2c656a2419"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a83435bdfe4883bab07c80c2c656a2419">LoadConfigs</a> (const fs::path &amp;directory, const std::set&lt; fs::path &gt; &amp;extensions={u8&quot;.json&quot;sv, u8&quot;.jsonc&quot;sv})</td></tr>
+<tr class="separator:a83435bdfe4883bab07c80c2c656a2419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a10afc1f69cddfbc509f08a1f32881aec"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#a10afc1f69cddfbc509f08a1f32881aec">Get</a> () noexcept</td></tr>
-<tr class="separator:a10afc1f69cddfbc509f08a1f32881aec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
-Friends</h2></td></tr>
-<tr class="memitem:aa4cf5dcb845df8e4ca10e7837be2c31e"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classoeng_1_1core_1_1_config_system.html#aa4cf5dcb845df8e4ca10e7837be2c31e">EngineBase</a></td></tr>
-<tr class="separator:aa4cf5dcb845df8e4ca10e7837be2c31e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bcf16c76ee39145caef32c1461f1e74"><td class="memItemLeft" align="right" valign="top"><a id="a7bcf16c76ee39145caef32c1461f1e74"></a>
+static <a class="el" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>Get</b> ()</td></tr>
+<tr class="separator:a7bcf16c76ee39145caef32c1461f1e74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a10afc1f69cddfbc509f08a1f32881aec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10afc1f69cddfbc509f08a1f32881aec">&#9670;&nbsp;</a></span>Get()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static <a class="el" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a>&amp; oeng::core::ConfigSystem::Get </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">noexcept</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8d7aadaba70bac5cebfb86e681550d1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d7aadaba70bac5cebfb86e681550d1d">&#9670;&nbsp;</a></span>LoadConfig()</h2>
+<a id="a37055a6c354b44ed22bd3957e57eb878"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37055a6c354b44ed22bd3957e57eb878">&#9670;&nbsp;</a></span>LoadConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -156,18 +120,17 @@ Friends</h2></td></tr>
           <td class="memname">void oeng::core::ConfigSystem::LoadConfig </td>
           <td>(</td>
           <td class="paramtype">const fs::path &amp;&#160;</td>
-          <td class="paramname"><em>file</em></td><td>)</td>
+          <td class="paramname"><em>filepath</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
 <p>Load configurations from file. </p>
 
 </div>
 </div>
-<a id="a6367c966427150b1b1c4c6732ab3161d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6367c966427150b1b1c4c6732ab3161d">&#9670;&nbsp;</a></span>LoadConfigs()</h2>
+<a id="a83435bdfe4883bab07c80c2c656a2419"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83435bdfe4883bab07c80c2c656a2419">&#9670;&nbsp;</a></span>LoadConfigs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -181,7 +144,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">TreeSet</a>&lt; fs::path &gt; &amp;&#160;</td>
+          <td class="paramtype">const std::set&lt; fs::path &gt; &amp;&#160;</td>
           <td class="paramname"><em>extensions</em> = <code>{u8&quot;.json&quot;sv,&#160;u8&quot;.jsonc&quot;sv}</code>&#160;</td>
         </tr>
         <tr>
@@ -191,9 +154,7 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Load configuration files from given directory (not recursive). </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Load configuration files from given directory (not recursive). </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">directory</td><td>Directory path containing configuration files </td></tr>
     <tr><td class="paramname">extensions</td><td>Extension filter. Load only files with the specified extensions if not empty. </td></tr>
@@ -213,7 +174,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a>&amp; oeng::core::ConfigSystem::operator() </td>
+          <td class="memname">Json&amp; oeng::core::ConfigSystem::operator() </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structoeng_1_1core_1_1_name.html">Name</a>&#160;</td>
           <td class="paramname"><em>name</em></td><td>)</td>
@@ -226,9 +187,7 @@ Friends</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>Find config or create if not found. </p>
-<dl class="params"><dt>Parameters</dt><dd>
+<p>Find config or create if not found. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>Config name </td></tr>
   </table>
@@ -253,38 +212,13 @@ Friends</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>Save config as file into the user data directory. </p>
-<p>Existing files will be overwritten. If a config with the given name cannot be found, it will fails silently. If failed to serialize/write to a file, an error will be logged. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Save config as file into the user data directory. Existing files will be overwritten. If a config with the given name cannot be found, it will fails silently. If failed to serialize/write to a file, an error will be logged. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">name</td><td>Config name </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>true if successful </dd></dl>
-
-</div>
-</div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="aa4cf5dcb845df8e4ca10e7837be2c31e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4cf5dcb845df8e4ca10e7837be2c31e">&#9670;&nbsp;</a></span>EngineBase</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classoeng_1_1core_1_1_engine_base.html">EngineBase</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -296,7 +230,7 @@ Friends</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespaceoeng.html">oeng</a></li><li class="navelem"><a class="el" href="namespaceoeng_1_1core.html">core</a></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a></li>
+    <li class="navelem"><b>oeng</b></li><li class="navelem"><b>core</b></li><li class="navelem"><a class="el" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

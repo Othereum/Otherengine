@@ -1,21 +1,5 @@
 var searchData=
 [
-  ['scenecomponent_1248',['SceneComponent',['../classoeng_1_1engine_1_1_scene_component.html',1,'oeng::engine']]],
-  ['scopecounter_1249',['ScopeCounter',['../classoeng_1_1core_1_1_scope_counter.html',1,'oeng::core']]],
-  ['scopestackcounter_1250',['ScopeStackCounter',['../classoeng_1_1core_1_1_scope_stack_counter.html',1,'oeng::core']]],
-  ['scopestackstat_1251',['ScopeStackStat',['../structoeng_1_1core_1_1_scope_stack_stat.html',1,'oeng::core']]],
-  ['scopestat_1252',['ScopeStat',['../structoeng_1_1core_1_1_scope_stat.html',1,'oeng::core']]],
-  ['setandenableshared_1253',['SetAndEnableShared',['../structoeng_1_1core_1_1detail_1_1_set_and_enable_shared.html',1,'oeng::core::detail']]],
-  ['shader_1254',['Shader',['../classoeng_1_1renderer_1_1_shader.html',1,'oeng::renderer']]],
-  ['sharedobjbase_1255',['SharedObjBase',['../structoeng_1_1core_1_1detail_1_1_shared_obj_base.html',1,'oeng::core::detail']]],
-  ['sharedobjinline_1256',['SharedObjInline',['../structoeng_1_1core_1_1detail_1_1_shared_obj_inline.html',1,'oeng::core::detail']]],
-  ['sharedobjptr_1257',['SharedObjPtr',['../structoeng_1_1core_1_1detail_1_1_shared_obj_ptr.html',1,'oeng::core::detail']]],
-  ['sharedptr_1258',['SharedPtr',['../classoeng_1_1core_1_1_shared_ptr.html',1,'oeng::core']]],
-  ['sharedref_1259',['SharedRef',['../classoeng_1_1core_1_1_shared_ref.html',1,'oeng::core']]],
-  ['skylightcomponent_1260',['SkyLightComponent',['../classoeng_1_1engine_1_1_sky_light_component.html',1,'oeng::engine']]],
-  ['soundevent_1261',['SoundEvent',['../classoeng_1_1engine_1_1_sound_event.html',1,'oeng::engine']]],
-  ['sphere_1262',['Sphere',['../structotm_1_1_sphere.html',1,'otm']]],
-  ['spherecomponent_1263',['SphereComponent',['../classoeng_1_1engine_1_1_sphere_component.html',1,'oeng::engine']]],
-  ['spotlightcomponent_1264',['SpotLightComponent',['../classoeng_1_1engine_1_1_spot_light_component.html',1,'oeng::engine']]],
-  ['spritecomponent_1265',['SpriteComponent',['../classoeng_1_1engine_1_1_sprite_component.html',1,'oeng::engine']]]
+  ['quaternion_281',['Quaternion',['../structotm_1_1_quaternion.html',1,'otm']]],
+  ['quaternion_3c_20float_20_3e_282',['Quaternion&lt; Float &gt;',['../structotm_1_1_quaternion.html',1,'otm']]]
 ];

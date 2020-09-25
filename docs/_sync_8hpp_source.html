@@ -87,189 +87,292 @@ $(document).ready(function(){initNavTree('_sync_8hpp_source.html',''); initResiz
 <div class="title">Sync.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_sync_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_comp_pair_8hpp.html">CompPair.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;CompPair.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;atomic&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;mutex&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1core.html">oeng::core</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_null_mutex.html">    8</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_null_mutex.html">NullMutex</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_null_mutex.html#ab3c3b283cc075a70d7326f7c6a7bcdca">   11</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_null_mutex.html#ab3c3b283cc075a70d7326f7c6a7bcdca">lock</a>() const noexcept {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_null_mutex.html#ae12e41814087002c793386213aa8e6b7">   12</a></span>&#160;        constexpr <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1core_1_1_null_mutex.html#ae12e41814087002c793386213aa8e6b7">try_lock</a>() const noexcept { <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_null_mutex.html#a6713552a2a18b555185ce925620f3e53">   13</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_null_mutex.html#a6713552a2a18b555185ce925620f3e53">unlock</a>() const noexcept {}</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    };</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt;</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html">   17</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a83f6ca1772912bdf5a8c22c59efb35a3">   19</a></span>&#160;        constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a83f6ca1772912bdf5a8c22c59efb35a3">NullAtomic</a>() noexcept = default;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ad8a17ba1fb2cb3414ded68eb04bed3db">   20</a></span>&#160;        constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>(T desired) noexcept :data{std::move(desired)} {}</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a28542658c8b617124b831fa1df06eac5">   21</a></span>&#160;        <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a28542658c8b617124b831fa1df06eac5">NullAtomic</a>(<span class="keyword">const</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a0e2b1528e33dfc13597a0a351d333d63">   22</a></span>&#160;        <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a0e2b1528e33dfc13597a0a351d333d63">NullAtomic</a>(<a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ac070b0ee3cca1ff260df8fb2d0b28fdf">   23</a></span>&#160;        <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ac070b0ee3cca1ff260df8fb2d0b28fdf">~NullAtomic</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a6376326250a824dddd08a64cba2e1077">   25</a></span>&#160;        constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a6376326250a824dddd08a64cba2e1077">operator=</a>(T desired) noexcept { data = std::move(desired); <span class="keywordflow">return</span> *<span class="keyword">this</span>; }</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a2f2a5b10bcc22dd044d7c31f8fe46b58">   26</a></span>&#160;        <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a2f2a5b10bcc22dd044d7c31f8fe46b58">operator=</a>(<span class="keyword">const</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a03189887ae6d22a4244c9b424cb54654">   27</a></span>&#160;        <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a03189887ae6d22a4244c9b424cb54654">operator=</a>(<a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a6869d16e931efb69a531cf1524a95bf3">   29</a></span>&#160;        constexpr <span class="keywordtype">void</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a6869d16e931efb69a531cf1524a95bf3">store</a>(T desired, std::memory_order = {}) noexcept { data = std::move(desired); }</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ad004cb3dcac4ec8f47ce559bc9b7bcea">   30</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ad004cb3dcac4ec8f47ce559bc9b7bcea">load</a>(std::memory_order = {}) <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> data; }</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a682696513293c5d9a9fc666e099b37fc">   31</a></span>&#160;        constexpr <span class="keyword">operator</span> T() const noexcept { <span class="keywordflow">return</span> data; }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a9db709ffee92496d495537266c39d3af">   33</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a9db709ffee92496d495537266c39d3af">exchange</a>(T desired, std::memory_order = {}) noexcept</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#a5e382117d6131b30efab13ef8cb6ab24">std::swap</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            <a class="code" href="namespaceoeng_1_1core.html#a5e382117d6131b30efab13ef8cb6ab24">swap</a>(data, desired);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">return</span> desired;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_null_mutex.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_null_mutex.html">NullMutex</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    constexpr <span class="keywordtype">void</span> lock() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    constexpr <span class="keywordtype">bool</span> try_lock() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    constexpr <span class="keywordtype">void</span> unlock() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;};</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html">   28</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T&gt; <span class="keyword">struct </span><a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>() noexcept = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>(T desired) noexcept : data{std::move(desired)}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>(<span class="keyword">const</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>(<a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    ~<a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ac56830f7ede15fd68521bdf476a2fe81">   40</a></span>&#160;        constexpr <span class="keywordtype">bool</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ac56830f7ede15fd68521bdf476a2fe81">compare_exchange_weak</a>(T&amp; expected, T desired, std::memory_order = {}, std::memory_order = {}) noexcept</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span> (data == expected)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                data = std::move(desired);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;            expected = data;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a485ef70669756ba708e6b93ffbd85754">   51</a></span>&#160;        constexpr <span class="keywordtype">bool</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a485ef70669756ba708e6b93ffbd85754">compare_exchange_strong</a>(T&amp; expected, T desired, std::memory_order = {}, std::memory_order = {}) noexcept</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ac56830f7ede15fd68521bdf476a2fe81">compare_exchange_weak</a>(expected, desired);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#aa75797e34c9eff481e7fd62429a464aa">   56</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#aa75797e34c9eff481e7fd62429a464aa">fetch_add</a>(T arg, std::memory_order = {}) noexcept { <span class="keyword">auto</span> old = data; data += std::move(arg); <span class="keywordflow">return</span> old; }</div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ac40f006ffd90c0d31983077bb4d0df4f">   57</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ac40f006ffd90c0d31983077bb4d0df4f">fetch_sub</a>(T arg, std::memory_order = {}) noexcept { <span class="keyword">auto</span> old = data; data -= std::move(arg); <span class="keywordflow">return</span> old; }</div>
-<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a6d4bea01b06d436ac9e679e5407926dc">   58</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a6d4bea01b06d436ac9e679e5407926dc">fetch_and</a>(T arg, std::memory_order = {}) noexcept { <span class="keyword">auto</span> old = data; data &amp;= std::move(arg); <span class="keywordflow">return</span> old; }</div>
-<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a36a79b5f39df189067db7dbe3b25f52c">   59</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a36a79b5f39df189067db7dbe3b25f52c">fetch_or</a>(T arg, std::memory_order = {}) noexcept { <span class="keyword">auto</span> old = data; data |= std::move(arg); <span class="keywordflow">return</span> old; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ae4b3f894a33402046ea1ef6e6aabe79e">   60</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ae4b3f894a33402046ea1ef6e6aabe79e">fetch_xor</a>(T arg, std::memory_order = {}) noexcept { <span class="keyword">auto</span> old = data; data ^= std::move(arg); <span class="keywordflow">return</span> old; }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#aff02cbad052b9dded7af0a8418c6f70b">   62</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#aff02cbad052b9dded7af0a8418c6f70b">operator++</a>() noexcept { <span class="keywordflow">return</span> ++data; }</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a20d5a49a595a106f8c30c837727a4e7f">   63</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a20d5a49a595a106f8c30c837727a4e7f">operator++</a>(<span class="keywordtype">int</span>) noexcept { <span class="keywordflow">return</span> data++; }</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#aeded8db677f3600bbc045bd261d63d75">   64</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#aeded8db677f3600bbc045bd261d63d75">operator--</a>() noexcept { <span class="keywordflow">return</span> --data; }</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#afa3c5d56d297aa36fa5e73afdea21299">   65</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#afa3c5d56d297aa36fa5e73afdea21299">operator--</a>(<span class="keywordtype">int</span>) noexcept { <span class="keywordflow">return</span> data--; }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ad6ffdcf89d2860781bdc2066eff5b90e">   67</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ad6ffdcf89d2860781bdc2066eff5b90e">operator+=</a>(T arg) noexcept { <span class="keywordflow">return</span> data += std::move(arg); }</div>
-<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#ae6677a2d737d7e5d401ee668582b568b">   68</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#ae6677a2d737d7e5d401ee668582b568b">operator-=</a>(T arg) noexcept { <span class="keywordflow">return</span> data -= std::move(arg); }</div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a86a38c048dd32a295849aa128aa02459">   69</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a86a38c048dd32a295849aa128aa02459">operator&amp;=</a>(T arg) noexcept { <span class="keywordflow">return</span> data &amp;= std::move(arg); }</div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a055e05df0dbbbf7bc7de5a9749fe30d6">   70</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a055e05df0dbbbf7bc7de5a9749fe30d6">operator|=</a>(T arg) noexcept { <span class="keywordflow">return</span> data |= std::move(arg); }</div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_null_atomic.html#a0f25267d01ae1ba806a9a0a497119c39">   71</a></span>&#160;        constexpr T <a class="code" href="structoeng_1_1core_1_1_null_atomic.html#a0f25267d01ae1ba806a9a0a497119c39">operator^=</a>(T arg) noexcept { <span class="keywordflow">return</span> data ^= std::move(arg); }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        T data;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    };</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> ThreadSafe&gt;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a51a5b74f4828aa42d64af8337c63d8b1">   78</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#a51a5b74f4828aa42d64af8337c63d8b1">CondMutex</a> = std::conditional_t&lt;ThreadSafe, std::mutex, NullMutex&gt;;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">bool</span> ThreadSafe&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#aa1445b51021f14cab17db04f4a11b103">   81</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1core.html#aa1445b51021f14cab17db04f4a11b103">CondAtomic</a> = std::conditional_t&lt;ThreadSafe, std::atomic&lt;T&gt;, <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic&lt;T&gt;</a>&gt;;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Mutex = std::mutex&gt;</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html">   84</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    constexpr <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; operator=(T desired) noexcept</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        data = std::move(desired);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; operator=(<span class="keyword">const</span> <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp; operator=(<a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic</a>&amp;&amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    constexpr <span class="keywordtype">void</span> store(T desired, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        data = std::move(desired);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    constexpr T load(std::memory_order = {}) <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    constexpr <span class="keyword">operator</span> T() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">return</span> data;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    constexpr T exchange(T desired, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    {</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keyword">using</span> std::swap;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        swap(data, desired);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordflow">return</span> desired;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    constexpr <span class="keywordtype">bool</span> compare_exchange_weak(T&amp; expected, T desired, std::memory_order = {},</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;                                         std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        <span class="keywordflow">if</span> (data == expected)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            data = std::move(desired);</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        expected = data;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    constexpr <span class="keywordtype">bool</span> compare_exchange_strong(T&amp; expected, T desired, std::memory_order = {},</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                                           std::memory_order = {}) noexcept</div>
 <div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keyword">struct </span>Handle</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        {</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keyword">explicit</span> Handle(<a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>&amp; set) :<span class="keywordtype">object</span>{set.storage_.second()}, lock{set.storage_.first()} {}</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            T* <a class="code" href="classoeng_1_1core_1_1_monitor.html#af17dbc72a02a1b0530dbb2f8a336a65b">operator-&gt;</a>() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> &amp;object; }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            T&amp; <a class="code" href="classoeng_1_1core_1_1_monitor.html#a012a3d1c5ce3894e36e1d07752a90742">operator*</a>() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> object; }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            T&amp; object;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            std::lock_guard&lt;Mutex&gt; lock;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        };</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keyword">struct </span>ConstHandle</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            <span class="keyword">explicit</span> ConstHandle(<span class="keyword">const</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>&amp; set) :<span class="keywordtype">object</span>{storage_.second()}, lock{storage_.first()} {}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keyword">const</span> T* <a class="code" href="classoeng_1_1core_1_1_monitor.html#af17dbc72a02a1b0530dbb2f8a336a65b">operator-&gt;</a>() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> &amp;object; }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="keyword">const</span> T&amp; <a class="code" href="classoeng_1_1core_1_1_monitor.html#a012a3d1c5ce3894e36e1d07752a90742">operator*</a>() <span class="keyword">const</span> noexcept { <span class="keywordflow">return</span> object; }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            <span class="keyword">const</span> T&amp; object;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            std::lock_guard&lt;Mutex&gt; lock;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        };</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <a class="code" href="classoeng_1_1core_1_1_comp_pair.html">CompPair&lt;Mutex, T&gt;</a> storage_;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#a4549544598a870f0b0fc2c1ced75e3ce">  112</a></span>&#160;        <span class="keyword">explicit</span>(<span class="keyword">sizeof</span>...(Args) == 1)</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            <a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>(Args&amp;&amp;... args) :storage_{<a class="code" href="structoeng_1_1core_1_1_zero_then.html">ZeroThen</a>{}, std::forward&lt;Args&gt;(args)...} {}</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#af17dbc72a02a1b0530dbb2f8a336a65b">  115</a></span>&#160;        Handle <a class="code" href="classoeng_1_1core_1_1_monitor.html#af17dbc72a02a1b0530dbb2f8a336a65b">operator-&gt;</a>() { <span class="keywordflow">return</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">Lock</a>(); }</div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#a012a3d1c5ce3894e36e1d07752a90742">  116</a></span>&#160;        Handle <a class="code" href="classoeng_1_1core_1_1_monitor.html#a012a3d1c5ce3894e36e1d07752a90742">operator*</a>() { <span class="keywordflow">return</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">Lock</a>(); }</div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#a28d037ad97a35fb6c08c63a17dcc3e6c">  117</a></span>&#160;        ConstHandle <a class="code" href="classoeng_1_1core_1_1_monitor.html#a28d037ad97a35fb6c08c63a17dcc3e6c">operator-&gt;</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">Lock</a>(); }</div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#a8d01154f6a8fafdd9a2b56d5c2e3d1c9">  118</a></span>&#160;        ConstHandle <a class="code" href="classoeng_1_1core_1_1_monitor.html#a8d01154f6a8fafdd9a2b56d5c2e3d1c9">operator*</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">Lock</a>(); }</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">  120</a></span>&#160;        [[nodiscard]] Handle <a class="code" href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">Lock</a>() { <span class="keywordflow">return</span> Handle{*<span class="keyword">this</span>}; }</div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#a4d761fc4bdff360a9ebc80b091ed554e">  121</a></span>&#160;        [[nodiscard]] ConstHandle <a class="code" href="classoeng_1_1core_1_1_monitor.html#a4d761fc4bdff360a9ebc80b091ed554e">Lock</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ConstHandle{*<span class="keyword">this</span>}; }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#af22e5d68b3d6a257ce6901338414e7e7">  123</a></span>&#160;        [[nodiscard]] T&amp; <a class="code" href="classoeng_1_1core_1_1_monitor.html#af22e5d68b3d6a257ce6901338414e7e7">GetUnsafe</a>() noexcept { <span class="keywordflow">return</span> storage_.<a class="code" href="classoeng_1_1core_1_1_comp_pair.html#a05b9d2d2ebdae17ccba973701ec1197e">second</a>(); }</div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html#af453a6fd87b165a5f2a2c581b72a5e9c">  124</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> T&amp; <a class="code" href="classoeng_1_1core_1_1_monitor.html#af453a6fd87b165a5f2a2c581b72a5e9c">GetUnsafe</a>() const noexcept { <span class="keywordflow">return</span> storage_.<a class="code" href="classoeng_1_1core_1_1_comp_pair.html#a05b9d2d2ebdae17ccba973701ec1197e">second</a>(); }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    };</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">bool</span> ThreadSafe&gt;</div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a203790ad214e7e366712f65092c68e7f">  128</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html">CondMonitor</a> = <a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor&lt;T, CondMutex&lt;ThreadSafe&gt;</a>&gt;;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">return</span> compare_exchange_weak(expected, desired);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    constexpr T fetch_add(T arg, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    {</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keyword">auto</span> old = data;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        data += std::move(arg);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">return</span> old;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    constexpr T fetch_sub(T arg, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keyword">auto</span> old = data;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        data -= std::move(arg);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">return</span> old;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    constexpr T fetch_and(T arg, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    {</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keyword">auto</span> old = data;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        data &amp;= std::move(arg);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> old;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    constexpr T fetch_or(T arg, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keyword">auto</span> old = data;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        data |= std::move(arg);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">return</span> old;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    }</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    constexpr T fetch_xor(T arg, std::memory_order = {}) noexcept</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">auto</span> old = data;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        data ^= std::move(arg);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">return</span> old;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    constexpr T operator++() noexcept</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    {</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">return</span> ++data;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    constexpr T operator++(<span class="keywordtype">int</span>) noexcept</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    {</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> data++;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    constexpr T operator--() noexcept</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        <span class="keywordflow">return</span> --data;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    constexpr T operator--(<span class="keywordtype">int</span>) noexcept</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> data--;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    constexpr T operator+=(T arg) noexcept</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> data += std::move(arg);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    constexpr T operator-=(T arg) noexcept</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">return</span> data -= std::move(arg);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    constexpr T operator&amp;=(T arg) noexcept</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">return</span> data &amp;= std::move(arg);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    constexpr T operator|=(T arg) noexcept</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">return</span> data |= std::move(arg);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    constexpr T operator^=(T arg) noexcept</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keywordflow">return</span> data ^= std::move(arg);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    T data;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;};</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">template</span> &lt;<span class="keywordtype">bool</span> ThreadSafe&gt; <span class="keyword">using</span> CondMutex = std::conditional_t&lt;ThreadSafe, std::mutex, NullMutex&gt;;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">bool</span> ThreadSafe&gt; <span class="keyword">using</span> CondAtomic = std::conditional_t&lt;ThreadSafe, std::atomic&lt;T&gt;, <a class="code" href="structoeng_1_1core_1_1_null_atomic.html">NullAtomic&lt;T&gt;</a>&gt;;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
+<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_monitor.html">  177</a></span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keyword">class</span> Mutex = std::mutex&gt; <span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;{</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_monitor_1_1_handle.html">  180</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structoeng_1_1core_1_1_monitor_1_1_handle.html">Handle</a></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    {</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="structoeng_1_1core_1_1_monitor_1_1_handle.html">Handle</a>(<a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>&amp; set) : object_{set.storage_.second()}, lock_{set.storage_.first()}</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        {</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        T* operator-&gt;() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">return</span> &amp;object_;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        }</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        T&amp; operator*() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;            <span class="keywordflow">return</span> object_;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;      <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        T&amp; object_;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        std::unique_lock&lt;Mutex&gt; lock_;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    };</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="structoeng_1_1core_1_1_monitor_1_1_const_handle.html">  201</a></span>&#160;    <span class="keyword">struct </span><a class="code" href="structoeng_1_1core_1_1_monitor_1_1_const_handle.html">ConstHandle</a></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    {</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <span class="keyword">explicit</span> <a class="code" href="structoeng_1_1core_1_1_monitor_1_1_const_handle.html">ConstHandle</a>(<span class="keyword">const</span> <a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>&amp; set) : object_{set.storage_.second()}, lock_{set.storage_.first()}</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keyword">const</span> T* operator-&gt;() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        {</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            <span class="keywordflow">return</span> &amp;object_;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;        }</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;        <span class="keyword">const</span> T&amp; operator*() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        {</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keywordflow">return</span> object_;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;      <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keyword">const</span> T&amp; object_;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        std::unique_lock&lt;Mutex&gt; lock_;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    };</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keyword">explicit</span>(<span class="keyword">sizeof</span>...(Args) == 1) <a class="code" href="classoeng_1_1core_1_1_monitor.html">Monitor</a>(Args&amp;&amp;... args) : storage_{<a class="code" href="structoeng_1_1core_1_1_zero_then.html">ZeroThen</a>{}, std::forward&lt;Args&gt;(args)...}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    Handle operator-&gt;()</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    {</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">return</span> Lock();</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    Handle operator*()</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <span class="keywordflow">return</span> Lock();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    ConstHandle operator-&gt;()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;        <span class="keywordflow">return</span> Lock();</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    ConstHandle operator*()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        <span class="keywordflow">return</span> Lock();</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    }</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    [[nodiscard]] Handle Lock()</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;    {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        <span class="keywordflow">return</span> Handle{*<span class="keyword">this</span>};</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    }</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    [[nodiscard]] ConstHandle Lock()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordflow">return</span> ConstHandle{*<span class="keyword">this</span>};</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    }</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160; </div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    [[nodiscard]] T&amp; GetUnsafe() noexcept</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;        <span class="keywordflow">return</span> storage_.second();</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    }</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    [[nodiscard]] <span class="keyword">const</span> T&amp; GetUnsafe() const noexcept</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    {</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        <span class="keywordflow">return</span> storage_.second();</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    CompPair&lt;Mutex, T&gt; storage_;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;};</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span> T, <span class="keywordtype">bool</span> ThreadSafe&gt; <span class="keyword">using</span> CondMonitor = Monitor&lt;T, CondMutex&lt;ThreadSafe&gt;&gt;;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160; </div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;} <span class="comment">// namespace oeng</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html_a5e382117d6131b30efab13ef8cb6ab24"><div class="ttname"><a href="namespaceoeng_1_1core.html#a5e382117d6131b30efab13ef8cb6ab24">oeng::core::swap</a></div><div class="ttdeci">void swap(Asset &amp;a, Asset &amp;b) noexcept</div><div class="ttdef"><b>Definition:</b> Asset.hpp:48</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_af22e5d68b3d6a257ce6901338414e7e7"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#af22e5d68b3d6a257ce6901338414e7e7">oeng::core::Monitor::GetUnsafe</a></div><div class="ttdeci">T &amp; GetUnsafe() noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:123</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a055e05df0dbbbf7bc7de5a9749fe30d6"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a055e05df0dbbbf7bc7de5a9749fe30d6">oeng::core::NullAtomic::operator|=</a></div><div class="ttdeci">constexpr T operator|=(T arg) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:70</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_aeded8db677f3600bbc045bd261d63d75"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#aeded8db677f3600bbc045bd261d63d75">oeng::core::NullAtomic::operator--</a></div><div class="ttdeci">constexpr T operator--() noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:64</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_aa75797e34c9eff481e7fd62429a464aa"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#aa75797e34c9eff481e7fd62429a464aa">oeng::core::NullAtomic::fetch_add</a></div><div class="ttdeci">constexpr T fetch_add(T arg, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:56</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ad004cb3dcac4ec8f47ce559bc9b7bcea"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ad004cb3dcac4ec8f47ce559bc9b7bcea">oeng::core::NullAtomic::load</a></div><div class="ttdeci">constexpr T load(std::memory_order={}) const noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:30</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html"><div class="ttname"><a href="namespaceoeng_1_1core.html">oeng::core</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a36a79b5f39df189067db7dbe3b25f52c"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a36a79b5f39df189067db7dbe3b25f52c">oeng::core::NullAtomic::fetch_or</a></div><div class="ttdeci">constexpr T fetch_or(T arg, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:59</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a03189887ae6d22a4244c9b424cb54654"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a03189887ae6d22a4244c9b424cb54654">oeng::core::NullAtomic::operator=</a></div><div class="ttdeci">NullAtomic &amp; operator=(NullAtomic &amp;&amp;)=delete</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a2f2a5b10bcc22dd044d7c31f8fe46b58"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a2f2a5b10bcc22dd044d7c31f8fe46b58">oeng::core::NullAtomic::operator=</a></div><div class="ttdeci">NullAtomic &amp; operator=(const NullAtomic &amp;)=delete</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a83f6ca1772912bdf5a8c22c59efb35a3"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a83f6ca1772912bdf5a8c22c59efb35a3">oeng::core::NullAtomic::NullAtomic</a></div><div class="ttdeci">constexpr NullAtomic() noexcept=default</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_comp_pair_html"><div class="ttname"><a href="classoeng_1_1core_1_1_comp_pair.html">oeng::core::CompPair</a></div><div class="ttdoc">Compressed pair.</div><div class="ttdef"><b>Definition:</b> CompPair.hpp:26</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_a28d037ad97a35fb6c08c63a17dcc3e6c"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#a28d037ad97a35fb6c08c63a17dcc3e6c">oeng::core::Monitor::operator-&gt;</a></div><div class="ttdeci">ConstHandle operator-&gt;() const</div><div class="ttdef"><b>Definition:</b> Sync.hpp:117</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ac40f006ffd90c0d31983077bb4d0df4f"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ac40f006ffd90c0d31983077bb4d0df4f">oeng::core::NullAtomic::fetch_sub</a></div><div class="ttdeci">constexpr T fetch_sub(T arg, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:57</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a86a38c048dd32a295849aa128aa02459"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a86a38c048dd32a295849aa128aa02459">oeng::core::NullAtomic::operator&amp;=</a></div><div class="ttdeci">constexpr T operator&amp;=(T arg) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:69</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_aa1445b51021f14cab17db04f4a11b103"><div class="ttname"><a href="namespaceoeng_1_1core.html#aa1445b51021f14cab17db04f4a11b103">oeng::core::CondAtomic</a></div><div class="ttdeci">std::conditional_t&lt; ThreadSafe, std::atomic&lt; T &gt;, NullAtomic&lt; T &gt; &gt; CondAtomic</div><div class="ttdef"><b>Definition:</b> Sync.hpp:81</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_comp_pair_html_a05b9d2d2ebdae17ccba973701ec1197e"><div class="ttname"><a href="classoeng_1_1core_1_1_comp_pair.html#a05b9d2d2ebdae17ccba973701ec1197e">oeng::core::CompPair::second</a></div><div class="ttdeci">constexpr T2 &amp; second() noexcept</div><div class="ttdef"><b>Definition:</b> CompPair.hpp:43</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ac070b0ee3cca1ff260df8fb2d0b28fdf"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ac070b0ee3cca1ff260df8fb2d0b28fdf">oeng::core::NullAtomic::~NullAtomic</a></div><div class="ttdeci">~NullAtomic()=default</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ae4b3f894a33402046ea1ef6e6aabe79e"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ae4b3f894a33402046ea1ef6e6aabe79e">oeng::core::NullAtomic::fetch_xor</a></div><div class="ttdeci">constexpr T fetch_xor(T arg, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:60</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_zero_then_html"><div class="ttname"><a href="structoeng_1_1core_1_1_zero_then.html">oeng::core::ZeroThen</a></div><div class="ttdoc">Tag type for value-initializing first, constructing second from remaining args.</div><div class="ttdef"><b>Definition:</b> CompPair.hpp:9</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_ae7c4b0361373ec6603045e5e425e4f19"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#ae7c4b0361373ec6603045e5e425e4f19">oeng::core::Monitor::Lock</a></div><div class="ttdeci">Handle Lock()</div><div class="ttdef"><b>Definition:</b> Sync.hpp:120</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ac56830f7ede15fd68521bdf476a2fe81"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ac56830f7ede15fd68521bdf476a2fe81">oeng::core::NullAtomic::compare_exchange_weak</a></div><div class="ttdeci">constexpr bool compare_exchange_weak(T &amp;expected, T desired, std::memory_order={}, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:40</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a0f25267d01ae1ba806a9a0a497119c39"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a0f25267d01ae1ba806a9a0a497119c39">oeng::core::NullAtomic::operator^=</a></div><div class="ttdeci">constexpr T operator^=(T arg) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:71</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_afa3c5d56d297aa36fa5e73afdea21299"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#afa3c5d56d297aa36fa5e73afdea21299">oeng::core::NullAtomic::operator--</a></div><div class="ttdeci">constexpr T operator--(int) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:65</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html">oeng::core::NullAtomic</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:18</div></div>
-<div class="ttc" id="a_comp_pair_8hpp_html"><div class="ttname"><a href="_comp_pair_8hpp.html">CompPair.hpp</a></div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a485ef70669756ba708e6b93ffbd85754"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a485ef70669756ba708e6b93ffbd85754">oeng::core::NullAtomic::compare_exchange_strong</a></div><div class="ttdeci">constexpr bool compare_exchange_strong(T &amp;expected, T desired, std::memory_order={}, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:51</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a20d5a49a595a106f8c30c837727a4e7f"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a20d5a49a595a106f8c30c837727a4e7f">oeng::core::NullAtomic::operator++</a></div><div class="ttdeci">constexpr T operator++(int) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:63</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a6d4bea01b06d436ac9e679e5407926dc"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a6d4bea01b06d436ac9e679e5407926dc">oeng::core::NullAtomic::fetch_and</a></div><div class="ttdeci">constexpr T fetch_and(T arg, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:58</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a6376326250a824dddd08a64cba2e1077"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a6376326250a824dddd08a64cba2e1077">oeng::core::NullAtomic::operator=</a></div><div class="ttdeci">constexpr NullAtomic &amp; operator=(T desired) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:25</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a0e2b1528e33dfc13597a0a351d333d63"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a0e2b1528e33dfc13597a0a351d333d63">oeng::core::NullAtomic::NullAtomic</a></div><div class="ttdeci">NullAtomic(NullAtomic &amp;&amp;)=delete</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_af17dbc72a02a1b0530dbb2f8a336a65b"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#af17dbc72a02a1b0530dbb2f8a336a65b">oeng::core::Monitor::operator-&gt;</a></div><div class="ttdeci">Handle operator-&gt;()</div><div class="ttdef"><b>Definition:</b> Sync.hpp:115</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html">oeng::core::Monitor</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:85</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ae6677a2d737d7e5d401ee668582b568b"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ae6677a2d737d7e5d401ee668582b568b">oeng::core::NullAtomic::operator-=</a></div><div class="ttdeci">constexpr T operator-=(T arg) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:68</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_null_mutex_html_ab3c3b283cc075a70d7326f7c6a7bcdca"><div class="ttname"><a href="classoeng_1_1core_1_1_null_mutex.html#ab3c3b283cc075a70d7326f7c6a7bcdca">oeng::core::NullMutex::lock</a></div><div class="ttdeci">constexpr void lock() const noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:11</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_null_mutex_html_a6713552a2a18b555185ce925620f3e53"><div class="ttname"><a href="classoeng_1_1core_1_1_null_mutex.html#a6713552a2a18b555185ce925620f3e53">oeng::core::NullMutex::unlock</a></div><div class="ttdeci">constexpr void unlock() const noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:13</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_aff02cbad052b9dded7af0a8418c6f70b"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#aff02cbad052b9dded7af0a8418c6f70b">oeng::core::NullAtomic::operator++</a></div><div class="ttdeci">constexpr T operator++() noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:62</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a6869d16e931efb69a531cf1524a95bf3"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a6869d16e931efb69a531cf1524a95bf3">oeng::core::NullAtomic::store</a></div><div class="ttdeci">constexpr void store(T desired, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:29</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_af453a6fd87b165a5f2a2c581b72a5e9c"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#af453a6fd87b165a5f2a2c581b72a5e9c">oeng::core::Monitor::GetUnsafe</a></div><div class="ttdeci">const T &amp; GetUnsafe() const noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:124</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_a4d761fc4bdff360a9ebc80b091ed554e"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#a4d761fc4bdff360a9ebc80b091ed554e">oeng::core::Monitor::Lock</a></div><div class="ttdeci">ConstHandle Lock() const</div><div class="ttdef"><b>Definition:</b> Sync.hpp:121</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a28542658c8b617124b831fa1df06eac5"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a28542658c8b617124b831fa1df06eac5">oeng::core::NullAtomic::NullAtomic</a></div><div class="ttdeci">NullAtomic(const NullAtomic &amp;)=delete</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_a9db709ffee92496d495537266c39d3af"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#a9db709ffee92496d495537266c39d3af">oeng::core::NullAtomic::exchange</a></div><div class="ttdeci">constexpr T exchange(T desired, std::memory_order={}) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:33</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_a012a3d1c5ce3894e36e1d07752a90742"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#a012a3d1c5ce3894e36e1d07752a90742">oeng::core::Monitor::operator*</a></div><div class="ttdeci">Handle operator*()</div><div class="ttdef"><b>Definition:</b> Sync.hpp:116</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_null_mutex_html"><div class="ttname"><a href="classoeng_1_1core_1_1_null_mutex.html">oeng::core::NullMutex</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:9</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html_a8d01154f6a8fafdd9a2b56d5c2e3d1c9"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html#a8d01154f6a8fafdd9a2b56d5c2e3d1c9">oeng::core::Monitor::operator*</a></div><div class="ttdeci">ConstHandle operator*() const</div><div class="ttdef"><b>Definition:</b> Sync.hpp:118</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_null_mutex_html_ae12e41814087002c793386213aa8e6b7"><div class="ttname"><a href="classoeng_1_1core_1_1_null_mutex.html#ae12e41814087002c793386213aa8e6b7">oeng::core::NullMutex::try_lock</a></div><div class="ttdeci">constexpr bool try_lock() const noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:12</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html_ad6ffdcf89d2860781bdc2066eff5b90e"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html#ad6ffdcf89d2860781bdc2066eff5b90e">oeng::core::NullAtomic::operator+=</a></div><div class="ttdeci">constexpr T operator+=(T arg) noexcept</div><div class="ttdef"><b>Definition:</b> Sync.hpp:67</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a51a5b74f4828aa42d64af8337c63d8b1"><div class="ttname"><a href="namespaceoeng_1_1core.html#a51a5b74f4828aa42d64af8337c63d8b1">oeng::core::CondMutex</a></div><div class="ttdeci">std::conditional_t&lt; ThreadSafe, std::mutex, NullMutex &gt; CondMutex</div><div class="ttdef"><b>Definition:</b> Sync.hpp:78</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_zero_then_html"><div class="ttname"><a href="structoeng_1_1core_1_1_zero_then.html">oeng::core::ZeroThen</a></div><div class="ttdef"><b>Definition:</b> CompPair.hpp:12</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_monitor_1_1_const_handle_html"><div class="ttname"><a href="structoeng_1_1core_1_1_monitor_1_1_const_handle.html">oeng::core::Monitor::ConstHandle</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:202</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_null_atomic_html"><div class="ttname"><a href="structoeng_1_1core_1_1_null_atomic.html">oeng::core::NullAtomic</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:29</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_monitor_html"><div class="ttname"><a href="classoeng_1_1core_1_1_monitor.html">oeng::core::Monitor</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:178</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_null_mutex_html"><div class="ttname"><a href="classoeng_1_1core_1_1_null_mutex.html">oeng::core::NullMutex</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:12</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_monitor_1_1_handle_html"><div class="ttname"><a href="structoeng_1_1core_1_1_monitor_1_1_handle.html">oeng::core::Monitor::Handle</a></div><div class="ttdef"><b>Definition:</b> Sync.hpp:181</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><a class="el" href="_sync_8hpp.html">Sync.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><b>Sync.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

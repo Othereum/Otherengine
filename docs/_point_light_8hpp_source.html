@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.19"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Engine/Public/Actors/PointLight.hpp Source File</title>
+<title>Otherengine: Source/Runtime/Engine/Public/Engine/PointLight.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,44 +87,48 @@ $(document).ready(function(){initNavTree('_point_light_8hpp_source.html',''); in
 <div class="title">PointLight.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_point_light_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_actor_8hpp.html">Actor.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;GameFramework/Actor.hpp&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">class </span>PointLightComponent;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html">    8</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html">APointLight</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html#a0dde40470ff787825fa37f55abe9f35c">   11</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html#a0dde40470ff787825fa37f55abe9f35c">APointLight</a>(<a class="code" href="classoeng_1_1engine_1_1_world.html">World</a>&amp; world);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html#a925a30825c3cd83b15bd485ef9f173b4">   13</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html#a925a30825c3cd83b15bd485ef9f173b4">SetRadius</a>(<span class="keywordtype">float</span> radius) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html#a003b0602b9e35a73d066a400dc32b2f8">   14</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html#a003b0602b9e35a73d066a400dc32b2f8">SetColor</a>(<span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; color) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html#a44f07dc09db987d1218ac3592e9f61a1">   15</a></span>&#160;        [[nodiscard]] <span class="keywordtype">float</span> <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html#a44f07dc09db987d1218ac3592e9f61a1">GetRadius</a>() const noexcept;</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html#a3c55169ca854a02b24fab33c069936dc">   16</a></span>&#160;        [[nodiscard]] const <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetColor() const noexcept;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    private:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_point_light_component.html">PointLightComponent</a>&amp; light_;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    };</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>PointLightComponent;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_a_point_light.html">   10</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html">APointLight</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_a_point_light.html">APointLight</a>)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classoeng_1_1engine_1_1_a_point_light.html">APointLight</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordtype">void</span> SetRadius(Float radius) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordtype">void</span> SetColor(<span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; color) <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    [[nodiscard]] Float GetRadius() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structotm_1_1_vector.html">Vec3</a>&amp; GetColor() <span class="keyword">const</span> noexcept;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    [[nodiscard]] <a class="code" href="classoeng_1_1engine_1_1_point_light_component.html">PointLightComponent</a>&amp; GetPointLightComp() <span class="keyword">const</span> noexcept</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> light_;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="classoeng_1_1engine_1_1_point_light_component.html">PointLightComponent</a>&amp; light_;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;}</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html_a925a30825c3cd83b15bd485ef9f173b4"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html#a925a30825c3cd83b15bd485ef9f173b4">oeng::engine::APointLight::SetRadius</a></div><div class="ttdeci">void SetRadius(float radius) const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_point_light_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_point_light_component.html">oeng::engine::PointLightComponent</a></div><div class="ttdef"><b>Definition:</b> PointLightComponent.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html_a0dde40470ff787825fa37f55abe9f35c"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html#a0dde40470ff787825fa37f55abe9f35c">oeng::engine::APointLight::APointLight</a></div><div class="ttdeci">APointLight(World &amp;world)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_world_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_world.html">oeng::engine::World</a></div><div class="ttdef"><b>Definition:</b> World.hpp:10</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html">oeng::engine::APointLight</a></div><div class="ttdef"><b>Definition:</b> PointLight.hpp:9</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html_a44f07dc09db987d1218ac3592e9f61a1"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html#a44f07dc09db987d1218ac3592e9f61a1">oeng::engine::APointLight::GetRadius</a></div><div class="ttdeci">float GetRadius() const noexcept</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html_a003b0602b9e35a73d066a400dc32b2f8"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html#a003b0602b9e35a73d066a400dc32b2f8">oeng::engine::APointLight::SetColor</a></div><div class="ttdeci">void SetColor(const Vec3 &amp;color) const noexcept</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_point_light_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_point_light_component.html">oeng::engine::PointLightComponent</a></div><div class="ttdef"><b>Definition:</b> PointLightComponent.hpp:10</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_point_light_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_point_light.html">oeng::engine::APointLight</a></div><div class="ttdef"><b>Definition:</b> PointLight.hpp:11</div></div>
 <div class="ttc" id="astructotm_1_1_vector_html"><div class="ttname"><a href="structotm_1_1_vector.html">otm::Vector&lt; Float, 3 &gt;</a></div></div>
-<div class="ttc" id="a_actor_8hpp_html"><div class="ttname"><a href="_actor_8hpp.html">Actor.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:22</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_66475898a0df7aa270259e5286653f27.html">Actors</a></li><li class="navelem"><a class="el" href="_point_light_8hpp.html">PointLight.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_9321d69b04217bf6116ed6d17c9904a2.html">Engine</a></li><li class="navelem"><b>PointLight.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

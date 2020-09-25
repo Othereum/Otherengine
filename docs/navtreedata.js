@@ -26,49 +26,35 @@ var NAVTREE =
 [
   [ "Otherengine", "index.html", [
     [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Variables", "namespacemembers_vars.html", null ],
-        [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
-      ] ]
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", "functions_dup" ],
-        [ "Functions", "functions_func.html", "functions_func" ],
-        [ "Variables", "functions_vars.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
-        [ "Enumerations", "functions_enum.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
+        [ "All", "functions.html", null ],
+        [ "Functions", "functions_func.html", null ],
+        [ "Variables", "functions_vars.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"_a_i_component_8hpp.html",
-"_input_code_8hpp.html#aaebb0fd5bea8bcad3248ad83a2f8d06da3a3ea00cfc35332cedf6e5e9a32e94da",
-"_math_8hpp.html",
-"classoeng_1_1core_1_1_cpu_info.html#a5586dab978d358b47e12e2952a1de358",
-"classoeng_1_1engine_1_1_a_mesh_actor.html#a87d9d539f675f46309dae2eb8356de70",
-"classoeng_1_1engine_1_1ai__state_1_1_base.html#a12242b0abbd5d3247c6888af36c3ed02",
-"functions_q.html",
-"structoeng_1_1renderer_1_1_i_spot_light_1_1_data_1_1_cone.html",
-"structotm_1_1_vector_1_1const__iterator.html#a91055693a2d56fde6b245302f0e8d221"
+"_actor_8hpp_source.html",
+"classoeng_1_1core_1_1_cpu_info.html#a7cee34dc0ef864826963edd06d9dd237",
+"classoeng_1_1core_1_1_shared_ptr.html#a6a9b9c2825161ab0faa65f3b17ae809c",
+"classoeng_1_1engine_1_1_a_game_mode_base.html",
+"classoeng_1_1engine_1_1_input_component.html",
+"classoeng_1_1engine_1_1_sphere_component.html#a361773f2ab3f9c4bb3187857c7a08799",
+"classoeng_1_1rhi_1_1_r_h_i_shader.html",
+"structoeng_1_1core_1_1_zero_then.html#adaf9aca086e830770fd56a8d2b15cc21",
+"structotm_1_1_transform.html#a957e25bca432f116ee4e6ba99fe9c8e1"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

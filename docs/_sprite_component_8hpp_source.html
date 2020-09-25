@@ -87,70 +87,60 @@ $(document).ready(function(){initNavTree('_sprite_component_8hpp_source.html',''
 <div class="title">SpriteComponent.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_sprite_component_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_drawable_8hpp.html">Interfaces/Drawable.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_scene_component_8hpp.html">SceneComponent.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_path_8hpp.html">Path.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">struct </span>SDL_Renderer;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">class </span>Texture;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;SceneComponent.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>Texture;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html">   10</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html">SpriteComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_sprite_component.html">SpriteComponent</a>)</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1engine.html">oeng::engine</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html">   16</a></span>&#160;    <span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html">SpriteComponent</a> : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_scene_component.html">SceneComponent</a>, <span class="keyword">public</span> ISpriteComponent</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a9500871e33453b5e44492b6fa731f8b6">   19</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a9500871e33453b5e44492b6fa731f8b6">DELETE_CPMV</a>(<a class="code" href="classoeng_1_1engine_1_1_sprite_component.html">SpriteComponent</a>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a67f398813015fd81d89df8ab98d9853d">   21</a></span>&#160;        <span class="keyword">explicit</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a67f398813015fd81d89df8ab98d9853d">SpriteComponent</a>(<a class="code" href="classoeng_1_1engine_1_1_a_actor.html">AActor</a>&amp; owner, <span class="keywordtype">int</span> draw_order = 100, <span class="keywordtype">int</span> update_order = 100);</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#ad294758a7ff316426c2c6e266c92919f">   22</a></span>&#160;        <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#ad294758a7ff316426c2c6e266c92919f">~SpriteComponent</a>();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a5c88b84286623008fe493b8d32b873d3">   24</a></span>&#160;        [[nodiscard]] <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a5c88b84286623008fe493b8d32b873d3">ShouldDraw</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> IsActive(); }</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#afcb896d68597911a9a238f4f4ef488cc">   25</a></span>&#160;        [[nodiscard]] <span class="keywordtype">int</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#afcb896d68597911a9a238f4f4ef488cc">GetDrawOrder</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> draw_order_; }</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#aac10db18a820dfd0cf7f63a3f5f99aa0">   26</a></span>&#160;        [[nodiscard]] <span class="keyword">const</span> <a class="code" href="structotm_1_1_matrix.html">Mat4</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#aac10db18a820dfd0cf7f63a3f5f99aa0">GetDrawTrsf</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> GetWorldTrsfMatrix(); }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a952c2311596e11958fd13bcb08cab4b0">   28</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a952c2311596e11958fd13bcb08cab4b0">SetTexture</a>(Path file);</div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">   29</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">SetTexture</a>(SharedRef&lt;Texture&gt; texture) noexcept { texture_ = std::move(texture); }</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#ad602dc7cb8f72a04d9d06f888b968e69">   30</a></span>&#160;        [[nodiscard]] Texture&amp; <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#ad602dc7cb8f72a04d9d06f888b968e69">GetTexture</a>() const noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> *texture_; }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a35fd915857544cbd82ac76ce620a5f29">   33</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a35fd915857544cbd82ac76ce620a5f29">OnBeginPlay</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html">SpriteComponent</a>();</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">SetTexture</a>(<a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> texture) noexcept</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        texture_ = std::move(texture);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_sprite_component.html#a296ef9fc5bc1e936451afbf642e9a2c6">   30</a></span>&#160;    [[nodiscard]] <span class="keyword">const</span> <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a>&amp; <a class="code" href="classoeng_1_1engine_1_1_sprite_component.html#a296ef9fc5bc1e936451afbf642e9a2c6">GetTexture</a>() const noexcept</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keywordflow">return</span> texture_;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        SharedRef&lt;Texture&gt; texture_;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordtype">int</span> draw_order_;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> SetDrawOrder(<span class="keywordtype">int</span> draw_order);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    [[nodiscard]] <span class="keywordtype">int</span> GetDrawOrder() const noexcept</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    {</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> draw_order_;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordtype">void</span> OnBeginPlay() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> OnEndPlay() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Texture&gt;</a> texture_;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">int</span> draw_order_ = 100;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_ac1126f3326c70ae4178d0d838f4b16ce"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">oeng::engine::SpriteComponent::SetTexture</a></div><div class="ttdeci">void SetTexture(SharedRef&lt; Texture &gt; texture) noexcept</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:29</div></div>
-<div class="ttc" id="a_path_8hpp_html"><div class="ttname"><a href="_path_8hpp.html">Path.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_ad602dc7cb8f72a04d9d06f888b968e69"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#ad602dc7cb8f72a04d9d06f888b968e69">oeng::engine::SpriteComponent::GetTexture</a></div><div class="ttdeci">Texture &amp; GetTexture() const noexcept override</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:30</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_afcb896d68597911a9a238f4f4ef488cc"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#afcb896d68597911a9a238f4f4ef488cc">oeng::engine::SpriteComponent::GetDrawOrder</a></div><div class="ttdeci">int GetDrawOrder() const noexcept override</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:25</div></div>
-<div class="ttc" id="astructotm_1_1_matrix_html"><div class="ttname"><a href="structotm_1_1_matrix.html">otm::Matrix&lt; Float, 4 &gt;</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a35fd915857544cbd82ac76ce620a5f29"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a35fd915857544cbd82ac76ce620a5f29">oeng::engine::SpriteComponent::OnBeginPlay</a></div><div class="ttdeci">void OnBeginPlay() override</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a5c88b84286623008fe493b8d32b873d3"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a5c88b84286623008fe493b8d32b873d3">oeng::engine::SpriteComponent::ShouldDraw</a></div><div class="ttdeci">bool ShouldDraw() const noexcept override</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:24</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a9500871e33453b5e44492b6fa731f8b6"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a9500871e33453b5e44492b6fa731f8b6">oeng::engine::SpriteComponent::DELETE_CPMV</a></div><div class="ttdeci">DELETE_CPMV(SpriteComponent)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_aac10db18a820dfd0cf7f63a3f5f99aa0"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#aac10db18a820dfd0cf7f63a3f5f99aa0">oeng::engine::SpriteComponent::GetDrawTrsf</a></div><div class="ttdeci">const Mat4 &amp; GetDrawTrsf() const noexcept override</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:26</div></div>
-<div class="ttc" id="anamespaceoeng_1_1engine_html"><div class="ttname"><a href="namespaceoeng_1_1engine.html">oeng::engine</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:14</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_ad294758a7ff316426c2c6e266c92919f"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#ad294758a7ff316426c2c6e266c92919f">oeng::engine::SpriteComponent::~SpriteComponent</a></div><div class="ttdeci">~SpriteComponent()</div></div>
-<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> MeshActor.hpp:6</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a952c2311596e11958fd13bcb08cab4b0"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a952c2311596e11958fd13bcb08cab4b0">oeng::engine::SpriteComponent::SetTexture</a></div><div class="ttdeci">void SetTexture(Path file)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a67f398813015fd81d89df8ab98d9853d"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a67f398813015fd81d89df8ab98d9853d">oeng::engine::SpriteComponent::SpriteComponent</a></div><div class="ttdeci">SpriteComponent(AActor &amp;owner, int draw_order=100, int update_order=100)</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html">oeng::engine::SpriteComponent</a></div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:17</div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_a_actor_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_a_actor.html">oeng::engine::AActor</a></div><div class="ttdef"><b>Definition:</b> Actor.hpp:18</div></div>
-<div class="ttc" id="a_drawable_8hpp_html"><div class="ttname"><a href="_drawable_8hpp.html">Drawable.hpp</a></div></div>
-<div class="ttc" id="a_scene_component_8hpp_html"><div class="ttname"><a href="_scene_component_8hpp.html">SceneComponent.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:14</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_a296ef9fc5bc1e936451afbf642e9a2c6"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#a296ef9fc5bc1e936451afbf642e9a2c6">oeng::engine::SpriteComponent::GetTexture</a></div><div class="ttdeci">const SharedRef&lt; Texture &gt; &amp; GetTexture() const noexcept</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:30</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html_ac1126f3326c70ae4178d0d838f4b16ce"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html#ac1126f3326c70ae4178d0d838f4b16ce">oeng::engine::SpriteComponent::SetTexture</a></div><div class="ttdeci">void SetTexture(SharedRef&lt; Texture &gt; texture) noexcept</div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:21</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_shared_ref_html"><div class="ttname"><a href="classoeng_1_1core_1_1_shared_ref.html">oeng::core::SharedRef</a></div><div class="ttdef"><b>Definition:</b> Pointer.hpp:451</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_sprite_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_sprite_component.html">oeng::engine::SpriteComponent</a></div><div class="ttdef"><b>Definition:</b> SpriteComponent.hpp:11</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_scene_component_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_scene_component.html">oeng::engine::SceneComponent</a></div><div class="ttdef"><b>Definition:</b> SceneComponent.hpp:17</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_a04ada2230b4cd8e8e6f82e38c1dc3a4.html">Components</a></li><li class="navelem"><a class="el" href="_sprite_component_8hpp.html">SpriteComponent.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_a04ada2230b4cd8e8e6f82e38c1dc3a4.html">Components</a></li><li class="navelem"><b>SpriteComponent.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

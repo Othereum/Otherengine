@@ -1,5 +1,6 @@
 <map id="oeng::engine::APointLight" name="oeng::engine::APointLight">
-<area shape="rect" id="node1" title=" " alt="" coords="5,169,176,196"/>
-<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_a_actor.html" title=" " alt="" coords="19,95,163,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="12,5,169,47"/>
+<area shape="rect" id="node1" title=" " alt="" coords="6,244,177,271"/>
+<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_a_actor.html" title=" " alt="" coords="19,169,163,196"/>
+<area shape="rect" id="node3" href="$classoeng_1_1core_1_1_object.html" title=" " alt="" coords="27,95,156,121"/>
+<area shape="rect" id="node4" href="$classoeng_1_1core_1_1_enable_shared_from_this.html" title=" " alt="" coords="5,5,177,47"/>
 </map>

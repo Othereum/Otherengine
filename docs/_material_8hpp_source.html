@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.19"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Otherengine: Source/Runtime/Renderer/Private/Material.hpp Source File</title>
+<title>Otherengine: Source/Runtime/Engine/Public/Materials/Material.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -87,78 +87,54 @@ $(document).ready(function(){initNavTree('_material_8hpp_source.html',''); initR
 <div class="title">Material.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_material_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_uniform_8hpp.html">Uniform.hpp</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;IMaterial.hpp&quot;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    <span class="keyword">class </span>Shader;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="keyword">class </span>Texture;</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">class </span>Renderer;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html">   10</a></span>&#160;    <span class="keyword">class </span>RENDERER_API <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a> : <span class="keyword">public</span> Asset</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#a6b514ce06bee3f9586db3eab385c124b">   13</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_material.html#a6b514ce06bee3f9586db3eab385c124b">Material</a>(SharedRef&lt;Shader&gt; shader, SharedRef&lt;Texture&gt; texture) noexcept</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            :shader_{std::move(shader)}, texture_{std::move(texture)}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#ab0fb33f0376213edef426dba1d0666cc">   24</a></span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_material.html#ab0fb33f0376213edef426dba1d0666cc">Material</a>(Path path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer);</div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#ad959dd81e84eb8f40ccebcabb29ff058">   25</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1renderer_1_1_material.html#ad959dd81e84eb8f40ccebcabb29ff058">Load</a>(Path path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>{path, renderer}.swap(*<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#af71331c7f7ca46a91dd61a079d65b418">   30</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1renderer_1_1_material.html#af71331c7f7ca46a91dd61a079d65b418">TryUniforms</a>();</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#a8a1d4cc71c5532863125fec988bcb5f2">   32</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1renderer_1_1_shader.html">Shader</a>&amp; <a class="code" href="classoeng_1_1renderer_1_1_material.html#a8a1d4cc71c5532863125fec988bcb5f2">GetShader</a>() const noexcept { <span class="keywordflow">return</span> *shader_; }</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#a824a406b55e25cbe5fa5dc2eaa416c12">   33</a></span>&#160;        [[nodiscard]] <a class="code" href="classoeng_1_1renderer_1_1_texture.html">Texture</a>&amp; <a class="code" href="classoeng_1_1renderer_1_1_material.html#a824a406b55e25cbe5fa5dc2eaa416c12">GetTexture</a>() const noexcept { <span class="keywordflow">return</span> *texture_; }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classoeng_1_1renderer_1_1_material.html#ac84c464c3e7844f6b04567623837f07c">   35</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1renderer_1_1_material.html#ac84c464c3e7844f6b04567623837f07c">swap</a>(<a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; r) noexcept</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">Asset::swap</a>(r);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            <span class="keyword">using</span> <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">std::swap</a>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">swap</a>(shader_, r.shader_);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">swap</a>(texture_, r.texture_);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">swap</a>(uniforms_, r.uniforms_);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>(Path path, <a class="code" href="classoeng_1_1renderer_1_1_renderer.html">Renderer</a>&amp; renderer, <span class="keyword">const</span> <a class="code" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a>&amp; json);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordtype">void</span> LoadUniforms(<span class="keyword">const</span> <a class="code" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a>&amp; uniforms);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        SharedRef&lt;Shader&gt; shader_;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        SharedRef&lt;Texture&gt; texture_;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        HashMap&lt;Name, Uniform&gt; uniforms_;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    };</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">   53</a></span>&#160;    <span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">swap</a>(<a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; a, <a class="code" href="classoeng_1_1renderer_1_1_material.html">Material</a>&amp; b) noexcept</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        a.swap(b);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>rhi</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">class </span>RHIShader;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>engine</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classoeng_1_1engine_1_1_material.html">   13</a></span>&#160;<span class="keyword">class </span>ENGINE_API <a class="code" href="classoeng_1_1engine_1_1_material.html">Material</a> final : <span class="keyword">public</span> <a class="code" href="classoeng_1_1engine_1_1_i_material.html">IMaterial</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    CLASS_BODY(<a class="code" href="classoeng_1_1engine_1_1_material.html">Material</a>)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    [[nodiscard]] <span class="keyword">static</span> <a class="code" href="classoeng_1_1core_1_1_shared_ref.html">SharedRef&lt;Material&gt;</a> GetDefault();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="classoeng_1_1engine_1_1_material.html">Material</a>();</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    ~<a class="code" href="classoeng_1_1engine_1_1_material.html">Material</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> Json&amp; json) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> ApplyParams() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="classoeng_1_1rhi_1_1_r_h_i_shader.html">RHIShader</a>&amp; GetRHI() <span class="keyword">const</span> noexcept <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">bool</span> IsScalarParam(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">bool</span> IsVectorParam(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">bool</span> IsTextureParam(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    std::unique_ptr&lt;RHIShader&gt; shader_;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;};</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace engine</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;} <span class="comment">// namespace oeng</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_a8a1d4cc71c5532863125fec988bcb5f2"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#a8a1d4cc71c5532863125fec988bcb5f2">oeng::renderer::Material::GetShader</a></div><div class="ttdeci">Shader &amp; GetShader() const noexcept</div><div class="ttdef"><b>Definition:</b> Material.hpp:32</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_a824a406b55e25cbe5fa5dc2eaa416c12"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#a824a406b55e25cbe5fa5dc2eaa416c12">oeng::renderer::Material::GetTexture</a></div><div class="ttdeci">Texture &amp; GetTexture() const noexcept</div><div class="ttdef"><b>Definition:</b> Material.hpp:33</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_texture_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_texture.html">oeng::renderer::Texture</a></div><div class="ttdef"><b>Definition:</b> Texture.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_a6b514ce06bee3f9586db3eab385c124b"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#a6b514ce06bee3f9586db3eab385c124b">oeng::renderer::Material::Material</a></div><div class="ttdeci">Material(SharedRef&lt; Shader &gt; shader, SharedRef&lt; Texture &gt; texture) noexcept</div><div class="ttdef"><b>Definition:</b> Material.hpp:13</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_af71331c7f7ca46a91dd61a079d65b418"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#af71331c7f7ca46a91dd61a079d65b418">oeng::renderer::Material::TryUniforms</a></div><div class="ttdeci">void TryUniforms()</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_renderer_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_renderer.html">oeng::renderer::Renderer</a></div><div class="ttdef"><b>Definition:</b> Renderer.hpp:50</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html">oeng::renderer::Material</a></div><div class="ttdef"><b>Definition:</b> Material.hpp:11</div></div>
-<div class="ttc" id="a_uniform_8hpp_html"><div class="ttname"><a href="_uniform_8hpp.html">Uniform.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_ad959dd81e84eb8f40ccebcabb29ff058"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#ad959dd81e84eb8f40ccebcabb29ff058">oeng::renderer::Material::Load</a></div><div class="ttdeci">void Load(Path path, Renderer &amp;renderer)</div><div class="ttdef"><b>Definition:</b> Material.hpp:25</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_shader_html"><div class="ttname"><a href="classoeng_1_1renderer_1_1_shader.html">oeng::renderer::Shader</a></div><div class="ttdef"><b>Definition:</b> Shader.hpp:10</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a712d9a71e426d54e3d1be98c5044d3af"><div class="ttname"><a href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">oeng::core::Json</a></div><div class="ttdeci">nlohmann::basic_json&lt; TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr&lt; std::uint8_t &gt; &gt; Json</div><div class="ttdef"><b>Definition:</b> Json.hpp:14</div></div>
-<div class="ttc" id="anamespaceoeng_1_1renderer_html"><div class="ttname"><a href="namespaceoeng_1_1renderer.html">oeng::renderer</a></div><div class="ttdef"><b>Definition:</b> MeshActor.hpp:6</div></div>
-<div class="ttc" id="anamespaceoeng_1_1renderer_html_a87d82c76c2bb49f982f45f3c2cf046fa"><div class="ttname"><a href="namespaceoeng_1_1renderer.html#a87d82c76c2bb49f982f45f3c2cf046fa">oeng::renderer::swap</a></div><div class="ttdeci">void swap(Material &amp;a, Material &amp;b) noexcept</div><div class="ttdef"><b>Definition:</b> Material.hpp:53</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_ac84c464c3e7844f6b04567623837f07c"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#ac84c464c3e7844f6b04567623837f07c">oeng::renderer::Material::swap</a></div><div class="ttdeci">void swap(Material &amp;r) noexcept</div><div class="ttdef"><b>Definition:</b> Material.hpp:35</div></div>
-<div class="ttc" id="aclassoeng_1_1renderer_1_1_material_html_ab0fb33f0376213edef426dba1d0666cc"><div class="ttname"><a href="classoeng_1_1renderer_1_1_material.html#ab0fb33f0376213edef426dba1d0666cc">oeng::renderer::Material::Material</a></div><div class="ttdeci">Material(Path path, Renderer &amp;renderer)</div><div class="ttdoc">Load material from file.</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_material_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_material.html">oeng::engine::Material</a></div><div class="ttdef"><b>Definition:</b> Material.hpp:14</div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_name_html"><div class="ttname"><a href="structoeng_1_1core_1_1_name.html">oeng::core::Name</a></div><div class="ttdef"><b>Definition:</b> Name.hpp:19</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_shared_ref_html"><div class="ttname"><a href="classoeng_1_1core_1_1_shared_ref.html">oeng::core::SharedRef</a></div><div class="ttdef"><b>Definition:</b> Pointer.hpp:451</div></div>
+<div class="ttc" id="aclassoeng_1_1engine_1_1_i_material_html"><div class="ttname"><a href="classoeng_1_1engine_1_1_i_material.html">oeng::engine::IMaterial</a></div><div class="ttdef"><b>Definition:</b> IMaterial.hpp:21</div></div>
+<div class="ttc" id="aclassoeng_1_1rhi_1_1_r_h_i_shader_html"><div class="ttname"><a href="classoeng_1_1rhi_1_1_r_h_i_shader.html">oeng::rhi::RHIShader</a></div><div class="ttdef"><b>Definition:</b> RHIShader.hpp:27</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_e95efa631723cde707baa0220c731e18.html">Renderer</a></li><li class="navelem"><a class="el" href="dir_03f5d4632ca54d404b62bcda1872fb09.html">Private</a></li><li class="navelem"><a class="el" href="_material_8hpp.html">Material.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_fdf6aa5c3cf3805bb958134448d60562.html">Engine</a></li><li class="navelem"><a class="el" href="dir_1d06a51bfc871a6a1823440d0d72725c.html">Public</a></li><li class="navelem"><a class="el" href="dir_f712a9190ee31e928548e6d97d7381a3.html">Materials</a></li><li class="navelem"><b>Material.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

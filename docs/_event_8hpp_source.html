@@ -87,46 +87,45 @@ $(document).ready(function(){initNavTree('_event_8hpp_source.html',''); initResi
 <div class="title">Event.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_event_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_dy_arr_8hpp.html">DyArr.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1core.html">oeng::core</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html">   11</a></span>&#160;    <span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_event.html">Event</a></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    {</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">template</span> &lt;std::convertible_to&lt;std::function&lt;void(Args...)&gt;&gt; Fn&gt;</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">   20</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">Add</a>(Fn&amp;&amp; fn)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            listeners_.emplace_back(std::forward&lt;Fn&gt;(fn));</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        }</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">   28</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">Broadcast</a>(Args&amp;&amp;... args)<span class="keyword"> const</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">        </span>{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; listener : listeners_)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                listener(std::forward&lt;Args&gt;(args)...);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">template</span> &lt;<span class="keyword">class</span>... Args&gt;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_event.html">Event</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">template</span> &lt;std::convertible_to&lt;std::function&lt;void(Args ...)&gt;&gt; Fn&gt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">   21</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">Add</a>(Fn&amp;&amp; fn)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        listeners_.emplace_back(std::forward&lt;Fn&gt;(fn));</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    }</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">   29</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">Broadcast</a>(Args&amp;&amp;... args)<span class="keyword"> const</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="keyword">    </span>{</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; listener : listeners_)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            listener(std::forward&lt;Args&gt;(args)...);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">DyArr</a>&lt;std::function&lt;void(Args...)&gt;&gt; listeners_;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    };</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    std::vector&lt;std::function&lt;void(Args ...)&gt;&gt; listeners_;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html"><div class="ttname"><a href="namespaceoeng_1_1core.html">oeng::core</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a2dd499b743426d78c32d259ee981ab79"><div class="ttname"><a href="namespaceoeng_1_1core.html#a2dd499b743426d78c32d259ee981ab79">oeng::core::DyArr</a></div><div class="ttdeci">std::vector&lt; T, Alloc &gt; DyArr</div><div class="ttdef"><b>Definition:</b> DyArr.hpp:8</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_event_html_a6576f576c6543a4beae2954d6cdd86ff"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">oeng::core::Event::Broadcast</a></div><div class="ttdeci">void Broadcast(Args &amp;&amp;... args) const</div><div class="ttdoc">Broadcasts this event to all bound listeners.</div><div class="ttdef"><b>Definition:</b> Event.hpp:28</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_event_html"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html">oeng::core::Event</a></div><div class="ttdoc">Delegates that can be bound to multiple functions and execute them all at once.</div><div class="ttdef"><b>Definition:</b> Event.hpp:12</div></div>
-<div class="ttc" id="a_dy_arr_8hpp_html"><div class="ttname"><a href="_dy_arr_8hpp.html">DyArr.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_event_html_ac131aec180e0ea43c1011e6e9cc7758c"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">oeng::core::Event::Add</a></div><div class="ttdeci">void Add(Fn &amp;&amp;fn)</div><div class="ttdoc">Add listener to this event.</div><div class="ttdef"><b>Definition:</b> Event.hpp:20</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_event_html_a6576f576c6543a4beae2954d6cdd86ff"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html#a6576f576c6543a4beae2954d6cdd86ff">oeng::core::Event::Broadcast</a></div><div class="ttdeci">void Broadcast(Args &amp;&amp;... args) const</div><div class="ttdef"><b>Definition:</b> Event.hpp:29</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_event_html"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html">oeng::core::Event</a></div><div class="ttdef"><b>Definition:</b> Event.hpp:13</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_event_html_ac131aec180e0ea43c1011e6e9cc7758c"><div class="ttname"><a href="classoeng_1_1core_1_1_event.html#ac131aec180e0ea43c1011e6e9cc7758c">oeng::core::Event::Add</a></div><div class="ttdeci">void Add(Fn &amp;&amp;fn)</div><div class="ttdef"><b>Definition:</b> Event.hpp:21</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><a class="el" href="_event_8hpp.html">Event.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="dir_d923b29e5793e4ca6ecf89bd6d2fe94d.html">Templates</a></li><li class="navelem"><b>Event.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

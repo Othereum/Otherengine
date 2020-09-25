@@ -1,7 +1,9 @@
 <map id="oeng::engine::SpotLightComponent" name="oeng::engine::SpotLightComponent">
-<area shape="rect" id="node1" title=" " alt="" coords="80,244,305,271"/>
-<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_scene_component.html" title=" " alt="" coords="5,169,212,196"/>
-<area shape="rect" id="node3" href="$classoeng_1_1engine_1_1_actor_component.html" title=" " alt="" coords="8,95,209,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="30,5,187,47"/>
-<area shape="rect" id="node5" title=" " alt="" coords="237,169,317,196"/>
+<area shape="rect" id="node1" title=" " alt="" coords="5,483,231,509"/>
+<area shape="rect" id="node2" href="$classoeng_1_1engine_1_1_point_light_component.html" title=" " alt="" coords="37,393,199,435"/>
+<area shape="rect" id="node3" href="$classoeng_1_1engine_1_1_dir_light_component.html" title=" " alt="" coords="11,319,225,345"/>
+<area shape="rect" id="node4" href="$classoeng_1_1engine_1_1_scene_component.html" title=" " alt="" coords="15,244,221,271"/>
+<area shape="rect" id="node5" href="$classoeng_1_1engine_1_1_actor_component.html" title=" " alt="" coords="17,169,219,196"/>
+<area shape="rect" id="node6" href="$classoeng_1_1core_1_1_object.html" title=" " alt="" coords="53,95,183,121"/>
+<area shape="rect" id="node7" href="$classoeng_1_1core_1_1_enable_shared_from_this.html" title=" " alt="" coords="32,5,204,47"/>
 </map>

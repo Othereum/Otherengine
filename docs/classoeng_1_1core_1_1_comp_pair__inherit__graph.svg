@@ -11,7 +11,7 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-91 115,-91 115,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title="Compressed pair.">
+<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 111,-30.5 111,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">oeng::core::CompPair</text>
 <text text-anchor="middle" x="55.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T1, T2, bool &gt;</text>

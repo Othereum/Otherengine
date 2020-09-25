@@ -91,53 +91,35 @@ $(document).ready(function(){initNavTree('structlogcat_1_1_log_category.html',''
 </div><!--header-->
 <div class="contents">
 
-<p>Log category.  
- <a href="structlogcat_1_1_log_category.html#details">More...</a></p>
-
 <p><code>#include &lt;<a class="el" href="_log_8hpp_source.html">Log.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a3f4d5a1a19449cf68f7f0da8fa8840e2"><td class="memItemLeft" align="right" valign="top">std::u8string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlogcat_1_1_log_category.html#a3f4d5a1a19449cf68f7f0da8fa8840e2">name</a></td></tr>
-<tr class="separator:a3f4d5a1a19449cf68f7f0da8fa8840e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac67727eda441b5dc84b0386d24afdf86"><td class="memItemLeft" align="right" valign="top"><a id="ac67727eda441b5dc84b0386d24afdf86"></a>
+<a class="el" href="structoeng_1_1core_1_1_name.html">oeng::Name</a>&#160;</td><td class="memItemRight" valign="bottom"><b>name</b></td></tr>
+<tr class="separator:ac67727eda441b5dc84b0386d24afdf86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Log category. </p>
-<p>You can add custom log category with it:</p>
+<div class="textblock"><p>Log category. You can add custom log category with it:</p>
 <p>In .hpp: </p><div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">extern</span> <span class="keyword">const</span> LogCategory kMyCategory;</div>
+<div class="line"><span class="keyword">extern</span> <span class="keyword">const</span> LogCategory kMyCategory;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>In .cpp: </p><div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">const</span> LogCategory kMyCategory{u8<span class="stringliteral">&quot;MyCategory&quot;</span>sv};</div>
+<div class="line"><span class="keyword">const</span> LogCategory kMyCategory{u8<span class="stringliteral">&quot;MyCategory&quot;</span>sv};</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Or simply define it as static in .cpp: </p><div class="fragment"><div class="line"><span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
 <div class="line">{</div>
-<div class="line">    <span class="keyword">static</span> constexpr LogCategory kMyCategory{u8<span class="stringliteral">&quot;MyCategory&quot;</span>sv};</div>
+<div class="line"><span class="keyword">static</span> <span class="keyword">const</span> LogCategory kMyCategory{u8<span class="stringliteral">&quot;MyCategory&quot;</span>sv};</div>
 <div class="line">}</div>
 </div><!-- fragment --><dl class="section note"><dt>Note</dt><dd>You should declare/define log categories in logcat namespace. </dd></dl>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a3f4d5a1a19449cf68f7f0da8fa8840e2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3f4d5a1a19449cf68f7f0da8fa8840e2">&#9670;&nbsp;</a></span>name</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::u8string_view logcat::LogCategory::name</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
 <li>Source/Runtime/Core/Public/<a class="el" href="_log_8hpp_source.html">Log.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespacelogcat_html"><div class="ttname"><a href="namespacelogcat.html">logcat</a></div><div class="ttdoc">Namespace for log categories.</div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:9</div></div>
+<div class="ttc" id="anamespacelogcat_html"><div class="ttname"><a href="namespacelogcat.html">logcat</a></div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:8</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

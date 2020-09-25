@@ -1,6 +1,5 @@
 var classoeng_1_1engine_1_1_scene_component =
 [
-    [ "SceneComponent", "classoeng_1_1engine_1_1_scene_component.html#a56286a100c140419f7fb06a44fc9af43", null ],
     [ "AttachTo", "classoeng_1_1engine_1_1_scene_component.html#a5fa02129e82cdcedaa4fee5ebd5cd38a", null ],
     [ "GetBackward", "classoeng_1_1engine_1_1_scene_component.html#a628eca0661284acf8e75c15b23c03117", null ],
     [ "GetDown", "classoeng_1_1engine_1_1_scene_component.html#a75f98137ff84e4b1a15d7e5e4d04f4cc", null ],
@@ -10,6 +9,7 @@ var classoeng_1_1engine_1_1_scene_component =
     [ "GetRelRot", "classoeng_1_1engine_1_1_scene_component.html#af5419e7f723a7304e1c6d334169996c2", null ],
     [ "GetRelScale", "classoeng_1_1engine_1_1_scene_component.html#a4afda7cb6b0e725ef3976c899584e9c0", null ],
     [ "GetRelTrsf", "classoeng_1_1engine_1_1_scene_component.html#aee1f1eb176a27ae9ce6273f31a19fd26", null ],
+    [ "GetRenderer", "classoeng_1_1engine_1_1_scene_component.html#a0b9f00aaa165eaf35e738777c30b3425", null ],
     [ "GetRight", "classoeng_1_1engine_1_1_scene_component.html#aa8999fd5cf2c82d7ee84b0c375b826eb", null ],
     [ "GetUp", "classoeng_1_1engine_1_1_scene_component.html#a5fe29d3060e7d0d5291763061f931ab4", null ],
     [ "GetWorldPos", "classoeng_1_1engine_1_1_scene_component.html#a6af8ba3162ad83b8d2d0f73cd93406c5", null ],

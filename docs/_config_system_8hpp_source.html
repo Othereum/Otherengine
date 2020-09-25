@@ -87,64 +87,59 @@ $(document).ready(function(){initNavTree('_config_system_8hpp_source.html',''); 
 <div class="title">ConfigSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_config_system_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_json_8hpp.html">Json.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_log_8hpp.html">Log.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_name_8hpp.html">Name.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_hash_map_8hpp.html">Templates/HashMap.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_tree_set_8hpp.html">Templates/TreeSet.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="namespacelogcat.html">    8</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">extern</span> CORE_API <span class="keyword">const</span> <a class="code" href="structlogcat_1_1_log_category.html">LogCategory</a> <a class="code" href="namespacelogcat.html#a76229f27d75abe1e2e473ed3d591a1e6">kConfig</a>;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng_1_1core.html">oeng::core</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html">   15</a></span>&#160;    <span class="keyword">class </span>CORE_API <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a10afc1f69cddfbc509f08a1f32881aec">   18</a></span>&#160;        [[nodiscard]] <span class="keyword">static</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a>&amp; <a class="code" href="classoeng_1_1core_1_1_config_system.html#a10afc1f69cddfbc509f08a1f32881aec">Get</a>() noexcept;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">   25</a></span>&#160;        [[nodiscard]] <a class="code" href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">Json</a>&amp; operator()(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) { <span class="keywordflow">return</span> configs_[name]; }</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">   35</a></span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">Save</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">   40</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">LoadConfig</a>(<span class="keyword">const</span> fs::path&amp; file);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">   47</a></span>&#160;        <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">LoadConfigs</a>(<span class="keyword">const</span> fs::path&amp; directory, <span class="keyword">const</span> <a class="code" href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">TreeSet&lt;fs::path&gt;</a>&amp; extensions = {u8<span class="stringliteral">&quot;.json&quot;</span>sv, u8<span class="stringliteral">&quot;.jsonc&quot;</span>sv});</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#aa4cf5dcb845df8e4ca10e7837be2c31e">   51</a></span>&#160;        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="classoeng_1_1core_1_1_engine_base.html">EngineBase</a>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <a class="code" href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">HashMap&lt;Name, Json&gt;</a> configs_;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    };</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &quot;Log.hpp&quot;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &quot;Name.hpp&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;filesystem&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="namespacelogcat.html">    7</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacelogcat.html">logcat</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">extern</span> CORE_API <span class="keyword">const</span> <a class="code" href="structlogcat_1_1_log_category.html">LogCategory</a> kConfig;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>fs = std::filesystem;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html">   18</a></span>&#160;<span class="keyword">class </span>CORE_API <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    [[nodiscard]] <span class="keyword">static</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a>&amp; Get();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">   28</a></span>&#160;    [[nodiscard]] Json&amp; <a class="code" href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">operator()</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">return</span> configs_[name];</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">   41</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">Save</a>(<a class="code" href="structoeng_1_1core_1_1_name.html">Name</a> name) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a37055a6c354b44ed22bd3957e57eb878">   46</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a37055a6c354b44ed22bd3957e57eb878">LoadConfig</a>(<span class="keyword">const</span> fs::path&amp; filepath);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="classoeng_1_1core_1_1_config_system.html#a83435bdfe4883bab07c80c2c656a2419">   53</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classoeng_1_1core_1_1_config_system.html#a83435bdfe4883bab07c80c2c656a2419">LoadConfigs</a>(<span class="keyword">const</span> fs::path&amp; directory, <span class="keyword">const</span> std::set&lt;fs::path&gt;&amp; extensions = {u8<span class="stringliteral">&quot;.json&quot;</span>sv, u8<span class="stringliteral">&quot;.jsonc&quot;</span>sv});</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="classoeng_1_1core_1_1_config_system.html">ConfigSystem</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    std::unordered_map&lt;Name, Json&gt; configs_;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html_a5f3e7fb865d21c83d2df4e9a92f0770f"><div class="ttname"><a href="namespaceoeng_1_1core.html#a5f3e7fb865d21c83d2df4e9a92f0770f">oeng::core::HashMap</a></div><div class="ttdeci">std::unordered_map&lt; Key, T, Hash, KeyEqual, Alloc &gt; HashMap</div><div class="ttdef"><b>Definition:</b> HashMap.hpp:8</div></div>
-<div class="ttc" id="a_json_8hpp_html"><div class="ttname"><a href="_json_8hpp.html">Json.hpp</a></div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html"><div class="ttname"><a href="namespaceoeng_1_1core.html">oeng::core</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_aa5b8b36dd557dc04c79e6d015484be54"><div class="ttname"><a href="namespaceoeng_1_1core.html#aa5b8b36dd557dc04c79e6d015484be54">oeng::core::TreeSet</a></div><div class="ttdeci">std::set&lt; Key, Compare, Alloc &gt; TreeSet</div><div class="ttdef"><b>Definition:</b> TreeSet.hpp:8</div></div>
-<div class="ttc" id="astructoeng_1_1core_1_1_name_html"><div class="ttname"><a href="structoeng_1_1core_1_1_name.html">oeng::core::Name</a></div><div class="ttdoc">Lightweight string.</div><div class="ttdef"><b>Definition:</b> Name.hpp:74</div></div>
-<div class="ttc" id="a_name_8hpp_html"><div class="ttname"><a href="_name_8hpp.html">Name.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a10afc1f69cddfbc509f08a1f32881aec"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a10afc1f69cddfbc509f08a1f32881aec">oeng::core::ConfigSystem::Get</a></div><div class="ttdeci">static ConfigSystem &amp; Get() noexcept</div></div>
-<div class="ttc" id="a_tree_set_8hpp_html"><div class="ttname"><a href="_tree_set_8hpp.html">TreeSet.hpp</a></div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a1e6bc6f12fefedc5a7316ce396ffa874"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">oeng::core::ConfigSystem::Save</a></div><div class="ttdeci">bool Save(Name name) const</div><div class="ttdoc">Save config as file into the user data directory.</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_engine_base_html"><div class="ttname"><a href="classoeng_1_1core_1_1_engine_base.html">oeng::core::EngineBase</a></div><div class="ttdef"><b>Definition:</b> EngineBase.hpp:50</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a8d7aadaba70bac5cebfb86e681550d1d"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a8d7aadaba70bac5cebfb86e681550d1d">oeng::core::ConfigSystem::LoadConfig</a></div><div class="ttdeci">void LoadConfig(const fs::path &amp;file)</div><div class="ttdoc">Load configurations from file.</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html">oeng::core::ConfigSystem</a></div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:16</div></div>
-<div class="ttc" id="a_hash_map_8hpp_html"><div class="ttname"><a href="_hash_map_8hpp.html">HashMap.hpp</a></div></div>
-<div class="ttc" id="astructlogcat_1_1_log_category_html"><div class="ttname"><a href="structlogcat_1_1_log_category.html">logcat::LogCategory</a></div><div class="ttdoc">Log category.</div><div class="ttdef"><b>Definition:</b> Log.hpp:48</div></div>
-<div class="ttc" id="anamespaceoeng_1_1core_html_a712d9a71e426d54e3d1be98c5044d3af"><div class="ttname"><a href="namespaceoeng_1_1core.html#a712d9a71e426d54e3d1be98c5044d3af">oeng::core::Json</a></div><div class="ttdeci">nlohmann::basic_json&lt; TreeMap, DyArr, std::string, bool, int64_t, uint64_t, Float, PoolAllocator, nlohmann::adl_serializer, DyArr&lt; std::uint8_t &gt; &gt; Json</div><div class="ttdef"><b>Definition:</b> Json.hpp:14</div></div>
-<div class="ttc" id="anamespacelogcat_html_a76229f27d75abe1e2e473ed3d591a1e6"><div class="ttname"><a href="namespacelogcat.html#a76229f27d75abe1e2e473ed3d591a1e6">logcat::kConfig</a></div><div class="ttdeci">CORE_API const LogCategory kConfig</div></div>
-<div class="ttc" id="anamespacelogcat_html"><div class="ttname"><a href="namespacelogcat.html">logcat</a></div><div class="ttdoc">Namespace for log categories.</div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:9</div></div>
-<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a6367c966427150b1b1c4c6732ab3161d"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a6367c966427150b1b1c4c6732ab3161d">oeng::core::ConfigSystem::LoadConfigs</a></div><div class="ttdeci">void LoadConfigs(const fs::path &amp;directory, const TreeSet&lt; fs::path &gt; &amp;extensions={u8&quot;.json&quot;sv, u8&quot;.jsonc&quot;sv})</div><div class="ttdoc">Load configuration files from given directory (not recursive).</div></div>
-<div class="ttc" id="a_log_8hpp_html"><div class="ttname"><a href="_log_8hpp.html">Log.hpp</a></div></div>
+<div class="ttc" id="astructoeng_1_1core_1_1_name_html"><div class="ttname"><a href="structoeng_1_1core_1_1_name.html">oeng::core::Name</a></div><div class="ttdef"><b>Definition:</b> Name.hpp:19</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a1e6bc6f12fefedc5a7316ce396ffa874"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a1e6bc6f12fefedc5a7316ce396ffa874">oeng::core::ConfigSystem::Save</a></div><div class="ttdeci">bool Save(Name name) const</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a2eadfab41626c1c77e831115ee1164f0"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a2eadfab41626c1c77e831115ee1164f0">oeng::core::ConfigSystem::operator()</a></div><div class="ttdeci">Json &amp; operator()(Name name)</div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:28</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a83435bdfe4883bab07c80c2c656a2419"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a83435bdfe4883bab07c80c2c656a2419">oeng::core::ConfigSystem::LoadConfigs</a></div><div class="ttdeci">void LoadConfigs(const fs::path &amp;directory, const std::set&lt; fs::path &gt; &amp;extensions={u8&quot;.json&quot;sv, u8&quot;.jsonc&quot;sv})</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html">oeng::core::ConfigSystem</a></div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:19</div></div>
+<div class="ttc" id="astructlogcat_1_1_log_category_html"><div class="ttname"><a href="structlogcat_1_1_log_category.html">logcat::LogCategory</a></div><div class="ttdef"><b>Definition:</b> Log.hpp:43</div></div>
+<div class="ttc" id="aclassoeng_1_1core_1_1_config_system_html_a37055a6c354b44ed22bd3957e57eb878"><div class="ttname"><a href="classoeng_1_1core_1_1_config_system.html#a37055a6c354b44ed22bd3957e57eb878">oeng::core::ConfigSystem::LoadConfig</a></div><div class="ttdeci">void LoadConfig(const fs::path &amp;filepath)</div></div>
+<div class="ttc" id="anamespacelogcat_html"><div class="ttname"><a href="namespacelogcat.html">logcat</a></div><div class="ttdef"><b>Definition:</b> ConfigSystem.hpp:8</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="_config_system_8hpp.html">ConfigSystem.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><b>ConfigSystem.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>

@@ -1,5 +1,7 @@
 var classoeng_1_1core_1_1_monitor =
 [
+    [ "ConstHandle", "structoeng_1_1core_1_1_monitor_1_1_const_handle.html", "structoeng_1_1core_1_1_monitor_1_1_const_handle" ],
+    [ "Handle", "structoeng_1_1core_1_1_monitor_1_1_handle.html", "structoeng_1_1core_1_1_monitor_1_1_handle" ],
     [ "explicit", "classoeng_1_1core_1_1_monitor.html#a4549544598a870f0b0fc2c1ced75e3ce", null ],
     [ "GetUnsafe", "classoeng_1_1core_1_1_monitor.html#af453a6fd87b165a5f2a2c581b72a5e9c", null ],
     [ "GetUnsafe", "classoeng_1_1core_1_1_monitor.html#af22e5d68b3d6a257ce6901338414e7e7", null ],

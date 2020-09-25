@@ -87,63 +87,103 @@ $(document).ready(function(){initNavTree('_core_8hpp_source.html',''); initResiz
 <div class="title">Core.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_core_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">    #define OE_EXPORT __declspec(dllexport)</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">    #define OE_IMPORT __declspec(dllimport)</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">    #if defined(__GNUC__) &amp;&amp; __GNUC__&gt;=4</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">        #define OE_IMPORT __attribute__ ((visibility(&quot;default&quot;)))</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">    #elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">        #define OE_IMPORT __global</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">    #else</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a3651b814c586976452a23129c1159a32">   12</a></span>&#160;<span class="preprocessor">        #define OE_IMPORT</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">    #endif</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a9d459cc49515f87a99715ab7e29677da">   15</a></span>&#160;<span class="preprocessor">    #define OE_EXPORT OE_IMPORT</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#define OE_EXPORT __declspec(dllexport)</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define OE_IMPORT __declspec(dllimport)</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#if defined(__GNUC__) &amp;&amp; __GNUC__ &gt;= 4</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define OE_IMPORT __attribute__((visibility(&quot;default&quot;)))</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#elif defined(__SUNPRO_C) || defined(__SUNPRO_CC)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#define OE_IMPORT __global</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define OE_IMPORT</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define OE_EXPORT OE_IMPORT</span></div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a1565a5197989b9640b5ecd1d012a8093">   18</a></span>&#160;<span class="preprocessor">#define GAME_API extern &quot;C&quot; OE_EXPORT</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="_core_8hpp.html#aa846beb8c3cb2779b4dc9be2b8ed5fca">   19</a></span>&#160;<span class="preprocessor">#define DEFINE_GAME_MODULE(game_name) GAME_API const char8_t* const kGameName = u8 ## #game_name</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a02dbd57672197e86dd1bf669ee27c93b">   21</a></span>&#160;<span class="preprocessor">#define EXPLICIT_CPMV(name, spec) \</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">    name(const name&amp;) = spec; \</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">    name(name&amp;&amp;) = spec; \</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">    name&amp; operator=(const name&amp;) = spec; \</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">    name&amp; operator=(name&amp;&amp;) = spec</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#define EXPLICIT_CPMV(name, what)                                                                                      \</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">    name(const name&amp;) = what;                                                                                          \</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">    name(name&amp;&amp;) = what;                                                                                               \</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">    name&amp; operator=(const name&amp;) = what;                                                                               \</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">    name&amp; operator=(name&amp;&amp;) = what</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define DELETE_CPMV(name) EXPLICIT_CPMV(name, delete)</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a60162f6d2624000a4362a7b430036ac8">   27</a></span>&#160;<span class="preprocessor">#define DELETE_CPMV(name) EXPLICIT_CPMV(name, delete)</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="_core_8hpp.html#ae5a4b5ee3d31ed2bee67ad20ad6d9db7">   28</a></span>&#160;<span class="preprocessor">#define DEFAULT_CPMV(name) EXPLICIT_CPMV(name, default)</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="_core_8hpp.html#ad1bdd75cca5affc2cf2ef9fb5743c661">   30</a></span>&#160;<span class="preprocessor">#define INTERFACE_BODY(name) \</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">    constexpr name() noexcept = default; \</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">    virtual ~name() {} \</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">    EXPLICIT_CPMV(name, default)</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a96d1ca596cff22cd163a0eaaf540dab0">   35</a></span>&#160;<span class="preprocessor">#define U8_TEXT_IMPL(x) u8##x</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a1b04e1058634c4fc5f9cb851363aad51">   36</a></span>&#160;<span class="preprocessor">#define U8_TEXT(x) U8_TEXT_IMPL(x)</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="_core_8hpp.html#abebd7d964890f5a3aa1c0847cf4b20d1">   37</a></span>&#160;<span class="preprocessor">#define U8_FILE U8_TEXT(__FILE__)</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="_core_8hpp.html#abe365693b784b0470549b63af6c923c1">   39</a></span>&#160;<span class="preprocessor">#define STRINGIZE_IMPL(x) #x</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a3428692efe6051ef30016ffde1a9f7bb">   40</a></span>&#160;<span class="preprocessor">#define STRINGIZE(x) STRINGIZE_IMPL(x)</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="_core_8hpp.html#a6dbbf8097302f5d47f8968ade0c2d636">   41</a></span>&#160;<span class="preprocessor">#define U8_LINE U8_TEXT(STRINGIZE(__LINE__))</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceoeng.html">oeng</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    {</div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="namespaceoeng_1_1core.html#a4881046d25f4eda87d8b17fb239da41f">   51</a></span>&#160;        [[nodiscard]] CORE_API <span class="keywordtype">bool</span> <a class="code" href="namespaceoeng_1_1core.html#a4881046d25f4eda87d8b17fb239da41f">IsGameThread</a>() noexcept;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    }</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;}</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#define CLASS_BODY(name)                                                                                               \</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">  public:                                                                                                              \</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">    inline static const Name class_name = u8## #name##sv;                                                              \</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">    [[nodiscard]] static SharedRef&lt;Object&gt; Create()                                                                    \</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">        return MakeShared&lt;name&gt;();                                                                                     \</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">    [[nodiscard]] Name GetClassName() const noexcept override                                                          \</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">        return class_name;                                                                                             \</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">    [[nodiscard]] SharedRef&lt;name&gt; shared_from_this()                                                                   \</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">        return CastChecked&lt;name&gt;(Object::shared_from_this());                                                          \</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">    [[nodiscard]] SharedRef&lt;const name&gt; shared_from_this() const                                                       \</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">        return CastChecked&lt;const name&gt;(Object::shared_from_this());                                                    \</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">    [[nodiscard]] WeakPtr&lt;name&gt; weak_from_this()                                                                       \</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">        return CastChecked&lt;name&gt;(Object::shared_from_this());                                                          \</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">    [[nodiscard]] WeakPtr&lt;const name&gt; weak_from_this() const                                                           \</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">        return CastChecked&lt;const name&gt;(Object::shared_from_this());                                                    \</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">    }                                                                                                                  \</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">  private:                                                                                                             \</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">    class _##name##Registerer                                                                                          \</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">    {                                                                                                                  \</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">      public:                                                                                                          \</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">        _##name##Registerer()                                                                                          \</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">        {                                                                                                              \</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">            RegisterClass(class_name, &amp;Create);                                                                        \</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">        }                                                                                                              \</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">    };                                                                                                                 \</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="preprocessor">                                                                                                                       \</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">    inline static const _##name##Registerer _##name##_registerer_;</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#define U8_TEXT_IMPL(x) u8##x</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#define U8_TEXT(x) U8_TEXT_IMPL(x)</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#define U8_FILE U8_TEXT(__FILE__)</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#define STRINGIZE_IMPL(x) #x</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#define STRINGIZE(x) STRINGIZE_IMPL(x)</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#define U8_LINE U8_TEXT(STRINGIZE(__LINE__))</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keyword">namespace </span>oeng</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="keyword">inline</span> <span class="keyword">namespace </span>core</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;[[nodiscard]] CORE_API std::u8string_view GetGameName() noexcept;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;[[nodiscard]] CORE_API <span class="keywordtype">bool</span> IsGameThread() noexcept;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace oeng</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
-<div class="ttc" id="anamespaceoeng_1_1core_html_a4881046d25f4eda87d8b17fb239da41f"><div class="ttname"><a href="namespaceoeng_1_1core.html#a4881046d25f4eda87d8b17fb239da41f">oeng::core::IsGameThread</a></div><div class="ttdeci">CORE_API bool IsGameThread() noexcept</div><div class="ttdoc">Check if the current thread is a game thread.</div></div>
-<div class="ttc" id="anamespaceoeng_html"><div class="ttname"><a href="namespaceoeng.html">oeng</a></div><div class="ttdef"><b>Definition:</b> Asset.hpp:5</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><a class="el" href="_core_8hpp.html">Core.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_74389ed8173ad57b461b9d623a1f3867.html">Source</a></li><li class="navelem"><a class="el" href="dir_7536b172fbd480bfd146a1b1acd6856b.html">Runtime</a></li><li class="navelem"><a class="el" href="dir_0e6cddcc9caa1238c7f3774224afaa45.html">Core</a></li><li class="navelem"><a class="el" href="dir_ba49309ee78fabe0452662bc1a7ef37d.html">Public</a></li><li class="navelem"><b>Core.hpp</b></li>
     <li class="footer">Generated by <a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.19 </li>
   </ul>
 </div>
