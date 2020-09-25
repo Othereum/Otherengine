@@ -29,6 +29,7 @@ class ENGINE_API APlayerController : public AController
 
   protected:
     void OnBeginPlay() override;
+    void OnSetPawn() override;
 
   private:
     WeakPtr<APlayerCameraManager> pcm_;
