@@ -34,6 +34,9 @@ void World::BeginPlay()
         gamemode_ = &SpawnActor<AGameModeBase>();
     }
 
+    auto& pc = gamemode_->Login(game_instance.local_player);
+    gamemode_->HandleStartingNewPlayer(pc);
+
     time_ = Clock::now();
 }
 
