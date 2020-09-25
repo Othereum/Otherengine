@@ -30,10 +30,12 @@ Renderer::Renderer(Engine& engine) : engine_{engine}
 
     sprite_mesh_ = AssetManager::Get().Load<Mesh>(u8"../Engine/Assets/SM_Sprite.json"sv);
 
-    static DirLightComponent default_light;
-    default_light.color = {};
-    dir_lights_.emplace_back(default_light);
-    sky_lights_.emplace_back(default_light);
+    static DirLightComponent default_dir_light;
+    static SkyLightComponent default_sky_light;
+    default_dir_light.color = {};
+    default_sky_light.color = {};
+    dir_lights_.emplace_back(default_dir_light);
+    sky_lights_.emplace_back(default_sky_light);
 }
 
 Renderer::~Renderer() = default;
