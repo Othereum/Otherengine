@@ -9,9 +9,9 @@ class SkyLightComponent;
 
 class ENGINE_API ASkyLight : public AActor
 {
-CLASS_BODY(ASkyLight)
+    CLASS_BODY(ASkyLight)
 
-public:
+  public:
     ASkyLight();
 
     void SetColor(const Vec3& color) const noexcept;
@@ -22,8 +22,8 @@ public:
         return light_;
     }
 
-private:
+  private:
     SkyLightComponent& light_;
 };
-}
-}
+} // namespace engine
+} // namespace oeng
