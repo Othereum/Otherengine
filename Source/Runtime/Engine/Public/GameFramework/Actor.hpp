@@ -120,7 +120,7 @@ class ENGINE_API AActor : public Object
         return begun_play_;
     }
 
-    virtual void SetOwner(WeakPtr<AActor> new_owner);
+    void SetOwner(WeakPtr<AActor> new_owner);
 
     [[nodiscard]] auto& GetOwner() const noexcept
     {
@@ -156,6 +156,10 @@ class ENGINE_API AActor : public Object
     }
 
     virtual void OnUpdate([[maybe_unused]] Float delta_seconds)
+    {
+    }
+
+    virtual void OnSetOwner()
     {
     }
 

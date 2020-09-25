@@ -63,6 +63,7 @@ void AActor::Destroy()
 void AActor::SetOwner(WeakPtr<AActor> new_owner)
 {
     owner_ = std::move(new_owner);
+    OnSetOwner();
 }
 
 Engine& AActor::GetEngine() const noexcept
