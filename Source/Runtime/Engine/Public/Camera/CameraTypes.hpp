@@ -12,5 +12,5 @@ struct ViewInfo
     Float near = 10;
     Float far = 10000;
 };
-}
-}
+} // namespace engine
+} // namespace oeng

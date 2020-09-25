@@ -12,5 +12,5 @@ ViewInfo APlayerCameraManager::CalcCamera() const
 
     return AActor::CalcCamera();
 }
-}
-}
+} // namespace engine
+} // namespace oeng
