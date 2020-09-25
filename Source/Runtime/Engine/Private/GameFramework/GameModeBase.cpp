@@ -2,6 +2,7 @@
 #include "Engine/Player.hpp"
 #include "Engine/World.hpp"
 #include "GameFramework/PlayerController.hpp"
+#include "GameFramework/Pawn.hpp"
 
 namespace logcat
 {
@@ -47,9 +48,10 @@ void AGameModeBase::RestartPlayer(AController& player)
     SpawnDefaultPawnFor(player);
 }
 
-void AGameModeBase::SpawnDefaultPawnFor(AController& /*player*/)
+void AGameModeBase::SpawnDefaultPawnFor(AController& player)
 {
-    // TODO: Implement
+    auto& pawn = GetWorld().SpawnActor<APawn>(default_pawn_class_);
+    pawn.SetOwner(player.weak_from_this());
 }
 
 } // namespace engine
