@@ -15,9 +15,9 @@ class IRenderer;
 
 class ENGINE_API SceneComponent : public ActorComponent
 {
-CLASS_BODY(SceneComponent)
+    CLASS_BODY(SceneComponent)
 
-public:
+  public:
     void AttachTo(SceneComponent* new_parent, AttachRule rule);
 
     void SetRelTrsf(const Transform& trsf) noexcept
@@ -138,19 +138,12 @@ public:
         return UVec3::down.RotatedBy(world_trsf_.rot);
     }
 
-    [[nodiscard]] const Mat4& GetWorldTrsfMatrix() const noexcept
-    {
-        return world_mat_;
-    }
-
-    [[nodiscard]] IRenderer& GetRenderer() const noexcept;
-
   protected:
     virtual void OnTrsfChanged()
     {
     }
 
-private:
+  private:
     // Recalculate world transform with relative transform
     void RecalcWorldTrsf() noexcept;
 
@@ -161,7 +154,6 @@ private:
     std::vector<SceneComponent*> children_;
     Transform rel_trsf_;
     Transform world_trsf_;
-    Mat4 world_mat_ = Mat4::identity;
 };
-}
-}
+} // namespace engine
+} // namespace oeng

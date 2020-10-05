@@ -1,5 +1,4 @@
 #include "Components/SceneComponent.hpp"
-#include "Engine/Engine.hpp"
 
 namespace oeng
 {
@@ -45,12 +44,10 @@ void SceneComponent::RecalcWorldTrsf() noexcept
 {
     if (parent_)
     {
-        world_mat_ = rel_trsf_.ToMatrix() * parent_->GetWorldTrsfMatrix();
-        world_trsf_ = Transform{world_mat_};
+        world_trsf_ = rel_trsf_ * parent_->world_trsf_;
     }
     else
     {
-        world_mat_ = rel_trsf_.ToMatrix();
         world_trsf_ = rel_trsf_;
     }
 
@@ -95,11 +92,6 @@ void SceneComponent::RecalcRelTrsf() noexcept
     }
 
     OnTrsfChanged();
-}
-
-IRenderer& SceneComponent::GetRenderer() const noexcept
-{
-    return GetEngine().GetRenderer();
 }
 } // namespace engine
 } // namespace oeng
