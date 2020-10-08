@@ -14,7 +14,6 @@ oe_define_switch(Core OE_BUILD_SHIPPING)
 
 target_link_libraries(${PROJECT_NAME}-Core
   PUBLIC
-	otm
 	nlohmann_json::nlohmann_json
 	fmt::fmt
 
