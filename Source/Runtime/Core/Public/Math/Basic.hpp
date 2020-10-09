@@ -219,19 +219,14 @@ template <class T>
     return std::sqrt(x);
 }
 
-template <std::floating_point T>
+template <Arithmetic T>
 [[nodiscard]] constexpr bool IsNearlyEqual(T a, T b, T tolerance = kSmallNumV<T>) noexcept
 {
     return Abs(a - b) <= tolerance;
 }
 
-template <class T1, class T2, class T3 = std::common_type_t<T1, T2>>
-[[nodiscard]] constexpr bool IsNearlyEqual(T1 a, T2 b, T3 tolerance = kSmallNumV<T3>) noexcept
-{
-    return IsNearlyEqual<PromotedFloat<T1, T2, T3>>(a, b, tolerance;
-}
-
-[[nodiscard]] constexpr bool IsNearlyZero(Float a, Float tolerance = kSmallNum) noexcept
+template <Arithmetic T>
+[[nodiscard]] constexpr bool IsNearlyZero(T a, T tolerance = kSmallNumV<T>) noexcept
 {
     return Abs(a) <= tolerance;
 }
@@ -246,10 +241,9 @@ template <class T1, class T2, class T3 = std::common_type_t<T1, T2>>
     return std::lerp(out_min, out_max, std::clamp(GetRangePct(in_min, in_max, val), 0_f, 1_f));
 }
 
-template <class T, class U, class V, class W, class X>
-[[nodiscard]] constexpr auto MapRng(T in_min, U in_max, V out_min, W out_max, X val) noexcept
+[[nodiscard]] constexpr auto MapRng(Float in_min, Float in_max, Float out_min, Float out_max, Float val) noexcept
 {
-    return Lerp(out_min, out_max, GetRangePct(in_min, in_max, val));
+    return std::lerp(out_min, out_max, GetRangePct(in_min, in_max, val));
 }
 } // namespace math
 } // namespace core
