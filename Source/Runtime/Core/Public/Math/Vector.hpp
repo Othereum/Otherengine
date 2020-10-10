@@ -5,7 +5,11 @@
 #include <numeric>
 #include <optional>
 
-namespace otm
+namespace oeng
+{
+inline namespace core
+{
+inline namespace math
 {
 struct All_T
 {
@@ -580,4 +584,6 @@ inline const UnitVec<T, 3> detail::UnitVecBase<T, 3>::up = Up();
 
 template <class T>
 inline const UnitVec<T, 3> detail::UnitVecBase<T, 3>::down = Down();
-} // namespace otm
+} // namespace math
+} // namespace core
+} // namespace oeng
