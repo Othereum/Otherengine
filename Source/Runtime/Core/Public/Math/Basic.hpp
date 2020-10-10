@@ -19,6 +19,9 @@ static_assert(std::floating_point<Float>);
 template <class T>
 concept Arithmetic = std::is_arithmetic_v<T>;
 
+template <Arithmetic... Ts>
+using PromotedFloat = std::conditional_t<std::integral<std::common_type_t<Ts...>>, Float, std::common_type_t<Ts...>>;
+
 template <class T, size_t L>
 struct Vector;
 
@@ -214,9 +217,10 @@ template <class T>
     return x >= T(0) ? x : -x;
 }
 
-[[nodiscard]] Float Sqrt(Float x) noexcept
+template <class T>
+[[nodiscard]] auto Sqrt(T x) noexcept
 {
-    return std::sqrt(x);
+    return std::sqrt(ToFloat(x));
 }
 
 template <Arithmetic T>
@@ -231,17 +235,20 @@ template <Arithmetic T>
     return Abs(a) <= tolerance;
 }
 
-[[nodiscard]] constexpr Float GetRangePct(Float min, Float max, Float val) noexcept
+template <std::floating_point T>
+[[nodiscard]] constexpr T GetRangePct(T min, T max, T val) noexcept
 {
     return (val - min) / (max - min);
 }
 
-[[nodiscard]] constexpr auto MapRngClamp(Float in_min, Float in_max, Float out_min, Float out_max, Float val) noexcept
+template <std::floating_point T>
+[[nodiscard]] constexpr T MapRngClamp(T in_min, T in_max, T out_min, T out_max, T val) noexcept
 {
-    return std::lerp(out_min, out_max, std::clamp(GetRangePct(in_min, in_max, val), 0_f, 1_f));
+    return std::lerp(out_min, out_max, std::clamp(GetRangePct(in_min, in_max, val), T(0), T(1)));
 }
 
-[[nodiscard]] constexpr auto MapRng(Float in_min, Float in_max, Float out_min, Float out_max, Float val) noexcept
+template <std::floating_point T>
+[[nodiscard]] constexpr T MapRng(T in_min, T in_max, T out_min, T out_max, T val) noexcept
 {
     return std::lerp(out_min, out_max, GetRangePct(in_min, in_max, val));
 }
